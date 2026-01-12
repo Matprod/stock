@@ -1,0 +1,67 @@
+{
+  "title": "Team Dashboard",
+  "tabs": {
+    "performance": "Performance",
+    "injury": "Injury"
+  },
+  "playerLists": {
+    "injured": "Today injured players",
+    "injuredSince": "Injured since the {{date}}",
+    "highPerformance": "Today players with Good Performance",
+    "topPerformance": "Top 5 Performance",
+    "topInjured": "Top 5 Injury Risk",
+    "info": {
+      "injured": "List of players who are injured on the selected day.",
+      "highPerformance": "List of players with a \"good\" performance score — defined as greater than or equal to 40/100 — for the selected day.",
+      "topPerformance": "List of the five players with the highest performance score of the day, based on those with available data for the selected day.",
+      "topInjured": "List of the five players with the highest injury risk score of the day, based on those with available data for the selected day."
+    }
+  },
+  "dayStats": {
+    "disclaimer": "Based on {{date}} data",
+    "labels": {
+      "highPerformance": "High",
+      "mediumPerformance": "Medium",
+      "lowPerformance": "Low",
+      "highRisk": "High",
+      "moderateRisk": "Moderate",
+      "readyToPlay": "Ready to play",
+      "injured": "Injured"
+    },
+    "teamStats": {
+      "injury": {
+        "title": "Team risks of injury",
+        "availability": "Team availability"
+      },
+      "performance": {
+        "title": "Team performance",
+        "highPerformance": "Good performance"
+      }
+    },
+    "info": {
+      "highPerformanceInfo": "Percentage of players with a good performance — defined as a performance score of 40 or higher — relative to the total number of players with available data on the selected day.",
+      "teamPerformanceInfo": "Average team performance score of the day, calculated based on the number of players with available data for the selected day.",
+      "playerListInfo": "Players with available data on the selected day.",
+      "teamRiskInfo": "Average injury risk of the team over the selected period (7 days, 1 month, 3 months, 6 months).",
+      "teamAvailabilityInfo": "Team availability based on the number of players ready to play, defined as having an injury risk score lower than or equal to 10/100, relative to the total number of players with available data for the selected day."
+    }
+  },
+  "averages": {
+    "titles": {
+      "teamRisk": "Team average risk of injury",
+      "teamAvailability": "Team availability",
+      "teamPerformance": "Team average performance",
+      "teamHighPerformance": "Players with good performance"
+    },
+    "chart": {
+      "injuryRisk": "Injury Risk",
+      "performance": "Performance"
+    },
+    "info": {
+      "teamRiskInfo": "Average injury risk of the team over the selected period (7 days, 1 month, 3 months, 6 months).",
+      "teamAvailabilityInfo": "Average number of players considered ready to play — defined as having an injury risk score lower than or equal to 10/100 — over the selected period (7 days, 1 month, 3 months, 6 months).",
+      "teamPerformanceInfo": "Average team performance over the selected period (7 days, 1 month, 3 months, 6 months).",
+      "teamHighPerformanceInfo": "Average number of players with a \"good\" performance — defined as a score greater than or equal to 40/100 — over the selected period (7 days, 1 month, 3 months, 6 months)." 
+    }
+  }
+}

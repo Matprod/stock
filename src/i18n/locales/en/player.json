@@ -1,0 +1,97 @@
+{
+  "title": "Team",
+  "stats": {
+    "performance": "Performance",
+    "injury": "Injury",
+    "injuryRisk": "Injury Risk",
+    "activity": "Activity",
+    "sleep": "Sleep",
+    "nutrition": "Nutrition",
+    "health": "Health",
+    "highPerformance": "High",
+    "mediumPerformance": "Medium",
+    "lowPerformance": "Low",
+    "highRisk": "High",
+    "moderateRisk": "Moderate",
+    "readyToPlay": "Ready to play",
+    "noData": "No data",
+    "injured": "Injured"
+  },
+  "evolution": {
+    "risk": "Risk Evolution",
+    "performance": "Performance Evolution",
+    "performanceLabel": "Performance",
+    "injuryLabel": "Injury",
+    "injuryLabel_other": "Injuries",
+    "matchLabel": "Match",
+    "matchLabel_other": "Matches",
+    "noData": "No data"
+  },
+  "causalIndicators": {
+    "title": "Causal Indicators",
+    "activities": "Activities",
+    "nutrition": "Nutrition",
+    "sleep": "Sleep",
+    "health": "Health"
+  },
+  "daysRepartition": {
+    "injuryRisks": "Injury risks days repartition",
+    "performance": "Performance days repartition",
+    "injuredDays": "Injured days",
+    "highRiskDays": "High risk days",
+    "moderateRiskDays": "Moderate risk days",
+    "readyToPlayDays": "Ready to play days",
+    "lowPerformance": "Low performance",
+    "mediumPerformance": "Medium performance",
+    "highPerformance": "High performance"
+  },
+  "details": {
+    "years": "years",
+    "position": "Position",
+    "age": "Age",
+    "height": "Height",
+    "weight": "Weight",
+    "jerseyNumber": "Jersey"
+  },
+  "notes": {
+    "title": "Notes",
+    "addNote": "Add note",
+    "editNote": "Edit note",
+    "deleteNote": "Delete note",
+    "note": "Note",
+    "noNotes": "No notes for this date",
+    "enterNoteContent": "Enter note content",
+    "cancel": "Cancel",
+    "saveNote": "Save note"
+  },
+  "physicalPains": {
+    "title": "Physical Pains",
+    "hoverOverLocation": "Hover over a location to see the pain data",
+    "of": "of",
+    "onExertion": "On exertion",
+    "resting": "Resting"
+  },
+  "injuryHistory": {
+    "title": "Injuries History",
+    "start": "Start",
+    "end": "End",
+    "status": "Status",
+    "ongoing": "Ongoing",
+    "recovered": "Recovered",
+    "of": "of",
+    "hoverOverLocation": "Hover over a location to see the injuries history",
+    "days": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "one": "{{count}} day",
+      "other": "{{count}} days"
+    }
+  },
+  "lastUpdate": {
+    "lastUpdate": "Last update",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "days ago",
+    "noRecentData": "No Recent Data"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Team List",
+  "sortOptions": {
+    "performance-asc": "Performance (asc)",
+    "performance-desc": "Performance (desc)",
+    "injury-asc": "Injury Risk (asc)",
+    "injury-desc": "Injury Risk (desc)",
+    "today-only": "Today's Data",
+    "injured-only": "Injured Players Only",
+    "placeholder": "Sort by..."
+  },
+  "noData": {
+    "noDataToday": "No players have data today",
+    "allPlayersFit": "All players are fit and ready to play"
+  }
+}

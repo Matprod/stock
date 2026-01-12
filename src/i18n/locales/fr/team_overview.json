@@ -1,0 +1,16 @@
+{
+  "title": "Liste de l'équipe",
+  "sortOptions": {
+    "performance-asc": "Performance (asc)",
+    "performance-desc": "Performance (desc)",
+    "injury-asc": "Risque de blessure (asc)",
+    "injury-desc": "Risque de blessure (desc)",
+    "today-only": "Données d'aujourd'hui seulement",
+    "injured-only": "Joueurs blessés seulement",
+    "placeholder": "Trier par..."
+  },
+  "noData": {
+    "noDataToday": "Aucun joueur n'a de données aujourd'hui",
+    "allPlayersFit": "Tous les joueurs sont en forme et prêts à jouer"
+  }
+}

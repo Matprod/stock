@@ -1,0 +1,37 @@
+{
+  "title": "Log in to your account",
+  "hero": {
+    "monitor": "Monitor",
+    "with_mauna": "With Mauna",
+    "words": {
+      "performance": "Performance",
+      "injury_risk": "Injury Risk",
+      "nutrition": "Nutrition",
+      "sleep_health": "Sleep Health"
+    }
+  },
+  "form": {
+    "email": {
+      "label": "Email",
+      "placeholder": "kylian.mbappe@gmail.com"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "********",
+      "show": "Show password",
+      "hide": "Hide password"
+    },
+    "login": {
+      "label": "Login"
+    }
+  },
+  "divider": "Or Connect By",
+  "calendly": "Calendly",
+  "errors": {
+    "invalid_credentials": "Invalid email or password. Please try again."
+  },
+  "language_selector": {
+    "english": "🇺🇸 English",
+    "french": "🇫🇷 Français"
+  }
+}

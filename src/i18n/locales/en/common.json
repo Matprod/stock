@@ -1,0 +1,39 @@
+{
+  "timeScale": {
+    "7days": "7 days",
+    "30days": "30 days",
+    "3months": "3 months",
+    "6months": "6 months",
+    "season": "Season"
+  },
+  "tabs": {
+    "performance": "Performance",
+    "injury": "Injury"
+  },
+  "risk": "Risk",
+  "performance": "Performance",
+  "priority": "Priority",
+  "insightStatus": {
+    "veryLow": "Very Low",
+    "low": "Low",
+    "good": "Optimal",
+    "high": "High",
+    "veryHigh": "Very High"
+  },
+  "select": {
+    "select": "Select...",
+    "selected": "selected",
+    "search": "Search..."
+  },
+  "noResultsFound": "No results found.",
+  "seasons": "Seasons",
+  "selectSeason": "Select season",
+  "category": {
+    "health": "Health",
+    "sleep": "Sleep",
+    "nutrition": "Nutrition",
+    "activity": "Activity"
+  },
+  "playerNotInSeason": "Player is not available in this season",
+  "cantAccessToWorkouts": "Workouts not accessible. Please contact your administrator."
+}

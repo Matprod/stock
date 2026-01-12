@@ -1,0 +1,97 @@
+{
+  "title": "Équipe",
+  "stats": {
+    "performance": "Performance",
+    "injury": "Blessure",
+    "injuryRisk": "Risque de blessure",
+    "activity": "Activité",
+    "sleep": "Sommeil",
+    "nutrition": "Nutrition",
+    "health": "Santé",
+    "highPerformance": "Haute",
+    "mediumPerformance": "Moyenne",
+    "lowPerformance": "Basse",
+    "highRisk": "Élevé",
+    "moderateRisk": "Modéré",
+    "readyToPlay": "Prêt à jouer",
+    "noData": "Pas de données",
+    "injured": "Blessé"
+  },
+  "evolution": {
+    "risk": "Évolution du risque",
+    "performance": "Évolution de la performance",
+    "performanceLabel": "Performance",
+    "injuryLabel": "Blessure",
+    "injuryLabel_other": "Blessures",
+    "matchLabel": "Match",
+    "matchLabel_other": "Matchs",
+    "noData": "Pas de données"
+  },
+  "causalIndicators": {
+    "title": "Indicateurs causaux",
+    "activities": "Activités",
+    "nutrition": "Nutrition",
+    "sleep": "Sommeil",
+    "health": "Santé"
+  },
+  "daysRepartition": {
+    "injuryRisks": "Répartition des jours de risque de blessure",
+    "performance": "Répartition des jours de performance",
+    "injuredDays": "Jours de blessure",
+    "highRiskDays": "Jours à risque élevé",
+    "moderateRiskDays": "Jours à risque modéré",
+    "readyToPlayDays": "Jours prêt à jouer",
+    "lowPerformance": "Basse performance",
+    "mediumPerformance": "Performance moyenne",
+    "highPerformance": "Haute performance"
+  },
+  "details": {
+    "years": "ans",
+    "position": "Poste",
+    "age": "Âge",
+    "height": "Taille",
+    "weight": "Poids",
+    "jerseyNumber": "Maillot"
+  },
+  "notes": {
+    "title": "Notes",
+    "addNote": "Ajouter une note",
+    "editNote": "Modifier la note",
+    "deleteNote": "Supprimer la note",
+    "note": "Note",
+    "noNotes": "Aucune note pour cette date",
+    "enterNoteContent": "Entrer le contenu de la note",
+    "cancel": "Annuler",
+    "saveNote": "Enregistrer la note"
+  },
+  "physicalPains": {
+    "title": "Douleurs physiques",
+    "hoverOverLocation": "Survolez un endroit pour voir les données de la douleur",
+    "of": "sur",
+    "onExertion": "Au cours d'une activité",
+    "resting": "Au repos"
+  },
+  "injuryHistory": {
+    "title": "Historique des blessures",
+    "start": "Début",
+    "end": "Rétablit le",
+    "status": "Statut",
+    "ongoing": "En cours",
+    "recovered": "Rétabli",
+    "of": "sur",
+    "hoverOverLocation": "Survolez un endroit pour voir l'historique des blessures",
+    "days": {
+      "today": "Aujourd'hui",
+      "yesterday": "Hier",
+      "one": "{{count}} jour",
+      "other": "{{count}} jours"
+    }
+  },
+  "lastUpdate": {
+    "lastUpdate": "Dernière mise à jour",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "daysAgo": "jours",
+    "noRecentData": "Aucune donnée récente"
+  }
+}

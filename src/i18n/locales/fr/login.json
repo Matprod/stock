@@ -1,0 +1,37 @@
+{
+  "title": "Connectez-vous à votre compte",
+  "hero": {
+    "monitor": "Surveillez votre",
+    "with_mauna": "Avec Mauna",
+    "words": {
+      "performance": "Performance",
+      "injury_risk": "Risque de Blessure",
+      "nutrition": "Nutrition",
+      "sleep_health": "Santé du Sommeil"
+    }
+  },
+  "form": {
+    "email": {
+      "label": "Email",
+      "placeholder": "kylian.mbappe@gmail.com"
+    },
+    "password": {
+      "label": "Mot de passe",
+      "placeholder": "********",
+      "show": "Afficher le mot de passe",
+      "hide": "Masquer le mot de passe"
+    },
+    "login": {
+      "label": "Connexion"
+    }
+  },
+  "divider": "Ou connectez-vous via",
+  "calendly": "Calendly",
+  "errors": {
+    "invalid_credentials": "Email ou mot de passe incorrect. Veuillez réessayer."
+  },
+  "language_selector": {
+    "english": "🇺🇸 English",
+    "french": "🇫🇷 Français"
+  }
+}

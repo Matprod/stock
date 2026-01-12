@@ -1,0 +1,66 @@
+{
+  "title": "Tableau de bord de l'équipe",
+  "tabs": {
+    "performance": "Performance",
+    "injury": "Blessure"
+  },
+  "playerLists": {
+    "injured": "Joueurs blessés aujourd'hui",
+    "injuredSince": "Blessés depuis le {{date}}",
+    "highPerformance": "Joueurs à bonne performance aujourd'hui",
+    "topPerformance": "Top 5 Performance",
+    "topInjured": "Top 5 Risque de blessure",
+    "info": {
+      "injured": "Liste des joueurs blessés ce jour. ",
+      "highPerformance": "Liste des joueurs ayant un score de performance \"bon\", c'est-à-dire supérieur ou égal à 40/100 pour le jour sélectionné.",
+      "topPerformance": "Liste des cinq joueurs du jour ayant obtenu la meilleure performance, parmi ceux disposant de données pour le jour sélectionné.",
+      "topInjured": "Liste des cinq joueurs présentant le risque de blessure le plus élevé pour la journée, parmi ceux disposant de données pour le jour sélectionné."
+    }
+  },
+  "dayStats": {
+    "disclaimer": "Basé sur les données du {{date}}",
+    "labels": {
+      "highPerformance": "Haute",
+      "mediumPerformance": "Moyenne",
+      "lowPerformance": "Basse",
+      "highRisk": "Élevé",
+      "moderateRisk": "Modéré",
+      "readyToPlay": "Prêt à Jouer",
+      "injured": "Blessé"
+    },
+    "teamStats": {
+      "injury": {
+        "title": "Risques de blessure de l'équipe",
+        "availability": "Disponibilité de l'équipe"
+      },
+      "performance": {
+        "title": "Performance de l'équipe",
+        "highPerformance": "Bonne Performance"
+      }
+    },
+    "info": {
+      "highPerformanceInfo": "Moyenne du nombre de joueurs ayant une performance considérée comme bonne, c’est-à-dire un score de performance supérieur ou égal à 40/100, rapportée au nombre total de joueurs disposant de données le jour sélectionné.",
+      "teamPerformanceInfo": "Score moyen de performance de l’équipe, calculé à partir du nombre de joueurs ayant des données disponibles pour le jour sélectionné.",
+      "teamAvailabilityInfo": "Disponibilité de l’équipe basée sur le nombre de joueurs prêts à jouer, rapporté au nombre total de joueurs disposant de données pour le jour sélectionné.",
+      "teamRiskInfo": "Risque de blessure moyen de l’équipe, basé sur le nombre de joueurs disposant de données pour le jour sélectionné."
+    }
+  },
+  "averages": {
+    "titles": {
+      "teamRisk": "Moyenne des risques de blessure de l'équipe",
+      "teamAvailability": "Disponibilité de l'équipe",
+      "teamPerformance": "Moyenne de performance de l'équipe",
+      "teamHighPerformance": "Joueurs avec une bonne performance"
+    },
+    "chart": {
+      "injuryRisk": "Risque de blessure",
+      "performance": "Performance"
+    },
+    "info": {
+      "teamRiskInfo": "Risque de blessure moyen de l’équipe sur la période sélectionnée (7 jours, 1 mois, 3 mois, 6 mois).",
+      "teamAvailabilityInfo": "Nombre moyen de joueurs prêts à jouer — défini par un score inférieur ou égal à 10/100 — sur la période sélectionnée (7 jours, 1 mois, 3 mois, 6 mois).",
+      "teamPerformanceInfo": "Performance moyenne de l’équipe sur la période sélectionnée (7 jours, 1 mois, 3 mois, 6 mois).",
+      "teamHighPerformanceInfo": "Moyenne du nombre de joueurs ayant une performance \"bonne\", c'est-à-dire un score supérieur ou égal à 40/100, sur la période sélectionnée (7 jours, 1 mois, 3 mois, 6 mois)."
+    }
+  }
+}

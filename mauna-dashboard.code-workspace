@@ -1,0 +1,34 @@
+{
+  "folders": [
+    {
+      "name": "✨ root",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "[javascript]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    }
+  },
+  "extensions": {
+    "recommendations": ["biomejs.biome"],
+    "unwantedRecommendations": [
+      "dbaeumer.vscode-eslint",
+      "rvest.vs-code-prettier-eslint",
+      "esbenp.prettier-vscode"
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "page": {
+    "title": "Séances d'entraînement",
+    "library": "Bibliothèque",
+    "history": "Historique",
+    "addSession": "Ajouter une séance",
+    "addNewSession": "Ajouter une nouvelle séance"
+  },
+  "session": {
+    "name": "Nom de la séance",
+    "namePlaceholder": "Ex: Push Day, Pull Day, Legs...",
+    "duration": "Durée (minutes)",
+    "durationPlaceholder": "Ex: 30",
+    "sport": "Sport",
+    "sportPlaceholder": "Sélectionner un sport...",
+    "exercises": "Exercices",
+    "exercisesCount_one": "{{count}} Exercice",
+    "exercisesCount_other": "{{count}} Exercices",
+    "minutes": "minutes",
+    "min": "min",
+    "edit": "Modifier",
+    "editSession": "Modifier la séance",
+    "editSessionTitle": "Modifier \"{{name}}\"",
+    "updateSession": "Mettre à jour la séance",
+    "saveSession": "Enregistrer la séance",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer la séance \"{{name}}\" ?"
+  },
+  "exercise": {
+    "selectFirst": "Veuillez d'abord sélectionner un sport",
+    "selectExercises": "Sélectionner des exercices...",
+    "searchPlaceholder": "Rechercher un exercice...",
+    "noneFound": "Aucun exercice trouvé pour ce sport.",
+    "performed": "Exercices effectués",
+    "series": "Série",
+    "reps": "Répétitions",
+    "weight": "Poids (kg)",
+    "time": "Temps",
+    "addSeries": "Ajouter série",
+    "configuration": "Configuration des exercices"
+  },
+  "player": {
+    "participants": "Joueurs participants",
+    "participantsCount_one": "Joueur participant ({{count}})",
+    "participantsCount_other": "Joueurs participants ({{count}})",
+    "searchPlaceholder": "Rechercher un joueur...",
+    "noneFound": "Aucun joueur trouvé.",
+    "selected_zero": "Sélectionner les joueurs...",
+    "selected_one": "{{count}} joueur sélectionné",
+    "selected_other": "{{count}} joueurs sélectionnés",
+    "players_one": "{{count}} joueur",
+    "players_other": "{{count}} joueurs"
+  },
+  "sessionStart": {
+    "title": "Programmer la séance: {{name}}",
+    "cancel": "Annuler",
+    "startSession": "Démarrer la séance",
+    "creating": "Création de la séance...",
+    "success": "Séance créée avec succès ! 🎉",
+    "error": "Erreur lors de la création de la séance. Veuillez réessayer.",
+    "sessionDate": "Date de la séance",
+    "sessionTime": "Heure de la séance",
+    "selectDate": "Sélectionner une date",
+    "description": "Configurer et démarrer cette séance d'entraînement."
+  },
+  "history": {
+    "trainingLoad": "Training Load: {{value}}",
+    "exercisesCount_one": "{{count}} Exercice",
+    "exercisesCount_other": "{{count}} Exercices",
+    "noSessions": "Aucune séance d'entraînement trouvée",
+    "noSessionsFiltered": "Aucune séance d'entraînement ne correspond aux filtres sélectionnés",
+    "pickDateRange": "Sélectionner les dates"
+  },
+  "validation": {
+    "sessionNameRequired": "Le nom de la séance est requis",
+    "sportRequired": "Veuillez sélectionner un sport",
+    "exerciseRequired": "Au moins un exercice est requis",
+    "durationRequired": "La durée est requise et doit être supérieure à 0",
+    "repsRequired": "Le nombre de répétitions est requis et doit être supérieur à 0",
+    "weightRequired": "Le poids est requis et doit être supérieur à 0",
+    "durationFormat": "La durée est requise et doit être au format HH:MM:SS",
+    "playerRequired": "Au moins un joueur est requis",
+    "dateRequired": "La date est requise",
+    "timeRequired": "L'heure est requise"
+  },
+  "modification": {
+    "modification_one": "modification",
+    "modification_other": "modifications",
+    "reps": "Reps",
+    "weight": "Poids",
+    "time": "Temps",
+    "newSet": "Nouvelle série",
+    "newExercise": "Nouvel exercice",
+    "deletedExercise": "exercice supprimé",
+    "deletedSeries": "Série supprimée"
+  }
+}
+
+

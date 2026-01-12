@@ -1,0 +1,9 @@
+{
+  "defaultMessage": "Bonjour, comment puis-je vous aider ?",
+  "featureImportance": "Fais moi une analyse approfondie sur {{feature}}",
+  "inputPlaceholder": "Posez votre question à Mauna AI…",
+  "thinking": "Analyse en cours",
+  "quickActions": "Actions rapides",
+  "clearHistory": "Effacer l'historique",
+  "priorityInsights": "Une liste de priorités des insights classés par importance"
+}

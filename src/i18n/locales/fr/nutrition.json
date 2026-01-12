@@ -1,0 +1,42 @@
+{
+  "title": "Détails Nutrition",
+  "noData": "Aucune donnée nutritionnelle disponible",
+  "noDataForMacro": "Aucune donnée disponible pour ce macronutriment",
+  "noMealsRecorded": "Aucun repas enregistré",
+  "noFoodsRecorded": "Aucun aliment enregistré",
+  "distributionByMeal": "Distribution par repas",
+  "breakdownByMeal": "Repas décomposé",
+  "total": "Total",
+  "dailyTotal": "Total quotidien",
+  "foodsConsumed": "Aliments consommés",
+  "portion": "Portion",
+  "macros": {
+    "protein": "Protéines",
+    "carbs": "Glucides",
+    "fats": "Lipides",
+    "calories": "Calories"
+  },
+  "meals": {
+    "breakfast": "Petit-déjeuner",
+    "lunch": "Déjeuner",
+    "dinner": "Dîner",
+    "snack": "Collation",
+    "snackAM": "Collation matin",
+    "snackPM": "Collation soir"
+  },
+  "mealsStatus": "Statut des repas",
+  "completed": "Complété",
+  "notCompleted": "Non complété",
+  "error": {
+    "loadingError": "Erreur de chargement",
+    "connectionError": "Impossible de charger les données nutrition. Vérifiez que le backend est démarré.",
+    "noDataAvailable": "Aucune donnée nutritionnelle disponible pour cette date"
+  },
+  "macronutrientLabels": {
+    "protein": "Protéines",
+    "carbs": "Glucides",
+    "fats": "Lipides",
+    "calories": "Calories"
+  },
+  "viewNutritionDetails": "Voir les détails nutrition"
+}

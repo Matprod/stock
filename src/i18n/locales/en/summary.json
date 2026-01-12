@@ -1,0 +1,23 @@
+{
+  "title": "{{name}}'s Analysis",
+  "scores": {
+    "activity": "Activity",
+    "sleep": "Sleep",
+    "nutrition": "Nutrition",
+    "health": "Health",
+    "priority": "Priority"
+  },
+  "noDateOrType": "Aucune date ou type",
+  "sortBy": {
+    "priorityAsc": "Priority (asc)",
+    "priorityDesc": "Priority (desc)",
+    "category": "Category"
+  },
+  "tabs": {
+    "performance": "performance",
+    "injury": "injury"
+  },
+  "priorityInsights": "Insights with the highest impact on total {{category}} score",
+  "prioritySubtitle_one": "{{count}} impactful|variable",
+  "prioritySubtitle_other": "{{count}} most impactful|variables"
+}

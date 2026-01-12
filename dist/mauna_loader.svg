@@ -1,0 +1,19 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="72" height="57" viewBox="0 0 72 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <style>
+            path, line, polyline, polygon {
+                stroke-dasharray: 1000;
+                stroke-dashoffset: 1000;
+                animation: draw 4s linear infinite;
+            }
+            @keyframes draw {
+                to {
+                    stroke-dashoffset: 0;
+                }
+            }
+            </style>
+            
+<path d="M3 53.8961L13.3345 25.4457C13.6503 24.5763 14.6023 24.1179 15.4789 24.4133L28.1914 28.6966C28.9803 28.9624 29.8457 28.619 30.2376 27.8845L42.9028 4.14943C43.5675 2.90389 45.3719 2.96146 45.9558 4.24682L68.5096 53.8961M18.3755 52.2306H50.1582" stroke="white" stroke-width="5.10894" stroke-linecap="round"/>
+</svg>

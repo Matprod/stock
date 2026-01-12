@@ -1,0 +1,96 @@
+{
+  "page": {
+    "title": "Workout Sessions",
+    "library": "Library",
+    "history": "History",
+    "addSession": "Add Session",
+    "addNewSession": "Add New Session"
+  },
+  "session": {
+    "name": "Session Name",
+    "namePlaceholder": "Ex: Push Day, Pull Day, Legs...",
+    "duration": "Duration (minutes)",
+    "durationPlaceholder": "Ex: 30",
+    "sport": "Sport",
+    "sportPlaceholder": "Select a sport...",
+    "exercises": "Exercises",
+    "exercisesCount_one": "{{count}} Exercise",
+    "exercisesCount_other": "{{count}} Exercises",
+    "minutes": "minutes",
+    "min": "min",
+    "edit": "Edit",
+    "editSession": "Edit Session",
+    "editSessionTitle": "Edit \"{{name}}\"",
+    "updateSession": "Update Session",
+    "saveSession": "Save Session",
+    "deleteConfirm": "Are you sure you want to delete the session \"{{name}}\"?"
+  },
+  "exercise": {
+    "selectFirst": "Please select a sport first",
+    "selectExercises": "Select exercises...",
+    "searchPlaceholder": "Search for an exercise...",
+    "noneFound": "No exercises found for this sport.",
+    "performed": "Exercises Performed",
+    "series": "Set",
+    "reps": "Reps",
+    "weight": "Weight (kg)",
+    "time": "Time",
+    "addSeries": "Add Set",
+    "configuration": "Exercise Configuration"
+  },
+  "player": {
+    "participants": "Participating Players",
+    "participantsCount_one": "Participating Player ({{count}})",
+    "participantsCount_other": "Participating Players ({{count}})",
+    "searchPlaceholder": "Search for a player...",
+    "noneFound": "No players found.",
+    "selected_zero": "Select players...",
+    "selected_one": "{{count}} player selected",
+    "selected_other": "{{count}} players selected",
+    "players_one": "{{count}} player",
+    "players_other": "{{count}} players"
+  },
+  "sessionStart": {
+    "title": "Schedule Session: {{name}}",
+    "cancel": "Cancel",
+    "startSession": "Start Session",
+    "creating": "Creating session...",
+    "success": "Session created successfully! 🎉",
+    "error": "Error creating session. Please try again.",
+    "sessionDate": "Session Date",
+    "sessionTime": "Session Time",
+    "selectDate": "Select a date",
+    "description": "Configure and start this training session."
+  },
+  "history": {
+    "trainingLoad": "Training Load: {{value}}",
+    "exercisesCount_one": "{{count}} Exercise",
+    "exercisesCount_other": "{{count}} Exercises",
+    "noSessions": "No training sessions found",
+    "noSessionsFiltered": "No training sessions match the selected filters",
+    "pickDateRange": "Pick date range"
+  },
+  "validation": {
+    "sessionNameRequired": "Session name is required",
+    "sportRequired": "Please select a sport",
+    "exerciseRequired": "At least one exercise is required",
+    "durationRequired": "Duration is required and must be greater than 0",
+    "repsRequired": "Number of repetitions is required and must be greater than 0",
+    "weightRequired": "Weight is required and must be greater than 0",
+    "durationFormat": "Duration is required and must be in HH:MM:SS format",
+    "playerRequired": "At least one player is required",
+    "dateRequired": "Date is required",
+    "timeRequired": "Time is required"
+  },
+  "modification": {
+    "modification_one": "modification",
+    "modification_other": "modifications",
+    "reps": "Reps",
+    "weight": "Weight",
+    "time": "Time",
+    "newSet": "New set",
+    "newExercise": "New exercise",
+    "deletedExercise": "exercise deleted",
+    "deletedSeries": "Set deleted"
+  }
+}
