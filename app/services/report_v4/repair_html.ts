@@ -8,6 +8,7 @@ import {
   REPORT_V4_REPAIR_MAX_ROUNDS,
   REPORT_V4_REPAIR_PROSE_DROP_RATIO,
 } from '#services/report_v4/report_v4_constants'
+import { envFlag } from '#services/report_v4/env_flag'
 import { scanNumbers, type ScanFact } from '#services/report_v4/grounding_tokenizer'
 
 export type RepairVerdict = 'ok' | 'repaired' | 'fallback'
@@ -64,12 +65,8 @@ const BLOCKING_CODES = new Set([
 
 const NBSP_RE = /[\u00a0\u202f\u2009]/g
 
-export const isReportV4RepairEnabled = (): boolean => {
-  const raw = process.env.REPORT_V4_REPAIR?.trim().toLowerCase()
-  if (raw === '0' || raw === 'false' || raw === 'off') return false
-  if (raw === '1' || raw === 'true' || raw === 'on') return true
-  return REPORT_V4_REPAIR_ENABLED
-}
+export const isReportV4RepairEnabled = (): boolean =>
+  envFlag('REPORT_V4_REPAIR', REPORT_V4_REPAIR_ENABLED)
 
 export const toGroundingIssues = (violations: GroundingViolation[]): GroundingIssue[] =>
   violations.map((v) => ({
@@ -121,9 +118,9 @@ const countProseBlocks = (html: string): number => {
 
 const listChartHostIds = (html: string): string[] => {
   const { document } = parseHTML(wrapHtml(html))
-  return [...document.querySelectorAll('.chart-box[id], div.chart-box[id]')].map(
-    (el) => el.getAttribute('id') ?? ''
-  ).filter(Boolean)
+  return Array.from(document.querySelectorAll('.chart-box[id], div.chart-box[id]'))
+    .map((el) => el.getAttribute('id') ?? '')
+    .filter(Boolean)
 }
 
 export const findMissingChartHosts = (html: string, requiredChartIds: string[]): string[] => {
@@ -248,9 +245,9 @@ const dropSentenceContaining = (
 ): { html: string; op: RepairOp | null } => {
   if (!needle.trim()) return { html, op: null }
   const { document } = parseHTML(wrapHtml(html))
-  const blocks = [
-    ...document.querySelectorAll('p, li, h1, h2, h3, h4, h5, h6, figcaption, .callout'),
-  ]
+  const blocks = Array.from(
+    document.querySelectorAll('p, li, h1, h2, h3, h4, h5, h6, figcaption, .callout')
+  )
   for (const block of blocks) {
     const text = block.textContent ?? ''
     if (!text.toLowerCase().includes(needle.toLowerCase())) continue
@@ -314,7 +311,7 @@ const dedupeChartHosts = (
 ): { html: string; op: RepairOp | null } => {
   const { document } = parseHTML(wrapHtml(html))
   const esc = escapeCssIdent(chartId)
-  const nodes = [...document.querySelectorAll(`.chart-box#${esc}, #${esc}.chart-box`)]
+  const nodes = Array.from(document.querySelectorAll(`.chart-box#${esc}, #${esc}.chart-box`))
   if (nodes.length <= 1) return { html, op: null }
   const removed: string[] = []
   for (const node of nodes.slice(1)) {
@@ -337,7 +334,7 @@ const stripForbiddenElements = (html: string): { html: string; ops: RepairOp[] }
   const { document } = parseHTML(wrapHtml(html))
   const ops: RepairOp[] = []
   const removeAll = (selector: string, code: string) => {
-    for (const el of [...document.querySelectorAll(selector)]) {
+    for (const el of Array.from(document.querySelectorAll(selector))) {
       ops.push({
         code,
         blockPath: el.getAttribute('data-block') ?? selector,
@@ -508,7 +505,7 @@ const classifyAndRepairRound = async (
 
 const hasKpiWithoutFact = (html: string): boolean => {
   const { document } = parseHTML(wrapHtml(html))
-  for (const kpi of document.querySelectorAll('.kpi, .kpis .kpi')) {
+  for (const kpi of Array.from(document.querySelectorAll('.kpi, .kpis .kpi'))) {
     const hasFact = kpi.querySelector('[data-fact]')
     const text = (kpi.textContent ?? '').replace(NBSP_RE, ' ').trim()
     if (!hasFact && /\d/.test(text)) return true

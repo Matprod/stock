@@ -129,6 +129,7 @@ router
   .middleware(middleware.permission('reports-premium:view'))
 
 const ReportV4Controller = () => import('#services/report_v4/controller')
+router.get('/reports/report-v4/assets/echarts.min.js', [ReportV4Controller, 'echartsAsset'])
 router
   .group(() => {
     router

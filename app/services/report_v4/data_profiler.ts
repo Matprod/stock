@@ -1,10 +1,8 @@
-import { PREMIUM_BLOCK_TYPE } from '#constants/premium_report.constants'
 import { PREMIUM_DOMAIN, type PremiumDomain } from '#constants/premium_report_domains'
-import type { PremiumDataset, PremiumReportDocument } from '#contracts/premium_report'
+import type { PremiumDataset } from '#contracts/premium_report'
 import type { AppLanguage } from '#utils/localize'
 import {
   REPORT_V4_DATA_PROFILE_DEFAULT_SHARE,
-  REPORT_V4_DATA_PROFILE_ENABLED,
   REPORT_V4_SQL_ROW_CAP_HINT,
 } from '#services/report_v4/report_v4_constants'
 
@@ -97,13 +95,6 @@ const VERDICT_RANK: Record<DataProfileVerdict, number> = {
   unusable: 1,
   partial: 2,
   usable: 3,
-}
-
-export const isReportV4DataProfileEnabled = (): boolean => {
-  const raw = process.env.REPORT_V4_DATA_PROFILE?.trim().toLowerCase()
-  if (raw === '0' || raw === 'false' || raw === 'off') return false
-  if (raw === '1' || raw === 'true' || raw === 'on') return true
-  return REPORT_V4_DATA_PROFILE_ENABLED
 }
 
 export const isIdentityProfileColumn = (column: string): boolean => IDENTITY_COL_RE.test(column)
@@ -750,30 +741,6 @@ export const buildDataProfileCanvasText = (
     }
   }
   return { title, body: lines.join(' ') }
-}
-
-export const appendDataProfileBlocks = (
-  document: PremiumReportDocument,
-  profile: HarvestDataProfile,
-  language: AppLanguage
-): PremiumReportDocument => {
-  const existing = document.blocks.some((b) => b.id === 'data_profile_heading')
-  if (existing) return document
-  const { title, body } = buildDataProfileCanvasText(profile, language)
-  document.blocks.unshift(
-    {
-      id: 'data_profile_heading',
-      type: PREMIUM_BLOCK_TYPE.HEADING,
-      text: title,
-      level: 2,
-    },
-    {
-      id: 'data_profile_body',
-      type: PREMIUM_BLOCK_TYPE.TEXT,
-      text: body,
-    }
-  )
-  return document
 }
 
 export const datasetsFromFixtureDomainPacks = (args: {

@@ -1,0 +1,125 @@
+{
+ "_note": "Donn\u00e9es synth\u00e9tiques de d\u00e9monstration",
+ "rows": [
+  {
+   "week": "2026-08-17",
+   "acwr": 1.02,
+   "player_id": "p123"
+  },
+  {
+   "week": "2026-08-24",
+   "acwr": 1.08,
+   "player_id": "p123"
+  },
+  {
+   "week": "2026-08-31",
+   "acwr": 1.15,
+   "player_id": "p123"
+  },
+  {
+   "week": "2026-09-07",
+   "acwr": 1.28,
+   "player_id": "p123"
+  },
+  {
+   "week": "2026-09-14",
+   "acwr": 1.46,
+   "player_id": "p123"
+  },
+  {
+   "week": "2026-09-21",
+   "acwr": 1.62,
+   "player_id": "p123"
+  },
+  {
+   "week": "2026-09-28",
+   "acwr": 1.58,
+   "player_id": "p123"
+  },
+  {
+   "week": "2026-10-05",
+   "acwr": 1.41,
+   "player_id": "p123"
+  },
+  {
+   "week": "2026-08-17",
+   "acwr": 0.95,
+   "player_id": "p245"
+  },
+  {
+   "week": "2026-08-24",
+   "acwr": 1.0,
+   "player_id": "p245"
+  },
+  {
+   "week": "2026-08-31",
+   "acwr": 1.04,
+   "player_id": "p245"
+  },
+  {
+   "week": "2026-09-07",
+   "acwr": 1.02,
+   "player_id": "p245"
+  },
+  {
+   "week": "2026-09-14",
+   "acwr": 1.08,
+   "player_id": "p245"
+  },
+  {
+   "week": "2026-09-21",
+   "acwr": 1.1,
+   "player_id": "p245"
+  },
+  {
+   "week": "2026-09-28",
+   "acwr": 1.06,
+   "player_id": "p245"
+  },
+  {
+   "week": "2026-10-05",
+   "acwr": 1.03,
+   "player_id": "p245"
+  },
+  {
+   "week": "2026-08-17",
+   "acwr": 0.72,
+   "player_id": "p318"
+  },
+  {
+   "week": "2026-08-24",
+   "acwr": 0.78,
+   "player_id": "p318"
+  },
+  {
+   "week": "2026-08-31",
+   "acwr": 0.85,
+   "player_id": "p318"
+  },
+  {
+   "week": "2026-09-07",
+   "acwr": 0.9,
+   "player_id": "p318"
+  },
+  {
+   "week": "2026-09-14",
+   "acwr": 1.1,
+   "player_id": "p318"
+  },
+  {
+   "week": "2026-09-21",
+   "acwr": 1.2,
+   "player_id": "p318"
+  },
+  {
+   "week": "2026-09-28",
+   "acwr": 1.31,
+   "player_id": "p318"
+  },
+  {
+   "week": "2026-10-05",
+   "acwr": 1.22,
+   "player_id": "p318"
+  }
+ ]
+}

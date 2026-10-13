@@ -1,0 +1,29 @@
+Visual audit warnings (1):
+p0 · chart_count_mismatch · announced charts=5, present=3
+{
+  "pages": 4,
+  "charts": 5,
+  "warnings": [
+    "literal_number:1",
+    "literal_number:7",
+    "literal_number:2026",
+    "literal_number:49,7",
+    "literal_number:100",
+    "literal_number:7,58",
+    "literal_number:3",
+    "literal_number:187",
+    "literal_number:24",
+    "literal_number:34",
+    "literal_number:63,6",
+    "literal_number:43,7",
+    "literal_number:03",
+    "literal_number:2",
+    "literal_number:4",
+    "literal_number:5",
+    "literal_number:6",
+    "literal_number:04",
+    "literal_number:05",
+    "literal_number:06"
+  ],
+  "missingFacts": []
+}

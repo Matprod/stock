@@ -190,14 +190,14 @@ export const artifactContractsFromIntent = (args: {
   prompt: string
   rosterNames?: string[]
   namedAthletes?: string[]
+  reportShape?: string
 }): ArtifactContracts => {
   const { flags, prompt } = args
-  const individualSheets = flags.allAthletes
-  const athleteCoverage: AthleteCoverageKind = individualSheets
-    ? 'all'
-    : args.namedAthletes?.length
-      ? 'named'
-      : 'team'
+  const individualFocus = args.reportShape === 'individual_focus'
+  const individualSheets = flags.allAthletes || individualFocus
+  let athleteCoverage: AthleteCoverageKind = 'team'
+  if (flags.allAthletes) athleteCoverage = 'all'
+  else if ((args.namedAthletes?.length ?? 0) > 0 || individualFocus) athleteCoverage = 'named'
   const requiredAthletes =
     athleteCoverage === 'all'
       ? [...(args.rosterNames ?? [])]
@@ -302,6 +302,7 @@ export const resolveArtifactEnvelopeAsync = async (args: {
   rosterNames?: string[]
   namedAthletes?: string[]
   language?: AppLanguage
+  reportShape?: string
 }): Promise<ArtifactEnvelope & { intentProvider: IntentProvider }> => {
   const { flags, provider } = await classifyArtifactIntentFlags({
     prompt: args.prompt,
@@ -312,6 +313,7 @@ export const resolveArtifactEnvelopeAsync = async (args: {
     prompt: args.prompt,
     rosterNames: args.rosterNames,
     namedAthletes: args.namedAthletes,
+    reportShape: args.reportShape,
   })
   return { ...envelopeFromContracts(contracts), intentProvider: provider }
 }

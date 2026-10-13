@@ -1,9 +1,6 @@
 import type { PremiumReportDocument } from '#contracts/premium_report'
 import { applyArtifactOpsToDocument } from '#services/report_v4/artifact_runtime/ops'
-import type {
-  ArtifactDesignOp,
-  ArtifactEnvelope,
-} from '#services/report_v4/artifact_runtime/types'
+import type { ArtifactDesignOp, ArtifactEnvelope } from '#services/report_v4/artifact_runtime/types'
 import type { SoftEditOpsPlan } from '#services/report_v4/soft_edit_ops'
 
 const emptySoftOpsPlan = (): SoftEditOpsPlan => ({

@@ -14,6 +14,7 @@ import {
   syncTablesIntoArtifactHtml,
   validateSoftRebindHtml,
 } from '#services/report_v4/artifact_html'
+import { evaluateArtifactParity } from '#services/report_v4/artifact_parity'
 import {
   healMissingChartHosts,
   shouldAttemptHostHeal,
@@ -27,6 +28,11 @@ import {
 import type { ArtifactDesignOp } from '#services/report_v4/artifact_runtime/index'
 import { applyResolvedSoftEditorial, type SoftEditOpsPlan } from '#services/report_v4/soft_edit_ops'
 import type { ReportFact } from '#services/report_v4/report_facts'
+import {
+  formatSoftEditPathMessage,
+  refusalsFromSoftBlocked,
+  type SoftRefusal,
+} from '#services/report_v4/soft_refusal'
 import type { AppLanguage } from '#utils/localize'
 
 export type SoftRebindArgs = {
@@ -57,6 +63,10 @@ export type SoftRebindResult = {
   needsFreshArtifact: boolean
   softApplied: string[]
   softBlocked: string[]
+  coachMessage?: string
+  restoredPrior?: boolean
+  unsyncedBlockIds?: string[]
+  refusals: SoftRefusal[]
 }
 
 export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
@@ -96,10 +106,24 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
     const currentIds = new Set(
       document.blocks.filter((b) => b.type === 'chart').map((b) => b.id)
     )
-    const missing = args.priorDocument.blocks.filter(
-      (b) => b.type === 'chart' && !currentIds.has(b.id)
-    )
-    document.blocks.push(...missing)
+    const missing = args.priorDocument.blocks
+      .map((block, index) => ({ block, index }))
+      .filter(({ block }) => block.type === 'chart' && !currentIds.has(block.id))
+    for (const row of missing) {
+      let insertAt = document.blocks.length
+      for (let i = row.index - 1; i >= 0; i -= 1) {
+        const prevId = args.priorDocument.blocks[i]?.id
+        if (!prevId) continue
+        const curIdx = document.blocks.findIndex((b) => b.id === prevId)
+        if (curIdx >= 0) {
+          insertAt = curIdx + 1
+          break
+        }
+        if (i === 0) insertAt = 0
+      }
+      if (row.index === 0) insertAt = 0
+      document.blocks.splice(insertAt, 0, row.block)
+    }
     charts = collectArtifactCharts(document, args.heatScales)
     chartCount = charts.length
   }
@@ -171,6 +195,7 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
 
   const syncedProse = syncProseIntoArtifactHtml(reboundHtml, document, args.priorDocument)
   reboundHtml = syncedProse.html
+  const unsyncedBlockIds = [...syncedProse.unsynced]
 
   let sheetsRebuilt = 0
   if (args.softOps?.layoutRepair || args.softOps?.restoreSheets) {
@@ -208,15 +233,21 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
   const tables = collectArtifactTables(document)
   const syncedTables = syncTablesIntoArtifactHtml(reboundHtml, tables)
   reboundHtml = syncedTables.html
+  for (const id of syncedTables.unsynced) {
+    if (!unsyncedBlockIds.includes(id)) unsyncedBlockIds.push(id)
+  }
 
   const newChartBlocks = document.blocks.filter(
     (b) => b.type === 'chart' && !args.priorBlockIds.has(b.id)
   )
   let injectedHostShells = 0
-  if (newChartBlocks.length > 0) {
+  if (newChartBlocks.length > 0 || allowChartRestore) {
     charts = collectArtifactCharts(document, args.heatScales)
     chartCount = charts.length
-    const injectedHosts = injectMissingChartHostShells(reboundHtml, charts)
+    const injectedHosts = injectMissingChartHostShells(reboundHtml, charts, {
+      document,
+      priorDocument: args.priorDocument,
+    })
     reboundHtml = injectedHosts.html
     injectedHostShells = injectedHosts.injected
     if (injectedHostShells > 0) {
@@ -242,6 +273,8 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
     tables: syncedTables.synced >= tables.length ? undefined : tables,
     injectMissingHosts: newChartBlocks.length > 0,
     facts: args.facts,
+    document,
+    blockOrigin: 'soft_edit',
   })
   let htmlForValidate = rebound.ok ? rebound.html : reboundHtml
   let validation = validateSoftRebindHtml({
@@ -250,11 +283,13 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
     document,
     priorDocument: args.priorDocument,
     syncedProse: syncedProse.synced,
+    unsyncedBlockIds,
   })
   if (args.recommendationStrip && recoStripped > 0 && validation.proseMiss) {
     validation = {
       ...validation,
       proseMiss: false,
+      unsyncedBlockIds: [],
       ok: validation.missingHosts.length === 0,
     }
   }
@@ -262,6 +297,7 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
     validation = {
       ...validation,
       proseMiss: false,
+      unsyncedBlockIds: [],
       ok: validation.missingHosts.length === 0 && editorialGatesOk,
     }
   }
@@ -287,6 +323,8 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
         tables: syncedTables.synced >= tables.length ? undefined : tables,
         injectMissingHosts: true,
         facts: args.facts,
+        document,
+        blockOrigin: 'soft_edit',
       })
       htmlForValidate = rebound.ok ? rebound.html : reboundHtml
       validation = validateSoftRebindHtml({
@@ -295,11 +333,13 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
         document,
         priorDocument: args.priorDocument,
         syncedProse: syncedProse.synced,
+        unsyncedBlockIds: validation.unsyncedBlockIds,
       })
       if (args.softEditorialOnly && editorialGatesOk) {
         validation = {
           ...validation,
           proseMiss: false,
+          unsyncedBlockIds: [],
           ok: validation.missingHosts.length === 0 && editorialGatesOk,
         }
       }
@@ -350,18 +390,36 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
   if (!editorialGatesOk) softBlocked.push('editorial_gates')
   if (!rebound.ok) softBlocked.push('finalize_html')
   if (validation.missingHosts.length) softBlocked.push('missing_hosts')
-  if (validation.proseMiss) softBlocked.push('prose_miss')
-  if (expectedSoftWork && mutationStats.appliedCount === 0) softBlocked.push('zero_mutations')
+  if (validation.unsyncedBlockIds.length) {
+    softBlocked.push('prose_miss')
+    for (const id of validation.unsyncedBlockIds) softBlocked.push(`unsynced:${id}`)
+  }
+  const zeroMutations = expectedSoftWork && mutationStats.appliedCount === 0
+  if (zeroMutations) softBlocked.push('zero_mutations')
 
-  const softOk =
-    rebound.ok &&
-    validation.ok &&
-    editorialGatesOk &&
-    !(expectedSoftWork && mutationStats.appliedCount === 0)
+  const hardFail =
+    !editorialGatesOk ||
+    !rebound.ok ||
+    validation.missingHosts.length > 0 ||
+    validation.unsyncedBlockIds.length > 0
+  const softOk = !hardFail && !zeroMutations
+  let coachMessage: string | undefined
+  let restoredPrior = false
+
   if (softOk && rebound.ok) {
     htmlArtifact = rebound.html
     softRebindRepair = false
     needsFreshArtifact = false
+    const parity = evaluateArtifactParity(document, rebound.html)
+    logger.info(
+      {
+        ok: parity.ok,
+        issues: parity.issues.slice(0, 12),
+        documentBlockCount: parity.documentBlockCount,
+        htmlBlockCount: parity.htmlBlockCount,
+      },
+      'report_v4.artifact_parity'
+    )
     logger.info(
       {
         htmlBytes: rebound.html.length,
@@ -372,6 +430,7 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
         hostHealInjected,
         syncedTables: syncedTables.synced,
         syncedProse: syncedProse.synced,
+        unsynced: validation.unsyncedBlockIds,
         recoStripped,
         editorialRemoved,
         tocAdded,
@@ -388,17 +447,49 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
         'report_v4.soft_prose_recommendations_stripped'
       )
     }
+  } else if (zeroMutations && !hardFail) {
+    htmlArtifact = args.priorHtml
+    if (args.priorDocument) document = args.priorDocument
+    softRebindRepair = false
+    needsFreshArtifact = false
+    restoredPrior = true
+    coachMessage = formatSoftEditPathMessage({
+      path: 'unchanged',
+      language: args.language,
+    })
+    logger.info(
+      { blocked: softBlocked, appliedCount: mutationStats.appliedCount },
+      'report_v4.soft_zero_mutations'
+    )
   } else {
-    softRebindRepair = true
-    needsFreshArtifact = true
-    htmlArtifact = null
+    htmlArtifact = args.priorHtml
+    if (args.priorDocument) document = args.priorDocument
+    softRebindRepair = false
+    needsFreshArtifact = false
+    restoredPrior = true
+    const unsyncedLabel = validation.unsyncedBlockIds.slice(0, 5).join(', ')
+    coachMessage = formatSoftEditPathMessage({
+      path: 'local_refused',
+      language: args.language,
+      detail:
+        args.language === 'fr'
+          ? `Je n'ai pas pu appliquer la modification localement${unsyncedLabel ? ` (${unsyncedLabel})` : ''}. Le rapport précédent a été conservé. Voulez-vous que je refasse le rapport ?`
+          : `I could not apply the change locally${unsyncedLabel ? ` (${unsyncedLabel})` : ''}. The previous report was kept. Should I rebuild the report?`,
+    })
     logger.warn(
       {
         applied: mutationStats.applied,
         appliedCount: mutationStats.appliedCount,
         blocked: softBlocked,
+        unsynced: validation.unsyncedBlockIds,
         expectedSoftWork,
         hostHealInjected,
+        restoredPrior: true,
+        refusals: refusalsFromSoftBlocked({
+          softBlocked,
+          unsyncedBlockIds: validation.unsyncedBlockIds,
+          language: args.language,
+        }),
       },
       'report_v4.soft_truth_escalate'
     )
@@ -409,10 +500,17 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
       )
     }
   }
+
+  const refusals = refusalsFromSoftBlocked({
+    softBlocked,
+    unsyncedBlockIds: validation.unsyncedBlockIds,
+    language: args.language,
+  })
   logger.info(
     {
       missingHosts: validation.missingHosts,
       proseMiss: validation.proseMiss,
+      unsynced: validation.unsyncedBlockIds,
       repaired: softRebindRepair,
       finalizeOk: rebound.ok,
       editorialGatesOk,
@@ -424,6 +522,7 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
       editorialRemoved,
       applied: mutationStats.applied,
       blocked: softBlocked,
+      restoredPrior,
     },
     'report_v4.soft_rebind_validate'
   )
@@ -435,5 +534,9 @@ export const runSoftRebind = (args: SoftRebindArgs): SoftRebindResult => {
     needsFreshArtifact,
     softApplied: mutationStats.applied,
     softBlocked,
+    coachMessage,
+    restoredPrior,
+    unsyncedBlockIds: validation.unsyncedBlockIds,
+    refusals,
   }
 }

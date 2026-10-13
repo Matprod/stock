@@ -21,13 +21,17 @@ import {
   migrateOrdinalChartHostsInHtml,
   projectArtifactChartsForDesign,
   projectArtifactTablesForDesign,
+  rebuildAthleteSheetsInArtifactHtml,
+  stampDataBlockIdsInHtml,
 } from '#services/report_v4/artifact_html'
 import type { ReportDesignPack } from '#services/report_v4/design/report_design_pack'
 import type { AppLanguage } from '#utils/localize'
 import {
   ARTIFACT_MIN_HTML_BYTES,
+  isReportV4StaffComponentsEnabled,
   REPORT_V4_ISO_DATE_PATTERN,
 } from '#services/report_v4/report_v4_constants'
+import { createStaffDesignerTools } from '#services/report_v4/staff_render/staff_designer_tools'
 import {
   auditArtifactHtml,
   auditReportBrief,
@@ -387,7 +391,7 @@ export const renderDesignerTemplateArtifact = async (args: {
     roster: args.run.roster,
     athleteNames: collectInsightAthleteNames(args.run.reportBrief),
   })
-  return buildClubHtmlReport({
+  const html = buildClubHtmlReport({
     document,
     designPack: args.designPack,
     meta: {
@@ -403,6 +407,7 @@ export const renderDesignerTemplateArtifact = async (args: {
       clubInsightScience: args.run.clubInsightScience,
     },
   })
+  return stampDataBlockIdsInHtml(html, document, 'designer')
 }
 
 const renderTemplateArtifact = renderDesignerTemplateArtifact
@@ -492,7 +497,18 @@ export const createDesignerTools = (args: {
   populatedDomains: string[]
   coachPrompt?: string
   wellnessScales?: DesignerWellnessScale[]
+  sectionOrder?: string[]
+  individualSheetsAsk?: boolean
 }): PremiumTool[] => {
+  if (isReportV4StaffComponentsEnabled()) {
+    return createStaffDesignerTools({
+      run: args.run,
+      language: args.language,
+      clubName: args.clubName,
+      coachPrompt: args.coachPrompt,
+    })
+  }
+
   let freeHtmlRejects = 0
   let hostRepairNudged = false
 
@@ -500,10 +516,19 @@ export const createDesignerTools = (args: {
     reason: string,
     rejectPayload: Record<string, unknown>
   ): Promise<string> => {
+    if (args.individualSheetsAsk && freeHtmlRejects < 3) {
+      return JSON.stringify({
+        ...rejectPayload,
+        freeHtmlRejects,
+        individualSheetsAsk: true,
+        hint: 'Individual sheets ask — retry set_report_html with one chart-box group per athlete heading (no shared chart under a heading list). Server will not template-recover yet.',
+      })
+    }
     const emergency = await tryEmergencyDesignerArtifact(args, reason)
     if (emergency) {
       args.run.htmlArtifact = emergency.html
       args.run.agentState.mustUseTools = false
+      args.run.templateRecoveredReason = reason
       logger.info(
         {
           reason,
@@ -573,8 +598,12 @@ export const createDesignerTools = (args: {
           factHint:
             'Named facts are server-computed. In prose/KPI tiles write <span data-fact="fact.id"></span> only — NEVER a numeric literal (dates and section indexes excepted). Server fills values at finalize.',
           requiredChartIds: charts.map((c) => c.id),
+          sectionOrder: args.sectionOrder?.length ? args.sectionOrder : null,
+          sectionOrderHint: args.sectionOrder?.length
+            ? `REQUIRED band order: ${args.sectionOrder.join(' → ')}. Cover → TOC → executive → domain bands → outliers/watch → athlete sheets → reliability.`
+            : null,
           chartHostHint:
-            'REQUIRED: host every requiredChartIds / charts[].id exactly once as empty <div class="chart-box" id="{exact charts[].id}" style="width:100%;height:280px"></div> (line ~340px). Copy ids verbatim from this payload — never invent chart_1..N. charts[] is lean metadata only (id/title/chartType/seriesNames) — do not expect option/dataset. Use charts[].title as-is (metric + i/n) — never invent athlete name ranges or Group N. Server injects real ECharts options at finalize. Boot/fonts/print CSS are injected server-side.',
+            'REQUIRED: host every requiredChartIds / charts[].id exactly once as empty <div class="chart-box" id="{exact charts[].id}" style="width:100%;height:280px"></div> (line ~340px). Copy ids verbatim from this payload — never invent chart_1..N. charts[] is lean metadata only (id/title/chartType/seriesNames) — do not expect option/dataset. Use charts[].title as-is (metric + i/n) — never invent athlete name ranges or Group N. Server injects real ECharts options at finalize. Boot/fonts/print CSS are injected server-side. Individual sheets: group chart ids under the matching athlete heading — never share one chart under a list of athlete headings.',
           prefer: 'set_report_html',
           groundingFirst:
             'Grounding runs on every set_report_html. On reject: fix cited spans and retry set_report_html. After two rejects the server applies the emergency template automatically.',
@@ -633,7 +662,12 @@ export const createDesignerTools = (args: {
             value: fact.value,
             unit: fact.unit,
           }))
-          const runRepair = async (issues = toGroundingIssues(grounding.violations)) =>
+          const runRepair = async (
+            issues = toGroundingIssues([
+              ...grounding.violations,
+              ...(grounding.warnings ?? []),
+            ])
+          ) =>
             repairHtml(workingHtml, issues, {
               language: args.language,
               facts: repairFacts,
@@ -644,9 +678,37 @@ export const createDesignerTools = (args: {
                   groundingInput,
                   detectSoftDeltaGroundingScope(candidate) ?? groundingScope
                 )
-                return toGroundingIssues(result.violations)
+                return toGroundingIssues([
+                  ...result.violations,
+                  ...(result.warnings ?? []),
+                ])
               },
             })
+
+          const logLiteralFactWarnings = (result: typeof grounding) => {
+            if (!result.warnings?.length) return
+            logger.warn(
+              {
+                codes: result.warnings.map((row) => row.code),
+                warnings: result.warnings.slice(0, 12),
+              },
+              'report_v4.literal_fact_warn'
+            )
+          }
+
+          if (grounding.ok && grounding.warnings?.length && isReportV4RepairEnabled()) {
+            const repaired = await runRepair(toGroundingIssues(grounding.warnings))
+            if (repaired.verdict === 'ok' || repaired.verdict === 'repaired') {
+              workingHtml = repaired.html
+              grounding = auditArtifactHtml(
+                workingHtml,
+                groundingInput,
+                detectSoftDeltaGroundingScope(workingHtml) ?? groundingScope
+              )
+            }
+          }
+
+          logLiteralFactWarnings(grounding)
 
           if (!grounding.ok) {
             logger.warn(
@@ -665,6 +727,7 @@ export const createDesignerTools = (args: {
                   groundingInput,
                   detectSoftDeltaGroundingScope(workingHtml) ?? groundingScope
                 )
+                logLiteralFactWarnings(grounding)
               }
             }
             if (!grounding.ok) {
@@ -675,6 +738,7 @@ export const createDesignerTools = (args: {
                   error: 'HTML failed grounding audit',
                   nudge: formatGroundingNudge(grounding),
                   violations: grounding.violations.slice(0, 8),
+                  warnings: grounding.warnings?.slice(0, 8),
                   freeHtmlRejects,
                   hint: 'Fix only the cited spans / numbers, then retry set_report_html. After two rejects the server auto-templates.',
                 })
@@ -683,6 +747,7 @@ export const createDesignerTools = (args: {
                 error: 'HTML failed grounding audit after retry',
                 nudge: formatGroundingNudge(grounding),
                 violations: grounding.violations.slice(0, 8),
+                warnings: grounding.warnings?.slice(0, 8),
                 hint: 'Repeated grounding reject — emergency template applied.',
               })
             }
@@ -773,6 +838,8 @@ export const createDesignerTools = (args: {
             tables,
             injectMissingHosts: allowInject,
             facts: args.run.facts,
+            document: args.run.document,
+            blockOrigin: 'generate',
           })
           if (!finalized.ok) {
             freeHtmlRejects += 1
@@ -806,6 +873,7 @@ export const createDesignerTools = (args: {
             groundingInput,
             detectSoftDeltaGroundingScope(finalized.html) ?? groundingScope
           )
+          logLiteralFactWarnings(finalizedGrounding)
           if (!finalizedGrounding.ok) {
             freeHtmlRejects += 1
             args.run.htmlArtifact = null
@@ -820,17 +888,32 @@ export const createDesignerTools = (args: {
               error: 'Finalized HTML failed grounding audit',
               nudge: formatGroundingNudge(finalizedGrounding),
               violations: finalizedGrounding.violations.slice(0, 8),
+              warnings: finalizedGrounding.warnings?.slice(0, 8),
             })
           }
-          args.run.htmlArtifact = finalized.html
+          let htmlOut = finalized.html
+          let sheetsRebuilt = 0
+          if (args.individualSheetsAsk) {
+            const rebuilt = rebuildAthleteSheetsInArtifactHtml(htmlOut, args.run.document)
+            if (rebuilt.sections >= 2) {
+              htmlOut = rebuilt.html
+              sheetsRebuilt = rebuilt.sections
+              logger.info(
+                { sections: rebuilt.sections, mismatches: rebuilt.mismatches },
+                'report_v4.athlete_sheets_rebuilt_generate'
+              )
+            }
+          }
+          args.run.htmlArtifact = htmlOut
           args.run.agentState.mustUseTools = false
           return JSON.stringify({
             ok: true,
             mode: 'free',
-            bytes: finalized.html.length,
+            bytes: htmlOut.length,
             charts: charts.length,
             presentHosts: finalized.presentHosts,
             injectedCharts: finalized.injectedCharts,
+            sheetsRebuilt,
             warnings: finalized.warnings,
             done: true,
           })

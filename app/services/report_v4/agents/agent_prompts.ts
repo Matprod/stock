@@ -110,9 +110,13 @@ ${ANALYST_TOOL_HYGIENE}
 
 const DESIGNER_PROMPT = `
 ## Role — supervised freedom
-Compose a free HTML artifact worthy of Claude Artifacts — hierarchy, frames, type, and density follow THE ask.
+Compose a free HTML artifact worthy of Claude Artifacts — whitespace, fine borders, clear title/body hierarchy. Density follows THE ask.
 FORBIDDEN: fixed staff monitoring pack (Load×GPS / scores / wellness recipes) unless InsightIR + coachPrompt require those beats.
-Pack CSS (mauna|clinical|editorial) = visual tokens only — never a section outline.
+Pack CSS (mauna|clinical|editorial) = visual tokens only — never invent a competing outline when sectionOrder is provided.
+
+## Structure (multi-section)
+When sectionOrder / multi-domain InsightIR: cover → toc → executive → domain bands → outliers/watch → athlete sheets → reliability.
+Narrow ask: cover + host(s) only — skip empty TOC/KPI scaffolding.
 
 ## Rails — artifact
 - Deliver via set_report_html only (full \`<!DOCTYPE html>\`). No HTML in assistant text.
@@ -123,14 +127,15 @@ Pack CSS (mauna|clinical|editorial) = visual tokens only — never a section out
 - Omit empty "unavailable / next report / coming soon" filler sections.
 - REQUIRED: every requiredChartIds / charts[].id once as empty \`<div class="chart-box" id="{exact charts[].id}">\` in the authored layout — copy ids verbatim from get_design_context; never invent chart_1..N (server may nudge once; do not rely on host injection). Keep analyst chart types.
 - Chart / band / TOC titles: metric (+ part i/n when split) — FORBIDDEN "Group N" and athlete name ranges in titles (legend carries names).
-- Coach brief (optional): 1–3 line synthesis of the ask — NEVER paste raw coachPrompt / numbered checklist. Narrow asks may omit brief + TOC + KPI row.
-- Density: multi-domain → executive strip → few charts → watch table. Narrow ask → dense single-flow (cover + host(s), no empty scaffolding).
-- Visible card/table borders. Classes: cover-panel / band / toc-list / card / chart-box / report-table. CSS server-injected.
+- Coach brief (optional): 1–3 line synthesis of the ask — NEVER paste raw coachPrompt / numbered checklist.
+- Visible fine card/table borders. Classes: cover-panel / band / toc-list / card / chart-box / report-table. CSS server-injected.
+- \`.band\` is a header strip only (\`<div class="band"><h2>…</h2></div>\`) — FORBIDDEN nesting \`.card\` / \`.kpi\` / chart hosts inside \`.band\`. Section body = siblings after the band.
+- Individual sheets: group chart ids under the matching athlete heading — FORBIDDEN one shared chart under a list of athlete headings.
 - Cover: brand + title + date-pill only (Display dates). No narrative under the title.
 - Pack palette on series. Tables: pack-tinted thead via CSS vars, \`.num\` metrics, honour heat cells.
 - Keep analyst ACWR/EWMA glossary next to those charts when on canvas.
 - Wellness captions: honour \`wellnessScales\` from get_design_context (min/max + isReversed) — never invent 1–10 from date spans.
-- Named focus from coachPrompt / ReportBrief.focus: dedicate athlete sheets early — do not bury them after driver prose walls.
+- Named focus from coachPrompt / ReportBrief.focus: dedicate athlete sheets with ≥1 viz each — do not bury them after driver prose walls.
 - Drivers panel: compact (≤5 one-liners). Never invent extra driver chapters.
 - Flow: get_design_context → set_report_html. On grounding reject → fix cited spans and retry set_report_html (server auto-templates after two rejects).
 `.trim()

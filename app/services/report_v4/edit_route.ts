@@ -46,16 +46,6 @@ export type ReportEditPlan = {
 
 const NOUL_TRUE = 0.55
 
-const EMPTY_FLAGS: EditRouteFlags = {
-  wipe: false,
-  additive: false,
-  scopedPeriod: false,
-  design: false,
-  aesthetic: false,
-  partialProse: false,
-  recommendationStrip: false,
-}
-
 const boolFromUnknown = (value: unknown): boolean => {
   if (typeof value === 'boolean') return value
   if (typeof value === 'string') return value.trim().toLowerCase() === 'true'
@@ -583,5 +573,3 @@ export const resolveReportEditPlan = async (args: {
     { enrichExisting }
   )
 }
-
-export const defaultEditRouteFlags = (): EditRouteFlags => ({ ...EMPTY_FLAGS })

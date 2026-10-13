@@ -1,7 +1,6 @@
 import type { PremiumDataset } from '#contracts/premium_report'
 import type { AppLanguage } from '#utils/localize'
 import type { GroundingViolation } from '#services/report_v4/grounding_types'
-import { REPORT_V4_DATA_FACTS_ENABLED } from '#services/report_v4/report_v4_constants'
 import { toNumber } from '#services/premium_report/dataset_ops'
 
 export type ReportFactOp = 'count' | 'count_where' | 'sum' | 'mean' | 'min' | 'max' | 'distinct'
@@ -47,13 +46,6 @@ const LIST_INDEX_RE = /(?:^|[\s>])\d{1,2}[.)]\s/g
 const UNIT_PAIR_RE =
   /\b\d+(?:[.,]\d+)?\s*(?:%|kg|cm|km|m|ms|s|min|h|u\/l|ul|bpm|au)\b/gi
 const SCALE_RANGE_RE = /\b\d+\s*[-–—]\s*\d+\b/g
-
-export const isReportV4DataFactsEnabled = (): boolean => {
-  const raw = process.env.REPORT_V4_DATA_FACTS?.trim().toLowerCase()
-  if (raw === '0' || raw === 'false' || raw === 'off') return false
-  if (raw === '1' || raw === 'true' || raw === 'on') return true
-  return REPORT_V4_DATA_FACTS_ENABLED
-}
 
 export const isValidFactId = (id: string): boolean => FACT_ID_RE.test(id.trim())
 
@@ -226,8 +218,6 @@ export const auditLiteralNumbersOutsideFacts = (html: string): GroundingViolatio
   }
   return violations
 }
-
-export const emptyFactRegistry = (): Map<string, ReportFact> => new Map()
 
 export const upsertFact = (registry: Map<string, ReportFact>, fact: ReportFact): void => {
   registry.set(fact.id, fact)

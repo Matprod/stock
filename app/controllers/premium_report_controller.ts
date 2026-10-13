@@ -1,26 +1,14 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import {
-  premiumReportGenerateSchema,
   premiumReportIdParamsSchema,
-  premiumReportPdfSchema,
   premiumReportSaveSchema,
   premiumReportUpdateSchema,
 } from '#schemas/premium_report'
-import PremiumReportService from '#services/premium_report_service'
 import PremiumReportStore from '#services/premium_report_store'
-import type { ReportPdfFile } from '#services/report_builder/pdf/pdf_renderer'
+import { legacyReportGoneBody } from '#services/report_v4/legacy_gone'
 import { getLanguageFromRequest } from '#utils/language'
 
-const sendPdf = (response: HttpContext['response'], file: ReportPdfFile) => {
-  const filename = file.filename.replace(/["\\\r\n]/g, '_')
-  return response
-    .header('Content-Type', 'application/pdf')
-    .header('Content-Disposition', `attachment; filename="${filename}"`)
-    .send(file.buffer)
-}
-
 export default class PremiumReportController {
-  private premiumReportService = new PremiumReportService()
   private store = new PremiumReportStore()
 
   async index({ response, auth }: HttpContext) {
@@ -65,21 +53,11 @@ export default class PremiumReportController {
     return response.noContent()
   }
 
-  async generate({ request, response, auth }: HttpContext) {
-    const payload = await premiumReportGenerateSchema.validate(request.body())
-    const language = getLanguageFromRequest(request)
-    const result = await this.premiumReportService.generate(auth.user!.clubId, payload, language)
-    return response.ok(result)
+  async generate({ request, response }: HttpContext) {
+    return response.gone(legacyReportGoneBody(getLanguageFromRequest(request)))
   }
 
-  async exportPdf({ request, response, auth }: HttpContext) {
-    const payload = await premiumReportPdfSchema.validate(request.body())
-    const language = getLanguageFromRequest(request)
-    const file = await this.premiumReportService.exportPdf(
-      auth.user!.clubId,
-      payload.document,
-      language
-    )
-    return sendPdf(response, file)
+  async exportPdf({ request, response }: HttpContext) {
+    return response.gone(legacyReportGoneBody(getLanguageFromRequest(request)))
   }
 }

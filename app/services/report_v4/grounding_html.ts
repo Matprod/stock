@@ -26,11 +26,7 @@ import {
   resolveGroundingAuditHtml,
   type GroundingScope,
 } from '#services/report_v4/grounding_scope'
-import {
-  auditLiteralNumbersOutsideFacts,
-  isReportV4DataFactsEnabled,
-} from '#services/report_v4/report_facts'
-import { REPORT_V4_DATA_FACTS_STRICT_HTML } from '#services/report_v4/report_v4_constants'
+import { auditLiteralNumbersOutsideFacts } from '#services/report_v4/report_facts'
 import {
   isReportV4GroundingTokenizerEnabled,
   scanNumbers,
@@ -80,43 +76,44 @@ export const auditArtifactHtml = (
     }
   }
 
-  const factsStrict =
-    isReportV4DataFactsEnabled() &&
-    REPORT_V4_DATA_FACTS_STRICT_HTML &&
-    !input.skipLiteralFactGate &&
-    Boolean(input.enforceLiteralFactGate)
+  const warnings: GroundingViolation[] = []
+  const factsStrict = !input.skipLiteralFactGate && Boolean(input.enforceLiteralFactGate)
   if (factsStrict) {
     const proseHtml = resolved.html
       .replace(/<table\b[\s\S]*?<\/table>/gi, ' ')
       .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
       .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, ' ')
-    if (isReportV4GroundingTokenizerEnabled()) {
-      const scan = scanNumbers(proseHtml, {
-        facts: input.facts,
-        language: input.groundingLanguage ?? 'en',
-        displayRange: input.displayRange,
-        wellnessScales: input.wellnessScales,
-        factThresholds: input.facts?.flatMap((f) => f.thresholds ?? []),
-        properNames: [
-          ...(input.properNames ?? []),
-          ...(input.clubName ? [input.clubName] : []),
-        ],
-        jerseyNumbers: input.jerseyNumbers,
-      })
-      violations.push(...scanToLiteralViolations(scan))
-    } else {
-      violations.push(...auditLiteralNumbersOutsideFacts(proseHtml))
-    }
+    const literalHits = isReportV4GroundingTokenizerEnabled()
+      ? scanToLiteralViolations(
+          scanNumbers(proseHtml, {
+            facts: input.facts,
+            language: input.groundingLanguage ?? 'en',
+            displayRange: input.displayRange,
+            wellnessScales: input.wellnessScales,
+            factThresholds: input.facts?.flatMap((f) => f.thresholds ?? []),
+            properNames: [
+              ...(input.properNames ?? []),
+              ...(input.clubName ? [input.clubName] : []),
+            ],
+            jerseyNumbers: input.jerseyNumbers,
+          })
+        )
+      : auditLiteralNumbersOutsideFacts(proseHtml)
+    warnings.push(...literalHits)
   } else {
     const numberIndex = buildGroundedNumberIndex(input.datasets, input.document)
     if (numberIndex.global.size > 0) {
-      violations.push(
-        ...auditNumericClaims(extractNumericClaimsFromText(plain, numberIndex), numberIndex)
-      )
+      for (const hit of auditNumericClaims(
+        extractNumericClaimsFromText(plain, numberIndex),
+        numberIndex
+      )) {
+        if (hit.code === 'numeric_ungrounded') warnings.push(hit)
+        else violations.push(hit)
+      }
     }
   }
 
-  return fail(dedupeViolations(violations))
+  return fail(dedupeViolations(violations), dedupeViolations(warnings))
 }
 export const stripUngroundedVizBlocks = (
   document: PremiumReportDocument
@@ -154,7 +151,7 @@ export const stripNutritionProseFromDocument = (
   return stripped
 }
 
-type SectionDomain = 'nutrition' | 'wellness' | 'biomarkers' | 'other'
+type SectionDomain = 'nutrition' | 'wellness' | 'biomarkers' | 'gps' | 'other'
 
 const isNutritionHeading = (text: string): boolean =>
   NUTRITION_PROSE_RE.test(text) || /\b(composition|ingredients?|label|product)\b/i.test(text)
@@ -165,10 +162,14 @@ const BIOMARKER_BODY_RE =
 const WELLNESS_BODY_RE =
   /\bwellness\b|\bbody.?soreness\b|\bmood(?:_rating)?\b|\bsleep.?quality\b|\bstress(?:_rating)?\b|\benergy(?:_rating)?\b|\bsubjective\b/i
 
+const GPS_BODY_RE =
+  /\btotal_distance|distance_m|hmld|hsr|sprint|player.?load|explosive.?distance|abs(?:olute)?.?distance|gps\b/i
+
 const tagHeadingDomain = (text: string): SectionDomain => {
   if (isNutritionHeading(text)) return 'nutrition'
   if (/\bbiomarkers?\b/i.test(text)) return 'biomarkers'
   if (/\bwellness\b|\bsubjective\b/i.test(text)) return 'wellness'
+  if (/\bgps\b|external.?load|distance|hmld|hsr/i.test(text)) return 'gps'
   return 'other'
 }
 
@@ -176,10 +177,14 @@ const tagBodyDomain = (blob: string): SectionDomain => {
   if (NUTRITION_PROSE_RE.test(blob)) return 'nutrition'
   const bioHits = blob.match(BIOMARKER_BODY_RE)?.length ?? 0
   const welHits = blob.match(WELLNESS_BODY_RE)?.length ?? 0
-  if (bioHits > welHits && bioHits > 0) return 'biomarkers'
-  if (welHits > bioHits && welHits > 0) return 'wellness'
-  if (bioHits > 0) return 'biomarkers'
-  if (welHits > 0) return 'wellness'
+  const gpsHits = blob.match(GPS_BODY_RE)?.length ?? 0
+  const ranked: Array<{ domain: SectionDomain; hits: number }> = [
+    { domain: 'biomarkers', hits: bioHits },
+    { domain: 'wellness', hits: welHits },
+    { domain: 'gps', hits: gpsHits },
+  ].sort((a, b) => b.hits - a.hits)
+  const top = ranked[0]
+  if (top && top.hits > 0) return top.domain
   return 'other'
 }
 

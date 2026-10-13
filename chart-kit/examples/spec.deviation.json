@@ -1,0 +1,27 @@
+{
+ "version": 1,
+ "id": "s3.fig2",
+ "intent": "deviation",
+ "form": "diverging_bar",
+ "title": "Écart à la norme personnelle des variables du modèle",
+ "data": {
+  "ref": "f.risk.dev.p123",
+  "fields": {
+   "x": "feature",
+   "y": "z"
+  },
+  "metric": "z_personal"
+ },
+ "entities": [
+  {
+   "id": "all",
+   "label": "Écart",
+   "slot": 1
+  }
+ ],
+ "labels": "direct",
+ "size": "wide",
+ "caption": "full",
+ "evidence": "global_importance_plus_deviation",
+ "sort": "natural"
+}

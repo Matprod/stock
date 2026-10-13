@@ -68,29 +68,6 @@ export const loadSportActivityMetricMeta = async (
   return out
 }
 
-export const loadPeriodMetricUnits = async (
-  clubId: string,
-  metricNames: string[]
-): Promise<Record<string, string>> => {
-  const meta = await loadPeriodMetricMeta(clubId, metricNames)
-  const out: Record<string, string> = {}
-  for (const [name, value] of Object.entries(meta)) {
-    if (value.unit) out[name] = value.unit
-  }
-  return out
-}
-
-export const loadSportActivityMetricUnits = async (
-  metricNames: string[]
-): Promise<Record<string, string>> => {
-  const meta = await loadSportActivityMetricMeta(metricNames)
-  const out: Record<string, string> = {}
-  for (const [name, value] of Object.entries(meta)) {
-    if (value.unit) out[name] = value.unit
-  }
-  return out
-}
-
 const writeMeta = (
   meta: PremiumColumnMeta,
   key: string,

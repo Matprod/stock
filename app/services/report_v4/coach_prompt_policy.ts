@@ -153,6 +153,60 @@ const jevPlaybookReason = (
   return `jev_shape=${reportShape};not_playbook`
 }
 
+const DOMAIN_SECTION_TITLE: Record<PremiumDomain, string> = {
+  [PREMIUM_DOMAIN.LOAD]: 'Load',
+  [PREMIUM_DOMAIN.GPS]: 'GPS',
+  [PREMIUM_DOMAIN.MATCH]: 'Match',
+  [PREMIUM_DOMAIN.WELLNESS]: 'Wellness',
+  [PREMIUM_DOMAIN.SLEEP]: 'Sleep',
+  [PREMIUM_DOMAIN.VALD]: 'Force tests',
+  [PREMIUM_DOMAIN.BIOMARKERS]: 'Biomarkers',
+  [PREMIUM_DOMAIN.BODY]: 'Body composition',
+  [PREMIUM_DOMAIN.SCORES]: 'Scores',
+  [PREMIUM_DOMAIN.INJURY]: 'Injuries',
+}
+
+const deriveSectionOrder = (
+  preferredDomains: PremiumDomain[],
+  reportShape: CoachReportShape,
+  explicit?: string[]
+): string[] => {
+  const cleaned = (explicit ?? [])
+    .map((row) => row.trim())
+    .filter((row) => row.length >= 2)
+  if (cleaned.length >= 2) return cleaned
+  if (
+    preferredDomains.length < 2 &&
+    reportShape !== COACH_REPORT_SHAPE.MONITORING_PLAYBOOK &&
+    reportShape !== COACH_REPORT_SHAPE.INDIVIDUAL_FOCUS
+  ) {
+    return []
+  }
+  const domains =
+    preferredDomains.length > 0
+      ? preferredDomains
+      : ([
+          PREMIUM_DOMAIN.LOAD,
+          PREMIUM_DOMAIN.WELLNESS,
+          PREMIUM_DOMAIN.SCORES,
+        ] as PremiumDomain[])
+  const order = domains.map((domain) => DOMAIN_SECTION_TITLE[domain]).filter(Boolean)
+  if (
+    reportShape === COACH_REPORT_SHAPE.MONITORING_PLAYBOOK ||
+    reportShape === COACH_REPORT_SHAPE.INDIVIDUAL_FOCUS
+  ) {
+    return [...order, 'Outliers', 'Athlete sheets']
+  }
+  return order
+}
+
+const sectionOrderFromUnknown = (value: unknown): string[] => {
+  if (!Array.isArray(value)) return []
+  return value
+    .map((row) => (typeof row === 'string' ? row.trim() : ''))
+    .filter((row) => row.length >= 2)
+}
+
 const policyFromJevAnswers = (
   answers: Record<string, unknown>,
   confidence?: number
@@ -187,6 +241,7 @@ const policyFromJevAnswers = (
     !bannedWellnessOrSleep &&
     noulScore(answers, 'allow_wellness_inference') >= PREMIUM_DOMAIN_NOUL_THRESHOLD
 
+  const explicitOrder = sectionOrderFromUnknown(answers.section_order)
   return finalizePolicy({
     excludedDomains,
     preferredDomains,
@@ -201,6 +256,7 @@ const policyFromJevAnswers = (
     flagsAreDescriptiveOnly:
       noulScore(answers, 'flags_descriptive_only') >= PREMIUM_DOMAIN_NOUL_THRESHOLD ||
       reportShape === COACH_REPORT_SHAPE.MONITORING_PLAYBOOK,
+    sectionOrder: deriveSectionOrder(preferredDomains, reportShape, explicitOrder),
     provider: 'jev',
     confidence,
     monitoringPlaybookReason: jevPlaybookReason(reportShape, preferredDomains),
@@ -213,6 +269,7 @@ const POLICY_HAIKU_SYSTEM = [
   'load_flag (acwr_ewma|coupled_7_28|volume_only|none),',
   'wants_vald, wants_match, wants_availability, allow_wellness_inference, flags_descriptive_only, allow_nutrition_scope (booleans),',
   `ban_<domain> and prefer_<domain> booleans for: ${PREMIUM_DOMAINS.join(', ')}.`,
+  'section_order: string[] of section titles in coach-requested order when the brief lists structure; else [].',
   ASK_FAITHFUL_NOTE,
 ].join(' ')
 
@@ -238,6 +295,7 @@ const policyFromHaikuJson = (raw: Record<string, unknown>): CoachPromptPolicy =>
     answers[`ban_${domain}`] = { noul: boolFromUnknown(raw[`ban_${domain}`]) ? 1 : 0 }
     answers[`prefer_${domain}`] = { noul: boolFromUnknown(raw[`prefer_${domain}`]) ? 1 : 0 }
   }
+  answers.section_order = sectionOrderFromUnknown(raw.section_order)
   const policy = policyFromJevAnswers(answers)
   return { ...policy, provider: 'haiku' }
 }

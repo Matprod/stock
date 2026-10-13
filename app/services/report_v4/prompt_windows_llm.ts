@@ -1,11 +1,10 @@
-import { BedrockRuntimeClient, InvokeModelCommand } from '@aws-sdk/client-bedrock-runtime'
 import logger from '@adonisjs/core/services/logger'
-import { HAIKU_ROUTER_MODEL_ID } from '#constants/question_router.constants'
-import { PREMIUM_DOMAIN, type PremiumDomain } from '#constants/premium_report_domains'
+import { PREMIUM_DOMAIN, PREMIUM_DOMAINS, type PremiumDomain } from '#constants/premium_report_domains'
 import {
   formatClubSeasonsBrief,
   type ClubSeasonRef,
 } from '#services/report_v4/club_seasons'
+import { invokeHaikuJson } from '#services/report_v4/haiku_json'
 import {
   EWMA_CHRONIC_MIN_LOOKBACK_DAYS,
   shiftIsoDate,
@@ -29,7 +28,6 @@ import {
   formatSessionFocusBrief,
   type ReportV4SessionFocus,
 } from '#services/report_v4/session_focus'
-import env from '#start/env'
 
 type LlmFetchRow = {
   domain?: string
@@ -42,21 +40,14 @@ type LlmFetchRow = {
 type LlmWindowPayload = {
   explicit?: boolean
   display?: { from?: string; to?: string }
-  /** Preferred: one row per macro pull (same domain may repeat with different windows/metrics). */
   fetches?: LlmFetchRow[]
-  /** Legacy single window per domain — expanded to fetches when `fetches` is empty. */
   byDomain?: Record<string, { from?: string; to?: string }>
   extraRanges?: Array<{ from?: string; to?: string }>
   rationale?: string
+  domains?: unknown
+  period_follow_up?: unknown
+  multi_section?: unknown
 }
-
-const bedrockClient = new BedrockRuntimeClient({
-  region: env.get('AWS_REGION'),
-  credentials: {
-    accessKeyId: env.get('AWS_ACCESS_KEY'),
-    secretAccessKey: env.get('AWS_SECRET_KEY'),
-  },
-})
 
 const DOMAIN_KEYS = new Set<string>(Object.values(PREMIUM_DOMAIN))
 
@@ -103,19 +94,12 @@ Rules:
 - "extraRanges": ONLY periods that cannot be assigned to a domain.
 - Never invent a window outside what the prompt implies. If no period → explicit:false and display = last ${REPORT_V4_LEAN_WINDOW_DAYS} days ending today.
 - When Prior session focus is provided: period-only or status follow-ups (last/previous season, today, this week, still active, "and last season?") MUST reuse prior focus domains in fetches — do NOT expand to a default load/wellness/sleep/scores/match pack unless the coach names those domains. If the coach names new domains, use those instead.
+- "domains": array of domain keys the coach explicitly named (subset of load,gps,wellness,sleep,scores,biomarkers,match,vald,body,injury). Empty array if none named.
+- "period_follow_up": true when this is mainly a period/status follow-up on prior focus (last/prior season|week|month, today/active status).
+- "multi_section": true when the ask needs several distinct report beats (many domains / viz types / archive+display); false for a thin single-purpose ask.
 
 JSON shape:
-{"explicit":true,"display":{"from":"YYYY-MM-DD","to":"YYYY-MM-DD"},"fetches":[{"domain":"wellness","from":"YYYY-MM-DD","to":"YYYY-MM-DD","metrics":["mood"]}],"extraRanges":[],"rationale":"short"}`
-
-const parseLlmJson = (rawText: string): LlmWindowPayload => {
-  const cleaned = rawText
-    .replace(/```(?:json)?\s*/gi, '')
-    .replace(/```/g, '')
-    .trim()
-  const match = cleaned.match(/\{[\s\S]*\}/)
-  if (!match) throw new Error(`No JSON in window LLM response: ${rawText.slice(0, 240)}`)
-  return JSON.parse(match[0]) as LlmWindowPayload
-}
+{"explicit":true,"display":{"from":"YYYY-MM-DD","to":"YYYY-MM-DD"},"fetches":[{"domain":"wellness","from":"YYYY-MM-DD","to":"YYYY-MM-DD","metrics":["mood"]}],"extraRanges":[],"domains":["wellness"],"period_follow_up":false,"multi_section":false,"rationale":"short"}`
 
 const foldPrompt = (value: string): string =>
   value.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '')
@@ -329,6 +313,20 @@ const materializePayload = (
   return { display, byDomain, fetches: filled, extraRanges, cover, explicit }
 }
 
+const boolFromUnknown = (value: unknown): boolean => {
+  if (typeof value === 'boolean') return value
+  if (typeof value === 'string') return value.trim().toLowerCase() === 'true'
+  if (typeof value === 'number') return value >= 0.55
+  return false
+}
+
+const domainsFromPayload = (payload: LlmWindowPayload): PremiumDomain[] => {
+  if (!Array.isArray(payload.domains)) return []
+  return payload.domains
+    .filter((row): row is string => typeof row === 'string' && DOMAIN_KEYS.has(row))
+    .map((row) => row as PremiumDomain)
+}
+
 const invokeHaikuWindows = async (
   prompt: string,
   today: string,
@@ -336,57 +334,62 @@ const invokeHaikuWindows = async (
   contextBlock: string
 ): Promise<LlmWindowPayload> => {
   const seasonsBlock = formatClubSeasonsBrief(seasons, today)
-  const raw = await bedrockClient.send(
-    new InvokeModelCommand({
-      modelId: HAIKU_ROUTER_MODEL_ID,
-      contentType: 'application/json',
-      accept: 'application/json',
-      body: JSON.stringify({
-        anthropic_version: 'bedrock-2023-05-31',
-        max_tokens: 900,
-        temperature: 0,
-        system: WINDOW_SYSTEM_PROMPT,
-        messages: [
-          {
-            role: 'user',
-            content: [
-              `Today (UTC): ${today}`,
-              '',
-              seasonsBlock,
-              contextBlock ? `\n${contextBlock}\n` : '',
-              `Coach prompt:\n${prompt}`,
-            ]
-              .filter(Boolean)
-              .join('\n'),
-          },
-        ],
-      }),
-    })
-  )
-  const json = JSON.parse(Buffer.from(raw.body).toString('utf-8'))
-  const rawText: string = json.content?.[0]?.text ?? '{}'
-  return parseLlmJson(rawText)
+  const user = [
+    `Today (UTC): ${today}`,
+    '',
+    seasonsBlock,
+    contextBlock ? `\n${contextBlock}\n` : '',
+    `Coach prompt:\n${prompt}`,
+  ]
+    .filter(Boolean)
+    .join('\n')
+  return invokeHaikuJson<LlmWindowPayload>({
+    system: WINDOW_SYSTEM_PROMPT,
+    user,
+    maxTokens: 900,
+    temperature: 0,
+  })
 }
 
-export type ResolvePromptWindowsWithLlmOpts = {
-  fallbackDays?: number
-  seasons?: ClubSeasonRef[]
-  sessionFocus?: ReportV4SessionFocus | null
-  priorUserAsks?: string[]
-  askDomains?: PremiumDomain[]
-  periodFollowUp?: boolean
+export type AnalyzeRequestLlmBundle = {
+  windows: PromptWindows
+  askDomains: PremiumDomain[]
+  periodFollowUp: boolean
+  multiSection: boolean
+  provider: 'haiku' | 'heuristic'
 }
 
-/** Haiku windows; sync regex fallback. Call once per generate — /coverage stays sync. */
-export const resolvePromptWindowsWithLlm = async (
+const structuralMultiSection = (args: {
+  askDomainCount: number
+  fetchDomainCount: number
+  fetchWindowCount: number
+}): boolean =>
+  args.askDomainCount >= 4 ||
+  (args.fetchDomainCount >= 4 && args.fetchWindowCount >= 5) ||
+  args.fetchWindowCount >= 6
+
+const heuristicPeriodFollowUp = (prompt: string): boolean =>
+  /\b(last|previous|prior)\b.{0,28}\b(season|week|month)\b/i.test(prompt) ||
+  /\b(today|still active|status)\b/i.test(prompt)
+
+/** One Haiku call: windows + domains + period follow-up + multi-section. */
+export const analyzeRequestWithLlm = async (
   prompt: string,
   opts?: ResolvePromptWindowsWithLlmOpts
-): Promise<PromptWindows> => {
+): Promise<AnalyzeRequestLlmBundle> => {
   const fallbackDays = opts?.fallbackDays ?? REPORT_V4_LEAN_WINDOW_DAYS
   const seasons = opts?.seasons ?? []
   const today = todayUtcIso()
   const trimmed = prompt.trim()
-  if (!trimmed) return fallbackWindows(today, fallbackDays)
+  if (!trimmed) {
+    return {
+      windows: fallbackWindows(today, fallbackDays),
+      askDomains: [],
+      periodFollowUp: false,
+      multiSection: false,
+      provider: 'heuristic',
+    }
+  }
 
   const focusBrief = formatSessionFocusBrief(opts?.sessionFocus)
   const priorAsks = (opts?.priorUserAsks ?? []).filter((row) => row.trim().length > 0)
@@ -399,16 +402,21 @@ export const resolvePromptWindowsWithLlm = async (
     .filter(Boolean)
     .join('\n\n')
 
-  const askDomains = opts?.askDomains ?? []
   const t0 = Date.now()
   try {
     const payload = await invokeHaikuWindows(trimmed, today, seasons, contextBlock)
+    let askDomains = domainsFromPayload(payload)
+    if (!askDomains.length && opts?.askDomains?.length) askDomains = opts.askDomains
+    const periodFollowUp =
+      boolFromUnknown(payload.period_follow_up) ||
+      Boolean(opts?.periodFollowUp) ||
+      heuristicPeriodFollowUp(trimmed)
     let windows = materializePayload(payload, today, fallbackDays, trimmed, askDomains)
     const afterFocus = clampFetchesToSessionFocus(
       windows.fetches,
       opts?.sessionFocus,
       askDomains,
-      Boolean(opts?.periodFollowUp)
+      periodFollowUp
     )
     const fetches = clampFetchesToAsk(trimmed, windows.display, afterFocus)
     if (
@@ -425,25 +433,44 @@ export const resolvePromptWindowsWithLlm = async (
         cover: unionCoverRange(windows.display, byDomain, windows.extraRanges),
       }
     }
+    const fetchDomains = [...new Set(windows.fetches.map((row) => row.domain))]
+    const multiSection =
+      boolFromUnknown(payload.multi_section) ||
+      structuralMultiSection({
+        askDomainCount: askDomains.length,
+        fetchDomainCount: fetchDomains.length,
+        fetchWindowCount: windows.fetches.length,
+      })
     logger.info(
       {
         explicit: windows.explicit,
         display: windows.display,
         byDomain: windows.byDomain,
         fetches: windows.fetches,
-        extraRanges: windows.extraRanges,
-        seasons: seasons.length,
-        hasSessionFocus: Boolean(opts?.sessionFocus),
-        priorUserAsks: priorAsks.length,
+        askDomains,
+        periodFollowUp,
+        multiSection,
         rationale: payload.rationale,
         durationMs: Date.now() - t0,
       },
-      'report_v4.prompt_windows_llm'
+      'report_v4.analyze_request_llm'
     )
-    return windows
+    return {
+      windows,
+      askDomains,
+      periodFollowUp,
+      multiSection,
+      provider: 'haiku',
+    }
   } catch (error) {
-    logger.warn({ err: error, durationMs: Date.now() - t0 }, 'report_v4.prompt_windows_llm_failed')
+    logger.warn({ err: error, durationMs: Date.now() - t0 }, 'report_v4.analyze_request_llm_failed')
     const fallback = resolvePromptWindows(prompt, fallbackDays, seasons)
+    const askDomains = opts?.askDomains?.length
+      ? opts.askDomains
+      : ([...new Set(Object.keys(fallback.byDomain))] as PremiumDomain[]).filter((domain) =>
+          PREMIUM_DOMAINS.includes(domain)
+        )
+    const periodFollowUp = Boolean(opts?.periodFollowUp) || heuristicPeriodFollowUp(trimmed)
     const afterFocus = clampFetchesToSessionFocus(
       clampFetchesToAsk(
         trimmed,
@@ -457,15 +484,42 @@ export const resolvePromptWindowsWithLlm = async (
       ),
       opts?.sessionFocus,
       askDomains,
-      Boolean(opts?.periodFollowUp)
+      periodFollowUp
     )
     const fetches = clampFetchesToAsk(trimmed, fallback.display, afterFocus)
     const byDomain = byDomainFromFetches(fetches)
-    return {
+    const windows: PromptWindows = {
       ...fallback,
       fetches,
       byDomain,
       cover: unionCoverRange(fallback.display, byDomain, fallback.extraRanges),
     }
+    const fetchDomains = [...new Set(fetches.map((row) => row.domain))]
+    return {
+      windows,
+      askDomains,
+      periodFollowUp,
+      multiSection: structuralMultiSection({
+        askDomainCount: askDomains.length,
+        fetchDomainCount: fetchDomains.length,
+        fetchWindowCount: fetches.length,
+      }),
+      provider: 'heuristic',
+    }
   }
 }
+
+export type ResolvePromptWindowsWithLlmOpts = {
+  fallbackDays?: number
+  seasons?: ClubSeasonRef[]
+  sessionFocus?: ReportV4SessionFocus | null
+  priorUserAsks?: string[]
+  askDomains?: PremiumDomain[]
+  periodFollowUp?: boolean
+}
+
+/** Haiku windows; sync regex fallback. Prefer `analyzeRequest` for full early analysis. */
+export const resolvePromptWindowsWithLlm = async (
+  prompt: string,
+  opts?: ResolvePromptWindowsWithLlmOpts
+): Promise<PromptWindows> => (await analyzeRequestWithLlm(prompt, opts)).windows

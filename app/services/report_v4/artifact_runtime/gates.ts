@@ -81,16 +81,63 @@ const seriesNamesFromOption = (option: unknown): string[] => {
   return names
 }
 
+const athletesFromOptionMeta = (option: unknown): string[] => {
+  if (!option || typeof option !== 'object' || Array.isArray(option)) return []
+  const raw = option as Record<string, unknown>
+  const names: string[] = []
+  const meta = raw.mauna ?? raw._mauna
+  if (meta && typeof meta === 'object' && !Array.isArray(meta)) {
+    const athletes = (meta as { athletes?: unknown }).athletes
+    if (Array.isArray(athletes)) {
+      for (const row of athletes) {
+        if (typeof row === 'string' && row.trim()) names.push(row.trim())
+      }
+    }
+  }
+  const encode = raw.encode
+  if (encode && typeof encode === 'object' && !Array.isArray(encode)) {
+    const athletes = (encode as { athletes?: unknown }).athletes
+    if (Array.isArray(athletes)) {
+      for (const row of athletes) {
+        if (typeof row === 'string' && row.trim()) names.push(row.trim())
+      }
+    }
+  }
+  return names
+}
+
 export const listCoveredAthleteNames = (
-  document: { blocks: Array<{ type: string; title?: string; option?: unknown }> },
+  document: {
+    blocks: Array<{
+      type: string
+      title?: string
+      text?: string
+      option?: unknown
+      columns?: string[]
+      rows?: Array<Array<string | number | null>>
+    }>
+  },
   rosterNames: string[]
 ): string[] => {
   if (!rosterNames.length) return []
-  const titleHay = document.blocks.map((b) => String(b.title ?? '')).join('\n')
-  const seriesHay = document.blocks
-    .flatMap((b) => seriesNamesFromOption(b.option))
+  const titleHay = document.blocks
+    .map((b) => `${String(b.title ?? '')}\n${String(b.text ?? '')}`)
     .join('\n')
-  const hay = `${titleHay}\n${seriesHay}`.toLowerCase()
+  const seriesHay = document.blocks
+    .flatMap((b) => [...seriesNamesFromOption(b.option), ...athletesFromOptionMeta(b.option)])
+    .join('\n')
+  const tableHay = document.blocks
+    .filter((b) => b.type === 'table')
+    .map((b) => {
+      const cols = (b.columns ?? []).join(' ')
+      const cells = (b.rows ?? [])
+        .slice(0, 40)
+        .map((row) => row.join(' '))
+        .join(' ')
+      return `${cols}\n${cells}`
+    })
+    .join('\n')
+  const hay = `${titleHay}\n${seriesHay}\n${tableHay}`.toLowerCase()
   const covered: string[] = []
   for (const name of rosterNames) {
     const n = name.trim()
@@ -128,16 +175,24 @@ export const evaluateCoverageGate = (
 
 export const annotateBriefCoverageShortfall = (
   brief: ReportBrief | null,
-  coverage: ArtifactCoverageResult
+  coverage: ArtifactCoverageResult,
+  language: 'fr' | 'en' = 'en'
 ): ReportBrief | null => {
   if (coverage.ok || !brief) return brief
-  const shortfallNote = `Coverage shortfall: ${coverage.delivered}/${coverage.required} players — not a complete roster report.`
+  const shortfallNote =
+    language === 'fr'
+      ? `Couverture partielle : ${coverage.delivered}/${coverage.required} joueurs — ce n’est pas un rapport d’effectif complet.`
+      : `Coverage shortfall: ${coverage.delivered}/${coverage.required} players — not a complete roster report.`
   return {
     ...brief,
     narrative: [...brief.narrative, shortfallNote],
     focus: brief.focus
-      ? `${brief.focus} (incomplete roster coverage)`
-      : 'Incomplete roster coverage',
+      ? language === 'fr'
+        ? `${brief.focus} (couverture d’effectif incomplète)`
+        : `${brief.focus} (incomplete roster coverage)`
+      : language === 'fr'
+        ? 'Couverture d’effectif incomplète'
+        : 'Incomplete roster coverage',
   }
 }
 

@@ -28,6 +28,7 @@ const c = {
   magenta: wrap('\u001b[35m'),
   blue: wrap('\u001b[34m'),
   gray: wrap('\u001b[90m'),
+  white: wrap('\u001b[37m'),
 }
 
 const PREFIX = c.magenta(c.bold('premium'))
@@ -273,4 +274,176 @@ const fmtCount = (n: number): string => {
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(2)}M`
   if (n >= 1_000) return `${(n / 1_000).toFixed(n >= 10_000 ? 0 : 1)}k`
   return String(n)
+}
+
+const V4_PREFIX = c.blue(c.bold('report-v4'))
+
+const v4Line = (parts: Array<string | undefined>): void => {
+  process.stdout.write(`${V4_PREFIX}  ${joinParts(parts)}\n`)
+}
+
+const v4Usd = (value: number): string => formatUsd(value)
+
+const v4Sec = (value: number): string => c.cyan(`${value.toFixed(3)}s`)
+
+export type ReportV4IterationLog = {
+  iteration: number
+  stopReason: string
+  durationSec: number
+  usage: PremiumReportTokenUsage
+  cumulative: PremiumReportTokenUsage
+  tools: Array<{ name: string; ok: boolean; detail?: string; durationSec?: number }>
+  textPreview?: string
+}
+
+export const logReportV4Banner = (args: {
+  clubName: string
+  promptPreview: string
+  displayRange: { from: string; to: string }
+  domains: string[]
+}): void => {
+  process.stdout.write(`\n${c.blue('════════════════════════════════════════════════════════════')}\n`)
+  v4Line([c.bold('START'), c.white(args.clubName), `${args.displayRange.from} → ${args.displayRange.to}`])
+  v4Line([c.dim('domains'), c.cyan(args.domains.join(', ') || '—')])
+  v4Line([c.dim('prompt'), c.dim(args.promptPreview.replace(/\s+/g, ' ').trim().slice(0, 180))])
+  process.stdout.write(`${c.blue('────────────────────────────────────────────────────────────')}\n`)
+}
+
+export const logReportV4Iteration = (args: ReportV4IterationLog): void => {
+  const reasonTone =
+    args.stopReason === 'tool_use'
+      ? c.cyan
+      : args.stopReason === 'end_turn'
+        ? c.green
+        : c.yellow
+
+  const action =
+    args.tools.length > 0
+      ? `tools: ${args.tools.map((t) => t.name).join(', ')}`
+      : args.stopReason === 'end_turn'
+        ? 'final answer'
+        : args.textPreview
+          ? `text: ${args.textPreview}`
+          : 'model turn'
+
+  v4Line([
+    c.bold(`iter ${String(args.iteration).padStart(2, '0')}`),
+    reasonTone(args.stopReason),
+    v4Sec(args.durationSec),
+    v4Usd(args.usage.estimatedCostUsd),
+    formatTokens(args.usage),
+    c.dim(`cum ${v4Usd(args.cumulative.estimatedCostUsd)}`),
+  ])
+  v4Line([c.dim('action'), c.white(action)])
+
+  for (const tool of args.tools) {
+    v4Line([
+      c.dim('  └ tool'),
+      tool.ok ? c.green('ok') : c.red('ERR'),
+      c.bold(tool.name),
+      tool.durationSec != null ? v4Sec(tool.durationSec) : undefined,
+      tool.detail ? c.dim(tool.detail) : undefined,
+    ])
+  }
+
+  v4Line([
+    c.dim('  └ cost'),
+    `this prompt ${v4Usd(args.usage.estimatedCostUsd)}`,
+    `total so far ${v4Usd(args.cumulative.estimatedCostUsd)}`,
+    `iter time ${v4Sec(args.durationSec)}`,
+  ])
+}
+
+export const logReportV4Pdf = (args: {
+  durationSec: number
+  filename: string
+  bytes: number
+}): void => {
+  v4Line([
+    c.magenta('pdf'),
+    v4Sec(args.durationSec),
+    c.white(args.filename),
+    c.gray(`${Math.round(args.bytes / 1024)} KB`),
+  ])
+}
+
+export const logReportV4AgentTotal = (args: {
+  agent: 'linker' | 'analyst' | 'designer' | string
+  iterations: number
+  durationSec: number
+  usage: PremiumReportTokenUsage
+  detail?: string
+}): void => {
+  process.stdout.write(`${c.blue('┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄')}\n`)
+  v4Line([
+    c.green(c.bold('TOTAL')),
+    c.white(args.agent),
+    `${args.iterations} iteration(s)`,
+    v4Sec(args.durationSec),
+    v4Usd(args.usage.estimatedCostUsd),
+  ])
+  v4Line([
+    c.dim('tokens'),
+    `in=${fmtCount(args.usage.inputTokens)}`,
+    `out=${fmtCount(args.usage.outputTokens)}`,
+    `cacheR=${fmtCount(args.usage.cacheReadInputTokens)}`,
+    `cacheW=${fmtCount(args.usage.cacheCreationInputTokens)}`,
+    `all=${fmtCount(args.usage.totalTokens)}`,
+  ])
+  if (args.detail) {
+    v4Line([c.dim('detail'), c.dim(args.detail)])
+  }
+}
+
+export const logReportV4Done = (args: {
+  iterations: number
+  durationSec: number
+  usage: PremiumReportTokenUsage
+  iterationSecs: number[]
+  iterationCosts: number[]
+  blockCount: number
+  chartCount: number
+  filename?: string
+}): void => {
+  process.stdout.write(`${c.blue('────────────────────────────────────────────────────────────')}\n`)
+  v4Line([
+    c.green(c.bold('TOTAL')),
+    `${args.iterations} iteration(s)`,
+    v4Sec(args.durationSec),
+    v4Usd(args.usage.estimatedCostUsd),
+  ])
+  v4Line([
+    c.dim('tokens'),
+    `in=${fmtCount(args.usage.inputTokens)}`,
+    `out=${fmtCount(args.usage.outputTokens)}`,
+    `cacheR=${fmtCount(args.usage.cacheReadInputTokens)}`,
+    `cacheW=${fmtCount(args.usage.cacheCreationInputTokens)}`,
+    `all=${fmtCount(args.usage.totalTokens)}`,
+  ])
+  if (args.iterationSecs.length) {
+    v4Line([
+      c.dim('per-iter time'),
+      ...args.iterationSecs.map((s, i) => c.cyan(`#${i + 1}=${s.toFixed(2)}s`)),
+    ])
+  }
+  if (args.iterationCosts.length) {
+    v4Line([
+      c.dim('per-iter $'),
+      ...args.iterationCosts.map((cost, i) =>
+        c.yellow(`#${i + 1}=$${cost.toFixed(cost < 0.01 ? 4 : 3)}`)
+      ),
+    ])
+  }
+  v4Line([
+    c.dim('canvas'),
+    `blocks=${args.blockCount}`,
+    `charts=${args.chartCount}`,
+    args.filename ? c.white(args.filename) : undefined,
+  ])
+  process.stdout.write(`${c.blue('════════════════════════════════════════════════════════════')}\n`)
+  const hmrPad = c.dim('-'.repeat(60))
+  for (let i = 0; i < 48; i++) {
+    process.stdout.write(`${hmrPad}\n`)
+  }
+  process.stdout.write(`\n`)
 }

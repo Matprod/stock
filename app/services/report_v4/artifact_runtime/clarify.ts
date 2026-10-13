@@ -1,10 +1,11 @@
+import type { PremiumDomain } from '#constants/premium_report_domains'
 import type { SoftEditOpsPlan } from '#services/report_v4/soft_edit_ops'
 import type { ArtifactEnvelope } from '#services/report_v4/artifact_runtime/types'
+import type { AppLanguage } from '#utils/localize'
 
 export type SoftClarifyQuestion = {
   id: string
   question: string
-  choices?: string[]
 }
 
 export type SoftClarifyResult = {
@@ -14,6 +15,40 @@ export type SoftClarifyResult = {
   questions: SoftClarifyQuestion[]
   markdown: string
 }
+
+export type FreshClarifyResult = SoftClarifyResult & {
+  skipped: boolean
+  skipReason: string
+}
+
+const COPY = {
+  fr: {
+    softIntro: 'Avant de modifier le rapport, j’ai besoin d’une précision :',
+    softTargetMany: (titles: string[]) =>
+      `Plusieurs graphiques / sections possibles (${titles.join(', ')}). Indiquez lequel viser.`,
+    softTargetNone:
+      'Je ne sais pas quel graphique ou quelle section modifier. Précisez le titre exact.',
+    softVague: 'Le changement demandé n’est pas assez précis. Décrivez concrètement quoi faire.',
+    softAsk: 'Répondez en une phrase dans le champ ci-dessous.',
+    freshIntro: 'Avant de générer, quelques points sont flous :',
+    freshPeriod: 'La période / les dates ne sont pas précisées.',
+    freshDomains: 'Les données à utiliser ne sont pas claires (charge, scores, blessures, GPS…).',
+    freshAsk: 'Précisez à l’écrit ce que vous voulez — une phrase suffit.',
+  },
+  en: {
+    softIntro: 'Before editing the report, I need a quick clarification:',
+    softTargetMany: (titles: string[]) =>
+      `Several charts / sections could match (${titles.join(', ')}). Say which one.`,
+    softTargetNone:
+      'I am not sure which chart or section to edit. Give the exact title.',
+    softVague: 'The requested change is too vague. Describe concretely what to do.',
+    softAsk: 'Reply in one sentence in the field below.',
+    freshIntro: 'Before generating, a few points are unclear:',
+    freshPeriod: 'The period / dates are not specified.',
+    freshDomains: 'Which data to use is unclear (load, scores, injuries, GPS…).',
+    freshAsk: 'Clarify in writing what you want — one sentence is enough.',
+  },
+} as const
 
 export const hasConcreteSoftSignal = (args: {
   envelope: ArtifactEnvelope
@@ -65,6 +100,7 @@ export const resolveSoftClarify = (args: {
   softTargetsUnresolved: boolean
   candidateTitles?: string[]
   softOps?: SoftEditOpsPlan | null
+  language?: AppLanguage
 }): SoftClarifyResult => {
   if (!args.preserveCanvas) {
     return {
@@ -75,7 +111,9 @@ export const resolveSoftClarify = (args: {
       markdown: '',
     }
   }
-  const candidates = (args.candidateTitles ?? []).filter((t) => t.trim().length > 0).slice(0, 8)
+  const lang = args.language === 'en' ? 'en' : 'fr'
+  const copy = COPY[lang]
+  const candidates = (args.candidateTitles ?? []).filter((t) => t.trim().length > 0).slice(0, 6)
   const concrete = hasConcreteSoftSignal({
     envelope: args.envelope,
     softOps: args.softOps,
@@ -86,58 +124,110 @@ export const resolveSoftClarify = (args: {
     candidateTitles: candidates,
     softOps: args.softOps,
   })
+
+  const bullets: string[] = []
   const questions: SoftClarifyQuestion[] = []
   let reason = 'ok'
 
-  if (args.softTargetsUnresolved && candidates.length > 0) {
+  if (args.softTargetsUnresolved) {
     reason = 'soft_targets_unresolved'
-    questions.push({
-      id: 'target_block',
-      question: 'Which chart or section should I edit?',
-      choices: candidates,
-    })
-  } else if (args.softTargetsUnresolved) {
-    reason = 'soft_targets_unresolved'
-    questions.push({
-      id: 'target_hint',
-      question: 'Name the chart or section title to edit (exact words from the report).',
-    })
+    const line =
+      candidates.length > 0 ? copy.softTargetMany(candidates) : copy.softTargetNone
+    bullets.push(line)
+    questions.push({ id: 'target', question: line })
   }
 
   if (!concrete) {
     reason = reason === 'ok' ? 'vague_soft_intent' : reason
-    questions.push({
-      id: 'soft_intent',
-      question: 'What should change?',
-      choices: [
-        'Add ACWR thresholds 0.6 / 1.3',
-        'Drop empty days on load curves',
-        'Remove color scale (visualMap)',
-        'Make titles stronger',
-        'Rebuild the chart',
-      ],
-    })
+    bullets.push(copy.softVague)
+    questions.push({ id: 'intent', question: copy.softVague })
   }
 
-  const needsClarify = questions.length > 0 && confidence < 0.62
+  const needsClarify = bullets.length > 0 && confidence < 0.62
   const markdown = needsClarify
-    ? [
-        'I need a quick clarification before changing the report:',
-        ...questions.map((q, i) => {
-          const choices =
-            q.choices && q.choices.length
-              ? `\n   - ${q.choices.slice(0, 6).join('\n   - ')}`
-              : ''
-          return `${i + 1}. ${q.question}${choices}`
-        }),
-      ].join('\n')
+    ? [copy.softIntro, ...bullets.map((b) => `• ${b}`), copy.softAsk].join('\n')
     : ''
 
   return {
     needsClarify,
     confidence,
     reason,
-    questions,
+    questions: needsClarify ? questions.slice(0, 3) : [],
     markdown,
+  }
+}
+
+export const resolveFreshClarify = (args: {
+  language?: AppLanguage
+  preserveCanvas: boolean
+  askRound: number
+  explicitPeriod: boolean
+  askDomains: PremiumDomain[]
+  preferredDomains: PremiumDomain[]
+}): FreshClarifyResult => {
+  if (args.preserveCanvas) {
+    return {
+      needsClarify: false,
+      confidence: 1,
+      reason: 'soft_path',
+      questions: [],
+      markdown: '',
+      skipped: true,
+      skipReason: 'soft_path',
+    }
+  }
+  if (args.askRound >= 1) {
+    return {
+      needsClarify: false,
+      confidence: 1,
+      reason: 'ask_round_exhausted',
+      questions: [],
+      markdown: '',
+      skipped: true,
+      skipReason: 'ask_round_exhausted',
+    }
+  }
+
+  const lang = args.language === 'en' ? 'en' : 'fr'
+  const copy = COPY[lang]
+  const hasDomains = args.askDomains.length > 0 || args.preferredDomains.length > 0
+  const bullets: string[] = []
+  const reasons: string[] = []
+  const questions: SoftClarifyQuestion[] = []
+
+  if (!args.explicitPeriod) {
+    reasons.push('period_unclear')
+    bullets.push(copy.freshPeriod)
+    questions.push({ id: 'period', question: copy.freshPeriod })
+  }
+  if (!hasDomains) {
+    reasons.push('domains_unclear')
+    bullets.push(copy.freshDomains)
+    questions.push({ id: 'domains', question: copy.freshDomains })
+  }
+
+  if (bullets.length === 0) {
+    return {
+      needsClarify: false,
+      confidence: 1,
+      reason: 'prompt_clear_enough',
+      questions: [],
+      markdown: '',
+      skipped: true,
+      skipReason: 'prompt_clear_enough',
+    }
+  }
+
+  const reason = reasons.join('+')
+  const markdown = [copy.freshIntro, ...bullets.map((b) => `• ${b}`), copy.freshAsk].join('\n')
+
+  return {
+    needsClarify: true,
+    confidence: 0,
+    reason,
+    questions: questions.slice(0, 3),
+    markdown,
+    skipped: false,
+    skipReason: 'ok',
   }
 }

@@ -31,8 +31,10 @@ export { applyDesignOpsToHtml } from '#services/report_v4/artifact_runtime/desig
 
 export {
   hasConcreteSoftSignal,
+  resolveFreshClarify,
   resolveSoftClarify,
   scoreSoftIntentConfidence,
+  type FreshClarifyResult,
   type SoftClarifyQuestion,
   type SoftClarifyResult,
 } from '#services/report_v4/artifact_runtime/clarify'

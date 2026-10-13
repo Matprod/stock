@@ -7,6 +7,10 @@ import {
 } from '#services/report_v4/artifact_html'
 import { stampMaunaWatermarkOnPdf } from '#services/report_v4/mauna_watermark'
 import {
+  loadEchartsMinJs,
+  REPORT_V4_ECHARTS_ASSET_PATH,
+} from '#services/report_v4/report_v4_assets'
+import {
   REPORT_V4_A4_VIEWPORT,
   REPORT_V4_ALLOWED_FETCH_MS,
   REPORT_V4_CHARTS_READY_MS,
@@ -14,11 +18,47 @@ import {
   REPORT_V4_PDF_TIMEOUT_MS,
 } from '#services/report_v4/report_v4_constants'
 
+const inlineEchartsForPdf = (html: string): string => {
+  const tag = /<script\b[^>]*id=["']mauna-echarts["'][^>]*>[\s\S]*?<\/script>/i
+  const body = `<script id="mauna-echarts">${loadEchartsMinJs()}</script>`
+  if (tag.test(html)) return html.replace(tag, body)
+  if (/<\/head>/i.test(html)) return html.replace(/<\/head>/i, `${body}</head>`)
+  return `${body}\n${html}`
+}
+
+const PDF_CONTRAST_OVERRIDE_CSS = `
+.card, .chart-card { color: var(--ink, #0f172a) !important; }
+.card p, .chart-card p { color: var(--ink-soft, #334155) !important; }
+.kpi, .kpi-value { color: var(--ink, #0f172a) !important; }
+.kpi-label { color: var(--muted, #64748b) !important; }
+.band:has(.card), .band:has(.chart-card), .band:has(.kpi), .band:has(.kpi-grid), .band:has(.chart-box) {
+  display: block !important; background: transparent !important; color: var(--ink, #0f172a) !important;
+  padding: 0 !important; gap: 0 !important;
+}
+.band:has(.card) > .band-title, .band:has(.kpi-grid) > .band-title {
+  display: flex !important; background: var(--band, #0b1f3a) !important; color: #fff !important;
+  border-radius: 6px; padding: 9px 12px; margin: 0 0 8px;
+}
+`.trim()
+
+const injectPdfContrastOverrides = (html: string): string => {
+  const sheet = `<style id="mauna-pdf-contrast">${PDF_CONTRAST_OVERRIDE_CSS}</style>`
+  if (/id=["']mauna-pdf-contrast["']/i.test(html)) {
+    return html.replace(
+      /<style\b[^>]*id=["']mauna-pdf-contrast["'][^>]*>[\s\S]*?<\/style>/i,
+      sheet
+    )
+  }
+  if (/<\/head>/i.test(html)) return html.replace(/<\/head>/i, `${sheet}</head>`)
+  return `${sheet}\n${html}`
+}
+
 const sanitizeHtmlForPdfCharts = (html: string): string => {
-  const bootIds = extractArtifactBootChartIds(html)
-  if (bootIds.length === 0) return html
+  const withEcharts = injectPdfContrastOverrides(inlineEchartsForPdf(html))
+  const bootIds = extractArtifactBootChartIds(withEcharts)
+  if (bootIds.length === 0) return withEcharts
   return pruneOrphanChartHostsInHtml(
-    html,
+    withEcharts,
     bootIds.map((id) => ({ id }))
   ).html
 }
@@ -59,10 +99,28 @@ const isAllowedNetworkUrl = (raw: string): boolean => {
   }
 }
 
+const isLocalEchartsAssetUrl = (url: string): boolean => {
+  try {
+    const path = new URL(url).pathname
+    return path === REPORT_V4_ECHARTS_ASSET_PATH || path.endsWith('/report-v4/assets/echarts.min.js')
+  } catch {
+    return url.includes('report-v4/assets/echarts.min.js')
+  }
+}
+
 const installOfflineNetworkGuard = async (page: Page): Promise<void> => {
   await page.route('**/*', async (route: Route) => {
     const request = route.request()
     const url = request.url()
+
+    if (isLocalEchartsAssetUrl(url)) {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/javascript; charset=utf-8',
+        body: loadEchartsMinJs(),
+      })
+      return
+    }
 
     if (
       request.resourceType() === 'document' ||

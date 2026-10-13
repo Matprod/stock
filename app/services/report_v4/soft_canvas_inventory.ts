@@ -5,7 +5,6 @@ import {
   buildSoftArtifactOutline,
   tocPresentInHtml,
 } from '#services/report_v4/artifact_sections'
-import { foldAscii } from '#utils/html_text'
 
 export type SoftCanvasBlockIndex = {
   id: string
@@ -118,31 +117,6 @@ export const compactSoftCanvasInventoryForRouter = (
   chartTitles: inventory.charts.map((c) => ({ id: c.id, title: c.title, type: c.chartType })),
   tableTitles: inventory.tables.map((t) => ({ id: t.id, title: t.title })),
 })
-
-export const matchInventoryTitlesInPrompt = (
-  prompt: string,
-  inventory: SoftCanvasInventory
-): string[] => {
-  const folded = foldAscii(prompt)
-  if (!folded.trim()) return []
-  const candidates = [
-    ...inventory.sectionTitles,
-    ...inventory.charts.map((c) => c.title),
-    ...inventory.tables.map((t) => t.title),
-  ].filter((title) => title.trim().length >= 4)
-  const hits: string[] = []
-  for (const title of candidates) {
-    const needle = foldAscii(title)
-    if (needle.length < 4) continue
-    if (folded.includes(needle)) {
-      hits.push(title)
-      continue
-    }
-    const tokens = needle.split(/[^a-z0-9]+/i).filter((t) => t.length >= 4)
-    if (tokens.length >= 2 && tokens.every((t) => folded.includes(t))) hits.push(title)
-  }
-  return [...new Set(hits)]
-}
 
 export const softOpsAgentPacket = (softOps: {
   editorialOnly: boolean

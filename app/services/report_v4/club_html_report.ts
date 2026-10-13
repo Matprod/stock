@@ -26,6 +26,7 @@ import {
   buildReportPackCss,
 } from '#services/report_v4/design/report_pack_css'
 import { buildEchartsBootScript, echartsCdnScriptTag } from '#services/report_v4/echarts_boot'
+import { packFontsStyleTag } from '#services/report_v4/report_v4_assets'
 import { artifactChartHostId, synthesizeCoachBrief } from '#services/report_v4/artifact_html'
 import { prepareReportV4Document } from '#services/report_v4/document_prep'
 import type { ReportBrief } from '#services/report_v4/report_brief'
@@ -728,7 +729,7 @@ export const buildClubHtmlReport = (args: {
   <meta charset="UTF-8" />
   <title>${escapeHtml(title)}</title>
   ${echartsCdnScriptTag()}
-  <link href="${pack.fonts.googleHref}" rel="stylesheet" />
+  ${packFontsStyleTag(pack.id)}
   <style>
 ${buildReportPackCss(pack)}
 ${maunaWatermarkCss()}

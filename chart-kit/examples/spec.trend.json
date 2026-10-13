@@ -1,0 +1,42 @@
+{
+ "version": 1,
+ "id": "s2.fig1",
+ "intent": "trend",
+ "form": "line",
+ "title": "Charge aiguë sur chronique par semaine",
+ "data": {
+  "ref": "q.load.weekly",
+  "fields": {
+   "x": "week",
+   "y": "acwr",
+   "by": "player_id"
+  },
+  "metric": "acwr",
+  "unit": "ratio"
+ },
+ "entities": [
+  {
+   "id": "p123",
+   "label": "Joueur 123",
+   "slot": 1
+  },
+  {
+   "id": "p245",
+   "label": "Joueur 245",
+   "slot": 2
+  },
+  {
+   "id": "p318",
+   "label": "Joueur 318",
+   "slot": 3
+  }
+ ],
+ "highlight": [
+  "p123"
+ ],
+ "labels": "direct",
+ "zones": "acwr",
+ "size": "wide",
+ "caption": "full",
+ "evidence": "descriptive"
+}

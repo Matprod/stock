@@ -5,6 +5,7 @@ import {
   clampFetchesToSessionFocus,
   normalizeSessionFocus,
   priorUserAsks,
+  withAskRound,
 } from '#services/report_v4/session_focus'
 import { heuristicNeedsFetch } from '#services/report_v4/edit_route'
 
@@ -26,6 +27,30 @@ test.group('report_v4 session_focus', () => {
     assert.isNotNull(focus)
     assert.deepEqual(focus?.domains, [PREMIUM_DOMAIN.INJURY])
     assert.equal(focus?.fetches.length, 1)
+  })
+
+  test('normalizeSessionFocus keeps askRound without domains', ({ assert }) => {
+    const focus = normalizeSessionFocus({
+      lastPrompt: 'vague ask',
+      domains: [],
+      fetches: [],
+      displayRange: { from: '2026-09-15', to: '2026-10-13' },
+      askRound: 1,
+      pendingAskIds: ['domains', 'decision'],
+    })
+    assert.isNotNull(focus)
+    assert.equal(focus?.askRound, 1)
+    assert.deepEqual(focus?.pendingAskIds, ['domains', 'decision'])
+  })
+
+  test('withAskRound marks round 1', ({ assert }) => {
+    const focus = withAskRound(null, {
+      prompt: 'hello',
+      displayRange: { from: '2026-09-15', to: '2026-10-13' },
+      questionIds: ['grain'],
+    })
+    assert.equal(focus.askRound, 1)
+    assert.deepEqual(focus.pendingAskIds, ['grain'])
   })
 
   test('priorUserAsks returns last 2 user turns', ({ assert }) => {

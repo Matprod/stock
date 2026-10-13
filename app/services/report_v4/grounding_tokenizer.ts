@@ -1,4 +1,5 @@
 import { parseHTML } from 'linkedom'
+import { envFlag } from '#services/report_v4/env_flag'
 import {
   REPORT_V4_GROUNDING_COUNT_NOUNS,
   REPORT_V4_GROUNDING_TOKENIZER_ENABLED,
@@ -132,12 +133,8 @@ const ARTICLE_WORDS = new Set(['un', 'une', 'a', 'an'])
 
 const NBSP_RE = /[\u00a0\u202f\u2009]/g
 
-export const isReportV4GroundingTokenizerEnabled = (): boolean => {
-  const raw = process.env.REPORT_V4_GROUNDING_TOKENIZER?.trim().toLowerCase()
-  if (raw === '0' || raw === 'false' || raw === 'off') return false
-  if (raw === '1' || raw === 'true' || raw === 'on') return true
-  return REPORT_V4_GROUNDING_TOKENIZER_ENABLED
-}
+export const isReportV4GroundingTokenizerEnabled = (): boolean =>
+  envFlag('REPORT_V4_GROUNDING_TOKENIZER', REPORT_V4_GROUNDING_TOKENIZER_ENABLED)
 
 const escapeRegExp = (value: string): string => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
@@ -483,7 +480,7 @@ const extractWordTokens = (
   return tokens
 }
 
-const valuesMatch = (token: NumberToken, fact: ScanFact, language: 'fr' | 'en'): boolean => {
+const valuesMatch = (token: NumberToken, fact: ScanFact, _language: 'fr' | 'en'): boolean => {
   const precision = fact.precision ?? (Math.abs(fact.value) >= 100 ? 0 : Math.abs(fact.value) >= 10 ? 1 : 2)
   const tol = precision === 0 ? 0.51 : 0.5 * 10 ** -precision
   const candidates = [fact.value]

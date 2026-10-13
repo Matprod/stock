@@ -1,0 +1,25 @@
+{
+ "_note": "Données synthétiques : écarts à la norme personnelle (z)",
+ "rows": [
+  {
+   "feature": "Charge aiguë/chronique",
+   "z": 2.6
+  },
+  {
+   "feature": "Variabilité cardiaque",
+   "z": -1.8
+  },
+  {
+   "feature": "Sommeil moyen 7 j",
+   "z": 1.4
+  },
+  {
+   "feature": "Asymétrie ischios",
+   "z": 0.6
+  },
+  {
+   "feature": "Distance haute vitesse",
+   "z": -0.4
+  }
+ ]
+}

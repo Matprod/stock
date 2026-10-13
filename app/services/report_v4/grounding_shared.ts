@@ -24,9 +24,13 @@ export const NUTRITION_PROSE_RE =
 export const fold = (value: string): string =>
   value.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/\s+/g, ' ').trim()
 
-export const fail = (violations: GroundingViolation[]): GroundingAuditResult => ({
+export const fail = (
+  violations: GroundingViolation[],
+  warnings: GroundingViolation[] = []
+): GroundingAuditResult => ({
   ok: violations.length === 0,
   violations,
+  ...(warnings.length ? { warnings } : {}),
 })
 
 export const dedupeViolations = (violations: GroundingViolation[]): GroundingViolation[] => {

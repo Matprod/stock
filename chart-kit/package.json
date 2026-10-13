@@ -1,0 +1,13 @@
+{
+  "name": "report-v4-chart-kit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "demo": "node demo.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.20.0",
+    "echarts": "5.5.1"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "note": "Table fermée : l'Analyste choisit une intention, jamais une forme. Une forme hors de `forms` est refusée par validateSpec et par chart_op.",
+  "intents": {
+    "trend": {
+      "question": "Comment une mesure évolue-t-elle dans le temps ?",
+      "default": "line",
+      "forms": ["line", "bar"],
+      "fields": ["x", "y"],
+      "optionalFields": ["by"],
+      "maxEntities": 8,
+      "rules": ["bar seulement si 12 points de temps ou moins", "une seule mesure par graphique, pas d'axe double"]
+    },
+    "compare": {
+      "question": "Quelle entité a la plus grande valeur, et de combien ?",
+      "default": "bar",
+      "forms": ["bar", "barh"],
+      "fields": ["x", "y"],
+      "optionalFields": ["by"],
+      "maxEntities": 8,
+      "rules": ["axe des valeurs toujours à zéro", "plus de 8 catégories : regrouper en Autres ou passer en classement"]
+    },
+    "distribution": {
+      "question": "Comment les valeurs se répartissent-elles ?",
+      "default": "hist",
+      "forms": ["hist"],
+      "fields": ["y"],
+      "optionalFields": [],
+      "maxEntities": 1,
+      "rules": ["classes calculées par le code (règle de Sturges), jamais par le modèle", "la valeur du joueur se marque par un trait de référence"]
+    },
+    "contribution": {
+      "question": "Qu'est-ce qui a fait passer une valeur de A à B ?",
+      "default": "waterfall",
+      "forms": ["waterfall", "barh"],
+      "fields": ["x", "y", "kind"],
+      "optionalFields": [],
+      "maxEntities": 8,
+      "requires": { "waterfall": "data.additive === true et début + somme des contributions = fin" },
+      "rules": ["cascade seulement si les contributions s'additionnent", "sinon barres horizontales triées, sans promesse d'addition"]
+    },
+    "deviation": {
+      "question": "De combien chaque mesure s'écarte-t-elle de la norme du joueur ?",
+      "default": "diverging_bar",
+      "forms": ["diverging_bar", "barh"],
+      "fields": ["x", "y"],
+      "optionalFields": [],
+      "maxEntities": 1,
+      "rules": ["zéro au milieu, aucune teinte au point zéro", "écart positif = dégradation = bras rouge"]
+    },
+    "ranking": {
+      "question": "Dans quel ordre se classent les entités ?",
+      "default": "barh",
+      "forms": ["barh", "bar"],
+      "fields": ["x", "y"],
+      "optionalFields": [],
+      "maxEntities": 1,
+      "rules": ["tri décroissant par défaut", "au plus 12 lignes, le reste en Autres"]
+    }
+  },
+  "formsToWrite": ["dot", "box", "dot_band", "table", "area_stacked"]
+}

@@ -219,19 +219,6 @@ const rowsToDataset = (
   return storeDataset(state, display)
 }
 
-export const storeQueryRows = (
-  state: PremiumReportState,
-  rows: Array<Record<string, unknown>>
-): PremiumDataset => rowsToDataset(state, rows)
-
-export const extractQueryRows = (raw: string): Array<Record<string, unknown>> | null =>
-  extractRowsFromParsed(parseLeadingJson(raw))
-
-export const extractQueryError = (raw: string): string | null => {
-  const p = parseLeadingJson(raw)
-  return extractErrorFromParsed(p) ?? extractHintFromParsed(p)
-}
-
 export const safeParseObject = (raw: string): Record<string, unknown> | null =>
   toObject(parseLeadingJson(raw))
 

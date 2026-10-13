@@ -1,6 +1,10 @@
 import logger from '@adonisjs/core/services/logger'
 import { JEV_ROUTER_MODEL } from '#constants/question_router.constants'
-import { PREMIUM_DOMAINS, type PremiumDomain } from '#constants/premium_report_domains'
+import {
+  PREMIUM_DOMAIN,
+  PREMIUM_DOMAINS,
+  type PremiumDomain,
+} from '#constants/premium_report_domains'
 import {
   COACH_REPORT_SHAPE,
   type CoachReportShape,
@@ -65,6 +69,10 @@ export const resolveReportDomains = (
 
   for (const domain of askUnion) {
     if (populated.has(domain) || fromWindows.includes(domain)) {
+      included.push(domain)
+      continue
+    }
+    if (fromPreferred.includes(domain) && domain === PREMIUM_DOMAIN.BIOMARKERS) {
       included.push(domain)
       continue
     }

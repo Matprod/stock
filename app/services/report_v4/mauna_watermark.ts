@@ -13,7 +13,7 @@ import {
 
 const WATERMARK_PATH = join(
   dirname(fileURLToPath(import.meta.url)),
-  '../report_builder/pdf/rapport-watermark-a4.png'
+  './assets/rapport-watermark-a4.png'
 )
 
 let cachedDataUri: string | undefined
@@ -46,7 +46,8 @@ export const maunaWatermarkCss = (): string => `
   pointer-events: none;
   z-index: 0;
 }
-.page, .report-flow, .artifact-shell {
+.page, .report-flow, .artifact-shell,
+body > *:not(.mauna-page-watermark) {
   position: relative;
   z-index: 1;
 }
@@ -80,16 +81,50 @@ const readDestArray = (arr: PDFArray): NamedDest | null => {
   }
 }
 
+const destKey = (raw: string): string =>
+  raw.replace(/^[/()]/, '').replace(/[()]$/g, '').replace(/^#/, '').trim()
+
+const readNamedDestValue = (value: unknown): NamedDest | null => {
+  if (value instanceof PDFArray) return readDestArray(value)
+  if (value instanceof PDFDict) {
+    const inner = value.lookupMaybe(PDFName.of('D'), PDFArray)
+    return inner ? readDestArray(inner) : null
+  }
+  return null
+}
+
+const walkNameTree = (node: PDFDict, out: Map<string, NamedDest>): void => {
+  const names = node.lookupMaybe(PDFName.of('Names'), PDFArray)
+  if (names) {
+    for (let i = 0; i + 1 < names.size(); i += 2) {
+      const keyObj = names.get(i)
+      const value = names.lookup(i + 1)
+      const key = destKey(String(keyObj ?? ''))
+      const parsed = readNamedDestValue(value)
+      if (key && parsed) out.set(key, parsed)
+    }
+  }
+  const kids = node.lookupMaybe(PDFName.of('Kids'), PDFArray)
+  if (!kids) return
+  for (let i = 0; i < kids.size(); i += 1) {
+    const kid = kids.lookup(i, PDFDict)
+    if (kid) walkNameTree(kid, out)
+  }
+}
+
 const catalogNamedDests = (doc: PDFDocument): Map<string, NamedDest> => {
   const out = new Map<string, NamedDest>()
   const dests = doc.catalog.lookupMaybe(PDFName.of('Dests'), PDFDict)
-  if (!dests) return out
-  for (const key of dests.keys()) {
-    const value = dests.lookup(key)
-    if (!(value instanceof PDFArray)) continue
-    const parsed = readDestArray(value)
-    if (parsed) out.set(key.toString(), parsed)
+  if (dests) {
+    for (const key of dests.keys()) {
+      const value = dests.lookup(key)
+      const parsed = readNamedDestValue(value)
+      if (parsed) out.set(destKey(key.toString()), parsed)
+    }
   }
+  const names = doc.catalog.lookupMaybe(PDFName.of('Names'), PDFDict)
+  const destTree = names?.lookupMaybe(PDFName.of('Dests'), PDFDict)
+  if (destTree) walkNameTree(destTree, out)
   return out
 }
 
@@ -99,12 +134,21 @@ const resolveLinkDest = (
 ): NamedDest | null => {
   const dest = annot.get(PDFName.of('Dest'))
   if (dest instanceof PDFArray) return readDestArray(dest)
-  if (dest) return named.get(dest.toString()) ?? null
+  if (dest) {
+    const key = destKey(dest.toString())
+    return named.get(key) ?? named.get(`/${key}`) ?? null
+  }
 
   const action = annot.lookupMaybe(PDFName.of('A'), PDFDict)
   if (!action) return null
   const destArr = action.lookupMaybe(PDFName.of('D'), PDFArray)
-  return destArr ? readDestArray(destArr) : null
+  if (destArr) return readDestArray(destArr)
+  const destName = action.get(PDFName.of('D'))
+  if (destName && !(destName instanceof PDFArray)) {
+    const key = destKey(destName.toString())
+    return named.get(key) ?? named.get(`/${key}`) ?? null
+  }
+  return null
 }
 
 const rewriteInternalLinksToExplicitGoTo = (doc: PDFDocument): void => {

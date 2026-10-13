@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "baseRev": "a1b2c3d4",
+  "ops": [
+    {
+      "op": "chart_op",
+      "block": "s2.fig1",
+      "set": {
+        "entities": [
+          "p123",
+          "p318"
+        ],
+        "highlight": [
+          "p123"
+        ],
+        "window": {
+          "from": "2026-09-07",
+          "to": "2026-10-05"
+        }
+      }
+    },
+    {
+      "op": "chart_op",
+      "block": "s2.fig2",
+      "set": {
+        "sort": "asc",
+        "caption": "short"
+      }
+    },
+    {
+      "op": "set_pack",
+      "pack": "medical"
+    }
+  ]
+}

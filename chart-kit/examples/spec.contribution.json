@@ -1,0 +1,28 @@
+{
+ "version": 1,
+ "id": "s3.fig1",
+ "intent": "contribution",
+ "form": "waterfall",
+ "title": "Ce qui a fait varier le score de risque",
+ "data": {
+  "ref": "f.risk.contrib.p123",
+  "fields": {
+   "x": "label",
+   "y": "value",
+   "kind": "kind"
+  },
+  "metric": "risk_score",
+  "additive": true
+ },
+ "entities": [
+  {
+   "id": "all",
+   "label": "Score",
+   "slot": 1
+  }
+ ],
+ "labels": "direct",
+ "size": "wide",
+ "caption": "full",
+ "evidence": "model_contribution"
+}

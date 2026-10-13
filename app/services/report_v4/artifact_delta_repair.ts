@@ -64,5 +64,4 @@ export const shouldAttemptHostHeal = (args: {
   missingHosts: string[]
   proseMiss: boolean
   editorialGatesOk: boolean
-}): boolean =>
-  args.editorialGatesOk && !args.proseMiss && args.missingHosts.length > 0
+}): boolean => args.editorialGatesOk && !args.proseMiss && args.missingHosts.length > 0

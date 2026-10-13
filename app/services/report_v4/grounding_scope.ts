@@ -20,10 +20,7 @@ export const extractSoftDeltaHtmlFragments = (html: string): string[] => {
   return fragments
 }
 
-export const extractHostScopedHtmlFragments = (
-  html: string,
-  allowHostIds: string[]
-): string[] => {
+export const extractHostScopedHtmlFragments = (html: string, allowHostIds: string[]): string[] => {
   const fragments: string[] = []
   for (const hostId of allowHostIds) {
     const id = escapeRegExp(hostId.trim())
@@ -50,9 +47,7 @@ export const resolveGroundingAuditHtml = (
 
   const fragments = [
     ...extractSoftDeltaHtmlFragments(html),
-    ...(scope.allowHostIds?.length
-      ? extractHostScopedHtmlFragments(html, scope.allowHostIds)
-      : []),
+    ...(scope.allowHostIds?.length ? extractHostScopedHtmlFragments(html, scope.allowHostIds) : []),
   ]
   const unique = [...new Set(fragments.filter((row) => row.length > 0))]
   if (unique.length === 0) {

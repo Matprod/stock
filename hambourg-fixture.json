@@ -1,0 +1,640 @@
+{
+ "_note": "Données du rapport Hambourg 1-7 mars 2026. Scores quotidiens lus sur les courbes vectorielles du PDF (arrondis à l'entier, validés sur les moyennes du rapport : performance 49,73 ; risque 7,58 ; Poulsen 63,57 ; Jatta 43,71).",
+ "window": {
+  "start": "2026-03-01",
+  "end": "2026-03-07"
+ },
+ "days": [
+  "2026-03-01",
+  "2026-03-02",
+  "2026-03-03",
+  "2026-03-04",
+  "2026-03-05",
+  "2026-03-06",
+  "2026-03-07"
+ ],
+ "scores": {
+  "performance": {
+   "Albert Grønbæk": [
+    49,
+    47,
+    48,
+    47,
+    49,
+    47,
+    52
+   ],
+   "Albert Sambi Lokonga": [
+    59,
+    46,
+    56,
+    55,
+    45,
+    45,
+    61
+   ],
+   "Bakery Jatta": [
+    71,
+    57,
+    49,
+    55,
+    39,
+    64,
+    72
+   ],
+   "Damion Downs": [
+    49,
+    36,
+    46,
+    45,
+    34,
+    45,
+    47
+   ],
+   "Daniel Elfadli": [
+    53,
+    51,
+    42,
+    45,
+    25,
+    50,
+    52
+   ],
+   "Fabio Baldé": [
+    52,
+    52,
+    44,
+    51,
+    50,
+    46,
+    50
+   ],
+   "Fábio Vieira": [
+    52,
+    32,
+    57,
+    51,
+    31,
+    52,
+    68
+   ],
+   "Giorgi Gocholeishvili": [
+    59,
+    49,
+    45,
+    46,
+    30,
+    58,
+    56
+   ],
+   "Jean-Luc Dompé": [
+    60,
+    42,
+    54,
+    56,
+    36,
+    40,
+    47
+   ],
+   "Jordan Torunarigha": [
+    58,
+    33,
+    60,
+    56,
+    42,
+    48,
+    53
+   ],
+   "Luka Vušković": [
+    61,
+    40,
+    59,
+    54,
+    33,
+    56,
+    67
+   ],
+   "Miro Muheim": [
+    57,
+    32,
+    56,
+    66,
+    52,
+    42,
+    51
+   ],
+   "Nicolai Remberg": [
+    54,
+    30,
+    58,
+    53,
+    26,
+    53,
+    58
+   ],
+   "Nicolás Capaldo": [
+    53,
+    47,
+    61,
+    67,
+    68,
+    68,
+    70
+   ],
+   "Noah Katterbach": [
+    57,
+    47,
+    45,
+    53,
+    59,
+    52,
+    50
+   ],
+   "Omar Megeed": [
+    51,
+    51,
+    51,
+    52,
+    51,
+    48,
+    52
+   ],
+   "Otto Stange": [
+    50,
+    53,
+    49,
+    51,
+    41,
+    46,
+    54
+   ],
+   "Philip Otele": [
+    51,
+    37,
+    47,
+    47,
+    47,
+    46,
+    50
+   ],
+   "Ransford Königsdörffer": [
+    56,
+    45,
+    68,
+    59,
+    32,
+    64,
+    66
+   ],
+   "Rayan Philippe": [
+    53,
+    38,
+    46,
+    46,
+    26,
+    57,
+    54
+   ],
+   "Robert Glatzel": [
+    51,
+    50,
+    46,
+    52,
+    44,
+    41,
+    43
+   ],
+   "Warmed Omari": [
+    52,
+    38,
+    51,
+    47,
+    31,
+    46,
+    53
+   ],
+   "William Mikelbrencis": [
+    58,
+    28,
+    54,
+    52,
+    28,
+    58,
+    56
+   ],
+   "Yussuf Poulsen": [
+    50,
+    44,
+    62,
+    49,
+    44,
+    39,
+    48
+   ]
+  },
+  "injury_risk": {
+   "Albert Grønbæk": [
+    3,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "Albert Sambi Lokonga": [
+    0,
+    0,
+    0,
+    1,
+    4,
+    0,
+    0
+   ],
+   "Bakery Jatta": [
+    67,
+    67,
+    67,
+    61,
+    14,
+    19,
+    11
+   ],
+   "Damion Downs": [
+    0,
+    0,
+    3,
+    0,
+    0,
+    2,
+    2
+   ],
+   "Daniel Elfadli": [
+    9,
+    7,
+    9,
+    8,
+    1,
+    7,
+    9
+   ],
+   "Fabio Baldé": [
+    1,
+    0,
+    1,
+    0,
+    0,
+    4,
+    0
+   ],
+   "Fábio Vieira": [
+    0,
+    0,
+    4,
+    2,
+    5,
+    0,
+    0
+   ],
+   "Giorgi Gocholeishvili": [
+    0,
+    1,
+    0,
+    0,
+    33,
+    0,
+    0
+   ],
+   "Jean-Luc Dompé": [
+    8,
+    7,
+    7,
+    7,
+    6,
+    6,
+    6
+   ],
+   "Jordan Torunarigha": [
+    4,
+    15,
+    2,
+    1,
+    2,
+    0,
+    2
+   ],
+   "Luka Vušković": [
+    3,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3
+   ],
+   "Miro Muheim": [
+    2,
+    0,
+    1,
+    1,
+    2,
+    1,
+    1
+   ],
+   "Nicolai Remberg": [
+    1,
+    0,
+    3,
+    4,
+    4,
+    4,
+    1
+   ],
+   "Nicolás Capaldo": [
+    52,
+    1,
+    0,
+    0,
+    0,
+    0,
+    2
+   ],
+   "Noah Katterbach": [
+    0,
+    2,
+    1,
+    0,
+    0,
+    0,
+    3
+   ],
+   "Omar Megeed": [
+    2,
+    0,
+    2,
+    0,
+    0,
+    0,
+    2
+   ],
+   "Otto Stange": [
+    2,
+    1,
+    3,
+    2,
+    4,
+    3,
+    2
+   ],
+   "Philip Otele": [
+    1,
+    8,
+    0,
+    0,
+    1,
+    0,
+    5
+   ],
+   "Ransford Königsdörffer": [
+    2,
+    7,
+    3,
+    3,
+    4,
+    3,
+    3
+   ],
+   "Rayan Philippe": [
+    0,
+    0,
+    2,
+    2,
+    3,
+    1,
+    5
+   ],
+   "Robert Glatzel": [
+    18,
+    16,
+    16,
+    19,
+    17,
+    17,
+    17
+   ],
+   "Warmed Omari": [
+    2,
+    0,
+    1,
+    0,
+    7,
+    0,
+    0
+   ],
+   "William Mikelbrencis": [
+    6,
+    3,
+    6,
+    5,
+    5,
+    6,
+    4
+   ],
+   "Yussuf Poulsen": [
+    64,
+    49,
+    56,
+    69,
+    69,
+    70,
+    68
+   ]
+  }
+ },
+ "gps_by_position": [
+  {
+   "position": "Winger",
+   "n": 7,
+   "total_distance_m": 2925.4,
+   "hmld_m": 410.8,
+   "hsr": 140,
+   "explosive": 270.8
+  },
+  {
+   "position": "Central defender",
+   "n": 6,
+   "total_distance_m": 2672,
+   "hmld_m": 316.67,
+   "hsr": 58.33,
+   "explosive": 258.33
+  },
+  {
+   "position": "Striker",
+   "n": 6,
+   "total_distance_m": 2906.67,
+   "hmld_m": 333.83,
+   "hsr": 112.5,
+   "explosive": 221.33
+  },
+  {
+   "position": "Defensive midfielder",
+   "n": 3,
+   "total_distance_m": 1760.5,
+   "hmld_m": 215,
+   "hsr": 60,
+   "explosive": 154.5
+  },
+  {
+   "position": "Full back",
+   "n": 5,
+   "total_distance_m": 2915.25,
+   "hmld_m": 369.25,
+   "hsr": 127.5,
+   "explosive": 241.25
+  },
+  {
+   "position": "Attacking midfielder",
+   "n": 4,
+   "total_distance_m": 3294,
+   "hmld_m": 593,
+   "hsr": 140,
+   "explosive": 453
+  },
+  {
+   "position": "Central midfielder",
+   "n": 2,
+   "total_distance_m": 2728.5,
+   "hmld_m": 346.5,
+   "hsr": 68,
+   "explosive": 279
+  },
+  {
+   "position": "Midfielder",
+   "n": 1,
+   "total_distance_m": null,
+   "hmld_m": null,
+   "hsr": null,
+   "explosive": null,
+   "excluded": "n=1"
+  }
+ ],
+ "gps_sessions": {
+  "Yussuf Poulsen": {
+   "position": "Striker",
+   "sessions": [
+    {
+     "date": "2026-03-03",
+     "distance": 2310,
+     "hmld": 171,
+     "hsr": 48,
+     "explosive": 122
+    },
+    {
+     "date": "2026-03-04",
+     "distance": 3157,
+     "hmld": 514,
+     "hsr": 211,
+     "explosive": 304
+    },
+    {
+     "date": "2026-03-05",
+     "distance": 3099,
+     "hmld": 517,
+     "hsr": 132,
+     "explosive": 385
+    },
+    {
+     "date": "2026-03-06",
+     "distance": 3032,
+     "hmld": 371,
+     "hsr": 119,
+     "explosive": 253
+    }
+   ]
+  },
+  "Bakery Jatta": {
+   "position": "Winger",
+   "sessions": [
+    {
+     "date": "2026-03-01",
+     "distance": 4696,
+     "hmld": 640,
+     "hsr": 271,
+     "explosive": 369
+    },
+    {
+     "date": "2026-03-02",
+     "distance": 4309,
+     "hmld": 659,
+     "hsr": 149,
+     "explosive": 510
+    },
+    {
+     "date": "2026-03-03",
+     "distance": 3207,
+     "hmld": 480,
+     "hsr": 160,
+     "explosive": 320
+    }
+   ]
+  }
+ },
+ "kpi_reported": {
+  "mean_performance": 49.7,
+  "mean_injury_risk": 7.58,
+  "mean_total_distance_m": 3187
+ },
+ "wellness": {
+  "window": [
+   "2026-02-25",
+   "2026-03-07"
+  ],
+  "body_soreness_mean": 26.3,
+  "mood_mean": 22.8,
+  "scale_max": 60,
+  "lower_is_better": true,
+  "missing": [
+   "energy",
+   "stress",
+   "wellbeing"
+  ]
+ },
+ "sleep": {
+  "window": [
+   "2026-02-25",
+   "2026-03-07"
+  ],
+  "available": [
+   "quality"
+  ],
+  "missing": [
+   "efficiency",
+   "consistency"
+  ]
+ },
+ "biomarkers": {
+  "cmj": {
+   "date": "2025-12-16",
+   "measurements": 24
+  },
+  "vald": null,
+  "ck": {
+   "measurements": 8,
+   "month": "2026-03",
+   "outside_requested_window": true
+  }
+ },
+ "feature_importances_order": [
+  "Overall Volume Strain (7d)",
+  "Planned Explosiveness Peak Strain (7d)",
+  "Average Total External Load (7d)",
+  "Day-to-day load change",
+  "Load variability"
+ ],
+ "injuries_clinical": {
+  "count": 4,
+  "status": "all recovered"
+ },
+ "players_gps": 34,
+ "players_scored": 24
+}

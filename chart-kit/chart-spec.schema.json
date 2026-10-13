@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mauna.local/report-v4/chart-spec.schema.json",
+  "title": "ChartSpec v1",
+  "description": "Description d'un graphique. Aucune valeur chiffrée, aucune couleur, aucune option ECharts : seulement l'intention, des références de données et des réglages bornés.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "id", "intent", "form", "data", "entities", "labels", "size", "caption"],
+  "properties": {
+    "version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(\\.[a-z0-9]+)*$", "description": "Identique au data-block de la figure" },
+    "intent": { "enum": ["trend", "compare", "distribution", "contribution", "deviation", "ranking"] },
+    "form": { "enum": ["line", "bar", "barh", "hist", "waterfall", "diverging_bar"] },
+    "title": { "type": "string", "maxLength": 120, "description": "Sans chiffre ; la phase A contrôle les nombres" },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref", "fields"],
+      "properties": {
+        "ref": { "type": "string", "pattern": "^[a-z0-9_.:-]+$", "description": "Requête ou jeu de faits résolu par le code" },
+        "fields": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "x": { "type": "string" },
+            "y": { "type": "string" },
+            "by": { "type": "string" },
+            "kind": { "type": "string", "description": "start, delta ou end (cascade)" }
+          },
+          "required": ["y"]
+        },
+        "metric": { "type": "string", "description": "Identifiant de la métrique (ex. acwr), qui pilote zones et unités" },
+        "unit": { "type": "string", "maxLength": 12 },
+        "additive": { "type": "boolean", "description": "Vrai seulement si début + contributions = fin" }
+      }
+    },
+    "entities": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "slot"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string", "maxLength": 40 },
+          "slot": { "type": "integer", "minimum": 1, "maximum": 8, "description": "Rang de couleur, tiret et marqueur du pack. Fixé à la création, jamais recalculé." },
+          "hidden": { "type": "boolean" }
+        }
+      }
+    },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to"],
+      "properties": { "from": { "type": "string" }, "to": { "type": "string" } }
+    },
+    "sort": { "enum": ["desc", "asc", "natural"] },
+    "highlight": { "type": "array", "items": { "type": "string" }, "maxItems": 3 },
+    "labels": { "enum": ["direct", "legend", "table"] },
+    "zones": { "enum": ["acwr"] },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": { "kind": { "enum": ["entity_value", "baseline"] }, "entity": { "type": "string" } }
+    },
+    "y_range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min", "max"],
+      "properties": { "min": { "type": "number" }, "max": { "type": "number" } }
+    },
+    "size": { "enum": ["hero", "wide", "pair"] },
+    "caption": { "enum": ["full", "short", "none"] },
+    "evidence": { "enum": ["model_contribution", "global_importance_plus_deviation", "descriptive"], "description": "Niveau de preuve ; borne les verbes de la légende" }
+  }
+}

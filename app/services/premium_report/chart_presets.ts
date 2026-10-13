@@ -1,6 +1,5 @@
 import {
   PREMIUM_CHART_PRESET,
-  PREMIUM_RADAR_MAX_CHARTS,
   PREMIUM_RADAR_MAX_SERIES,
   PREMIUM_RADAR_MIN_METRICS,
   type PremiumChartPreset,
@@ -142,24 +141,6 @@ export const planRadarAthleteRows = (
   return { category: radarCategory, values: radarValues, rows: radarRows }
 }
 
-export const chunkRadarAthleteRows = (
-  rows: Array<Record<string, unknown>>,
-  maxSeries = PREMIUM_RADAR_MAX_SERIES,
-  maxCharts = PREMIUM_RADAR_MAX_CHARTS
-): Array<Array<Record<string, unknown>>> => {
-  const capped = rows.slice(0, Math.max(1, maxSeries) * Math.max(1, maxCharts))
-  const out: Array<Array<Record<string, unknown>>> = []
-  const step = Math.max(1, maxSeries)
-  for (let i = 0; i < capped.length; i += step) {
-    out.push(capped.slice(i, i + step))
-  }
-  if (maxSeries > 1 && out.length >= 2 && out[out.length - 1]!.length === 1) {
-    const orphan = out.pop()!
-    out[out.length - 1]!.push(...orphan)
-  }
-  return out
-}
-
 export const buildPresetFromDataset = (
   chartType: PremiumChartPreset,
   dataset: PremiumDataset,
@@ -281,26 +262,13 @@ export const buildPresetFromDataset = (
   }
 
   if (chartType === PREMIUM_CHART_PRESET.DONUT) {
-    if (!values[0]) return JSON.stringify({ error: 'donut needs a numeric value column' })
-    return buildPresetChartOption({
-      chartType: 'donut',
-      category,
-      values: values.slice(0, 1),
-      refLines,
-      language,
+    return JSON.stringify({
+      error: 'donut charts are not allowed in staff reports — use bar or table',
     })
   }
   if (chartType === PREMIUM_CHART_PRESET.BAR_LINE) {
-    if (values.length < 2) {
-      return JSON.stringify({ error: 'bar-line needs two numeric columns' })
-    }
-    return buildPresetChartOption({
-      chartType: 'bar-line',
-      category,
-      values: values.slice(0, 2),
-      rows: labeled.rows,
-      refLines,
-      language,
+    return JSON.stringify({
+      error: 'bar-line (dual metric axis) is not allowed — use separate charts',
     })
   }
   if (values.length === 0) {

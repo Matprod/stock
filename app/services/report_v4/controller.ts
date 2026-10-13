@@ -9,6 +9,7 @@ import {
   isJevUnavailableError,
   jevUnavailableMessage,
 } from '#services/report_v4/jev_guard'
+import { loadEchartsMinJs } from '#services/report_v4/report_v4_assets'
 import { SseStreamHandler, sanitizeDownloadFilename } from '#services/report_v4/sse_utils'
 import { getLanguageFromRequest } from '#utils/language'
 
@@ -45,6 +46,13 @@ export default class ReportV4Controller {
             reason: result.clarify.reason,
             confidence: result.clarify.confidence,
             summary: result.summary ?? null,
+            message: result.message,
+            history: result.history,
+            document: result.document,
+            html: result.html,
+            sessionFocus: result.sessionFocus,
+            coverage: result.coverage,
+            designPackId: result.designPackId,
           },
           'ask'
         )
@@ -120,5 +128,11 @@ export default class ReportV4Controller {
     return response.ok({
       coverage: await this.service.coverage(auth.user!.clubId, prompt),
     })
+  }
+
+  async echartsAsset({ response }: HttpContext) {
+    response.header('Content-Type', 'application/javascript; charset=utf-8')
+    response.header('Cache-Control', 'public, max-age=86400, immutable')
+    return response.send(loadEchartsMinJs())
   }
 }

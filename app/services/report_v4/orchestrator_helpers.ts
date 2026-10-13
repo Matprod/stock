@@ -43,6 +43,7 @@ export type ReportV4RunState = {
   allowNutritionScope: boolean
   clubName: string
   clubInsightScience?: ClubInsightScience[]
+  templateRecoveredReason?: string | null
 }
 
 export type DatasetCatalogEntry = {

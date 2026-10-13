@@ -1,0 +1,29 @@
+{
+ "version": 1,
+ "id": "s2.fig2",
+ "intent": "ranking",
+ "form": "barh",
+ "title": "Charge de la semaine par joueur",
+ "data": {
+  "ref": "q.load.rank",
+  "fields": {
+   "x": "player",
+   "y": "load"
+  },
+  "metric": "load",
+  "unit": "u.a."
+ },
+ "entities": [
+  {
+   "id": "all",
+   "label": "Charge",
+   "slot": 1
+  }
+ ],
+ "highlight": [
+  "Joueur A"
+ ],
+ "labels": "direct",
+ "size": "pair",
+ "caption": "short"
+}

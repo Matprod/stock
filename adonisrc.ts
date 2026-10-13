@@ -71,7 +71,7 @@ export default defineConfig({
   metaFiles: [
     'app/services/db_schema.md',
     'app/services/response_structure.md',
-    'app/services/report_builder/pdf/*.png',
+    'app/services/report_v4/assets/*.png',
   ],
 
   /*

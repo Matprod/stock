@@ -1,0 +1,29 @@
+{
+ "_note": "Donn\u00e9es synth\u00e9tiques",
+ "rows": [
+  {
+   "player": "Joueur A",
+   "load": 412
+  },
+  {
+   "player": "Joueur B",
+   "load": 388
+  },
+  {
+   "player": "Joueur C",
+   "load": 356
+  },
+  {
+   "player": "Joueur D",
+   "load": 301
+  },
+  {
+   "player": "Joueur E",
+   "load": 287
+  },
+  {
+   "player": "Joueur F",
+   "load": 240
+  }
+ ]
+}

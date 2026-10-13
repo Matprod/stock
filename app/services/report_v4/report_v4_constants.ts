@@ -3,6 +3,8 @@ import {
   PREMIUM_LINE_MAX_ATHLETES,
   type PremiumCanvasAskKind,
 } from '#constants/premium_report.constants'
+import { PREMIUM_DOMAIN, type PremiumDomain } from '#constants/premium_report_domains'
+import { envFlag } from '#services/report_v4/env_flag'
 import { escapeHtml as escapeHtmlUtil, foldKey as foldKeyUtil } from '#utils/html_text'
 
 export const REPORT_V4_LINKER_MAX_ITERATIONS = 14
@@ -105,7 +107,7 @@ export const softAnalystContinueForAsk = (opts?: {
 }
 
 export const REPORT_V4_DESIGNER_CONTINUE =
-  'Artifact HTML not set. get_design_context then set_report_html with every requiredChartIds host. Fix grounding cites and retry set_report_html if rejected — server auto-templates after two rejects.'
+  'Artifact HTML not set. get_design_context then set_report_html with a full HTML document hosting every requiredChartIds entry. After one set_report_html rejection, call build_artifact_html.'
 
 export const REPORT_V4_CHART_CHUNK = PREMIUM_LINE_MAX_ATHLETES
 export const REPORT_V4_BAR_CHUNK_HORIZONTAL = 12
@@ -117,38 +119,45 @@ export const REPORT_V4_MS_PER_DAY = 86_400_000
 export const REPORT_V4_COVERAGE_MIN_DAYS = 2
 export const REPORT_V4_COVERAGE_MIN_ATHLETES = 2
 
-export const REPORT_V4_DATA_PROFILE_ENABLED = true
 export const REPORT_V4_DATA_PROFILE_DEFAULT_SHARE = 0.4
 export const REPORT_V4_SQL_ROW_CAP_HINT = 10_000
-export const REPORT_V4_DATA_PROFILE_APPEND_CANVAS = false
 
-export const REPORT_V4_DATA_FACTS_ENABLED = true
-export const REPORT_V4_DATA_FACTS_STRICT_HTML = true
-
-export const REPORT_V4_GROUNDING_TOKENIZER_ENABLED = true
+export const REPORT_V4_GROUNDING_TOKENIZER_ENABLED = false
 export const REPORT_V4_GROUNDING_YEAR_MIN = 1990
 export const REPORT_V4_GROUNDING_YEAR_MAX = 2100
+export const REPORT_V4_GROUNDING_COUNT_NOUNS = [
+  'joueur',
+  'joueurs',
+  'athlète',
+  'athlètes',
+  'athlete',
+  'athletes',
+  'player',
+  'players',
+  'blessure',
+  'blessures',
+  'injury',
+  'injuries',
+  'semaine',
+  'semaines',
+  'week',
+  'weeks',
+  'match',
+  'matches',
+  'session',
+  'sessions',
+  'jour',
+  'jours',
+  'day',
+  'days',
+] as const
 
-export const REPORT_V4_REPAIR_ENABLED = true
+export const REPORT_V4_REPAIR_ENABLED = false
 export const REPORT_V4_REPAIR_MAX_ROUNDS = 2
 export const REPORT_V4_REPAIR_PROSE_DROP_RATIO = 0.3
 
-export const REPORT_V4_GROUNDING_COUNT_NOUNS = [
-  'injuries',
-  'injury',
-  'players',
-  'player',
-  'matches',
-  'match',
-  'doses',
-  'dose',
-  'days',
-  'day',
-  'sessions',
-  'session',
-  'athletes',
-  'athlete',
-]
+export const isReportV4StaffComponentsEnabled = (): boolean =>
+  envFlag('REPORT_V4_STAFF_COMPONENTS', true)
 
 export const REPORT_V4_PROMPT_MAX = 48_000
 export const REPORT_V4_ISO_DATE_PATTERN = '^\\d{4}-\\d{2}-\\d{2}$'
@@ -160,16 +169,9 @@ export const REPORT_V4_PRESIGN_CONCURRENCY = 8
 
 export const REPORT_V4_A4_VIEWPORT = { width: 794, height: 1123 }
 export const REPORT_V4_PDF_TIMEOUT_MS = 15_000
-export const REPORT_V4_CHARTS_READY_MS = 5_000
+export const REPORT_V4_CHARTS_READY_MS = 12_000
 export const REPORT_V4_ALLOWED_FETCH_MS = 8_000
-export const REPORT_V4_PDF_ALLOWED_HOST_SUFFIXES = [
-  'cdn.jsdelivr.net',
-  'fonts.googleapis.com',
-  'fonts.gstatic.com',
-  'amazonaws.com',
-] as const
-
-export const ECHARTS_CDN = 'https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js'
+export const REPORT_V4_PDF_ALLOWED_HOST_SUFFIXES = ['amazonaws.com'] as const
 
 export const REPORT_DESIGN_PACK_IDS = ['mauna', 'clinical', 'editorial'] as const
 
@@ -196,6 +198,86 @@ export const REPORT_V4_MICRO_EDIT_KINDS = new Set<PremiumCanvasAskKind>([
 ])
 
 export const REPORT_V4_RANGE_SEP = String.raw`(?:to|->|→|⇒|–|-|—)`
+
+export const REPORT_V4_DOMAIN_ALIASES: Array<{ domain: PremiumDomain; aliases: string[] }> = [
+  {
+    domain: PREMIUM_DOMAIN.SCORES,
+    aliases: [
+      'scores?',
+      'score',
+      'performance_score',
+      'injury_risk_score',
+      'performance scores?',
+      'injury risk',
+    ],
+  },
+  {
+    domain: PREMIUM_DOMAIN.BIOMARKERS,
+    aliases: ['biomarkers?', 'creatine kinase', 'creatine_kinase', 'ferritin', 'cortisol'],
+  },
+  {
+    domain: PREMIUM_DOMAIN.WELLNESS,
+    aliases: ['wellness', 'readiness', 'soreness', 'subjective', 'mood', 'energy', 'stress'],
+  },
+  { domain: PREMIUM_DOMAIN.SLEEP, aliases: ['sleep', 'hrv'] },
+  {
+    domain: PREMIUM_DOMAIN.GPS,
+    aliases: ['gps', 'hsr', 'sprint', 'distance', 'accel', 'decel', 'cod'],
+  },
+  {
+    domain: PREMIUM_DOMAIN.LOAD,
+    aliases: ['load', 'acwr', 'srpe', 'rpe', 'monotony', 'strain'],
+  },
+  {
+    domain: PREMIUM_DOMAIN.MATCH,
+    aliases: [
+      'match',
+      'matches',
+      'skillcorner',
+      'competition',
+      'game',
+      'minutes_played',
+      'tackles',
+      'box_score',
+    ],
+  },
+  {
+    domain: PREMIUM_DOMAIN.VALD,
+    aliases: [
+      'tests?',
+      'trials?',
+      'test_type',
+      'cmj',
+      'countermovement',
+      'drop[- ]?jump',
+      'single[- ]?leg',
+      'jump(?:s|ing)?',
+      'rsi',
+      'rfd',
+      'asymmetr(?:y|ies)',
+      'force[- ]?testing',
+      'strength[- ]?tests?',
+    ],
+  },
+  {
+    domain: PREMIUM_DOMAIN.BODY,
+    aliases: ['body', 'composition', 'body.?comp', 'weight', 'fat\\s*%?', 'anthropo'],
+  },
+  {
+    domain: PREMIUM_DOMAIN.INJURY,
+    aliases: [
+      'injuries',
+      'injury.?log',
+      'injury.?history',
+      'injured',
+      'availability',
+      'rehab',
+      'return.?to.?play',
+      'rtp',
+      'time.?loss',
+    ],
+  },
+]
 
 export const windowDayCount = (from: string, to: string): number => {
   const a = Date.parse(`${from}T12:00:00Z`)

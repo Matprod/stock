@@ -1,4 +1,4 @@
-import { ECHARTS_CDN } from '#services/report_v4/report_v4_constants'
+import { echartsLocalScriptTag } from '#services/report_v4/report_v4_assets'
 
 export type EchartsBootChart = {
   id: string
@@ -14,9 +14,8 @@ export type EchartsBootTheme = {
 
 const escapeForScript = (json: string): string => json.replace(/</g, '\\u003c')
 
-/** CDN tag with onload hook so boot can prefer load events over polling. */
-export const echartsCdnScriptTag = (): string =>
-  `<script src="${ECHARTS_CDN}" onload="window.__maunaEchartsLoaded=1;window.__maunaOnEchartsLoad&&window.__maunaOnEchartsLoad()"></script>`
+/** Local ECharts bundle (node_modules), no CDN. */
+export const echartsCdnScriptTag = (): string => echartsLocalScriptTag()
 
 /**
  * Shared ECharts mount for free artifacts and template HTML.
@@ -72,10 +71,6 @@ export const buildEchartsBootScript = (args: {
       }
       if (n > 50) {
         clearInterval(t);
-        if (!done) {
-          done = true;
-          cb();
-        }
       }
     }, 100);
   };
@@ -99,9 +94,10 @@ export const buildEchartsBootScript = (args: {
   };
 
   const boot = () => {
+    if (!window.echarts) return;
     for (const chart of charts) {
       const el = ensureHost(chart);
-      if (!el || !window.echarts) continue;
+      if (!el) continue;
       el.classList.add('chart-box');
       const series = Array.isArray(chart.option && chart.option.series) ? chart.option.series : [];
       const isRadar = Boolean(chart.option && chart.option.radar);
@@ -127,8 +123,12 @@ export const buildEchartsBootScript = (args: {
           : (isPrint() ? 260 : 300);
       el.style.height = defaultH + 'px';
       el.style.width = '100%';
-      // Never freeze a 0-width canvas (iframe srcDoc often lays out after first paint).
-      const instance = window.echarts.init(el, null, { renderer: 'canvas' });
+      let instance;
+      try {
+        instance = window.echarts.init(el, null, { renderer: 'canvas' });
+      } catch (_) {
+        continue;
+      }
       const baseLegend =
         chart.option && chart.option.legend && typeof chart.option.legend === 'object'
           ? chart.option.legend
@@ -272,7 +272,14 @@ export const buildEchartsBootScript = (args: {
           return s;
         });
       }
-      instance.setOption(option, true);
+      try {
+        instance.setOption(option, true);
+      } catch (_) {
+        try {
+          instance.dispose();
+        } catch (_) {}
+        continue;
+      }
       el.dataset.ready = '1';
       instances.push(instance);
       if (typeof ResizeObserver !== 'undefined') {

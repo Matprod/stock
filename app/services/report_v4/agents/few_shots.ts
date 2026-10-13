@@ -124,6 +124,22 @@ export const ANALYST_FEW_SHOTS: FewShotXml = `
     Do not densify to wellness/scores/load. No splitAthletes. One chart answers the ask.
   </notes>
 </example>
+
+<example id="analyst_section_domain_columns">
+  <situation>
+    Linker: ds_wellness (body_soreness_rating, mood_rating), ds_gps (total_distance_m, hmld_m, hsr_z5_m).
+    Coach ask: wellness band then GPS band, then individual sheets for outliers.
+  </situation>
+  <ideal_tool_calls>
+    1. add_heading "Wellness" → add_chart/add_table from ds_wellness columns only
+    2. add_heading "GPS" → add_chart/add_table from ds_gps columns only
+    3. Per watch athlete: add_heading AthleteName → charts/tables that mention that athlete (athletes:[Name] or rows)
+    4. commit_report_brief then end_turn
+  </ideal_tool_calls>
+  <notes>
+    Table columns MUST match the section domain: never put GPS distance/hmld/hsr columns under a Wellness heading (or vice versa). Athlete sheet heading A must not host athlete B's table.
+  </notes>
+</example>
 `.trim()
 
 export const DESIGNER_FEW_SHOTS: FewShotXml = `
@@ -132,7 +148,10 @@ export const DESIGNER_FEW_SHOTS: FewShotXml = `
     get_design_context → charts[] with stable ids + InsightIR sections. CSS server-injected. set_report_html only.
   </situation>
   <notes>
-    Cover (brand/title/date-pill) → report-flow bands → every requiredChartIds as empty chart-box with verbatim id — never invent chart_1..N or numbers. Titles = charts[].title / InsightIR (never Group N). Narrow ask: skip TOC/KPI scaffolding.
+    Structure: cover → toc → executive → domain bands → outliers/watch → athlete sheets → reliability.
+    Every requiredChartIds as empty chart-box with verbatim id — never invent chart_1..N. Titles = charts[].title / InsightIR (never Group N).
+    .band is header-only — never nest .card / chart-box inside .band. Individual sheets: one athlete heading → that athlete's chart ids only.
+    Narrow ask: skip TOC/KPI scaffolding.
   </notes>
 </example>
 `.trim()

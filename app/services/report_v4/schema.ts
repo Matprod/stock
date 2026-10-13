@@ -59,6 +59,8 @@ const sessionFocusSchema = vine.object({
     )
     .maxLength(24),
   displayRange: dateRangeSchema.clone(),
+  askRound: vine.number().min(0).max(1).optional(),
+  pendingAskIds: vine.array(vine.string().trim().maxLength(64)).maxLength(8).optional(),
 })
 
 export const fullStaffReportGenerateSchema = vine.compile(

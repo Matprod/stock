@@ -23,8 +23,8 @@ import type {
   PremiumReportHistoryTurn,
 } from '#contracts/premium_report'
 import { createDbTool } from '#services/agent_db_tool'
-import { formulaCatalogForLlm } from '#services/report_builder/chatbot/formula_llm'
-import { athletesMentionedInPrompt } from '#services/report_builder/athlete_split'
+import { formulaCatalogForLlm } from '#services/report_v4/metrics/formula_llm'
+import { athletesMentionedInPrompt } from '#services/report_v4/metrics/athlete_split'
 import {
   clonePremiumDocument,
   compactPremiumDocument,
@@ -105,7 +105,6 @@ import {
   renderDesignerTemplateArtifact,
 } from '#services/report_v4/agents/stage_tools'
 import { createReportFactTools } from '#services/report_v4/agents/fact_tools'
-import { isReportV4DataFactsEnabled } from '#services/report_v4/report_facts'
 import { SubjectiveScaleService } from '#services/subjective_scale_service'
 import { createWellnessSleepMacroTools } from '#services/report_v4/wellness_sleep_macros'
 import {
@@ -128,9 +127,19 @@ import {
   countPresentChartHosts,
   finalizeMinimalEmptyArtifact,
   freeArtifactTooThinForCharts,
+  refreshArtifactPresentationCss,
   stripRecommendationSectionsFromDocument,
 } from '#services/report_v4/artifact_html'
+import { evaluateAskContract } from '#services/report_v4/ask_contract'
+import { evaluateArtifactParity } from '#services/report_v4/artifact_parity'
 import { runSoftRebind } from '#services/report_v4/soft_rebind'
+import {
+  formatSoftEditPathMessage,
+  refusalFromDiffGate,
+  refusalFromTemplateRecovered,
+  type SoftEditPath,
+  type SoftRefusal,
+} from '#services/report_v4/soft_refusal'
 import {
   acwrHarvestNudge,
   analystIterationBudget,
@@ -144,6 +153,7 @@ import {
   resolveArtifactEnvelopeAsync,
   pathCostBudgetUsd,
   resolvePathCostClass,
+  resolveFreshClarify,
   resolveSoftClarify,
   verifyAcwrHarvest,
   type ArtifactEnvelope,
@@ -167,11 +177,8 @@ import {
   resolveFullCoverage,
   type DomainCoverageReport,
 } from '#services/report_v4/domain_coverage_probe'
-import {
-  askCoverageContinue,
-  resolveMultiSectionAsk,
-  resolveReportDomains,
-} from '#services/report_v4/ask_domain_resolve'
+import { askCoverageContinue, resolveReportDomains } from '#services/report_v4/ask_domain_resolve'
+import { analyzeRequest } from '#services/report_v4/analyze_request'
 import {
   acceptLinkerHarvestEndTurn,
   buildHarvestPlan,
@@ -206,10 +213,10 @@ import {
 import {
   compactDataProfileForLlm,
   formatDataProfileAnalystHint,
-  isReportV4DataProfileEnabled,
   profileHarvestDatasets,
   type HarvestDataProfile,
 } from '#services/report_v4/data_profiler'
+import { ensureDataReliabilityBlocks } from '#services/report_v4/data_reliability'
 import {
   formatClubInsightScienceAnalystHint,
   loadClubInsightScience,
@@ -218,10 +225,8 @@ import {
 import {
   COACH_REPORT_SHAPE,
 } from '#services/report_v4/coach_policy_heuristic'
-import { classifyAskDomains } from '#services/report_v4/classify_ask_domains'
 import { formatClubSeasonsBrief, loadClubSeasons } from '#services/report_v4/club_seasons'
 import { ensureTimeSeriesDomainWindows, unionCoverRange } from '#services/report_v4/prompt_scope'
-import { resolvePromptWindowsWithLlm } from '#services/report_v4/prompt_windows_llm'
 import {
   logReportV4AgentTotal,
   logReportV4Banner,
@@ -229,8 +234,8 @@ import {
 } from '#services/report_v4/report_v4_log'
 import {
   buildSessionFocus,
-  classifyPeriodStatusFollowUp,
   priorUserAsks,
+  withAskRound,
   type ReportV4SessionFocus,
 } from '#services/report_v4/session_focus'
 import type { AppLanguage } from '#utils/localize'
@@ -287,21 +292,15 @@ export const runReportV4Orchestrator = async (args: {
   const clubSeasons = await loadClubSeasons(args.clubId)
   const clubSeasonsBrief = formatClubSeasonsBrief(clubSeasons)
   const priorAsks = priorUserAsks(args.history, 2)
-  const { domains: askDomains } = await classifyAskDomains({
-    prompt: args.prompt,
-    language: args.language,
-  })
-  const { periodFollowUp } = await classifyPeriodStatusFollowUp({
-    prompt: args.prompt,
-    language: args.language,
-  })
-  const promptWindows = await resolvePromptWindowsWithLlm(args.prompt, {
+  const analyzed = await analyzeRequest(args.prompt, {
     seasons: clubSeasons,
     sessionFocus: args.sessionFocus,
     priorUserAsks: priorAsks,
-    askDomains,
-    periodFollowUp,
   })
+  const askDomains = analyzed.askDomains
+  const periodFollowUp = analyzed.periodFollowUp
+  const promptWindows = analyzed.windows
+  const multiSectionAsk = analyzed.multiSection
   const promptedRange = promptWindows.display
   const explicitPeriod = promptWindows.explicit
   const priorRange = args.document?.dateRange
@@ -319,13 +318,6 @@ export const runReportV4Orchestrator = async (args: {
     (periodFollowUp || earlyFetchDomains.length > 0)
       ? args.sessionFocus.domains
       : []
-  const multiSectionDecision = await resolveMultiSectionAsk({
-    prompt: args.prompt,
-    askDomainCount: askDomains.length || inheritedFocusDomains.length,
-    fetchDomainCount: earlyFetchDomains.length,
-    fetchWindowCount: promptWindows.fetches.length,
-  })
-  const multiSectionAsk = multiSectionDecision.multiSection
   const softInventory =
     hasBlocks || (typeof args.html === 'string' && args.html.length > 0)
       ? buildSoftCanvasInventory({
@@ -609,6 +601,7 @@ export const runReportV4Orchestrator = async (args: {
     rosterNames: rosterAll.map((row) => row.name),
     namedAthletes,
     language: args.language,
+    reportShape: policy.reportShape,
   })
   if (artifactEnvelope.harvest.requireLoadDomain && !domains.includes(PREMIUM_DOMAIN.LOAD)) {
     domains.push(PREMIUM_DOMAIN.LOAD)
@@ -652,15 +645,23 @@ export const runReportV4Orchestrator = async (args: {
     edit.canvasAsk.kind === PREMIUM_CANVAS_ASK.RESHAPE ||
     edit.canvasAsk.kind === PREMIUM_CANVAS_ASK.REMOVE
   const softTargetIds =
-    preserveCanvas && !softEditorialOnly && !softUnlockAllowlist
+    preserveCanvas && !softEditorialOnly
       ? resolveSoftEditTargets(args.prompt, document, { askDomains })
       : []
-  const softAllowBlockIds =
-    preserveCanvas && !softEditorialOnly && !softUnlockAllowlist && softAllowlistKind
-      ? new Set(softTargetIds)
-      : undefined
+  const softAllowBlockIds = preserveCanvas
+    ? softUnlockAllowlist || softEditorialOnly
+      ? new Set(document.blocks.map((block) => block.id))
+      : softAllowlistKind
+        ? new Set(softTargetIds)
+        : new Set(document.blocks.map((block) => block.id))
+    : undefined
   const softTargetsUnresolved = Boolean(
-    preserveCanvas && !softEditorialOnly && softAllowBlockIds && softAllowBlockIds.size === 0
+    preserveCanvas &&
+      !softEditorialOnly &&
+      !softUnlockAllowlist &&
+      softAllowlistKind &&
+      softAllowBlockIds &&
+      softAllowBlockIds.size === 0
   )
   const softTargetCandidates = softTargetsUnresolved
     ? listSoftTargetCandidates(args.prompt, document, 8, { askDomains })
@@ -685,16 +686,24 @@ export const runReportV4Orchestrator = async (args: {
     softTargetsUnresolved,
     candidateTitles: softTargetCandidates.map((row) => row.title),
     softOps,
+    language: args.language,
   })
   if (softClarify.needsClarify) {
+    const softAskFocus = withAskRound(args.sessionFocus, {
+      prompt: args.prompt,
+      displayRange,
+      domains: domains.length ? domains : askDomains,
+      questionIds: softClarify.questions.map((q) => q.id),
+    })
     logger.info(
       {
         confidence: softClarify.confidence,
         reason: softClarify.reason,
-        questions: softClarify.questions.map((q) => q.id),
+        question_ids: softClarify.questions.map((q) => q.id),
+        round: softAskFocus.askRound ?? 1,
         mode: artifactEnvelope.mode,
       },
-      'report_v4.soft_clarify_gate'
+      'report_v4.ask_gate'
     )
     progress(softClarify.markdown, softClarify.markdown)
     return {
@@ -707,7 +716,7 @@ export const runReportV4Orchestrator = async (args: {
       html: priorHtml ?? '',
       designPack,
       route,
-      sessionFocus: args.sessionFocus ?? null,
+      sessionFocus: softAskFocus,
       coverage: {
         displayRange,
         fetchRange,
@@ -724,6 +733,57 @@ export const runReportV4Orchestrator = async (args: {
         clarified: true,
         pathCostClass: 'editorial',
       }),
+      pathCostClass: 'editorial',
+    }
+  }
+
+  const freshAsk = resolveFreshClarify({
+    language: args.language,
+    preserveCanvas,
+    askRound: args.sessionFocus?.askRound ?? 0,
+    explicitPeriod,
+    askDomains,
+    preferredDomains: policy.preferredDomains,
+  })
+  logger.info(
+    {
+      reason: freshAsk.needsClarify ? freshAsk.reason : freshAsk.skipReason,
+      question_ids: freshAsk.questions.map((q) => q.id),
+      confidence: freshAsk.confidence,
+      round: args.sessionFocus?.askRound ?? 0,
+      skipped: freshAsk.skipped,
+    },
+    'report_v4.ask_gate'
+  )
+  if (freshAsk.needsClarify) {
+    const askFocus = withAskRound(args.sessionFocus, {
+      prompt: args.prompt,
+      displayRange,
+      domains: domains.length ? domains : askDomains,
+      questionIds: freshAsk.questions.map((q) => q.id),
+    })
+    progress(freshAsk.markdown, freshAsk.markdown)
+    return {
+      document,
+      message: freshAsk.markdown,
+      iterations: 0,
+      usage: emptyUsage(),
+      iterationSecs: [],
+      iterationCosts: [],
+      html: priorHtml ?? '',
+      designPack,
+      route,
+      sessionFocus: askFocus,
+      coverage: {
+        displayRange,
+        fetchRange,
+        domainRanges,
+        domains: coverage.domains,
+        populatedDomains: coverage.populatedDomains,
+        emptyDomains: coverage.emptyDomains,
+      },
+      clarify: freshAsk,
+      summary: null,
       pathCostClass: 'editorial',
     }
   }
@@ -943,6 +1003,9 @@ export const runReportV4Orchestrator = async (args: {
 
   let softApplied: string[] = []
   let softBlocked: string[] = []
+  let softCoachMessage: string | undefined
+  let softEditPath: SoftEditPath | undefined
+  let softRefusals: SoftRefusal[] = []
   let coverageGateResult: ReturnType<typeof evaluateCoverageGate> = null
   let acwrHarvestStatus: 'ok' | 'pending' | 'empty_declared' | null =
     artifactEnvelope.harvest.requireLoadDomain ? 'pending' : null
@@ -1172,7 +1235,7 @@ export const runReportV4Orchestrator = async (args: {
   }
 
   let harvestDataProfile: HarvestDataProfile | null = null
-  if (isReportV4DataProfileEnabled() && agentState.datasets.size > 0) {
+  if (agentState.datasets.size > 0) {
     harvestDataProfile = profileHarvestDatasets({
       datasets: agentState.datasets.values(),
       window: displayRange,
@@ -1290,7 +1353,7 @@ export const runReportV4Orchestrator = async (args: {
             }`
           : '',
         domains.includes(PREMIUM_DOMAIN.BIOMARKERS)
-          ? 'Biomarkers: build from linker datasets when rows exist.'
+          ? 'Biomarkers: use fetch_biomarkers_daily / fetch_biomarkers on the biomarkers fetch window. If the dataset has zero lab rows, commit a short brief note "no lab rows" under a Biomarkers heading — do not fill with wellness/GPS columns.'
           : '',
         preserveCanvas
           ? `SOFT EDIT (${edit.canvasAsk.kind}): keep layout. ${softAnalystContinueForAsk({
@@ -1332,9 +1395,7 @@ export const runReportV4Orchestrator = async (args: {
         (!preserveCanvas || softDataMutate) &&
         (!hasLinkedData || shortWindow || softDataMutate)
       const withFactTools = <T extends ReturnType<typeof createReportBriefTools>>(tools: T) =>
-        isReportV4DataFactsEnabled()
-          ? ([...tools, ...createReportFactTools(run)] as T)
-          : tools
+        [...tools, ...createReportFactTools(run)] as T
       const tools = await (async () => {
         if (preserveCanvas && !needsFetch && !softDataMutate) {
           agentState.blockSql = true
@@ -1637,7 +1698,7 @@ export const runReportV4Orchestrator = async (args: {
           ...createPremiumDataTools(agentState, { domains }),
           ...createPremiumDocumentTools(agentState),
           ...createReportBriefTools(run),
-          ...(isReportV4DataFactsEnabled() ? createReportFactTools(run) : []),
+          ...createReportFactTools(run),
         ]
         const recovery = await runPremiumReportAgent({
           systemPrompt: buildAnalystSystemPrompt({
@@ -1770,7 +1831,11 @@ export const runReportV4Orchestrator = async (args: {
             'report_v4.coverage_gate'
           )
           if (!coverage.ok) {
-            const nextBrief = annotateBriefCoverageShortfall(run.reportBrief, coverage)
+            const nextBrief = annotateBriefCoverageShortfall(
+              run.reportBrief,
+              coverage,
+              args.language === 'en' ? 'en' : 'fr'
+            )
             if (nextBrief) run.reportBrief = nextBrief
             else {
               logger.warn(
@@ -1818,6 +1883,7 @@ export const runReportV4Orchestrator = async (args: {
         populatedDomains: domains,
         coachPrompt: args.prompt,
       })
+      run.templateRecoveredReason = reason
       logger.info(
         { reason: `${reason}_recovered`, htmlBytes: run.htmlArtifact.length },
         'report_v4.designer_template_recovered'
@@ -1834,7 +1900,26 @@ export const runReportV4Orchestrator = async (args: {
     let charts = collectArtifactCharts(agentState.document, heatScales)
     let chartCount = charts.length
 
-    if (preserveCanvas && priorHtml) {
+    const softPathAllowed =
+      preserveCanvas &&
+      Boolean(priorHtml) &&
+      artifactEnvelope.contracts.softAllowed &&
+      artifactEnvelope.mode !== 'gated_rebuild'
+
+    if (preserveCanvas && priorHtml && !softPathAllowed) {
+      needsFreshArtifact = true
+      run.htmlArtifact = null
+      logger.info(
+        {
+          mode: artifactEnvelope.mode,
+          softAllowed: artifactEnvelope.contracts.softAllowed,
+          preserveCanvas: true,
+        },
+        'report_v4.soft_path_skipped_gated_rebuild'
+      )
+    }
+
+    if (softPathAllowed && priorHtml) {
       const softPrep = prepareSoftArtifactPath({
         document: agentState.document,
         envelope: artifactEnvelope,
@@ -1868,25 +1953,66 @@ export const runReportV4Orchestrator = async (args: {
       agentState.document = soft.document
       run.document = soft.document
       run.htmlArtifact = soft.htmlArtifact
+        ? refreshArtifactPresentationCss(soft.htmlArtifact, designPack)
+        : soft.htmlArtifact
       softRebindRepair = soft.softRebindRepair
       needsFreshArtifact = soft.needsFreshArtifact
       softApplied = soft.softApplied
       softBlocked = soft.softBlocked
-      if (priorDocumentForSoft && softAllowBlockIds) {
+      softRefusals = soft.refusals
+      if (soft.coachMessage) softCoachMessage = soft.coachMessage
+      if (!soft.restoredPrior) {
+        softEditPath = 'local'
+      } else if (soft.refusals.some((row) => row.code === 'soft_truth_escalate')) {
+        softEditPath = 'local_refused'
+      } else if (softBlocked.includes('zero_mutations')) {
+        softEditPath = 'unchanged'
+      } else {
+        softEditPath = 'local_refused'
+      }
+      if (priorDocumentForSoft && softAllowBlockIds && !soft.restoredPrior) {
         const diff = evaluateSoftDiffGate({
           prior: priorDocumentForSoft,
           next: soft.document,
           allowBlockIds: softAllowBlockIds,
         })
         if (diff && !diff.ok) {
-          softBlocked = [...softBlocked, 'diff_gate']
-          softRebindRepair = true
-          needsFreshArtifact = true
-          run.htmlArtifact = null
+          softBlocked = [
+            ...softBlocked,
+            'diff_gate',
+            ...(diff.orderChanged ? ['diff_order'] : []),
+            ...diff.documentFieldsChanged.map((field) => `diff_doc:${field}`),
+          ]
+          softRebindRepair = false
+          needsFreshArtifact = false
+          run.document = clonePremiumDocument(priorDocumentForSoft)
+          agentState.document = run.document
+          run.htmlArtifact = priorHtml
+            ? refreshArtifactPresentationCss(priorHtml, designPack)
+            : priorHtml
+          softEditPath = 'local_refused'
+          softRefusals = refusalFromDiffGate({
+            mutatedOutsideAllowlist: diff.mutatedOutsideAllowlist,
+            orderChanged: diff.orderChanged,
+            documentFieldsChanged: diff.documentFieldsChanged,
+            language: args.language,
+          })
+          softCoachMessage = formatSoftEditPathMessage({
+            path: 'local_refused',
+            language: args.language,
+            detail:
+              args.language === 'fr'
+                ? "Je n'ai pas pu appliquer la modification localement (hors périmètre). Le rapport précédent a été conservé. Voulez-vous que je refasse le rapport ?"
+                : 'I could not apply the change locally (outside the allowed scope). The previous report was kept. Should I rebuild the report?',
+          })
           logger.warn(
             {
               mutatedOutsideAllowlist: diff.mutatedOutsideAllowlist,
+              orderChanged: diff.orderChanged,
+              documentFieldsChanged: diff.documentFieldsChanged,
               checkedOutside: diff.checkedOutside,
+              restoredPrior: true,
+              refusals: softRefusals,
             },
             'report_v4.soft_diff_gate'
           )
@@ -1937,6 +2063,11 @@ export const runReportV4Orchestrator = async (args: {
         populatedDomains: domains,
         coachPrompt: args.prompt,
         wellnessScales,
+        sectionOrder: policy.sectionOrder,
+        individualSheetsAsk:
+          artifactEnvelope.coverage.individualSheets ||
+          policy.reportShape === COACH_REPORT_SHAPE.INDIVIDUAL_FOCUS ||
+          Boolean(agentState.limits.individualLinesAsk),
       })
       const rejectMissingArtifact = (_state: typeof agentState): string | null => {
         if (artifactHtmlLooksValid(run.htmlArtifact)) return null
@@ -2143,15 +2274,99 @@ export const runReportV4Orchestrator = async (args: {
     }
   }
   run.htmlArtifact = htmlArtifact
+  if (harvestDataProfile) {
+    const reliability = ensureDataReliabilityBlocks(
+      run.document,
+      harvestDataProfile,
+      args.language
+    )
+    run.document = reliability.document
+    if (reliability.inserted) {
+      logger.info(
+        {
+          blocks: run.document.blocks.length,
+          sampleRows: harvestDataProfile.datasets.reduce((sum, row) => sum + row.rowCount, 0),
+        },
+        'report_v4.data_reliability_block'
+      )
+    }
+  }
+  if (artifactHtmlLooksValid(htmlArtifact) && run.document.blocks.length > 0) {
+    const parity = evaluateArtifactParity(run.document, htmlArtifact)
+    logger.info(
+      {
+        ok: parity.ok,
+        issues: parity.issues.slice(0, 12),
+        documentBlockCount: parity.documentBlockCount,
+        htmlBlockCount: parity.htmlBlockCount,
+      },
+      'report_v4.artifact_parity'
+    )
+  }
 
-  const message =
-    args.language === 'fr'
-      ? preserveCanvas
-        ? 'Rapport mis à jour.'
-        : 'Rapport généré.'
-      : preserveCanvas
-        ? 'Report updated.'
-        : 'Report generated.'
+  const deepFloor =
+    Boolean(policy.monitoringPlaybook) || Boolean(multiSectionAsk) || domains.length >= 3
+  const thinFree =
+    !preserveCanvas &&
+    !deepFloor &&
+    policy.reportShape === COACH_REPORT_SHAPE.FREE &&
+    domains.length <= 2
+  const minCharts = thinFree || preserveCanvas
+    ? 0
+    : Math.min(8, Math.max(2, domains.length || 1))
+  const askContract = evaluateAskContract({
+    document: run.document,
+    displayRange,
+    policy,
+    envelope: artifactEnvelope,
+    domains,
+    language: args.language,
+    acwrStatus: acwrHarvestStatus,
+    minCharts,
+    htmlArtifact,
+  })
+  logger.info(
+    {
+      status: askContract.status,
+      gaps: askContract.results
+        .filter((row) => row.status !== 'delivered')
+        .map((row) => ({ id: row.id, status: row.status })),
+    },
+    'report_v4.ask_contract'
+  )
+
+  if (run.templateRecoveredReason) {
+    softEditPath = 'template_recovered'
+    const templateRefusal = refusalFromTemplateRecovered({
+      reason: run.templateRecoveredReason,
+      language: args.language,
+    })
+    softRefusals = [...softRefusals, templateRefusal]
+    softCoachMessage =
+      softCoachMessage ??
+      formatSoftEditPathMessage({
+        path: 'template_recovered',
+        language: args.language,
+        detail: templateRefusal.reason,
+      })
+  } else if (!softEditPath) {
+    softEditPath = 'full_rebuild'
+  }
+
+  let message = softCoachMessage
+  if (!message && preserveCanvas && softBlocked.includes('zero_mutations')) {
+    message = formatSoftEditPathMessage({ path: 'unchanged', language: args.language })
+  }
+  if (!message && (softEditPath === 'local' || softEditPath === 'full_rebuild')) {
+    message = formatSoftEditPathMessage({
+      path: softEditPath,
+      language: args.language,
+      detail: askContract.message,
+    })
+  }
+  if (!message) {
+    message = askContract.message
+  }
 
   const nextSessionFocus =
     domains.length > 0 || harvestFetches.length > 0
@@ -2170,6 +2385,10 @@ export const runReportV4Orchestrator = async (args: {
     coverage: coverageGateResult,
     acwrStatus: acwrHarvestStatus,
     pathCostClass,
+    language: args.language === 'en' ? 'en' : 'fr',
+    askContract,
+    editPath: softEditPath,
+    refusals: softRefusals,
   })
 
   return {

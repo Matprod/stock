@@ -14,7 +14,7 @@ import type { PremiumDataset } from '#contracts/premium_report'
 import {
   isReportFormulaId,
   type ReportFormulaParams,
-} from '#services/report_builder/formulas'
+} from '#services/report_v4/metrics/formulas'
 import { applyFormulaOnDataset, FORMULAS_FILL_REST_DAYS } from '#services/premium_report/apply_formula_op'
 import {
   assertDatasetRowsCap,

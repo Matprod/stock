@@ -1,5 +1,6 @@
 import { test } from '@japa/runner'
 import {
+  clubInsightScienceQueryMode,
   formatClubInsightScienceAnalystHint,
   renderClubInsightScienceStaffPanel,
   truncateInsightScience,
@@ -83,5 +84,10 @@ test.group('club_insight_science', () => {
   test('empty list yields no hint and empty panel', ({ assert }) => {
     assert.isUndefined(formatClubInsightScienceAnalystHint([]))
     assert.equal(renderClubInsightScienceStaffPanel([], 'fr'), '')
+  })
+
+  test('unlinked club does not scan global feature importances', ({ assert }) => {
+    assert.equal(clubInsightScienceQueryMode([]), 'empty')
+    assert.equal(clubInsightScienceQueryMode(['insight-a']), 'linked')
   })
 })

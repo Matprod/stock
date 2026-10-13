@@ -1,0 +1,27 @@
+{
+ "version": 1,
+ "id": "s4.fig1",
+ "intent": "distribution",
+ "form": "hist",
+ "title": "Répartition de la charge aiguë sur chronique dans le groupe",
+ "data": {
+  "ref": "q.acwr.group",
+  "fields": {
+   "y": "acwr"
+  },
+  "metric": "acwr"
+ },
+ "entities": [
+  {
+   "id": "all",
+   "label": "Groupe",
+   "slot": 1
+  }
+ ],
+ "reference": {
+  "kind": "entity_value"
+ },
+ "labels": "direct",
+ "size": "pair",
+ "caption": "short"
+}

@@ -14,6 +14,7 @@ export const invokeHaikuJson = async <T extends Record<string, unknown>>(args: {
   system: string
   user: string
   maxTokens?: number
+  temperature?: number
 }): Promise<T> => {
   const raw = await bedrockClient.send(
     new InvokeModelCommand({
@@ -23,6 +24,7 @@ export const invokeHaikuJson = async <T extends Record<string, unknown>>(args: {
       body: JSON.stringify({
         anthropic_version: 'bedrock-2023-05-31',
         max_tokens: args.maxTokens ?? 400,
+        ...(args.temperature != null ? { temperature: args.temperature } : {}),
         system: args.system,
         messages: [{ role: 'user', content: args.user }],
       }),

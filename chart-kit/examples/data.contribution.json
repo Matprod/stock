@@ -1,0 +1,35 @@
+{
+ "_note": "Données synthétiques",
+ "rows": [
+  {
+   "label": "15 sept.",
+   "value": 38,
+   "kind": "start"
+  },
+  {
+   "label": "Charge",
+   "value": 9,
+   "kind": "delta"
+  },
+  {
+   "label": "Sommeil",
+   "value": 4,
+   "kind": "delta"
+  },
+  {
+   "label": "Asymétrie",
+   "value": -3,
+   "kind": "delta"
+  },
+  {
+   "label": "Calendrier",
+   "value": 2,
+   "kind": "delta"
+  },
+  {
+   "label": "13 oct.",
+   "value": 50,
+   "kind": "end"
+  }
+ ]
+}

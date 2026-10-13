@@ -108,15 +108,21 @@ const domainKeyPatternsForQuery = (query: string): RegExp[] => {
   return patterns
 }
 
+const BAND_CLASS_RE = /class=["'][^"']*(?<![-\w])band(?![-\w])[^"']*["']/i
+const BAND_TITLE_RE =
+  /<(?:div|span)\b[^>]*class=["'][^"']*\bband-title\b[^"']*["'][^>]*>([\s\S]*?)<\/(?:div|span)>/i
+
 const extractBandTitle = (sectionHtml: string): string => {
-  const band = sectionHtml.match(
-    /<div\b[^>]*class=["'][^"']*\bband\b[^"']*["'][^>]*>[\s\S]*?<\/div>/i
-  )?.[0]
-  const fromBand = band
-    ? (band.match(/<h[12]\b[^>]*>([\s\S]*?)<\/h[12]>/i)?.[1] ??
-      band.match(/<h[1-6]\b[^>]*>([\s\S]*?)<\/h[1-6]>/i)?.[1] ??
-      '')
-    : ''
+  const open = sectionHtml.match(new RegExp(`<div\\b[^>]*${BAND_CLASS_RE.source}[^>]*>`, 'i'))?.[0]
+  const fromTitle = sectionHtml.match(BAND_TITLE_RE)?.[1] ?? ''
+  if (fromTitle) return stripTags(fromTitle)
+  const bandInner = open
+    ? sectionHtml.slice(sectionHtml.indexOf(open) + open.length, sectionHtml.indexOf(open) + 800)
+    : sectionHtml
+  const fromBand =
+    bandInner.match(/<h[12]\b[^>]*>([\s\S]*?)<\/h[12]>/i)?.[1] ??
+    bandInner.match(/<h[1-6]\b[^>]*>([\s\S]*?)<\/h[1-6]>/i)?.[1] ??
+    ''
   if (fromBand) return stripTags(fromBand)
   const heading =
     sectionHtml.match(/<h[12]\b[^>]*>([\s\S]*?)<\/h[12]>/i)?.[1] ??
@@ -139,6 +145,45 @@ const extractTableIds = (sectionHtml: string): string[] => {
     if (match[1]) ids.add(match[1])
   }
   return [...ids]
+}
+
+export const ensureSectionAnchorsInHtml = (html: string): { html: string; stamped: number } => {
+  let next = html
+  let stamped = 0
+
+  if (!/\bid=["']cover["']/i.test(next)) {
+    const withCover = next.replace(
+      /<(div|section)\b([^>]*\bclass=["'][^"']*\b(?:cover-panel|page\s+cover|cover)\b[^"']*["'][^>]*)>/i,
+      (open, tag: string, attrs: string) => {
+        if (/\bid=["']/i.test(attrs)) return open
+        stamped += 1
+        return `<${tag}${attrs} id="cover">`
+      }
+    )
+    next = withCover
+  }
+
+  let bandIndex = 0
+  next = next.replace(/<div\b([^>]*)>/gi, (open, attrs: string) => {
+    if (!BAND_CLASS_RE.test(attrs)) return open
+    if (/\bid=["']/i.test(attrs)) return open
+    bandIndex += 1
+    stamped += 1
+    return `<div${attrs} id="band-section-${bandIndex}">`
+  })
+
+  let sectionIndex = 0
+  next = next.replace(
+    /<(article|section)\b([^>]*\bclass=["'][^"']*\bsection-block\b[^"']*["'][^>]*)>/gi,
+    (open, tag: string, attrs: string) => {
+      if (/\bid=["']/i.test(attrs)) return open
+      sectionIndex += 1
+      stamped += 1
+      return `<${tag}${attrs} id="section-${sectionIndex}">`
+    }
+  )
+
+  return { html: next, stamped }
 }
 
 export const indexArtifactSections = (html: string): ArtifactSection[] => {
@@ -165,7 +210,7 @@ export const indexArtifactSections = (html: string): ArtifactSection[] => {
   if (sections.length > 0) return sections
 
   const bandStarts: number[] = []
-  const bandRe = /<div\b[^>]*class=["'][^"']*\bband\b[^"']*["'][^>]*>/gi
+  const bandRe = /<div\b[^>]*class=["'][^"']*(?<![-\w])band(?![-\w])[^"']*["'][^>]*>/gi
   for (const match of html.matchAll(bandRe)) {
     bandStarts.push(match.index ?? 0)
   }
@@ -176,8 +221,10 @@ export const indexArtifactSections = (html: string): ArtifactSection[] => {
     const bandTitle = extractBandTitle(slice)
     if (!bandTitle) continue
     if (/^(cover|sommaire|contents|couverture)$/i.test(foldKey(bandTitle))) continue
+    const open = slice.match(/^<div\b([^>]*)>/i)?.[1] ?? ''
+    const existingId = open.match(/\bid=["']([^"']+)["']/i)?.[1]?.trim()
     sections.push({
-      id: `band-section-${sections.length + 1}`,
+      id: existingId || `band-section-${sections.length + 1}`,
       bandTitle,
       chartHostIds: extractChartHostIds(slice),
       tableIds: extractTableIds(slice),
@@ -187,6 +234,11 @@ export const indexArtifactSections = (html: string): ArtifactSection[] => {
     })
   }
   return sections
+}
+
+const htmlHasElementId = (html: string, id: string): boolean => {
+  const esc = id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return new RegExp(`\\bid=["']${esc}["']`, 'i').test(html)
 }
 
 const findSectionsByQuery = (sections: ArtifactSection[], query: string): ArtifactSection[] => {
@@ -342,25 +394,36 @@ export const ensureTocInHtml = (
   } = {}
 ): { html: string; added: boolean } => {
   if (hasTocPage(html)) return { html, added: false }
+  const anchored = ensureSectionAnchorsInHtml(html)
+  let next = anchored.html
   const language = args.language ?? 'fr'
   const fr = language === 'fr'
-  const sections = indexArtifactSections(html).filter(
-    (section) => section.bandTitle.trim().length > 0
+  const sections = indexArtifactSections(next).filter(
+    (section) =>
+      section.bandTitle.trim().length > 0 && htmlHasElementId(next, section.id)
   )
-  if (sections.length === 0) return { html, added: false }
+  if (sections.length === 0) return { html: next, added: false }
 
   const club = escapeHtml(args.clubName?.trim() || 'Club')
   const title = escapeHtml(args.reportTitle?.trim() || (fr ? 'Rapport' : 'Report'))
   const tocTitle = fr ? 'Sommaire' : 'Contents'
-  const items = [
-    `<li><a href="#cover"><span>01 · ${fr ? 'Couverture' : 'Cover'}</span><span class="hint">cover</span></a></li>`,
-    ...sections.map((section, index) => {
-      const n = String(index + 2).padStart(2, '0')
-      const label = escapeHtml(section.bandTitle)
-      const href = escapeHtml(section.id)
-      return `<li><a href="#${href}"><span>${n} · ${label}</span><span class="hint">§${index + 1}</span></a></li>`
-    }),
-  ].join('\n')
+  const items: string[] = []
+  let n = 1
+  if (htmlHasElementId(next, 'cover')) {
+    items.push(
+      `<li><a href="#cover"><span>${String(n).padStart(2, '0')} · ${fr ? 'Couverture' : 'Cover'}</span><span class="hint">cover</span></a></li>`
+    )
+    n += 1
+  }
+  for (const [index, section] of sections.entries()) {
+    const label = escapeHtml(section.bandTitle)
+    const href = escapeHtml(section.id)
+    items.push(
+      `<li><a href="#${href}"><span>${String(n).padStart(2, '0')} · ${label}</span><span class="hint">§${index + 1}</span></a></li>`
+    )
+    n += 1
+  }
+  if (items.length === 0) return { html: next, added: false }
 
   const tocPage = `<section class="page toc-page" id="sommaire" data-mauna-soft-toc="1">
   <div class="band">
@@ -369,36 +432,46 @@ export const ensureTocInHtml = (
   </div>
   <h2 class="toc-title">${title}</h2>
   <ol class="toc-list">
-    ${items}
+    ${items.join('\n')}
   </ol>
   <div class="footer-inline"><span>${club} · confidential</span><span>toc</span></div>
 </section>`
 
-  if (/<\/section>/i.test(html) && /class=["'][^"']*\bcover\b/i.test(html)) {
-    const coverClose = html.search(
+  if (/<\/section>/i.test(next) && /class=["'][^"']*\bcover\b/i.test(next)) {
+    const coverClose = next.search(
       /<\/section>\s*(?=<main\b|<article\b|<section\b[^>]*section-block|<section\b[^>]*toc-page)/i
     )
     if (coverClose >= 0) {
-      const insertAt = html.indexOf('</section>', coverClose) + '</section>'.length
+      const insertAt = next.indexOf('</section>', coverClose) + '</section>'.length
       return {
-        html: `${html.slice(0, insertAt)}\n${tocPage}\n${html.slice(insertAt)}`,
+        html: `${next.slice(0, insertAt)}\n${tocPage}\n${next.slice(insertAt)}`,
         added: true,
       }
     }
   }
-  if (/<main\b/i.test(html)) {
+  if (/class=["'][^"']*\bcover-panel\b/i.test(next)) {
+    const coverEnd = next.search(/<\/div>\s*(?=<div\b[^>]*class=["'][^"']*\bband\b|<main\b|<section\b|<article\b)/i)
+    if (coverEnd >= 0) {
+      const insertAt = next.indexOf('</div>', coverEnd) + '</div>'.length
+      return {
+        html: `${next.slice(0, insertAt)}\n${tocPage}\n${next.slice(insertAt)}`,
+        added: true,
+      }
+    }
+  }
+  if (/<main\b/i.test(next)) {
     return {
-      html: html.replace(/<main\b/i, `${tocPage}\n<main`),
+      html: next.replace(/<main\b/i, `${tocPage}\n<main`),
       added: true,
     }
   }
-  if (/<body\b[^>]*>/i.test(html)) {
+  if (/<body\b[^>]*>/i.test(next)) {
     return {
-      html: html.replace(/<body\b[^>]*>/i, (open) => `${open}\n${tocPage}`),
+      html: next.replace(/<body\b[^>]*>/i, (open) => `${open}\n${tocPage}`),
       added: true,
     }
   }
-  return { html: `${tocPage}\n${html}`, added: true }
+  return { html: `${tocPage}\n${next}`, added: true }
 }
 
 export const syncCanvasAfterSectionRemoval = (

@@ -86,46 +86,33 @@ test.group('report_facts Phase 2A', () => {
     assert.equal(formatFactValue(1234, 'fr'), '1 234')
   })
 
-  test('auditArtifactHtml rejects literal KPI when enforceLiteralFactGate is on', ({ assert }) => {
-    const prev = process.env.REPORT_V4_DATA_FACTS
-    process.env.REPORT_V4_DATA_FACTS = '1'
-    try {
-      const html = `<!DOCTYPE html><html><body>
+  test('auditArtifactHtml warns on literal KPI when enforceLiteralFactGate is on', ({ assert }) => {
+    const html = `<!DOCTYPE html><html><body>
 <p>Ada Lovelace CK over threshold: 18 assays.</p>
 </body></html>`
-      const result = auditArtifactHtml(html, {
-        ...baseInput(),
-        enforceLiteralFactGate: true,
-      })
-      assert.isFalse(result.ok)
-      assert.isTrue(result.violations.some((v) => v.code === 'literal_number'))
-    } finally {
-      if (prev === undefined) delete process.env.REPORT_V4_DATA_FACTS
-      else process.env.REPORT_V4_DATA_FACTS = prev
-    }
+    const result = auditArtifactHtml(html, {
+      ...baseInput(),
+      enforceLiteralFactGate: true,
+    })
+    assert.isTrue(result.ok)
+    assert.isFalse(result.violations.some((v) => v.code === 'literal_number'))
+    assert.isTrue((result.warnings ?? []).some((v) => v.code === 'literal_number'))
   })
 
   test('soft delta scope only audits injected blocks for literal numbers', ({ assert }) => {
-    const prev = process.env.REPORT_V4_DATA_FACTS
-    process.env.REPORT_V4_DATA_FACTS = '1'
-    try {
-      const html = `<!DOCTYPE html><html><body>
+    const html = `<!DOCTYPE html><html><body>
 <article class="section-block"><p>Prior prose cites 99 invented.</p></article>
 <article class="chart-card" data-mauna-soft-injected="1">
   <h3>Load</h3>
   <p>Ada Lovelace steady with <span data-fact="load.row_count"></span> rows.</p>
 </article>
 </body></html>`
-      const scope = detectSoftDeltaGroundingScope(html)
-      const result = auditArtifactHtml(
-        html,
-        { ...baseInput(), enforceLiteralFactGate: true },
-        scope
-      )
-      assert.isTrue(result.ok)
-    } finally {
-      if (prev === undefined) delete process.env.REPORT_V4_DATA_FACTS
-      else process.env.REPORT_V4_DATA_FACTS = prev
-    }
+    const scope = detectSoftDeltaGroundingScope(html)
+    const result = auditArtifactHtml(
+      html,
+      { ...baseInput(), enforceLiteralFactGate: true },
+      scope
+    )
+    assert.isTrue(result.ok)
   })
 })

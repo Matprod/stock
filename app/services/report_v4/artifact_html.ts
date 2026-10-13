@@ -1,3 +1,4 @@
+import { parseHTML } from 'linkedom'
 import type { PremiumReportDocument } from '#contracts/premium_report'
 import {
   asEchartsOption,
@@ -13,7 +14,10 @@ import {
   buildReportPackCss,
   buildReportPrintCss,
 } from '#services/report_v4/design/report_pack_css'
+import type { BlockOrigin } from '#services/report_v4/artifact_parity'
+import { enforceChartOptionGuards } from '#services/report_v4/chart_option_guards'
 import { buildEchartsBootScript, echartsCdnScriptTag } from '#services/report_v4/echarts_boot'
+import { packFontsStyleTag } from '#services/report_v4/report_v4_assets'
 import { maunaWatermarkCss, maunaWatermarkImgTag } from '#services/report_v4/mauna_watermark'
 import {
   ARTIFACT_MIN_HTML_BYTES,
@@ -24,6 +28,11 @@ import {
   injectDataFactsInHtml,
   type ReportFact,
 } from '#services/report_v4/report_facts'
+import {
+  ensureSectionAnchorsInHtml,
+  ensureTocInHtml,
+  indexArtifactSections,
+} from '#services/report_v4/artifact_sections'
 import { foldAscii, foldKey } from '#utils/html_text'
 import type { AppLanguage } from '#utils/localize'
 
@@ -136,6 +145,7 @@ export const projectArtifactChartsForDesign = (
 
 export type ArtifactTableSpec = {
   id: string
+  blockId: string
   title: string
   columns: string[]
   rows: Array<Array<string | number | null>>
@@ -148,6 +158,7 @@ export const collectArtifactTables = (document: PremiumReportDocument): Artifact
     if (block.type !== 'table') continue
     tables.push({
       id: `table_${tables.length + 1}`,
+      blockId: block.id,
       title: block.title ?? `Table ${tables.length + 1}`,
       columns: block.columns,
       rows: block.rows.slice(0, 40),
@@ -288,23 +299,85 @@ export const listMissingArtifactChartHosts = (
 ): string[] =>
   charts.filter((chart, index) => !artifactChartHostPresent(html, chart, index)).map((c) => c.id)
 
+const wrapArtifactHtml = (html: string): string =>
+  /<html[\s>]/i.test(html) ? html : `<!DOCTYPE html><html><body>${html}</body></html>`
+
+const serializeArtifactHtml = (document: Document): string => {
+  const doctype = '<!DOCTYPE html>'
+  const html = document.documentElement?.outerHTML
+  if (html) return `${doctype}${html}`
+  return document.body?.innerHTML ?? ''
+}
+
+const chartCardHtml = (chart: ArtifactChartSpec, blockId?: string): string => {
+  const title = escapeHtml(chart.title.trim() || chart.id)
+  const blockAttr = blockId ? ` data-block-id="${escapeHtml(blockId)}"` : ''
+  return `<article class="chart-card" data-mauna-soft-injected="1"${blockAttr}><h3${blockAttr}>${title}</h3><div id="${escapeHtml(chart.id)}" class="chart-box"${blockAttr}></div></article>`
+}
+
+const cssAttrEscape = (value: string): string =>
+  value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+
+const insertHtmlAfterAnchor = (html: string, anchorBlockId: string, snippet: string): string | null => {
+  const { document } = parseHTML(wrapArtifactHtml(html))
+  const anchor = document.querySelector(`[data-block-id="${cssAttrEscape(anchorBlockId)}"]`)
+  if (!anchor || !anchor.parentNode) return null
+  const host = anchor.closest('article, section, figure, div.card') ?? anchor
+  const tmp = document.createElement('div')
+  tmp.innerHTML = snippet
+  const nodes = Array.from(tmp.childNodes)
+  let ref: ChildNode = host
+  for (const node of nodes) {
+    ref.parentNode?.insertBefore(node, ref.nextSibling)
+    ref = node
+  }
+  return serializeArtifactHtml(document)
+}
+
 export const injectMissingChartHostShells = (
   html: string,
-  charts: ArtifactChartSpec[]
+  charts: ArtifactChartSpec[],
+  opts?: {
+    document?: PremiumReportDocument
+    priorDocument?: PremiumReportDocument | null
+  }
 ): { html: string; injected: number } => {
   const missing = charts.filter((chart, index) => !artifactChartHostPresent(html, chart, index))
   if (missing.length === 0) return { html, injected: 0 }
-  const cards = missing
-    .map((chart) => {
-      const title = escapeHtml(chart.title.trim() || chart.id)
-      return `<article class="chart-card" data-mauna-soft-injected="1"><h3>${title}</h3><div id="${chart.id}" class="chart-box"></div></article>`
-    })
-    .join('\n')
-  const section = `<section id="mauna-soft-chart-inject" data-mauna-soft-injected="1">\n${cards}\n</section>`
-  if (/<\/body>/i.test(html)) {
-    return { html: html.replace(/<\/body>/i, `${section}\n</body>`), injected: missing.length }
+
+  const blockIdForHost = (hostId: string): string | undefined => {
+    const blocks = opts?.document?.blocks ?? opts?.priorDocument?.blocks ?? []
+    const hit = blocks.find((b) => b.type === 'chart' && artifactChartHostId(b.id) === hostId)
+    return hit?.id
   }
-  return { html: `${html}\n${section}`, injected: missing.length }
+
+  let next = html
+  let injected = 0
+  for (const chart of missing) {
+    const blockId = blockIdForHost(chart.id)
+    const card = chartCardHtml(chart, blockId)
+    let placed = false
+    if (blockId && opts?.priorDocument) {
+      const priorIndex = opts.priorDocument.blocks.findIndex((b) => b.id === blockId)
+      for (let i = priorIndex - 1; i >= 0 && !placed; i -= 1) {
+        const prev = opts.priorDocument.blocks[i]
+        if (!prev) continue
+        const after = insertHtmlAfterAnchor(next, prev.id, card)
+        if (after) {
+          next = after
+          placed = true
+        }
+      }
+    }
+    if (!placed) {
+      const section = `<section id="mauna-soft-chart-inject" data-mauna-soft-injected="1">\n${card}\n</section>`
+      next = /<\/body>/i.test(next)
+        ? next.replace(/<\/body>/i, `${section}\n</body>`)
+        : `${next}\n${section}`
+    }
+    injected += 1
+  }
+  return { html: next, injected }
 }
 
 const proseBlocksDiffer = (
@@ -332,6 +405,7 @@ export type SoftRebindValidation = {
   ok: boolean
   missingHosts: string[]
   proseMiss: boolean
+  unsyncedBlockIds: string[]
 }
 
 export const validateSoftRebindHtml = (args: {
@@ -340,13 +414,26 @@ export const validateSoftRebindHtml = (args: {
   document: PremiumReportDocument
   priorDocument: PremiumReportDocument | null
   syncedProse: number
+  unsyncedBlockIds?: string[]
 }): SoftRebindValidation => {
   const missingHosts = listMissingArtifactChartHosts(args.html, args.charts)
-  const proseMiss = args.syncedProse === 0 && proseBlocksDiffer(args.document, args.priorDocument)
+  const unsyncedBlockIds = [...(args.unsyncedBlockIds ?? [])]
+  if (unsyncedBlockIds.length === 0 && args.syncedProse === 0 && proseBlocksDiffer(args.document, args.priorDocument)) {
+    for (const block of args.document.blocks) {
+      if (block.type !== 'heading' && block.type !== 'text') continue
+      const prior = args.priorDocument?.blocks.find((row) => row.id === block.id)
+      if (!prior || prior.type !== block.type) continue
+      const before = prior.type === 'heading' || prior.type === 'text' ? prior.text.trim() : ''
+      const after = block.type === 'heading' || block.type === 'text' ? block.text.trim() : ''
+      if (before && after && before !== after) unsyncedBlockIds.push(block.id)
+    }
+  }
+  const proseMiss = unsyncedBlockIds.length > 0
   return {
     ok: missingHosts.length === 0 && !proseMiss,
     missingHosts,
     proseMiss,
+    unsyncedBlockIds,
   }
 }
 
@@ -543,94 +630,169 @@ const renderArtifactTableHtml = (spec: ArtifactTableSpec): string => {
       return `<tr>${cells}</tr>`
     })
     .join('')
-  return `<table class="report-table" id="${escapeHtml(spec.id)}"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`
+  const blockAttr = spec.blockId ? ` data-block-id="${escapeHtml(spec.blockId)}"` : ''
+  return `<table class="report-table" id="${escapeHtml(spec.id)}"${blockAttr}><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`
+}
+
+export const stampDataBlockIdsInHtml = (
+  html: string,
+  document: PremiumReportDocument,
+  origin: BlockOrigin = 'generate'
+): string => {
+  const { document: dom } = parseHTML(wrapArtifactHtml(html))
+  const used = new Set<string>()
+  const assignIfFree = (el: Element | null | undefined, blockId: string) => {
+    if (!el) return
+    const existing = el.getAttribute('data-block-id')
+    if (existing && existing !== blockId) return
+    el.setAttribute('data-block-id', blockId)
+    el.setAttribute('data-block-origin', origin)
+    used.add(blockId)
+  }
+
+  for (const block of document.blocks) {
+    const byId = dom.querySelector(`[data-block-id="${cssAttrEscape(block.id)}"]`)
+    if (byId) {
+      used.add(block.id)
+      if (!byId.getAttribute('data-block-origin')) {
+        byId.setAttribute('data-block-origin', origin)
+      }
+      continue
+    }
+    if (block.type === 'heading') {
+      const tag = block.level === 2 ? 'h3' : 'h2'
+      const candidates = Array.from(dom.querySelectorAll(tag)).filter(
+        (el) => !el.getAttribute('data-block-id')
+      )
+      const match =
+        candidates.find((el) => (el.textContent ?? '').replace(/\s+/g, ' ').trim() === block.text.trim()) ??
+        candidates[0]
+      assignIfFree(match, block.id)
+      continue
+    }
+    if (block.type === 'text') {
+      const candidates = Array.from(dom.querySelectorAll('p')).filter(
+        (el) => !el.getAttribute('data-block-id')
+      )
+      const match =
+        candidates.find((el) => (el.textContent ?? '').replace(/\s+/g, ' ').trim() === block.text.trim()) ??
+        candidates[0]
+      assignIfFree(match, block.id)
+      continue
+    }
+    if (block.type === 'table') {
+      const candidates = Array.from(dom.querySelectorAll('table')).filter(
+        (el) => !el.getAttribute('data-block-id')
+      )
+      assignIfFree(candidates[0], block.id)
+      continue
+    }
+    if (block.type === 'chart') {
+      const hostId = artifactChartHostId(block.id)
+      const host =
+        dom.querySelector(`#${cssAttrEscape(hostId)}`) ??
+        dom.querySelector(`[data-mauna-soft-chart="${cssAttrEscape(hostId)}"]`)
+      const card = host?.closest('article, figure, div.card') ?? host
+      assignIfFree(card as Element | null, block.id)
+      if (host) assignIfFree(host as Element, block.id)
+    }
+  }
+  return serializeArtifactHtml(dom)
 }
 
 export const syncTablesIntoArtifactHtml = (
   html: string,
   tables: ArtifactTableSpec[]
-): { html: string; synced: number } => {
-  if (tables.length === 0) return { html, synced: 0 }
-  const found = [...html.matchAll(/<table\b[\s\S]*?<\/table>/gi)].map((m) => m[0])
-  if (found.length === 0) return { html, synced: 0 }
-  const used = new Set<number>()
+): { html: string; synced: number; unsynced: string[] } => {
+  if (tables.length === 0) return { html, synced: 0, unsynced: [] }
+  const stamped = tables.reduce(
+    (acc, spec) =>
+      stampDataBlockIdsInHtml(acc, {
+        title: '',
+        dateRange: { from: '', to: '' },
+        blocks: [
+          {
+            id: spec.blockId,
+            type: 'table',
+            columns: spec.columns,
+            rows: spec.rows,
+          },
+        ],
+      }),
+    html
+  )
+  const { document: dom } = parseHTML(wrapArtifactHtml(stamped))
   let synced = 0
-  let cursor = 0
-  const next = html.replace(/<table\b[\s\S]*?<\/table>/gi, (tableHtml) => {
-    const spec = pickTableSpecForHtml(tableHtml, cursor, tables, found.length, used)
-    cursor += 1
-    if (!spec) return tableHtml
-    const specIndex = tables.indexOf(spec)
-    if (specIndex >= 0) used.add(specIndex)
+  const unsynced: string[] = []
+  for (const spec of tables) {
+    const byBlock = dom.querySelector(`table[data-block-id="${cssAttrEscape(spec.blockId)}"]`)
+    const byDomId = dom.querySelector(`table#${cssAttrEscape(spec.id)}`)
+    const target = byBlock ?? byDomId
+    if (!target) {
+      unsynced.push(spec.blockId)
+      continue
+    }
+    target.setAttribute('data-block-id', spec.blockId)
+    const { document: renderedDom } = parseHTML(wrapArtifactHtml(renderArtifactTableHtml(spec)))
+    const rendered = renderedDom.querySelector('table')
+    if (!rendered) {
+      unsynced.push(spec.blockId)
+      continue
+    }
+    target.replaceWith(rendered)
     synced += 1
-    return renderArtifactTableHtml(spec)
-  })
-  return { html: next, synced }
-}
-
-const replaceTaggedText = (
-  html: string,
-  tag: string,
-  before: string,
-  after: string,
-  flexibleWhitespace: boolean
-): string => {
-  const escaped = escapeRegExp(escapeHtml(before))
-  const body = flexibleWhitespace ? escaped.replace(/\s+/g, '\\s+') : escaped
-  const pattern = new RegExp(`(<${tag}\\b[^>]*>)\\s*${body}\\s*(</${tag}>)`, 'i')
-  return html.replace(pattern, `$1${escapeHtml(after)}$2`)
+  }
+  return { html: serializeArtifactHtml(dom), synced, unsynced }
 }
 
 export const syncProseIntoArtifactHtml = (
   html: string,
   document: PremiumReportDocument,
   priorDocument: PremiumReportDocument | null
-): { html: string; synced: number } => {
-  if (!priorDocument) return { html, synced: 0 }
+): { html: string; synced: number; unsynced: string[] } => {
+  if (!priorDocument) return { html, synced: 0, unsynced: [] }
+  let next = stampDataBlockIdsInHtml(html, priorDocument, 'soft_edit')
+  next = stampDataBlockIdsInHtml(next, document, 'soft_edit')
+  const { document: dom } = parseHTML(wrapArtifactHtml(next))
   const priorById = new Map(priorDocument.blocks.map((block) => [block.id, block]))
-  let next = html
   let synced = 0
+  const unsynced: string[] = []
   for (const block of document.blocks) {
+    if (block.type !== 'heading' && block.type !== 'text') continue
     const prior = priorById.get(block.id)
     if (!prior || prior.type !== block.type) continue
-    if (block.type === 'heading' && prior.type === 'heading') {
-      const before = prior.text.trim()
-      const after = block.text.trim()
-      if (!before || !after || before === after) continue
-      const tag = block.level === 2 ? 'h3' : 'h2'
-      const replaced = replaceTaggedText(next, tag, before, after, false)
-      if (replaced !== next) {
-        next = replaced
-        synced += 1
-      }
+    const before =
+      prior.type === 'heading' || prior.type === 'text' ? prior.text.trim() : ''
+    const after = block.type === 'heading' || block.type === 'text' ? block.text.trim() : ''
+    if (!before || !after || before === after) continue
+    const el = dom.querySelector(`[data-block-id="${cssAttrEscape(block.id)}"]`)
+    if (!el) {
+      unsynced.push(block.id)
       continue
     }
-    if (block.type === 'text' && prior.type === 'text') {
-      const before = prior.text.trim()
-      const after = block.text.trim()
-      if (!before || !after || before === after) continue
-      const replaced = replaceTaggedText(next, 'p', before, after, true)
-      if (replaced !== next) {
-        next = replaced
-        synced += 1
-      }
-    }
+    el.setAttribute('data-block-id', block.id)
+    el.setAttribute('data-block-origin', 'soft_edit')
+    el.setAttribute('data-mauna-soft-prose', '1')
+    el.textContent = after
+    synced += 1
   }
-  return { html: next, synced }
+  return { html: serializeArtifactHtml(dom), synced, unsynced }
 }
 
 const proseHtmlForBlock = (block: {
+  id?: string
   type: string
   text?: string
   level?: number | null
 }): string => {
   const text = escapeHtml((block.text ?? '').trim())
   if (!text) return ''
+  const blockAttr = block.id ? ` data-block-id="${escapeHtml(block.id)}"` : ''
   if (block.type === 'heading') {
     const tag = block.level === 2 ? 'h3' : 'h2'
-    return `<${tag} data-mauna-soft-prose="1">${text}</${tag}>`
+    return `<${tag} data-mauna-soft-prose="1"${blockAttr}>${text}</${tag}>`
   }
-  return `<p class="section-intro" data-mauna-soft-prose="1">${text}</p>`
+  return `<p class="section-intro" data-mauna-soft-prose="1"${blockAttr}>${text}</p>`
 }
 
 const looksLikeAthleteName = (value: string): boolean => {
@@ -645,57 +807,95 @@ const looksLikeAthleteName = (value: string): boolean => {
   return parts.length >= 2 && parts.every((part) => /^[A-ZÀ-ÖØ-Þ]/.test(part) || part.includes("'"))
 }
 
+const athleteNameNeedle = (name: string): string =>
+  foldAscii(name)
+    .split(/\s+/)
+    .filter((part) => part.length >= 4)
+    .join(' ')
+
+const blockMentionsAthlete = (blob: string, athlete: string): boolean => {
+  const needle = athleteNameNeedle(athlete)
+  if (!needle) return false
+  return foldAscii(blob).includes(needle)
+}
+
 const groupCanvasIntoAthleteSheets = (document: PremiumReportDocument) => {
   const sheets: Array<{
     athlete: string
     headingId?: string
     chartIds: string[]
+    tableBlockIds: string[]
     texts: string[]
+    mismatches: string[]
   }> = []
   let current: (typeof sheets)[number] | null = null
   for (const block of document.blocks) {
     if (block.type === 'heading' && looksLikeAthleteName(block.text ?? '')) {
-      current = { athlete: block.text.trim(), headingId: block.id, chartIds: [], texts: [] }
+      current = {
+        athlete: block.text.trim(),
+        headingId: block.id,
+        chartIds: [],
+        tableBlockIds: [],
+        texts: [],
+        mismatches: [],
+      }
       sheets.push(current)
+      continue
+    }
+    if (!current) continue
+    if (block.type === 'heading') {
+      current = null
       continue
     }
     if (block.type === 'chart') {
       const title = block.title ?? ''
       const hostId = artifactChartHostId(block.id)
-      const matched = sheets.find((sheet) =>
-        foldAscii(title).includes(
-          foldAscii(sheet.athlete)
-            .split(/\s+/)
-            .filter((p) => p.length >= 4)
-            .join(' ')
-        )
-      )
-      if (matched) {
-        matched.chartIds.push(hostId)
-        current = matched
-      } else if (current) {
+      const matchedByTitle = sheets.find((sheet) => blockMentionsAthlete(title, sheet.athlete))
+      if (matchedByTitle && matchedByTitle !== current) {
+        current.mismatches.push(`chart:${hostId}->${matchedByTitle.athlete}`)
+        matchedByTitle.chartIds.push(hostId)
+      } else {
         current.chartIds.push(hostId)
       }
       continue
     }
-    if (block.type === 'text' && current && (block.text ?? '').trim()) {
+    if (block.type === 'table') {
+      const blob = `${block.title ?? ''} ${block.columns.join(' ')} ${block.rows
+        .slice(0, 8)
+        .map((row) => row.join(' '))
+        .join(' ')}`
+      const matchedByRows = sheets.find((sheet) => blockMentionsAthlete(blob, sheet.athlete))
+      if (matchedByRows && matchedByRows !== current) {
+        current.mismatches.push(`table:${block.id}->${matchedByRows.athlete}`)
+        matchedByRows.tableBlockIds.push(block.id)
+      } else {
+        current.tableBlockIds.push(block.id)
+      }
+      continue
+    }
+    if (block.type === 'text' && (block.text ?? '').trim()) {
       current.texts.push(block.text.trim())
     }
   }
-  return sheets.filter((sheet) => sheet.chartIds.length > 0 || Boolean(sheet.headingId))
+  return sheets.filter(
+    (sheet) =>
+      sheet.chartIds.length > 0 || sheet.tableBlockIds.length > 0 || Boolean(sheet.headingId)
+  )
 }
 
 export const rebuildAthleteSheetsInArtifactHtml = (
   html: string,
   document: PremiumReportDocument
-): { html: string; sections: number } => {
+): { html: string; sections: number; mismatches: string[] } => {
   const sheets = groupCanvasIntoAthleteSheets(document)
-  if (sheets.length < 2) return { html, sections: 0 }
+  if (sheets.length < 2) return { html, sections: 0, mismatches: [] }
 
+  const mismatches = sheets.flatMap((sheet) => sheet.mismatches)
   const usedHosts = new Set(sheets.flatMap((sheet) => sheet.chartIds))
+  const usedTables = new Set(sheets.flatMap((sheet) => sheet.tableBlockIds))
   let next = html
   next = next.replace(
-    /<article\b[^>]*id=["']mauna-soft-additive["'][^>]*>[\s\S]*?<\/article>/gi,
+    /<article\b[^>]*(?:id=["']mauna-soft-additive["']|data-mauna-athlete-sheet=["']1["'])[^>]*>[\s\S]*?<\/article>/gi,
     ''
   )
   next = next.replace(
@@ -707,6 +907,8 @@ export const rebuildAthleteSheetsInArtifactHtml = (
     (card) => {
       const id = card.match(/\bid=["'](chart_[a-zA-Z0-9]+)["']/i)?.[1]
       if (id && usedHosts.has(id)) return ''
+      const blockId = card.match(/data-block-id=["']([^"']+)["']/i)?.[1]
+      if (blockId && usedTables.has(blockId)) return ''
       return card
     }
   )
@@ -728,6 +930,7 @@ export const rebuildAthleteSheetsInArtifactHtml = (
     )
   }
 
+  const priorTableCount = document.blocks.filter((b) => b.type === 'table').length
   const sectionsHtml = sheets
     .map((sheet, index) => {
       const cards = sheet.chartIds
@@ -743,12 +946,22 @@ export const rebuildAthleteSheetsInArtifactHtml = (
           )
         })
         .join('\n')
+      const tables = sheet.tableBlockIds
+        .map((blockId, tableIndex) => {
+          const block = document.blocks.find((row) => row.type === 'table' && row.id === blockId)
+          if (!block || block.type !== 'table') return ''
+          const spec = tableSpecFromBlock(block, priorTableCount + tableIndex + 1)
+          return wrapSoftTableHtml(spec)
+        })
+        .filter(Boolean)
+        .join('\n')
       const captions = sheet.texts
         .map((text) => `<p class="section-intro" data-mauna-soft-prose="1">${escapeHtml(text)}</p>`)
         .join('\n')
       return `<article class="section-block" id="athlete-sheet-${index + 1}" data-mauna-athlete-sheet="1">
   <div class="band"><h2>${escapeHtml(sheet.athlete)}</h2></div>
   ${captions}
+  ${tables}
   ${cards}
 </article>`
     })
@@ -759,7 +972,14 @@ export const rebuildAthleteSheetsInArtifactHtml = (
   } else {
     next = ensureBeforeBodyClose(next, sectionsHtml)
   }
-  return { html: next, sections: sheets.length }
+  if (mismatches.length > 0) {
+    next = next.replace(
+      /<body\b([^>]*)>/i,
+      (_m, attrs: string) =>
+        `<body${attrs} data-sheet-table-mismatch="${escapeHtml(mismatches.slice(0, 8).join(','))}">`
+    )
+  }
+  return { html: next, sections: sheets.length, mismatches }
 }
 
 const tableSpecFromBlock = (
@@ -773,6 +993,7 @@ const tableSpecFromBlock = (
   ordinal: number
 ): ArtifactTableSpec => ({
   id: `table_${ordinal}`,
+  blockId: block.id,
   title: block.title ?? `Table ${ordinal}`,
   columns: block.columns,
   rows: block.rows.slice(0, 40),
@@ -780,7 +1001,7 @@ const tableSpecFromBlock = (
 })
 
 const wrapSoftTableHtml = (spec: ArtifactTableSpec): string =>
-  `<div class="card" data-mauna-soft-table="1">
+  `<div class="card" data-mauna-soft-table="1" data-block-id="${escapeHtml(spec.blockId)}">
   ${spec.title ? `<p class="section-intro">${escapeHtml(spec.title)}</p>` : ''}
   ${renderArtifactTableHtml(spec)}
 </div>`
@@ -928,18 +1149,34 @@ export const injectNewSoftBlocksIntoArtifactHtml = (
       firstHeading = 'Individual sheets'
     }
     if (newHeadings.length > 0 || chartCards.length > 0 || tableHtmlParts.length > 0) {
-      const section = `<article class="section-block" id="mauna-soft-additive" data-mauna-soft-injected="1">
-  <div class="band"><h2>${escapeHtml(firstHeading || 'Added section')}</h2></div>
-  ${extraHeadings.join('\n')}
+      const body = `${extraHeadings.join('\n')}
   ${tableHtmlParts.join('\n')}
-  ${chartCards.join('\n')}
-</article>`
-      if (/<\/main>/i.test(next)) {
-        next = next.replace(/<\/main>/i, `${section}\n</main>`)
-      } else {
-        next = ensureBeforeBodyClose(next, section)
+  ${chartCards.join('\n')}`
+      const priorBand = [...next.matchAll(/<div\b[^>]*class=["'][^"']*(?<![-\w])band(?![-\w])[^"']*["'][^>]*>[\s\S]*?<\/div>/gi)]
+        .map((m) => m[0] ?? '')
+        .filter(Boolean)
+        .at(-1)
+      let placedUnderBand = false
+      if (priorBand && newHeadings.length === 0) {
+        const esc = priorBand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+        const replaced = next.replace(new RegExp(esc), `${priorBand}\n${body}`)
+        if (replaced !== next) {
+          next = replaced
+          placedUnderBand = true
+        }
       }
-      injectedSections += 1
+      if (!placedUnderBand) {
+        const section = `<article class="section-block" id="mauna-soft-additive" data-mauna-soft-injected="1">
+  <div class="band"><h2>${escapeHtml(firstHeading || 'Added section')}</h2></div>
+  ${body}
+</article>`
+        if (/<\/main>/i.test(next)) {
+          next = next.replace(/<\/main>/i, `${section}\n</main>`)
+        } else {
+          next = ensureBeforeBodyClose(next, section)
+        }
+        injectedSections += 1
+      }
       injectedProse += newHeadings.length > 0 ? 1 + extraHeadings.length : 0
       injectedTables += tableHtmlParts.length
     }
@@ -1098,12 +1335,14 @@ const ensureCoachBriefInHtml = (
 
 const ensureMaunaWatermarkInHtml = (html: string): string => {
   let next = html
-  if (!/id=["']mauna-watermark-css["']/i.test(next) && !/\.mauna-page-watermark\s*\{/.test(next)) {
-    next = ensureHeadAsset(
-      next,
-      `<style id="mauna-watermark-css">${maunaWatermarkCss()}</style>`,
-      /id=["']mauna-watermark-css["']/i
+  const watermarkStyle = `<style id="mauna-watermark-css">${maunaWatermarkCss()}</style>`
+  if (/id=["']mauna-watermark-css["']/i.test(next)) {
+    next = next.replace(
+      /<style\b[^>]*id=["']mauna-watermark-css["'][^>]*>[\s\S]*?<\/style>/i,
+      watermarkStyle
     )
+  } else {
+    next = ensureHeadAsset(next, watermarkStyle, /id=["']mauna-watermark-css["']/i)
   }
   if (!/class=["'][^"']*mauna-page-watermark/.test(next)) {
     if (/<body[^>]*>/i.test(next)) {
@@ -1113,6 +1352,23 @@ const ensureMaunaWatermarkInHtml = (html: string): string => {
     }
   }
   return next
+}
+
+export const refreshArtifactPresentationCss = (
+  html: string,
+  pack: ReportDesignPack
+): string => {
+  let next = html
+  const packSheet = `<style id="mauna-pack-css" data-pack="${pack.id}">${buildReportPackCss(pack)}</style>`
+  if (/id=["']mauna-pack-css["']/i.test(next)) {
+    next = next.replace(
+      /<style\b[^>]*id=["']mauna-pack-css["'][^>]*>[\s\S]*?<\/style>/i,
+      packSheet
+    )
+  } else {
+    next = ensureHeadAsset(next, packSheet, /id=["']mauna-pack-css["']/i)
+  }
+  return ensureMaunaWatermarkInHtml(next)
 }
 
 const stripBase64AthletePhotosFromHtml = (html: string): string =>
@@ -1127,6 +1383,8 @@ export const finalizeArtifactHtml = (args: {
   tables?: ArtifactTableSpec[]
   injectMissingHosts?: boolean
   facts?: Map<string, ReportFact> | Iterable<ReportFact>
+  document?: PremiumReportDocument
+  blockOrigin?: BlockOrigin
 }): FinalizeArtifactResult => {
   const warnings: string[] = []
   let html = args.html.trim()
@@ -1142,32 +1400,49 @@ export const finalizeArtifactHtml = (args: {
 
   html = stripBase64AthletePhotosFromHtml(html)
 
-  const migratedHosts = migrateOrdinalChartHostsInHtml(html, args.charts)
+  const guardedCharts = args.charts.map((chart) => {
+    const enforced = enforceChartOptionGuards(chart.option, args.pack)
+    if (enforced.issues.length) {
+      warnings.push(
+        `chart_guard:${chart.id}:${enforced.issues.map((row) => row.code).join(',')}`
+      )
+    }
+    return { ...chart, option: enforced.option }
+  })
+  const charts = guardedCharts
+
+  const migratedHosts = migrateOrdinalChartHostsInHtml(html, charts)
   html = migratedHosts.html
   if (migratedHosts.migrated > 0) {
     warnings.push(`migrated_${migratedHosts.migrated}_ordinal_chart_hosts`)
   }
 
-  const prunedHosts = pruneOrphanChartHostsInHtml(html, args.charts)
+  const prunedHosts = pruneOrphanChartHostsInHtml(html, charts)
   html = prunedHosts.html
   if (prunedHosts.pruned > 0) {
     warnings.push(`pruned_${prunedHosts.pruned}_orphan_chart_hosts`)
   }
 
   html = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, (block) => {
-    if (/echarts@5\.5\.1/i.test(block) || /id=["']mauna-artifact-boot["']/i.test(block)) {
+    if (
+      /id=["']mauna-echarts["']/i.test(block) ||
+      /id=["']mauna-artifact-boot["']/i.test(block) ||
+      /echarts@5\.5\.1/i.test(block)
+    ) {
       return block
     }
     warnings.push('stripped_foreign_script')
     return ''
   })
 
-  html = ensureHeadAsset(
-    html,
-    `<link href="${args.pack.fonts.googleHref}" rel="stylesheet" />`,
-    /fonts\.googleapis\.com/i
+  html = html.replace(/<link\b[^>]*fonts\.googleapis\.com[^>]*>/gi, '')
+  html = html.replace(/<script\b[^>]*cdn\.jsdelivr\.net[^>]*>[\s\S]*?<\/script>/gi, '')
+  html = html.replace(
+    /<script\b[^>]*id=["']mauna-echarts["'][^>]*>[\s\S]*?<\/script>/gi,
+    ''
   )
-  html = ensureHeadAsset(html, echartsCdnScriptTag(), /echarts@5\.5\.1/i)
+  html = ensureHeadAsset(html, packFontsStyleTag(args.pack.id), /id=["']mauna-pack-fonts["']/i)
+  html = ensureHeadAsset(html, echartsCdnScriptTag(), /id=["']mauna-echarts["']/i)
   const packCss = buildReportPackCss(args.pack)
   const packSheet = `<style id="mauna-pack-css" data-pack="${args.pack.id}">${packCss}</style>`
   if (/id=["']mauna-pack-css["']/i.test(html)) {
@@ -1186,12 +1461,12 @@ export const finalizeArtifactHtml = (args: {
   html = brief.html
   if (brief.scrubbed) warnings.push('scrubbed_coach_brief_echo')
 
-  const presentHosts = countPresentChartHosts(html, args.charts)
-  const missing = countMissingChartHosts(html, args.charts)
-  if (freeArtifactMissingAllChartHosts(html, args.charts)) {
+  const presentHosts = countPresentChartHosts(html, charts)
+  const missing = countMissingChartHosts(html, charts)
+  if (freeArtifactMissingAllChartHosts(html, charts)) {
     return {
       ok: false,
-      error: `html missing all chart hosts (${args.charts.length} required: ${args.charts.map((c) => c.id).join(', ')})`,
+      error: `html missing all chart hosts (${charts.length} required: ${charts.map((c) => c.id).join(', ')})`,
       warnings,
     }
   }
@@ -1207,7 +1482,7 @@ export const finalizeArtifactHtml = (args: {
   html = ensureBeforeBodyClose(
     html,
     buildEchartsBootScript({
-      charts: args.charts,
+      charts,
       theme: {
         palette: args.pack.palette,
         fontFamily: args.pack.fonts.body,
@@ -1245,6 +1520,24 @@ export const finalizeArtifactHtml = (args: {
     if (injected.missing.length > 0) {
       warnings.push(`missing_data_facts:${injected.missing.slice(0, 8).join(',')}`)
     }
+  }
+
+  if (args.document?.blocks.length) {
+    html = stampDataBlockIdsInHtml(html, args.document, args.blockOrigin ?? 'generate')
+  }
+
+  const anchors = ensureSectionAnchorsInHtml(html)
+  html = anchors.html
+  if (anchors.stamped > 0) warnings.push(`stamped_${anchors.stamped}_section_anchors`)
+  const sectionCount = indexArtifactSections(html).length
+  if (sectionCount >= 2) {
+    const toc = ensureTocInHtml(html, {
+      language: args.language,
+      clubName: undefined,
+      reportTitle: args.document?.title,
+    })
+    html = toc.html
+    if (toc.added) warnings.push('injected_toc')
   }
 
   return {

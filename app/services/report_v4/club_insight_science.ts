@@ -40,6 +40,10 @@ export const truncateInsightScience = (text: string, max: number): string => {
   return `${base}…`
 }
 
+export const clubInsightScienceQueryMode = (
+  linkedInsightIds: string[]
+): 'linked' | 'empty' => (linkedInsightIds.length > 0 ? 'linked' : 'empty')
+
 export const loadClubInsightScience = async (args: {
   clubId: string
   dateRange?: { from: string; to: string }
@@ -53,17 +57,18 @@ export const loadClubInsightScience = async (args: {
     }>
   ).map((row) => row.insight_id)
 
+  if (clubInsightScienceQueryMode(linkedInsightIds) === 'empty') {
+    return []
+  }
+
   const query = db
     .from('insights as i')
     .leftJoin('feature_importances as fi', 'fi.insight_id', 'i.id')
     .leftJoin('days as d', 'd.id', 'fi.day_id')
     .leftJoin('athletes as a', 'a.id', 'd.athlete_id')
+    .whereIn('i.id', linkedInsightIds)
     .where((builder) => {
-      if (linkedInsightIds.length > 0) {
-        builder.whereIn('i.id', linkedInsightIds)
-      } else {
-        builder.where('a.club_id', args.clubId)
-      }
+      builder.whereNull('a.id').orWhere('a.club_id', args.clubId)
     })
     .groupBy('i.id', 'i.variable_name', 'i.name', 'i.description')
     .orderByRaw('avg(abs(fi.value)) desc nulls last')
@@ -85,10 +90,6 @@ export const loadClubInsightScience = async (args: {
         args.dateRange!.to,
       ])
     })
-  }
-
-  if (linkedInsightIds.length === 0) {
-    query.whereNotNull('fi.value')
   }
 
   const rows = (await query) as InsightScienceRow[]

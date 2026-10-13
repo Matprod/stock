@@ -477,14 +477,6 @@ export const pickDateColumn = (columns: string[]): string | undefined =>
   columns.find((column) => /^(date|date_of_day|jour|day)$/i.test(String(column).trim())) ??
   columns.find((column) => /date|jour/i.test(String(column)))
 
-export const isMixedGpsWellnessColumns = (columns: string[]): boolean => {
-  const gps = columns.some((col) => /distance|hmld|hsr|sprint|accel|decels?/i.test(col))
-  const wellness = columns.some((col) =>
-    /mood|humeur|soreness|courbature|sleep|sommeil|stress|energy|energie/i.test(col)
-  )
-  return gps && wellness
-}
-
 export const sortDatasetByDate = (dataset: PremiumDataset): PremiumDataset => {
   const dateColumn = pickDateColumn(dataset.columns)
   if (!dateColumn) return dataset

@@ -13,6 +13,8 @@ export type ReportV4SessionFocus = {
   domains: PremiumDomain[]
   fetches: Array<{ domain: PremiumDomain; from: string; to: string; label?: string }>
   displayRange: { from: string; to: string }
+  askRound?: number
+  pendingAskIds?: string[]
 }
 
 const DOMAIN_SET = new Set<string>(PREMIUM_DOMAINS)
@@ -51,7 +53,15 @@ export const normalizeSessionFocus = (raw: unknown): ReportV4SessionFocus | null
       fetches.push({ domain, from: fFrom, to: fTo, ...(label ? { label } : {}) })
     }
   }
-  if (!domains.length && !fetches.length) return null
+  const askRoundRaw = typeof row.askRound === 'number' ? Math.floor(row.askRound) : 0
+  const askRound = askRoundRaw > 0 ? Math.min(askRoundRaw, 1) : 0
+  const pendingAskIds = Array.isArray(row.pendingAskIds)
+    ? row.pendingAskIds
+        .filter((id): id is string => typeof id === 'string' && id.trim().length > 0)
+        .map((id) => id.trim().slice(0, 64))
+        .slice(0, 8)
+    : []
+  if (!domains.length && !fetches.length && askRound < 1) return null
   const resolvedDomains =
     domains.length > 0 ? domains : [...new Set(fetches.map((f) => f.domain))]
   return {
@@ -59,6 +69,8 @@ export const normalizeSessionFocus = (raw: unknown): ReportV4SessionFocus | null
     domains: resolvedDomains,
     fetches,
     displayRange: { from, to },
+    ...(askRound > 0 ? { askRound } : {}),
+    ...(pendingAskIds.length ? { pendingAskIds } : {}),
   }
 }
 
@@ -67,11 +79,18 @@ export const buildSessionFocus = (args: {
   domains: PremiumDomain[]
   fetches: PromptFetchSpec[]
   displayRange: { from: string; to: string }
+  askRound?: number
+  pendingAskIds?: string[]
 }): ReportV4SessionFocus => {
   const domains =
     args.domains.length > 0
       ? [...new Set(args.domains)]
       : [...new Set(args.fetches.map((row) => row.domain))]
+  const askRound = args.askRound && args.askRound > 0 ? Math.min(Math.floor(args.askRound), 1) : 0
+  const pendingAskIds = (args.pendingAskIds ?? [])
+    .filter((id) => id.trim().length > 0)
+    .map((id) => id.trim().slice(0, 64))
+    .slice(0, 8)
   return {
     lastPrompt: args.prompt.trim().slice(0, 500),
     domains,
@@ -82,6 +101,37 @@ export const buildSessionFocus = (args: {
       ...(row.label ? { label: row.label } : {}),
     })),
     displayRange: { from: args.displayRange.from, to: args.displayRange.to },
+    ...(askRound > 0 ? { askRound } : {}),
+    ...(pendingAskIds.length ? { pendingAskIds } : {}),
+  }
+}
+
+export const withAskRound = (
+  focus: ReportV4SessionFocus | null | undefined,
+  args: {
+    prompt: string
+    displayRange: { from: string; to: string }
+    domains?: PremiumDomain[]
+    questionIds: string[]
+  }
+): ReportV4SessionFocus => {
+  const base = focus
+    ? {
+        ...focus,
+        lastPrompt: args.prompt.trim().slice(0, 500),
+        displayRange: { from: args.displayRange.from, to: args.displayRange.to },
+        ...(args.domains?.length ? { domains: [...new Set(args.domains)] } : {}),
+      }
+    : buildSessionFocus({
+        prompt: args.prompt,
+        domains: args.domains ?? [],
+        fetches: [],
+        displayRange: args.displayRange,
+      })
+  return {
+    ...base,
+    askRound: 1,
+    pendingAskIds: args.questionIds.slice(0, 8),
   }
 }
 

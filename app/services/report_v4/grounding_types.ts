@@ -19,6 +19,7 @@ export type GroundingViolation = {
 export type GroundingAuditResult = {
   ok: boolean
   violations: GroundingViolation[]
+  warnings?: GroundingViolation[]
 }
 
 export type GroundingWellnessScale = {

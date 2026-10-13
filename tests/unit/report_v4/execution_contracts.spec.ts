@@ -588,10 +588,29 @@ test.group('report_v4 soft★ phase1', () => {
       preserveCanvas: true,
       softTargetsUnresolved: false,
       softOps: null,
+      language: 'en',
     })
     assert.isTrue(clarify.needsClarify)
     assert.isBelow(clarify.confidence, 0.62)
     assert.isAbove(clarify.questions.length, 0)
+    assert.include(clarify.markdown, 'vague')
+  })
+
+  test('vague soft intent asks in French by default', ({ assert }) => {
+    const envelope = resolveArtifactEnvelope({
+      flags: flags({}),
+      prompt: 'Rends ça plus clair',
+    })
+    const clarify = resolveSoftClarify({
+      prompt: 'Rends ça plus clair',
+      envelope,
+      preserveCanvas: true,
+      softTargetsUnresolved: false,
+      softOps: null,
+      language: 'fr',
+    })
+    assert.isTrue(clarify.needsClarify)
+    assert.include(clarify.markdown, 'précision')
   })
 
   test('unresolved soft targets ask with candidate titles', ({ assert }) => {
@@ -606,10 +625,30 @@ test.group('report_v4 soft★ phase1', () => {
       softTargetsUnresolved: true,
       candidateTitles: ['ACWR EWMA', 'Load mean', 'Wellness radar'],
       softOps: null,
+      language: 'en',
     })
     assert.isTrue(clarify.needsClarify)
     assert.equal(clarify.reason, 'soft_targets_unresolved')
     assert.include(clarify.markdown, 'ACWR EWMA')
+  })
+
+  test('target hint without candidates asks in writing', ({ assert }) => {
+    const envelope = resolveArtifactEnvelope({
+      flags: flags({}),
+      prompt: 'Improve the chart',
+    })
+    const clarify = resolveSoftClarify({
+      prompt: 'Improve the chart',
+      envelope,
+      preserveCanvas: true,
+      softTargetsUnresolved: true,
+      candidateTitles: [],
+      softOps: null,
+      language: 'fr',
+    })
+    assert.isTrue(clarify.needsClarify)
+    assert.ok(clarify.questions.some((q) => q.id === 'target'))
+    assert.include(clarify.markdown, 'graphique')
   })
 
   test('concrete soft ops skip clarify', ({ assert }) => {

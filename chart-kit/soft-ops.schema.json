@@ -1,0 +1,389 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mauna.local/report-v4/soft-ops.schema.json",
+  "title": "SoftOps v2 (chart_op sur la spécification)",
+  "description": "Opérations de modification légère. Elles visent un data-block, jamais un sélecteur CSS. Appliquées par code, sans appel au Designer.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "baseRev",
+    "ops"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "baseRev": {
+      "type": "string",
+      "description": "Empreinte du HTML sur lequel les opérations ont été calculées."
+    },
+    "ops": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "block",
+              "text"
+            ],
+            "properties": {
+              "op": {
+                "const": "set_title"
+              },
+              "block": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(\\.[a-z0-9]+)*$"
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 220
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "section",
+              "token"
+            ],
+            "properties": {
+              "op": {
+                "const": "set_accent"
+              },
+              "section": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(\\.[a-z0-9]+)*$"
+              },
+              "token": {
+                "enum": [
+                  "accent",
+                  "risk",
+                  "watch",
+                  "ok",
+                  "ink"
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "order"
+            ],
+            "properties": {
+              "op": {
+                "const": "reorder_sections"
+              },
+              "order": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(\\.[a-z0-9]+)*$"
+                },
+                "minItems": 2
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "section"
+            ],
+            "properties": {
+              "op": {
+                "const": "drop_section"
+              },
+              "section": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(\\.[a-z0-9]+)*$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "block",
+              "toSection"
+            ],
+            "properties": {
+              "op": {
+                "const": "move_figure"
+              },
+              "block": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(\\.[a-z0-9]+)*$"
+              },
+              "toSection": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(\\.[a-z0-9]+)*$"
+              },
+              "position": {
+                "enum": [
+                  "start",
+                  "end"
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "block",
+              "mode"
+            ],
+            "properties": {
+              "op": {
+                "const": "set_caption"
+              },
+              "block": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(\\.[a-z0-9]+)*$"
+              },
+              "mode": {
+                "enum": [
+                  "full",
+                  "short",
+                  "none"
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "block",
+              "size"
+            ],
+            "properties": {
+              "op": {
+                "const": "set_size"
+              },
+              "block": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(\\.[a-z0-9]+)*$"
+              },
+              "size": {
+                "enum": [
+                  "hero",
+                  "wide",
+                  "pair"
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "scale"
+            ],
+            "properties": {
+              "op": {
+                "const": "set_spacing"
+              },
+              "scale": {
+                "enum": [
+                  0.85,
+                  0.9,
+                  1,
+                  1.1
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "block"
+            ],
+            "properties": {
+              "op": {
+                "const": "sync_legend"
+              },
+              "block": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(\\.[a-z0-9]+)*$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "block",
+              "set"
+            ],
+            "properties": {
+              "op": {
+                "const": "chart_op"
+              },
+              "block": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(\\.[a-z0-9]+)*$"
+              },
+              "set": {
+                "type": "object",
+                "additionalProperties": false,
+                "minProperties": 1,
+                "properties": {
+                  "form": {
+                    "enum": [
+                      "line",
+                      "bar",
+                      "barh",
+                      "hist",
+                      "waterfall",
+                      "diverging_bar"
+                    ]
+                  },
+                  "window": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "from",
+                          "to"
+                        ],
+                        "properties": {
+                          "from": {
+                            "type": "string"
+                          },
+                          "to": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "entities": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 8,
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": true,
+                    "description": "Entités visibles ; les autres sont masquées. Les couleurs ne changent jamais."
+                  },
+                  "highlight": {
+                    "type": "array",
+                    "maxItems": 3,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "sort": {
+                    "enum": [
+                      "desc",
+                      "asc",
+                      "natural"
+                    ]
+                  },
+                  "labels": {
+                    "enum": [
+                      "direct",
+                      "legend",
+                      "table"
+                    ]
+                  },
+                  "zones": {
+                    "enum": [
+                      "acwr",
+                      null
+                    ]
+                  },
+                  "size": {
+                    "enum": [
+                      "hero",
+                      "wide",
+                      "pair"
+                    ]
+                  },
+                  "caption": {
+                    "enum": [
+                      "full",
+                      "short",
+                      "none"
+                    ]
+                  },
+                  "y_range": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "min",
+                          "max"
+                        ],
+                        "properties": {
+                          "min": {
+                            "type": "number"
+                          },
+                          "max": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "op",
+              "pack"
+            ],
+            "properties": {
+              "op": {
+                "const": "set_pack"
+              },
+              "pack": {
+                "enum": [
+                  "staff",
+                  "medical",
+                  "performance",
+                  "editorial",
+                  "controlroom"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

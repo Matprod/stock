@@ -31,14 +31,15 @@ test.group('report_v4 request abort', () => {
     const { EventEmitter } = await import('node:events')
     const { abortSignalFromHttp } = await import('#services/report_v4/request_abort')
 
-    const req = new EventEmitter() as EventEmitter & {
+    type Emitter = InstanceType<typeof EventEmitter>
+    const req = new EventEmitter() as Emitter & {
       aborted: boolean
       destroyed: boolean
     }
     req.aborted = false
     req.destroyed = true
 
-    const res = new EventEmitter() as EventEmitter & {
+    const res = new EventEmitter() as Emitter & {
       writableEnded: boolean
       writableFinished: boolean
     }
