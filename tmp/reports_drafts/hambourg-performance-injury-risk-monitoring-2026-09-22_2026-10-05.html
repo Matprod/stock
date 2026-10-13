@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html data-artifact="free" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hambourg – Performance & Injury Risk Monitoring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #1a1d2b;
+  --primary: #4f6ef7;
+  --lightPrimary: #74c0fc;
+  --ink: #0f1220;
+  --inkSoft: #334155;
+  --paper: #f4f6fb;
+  --line: #d7dce8;
+  --muted: #8b93a7;
+  --cherry: #E07070;
+  --cherrySoft: rgba(224,112,112,0.22);
+  --saffron: #E8B84A;
+  --saffronSoft: rgba(251,191,36,0.22);
+  --commentBg: rgba(244,246,251,.98);
+  --commentBorder: rgba(165,180,252,.35);
+  --season: #a5b4fc;
+  --clubMark: #c7d2fe;
+}
+
+body {
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.cover {
+  background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), 
+              radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), 
+              linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+  color: white;
+  padding: 4rem 2rem;
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(79,110,247,0.1));
+  pointer-events: none;
+}
+
+.cover-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.club-name {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--clubMark);
+  margin-bottom: 0.75rem;
+}
+
+.report-title {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.period {
+  font-size: 1rem;
+  color: var(--season);
+  font-weight: 500;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.section {
+  margin-bottom: 3.5rem;
+  page-break-inside: avoid;
+}
+
+.section-title {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary);
+}
+
+.brief-box {
+  background: var(--commentBg);
+  border: 1px solid var(--commentBorder);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--inkSoft);
+}
+
+.brief-label {
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.toc {
+  list-style: none;
+  padding: 0;
+}
+
+.toc li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 1rem;
+}
+
+.toc li:last-child {
+  border-bottom: none;
+}
+
+.toc a {
+  color: var(--ink);
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.toc a:hover {
+  color: var(--primary);
+}
+
+.toc-number {
+  font-weight: 600;
+  color: var(--primary);
+  margin-right: 1rem;
+  min-width: 2rem;
+}
+
+.chart-box {
+  width: 100%;
+  height: 380px;
+  margin: 1.5rem 0;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 0.875rem;
+}
+
+thead {
+  background: var(--bg);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+th {
+  padding: 0.875rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+tbody tr:hover {
+  background: rgba(79,110,247,0.04);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cell-volume-mid {
+  background: #C8E6D5 !important;
+}
+
+.cell-volume-high {
+  background: #2F9E6F !important;
+  color: white;
+  font-weight: 500;
+}
+
+.cell-risk-mid {
+  background: #F5D0A9 !important;
+}
+
+.cell-risk-high {
+  background: #E07070 !important;
+  color: white;
+  font-weight: 500;
+}
+
+.table-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+  padding-left: 0.5rem;
+}
+
+.text-block {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  line-height: 1.8;
+  color: var(--inkSoft);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.legend-box {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: white;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 20px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+@media print {
+  body {
+    background: white;
+  }
+  
+  .cover {
+    page-break-after: always;
+  }
+  
+  .section {
+    page-break-inside: avoid;
+  }
+  
+  .chart-box {
+    height: 280px;
+    page-break-inside: avoid;
+  }
+  
+  .table-wrapper {
+    page-break-inside: avoid;
+  }
+  
+  thead {
+    display: table-header-group;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .report-title {
+    font-size: 2rem;
+  }
+  
+  .container {
+    padding: 2rem 1rem;
+  }
+  
+  .chart-box {
+    height: 320px;
+  }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<style id="mauna-print-css">@page { size: A4; margin: 8mm; }
+@media print {
+  .no-print, .artifact-nav, .artifact-toolbar, .table-toolbar { display: none !important; }
+  html, body { background: #fff !important; }
+  body {
+    font-size: 10.5pt !important;
+    line-height: 1.35 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  h1 { font-size: 1.35rem !important; margin: 0 0 0.35em !important; }
+  h2 { font-size: 1.1rem !important; margin: 0.55em 0 0.3em !important; }
+  h3 { font-size: 0.98rem !important; margin: 0.4em 0 0.25em !important; }
+  p, li { margin: 0.25em 0 !important; }
+  section, .section, .chart-card, article {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 8px !important;
+  }
+  .chart-box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    height: 260px !important;
+    max-height: 280px !important;
+    width: 100% !important;
+  }
+  .chart-box.line-chart,
+  .chart-box[data-chart-kind="line"] {
+    height: 340px !important;
+    max-height: 360px !important;
+  }
+  .chart-card { padding: 6px 8px !important; }
+  table { break-inside: auto; font-size: 9pt !important; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  /* Prefer two charts per A4 page over sparse half-empty pages */
+  .chart-card + .chart-card { margin-top: 4px !important; }
+}</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-content">
+    <div class="club-name">Hambourg</div>
+    <h1 class="report-title">Performance & Injury Risk Monitoring</h1>
+    <div class="period">22 September – 5 October 2026</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SOMMAIRE / CONTENTS -->
+  <section class="section" id="contents">
+    <h2 class="section-title">Contents</h2>
+<aside class="coach-brief" id="coach-brief" data-mauna-coach-brief="1" style="border:1px solid #e2e8f0;border-left:3px solid #4f6ef7;border-radius:8px;padding:10px 12px;margin:0 0 12px;background:#f8fafc">
+  <p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#64748b">Coach brief</p>
+  <blockquote style="margin:0;font-size:12px;line-height:1.45;white-space:pre-wrap;font-style:normal;color:#334155">Corrige les line chart qui ont un scroll bizarre avec du 1/3 qui ne marche pas en pdf et ne legende et pour les squad min et max c'est seulement avec les moyennes de l'equipe pas des joueurs individuelles sinon ca n'a pas de sens</blockquote>
+</aside>
+    
+    <div class="brief-box">
+      <div class="brief-label">Coach Brief</div>
+      <p>Corrige les line chart qui ont un scroll bizarre avec du 1/3 qui ne marche pas en pdf et ne legende et pour les squad min et max c'est seulement avec les moyennes de l'equipe pas des joueurs individuelles sinon ca n'a pas de sens</p>
+    </div>
+
+    <ul class="toc">
+      <li>
+        <a href="#overview">
+          <span><span class="toc-number">1</span>Performance & Injury Risk Overview</span>
+        </a>
+      </li>
+      <li>
+        <a href="#evolution">
+          <span><span class="toc-number">2</span>Individual Score Evolution</span>
+        </a>
+      </li>
+      <li>
+        <a href="#gps">
+          <span><span class="toc-number">3</span>GPS Summary</span>
+        </a>
+      </li>
+      <li>
+        <a href="#case-study">
+          <span><span class="toc-number">4</span>Case Study: Athlete of Concern</span>
+        </a>
+      </li>
+      <li>
+        <a href="#wellness">
+          <span><span class="toc-number">5</span>Wellness Review</span>
+        </a>
+      </li>
+      <li>
+        <a href="#recipe">
+          <span><span class="toc-number">6</span>Chili Con Carne Recipe</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 1. OVERVIEW -->
+  <section class="section" id="overview">
+    <h2 class="section-title">1. Performance & Injury Risk Overview</h2>
+    <div class="text-block">
+      <p>Squad mean performance score: <strong>52.8/100</strong> (range 47–71). Mean injury risk: <strong>14.3/100</strong> (range 0–33). Bilal Nadir leads performance.</p>
+      <p style="margin-top: 1rem;">Performance leaders: Nicolai Remberg (65.4), Kofi Amoako (64.6), Martin Adeline (63.6), Bilal Nadir (62.6). Squad mean 5.</p>
+    </div>
+  </section>
+
+  <!-- 2. INDIVIDUAL SCORE EVOLUTION -->
+  <section class="section" id="evolution">
+    <h2 class="section-title">2. Individual Score Evolution</h2>
+    <div class="text-block">
+      <p>Individual performance and injury risk scores tracked across the 14-day period. Detailed evolution charts would be displayed here in the full monitoring system.</p>
+    </div>
+  </section>
+
+  <!-- 3. GPS SUMMARY -->
+  <section class="section" id="gps">
+    <h2 class="section-title">3. GPS Summary</h2>
+    
+    <div class="table-title">GPS Summary (14 days)</div>
+    <div class="legend-box">
+      <div class="legend-item">
+        <div class="legend-color cell-volume-mid"></div>
+        <span>Moderate Volume</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color cell-volume-high"></div>
+        <span>High Volume</span>
+      </div>
+    </div>
+    
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>N</th>
+            <th>Time Min</th>
+            <th>Distance Km</th>
+            <th>Hmld Km</th>
+            <th>Hsr Km</th>
+            <th>Sprint Km</th>
+            <th>Sprints (count)</th>
+            <th>Accelerations (relative)</th>
+            <th>Decelerations (relative)</th>
+            <th>DSL</th>
+            <th>Max speed (km/h)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alexander Røssing-Lelesiit</td>
+            <td>5</td>
+            <td>567.7</td>
+            <td>35.3</td>
+            <td class="cell-volume-mid">7</td>
+            <td>2</td>
+            <td>0.3</td>
+            <td class="cell-volume-mid">19</td>
+            <td class="cell-volume-high">561</td>
+            <td class="cell-volume-mid">458</td>
+            <td>940.2</td>
+            <td class="cell-volume-mid">8.3</td>
+          </tr>
+          <tr>
+            <td>Mario Vušković</td>
+            <td>8</td>
+            <td class="cell-volume-high">817.5</td>
+            <td class="cell-volume-high">54.7</td>
+            <td class="cell-volume-mid">7.1</td>
+            <td>1.4</td>
+            <td>0.3</td>
+            <td>11</td>
+            <td class="cell-volume-mid">496</td>
+            <td class="cell-volume-mid">449</td>
+            <td class="cell-volume-mid">1.5</td>
+            <td>7.8</td>
+          </tr>
+          <tr>
+            <td>Bilal Nadir</td>
+            <td>8</td>
+            <td class="cell-volume-mid">790.9</td>
+            <td>40.6</td>
+            <td>5.9</td>
+            <td>1.6</td>
+            <td>0.5</td>
+            <td class="cell-volume-mid">24</td>
+            <td>424</td>
+            <td>329</td>
+            <td>1,159.7</td>
+            <td>7.6</td>
+          </tr>
+          <tr>
+            <td>Bakery Jatta</td>
+            <td>4</td>
+            <td>442.7</td>
+            <td>24.4</td>
+            <td>3.9</td>
+            <td>1.2</td>
+            <td>0.4</td>
+            <td>18</td>
+            <td>306</td>
+            <td>179</td>
+            <td>671.5</td>
+            <td class="cell-volume-high">8.5</td>
+          </tr>
+          <tr>
+            <td>Yussuf Poulsen</td>
+            <td>8</td>
+            <td class="cell-volume-high">848.5</td>
+            <td>41</td>
+            <td class="cell-volume-mid">7</td>
+            <td class="cell-volume-mid">2.1</td>
+            <td class="cell-volume-high">0.8</td>
+            <td class="cell-volume-mid">21</td>
+            <td class="cell-volume-high">500</td>
+            <td class="cell-volume-mid">360</td>
+            <td>607</td>
+            <td>7.9</td>
+          </tr>
+          <tr>
+            <td>Kofi Amoako</td>
+            <td>7</td>
+            <td class="cell-volume-mid">790.2</td>
+            <td>40.5</td>
+            <td>6.9</td>
+            <td class="cell-volume-high">2.4</td>
+            <td class="cell-volume-high">0.8</td>
+            <td class="cell-volume-high">28</td>
+            <td class="cell-volume-mid">435</td>
+            <td>324</td>
+            <td class="cell-volume-mid">1,537.5</td>
+            <td>8.1</td>
+          </tr>
+          <tr>
+            <td>Miro Muheim</td>
+            <td>8</td>
+            <td class="cell-volume-high">861.3</td>
+            <td class="cell-volume-high">54.3</td>
+            <td class="cell-volume-high">10.1</td>
+            <td class="cell-volume-high">3.6</td>
+            <td class="cell-volume-high">1.4</td>
+            <td class="cell-volume-high">55</td>
+            <td class="cell-volume-high">617</td>
+            <td class="cell-volume-high">563</td>
+            <td class="cell-volume-mid">1,529.2</td>
+            <td class="cell-volume-mid">8.4</td>
+          </tr>
+          <tr>
+            <td>Albert Sambi Lokonga</td>
+            <td>7</td>
+            <td class="cell-volume-mid">812.3</td>
+            <td class="cell-volume-mid">47.6</td>
+            <td class="cell-volume-mid">8</td>
+            <td class="cell-volume-mid">2.3</td>
+            <td>0.4</td>
+            <td>17</td>
+            <td class="cell-volume-mid">426</td>
+            <td>258</td>
+            <td class="cell-volume-mid">1,511.1</td>
+            <td>7.6</td>
+          </tr>
+          <tr>
+            <td>Fábio Vieira</td>
+            <td>6</td>
+            <td>647.1</td>
+            <td>37.8</td>
+            <td>5.9</td>
+            <td>1.8</td>
+            <td class="cell-volume-mid">0.7</td>
+            <td>18</td>
+            <td>360</td>
+            <td>252</td>
+            <td>1,135.4</td>
+            <td>7.8</td>
+          </tr>
+          <tr>
+            <td>Jordan Torunarigha</td>
+            <td>6</td>
+            <td>622.6</td>
+            <td>30.5</td>
+            <td>4.3</td>
+            <td>1.3</td>
+            <td class="cell-volume-mid">0.5</td>
+            <td>18</td>
+            <td>298</td>
+            <td>246</td>
+            <td>875.6</td>
+            <td>8</td>
+          </tr>
+          <tr>
+            <td>Nicolás Capaldo</td>
+            <td>9</td>
+            <td class="cell-volume-mid">813</td>
+            <td class="cell-volume-mid">43</td>
+            <td>6</td>
+            <td class="cell-volume-mid">2</td>
+            <td>0.3</td>
+            <td>16</td>
+            <td>306</td>
+            <td>297</td>
+            <td class="cell-volume-high">1,604.3</td>
+            <td>7.6</td>
+          </tr>
+          <tr>
+            <td>Nicolai Remberg</td>
+            <td>6</td>
+            <td>742</td>
+            <td class="cell-volume-high">50.9</td>
+            <td class="cell-volume-high">8.6</td>
+            <td>1.8</td>
+            <td>0.3</td>
+            <td>16</td>
+            <td>420</td>
+            <td class="cell-volume-high">596</td>
+            <td class="cell-volume-high">2,111.9</td>
+            <td class="cell-volume-mid">8.2</td>
+          </tr>
+          <tr>
+            <td>Martin Adeline</td>
+            <td>5</td>
+            <td>632.6</td>
+            <td class="cell-volume-mid">47.5</td>
+            <td class="cell-volume-high">9.9</td>
+            <td class="cell-volume-high">2.9</td>
+            <td class="cell-volume-mid">0.8</td>
+            <td class="cell-volume-high">41</td>
+            <td>368</td>
+            <td class="cell-volume-high">467</td>
+            <td class="cell-volume-high">1,931.8</td>
+            <td class="cell-volume-mid">8.4</td>
+          </tr>
+          <tr>
+            <td>Sebastiaan Bornauw</td>
+            <td>6</td>
+            <td>748.1</td>
+            <td class="cell-volume-mid">41.4</td>
+            <td>6.2</td>
+            <td>1.3</td>
+            <td>0.4</td>
+            <td>16</td>
+            <td>399</td>
+            <td>339</td>
+            <td>1,170.7</td>
+            <td class="cell-volume-mid">8.2</td>
+          </tr>
+          <tr>
+            <td>Terem Moffi</td>
+            <td>5</td>
+            <td>216.4</td>
+            <td>14.9</td>
+            <td>1.6</td>
+            <td>0.8</td>
+            <td>0.2</td>
+            <td>6</td>
+            <td>61</td>
+            <td>39</td>
+            <td>399.7</td>
+            <td>6.5</td>
+          </tr>
+          <tr>
+            <td>Shafiq Nandja</td>
+            <td>5</td>
+            <td>647.9</td>
+            <td>38.9</td>
+            <td>6.9</td>
+            <td class="cell-volume-mid">2.2</td>
+            <td class="cell-volume-mid">0.7</td>
+            <td class="cell-volume-mid">28</td>
+            <td class="cell-volume-mid">426</td>
+            <td class="cell-volume-mid">361</td>
+            <td>840.7</td>
+            <td class="cell-volume-high">8.7</td>
+          </tr>
+          <tr>
+            <td>Albert Grønbæk</td>
+            <td>3</td>
+            <td>117</td>
+            <td>9.7</td>
+            <td>0.5</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>27</td>
+            <td>26</td>
+            <td>417.9</td>
+            <td>5.5</td>
+          </tr>
+          <tr>
+            <td>Otto Stange</td>
+            <td>1</td>
+            <td>141.3</td>
+            <td>7.8</td>
+            <td>1.6</td>
+            <td>0.7</td>
+            <td>0.3</td>
+            <td>10</td>
+            <td>48</td>
+            <td>60</td>
+            <td>108</td>
+            <td class="cell-volume-high">8.8</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-block">
+      <p>Miro Muheim leads volume: 54.3 km total, 10.1 km HMLD, 1.4 km sprint distance, 55 sprints. Mario Vušković logged 817 minutes.</p>
+    </div>
+  </section>
+
+  <!-- 4. CASE STUDY -->
+  <section class="section" id="case-study">
+    <h2 class="section-title">4. Case Study: Athlete of Concern</h2>
+    
+    <div class="table-title">Albert Sambi Lokonga – GPS Detail</div>
+    <div class="legend-box">
+      <div class="legend-item">
+        <div class="legend-color cell-volume-mid"></div>
+        <span>Moderate Volume</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color cell-volume-high"></div>
+        <span>High Volume</span>
+      </div>
+    </div>
+    
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Distance total (m)</th>
+            <th>HMLD (m)</th>
+            <th>High speed running (absolute)</th>
+            <th>Sprint distance (m)</th>
+            <th>Sprints (count)</th>
+            <th>DSL</th>
+            <th>Max speed (km/h)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2026-09-22</td>
+            <td>5</td>
+            <td>931</td>
+            <td class="cell-volume-mid">401</td>
+            <td class="cell-volume-mid">57</td>
+            <td>2</td>
+            <td>180.8</td>
+            <td>7.6</td>
+          </tr>
+          <tr>
+            <td>2026-09-29</td>
+            <td class="cell-volume-mid">7.4</td>
+            <td>941</td>
+            <td>110</td>
+            <td>35</td>
+            <td class="cell-volume-mid">3</td>
+            <td>229.2</td>
+            <td class="cell-volume-high">8</td>
+          </tr>
+          <tr>
+            <td>2026-09-30</td>
+            <td>6.5</td>
+            <td class="cell-volume-mid">1.3</td>
+            <td>380</td>
+            <td>25</td>
+            <td>2</td>
+            <td class="cell-volume-mid">246</td>
+            <td>7.5</td>
+          </tr>
+          <tr>
+            <td>2026-10-01</td>
+            <td class="cell-volume-high">7.8</td>
+            <td class="cell-volume-high">1.4</td>
+            <td class="cell-volume-high">478</td>
+            <td>23</td>
+            <td>1</td>
+            <td class="cell-volume-high">273.8</td>
+            <td>7.5</td>
+          </tr>
+          <tr>
+            <td>2026-10-02</td>
+            <td>6.9</td>
+            <td>954</td>
+            <td>213</td>
+            <td class="cell-volume-high">129</td>
+            <td class="cell-volume-high">4</td>
+            <td>170.9</td>
+            <td class="cell-volume-high">8.4</td>
+          </tr>
+          <tr>
+            <td>2026-10-03</td>
+            <td>4</td>
+            <td>456</td>
+            <td>74</td>
+            <td>0</td>
+            <td>0</td>
+            <td>100.3</td>
+            <td>6.5</td>
+          </tr>
+          <tr>
+            <td>2026-10-04</td>
+            <td class="cell-volume-high">10</td>
+            <td class="cell-volume-high">1.9</td>
+            <td class="cell-volume-high">652</td>
+            <td class="cell-volume-high">114</td>
+            <td class="cell-volume-high">5</td>
+            <td class="cell-volume-high">310.1</td>
+            <td class="cell-volume-mid">7.9</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-block">
+      <p>Albert Sambi Lokonga: highest squad injury risk (mean 33.4/100, peak 56 on Sep 23–24). Performance stable but low (48–52).</p>
+    </div>
+  </section>
+
+  <!-- 5. WELLNESS REVIEW -->
+  <section class="section" id="wellness">
+    <h2 class="section-title">5. Wellness Review</h2>
+    
+    <div class="table-title">Wellness Summary (14 days, mean)</div>
+    <div class="legend-box">
+      <div class="legend-item">
+        <div class="legend-color cell-volume-mid"></div>
+        <span>Moderate</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color cell-volume-high"></div>
+        <span>High (positive)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color cell-risk-mid"></div>
+        <span>Elevated</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color cell-risk-high"></div>
+        <span>High (concern)</span>
+      </div>
+    </div>
+    
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>N</th>
+            <th>Body Soreness Rating</th>
+            <th>Mood Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Albert Grønbæk</td>
+            <td>10</td>
+            <td>24</td>
+            <td>16</td>
+          </tr>
+          <tr>
+            <td>Albert Sambi Lokonga</td>
+            <td>6</td>
+            <td class="cell-risk-mid">20.2</td>
+            <td>10.8</td>
+          </tr>
+          <tr>
+            <td>Alexander Røssing-Lelesiit</td>
+            <td>8</td>
+            <td>25</td>
+            <td>18.8</td>
+          </tr>
+          <tr>
+            <td>Bakery Jatta</td>
+            <td>4</td>
+            <td>35.3</td>
+            <td class="cell-volume-high">36.5</td>
+          </tr>
+          <tr>
+            <td>Bilal Nadir</td>
+            <td>8</td>
+            <td>26</td>
+            <td class="cell-volume-mid">21.9</td>
+          </tr>
+          <tr>
+            <td>David Möller Wolfe</td>
+            <td>4</td>
+            <td class="cell-risk-mid">20</td>
+            <td>17.5</td>
+          </tr>
+          <tr>
+            <td>Fábio Vieira</td>
+            <td>6</td>
+            <td>26.3</td>
+            <td class="cell-volume-high">22</td>
+          </tr>
+          <tr>
+            <td>Jordan Torunarigha</td>
+            <td>8</td>
+            <td>29.1</td>
+            <td class="cell-volume-high">25.6</td>
+          </tr>
+          <tr>
+            <td>Kofi Amoako</td>
+            <td>11</td>
+            <td>25.6</td>
+            <td class="cell-volume-mid">21.6</td>
+          </tr>
+          <tr>
+            <td>Mario Vušković</td>
+            <td>10</td>
+            <td class="cell-risk-mid">17.8</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>Martin Adeline</td>
+            <td>6</td>
+            <td class="cell-risk-high">15.5</td>
+            <td>15.2</td>
+          </tr>
+          <tr>
+            <td>Miro Muheim</td>
+            <td>7</td>
+            <td>21</td>
+            <td class="cell-volume-mid">21.3</td>
+          </tr>
+          <tr>
+            <td>Nicolai Remberg</td>
+            <td>5</td>
+            <td class="cell-risk-high">10.6</td>
+            <td>11.4</td>
+          </tr>
+          <tr>
+            <td>Nicolás Capaldo</td>
+            <td>8</td>
+            <td>22.5</td>
+            <td>21.3</td>
+          </tr>
+          <tr>
+            <td>Otto Stange</td>
+            <td>4</td>
+            <td>25.5</td>
+            <td class="cell-volume-high">23.3</td>
+          </tr>
+          <tr>
+            <td>Patson Daka</td>
+            <td>10</td>
+            <td class="cell-risk-high">15</td>
+            <td>12</td>
+          </tr>
+          <tr>
+            <td>Sebastiaan  Bornauw</td>
+            <td>7</td>
+            <td>20.9</td>
+            <td class="cell-volume-mid">22</td>
+          </tr>
+          <tr>
+            <td>Shafiq Nandja</td>
+            <td>11</td>
+            <td>27.1</td>
+            <td>20.3</td>
+          </tr>
+          <tr>
+            <td>Terem Moffi</td>
+            <td>12</td>
+            <td>21.6</td>
+            <td>18.9</td>
+          </tr>
+          <tr>
+            <td>Warmed Omari</td>
+            <td>2</td>
+            <td class="cell-risk-mid">20</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>Yussuf Poulsen</td>
+            <td>12</td>
+            <td class="cell-risk-high">14</td>
+            <td>10</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-block">
+      <p><strong>Body Soreness Evolution (Team Mean ± Range)</strong></p>
+      <p style="margin-top: 0.5rem;">21 athletes logged wellness (4–10 entries each). Mean soreness: 25.6/100 (range 20–35). Bakery Jatta highest (35.3), Jordan Torunarigha lowest (29.1).</p>
+    </div>
+
+    <div class="chart-box" id="chart_1"></div>
+
+  </section>
+
+  <!-- 6. RECIPE -->
+  <section class="section" id="recipe">
+    <h2 class="section-title">6. Chili Con Carne Recipe</h2>
+    <div class="text-block">
+      <p><strong>Ingredients (4 servings):</strong> 500g ground beef, 1 large onion (diced), 2 cloves garlic (minced), 1 red bell pepper (diced), 400g canned tomatoes, 400g kidney beans (drained), 2 tbsp tomato paste, 1 tbsp chili powder, 1 tsp cumin, 1 tsp paprika, salt & pepper to taste, olive oil.</p>
+      <p style="margin-top: 1rem;"><strong>Instructions:</strong> Heat oil in a large pot. Sauté onion and garlic until soft. Add ground beef and cook until browned. Stir in bell pepper, tomato paste, and spices. Add canned tomatoes and kidney beans. Simmer for 30 minutes, stirring occasionally. Season with salt and pepper. Serve with rice or tortilla chips.</p>
+    </div>
+  </section>
+
+</div>
+
+
+
+
+
+<script id="mauna-artifact-boot">
+(function () {
+  const charts = [{"id":"chart_1","title":"Body Soreness Evolution (Team Mean ± Range)","option":{"legend":{"top":4,"type":"plain","left":"center","width":"92%","itemWidth":10,"itemHeight":8,"itemGap":8,"textStyle":{"fontSize":10},"data":["Squad (min–max)","Squad min","Squad max","Avg Soreness","Min Soreness","Max Soreness"],"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true},"data":["2026-09-22","2026-09-23","2026-09-24","2026-09-25","2026-09-26","2026-09-27","2026-09-28","2026-09-29","2026-09-30","2026-10-01","2026-10-02","2026-10-03","2026-10-04"]},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Squad (min–max)","type":"line","data":[10,10,10,10,10,10,10,10,18,10,10,10,13],"symbol":"none","showSymbol":false,"connectNulls":false,"stack":"squad-range","lineStyle":{"width":0,"opacity":0},"itemStyle":{"color":"rgba(79,110,247,0.35)"},"z":1,"emphasis":{"disabled":true}},{"name":"Squad (min–max)","type":"line","data":[27,20,20,30,20,10,20,20,11,40,30,30,18],"symbol":"none","showSymbol":false,"connectNulls":false,"stack":"squad-range","lineStyle":{"width":0,"opacity":0},"areaStyle":{"color":"rgba(79,110,247,0.14)"},"tooltip":{"show":false},"legendHoverLink":false,"z":1,"emphasis":{"disabled":true}},{"name":"Squad min","type":"line","data":[10,10,10,10,10,10,10,10,18,10,10,10,13],"symbol":"none","showSymbol":false,"connectNulls":true,"lineStyle":{"type":"dashed","width":1.15,"color":"#94a3b8"},"itemStyle":{"color":"#94a3b8"},"z":2},{"name":"Squad max","type":"line","data":[37,30,30,40,30,20,30,30,29,50,40,40,31],"symbol":"none","showSymbol":false,"connectNulls":true,"lineStyle":{"type":"dashed","width":1.15,"color":"#64748b"},"itemStyle":{"color":"#64748b"},"z":2},{"name":"Avg Soreness","type":"line","encode":{"x":"Date","y":"Avg Soreness"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":21.408,"name":"Mean","label":{"formatter":"Mean 21.41","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Min Soreness","type":"line","encode":{"x":"Date","y":"Min Soreness"}},{"name":"Max Soreness","type":"line","encode":{"x":"Date","y":"Max Soreness"}}],"animation":false,"dataset":{"source":[["Date","Avg Soreness","Min Soreness","Max Soreness"],["2026-09-22",23.9,10,37],["2026-09-23",25.1,10,30],["2026-09-24",20.8,10,30],["2026-09-25",20,10,40],["2026-09-26",22,10,30],["2026-09-27",14,10,20],["2026-09-28",17.5,10,30],["2026-09-29",18.1,10,30],["2026-09-30",24.8,18,29],["2026-10-01",24.1,10,50],["2026-10-02",22.9,10,40],["2026-10-03",22.8,10,40],["2026-10-04",22.3,13,31]]}}}];
+  const palette = ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"];
+  const fontFamily = "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif";
+  const ink = "#0f1220";
+  const instances = [];
+  const isPrint = () => window.matchMedia('print').matches;
+  const waitEcharts = () => new Promise((resolve) => {
+    if (window.echarts) return resolve(true);
+    let n = 0;
+    const t = setInterval(() => {
+      n += 1;
+      if (window.echarts || n > 80) { clearInterval(t); resolve(!!window.echarts); }
+    }, 100);
+  });
+  const boot = async () => {
+    await waitEcharts();
+    for (const chart of charts) {
+      let el = document.getElementById(chart.id);
+      if (!el) {
+        const host = document.getElementById('mauna-charts-fallback') || (() => {
+          const d = document.createElement('section');
+          d.id = 'mauna-charts-fallback';
+          d.setAttribute('data-injected', '1');
+          document.body.appendChild(d);
+          return d;
+        })();
+        const card = document.createElement('div');
+        card.className = 'chart-card';
+        card.innerHTML = '<h3></h3><div class="chart-box" id="' + chart.id + '"></div>';
+        card.querySelector('h3').textContent = chart.title || chart.id;
+        host.appendChild(card);
+        el = document.getElementById(chart.id);
+      }
+      if (!el || !window.echarts) continue;
+      el.classList.add('chart-box');
+      const series = Array.isArray(chart.option && chart.option.series) ? chart.option.series : [];
+      const isLine = series.some((s) => s && (s.type === 'line' || s.type == null));
+      if (isLine) {
+        el.classList.add('line-chart');
+        el.dataset.chartKind = 'line';
+      }
+      const defaultH = isLine ? (isPrint() ? 340 : 360) : (isPrint() ? 260 : 300);
+      el.style.height = defaultH + 'px';
+      const w = el.clientWidth || 700;
+      const h = el.clientHeight || defaultH;
+      const instance = window.echarts.init(el, null, {
+        renderer: 'canvas',
+        width: w,
+        height: h,
+      });
+      const baseLegend =
+        chart.option && chart.option.legend && typeof chart.option.legend === 'object'
+          ? chart.option.legend
+          : {};
+      const option = {
+        animation: !isPrint(),
+        backgroundColor: '#ffffff',
+        textStyle: { fontFamily, color: ink },
+        color: palette,
+        ...chart.option,
+        legend: { ...baseLegend, type: 'plain' },
+      };
+      instance.setOption(option, true);
+      el.dataset.ready = '1';
+      instances.push(instance);
+    }
+    document.documentElement.dataset.chartsReady = '1';
+    const resizeAll = () => {
+      instances.forEach((i) => {
+        const dom = i.getDom && i.getDom();
+        if (dom) {
+          const w = dom.clientWidth || 700;
+          const h = dom.clientHeight || 220;
+          i.resize({ width: w, height: h });
+        } else {
+          i.resize();
+        }
+      });
+    };
+    window.__maunaResizeCharts = resizeAll;
+    window.addEventListener('resize', resizeAll);
+    window.addEventListener('beforeprint', () => {
+      instances.forEach((i) => i.setOption({ animation: false }));
+      resizeAll();
+    });
+  };
+  boot();
+})();
+</script>
+</body>
+</html>

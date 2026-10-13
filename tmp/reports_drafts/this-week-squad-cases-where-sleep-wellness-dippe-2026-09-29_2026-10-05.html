@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>This week: squad cases where sleep/wellness dipped but GPS spikes went up. Cross</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 300px; }
+    .chart-box.wide { height: 340px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 12px;
+      padding: 10px 12px; border-radius: 10px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner .avatar-wrap {
+      position: relative; width: 52px; height: 52px; flex: 0 0 52px;
+    }
+    .athlete-banner img {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: none; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner.no-photo img { display: none; }
+    .athlete-banner.no-photo .avatar-fallback { display: grid; }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2026-2027</div>
+      <h1 class="cover-title">This week: squad cases where sleep/wellness dipped but GPS spikes went up. Cross</h1>
+      <p class="cover-sub">Club report — MAUNA data only</p>
+      <div class="date-pill">Mon, 05/10/26 · 2026-09-29 → 2026-10-05</div>
+      
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">This week: squad cases where sleep/wellness dipped but GPS spikes went up. Cross</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Staff read</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · This week: squad cases where sleep/wellness dipped but GPS spikes went up. Cross</span><span class="hint">§1</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Staff read</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <p class="staff-read-lead">Synthesized from canvas (analyst did not commit InsightIR)</p>
+  
+  
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>This week: squad cases where sleep/wellness dipped but GPS spikes went up. Cross</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><p>No sections generated — widen the window or clarify the brief.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

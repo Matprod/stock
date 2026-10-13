@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Load–Readiness Divergence Watch</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 300px; }
+    .chart-box.wide { height: 340px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 12px;
+      padding: 10px 12px; border-radius: 10px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner .avatar-wrap {
+      position: relative; width: 52px; height: 52px; flex: 0 0 52px;
+    }
+    .athlete-banner img {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: none; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner.no-photo img { display: none; }
+    .athlete-banner.no-photo .avatar-fallback { display: grid; }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2026-2027</div>
+      <h1 class="cover-title">Load–Readiness Divergence Watch</h1>
+      <p class="cover-sub">Club report — MAUNA data only</p>
+      <div class="date-pill">Mon, 05/10/26 · 2026-09-29 → 2026-10-05</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">Kofi Amoako logged 30.1 km total distance and 1.5 km HSR across four sessions; body soreness peaked at 50 on 1 Oct (post-6.7 km session), mood averaged 28.5.</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">Alexander Røssing-Lelesiit completed 29.9 km + 1.7 km HSR over three sessions with mood consistently at 20 and soreness at 30.</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">Sebastiaan Bornauw accumulated 41.4 km GPS over six sessions but submitted no wellness data; Bakery Jatta recorded single wellness entry (40/40) after 9.4 km session on 1 Oct.</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Load–Readiness Divergence Watch</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Staff read</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Load–Readiness Divergence (29 Sep–5 Oct)</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · Daily GPS × Wellness</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Team Correlation: GPS vs Wellness</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Summary</span><span class="hint">§4</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Staff read</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <p class="staff-read-lead">Players with high GPS exposure (distance, HSR) alongside low wellness scores (body soreness, mood, sleep quality) during the past seven days.</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Narrative thread</h3><ul><li>Kofi Amoako logged 30.1 km total distance and 1.5 km HSR across four sessions; body soreness peaked at 50 on 1 Oct (post-6.7 km session), mood averaged 28.5.</li><li>Alexander Røssing-Lelesiit completed 29.9 km + 1.7 km HSR over three sessions with mood consistently at 20 and soreness at 30.</li><li>Sebastiaan Bornauw accumulated 41.4 km GPS over six sessions but submitted no wellness data; Bakery Jatta recorded single wellness entry (40/40) after 9.4 km session on 1 Oct.</li></ul></div><div class="staff-read-panel"><h3>Signals</h3><ul class="signal-roster"><li><span class="signal-badge info">Info</span><div><div class="signal-body">Kofi Amoako logged 30.1 km total distance and 1.5 km HSR across four sessions; body soreness peaked at 50 on 1 Oct (post-6.7 km session), mood averaged 28.5.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Alexander Røssing-Lelesiit completed 29.9 km + 1.7 km HSR over three sessions with mood consistently at 20 and soreness at 30.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Sebastiaan Bornauw accumulated 41.4 km GPS over six sessions but submitted no wellness data; Bakery Jatta recorded single wellness entry (40/40) after 9.4 km session on 1 Oct.</div></div></li></ul></div></div>
+  <div class="staff-read-panel"><h3>Canvas sections</h3><ul class="staff-section-index"><li><span>Load–Readiness Divergence</span><span class="kind">Team</span></li><li><span>Daily GPS × Wellness</span><span class="kind">Team</span></li><li><span>Team Correlation: GPS vs Wellness</span><span class="kind">Team</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Load–Readiness Divergence (29 Sep–5 Oct)</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>HSR vs Body Soreness (week avg)</h3>
+  <div id="chart_1" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>DSL vs Mood (week avg)</h3>
+  <div id="chart_2" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Bornauw: 41.4 km GPS (6 sessions), no wellness data. Jatta: 19.0 km + 0.9 km HSR (single session), soreness 40, mood 40, sleep 40. Amoako: 30.1 km + 1.5 km HSR (4 sessions), soreness 31.5 avg (peaked 50 on 1 Oct), mood 28.5. Røssing-Lelesiit: 29.9 km + 1.7 km HSR (3 sessions), soreness 30, mood 20 (persistent), slee…</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>Daily GPS × Wellness</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Watchlist: Low Readiness + GPS Exposure</h3><div class="legend"><span><i class="swatch" style="background:rgba(224,112,112,0.22);outline:1px solid #E07070"></i>high</span><span><i class="swatch" style="background:rgba(251,191,36,0.22);outline:1px solid #E8B84A"></i>medium</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>low</span><span>vs squad (terciles)</span></div><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (km)</th><th>High speed running (absolute)</th><th>DSL</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Sebastiaan Bornauw</td><td class="">6</td><td class="lvl-hi">0</td><td class="lvl-lo">1.3</td><td class="">1,170.7</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Bakery Jatta</td><td class="">1</td><td class="lvl-hi">0</td><td class="lvl-hi">876</td><td class="lvl-mid">390.2</td><td class="lvl-hi">40</td><td class="lvl-hi">40</td><td class="lvl-hi">40</td></tr><tr><td class="">Kofi Amoako</td><td class="">4</td><td class="lvl-hi">0</td><td class="lvl-mid">1.5</td><td class="">1,108.4</td><td class="lvl-hi">31.5</td><td class="lvl-hi">28.5</td><td class="lvl-mid">28</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">3</td><td class="lvl-hi">0</td><td class="lvl-mid">1.7</td><td class="lvl-hi">772.6</td><td class="lvl-hi">30</td><td class="lvl-mid">20</td><td class="lvl-lo">20</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">2</td><td class="lvl-hi">0</td><td class="lvl-hi">664</td><td class="lvl-mid">657.3</td><td class="lvl-hi">30</td><td class="lvl-hi">30</td><td class="lvl-hi">30</td></tr><tr><td class="">Warmed Omari</td><td class="">1</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">30</td><td class="lvl-lo">10</td><td class="lvl-hi">40</td></tr><tr><td class="">Shafiq Nandja</td><td class="">4</td><td class="lvl-hi">0</td><td class="lvl-mid">2.2</td><td class="lvl-hi">840.7</td><td class="lvl-mid">27.3</td><td class="lvl-mid">21.3</td><td class="lvl-hi">33</td></tr><tr><td class="">Otto Stange</td><td class="">3</td><td class="lvl-hi">0</td><td class="lvl-hi">701</td><td class="lvl-lo">108</td><td class="lvl-mid">26.7</td><td class="lvl-hi">23.3</td><td class="lvl-hi">30</td></tr><tr><td class="">David Möller Wolfe</td><td class="">2</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">25</td><td class="lvl-lo">15</td><td class="lvl-lo">25</td></tr><tr><td class="">Bilal Nadir</td><td class="">4</td><td class="lvl-hi">0</td><td class="lvl-lo">1</td><td class="lvl-hi">908.4</td><td class="lvl-lo">24.3</td><td class="lvl-mid">22</td><td class="lvl-mid">25.3</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Kofi Amoako: Daily Distance (km) vs Body Soreness</h3>
+  <div id="chart_3" class="chart-box compact"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Distance Km</span><span><i style="background:#34D399"></i>Body Soreness Rating</span></div>
+</div>
+<div class="chart-card">
+  <h3>Alexander Røssing-Lelesiit: Daily HSR (km) vs Mood</h3>
+  <div id="chart_4" class="chart-box compact"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Sprints (count)</span><span><i style="background:#34D399"></i>Average metabolic po…</span><span><i style="background:#FBBF24"></i>Max acceleration (m/…</span><span><i style="background:#A78BFA"></i>Hsr Km</span></div>
+</div>
+<div class="prose-block"><ul><li>Amoako: 8.3 km on 2 Oct with 0.9 km HSR (10 sprints); soreness jumped to 50 on 1 Oct after 6.7 km session. Røssing-Lelesiit: 9.6 km + 0.8 km HSR on 1 Oct; mood remained at 20 across three sessions (29 Sep–2 Oct). Jatta: single wellness entry (2 Oct) at 40/40 after 9.4 km session on 1 Oct.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Team Correlation: GPS vs Wellness</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Total Distance vs Body Soreness (week avg, n=22)</h3>
+  <div id="chart_5" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Moderate negative correlation between total distance and body soreness (r = −0.47, n = 17). HSR vs mood: r = −0.25 (n = 17). Individual divergence patterns (Amoako, Røssing-Lelesiit) warrant closer monitoring.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Summary</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><ul><li>Four athletes flagged for load-readiness mismatch. Amoako and Røssing-Lelesiit show converging signals (high GPS + low wellness); Bornauw has substantial GPS volume with no wellness tracking; Jatta single data point. Squad-level correlation moderate (distance vs soreness r = −0.47, n = 17). Individual monitoring rec…</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"HSR vs Body Soreness (week avg)","option":{"legend":{"show":false},"grid":{"left":64,"right":72,"top":48,"containLabel":true,"bottom":28},"xAxis":{"type":"value","name":"High speed running (absolute)","scale":true,"nameLocation":"middle","nameGap":28},"yAxis":{"type":"value","name":"Body Soreness Rating","scale":true,"nameLocation":"middle","nameGap":40},"tooltip":{"trigger":"item"},"series":[{"type":"scatter","symbolSize":14,"encode":{"x":"High speed running (absolute)","y":"Body Soreness Rating","tooltip":["Player","High speed running (absolute)","Body Soreness Rating"]}}],"animation":false,"dataset":{"source":[["Player","N","Distance total (km)","High speed running (absolute)","DSL","DSL (2)","Body Soreness Rating","Mood Rating","Quality Rating","Readiness Proxy"],["Alexander Røssing-Lelesiit",3,29.9,1744,772.6,772.6,30,20,20,-30],["Miro Muheim",2,43.6,2698,1213.4,1213.4,20,20,20,-20],["Nicolai Remberg",3,50.9,1795,2111.9,2111.9,10,10,13.3,-10],["Kofi Amoako",4,30.1,1471,1108.4,1108.4,31.5,28.5,28,-31.5],["Mario Vušković",3,36.6,941,901,901,16.7,10,10,-16.7],["Bilal Nadir",4,32.7,1041,908.4,908.4,24.3,22,25.3,-24.2],["Albert Sambi Lokonga",3,42.6,1907,1330.3,1330.3,20,10,20,-20],["Yussuf Poulsen",3,31.8,1423,503.1,503.1,13.3,10,23.3,-13.3],["Martin Adeline",4,47.5,2856,1931.8,1931.8,16.3,13.8,20.3,-16.2],["Jordan Torunarigha",2,21.7,664,657.3,657.3,30,30,30,-30],["Sebastiaan Bornauw",6,41.4,1310,1170.7,1170.7,null,null,null,null],["Fábio Vieira",3,27.9,919,740.6,740.6,23.3,20,20,-23.3],["Nicolás Capaldo",3,29.7,1248,1138.5,1138.5,14.7,16,15.7,-14.7],["Terem Moffi",3,14.9,781,399.7,399.7,20,13.3,20,-20],["Shafiq Nandja",4,38.9,2231,840.7,840.7,27.3,21.3,33,-27.2],["Bakery Jatta",1,19,876,390.2,390.2,40,40,40,-40],["Albert Grønbæk",3,9.7,36,417.9,417.9,23.3,13.3,20,-23.3],["Otto Stange",3,7.8,701,108,108,26.7,23.3,30,-26.7],["David Möller Wolfe",2,null,null,null,null,25,15,25,-25],["Patson Daka",3,null,null,null,null,10,16.7,10,-10],["Sebastiaan  Bornauw",4,null,null,null,null,21,22,20.3,-21],["Warmed Omari",1,null,null,null,null,30,10,40,-30]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"DSL vs Mood (week avg)","option":{"legend":{"show":false},"grid":{"left":64,"right":72,"top":48,"containLabel":true,"bottom":28},"xAxis":{"type":"value","name":"DSL","scale":true,"nameLocation":"middle","nameGap":28},"yAxis":{"type":"value","name":"Mood Rating","scale":true,"nameLocation":"middle","nameGap":40},"tooltip":{"trigger":"item"},"series":[{"type":"scatter","symbolSize":14,"encode":{"x":"DSL","y":"Mood Rating","tooltip":["Player","DSL","Mood Rating"]}}],"animation":false,"dataset":{"source":[["Player","N","Distance total (km)","High speed running (absolute)","DSL","DSL (2)","Body Soreness Rating","Mood Rating","Quality Rating","Readiness Proxy"],["Alexander Røssing-Lelesiit",3,29.9,1744,772.6,772.6,30,20,20,-30],["Miro Muheim",2,43.6,2698,1213.4,1213.4,20,20,20,-20],["Nicolai Remberg",3,50.9,1795,2111.9,2111.9,10,10,13.3,-10],["Kofi Amoako",4,30.1,1471,1108.4,1108.4,31.5,28.5,28,-31.5],["Mario Vušković",3,36.6,941,901,901,16.7,10,10,-16.7],["Bilal Nadir",4,32.7,1041,908.4,908.4,24.3,22,25.3,-24.2],["Albert Sambi Lokonga",3,42.6,1907,1330.3,1330.3,20,10,20,-20],["Yussuf Poulsen",3,31.8,1423,503.1,503.1,13.3,10,23.3,-13.3],["Martin Adeline",4,47.5,2856,1931.8,1931.8,16.3,13.8,20.3,-16.2],["Jordan Torunarigha",2,21.7,664,657.3,657.3,30,30,30,-30],["Sebastiaan Bornauw",6,41.4,1310,1170.7,1170.7,null,null,null,null],["Fábio Vieira",3,27.9,919,740.6,740.6,23.3,20,20,-23.3],["Nicolás Capaldo",3,29.7,1248,1138.5,1138.5,14.7,16,15.7,-14.7],["Terem Moffi",3,14.9,781,399.7,399.7,20,13.3,20,-20],["Shafiq Nandja",4,38.9,2231,840.7,840.7,27.3,21.3,33,-27.2],["Bakery Jatta",1,19,876,390.2,390.2,40,40,40,-40],["Albert Grønbæk",3,9.7,36,417.9,417.9,23.3,13.3,20,-23.3],["Otto Stange",3,7.8,701,108,108,26.7,23.3,30,-26.7],["David Möller Wolfe",2,null,null,null,null,25,15,25,-25],["Patson Daka",3,null,null,null,null,10,16.7,10,-10],["Sebastiaan  Bornauw",4,null,null,null,null,21,22,20.3,-21],["Warmed Omari",1,null,null,null,null,30,10,40,-30]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3","title":"Kofi Amoako: Daily Distance (km) vs Body Soreness","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Distance Km","type":"line","encode":{"x":"Date","y":"Distance Km"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":6.019,"name":"Mean","label":{"formatter":"Mean 6.02","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Body Soreness Rating","type":"line","encode":{"x":"Date","y":"Body Soreness Rating"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating","Distance Km"],["Kofi Amoako","2026-09-29",9984,7374,980,806.2,58,0,0,922,10,104,62,282.2,56.2,6,84,95,13,338,4.5,6.4,8.3,8.7,2,8,2420,3121,10519,13807,9089,11734,2309,3375,3871,5419,282.2,20,null,20,null,7.374],["Kofi Amoako","2026-09-30",6240,6692,1190,731.4,303,74,6,887,10,75,59,343.2,60,17.1,130,64,11,320,6.1,8.9,6.3,8.1,7,4,2430,2807,10976,12817,9384,10883,2654,2998,3869,5127,343.2,26,null,24,null,6.692],["Kofi Amoako","2026-10-01",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,50,null,40,null,null],["Kofi Amoako","2026-10-02",7974,8275,1716,892.2,896,269,10,820,6,82,71,257.3,41.1,7.7,60,129,27,403,6.1,9.4,4.9,4.7,0,0,2223,2520,9993,11380,8676,9866,1818,2065,3804,4639,257.3,30,null,30,null,8.275],["Kofi Amoako","2026-10-03",5690,3406,354,346.3,96,13,1,258,2,18,11,102.5,10.3,2.5,34,36,4,154,3.2,7.5,5.9,4.3,2,0,929,989,3984,4412,3412,3757,898,1005,1482,1780,102.5,null,null,null,null,3.406],["Kofi Amoako","2026-10-04",7944,4347,604,448.9,118,7,1,487,4,27,28,123.2,11.5,2.6,37,33,5,204,3,7.2,5.9,9.2,1,6,984,1295,4249,5818,3783,5019,638,1241,1508,2314,123.2,null,null,null,null,4.347]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_4","title":"Alexander Røssing-Lelesiit: Daily HSR (km) vs Mood","option":{"legend":{"show":false},"grid":{"left":72,"right":80,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":[{"type":"value"},{"type":"value","position":"right","axisLine":{"show":true},"splitLine":{"show":false}}],"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Sprints (count)","type":"line","encode":{"x":"Date","y":"Sprints (count)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":7167.25,"name":"Mean","label":{"formatter":"Mean 7,167.25","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Average metabolic power (W/kg)","type":"line","encode":{"x":"Date","y":"Average metabolic power (W/kg)"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Max acceleration (m/s2)","type":"line","encode":{"x":"Date","y":"Max acceleration (m/s2)"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Hsr Km","type":"line","encode":{"x":"Date","y":"Hsr Km"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating","Hsr Km"],["Alexander Røssing-Lelesiit","2026-09-29",9285,9516,1567,883.7,183,0,0,1384,14,184,108,292.2,59.8,7.2,77,126,21,447,6.3,7.5,6.2,5.8,16,8,2329,3731,9898,16055,8418,13946,1901,3399,4150,6111,292.2,20,null,20,null,0.183],["Alexander Røssing-Lelesiit","2026-09-30",6235,6857,1598,658.2,581,131,8,1017,15,108,98,177.7,38.4,6.6,33,66,15,340,6.8,8.8,6.7,9.8,12,15,2003,1800,8647,7590,7508,6538,1936,1699,3216,2963,177.7,null,null,null,null,0.581],["Alexander Røssing-Lelesiit","2026-10-01",7378,9629,2272,898.6,808,100,7,1464,13,122,127,226.5,48.5,11.2,42,78,18,480,7.8,8.5,6.2,8,6,21,2612,2500,11190,10468,9792,9062,2220,2229,4317,4113,226.5,40,null,20,null,0.808],["Alexander Røssing-Lelesiit","2026-10-02",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,30,null,20,null,null],["Alexander Røssing-Lelesiit","2026-10-03",5771,3943,485,339,172,37,3,313,5,32,27,76.2,9.7,1.3,15,41,5,181,3.8,8.3,5.8,7.1,3,6,953,540,4172,2289,3545,1926,921,429,1692,996,76.2,null,null,null,null,0.172]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_5","title":"Total Distance vs Body Soreness (week avg, n=22)","option":{"legend":{"show":false},"grid":{"left":64,"right":72,"top":48,"containLabel":true,"bottom":28},"xAxis":{"type":"value","name":"Distance total (m)","scale":true,"nameLocation":"middle","nameGap":28},"yAxis":{"type":"value","name":"Body Soreness Rating","scale":true,"nameLocation":"middle","nameGap":40},"tooltip":{"trigger":"item"},"series":[{"type":"scatter","symbolSize":14,"encode":{"x":"Distance total (m)","y":"Body Soreness Rating","tooltip":["Player","Distance total (m)","Body Soreness Rating"]}}],"animation":false,"dataset":{"source":[["Player","N","Distance total (m)","High speed running (absolute)","DSL","DSL (2)","Body Soreness Rating","Mood Rating","Quality Rating","Readiness Proxy"],["Alexander Røssing-Lelesiit",3,29945,1744,772.6,772.6,30,20,20,-30],["Miro Muheim",2,43628,2698,1213.4,1213.4,20,20,20,-20],["Nicolai Remberg",3,50863,1795,2111.9,2111.9,10,10,13.333,-10],["Kofi Amoako",4,30094,1471,1108.4,1108.4,31.5,28.5,28,-31.5],["Mario Vušković",3,36615,941,901,901,16.667,10,10,-16.667],["Bilal Nadir",4,32658,1041,908.4,908.4,24.25,22,25.25,-24.25],["Albert Sambi Lokonga",3,42597,1907,1330.3,1330.3,20,10,20,-20],["Yussuf Poulsen",3,31841,1423,503.1,503.1,13.333,10,23.333,-13.333],["Martin Adeline",4,47543,2856,1931.8,1931.8,16.25,13.75,20.25,-16.25],["Jordan Torunarigha",2,21693,664,657.3,657.3,30,30,30,-30],["Sebastiaan Bornauw",6,41419,1310,1170.7,1170.7,null,null,null,null],["Fábio Vieira",3,27905,919,740.6,740.6,23.333,20,20,-23.333],["Nicolás Capaldo",3,29705,1248,1138.5,1138.5,14.667,16,15.667,-14.667],["Terem Moffi",3,14909,781,399.7,399.7,20,13.333,20,-20],["Shafiq Nandja",4,38923,2231,840.7,840.7,27.25,21.25,33,-27.25],["Bakery Jatta",1,18961,876,390.2,390.2,40,40,40,-40],["Albert Grønbæk",3,9688,36,417.9,417.9,23.333,13.333,20,-23.333],["Otto Stange",3,7800,701,108,108,26.667,23.333,30,-26.667],["David Möller Wolfe",2,null,null,null,null,25,15,25,-25],["Patson Daka",3,null,null,null,null,10,16.667,10,-10],["Sebastiaan  Bornauw",4,null,null,null,null,21,22,20.25,-21],["Warmed Omari",1,null,null,null,null,30,10,40,-30]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

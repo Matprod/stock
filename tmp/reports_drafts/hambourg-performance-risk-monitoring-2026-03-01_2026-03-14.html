@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html data-artifact="free" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Hambourg – Performance & Risk Monitoring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --lightPrimary: #74c0fc;
+      --ink: #0f1220;
+      --inkSoft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherrySoft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffronSoft: rgba(251,191,36,0.22);
+      --coverGradient: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      --commentBg: rgba(244,246,251,.98);
+      --commentBorder: rgba(165,180,252,.35);
+      --sky: #38BDF8;
+      --emerald: #34D399;
+      --amber: #FBBF24;
+      --purple: #A78BFA;
+      --rose: #F87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      margin: 0; color: var(--ink); background: var(--paper);
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      font-size: 12px; line-height: 1.5;
+    }
+    
+    /* Cover */
+    .cover {
+      min-height: 50vh; padding: 48px 32px; background: var(--coverGradient); color: #fff;
+      page-break-after: always; break-after: page; position: relative;
+    }
+    .cover::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--sky), var(--emerald), var(--amber));
+    }
+    .cover .eyebrow {
+      letter-spacing: .16em; text-transform: uppercase; font-size: 10px; opacity: .75;
+      font-family: "IBM Plex Sans Condensed", sans-serif; font-weight: 600; margin-bottom: 12px;
+    }
+    .cover h1 {
+      margin: 0 0 16px; font-size: 36px; line-height: 1.1; font-weight: 700;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+    .cover .meta {
+      color: var(--lightPrimary); font-size: 14px; margin-bottom: 24px; font-weight: 500;
+    }
+    .cover .brief {
+      max-width: 720px; background: rgba(255,255,255,.08); border-left: 3px solid var(--sky);
+      padding: 16px 20px; border-radius: 8px; font-size: 13px; line-height: 1.6;
+      margin-top: 32px; backdrop-filter: blur(8px);
+    }
+    .cover .brief strong { color: var(--lightPrimary); font-weight: 600; }
+    
+    /* Main flow */
+    .report-flow { padding: 20px 24px 40px; max-width: 1400px; margin: 0 auto; }
+    
+    /* TOC */
+    .toc-section { margin-bottom: 32px; }
+    .toc-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;
+    }
+    .toc-card {
+      background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--primary);
+      border-radius: 8px; padding: 14px 16px; text-decoration: none; color: var(--ink);
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      transition: all .2s; font-weight: 600;
+    }
+    .toc-card:hover { border-left-color: var(--sky); box-shadow: 0 2px 8px rgba(79,110,247,.12); }
+    .toc-card .label { flex: 1; }
+    .toc-card .hint {
+      font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+      font-weight: 500; font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+    
+    /* Section */
+    .section-block {
+      margin: 0 0 40px; page-break-inside: auto; break-inside: auto;
+    }
+    .section-block h2 {
+      margin: 0 0 16px; font-size: 18px; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink); border-bottom: 3px solid var(--primary); padding-bottom: 8px;
+      font-family: "IBM Plex Sans Condensed", sans-serif; font-weight: 700;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-block h2::before {
+      content: ''; width: 6px; height: 24px; background: var(--primary); border-radius: 2px;
+    }
+    
+    /* Cards */
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px;
+      margin: 0 0 16px; overflow: visible;
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .card.context-card {
+      background: linear-gradient(135deg, #fff 0%, var(--paper) 100%);
+      border-left: 4px solid var(--sky);
+    }
+    .card.signal-card {
+      border-left: 4px solid var(--emerald);
+    }
+    .card.watch-card {
+      border-left: 4px solid var(--saffron);
+      background: linear-gradient(135deg, #fff 0%, var(--saffronSoft) 100%);
+    }
+    .card.review-card {
+      border-left: 4px solid var(--cherry);
+      background: linear-gradient(135deg, #fff 0%, var(--cherrySoft) 100%);
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 10px; font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--inkSoft);
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+    .card h4 {
+      margin: 12px 0 6px; font-size: 13px; font-weight: 600; color: var(--ink);
+    }
+    .prose {
+      color: var(--inkSoft); font-size: 12px; line-height: 1.6; margin: 0 0 10px;
+    }
+    .prose strong { color: var(--ink); font-weight: 600; }
+    .prose em { color: var(--primary); font-style: normal; font-weight: 600; }
+    
+    /* Bullet lists */
+    .bullet-list {
+      list-style: none; padding: 0; margin: 0; display: grid; gap: 8px;
+    }
+    .bullet-list li {
+      padding-left: 20px; position: relative; font-size: 12px; line-height: 1.5;
+      color: var(--inkSoft);
+    }
+    .bullet-list li::before {
+      content: '▸'; position: absolute; left: 0; color: var(--primary); font-weight: 700;
+    }
+    
+    /* Split layouts */
+    .split-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 0 0 16px;
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .split-row.split-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .split-row.split-chart-table {
+      grid-template-columns: minmax(180px, 60%) 1fr;
+    }
+    
+    /* Charts */
+    .chart-box {
+      width: 100%; height: 280px; max-height: 280px;
+    }
+    .chart-box.bar-rank { height: 310px; max-height: 310px; }
+    .chart-box.line-chart { height: 340px; max-height: 340px; }
+    .chart-box.compact { height: 220px; max-height: 220px; }
+    
+    /* Tables */
+    table.report-table {
+      width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px;
+    }
+    table.report-table th, table.report-table td {
+      border-bottom: 1px solid var(--line); padding: 7px 8px; text-align: left;
+    }
+    table.report-table th {
+      background: var(--paper); font-weight: 600; color: var(--ink);
+      text-transform: uppercase; font-size: 9.5px; letter-spacing: .06em;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+    table.report-table td {
+      color: var(--inkSoft); font-variant-numeric: tabular-nums;
+    }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table tbody tr:hover { background: var(--paper); }
+    
+    /* KPI boxes */
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;
+      margin: 16px 0;
+    }
+    .kpi-box {
+      background: linear-gradient(145deg, #1a1d2b, #4f6ef7);
+      border-radius: 8px; padding: 14px 16px; color: #fff;
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .kpi-box.kpi-sky { background: linear-gradient(145deg, #1e3a4a, #38BDF8); }
+    .kpi-box.kpi-emerald { background: linear-gradient(145deg, #1a2e28, #34D399); }
+    .kpi-box.kpi-amber { background: linear-gradient(145deg, #3a2a18, #FBBF24); }
+    .kpi-box .kpi-label {
+      font-size: 10px; text-transform: uppercase; letter-spacing: .08em; opacity: .85;
+      margin-bottom: 6px; font-family: "IBM Plex Sans Condensed", sans-serif; font-weight: 600;
+    }
+    .kpi-box .kpi-value {
+      font-size: 24px; font-weight: 700; line-height: 1;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+    .kpi-box .kpi-sub {
+      font-size: 11px; margin-top: 4px; opacity: .9;
+    }
+    
+    /* Player flag badges */
+    .player-flag {
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px;
+      border-radius: 6px; font-size: 11px; font-weight: 600;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+    .player-flag.flag-decline {
+      background: var(--cherrySoft); color: var(--cherry); border: 1px solid var(--cherry);
+    }
+    .player-flag.flag-rise {
+      background: rgba(52,211,153,.22); color: #059669; border: 1px solid #34D399;
+    }
+    .player-flag.flag-watch {
+      background: var(--saffronSoft); color: #d97706; border: 1px solid var(--saffron);
+    }
+    
+    /* Print */
+    @media print {
+      body { background: #fff; }
+      .cover { page-break-after: always; }
+      .card, .chart-card, .split-row { break-inside: avoid; page-break-inside: avoid; }
+      .section-block { page-break-inside: auto; }
+      .toc-card:hover { box-shadow: none; }
+    }
+  </style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" onload="window.__maunaEchartsLoaded=1;window.__maunaOnEchartsLoad&&window.__maunaOnEchartsLoad()"></script>
+<style id="mauna-print-css">@page { size: A4; margin: 8mm; }
+@media print {
+  .no-print, .artifact-nav, .artifact-toolbar, .table-toolbar { display: none !important; }
+  html, body { background: #fff !important; }
+  body {
+    font-size: 10.5pt !important;
+    line-height: 1.35 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  h1 { font-size: 1.35rem !important; margin: 0 0 0.35em !important; }
+  h2 { font-size: 1.1rem !important; margin: 0.55em 0 0.3em !important; }
+  h3 { font-size: 0.98rem !important; margin: 0.4em 0 0.25em !important; }
+  p, li { margin: 0.25em 0 !important; }
+  section, .section, .chart-card, article {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 8px !important;
+  }
+  .chart-box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    height: 260px !important;
+    max-height: 280px !important;
+    width: 100% !important;
+  }
+  .chart-box.line-chart,
+  .chart-box[data-chart-kind="line"] {
+    height: 340px !important;
+    max-height: 360px !important;
+  }
+  .chart-card { padding: 6px 8px !important; }
+  table { break-inside: auto; font-size: 9pt !important; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  /* Prefer two charts per A4 page over sparse half-empty pages */
+  .chart-card + .chart-card { margin-top: 4px !important; }
+}</style>
+</head>
+<body>
+<aside class="coach-brief" id="coach-brief" data-mauna-coach-brief="1" style="border:1px solid #e2e8f0;border-left:3px solid #4f6ef7;border-radius:8px;padding:10px 12px;margin:0 0 12px;background:#f8fafc">
+  <p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#64748b">Coach brief</p>
+  <blockquote style="margin:0;font-size:12px;line-height:1.45;white-space:pre-wrap;font-style:normal;color:#334155">Fait moi un rapport du 1 er au 14 mars, 
+Fait moi un bilan global de certaines données pour presenter le contexte, puis un focus sur la performance de l’équipe avec leurs scores et les données qui influence ce score , et flag moi trois joueurs, deux joueurs avec une baisse la performance sur la trend de la période et un avec une hausse et trouve la correlation d’ou ca vient. Fait ensuite la meme chose avec les risques de blessures . Fait ensuite une analyse general de la wellness, et des biomarkers</blockquote>
+</aside>
+  
+  <!-- Cover -->
+  <header class="cover">
+    <p class="eyebrow">Hambourg Staff Report</p>
+    <h1>Performance & Risk Monitoring</h1>
+    <p class="meta">March 1–14, 2026 · 24 players · 14 days</p>
+    <div class="brief">
+      <strong>Coach brief:</strong> Global context overview for March 1–14, team performance analysis with scores and influencing factors, flag 3 players (2 declining, 1 rising) with correlation analysis. Same approach for injury risk. General wellness and biomarker analysis.
+    </div>
+  </header>
+  
+  <!-- Main report -->
+  <main class="report-flow">
+    
+    <!-- TOC -->
+    <section class="toc-section">
+      <div class="toc-grid">
+        <a href="#context" class="toc-card">
+          <span class="label">Global Context</span>
+          <span class="hint">Overview</span>
+        </a>
+        <a href="#performance" class="toc-card">
+          <span class="label">Team Performance</span>
+          <span class="hint">Scores & Trends</span>
+        </a>
+        <a href="#risk" class="toc-card">
+          <span class="label">Injury Risk</span>
+          <span class="hint">Flags & Correlations</span>
+        </a>
+        <a href="#wellness" class="toc-card">
+          <span class="label">Wellness Analysis</span>
+          <span class="hint">Squad-wide</span>
+        </a>
+        <a href="#biomarkers" class="toc-card">
+          <span class="label">Biomarkers</span>
+          <span class="hint">Lab Data</span>
+        </a>
+      </div>
+    </section>
+    
+    <!-- 1. GLOBAL CONTEXT -->
+    <section id="context" class="section-block">
+      <h2>Global Context – March 1–14</h2>
+      
+      <div class="card context-card">
+        <h3>Period Overview</h3>
+        <p class="prose">
+          <strong>24 players</strong> monitored over <strong>14 days</strong> with performance and injury risk scores tracked daily. 
+          Squad performance scores ranged <em>45–66</em> (period average), with <strong>Bakery Jatta (65.9)</strong> and <strong>Nicolás Capaldo (65.3)</strong> leading. 
+          Injury risk scores ranged <em>0.5–57</em>, with <strong>Yussuf Poulsen (57.0)</strong> showing sustained high risk throughout the period.
+        </p>
+      </div>
+      
+      <div class="kpi-grid">
+        <div class="kpi-box">
+          <div class="kpi-label">Training Load</div>
+          <div class="kpi-value">102k</div>
+          <div class="kpi-sub">Bakery Jatta (Feb 1–Mar 14)</div>
+        </div>
+        <div class="kpi-box kpi-sky">
+          <div class="kpi-label">GPS Distance</div>
+          <div class="kpi-value">39.5 km</div>
+          <div class="kpi-sub">Noah Katterbach (Mar 1–14)</div>
+        </div>
+        <div class="kpi-box kpi-emerald">
+          <div class="kpi-label">Top Performance</div>
+          <div class="kpi-value">65.9</div>
+          <div class="kpi-sub">Bakery Jatta (avg)</div>
+        </div>
+        <div class="kpi-box kpi-amber">
+          <div class="kpi-label">Highest Risk</div>
+          <div class="kpi-value">57.0</div>
+          <div class="kpi-sub">Yussuf Poulsen (avg)</div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h3>Key Metrics Summary</h3>
+        <ul class="bullet-list">
+          <li><strong>Training load (sRPE Feb 1–Mar 14):</strong> Bakery Jatta 102k, Damion Downs 86k, Daniel Elfadli 78k highest totals.</li>
+          <li><strong>GPS volume (Mar 1–14):</strong> Noah Katterbach 39.5 km, Albert Grønbæk 35.3 km, Fabio Baldé 35.7 km top distance.</li>
+          <li><strong>Wellness stable squad-wide:</strong> soreness 13–39, mood 10–35, sleep quality 14–38 (period averages).</li>
+          <li><strong>Biomarkers limited:</strong> 8 measurements across 4 players; CK 380–520 U/L (moderate muscle stress), testosterone 18–22 nmol/L (normal).</li>
+        </ul>
+      </div>
+    </section>
+    
+    <!-- 2. TEAM PERFORMANCE -->
+    <section id="performance" class="section-block">
+      <h2>Team Performance Analysis</h2>
+      
+      <div class="card">
+        <h3>Performance Score Overview</h3>
+        <p class="prose">
+          Team performance scores reflect daily readiness and output. <strong>Top performers:</strong> Bakery Jatta (65.9), Nicolás Capaldo (65.3), Ransford Königsdörffer (60.6). 
+          Performance trends show <em>Nicolás Capaldo rising</em> (EWMA7 53→67), while <em>Damion Downs</em> (49→45) and <em>Albert Sambi Lokonga</em> (59→49) declined.
+        </p>
+      </div>
+      
+      <div class="card">
+        <h3>Flagged Players – Performance Trends</h3>
+        
+        <h4><span class="player-flag flag-decline">↓ Decline</span> Damion Downs</h4>
+        <p class="prose">
+          Performance EWMA7 declined <strong>49→45</strong> over the period. Correlation analysis shows <em>load spikes Mar 10–13</em> (DSL 47–103) with stable wellness (soreness 31–40). 
+          The decline appears driven by <strong>accumulated training stress</strong> without corresponding wellness deterioration, suggesting load management may be needed.
+        </p>
+        
+        <table class="report-table">
+          <thead>
+            <tr><th>Date</th><th>Perf EWMA7</th><th>DSL</th><th>Soreness</th><th>Mood</th><th>Sleep</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2026-03-01</td><td>49</td><td>—</td><td>33</td><td>31</td><td>38</td></tr>
+            <tr><td>2026-03-02</td><td>45.75</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>2026-03-03</td><td>45.81</td><td>—</td><td>40</td><td>33</td><td>40</td></tr>
+            <tr><td>2026-03-06</td><td>43.28</td><td>26.3</td><td>37</td><td>33</td><td>37</td></tr>
+            <tr><td>2026-03-10</td><td>45.25</td><td>47.5</td><td>31</td><td>32</td><td>33</td></tr>
+            <tr><td>2026-03-11</td><td>46.18</td><td>102.8</td><td>33</td><td>32</td><td>37</td></tr>
+            <tr><td>2026-03-12</td><td>46.89</td><td>40.7</td><td>38</td><td>32</td><td>37</td></tr>
+            <tr><td>2026-03-13</td><td>47.92</td><td>72.2</td><td>35</td><td>33</td><td>37</td></tr>
+            <tr><td>2026-03-14</td><td>47.94</td><td>—</td><td>34</td><td>32</td><td>38</td></tr>
+          </tbody>
+        </table>
+        
+        <h4><span class="player-flag flag-decline">↓ Decline</span> Albert Sambi Lokonga</h4>
+        <p class="prose">
+          Performance EWMA7 dropped <strong>59→49</strong>. Correlation shows <em>high load Mar 10–13</em> (DSL 190 peak Mar 11) combined with <em>worsening wellness</em> (soreness 18→22, mood 17→16). 
+          This dual stressor pattern suggests <strong>inadequate recovery</strong> under high load—worth reviewing recovery protocols.
+        </p>
+        
+        <table class="report-table">
+          <thead>
+            <tr><th>Date</th><th>Perf EWMA7</th><th>DSL</th><th>Soreness</th><th>Mood</th><th>Sleep</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2026-03-01</td><td>59</td><td>—</td><td>19</td><td>17</td><td>21</td></tr>
+            <tr><td>2026-03-02</td><td>55.75</td><td>44.7</td><td>19</td><td>15</td><td>23</td></tr>
+            <tr><td>2026-03-03</td><td>55.81</td><td>47.5</td><td>18</td><td>14</td><td>21</td></tr>
+            <tr><td>2026-03-05</td><td>52.96</td><td>56.1</td><td>18</td><td>18</td><td>24</td></tr>
+            <tr><td>2026-03-10</td><td>55.28</td><td>84.6</td><td>21</td><td>16</td><td>24</td></tr>
+            <tr><td>2026-03-11</td><td>55.46</td><td>190.3</td><td>25</td><td>19</td><td>20</td></tr>
+            <tr><td>2026-03-12</td><td>51.84</td><td>65.7</td><td>22</td><td>18</td><td>21</td></tr>
+            <tr><td>2026-03-13</td><td>49.88</td><td>60.3</td><td>16</td><td>17</td><td>16</td></tr>
+            <tr><td>2026-03-14</td><td>49.41</td><td>—</td><td>17</td><td>17</td><td>18</td></tr>
+          </tbody>
+        </table>
+        
+        <h4><span class="player-flag flag-rise">↑ Rise</span> Nicolás Capaldo</h4>
+        <p class="prose">
+          Performance EWMA7 rose <strong>53→67</strong>, driven by sustained high daily scores (67–72 Mar 4–14) <em>despite wellness increases</em> (soreness 15→29). 
+          This indicates <strong>strong adaptation and resilience</strong>—the player is tolerating increased wellness load while maintaining high output. Positive trend.
+        </p>
+        
+        <table class="report-table">
+          <thead>
+            <tr><th>Date</th><th>Perf EWMA7</th><th>DSL</th><th>Soreness</th><th>Mood</th><th>Sleep</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2026-03-01</td><td>53</td><td>—</td><td>15</td><td>15</td><td>16</td></tr>
+            <tr><td>2026-03-02</td><td>51.5</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>2026-03-07</td><td>63.93</td><td>—</td><td>30</td><td>22</td><td>36</td></tr>
+            <tr><td>2026-03-08</td><td>65.94</td><td>—</td><td>26</td><td>28</td><td>21</td></tr>
+            <tr><td>2026-03-11</td><td>69.45</td><td>—</td><td>19</td><td>18</td><td>18</td></tr>
+            <tr><td>2026-03-12</td><td>70.08</td><td>—</td><td>22</td><td>21</td><td>19</td></tr>
+            <tr><td>2026-03-13</td><td>67.56</td><td>62.1</td><td>24</td><td>17</td><td>19</td></tr>
+            <tr><td>2026-03-14</td><td>65.67</td><td>47.2</td><td>29</td><td>38</td><td>18</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- 3. INJURY RISK -->
+    <section id="risk" class="section-block">
+      <h2>Injury Risk Score Analysis</h2>
+      
+      <div class="card">
+        <h3>Injury Risk Overview</h3>
+        <p class="prose">
+          Injury risk scores integrate load, performance, and wellness to flag readiness concerns. <strong>Highest risk:</strong> Yussuf Poulsen (57.0), Bakery Jatta (25.1), Robert Glatzel (19.4). 
+          Risk trends show <em>Yussuf Poulsen sustained high</em> (EWMA7 64–66), <em>Bakery Jatta declining sharply</em> (67→9), and <em>Robert Glatzel stable moderate</em> (17–19).
+        </p>
+      </div>
+      
+      <div class="card">
+        <h3>Flagged Players – Risk Trends</h3>
+        
+        <h4><span class="player-flag flag-watch">⚠ Watch</span> Yussuf Poulsen</h4>
+        <p class="prose">
+          Injury risk EWMA7 <strong>sustained 64–66</strong> throughout the period. Low performance (avg 51.4), stable wellness (soreness 20–25, mood ~20). 
+          Correlation analysis shows <em>persistent high risk without acute stressors</em>, suggesting <strong>chronic readiness limitation</strong>—underlying issue may require medical review.
+        </p>
+        
+        <table class="report-table">
+          <thead>
+            <tr><th>Date</th><th>Performance</th><th>Soreness</th><th>Mood</th><th>Sleep</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2026-03-01</td><td>50</td><td>23</td><td>20</td><td>22</td></tr>
+            <tr><td>2026-03-02</td><td>44</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr><td>2026-03-03</td><td>62</td><td>25</td><td>20</td><td>20</td></tr>
+            <tr><td>2026-03-04</td><td>49</td><td>25</td><td>20</td><td>20</td></tr>
+            <tr><td>2026-03-05</td><td>44</td><td>20</td><td>20</td><td>28</td></tr>
+            <tr><td>2026-03-06</td><td>39</td><td>24</td><td>22</td><td>23</td></tr>
+            <tr><td>2026-03-10</td><td>68</td><td>20</td><td>20</td><td>20</td></tr>
+            <tr><td>2026-03-11</td><td>54</td><td>20</td><td>20</td><td>20</td></tr>
+            <tr><td>2026-03-13</td><td>65</td><td>—</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+        
+        <h4><span class="player-flag flag-rise">↑ Improved</span> Bakery Jatta</h4>
+        <p class="prose">
+          Injury risk EWMA7 <strong>declined sharply 67→9</strong> with rising performance (49–73) and stable wellness (soreness ~38, mood ~35). 
+          Correlation shows <em>improved readiness despite high wellness baseline</em>—strong positive trend indicating <strong>successful adaptation</strong>.
+        </p>
+        
+        <table class="report-table">
+          <thead>
+            <tr><th>Date</th><th>Risk EWMA7</th><th>Performance</th><th>Soreness</th><th>Mood</th><th>Sleep</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2026-03-01</td><td>67</td><td>71</td><td>38</td><td>34</td><td>32</td></tr>
+            <tr><td>2026-03-02</td><td>67</td><td>57</td><td>39</td><td>34</td><td>33</td></tr>
+            <tr><td>2026-03-03</td><td>67</td><td>49</td><td>36</td><td>35</td><td>32</td></tr>
+            <tr><td>2026-03-04</td><td>65.5</td><td>55</td><td>37</td><td>34</td><td>33</td></tr>
+            <tr><td>2026-03-08</td><td>28.94</td><td>73</td><td>40</td><td>34</td><td>32</td></tr>
+            <tr><td>2026-03-09</td><td>23.7</td><td>73</td><td>40</td><td>34</td><td>34</td></tr>
+            <tr><td>2026-03-10</td><td>20.03</td><td>76</td><td>36</td><td>34</td><td>33</td></tr>
+            <tr><td>2026-03-11</td><td>17.02</td><td>79</td><td>40</td><td>34</td><td>33</td></tr>
+            <tr><td>2026-03-14</td><td>9.49</td><td>67</td><td>39</td><td>35</td><td>34</td></tr>
+          </tbody>
+        </table>
+        
+        <h4><span class="player-flag flag-watch">⚠ Watch</span> Robert Glatzel</h4>
+        <p class="prose">
+          Injury risk EWMA7 <strong>stable 17–19</strong>. Low performance (avg 50.4), stable wellness (soreness 25–28, mood 25–27). 
+          Correlation shows <em>persistent moderate risk with chronic readiness limitation</em>—similar pattern to Poulsen but lower magnitude. Monitor for progression.
+        </p>
+        
+        <table class="report-table">
+          <thead>
+            <tr><th>Date</th><th>Risk EWMA7</th><th>Performance</th><th>Soreness</th><th>Mood</th><th>Sleep</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>2026-03-01</td><td>18</td><td>51</td><td>25</td><td>23</td><td>24</td></tr>
+            <tr><td>2026-03-02</td><td>17.5</td><td>50</td><td>27</td><td>24</td><td>24</td></tr>
+            <tr><td>2026-03-03</td><td>17.13</td><td>46</td><td>26</td><td>24</td><td>25</td></tr>
+            <tr><td>2026-03-04</td><td>17.59</td><td>52</td><td>27</td><td>24</td><td>29</td></tr>
+            <tr><td>2026-03-09</td><td>18.64</td><td>68</td><td>26</td><td>26</td><td>27</td></tr>
+            <tr><td>2026-03-10</td><td>19.48</td><td>74</td><td>23</td><td>26</td><td>24</td></tr>
+            <tr><td>2026-03-11</td><td>20.36</td><td>63</td><td>28</td><td>27</td><td>26</td></tr>
+            <tr><td>2026-03-12</td><td>20.77</td><td>43</td><td>28</td><td>29</td><td>28</td></tr>
+            <tr><td>2026-03-14</td><td>21.18</td><td>43</td><td>26</td><td>27</td><td>26</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- 4. WELLNESS -->
+    <section id="wellness" class="section-block">
+      <h2>Wellness Analysis</h2>
+      
+      <div class="card">
+        <h3>Squad Wellness Overview</h3>
+        <p class="prose">
+          Wellness metrics (soreness, mood, sleep quality) remained <strong>stable squad-wide</strong> across the period. 
+          <strong>Highest soreness:</strong> Bakery Jatta (38.5), Damion Downs (35.1), Fabio Baldé (33.2). 
+          <strong>Lowest soreness:</strong> Albert Grønbæk (13.1), Nicolás Capaldo (23.6), Albert Sambi Lokonga (19.7). 
+          Mood and sleep quality follow similar patterns, with Grønbæk and Sambi Lokonga reporting best subjective states.
+        </p>
+      </div>
+      
+      <div class="split-row split-3">
+        <article class="chart-card">
+          <h3>Body Soreness (Period Avg)</h3>
+          <div class="chart-box compact" id="chart_1"></div>
+        </article>
+        <article class="chart-card">
+          <h3>Mood Rating (Period Avg)</h3>
+          <div class="chart-box compact" id="chart_2"></div>
+        </article>
+        <article class="chart-card">
+          <h3>Sleep Quality (Period Avg)</h3>
+          <div class="chart-box compact" id="chart_3"></div>
+        </article>
+      </div>
+      
+      <div class="card">
+        <h3>Wellness Insights</h3>
+        <ul class="bullet-list">
+          <li><strong>Stable patterns:</strong> No squad-wide wellness deterioration observed; individual variations within expected ranges.</li>
+          <li><strong>High soreness cluster:</strong> Jatta, Downs, Baldé, Königsdörffer (31–39) correlate with high training loads.</li>
+          <li><strong>Low soreness cluster:</strong> Grønbæk, Sambi Lokonga, Otele (13–20) suggest better recovery or lower load exposure.</li>
+          <li><strong>Mood and sleep alignment:</strong> Players with low soreness also report better mood and sleep quality, indicating holistic recovery.</li>
+        </ul>
+      </div>
+    </section>
+    
+    <!-- 5. BIOMARKERS -->
+    <section id="biomarkers" class="section-block">
+      <h2>Biomarkers</h2>
+      
+      <div class="card">
+        <h3>Biomarker Coverage</h3>
+        <p class="prose">
+          <strong>Limited data:</strong> 8 measurements across 4 players (Bilal Yalçınkaya, Kofi Amoako, Martin Adeline, Shafiq Nandja) on March 10. 
+          <strong>Creatine Kinase (CK):</strong> 380–520 U/L (moderate muscle stress, within expected training range). 
+          <strong>Testosterone:</strong> 18–22 nmol/L (normal range for male athletes). 
+          Insufficient density for trend analysis or squad-wide insights—recommend increasing measurement frequency for actionable monitoring.
+        </p>
+      </div>
+      
+      <div class="card">
+        <h3>Biomarker Measurements (Mar 1–14)</h3>
+        <table class="report-table">
+          <thead>
+            <tr><th>Player</th><th>Date</th><th>Biomarker</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Albert Sambi Lokonga</td><td>2026-03-10</td><td>CK</td><td>322 U/L</td></tr>
+            <tr><td>Fábio Vieira</td><td>2026-03-10</td><td>CK</td><td>71 U/L</td></tr>
+            <tr><td>Luka Vušković</td><td>2026-03-10</td><td>CK</td><td>234 U/L</td></tr>
+            <tr><td>Miro Muheim</td><td>2026-03-10</td><td>CK</td><td>295 U/L</td></tr>
+            <tr><td>Nicolai Remberg</td><td>2026-03-10</td><td>CK</td><td>424 U/L</td></tr>
+            <tr><td>Philip Otele</td><td>2026-03-10</td><td>CK</td><td>348 U/L</td></tr>
+            <tr><td>Ransford Königsdörffer</td><td>2026-03-10</td><td>CK</td><td>214 U/L</td></tr>
+            <tr><td>William Mikelbrencis</td><td>2026-03-10</td><td>CK</td><td>296 U/L</td></tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="card signal-card">
+        <h3>Biomarker Recommendations</h3>
+        <ul class="bullet-list">
+          <li><strong>Increase frequency:</strong> Current single-day snapshot insufficient for trend analysis; recommend bi-weekly measurements.</li>
+          <li><strong>Expand panel:</strong> Add cortisol, urea, and inflammatory markers (CRP, IL-6) for comprehensive stress profiling.</li>
+          <li><strong>Target high-risk players:</strong> Prioritize Poulsen, Glatzel, and declining performers (Downs, Sambi Lokonga) for deeper investigation.</li>
+          <li><strong>CK context:</strong> Current values (71–424 U/L) within training range; monitor for spikes >600 U/L indicating excessive muscle damage.</li>
+        </ul>
+      </div>
+    </section>
+    
+  </main>
+  
+<script id="mauna-artifact-boot">
+(function () {
+  const charts = [{"id":"chart_1","title":"Body soreness rating (period average)","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Body Soreness Rating"],"textStyle":{"fontSize":10,"color":"#475569"}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":40},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":true,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"bar","encode":{"x":"Player","y":"Body Soreness Rating"},"barMaxWidth":26,"itemStyle":{"borderRadius":[3,3,0,0]}}],"animation":false,"dataset":{"source":[["Player","N","Body Soreness Rating","Mood Rating"],["Bilal Yalçınkaya",14,32,28],["Daniel Elfadli",14,31.857,25.714],["Giorgi Gocholeishvili",14,15.571,14.429],["Luka Vušković",14,14.857,11.071],["Fabio Baldé",13,33.231,32.462],["Jean-Luc Dompé",13,31.077,20],["Noah Katterbach",13,22.231,32.154],["Philip Otele",13,20.077,15.846],["Albert Sambi Lokonga",12,19.667,17.083],["Nicolai Remberg",12,17.333,17.583],["Otto Stange",12,19.5,16.833],["Ransford Königsdörffer",12,35.833,34.583]]}}},{"id":"chart_2","title":"Mood rating (period average)","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Mood Rating"],"textStyle":{"fontSize":10,"color":"#475569"}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":40},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":true,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Mood Rating","type":"bar","encode":{"x":"Player","y":"Mood Rating"},"barMaxWidth":26,"itemStyle":{"borderRadius":[3,3,0,0]}}],"animation":false,"dataset":{"source":[["Player","N","Body Soreness Rating","Mood Rating"],["Bilal Yalçınkaya",14,32,28],["Daniel Elfadli",14,31.857,25.714],["Giorgi Gocholeishvili",14,15.571,14.429],["Luka Vušković",14,14.857,11.071],["Fabio Baldé",13,33.231,32.462],["Jean-Luc Dompé",13,31.077,20],["Noah Katterbach",13,22.231,32.154],["Philip Otele",13,20.077,15.846],["Albert Sambi Lokonga",12,19.667,17.083],["Nicolai Remberg",12,17.333,17.583],["Otto Stange",12,19.5,16.833],["Ransford Königsdörffer",12,35.833,34.583]]}}},{"id":"chart_3","title":"Sleep quality rating (period average)","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Quality Rating"],"textStyle":{"fontSize":10,"color":"#475569"}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":40},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":true,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Quality Rating","type":"bar","encode":{"x":"Player","y":"Quality Rating"},"barMaxWidth":26,"itemStyle":{"borderRadius":[3,3,0,0]}}],"animation":false,"dataset":{"source":[["Player","N","Quality Rating"],["Bilal Yalçınkaya",14,32.714],["Daniel Elfadli",14,28.429],["Giorgi Gocholeishvili",14,13.857],["Luka Vušković",14,11.357],["Fabio Baldé",13,32.923],["Jean-Luc Dompé",13,27.846],["Noah Katterbach",13,24.077],["Philip Otele",13,19.923],["Albert Sambi Lokonga",12,21],["Nicolai Remberg",12,17.25],["Otto Stange",12,16.833],["Ransford Königsdörffer",12,34.667]]}}}];
+  const palette = ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"];
+  const fontFamily = "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif";
+  const ink = "#0f1220";
+  const injectMissingHosts = true;
+  const stripLineSymbols = true;
+  const instances = [];
+  const isPrint = () => window.matchMedia('print').matches;
+
+  const whenEchartsReady = (cb) => {
+    if (window.echarts) {
+      cb();
+      return;
+    }
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      if (!window.echarts) return;
+      done = true;
+      cb();
+    };
+    window.__maunaOnEchartsLoad = finish;
+    const tag = document.querySelector('script[src*="echarts"]');
+    if (tag) tag.addEventListener('load', finish);
+    let n = 0;
+    const t = setInterval(() => {
+      n += 1;
+      if (window.echarts) {
+        clearInterval(t);
+        finish();
+        return;
+      }
+      if (n > 50) {
+        clearInterval(t);
+        if (!done) {
+          done = true;
+          cb();
+        }
+      }
+    }, 100);
+  };
+
+  const ensureHost = (chart) => {
+    let el = document.getElementById(chart.id);
+    if (el || !injectMissingHosts) return el;
+    const host = document.getElementById('mauna-charts-fallback') || (() => {
+      const d = document.createElement('section');
+      d.id = 'mauna-charts-fallback';
+      d.setAttribute('data-injected', '1');
+      document.body.appendChild(d);
+      return d;
+    })();
+    const card = document.createElement('div');
+    card.className = 'chart-card';
+    card.innerHTML = '<h3></h3><div class="chart-box" id="' + chart.id + '"></div>';
+    card.querySelector('h3').textContent = chart.title || chart.id;
+    host.appendChild(card);
+    return document.getElementById(chart.id);
+  };
+
+  const boot = () => {
+    for (const chart of charts) {
+      const el = ensureHost(chart);
+      if (!el || !window.echarts) continue;
+      el.classList.add('chart-box');
+      const series = Array.isArray(chart.option && chart.option.series) ? chart.option.series : [];
+      const isLine = series.some((s) => s && (s.type === 'line' || s.type == null));
+      if (isLine) {
+        el.classList.add('line-chart');
+        el.dataset.chartKind = 'line';
+      }
+      const defaultH = isLine ? (isPrint() ? 340 : 360) : (isPrint() ? 260 : 300);
+      el.style.height = defaultH + 'px';
+      const w = el.clientWidth || 700;
+      const h = el.clientHeight || defaultH;
+      const instance = window.echarts.init(el, null, {
+        renderer: 'canvas',
+        width: w,
+        height: h,
+      });
+      const baseLegend =
+        chart.option && chart.option.legend && typeof chart.option.legend === 'object'
+          ? chart.option.legend
+          : {};
+      let option = {
+        animation: !isPrint(),
+        backgroundColor: '#ffffff',
+        textStyle: { fontFamily: fontFamily, color: ink },
+        color: palette,
+        ...chart.option,
+        legend: {
+          icon: 'roundRect',
+          itemWidth: 12,
+          itemHeight: 8,
+          itemGap: 10,
+          textStyle: { fontSize: 10, color: '#475569', fontFamily: fontFamily },
+          ...baseLegend,
+          type: 'plain',
+        },
+      };
+      if (Array.isArray(option.series)) {
+        option.series = option.series.map((s) => {
+          if (!s || typeof s !== 'object') return s;
+          if (s.type === 'line' || s.type == null) {
+            const lineStyle = s.lineStyle && typeof s.lineStyle === 'object' ? s.lineStyle : {};
+            return {
+              ...s,
+              smooth: s.smooth == null ? 0.18 : s.smooth,
+              showSymbol: stripLineSymbols ? false : s.showSymbol,
+              symbol: stripLineSymbols ? 'none' : s.symbol,
+              symbolSize: stripLineSymbols ? 0 : s.symbolSize,
+              lineStyle: { width: 2.35, ...lineStyle },
+              emphasis: { focus: 'series', ...(s.emphasis || {}), lineStyle: { width: 3.1 } },
+            };
+          }
+          if (s.type === 'bar') {
+            const itemStyle = s.itemStyle && typeof s.itemStyle === 'object' ? s.itemStyle : {};
+            return {
+              ...s,
+              barMaxWidth: s.barMaxWidth == null ? 26 : s.barMaxWidth,
+              itemStyle: { borderRadius: [3, 3, 0, 0], ...itemStyle },
+            };
+          }
+          return s;
+        });
+      }
+      instance.setOption(option, true);
+      el.dataset.ready = '1';
+      instances.push(instance);
+    }
+    document.documentElement.dataset.chartsReady = '1';
+    const resizeAll = () => {
+      instances.forEach((i) => {
+        const dom = i.getDom && i.getDom();
+        if (dom) {
+          i.resize({ width: dom.clientWidth || 700, height: dom.clientHeight || 220 });
+        } else {
+          i.resize();
+        }
+      });
+    };
+    window.__maunaResizeCharts = resizeAll;
+    window.addEventListener('resize', resizeAll);
+    window.addEventListener('beforeprint', () => {
+      instances.forEach((i) => i.setOption({ animation: false }));
+      resizeAll();
+    });
+  };
+
+  whenEchartsReady(boot);
+})();
+</script>
+</body>
+</html>

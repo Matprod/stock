@@ -1,0 +1,278 @@
+import { HAMBURG_ML_DATE_FORMAT, HAMBURG_ML_PERSIST_CHUNK_SIZE, } from '#constants/hamburg_ml.constants';
+import { ATHLETE_PROVIDER_TYPES } from '#constants/athlete_provider.constants';
+import { HAMBOURG_CLUB_ID } from '#constants/hambourg.constants';
+import { INSIGHT_TRESHOLD_TYPE } from '#constants/insight.constants';
+import Athlete from '#models_pg/athlete';
+import AthleteProvider from '#models_pg/athlete_provider';
+import ClubInsight from '#models_pg/club_insight';
+import Day from '#models_pg/day';
+import FeatureImportance from '#models_pg/feature_importance';
+import Insight from '#models_pg/insight';
+import logger from '@adonisjs/core/services/logger';
+import db from '@adonisjs/lucid/services/db';
+import { DateTime } from 'luxon';
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const INJURY_CATEGORY = 'injury';
+const ENTITY_TYPES = new Set(['activity', 'health', 'sleep', 'nutrition']);
+export class HamburgInjuryPersistService {
+    async persist(rows) {
+        const parsed = this.collectRows(rows);
+        if (parsed.length === 0)
+            return;
+        const trx = await db.transaction();
+        try {
+            await this.resolveAthletes(parsed, trx);
+            const ready = parsed.filter((row) => row.athleteId);
+            if (ready.length === 0) {
+                await trx.commit();
+                return;
+            }
+            await this.attachDays(ready, trx);
+            await this.updateScores(ready, trx);
+            const featureCount = await this.replaceFeatureImportances(ready, trx);
+            await trx.commit();
+            logger.info(`Hamburg ML predict/injury: persisted ${ready.length} day score(s), ${featureCount} feature importance(s)`);
+        }
+        catch (error) {
+            await trx.rollback();
+            throw error;
+        }
+    }
+    collectRows(rows) {
+        const collected = [];
+        for (const row of rows) {
+            const dateOfDay = this.parseDate(row.date) ?? this.parseDate(row.date_of_day);
+            const injuryRiskScore = this.toRoundedScore(row.injury_risk_proba);
+            if (!dateOfDay || injuryRiskScore === null)
+                continue;
+            collected.push({
+                athleteId: this.asUuid(row.id) ?? this.asUuid(row.player_id),
+                personId: this.asPersonId(row.PersonId),
+                dateOfDay,
+                dayId: null,
+                injuryRiskScore,
+                featureImportances: row.feature_importances ?? [],
+                optimalFeatures: row.optimal_features ?? [],
+            });
+        }
+        return collected;
+    }
+    async resolveAthletes(rows, trx) {
+        const uuids = [...new Set(rows.map((row) => row.athleteId).filter((id) => Boolean(id)))];
+        const known = new Set();
+        if (uuids.length > 0) {
+            const athletes = await Athlete.query({ client: trx }).whereIn('id', uuids).select('id');
+            for (const athlete of athletes)
+                known.add(athlete.id);
+        }
+        for (const row of rows) {
+            if (row.athleteId && !known.has(row.athleteId))
+                row.athleteId = null;
+        }
+        const personIds = [
+            ...new Set(rows
+                .filter((row) => !row.athleteId && row.personId)
+                .map((row) => row.personId)),
+        ];
+        if (personIds.length === 0) {
+            this.warnUnresolved(rows);
+            return;
+        }
+        const providers = await AthleteProvider.query({ client: trx })
+            .where('provider', ATHLETE_PROVIDER_TYPES.SAP)
+            .whereIn('providerAthleteId', personIds);
+        const athleteByPersonId = new Map();
+        for (const provider of providers) {
+            if (!provider.providerAthleteId)
+                continue;
+            athleteByPersonId.set(provider.providerAthleteId.toUpperCase(), provider.athleteId);
+        }
+        for (const row of rows) {
+            if (row.athleteId || !row.personId)
+                continue;
+            row.athleteId = athleteByPersonId.get(row.personId.toUpperCase()) ?? null;
+        }
+        this.warnUnresolved(rows);
+    }
+    warnUnresolved(rows) {
+        const missing = rows.filter((row) => !row.athleteId);
+        if (missing.length === 0)
+            return;
+        logger.warn(`Hamburg ML predict/injury: skipped ${missing.length} row(s) without athlete id (${missing
+            .slice(0, 5)
+            .map((row) => row.personId ?? row.dateOfDay)
+            .join(', ')})`);
+    }
+    async attachDays(rows, trx) {
+        const athleteIds = [...new Set(rows.map((row) => row.athleteId).filter((id) => Boolean(id)))];
+        const dates = [...new Set(rows.map((row) => row.dateOfDay))];
+        const daysByAthleteDate = new Map();
+        const existing = await Day.query({ client: trx })
+            .whereIn('athleteId', athleteIds)
+            .whereIn('dateOfDay', dates);
+        for (const day of existing) {
+            daysByAthleteDate.set(`${day.athleteId}|${day.dateOfDay.toFormat(HAMBURG_ML_DATE_FORMAT)}`, day);
+        }
+        const missing = [
+            ...new Map(rows
+                .filter((row) => row.athleteId && !daysByAthleteDate.has(`${row.athleteId}|${row.dateOfDay}`))
+                .map((row) => [
+                `${row.athleteId}|${row.dateOfDay}`,
+                {
+                    athleteId: row.athleteId,
+                    dateOfDay: DateTime.fromISO(row.dateOfDay, { zone: 'utc' }),
+                },
+            ])).values(),
+        ];
+        if (missing.length > 0) {
+            await Day.updateOrCreateMany(['athleteId', 'dateOfDay'], missing, { client: trx });
+            const refreshed = await Day.query({ client: trx })
+                .whereIn('athleteId', missing.map((day) => day.athleteId))
+                .whereIn('dateOfDay', missing.map((day) => day.dateOfDay.toFormat(HAMBURG_ML_DATE_FORMAT)));
+            for (const day of refreshed) {
+                daysByAthleteDate.set(`${day.athleteId}|${day.dateOfDay.toFormat(HAMBURG_ML_DATE_FORMAT)}`, day);
+            }
+        }
+        for (const row of rows) {
+            row.dayId = daysByAthleteDate.get(`${row.athleteId}|${row.dateOfDay}`)?.id ?? null;
+        }
+    }
+    async updateScores(rows, trx) {
+        const latestByDay = new Map();
+        for (const row of rows) {
+            if (!row.dayId)
+                continue;
+            latestByDay.set(row.dayId, row.injuryRiskScore);
+        }
+        for (const [dayId, injuryRiskScore] of latestByDay) {
+            await Day.query({ client: trx }).where('id', dayId).update({ injuryRiskScore });
+        }
+    }
+    async replaceFeatureImportances(rows, trx) {
+        const dayIds = [...new Set(rows.map((row) => row.dayId).filter((id) => Boolean(id)))];
+        if (dayIds.length === 0)
+            return 0;
+        const names = [
+            ...new Set(rows.flatMap((row) => [
+                ...row.featureImportances.map((feature) => feature.name),
+                ...row.optimalFeatures.map((feature) => feature.feature),
+            ])),
+        ];
+        const insightByName = await this.ensureInsights(names, trx);
+        const entries = this.collectFeatureEntries(rows, insightByName);
+        await FeatureImportance.query({ client: trx })
+            .whereIn('dayId', dayIds)
+            .where('category', INJURY_CATEGORY)
+            .delete();
+        for (let i = 0; i < entries.length; i += HAMBURG_ML_PERSIST_CHUNK_SIZE) {
+            await FeatureImportance.createMany(entries.slice(i, i + HAMBURG_ML_PERSIST_CHUNK_SIZE), {
+                client: trx,
+            });
+        }
+        return entries.length;
+    }
+    async ensureInsights(names, trx) {
+        if (names.length === 0)
+            return new Map();
+        const existing = await Insight.query({ client: trx }).whereIn('variableName', names);
+        const insightByName = new Map(existing.map((insight) => [insight.variableName, insight.id]));
+        const missing = names.filter((name) => !insightByName.has(name));
+        if (missing.length > 0) {
+            await Insight.createMany(missing.map((variableName) => ({
+                variableName,
+                name: variableName,
+                description: variableName,
+                canTooHigh: false,
+                canTooLow: false,
+                tresholdType: INSIGHT_TRESHOLD_TYPE.ABSOLUTE,
+            })), { client: trx });
+            const created = await Insight.query({ client: trx }).whereIn('variableName', missing);
+            for (const insight of created) {
+                insightByName.set(insight.variableName, insight.id);
+            }
+            logger.info(`Hamburg ML predict/injury: created ${missing.length} insight(s) (${missing.join(', ')})`);
+        }
+        const insightIds = [...new Set(insightByName.values())];
+        const linked = await ClubInsight.query({ client: trx })
+            .where('clubId', HAMBOURG_CLUB_ID)
+            .whereIn('insightId', insightIds);
+        const linkedIds = new Set(linked.map((row) => row.insightId));
+        const toLink = insightIds.filter((id) => !linkedIds.has(id));
+        if (toLink.length > 0) {
+            await ClubInsight.createMany(toLink.map((insightId) => ({
+                clubId: HAMBOURG_CLUB_ID,
+                insightId,
+            })), { client: trx });
+        }
+        return insightByName;
+    }
+    collectFeatureEntries(rows, insightByName) {
+        const entries = [];
+        for (const row of rows) {
+            if (!row.dayId)
+                continue;
+            for (const feature of row.featureImportances) {
+                const insightId = insightByName.get(feature.name);
+                if (!insightId || !ENTITY_TYPES.has(feature.type))
+                    continue;
+                entries.push({
+                    dayId: row.dayId,
+                    type: feature.type,
+                    category: INJURY_CATEGORY,
+                    contribPct: feature.contrib_pct ?? feature.conrib_pct ?? feature.pct_contrib ?? null,
+                    value: feature.value ?? 0,
+                    optimal: feature.optimal ?? null,
+                    shapValue: feature.shap_value ?? null,
+                    insightId,
+                });
+            }
+            for (const feature of row.optimalFeatures) {
+                const insightId = insightByName.get(feature.feature);
+                if (!insightId || !ENTITY_TYPES.has(feature.type))
+                    continue;
+                let value = feature.value;
+                if (value === null && feature.feature.toLowerCase().includes('std'))
+                    value = 0;
+                const stored = value ?? 1000;
+                entries.push({
+                    dayId: row.dayId,
+                    type: feature.type,
+                    category: INJURY_CATEGORY,
+                    contribPct: null,
+                    value: stored,
+                    optimal: stored,
+                    shapValue: 0,
+                    insightId,
+                });
+            }
+        }
+        return entries;
+    }
+    asUuid(value) {
+        if (!value)
+            return null;
+        const trimmed = value.trim();
+        return UUID_RE.test(trimmed) ? trimmed : null;
+    }
+    asPersonId(value) {
+        if (!value)
+            return null;
+        const trimmed = value.trim();
+        return trimmed.length > 0 ? trimmed : null;
+    }
+    parseDate(value) {
+        if (!value)
+            return null;
+        const date = DateTime.fromISO(value, { zone: 'utc' });
+        return date.isValid ? date.toFormat(HAMBURG_ML_DATE_FORMAT) : null;
+    }
+    toRoundedScore(value) {
+        if (value === null)
+            return null;
+        const numeric = typeof value === 'number' ? value : Number(value);
+        if (!Number.isFinite(numeric))
+            return null;
+        return Math.round(numeric);
+    }
+}
+//# sourceMappingURL=hamburg_injury_persist_service.js.map

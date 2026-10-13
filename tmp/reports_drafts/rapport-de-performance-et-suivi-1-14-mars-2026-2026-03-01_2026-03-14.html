@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html data-artifact="free" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rapport de Performance et Suivi – 1–14 Mars 2026 | Hambourg</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #1a1d2b;
+  --primary: #4f6ef7;
+  --lightPrimary: #74c0fc;
+  --ink: #0f1220;
+  --inkSoft: #334155;
+  --paper: #f4f6fb;
+  --line: #d7dce8;
+  --muted: #8b93a7;
+  --cherry: #E07070;
+  --cherrySoft: rgba(224,112,112,0.22);
+  --saffron: #E8B84A;
+  --saffronSoft: rgba(251,191,36,0.22);
+  --commentBg: rgba(244,246,251,.98);
+  --commentBorder: rgba(165,180,252,.35);
+  --season: #a5b4fc;
+  --clubMark: #c7d2fe;
+  --azure: #38BDF8;
+  --emerald: #34D399;
+  --amber: #FBBF24;
+  --sky: #7DD3FC;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* Header */
+.header {
+  background: var(--bg);
+  color: var(--paper);
+  padding: 48px 24px 40px;
+  margin-bottom: 48px;
+  border-bottom: 4px solid var(--azure);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.club-name {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--azure);
+  margin-bottom: 8px;
+}
+
+.title {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  color: var(--paper);
+}
+
+.date-range {
+  font-size: 16px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Sommaire */
+.sommaire {
+  background: white;
+  border: 2px solid var(--azure);
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 48px;
+}
+
+.sommaire h2 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--azure);
+  padding-bottom: 12px;
+}
+
+.sommaire-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.sommaire-item {
+  display: block;
+  padding: 12px 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.sommaire-item:hover {
+  background: var(--azure);
+  color: white;
+  border-color: var(--azure);
+  transform: translateX(4px);
+}
+
+.coach-prompt {
+  background: var(--commentBg);
+  border: 1px solid var(--commentBorder);
+  border-radius: 6px;
+  padding: 16px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--inkSoft);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.coach-prompt strong {
+  color: var(--ink);
+  font-style: normal;
+}
+
+/* Section */
+.section {
+  background: white;
+  border: 2px solid var(--azure);
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 32px;
+}
+
+.section h2 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--azure);
+  padding-bottom: 12px;
+}
+
+.section h3 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 28px 0 16px;
+}
+
+.section p {
+  margin-bottom: 12px;
+  color: var(--inkSoft);
+}
+
+.section ul {
+  list-style: none;
+  margin: 16px 0;
+}
+
+.section li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+  color: var(--inkSoft);
+}
+
+.section li:before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--azure);
+  font-weight: 700;
+}
+
+/* Chart box */
+.chart-box {
+  width: 100%;
+  height: 340px;
+  margin: 24px 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+}
+
+/* Table */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 24px 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+thead {
+  background: var(--azure);
+  color: white;
+}
+
+th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--inkSoft);
+}
+
+tbody tr:hover {
+  background: var(--paper);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Recipe section */
+.recipe {
+  background: linear-gradient(135deg, var(--azure) 0%, var(--emerald) 100%);
+  color: white;
+  border: 2px solid var(--azure);
+  border-radius: 8px;
+  padding: 40px;
+  margin-top: 48px;
+}
+
+.recipe h2 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: white;
+  border-bottom: 2px solid white;
+  padding-bottom: 12px;
+}
+
+.recipe h3 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 24px 0 12px;
+  color: white;
+}
+
+.recipe ul, .recipe ol {
+  margin: 12px 0 12px 24px;
+  line-height: 1.8;
+}
+
+.recipe li {
+  margin-bottom: 8px;
+}
+
+.recipe p {
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+  }
+  .section {
+    page-break-inside: avoid;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+  .chart-box {
+    height: 300px;
+    page-break-inside: avoid;
+  }
+  .sommaire {
+    page-break-after: always;
+  }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" onload="window.__maunaEchartsLoaded=1;window.__maunaOnEchartsLoad&&window.__maunaOnEchartsLoad()"></script>
+<style id="mauna-print-css">@page { size: A4; margin: 8mm; }
+@media print {
+  .no-print, .artifact-nav, .artifact-toolbar, .table-toolbar { display: none !important; }
+  html, body { background: #fff !important; }
+  body {
+    font-size: 10.5pt !important;
+    line-height: 1.35 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  h1 { font-size: 1.35rem !important; margin: 0 0 0.35em !important; }
+  h2 { font-size: 1.1rem !important; margin: 0.55em 0 0.3em !important; }
+  h3 { font-size: 0.98rem !important; margin: 0.4em 0 0.25em !important; }
+  p, li { margin: 0.25em 0 !important; }
+  section, .section, .chart-card, article {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 8px !important;
+  }
+  .chart-box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    height: 260px !important;
+    max-height: 280px !important;
+    width: 100% !important;
+  }
+  .chart-box.line-chart,
+  .chart-box[data-chart-kind="line"] {
+    height: 340px !important;
+    max-height: 360px !important;
+  }
+  .chart-card { padding: 6px 8px !important; }
+  table { break-inside: auto; font-size: 9pt !important; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  /* Prefer two charts per A4 page over sparse half-empty pages */
+  .chart-card + .chart-card { margin-top: 4px !important; }
+}</style>
+</head>
+<body>
+<aside class="coach-brief" id="coach-brief" data-mauna-coach-brief="1" style="border:1px solid #e2e8f0;border-left:3px solid #4f6ef7;border-radius:8px;padding:10px 12px;margin:0 0 12px;background:#f8fafc">
+  <p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#64748b">Coach brief</p>
+  <blockquote style="margin:0;font-size:12px;line-height:1.45;white-space:pre-wrap;font-style:normal;color:#334155">Fait moi un rapport du 1 er au 14 mars, 
+Je veux un resume des scores performances et de la blessure de mes joueurs dans un scatter, puis un line chart  de l’evolution de chaque joueur sur les scores de perf et de blessure. Ensuite fait moi un tableau resumer des données gps interessante de chaque joueur et fait un focus sur un cas d’un joueur avec des données inquiétante. Fait un bilan sur la wellness. Fait moi une DA un peu bleu azur, sans gradient  et avec des cadres pour chaque partie. Fait moi un sommaire avec des liens hypertexte. Pour finir fait moi moi une belle recette de chili con carne</blockquote>
+</aside>
+
+<div class="header">
+  <div class="header-content">
+    <div class="club-name">Hambourg</div>
+    <h1 class="title">Rapport de Performance et Suivi</h1>
+    <div class="date-range">1–14 Mars 2026</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Sommaire -->
+  <div class="sommaire" id="sommaire">
+    <h2>📋 Sommaire</h2>
+    <div class="sommaire-grid">
+      <a href="#scores" class="sommaire-item">Scores de Performance et Risque de Blessure</a>
+      <a href="#cross-domain" class="sommaire-item">Cross-Domain Concordance</a>
+      <a href="#load" class="sommaire-item">Load Distribution & Intensity</a>
+      <a href="#wellness" class="sommaire-item">Wellness Trends & Sleep</a>
+      <a href="#acwr" class="sommaire-item">ACWR & Load Monotony</a>
+      <a href="#jatta" class="sommaire-item">Focus Cas : Bakery Jatta</a>
+      <a href="#poulsen" class="sommaire-item">Yussuf Poulsen: Elevated Risk</a>
+      <a href="#bilan-wellness" class="sommaire-item">Bilan Wellness</a>
+      <a href="#biomarkers" class="sommaire-item">Biomarkers Overview</a>
+      <a href="#recette" class="sommaire-item">🌶️ Bonus : Chili con Carne</a>
+    </div>
+    <div class="coach-prompt">
+      <strong>Demande du coach :</strong><br>
+      Fait moi un rapport du 1 er au 14 mars, 
+Je veux un resume des scores performances et de la blessure de mes joueurs dans un scatter, puis un line chart  de l'evolution de chaque joueur sur les scores de perf et de blessure. Ensuite fait moi un tableau resumer des données gps interessante de chaque joueur et fait un focus sur un cas d'un joueur avec des données inquiétante. Fait un bilan sur la wellness. Fait moi une DA un peu bleu azur, sans gradient  et avec des cadres pour chaque partie. Fait moi un sommaire avec des liens hypertexte. Pour finir fait moi moi une belle recette de chili con carne
+    </div>
+  </div>
+
+  <!-- Section 1: Scores de Performance et Risque de Blessure -->
+  <div class="section" id="scores">
+    <h2>Scores de Performance et Risque de Blessure</h2>
+    <p>24 joueurs suivis avec scores de performance et risque de blessure sur la période du 1er au 14 mars 2026.</p>
+    <ul>
+      <li>Corrélation faible entre performance et risque (r=0.02, n=335), confirmant l'indépendance de ces dimensions.</li>
+      <li>Scatter révèle deux profils à surveiller : <strong>Bakery Jatta</strong> (perf 66, risque 25%) et <strong>Yussuf Poulsen</strong> (perf 51, risque 57%).</li>
+      <li>Performance ne corrèle pas fortement avec distance GPS cumulée, suggérant que les scores capturent la disponibilité au-delà du volume seul.</li>
+    </ul>
+
+    <h3>Évolution du Score de Performance par Joueur</h3>
+    <div class="chart-box" id="chart_1"></div>
+    <div class="chart-box" id="chart_6"></div>
+    <div class="chart-box" id="chart_5"></div>
+
+    <h3>Évolution du Risque de Blessure par Joueur</h3>
+    <div class="chart-box" id="chart_2"></div>
+    <div class="chart-box" id="chart_4"></div>
+    <div class="chart-box" id="chart_3"></div>
+  </div>
+
+  <!-- Section 2: Cross-Domain Concordance -->
+  <div class="section" id="cross-domain">
+    <h2>Cross-Domain Concordance: Scores × GPS × Wellness</h2>
+    <ul>
+      <li>Performance vs distance GPS : pas de lien fort, scores capturent disponibilité au-delà du volume.</li>
+      <li>Risque de blessure vs HMLD : pas de corrélation directe, drivers multifactoriels.</li>
+      <li><strong>Bakery Jatta</strong> : risque élevé (25%) malgré charge GPS sous la moyenne (25,250 m vs ~30,000 m), nécessite contexte wellness.</li>
+      <li>Matrice de corrélation confirme indépendance des dimensions scores/GPS/wellness.</li>
+    </ul>
+
+    <h3>Matrice de Corrélation : Scores × GPS × Wellness</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Variable X</th>
+            <th>Variable Y</th>
+            <th>Corrélation (r)</th>
+            <th>N</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>performance_score</td><td>performance_score</td><td>1.00</td><td>335</td></tr>
+          <tr><td>performance_score</td><td>injury_risk_score</td><td>0.02</td><td>335</td></tr>
+          <tr><td>performance_score</td><td>body_soreness_rating</td><td>-0.01</td><td>275</td></tr>
+          <tr><td>performance_score</td><td>mood_rating</td><td>0.05</td><td>274</td></tr>
+          <tr><td>injury_risk_score</td><td>injury_risk_score</td><td>1.00</td><td>335</td></tr>
+          <tr><td>injury_risk_score</td><td>body_soreness_rating</td><td>0.03</td><td>275</td></tr>
+          <tr><td>body_soreness_rating</td><td>body_soreness_rating</td><td>1.00</td><td>289</td></tr>
+          <tr><td>body_soreness_rating</td><td>mood_rating</td><td>0.98</td><td>288</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section 3: Load Distribution & Intensity -->
+  <div class="section" id="load">
+    <h2>Load Distribution & Intensity Benchmarks</h2>
+    <ul>
+      <li><strong>Albert Grønbæk</strong> mène distance moyenne par session (4,414 m) et HMLD (760 m), exposition élevée.</li>
+      <li><strong>Bakery Jatta</strong> : HMLD moyen le plus bas (302 m), tiré par intensité quasi nulle sessions finales (12–14 mars).</li>
+      <li><strong>Noah Katterbach</strong> : travail haute intensité constant (HMLD moyen 611 m, 10 sessions), soutient score performance stable (53).</li>
+      <li>Outliers bas : <strong>Damion Downs</strong> (45) et <strong>Philip Otele</strong> (45), risque minimal (&lt;2%).</li>
+    </ul>
+
+    <h3>Distance Moyenne par Session (m)</h3>
+    <div class="chart-box" id="chart_10"></div>
+
+    <h3>HMLD Moyen par Session (m)</h3>
+    <div class="chart-box" id="chart_11"></div>
+
+    <h3>Tableau Récapitulatif GPS (1–14 mars)</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Joueur</th>
+            <th>Distance (km)</th>
+            <th>HMLD (m)</th>
+            <th>HSR (m)</th>
+            <th>Sprint Dist (m)</th>
+            <th>Sprints</th>
+            <th>Acc</th>
+            <th>Dec</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Fabio Baldé</td><td>36</td><td>5,480</td><td>1,865</td><td>692</td><td>30</td><td>416</td><td>246</td></tr>
+          <tr><td>Albert Grønbæk</td><td>35</td><td>6,081</td><td>1,780</td><td>302</td><td>12</td><td>352</td><td>268</td></tr>
+          <tr><td>Bakery Jatta</td><td>25</td><td>1,812</td><td>580</td><td>283</td><td>10</td><td>137</td><td>86</td></tr>
+          <tr><td>Noah Katterbach</td><td>39</td><td>6,105</td><td>2,486</td><td>841</td><td>33</td><td>307</td><td>271</td></tr>
+          <tr><td>Daniel Elfadli</td><td>25</td><td>3,536</td><td>1,329</td><td>293</td><td>10</td><td>217</td><td>127</td></tr>
+          <tr><td>Rayan Philippe</td><td>28</td><td>4,282</td><td>1,199</td><td>411</td><td>19</td><td>275</td><td>204</td></tr>
+          <tr><td>Giorgi Gocholeishvili</td><td>28</td><td>4,950</td><td>1,732</td><td>548</td><td>25</td><td>302</td><td>298</td></tr>
+          <tr><td>Otto Stange</td><td>35</td><td>5,093</td><td>1,255</td><td>450</td><td>25</td><td>305</td><td>264</td></tr>
+          <tr><td>Robert Glatzel</td><td>33</td><td>4,397</td><td>1,335</td><td>419</td><td>15</td><td>232</td><td>177</td></tr>
+          <tr><td>Jean-Luc Dompé</td><td>23</td><td>2,563</td><td>719</td><td>162</td><td>8</td><td>165</td><td>77</td></tr>
+          <tr><td>Damion Downs</td><td>19</td><td>2,968</td><td>910</td><td>311</td><td>14</td><td>252</td><td>153</td></tr>
+          <tr><td>Philip Otele</td><td>26</td><td>3,809</td><td>1,286</td><td>513</td><td>20</td><td>280</td><td>164</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Joueurs à Faible Performance (&lt;48)</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Joueur</th><th>N</th><th>Score Performance</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Damion Downs</td><td>14</td><td>45</td></tr>
+          <tr><td>Philip Otele</td><td>14</td><td>45</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Joueurs à Haute Performance (&gt;60)</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr><th>Joueur</th><th>N</th><th>Score Performance</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Bakery Jatta</td><td>14</td><td>66</td></tr>
+          <tr><td>Nicolás Capaldo</td><td>14</td><td>65</td></tr>
+          <tr><td>Ransford Königsdörffer</td><td>14</td><td>61</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section 4: Wellness Trends & Sleep -->
+  <div class="section" id="wellness">
+    <h2>Wellness Trends & Sleep Architecture</h2>
+    <ul>
+      <li>Douleurs musculaires : pics chez <strong>Jatta</strong> (44 le 4 mars, coïncide avec risque 67%), puis déclin avec baisse intensité GPS.</li>
+      <li><strong>Damion Downs</strong> : douleurs élevées maintenues (33–38), pas de tendance récupération claire.</li>
+      <li>Données efficacité sommeil indisponibles pour la période, limite analyse fatigue profonde.</li>
+      <li>Humeur stable dans l'effectif, disponibilité psychologique non limitante.</li>
+    </ul>
+
+    <h3>Évolution Douleurs Musculaires – Bakery Jatta</h3>
+    <div class="chart-box" id="chart_12"></div>
+
+    <h3>Évolution Douleurs Musculaires – Damion Downs</h3>
+    <div class="chart-box" id="chart_13"></div>
+
+    <h3>Efficacité du Sommeil (moyenne)</h3>
+    <div class="chart-box" id="chart_14"></div>
+  </div>
+
+  <!-- Section 5: ACWR & Load Monotony -->
+  <div class="section" id="acwr">
+    <h2>ACWR & Load Monotony</h2>
+    <ul>
+      <li>ACWR cluster 0.8–1.2 pour la plupart, dans fourchettes acceptées.</li>
+      <li><strong>Bakery Jatta</strong> : ACWR chute après 10 mars, reflète charge aiguë réduite vs baseline chronique.</li>
+      <li>Monotonie faible effectif (&lt;2.0), indique charges quotidiennes variées.</li>
+      <li>Aucun joueur ne présente profil haute monotonie + haute strain typique du surmenage.</li>
+    </ul>
+
+    <h3>ACWR Actuel (sRPE, EWMA 7:28)</h3>
+    <div class="chart-box" id="chart_15"></div>
+
+    <h3>Évolution ACWR – Bakery Jatta</h3>
+    <div class="chart-box" id="chart_16"></div>
+
+    <h3>Monotonie d'Entraînement (7 jours)</h3>
+    <div class="chart-box" id="chart_17"></div>
+  </div>
+
+  <!-- Section 6: Focus Cas Préoccupant – Bakery Jatta -->
+  <div class="section" id="jatta">
+    <h2>⚠️ Focus Cas Préoccupant : Bakery Jatta</h2>
+    <p><strong>Bakery Jatta</strong> présente un profil de discordance entre performance et risque de blessure nécessitant une surveillance rapprochée.</p>
+    <ul>
+      <li>Risque blessure moyen <strong>25%</strong> (pics 67% 1–4 mars), puis décroissance progressive.</li>
+      <li>Performance correcte (<strong>66 moyenne</strong>), mais baisse marquée intensité GPS à partir 12 mars.</li>
+      <li>HMLD quasi nul, aucun sprint, vitesse max ≤16 km/h sur 3 derniers jours.</li>
+      <li>Douleurs musculaires élevées (<strong>39</strong>), suggère gestion charge ou limitation fonctionnelle.</li>
+      <li><strong>Discordance performance/risque nécessite suivi rapproché.</strong></li>
+    </ul>
+
+    <h3>Détail GPS par Session – Bakery Jatta</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Distance (m)</th>
+            <th>HMLD (m)</th>
+            <th>HSR (m)</th>
+            <th>Sprint Dist (m)</th>
+            <th>Sprints</th>
+            <th>Vmax (km/h)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>2026-03-01</td><td>5,000</td><td>640</td><td>271</td><td>119</td><td>4</td><td>29</td></tr>
+          <tr><td>2026-03-02</td><td>4,000</td><td>659</td><td>149</td><td>110</td><td>4</td><td>34</td></tr>
+          <tr><td>2026-03-03</td><td>3,000</td><td>480</td><td>160</td><td>54</td><td>2</td><td>33</td></tr>
+          <tr><td>2026-03-12</td><td>4,000</td><td>0</td><td>0</td><td>0</td><td>0</td><td>15</td></tr>
+          <tr><td>2026-03-13</td><td>5,000</td><td>29</td><td>0</td><td>0</td><td>0</td><td>15</td></tr>
+          <tr><td>2026-03-14</td><td>4,000</td><td>4</td><td>0</td><td>0</td><td>0</td><td>16</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><em>Note : Chute drastique de l'intensité après le 12 mars, avec HMLD proche de zéro et absence totale de sprints. Cela coïncide avec des douleurs musculaires élevées et un risque de blessure qui reste préoccupant.</em></p>
+  </div>
+
+  <!-- Section 7: Yussuf Poulsen -->
+  <div class="section" id="poulsen">
+    <h2>⚠️ Yussuf Poulsen: Elevated Risk Profile</h2>
+    <p><strong>Yussuf Poulsen</strong> affiche le risque de blessure le plus élevé de l'effectif, avec un profil nécessitant une attention particulière.</p>
+    <ul>
+      <li>Risque blessure le plus élevé effectif (<strong>57% moyen</strong>, soutenu 64–70% 1–7 mars).</li>
+      <li>Performance fluctuante (35–62), chute à <strong>35 le 8 mars</strong>.</li>
+      <li>GPS : volumes modérés (2,005–4,131 m/session), HMLD variable (171–627 m).</li>
+      <li>Wellness stable (douleurs 20–25, humeur 20–22), risque élevé non expliqué par fatigue subjective seule.</li>
+      <li>Exposition sprint limitée (0–3/session), peut refléter gestion charge ou contraintes positionnelles.</li>
+    </ul>
+    <p><em>Recommandation : Évaluation médicale approfondie pour identifier les drivers de risque au-delà des indicateurs de charge et de wellness.</em></p>
+  </div>
+
+  <!-- Section 8: Bilan Wellness -->
+  <div class="section" id="bilan-wellness">
+    <h2>Bilan Wellness</h2>
+    <p>Vue d'ensemble des indicateurs de bien-être sur la période du 1er au 14 mars 2026.</p>
+    <ul>
+      <li>Douleurs musculaires les plus élevées : <strong>Bakery Jatta (39)</strong>, <strong>Damion Downs (35)</strong>, <strong>Fabio Baldé (33)</strong>.</li>
+      <li>Humeur générale stable, <strong>Fábio Vieira</strong> et <strong>Bakery Jatta</strong> en tête (35).</li>
+      <li>Qualité sommeil homogène, <strong>Damion Downs</strong> signale moyenne la plus basse (38), peut contribuer à fatigue perçue.</li>
+    </ul>
+
+    <h3>Douleurs Musculaires Moyennes</h3>
+    <div class="chart-box" id="chart_7"></div>
+
+    <h3>Humeur Moyenne</h3>
+    <div class="chart-box" id="chart_8"></div>
+
+    <h3>Qualité de Sommeil Moyenne</h3>
+    <div class="chart-box" id="chart_9"></div>
+  </div>
+
+  <!-- Section 9: Biomarkers -->
+  <div class="section" id="biomarkers">
+    <h2>Biomarkers Overview</h2>
+    <ul>
+      <li>Données biomarqueurs éparses : <strong>8 mesures</strong> sur la période.</li>
+      <li><strong>Luka Vušković</strong> : CK élevée (450 U/L, 3 mars), mérite suivi si dommage musculaire suspecté.</li>
+      <li><strong>Nicolás Capaldo</strong> (testostérone 18 nmol/L, 10 mars) et <strong>Fabio Baldé</strong> (cortisol 15 µg/dL, 5 mars) : instantanés endocriniens isolés.</li>
+      <li>Densité insuffisante pour analyse tendances ou intégration cross-domaine avec scores/GPS.</li>
+    </ul>
+    <p><em>Recommandation : Augmenter la fréquence des prélèvements biomarqueurs pour permettre une analyse longitudinale et une meilleure intégration avec les données de charge et de wellness.</em></p>
+  </div>
+
+  <!-- Section 10: Recette Chili con Carne -->
+  <div class="recipe" id="recette">
+    <h2>🌶️ Bonus : Recette de Chili con Carne</h2>
+    <p>Pour terminer ce rapport sur une note conviviale, voici une délicieuse recette de chili con carne, parfaite pour récupérer après une semaine intense d'entraînement !</p>
+
+    <h3>Ingrédients (pour 6 personnes)</h3>
+    <ul>
+      <li>800 g de bœuf haché</li>
+      <li>2 oignons moyens, hachés</li>
+      <li>4 gousses d'ail, émincées</li>
+      <li>2 poivrons rouges, coupés en dés</li>
+      <li>2 boîtes de tomates concassées (400 g chacune)</li>
+      <li>2 boîtes de haricots rouges (400 g chacune), égouttés et rincés</li>
+      <li>3 cuillères à soupe de concentré de tomate</li>
+      <li>2 cuillères à soupe de poudre de chili</li>
+      <li>1 cuillère à café de cumin moulu</li>
+      <li>1 cuillère à café de paprika fumé</li>
+      <li>1 pincée de piment de Cayenne (optionnel, pour plus de piquant)</li>
+      <li>300 ml de bouillon de bœuf</li>
+      <li>2 cuillères à soupe d'huile d'olive</li>
+      <li>Sel et poivre noir</li>
+      <li>1 carré de chocolat noir (70% cacao) – secret d'une saveur profonde !</li>
+    </ul>
+
+    <h3>Préparation</h3>
+    <ol>
+      <li><strong>Faire revenir les oignons et l'ail :</strong> Dans une grande cocotte, chauffer l'huile d'olive à feu moyen. Ajouter les oignons hachés et faire revenir 5 minutes jusqu'à ce qu'ils soient translucides. Ajouter l'ail émincé et cuire 1 minute supplémentaire.</li>
+      <li><strong>Cuire la viande :</strong> Augmenter le feu et ajouter le bœuf haché. Faire dorer en émiettant bien la viande avec une cuillère en bois, environ 8–10 minutes. Assaisonner avec du sel et du poivre.</li>
+      <li><strong>Ajouter les épices :</strong> Incorporer la poudre de chili, le cumin, le paprika fumé et le piment de Cayenne. Mélanger et laisser cuire 2 minutes pour libérer les arômes.</li>
+      <li><strong>Ajouter les légumes et les tomates :</strong> Ajouter les poivrons rouges, les tomates concassées et le concentré de tomate. Bien mélanger.</li>
+      <li><strong>Ajouter le bouillon et les haricots :</strong> Verser le bouillon de bœuf et ajouter les haricots rouges. Porter à ébullition, puis réduire le feu et laisser mijoter à couvert pendant 45 minutes, en remuant de temps en temps.</li>
+      <li><strong>Le secret du chocolat :</strong> Après 45 minutes, ajouter le carré de chocolat noir et mélanger jusqu'à ce qu'il soit complètement fondu. Cela apportera une profondeur de saveur incroyable !</li>
+      <li><strong>Ajuster l'assaisonnement :</strong> Goûter et ajuster le sel, le poivre et les épices selon vos préférences. Si le chili est trop épais, ajouter un peu d'eau ou de bouillon.</li>
+      <li><strong>Laisser mijoter :</strong> Continuer la cuisson à feu doux pendant encore 15–20 minutes, jusqu'à ce que la sauce soit épaisse et savoureuse.</li>
+    </ol>
+
+    <h3>Service</h3>
+    <p>Servir le chili con carne bien chaud, accompagné de :</p>
+    <ul>
+      <li>Riz blanc ou riz basmati</li>
+      <li>Crème fraîche ou crème aigre</li>
+      <li>Cheddar râpé</li>
+      <li>Coriandre fraîche hachée</li>
+      <li>Quartiers de citron vert</li>
+      <li>Chips de tortilla ou pain de maïs</li>
+    </ul>
+
+    <h3>Conseils du Chef</h3>
+    <ul>
+      <li><strong>Préparer à l'avance :</strong> Le chili con carne est encore meilleur le lendemain ! Les saveurs se développent et s'intensifient avec le temps.</li>
+      <li><strong>Congélation :</strong> Ce plat se congèle très bien. Préparez-en une grande quantité et congelez des portions individuelles pour des repas rapides.</li>
+      <li><strong>Variantes :</strong> Vous pouvez remplacer le bœuf par de la dinde hachée, du poulet ou même des lentilles pour une version végétarienne.</li>
+      <li><strong>Ajustez le piquant :</strong> Pour un chili plus doux, réduisez la quantité de poudre de chili et omettez le piment de Cayenne. Pour plus de feu, ajoutez des jalapeños frais hachés !</li>
+    </ul>
+
+    <p><strong>Bon appétit et bonne récupération ! 🌶️🔥</strong></p>
+  </div>
+
+</div>
+
+<script id="mauna-artifact-boot">
+(function () {
+  const charts = [{"id":"chart_1","title":"Évolution du Score de Performance par Joueur","option":{"legend":{"top":4,"type":"plain","left":"center","width":"92%","itemWidth":10,"itemHeight":8,"textStyle":{"fontSize":10},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Albert Grønbæk","Albert Sambi Lokonga","Bakery Jatta","Damion Downs","Daniel Elfadli","Fabio Baldé","Fábio Vieira","Giorgi Gocholeishvili"]},"grid":{"containLabel":true,"left":56,"right":48,"top":56,"bottom":72},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Albert Grønbæk","type":"line","data":[49,47,48,47,49,47,52,50,50,49,49,52,54,54],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":52.42,"name":"Mean","label":{"formatter":"Mean 52.42","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Albert Sambi Lokonga","type":"line","data":[59,46,56,55,45,45,61,34,57,69,56,41,44,48],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Bakery Jatta","type":"line","data":[71,57,49,55,39,64,72,73,73,76,79,79,68,67],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Damion Downs","type":"line","data":[49,36,46,45,34,45,47,38,48,49,49,49,51,48],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Daniel Elfadli","type":"line","data":[53,51,42,45,25,50,52,29,55,69,58,53,53,57],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Fabio Baldé","type":"line","data":[52,52,44,51,50,46,50,43,59,66,48,45,49,49],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Fábio Vieira","type":"line","data":[52,32,57,51,31,52,68,45,64,70,71,52,64,61],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Giorgi Gocholeishvili","type":"line","data":[59,49,45,46,30,58,56,43,66,72,62,44,52,54],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_2","title":"Évolution du Risque de Blessure par Joueur","option":{"legend":{"top":4,"type":"plain","left":"center","width":"92%","itemWidth":10,"itemHeight":8,"textStyle":{"fontSize":10},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Albert Grønbæk","Albert Sambi Lokonga","Bakery Jatta","Damion Downs","Daniel Elfadli","Fabio Baldé","Fábio Vieira","Giorgi Gocholeishvili"]},"grid":{"containLabel":true,"left":56,"right":48,"top":56,"bottom":72},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Albert Grønbæk","type":"line","data":[3,1,0,0,0,0,0,0,0,0,0,0,3,0],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":5.027,"name":"Mean","label":{"formatter":"Mean 5.03","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Albert Sambi Lokonga","type":"line","data":[0,0,0,1,4,0,0,0,0,3,1,1,1,2],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Bakery Jatta","type":"line","data":[67,67,67,61,14,19,11,8,8,9,8,4,4,4],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Damion Downs","type":"line","data":[0,0,3,0,0,2,2,0,0,1,1,0,2,2],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Daniel Elfadli","type":"line","data":[9,7,9,8,1,7,9,10,8,9,9,9,9,10],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Fabio Baldé","type":"line","data":[1,0,1,0,0,4,0,0,6,0,0,0,0,2],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Fábio Vieira","type":"line","data":[0,0,4,2,5,0,0,0,0,0,0,0,3,0],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Giorgi Gocholeishvili","type":"line","data":[0,1,0,0,33,0,0,0,0,2,0,1,0,0],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_3","title":"Évolution du Risque de Blessure par Joueur (suite 2)","option":{"legend":{"top":4,"type":"plain","left":"center","width":"92%","itemWidth":10,"itemHeight":8,"textStyle":{"fontSize":10},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Otto Stange","Philip Otele","Ransford Königsdörffer","Rayan Philippe","Robert Glatzel","Warmed Omari","William Mikelbrencis","Yussuf Poulsen"]},"grid":{"containLabel":true,"left":56,"right":48,"top":56,"bottom":72},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Otto Stange","type":"line","data":[2,1,3,2,4,3,2,3,9,3,3,3,3,2],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":11.135,"name":"Mean","label":{"formatter":"Mean 11.14","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Philip Otele","type":"line","data":[1,8,0,0,1,0,5,0,0,0,0,0,0,2],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Ransford Königsdörffer","type":"line","data":[2,7,3,3,4,3,3,3,3,3,9,3,3,3],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Rayan Philippe","type":"line","data":[0,0,2,2,3,1,5,4,4,0,0,0,2,0],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Robert Glatzel","type":"line","data":[18,16,16,19,17,17,17,21,20,22,23,22,20,23],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Warmed Omari","type":"line","data":[2,0,1,0,7,0,0,6,1,0,1,1,0,1],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"William Mikelbrencis","type":"line","data":[6,3,6,5,5,6,4,5,5,2,5,6,6,5],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Yussuf Poulsen","type":"line","data":[64,49,56,69,69,70,68,57,55,68,61,30,25,null],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_4","title":"Évolution du Risque de Blessure par Joueur (suite)","option":{"legend":{"top":4,"type":"plain","left":"center","width":"92%","itemWidth":10,"itemHeight":8,"textStyle":{"fontSize":10},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Jean-Luc Dompé","Jordan Torunarigha","Luka Vušković","Miro Muheim","Nicolai Remberg","Nicolás Capaldo","Noah Katterbach","Omar Megeed"]},"grid":{"containLabel":true,"left":56,"right":48,"top":56,"bottom":72},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Jean-Luc Dompé","type":"line","data":[8,7,7,7,6,6,6,6,25,6,7,7,7,7],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":3.491,"name":"Mean","label":{"formatter":"Mean 3.49","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Jordan Torunarigha","type":"line","data":[4,15,2,1,2,0,2,19,26,2,3,3,2,2],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Luka Vušković","type":"line","data":[3,0,0,0,0,0,3,0,0,0,4,0,0,0],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Miro Muheim","type":"line","data":[2,0,1,1,2,1,1,4,9,2,1,1,1,1],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Nicolai Remberg","type":"line","data":[1,0,3,4,4,4,1,12,10,1,2,3,0,0],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Nicolás Capaldo","type":"line","data":[52,1,0,0,0,0,2,1,0,0,4,2,5,2],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Noah Katterbach","type":"line","data":[0,2,1,0,0,0,3,0,9,0,0,1,4,1],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Omar Megeed","type":"line","data":[2,0,2,0,0,0,2,2,2,5,5,1,1,2],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_5","title":"Évolution du Score de Performance par Joueur (suite 2)","option":{"legend":{"top":4,"type":"plain","left":"center","width":"92%","itemWidth":10,"itemHeight":8,"textStyle":{"fontSize":10},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Otto Stange","Philip Otele","Ransford Königsdörffer","Rayan Philippe","Robert Glatzel","Warmed Omari","William Mikelbrencis","Yussuf Poulsen"]},"grid":{"containLabel":true,"left":56,"right":48,"top":56,"bottom":72},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Otto Stange","type":"line","data":[50,53,49,51,41,46,54,42,47,47,48,49,52,51],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":51.477,"name":"Mean","label":{"formatter":"Mean 51.48","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Philip Otele","type":"line","data":[51,37,47,47,47,46,50,26,42,55,48,41,41,51],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Ransford Königsdörffer","type":"line","data":[56,45,68,59,32,64,66,36,67,75,76,75,69,60],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Rayan Philippe","type":"line","data":[53,38,46,46,26,57,54,69,75,77,55,57,53,57],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Robert Glatzel","type":"line","data":[51,50,46,52,44,41,43,43,68,74,63,43,45,43],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Warmed Omari","type":"line","data":[52,38,51,47,31,46,53,35,57,64,52,48,52,51],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"William Mikelbrencis","type":"line","data":[58,28,54,52,28,58,56,31,62,73,74,57,58,54],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Yussuf Poulsen","type":"line","data":[50,44,62,49,44,39,48,35,58,68,54,52,65,null],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_6","title":"Évolution du Score de Performance par Joueur (suite)","option":{"legend":{"top":4,"type":"plain","left":"center","width":"92%","itemWidth":10,"itemHeight":8,"textStyle":{"fontSize":10},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Jean-Luc Dompé","Jordan Torunarigha","Luka Vušković","Miro Muheim","Nicolai Remberg","Nicolás Capaldo","Noah Katterbach","Omar Megeed"]},"grid":{"containLabel":true,"left":56,"right":48,"top":56,"bottom":72},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Jean-Luc Dompé","type":"line","data":[60,42,54,56,36,40,47,29,53,63,50,46,50,52],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":53.92,"name":"Mean","label":{"formatter":"Mean 53.92","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Jordan Torunarigha","type":"line","data":[58,33,60,56,42,48,53,31,62,75,62,46,54,55],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Luka Vušković","type":"line","data":[61,40,59,54,33,56,67,39,62,70,56,49,55,68],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Miro Muheim","type":"line","data":[57,32,56,66,52,42,51,27,55,70,55,49,49,52],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Nicolai Remberg","type":"line","data":[54,30,58,53,26,53,58,35,65,77,60,50,50,51],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Nicolás Capaldo","type":"line","data":[53,47,61,67,68,68,70,72,72,72,72,72,60,60],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Noah Katterbach","type":"line","data":[57,47,45,53,59,52,50,68,70,73,65,52,59,54],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Omar Megeed","type":"line","data":[51,51,51,52,51,48,52,49,49,49,50,51,51,51],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_7","title":"Douleurs Musculaires Moyennes (1–14 mars)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Body Soreness Rating"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"bar","encode":{"x":"Player","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":25.902,"name":"Mean","label":{"formatter":"Mean 25.9","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Body Soreness Rating","Mood Rating"],["Bilal Yalçınkaya",14,32,28],["Daniel Elfadli",14,32,26],["Giorgi Gocholeishvili",14,16,14],["Luka Vušković",14,15,11],["Fabio Baldé",13,33,32],["Jean-Luc Dompé",13,31,20],["Noah Katterbach",13,22,32],["Philip Otele",13,20,16],["Albert Sambi Lokonga",12,20,17],["Nicolai Remberg",12,17,18],["Otto Stange",12,20,17],["Ransford Königsdörffer",12,36,35]]}}},{"id":"chart_8","title":"Humeur Moyenne (1–14 mars)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Mood Rating"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Mood Rating","type":"bar","encode":{"x":"Player","y":"Mood Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":24.45,"name":"Mean","label":{"formatter":"Mean 24.45","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Body Soreness Rating","Mood Rating"],["Bilal Yalçınkaya",14,32,28],["Daniel Elfadli",14,32,26],["Giorgi Gocholeishvili",14,16,14],["Luka Vušković",14,15,11],["Fabio Baldé",13,33,32],["Jean-Luc Dompé",13,31,20],["Noah Katterbach",13,22,32],["Philip Otele",13,20,16],["Albert Sambi Lokonga",12,20,17],["Nicolai Remberg",12,17,18],["Otto Stange",12,20,17],["Ransford Königsdörffer",12,36,35]]}}},{"id":"chart_9","title":"Qualité de Sommeil Moyenne (1–14 mars)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Quality Rating"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Quality Rating","type":"bar","encode":{"x":"Player","y":"Quality Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":25.121,"name":"Mean","label":{"formatter":"Mean 25.12","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Quality Rating"],["Bilal Yalçınkaya",14,33],["Daniel Elfadli",14,28],["Giorgi Gocholeishvili",14,14],["Luka Vušković",14,11],["Fabio Baldé",13,33],["Jean-Luc Dompé",13,28],["Noah Katterbach",13,24],["Philip Otele",13,20],["Albert Sambi Lokonga",12,21],["Nicolai Remberg",12,17],["Otto Stange",12,17],["Ransford Königsdörffer",12,35]]}}},{"id":"chart_10","title":"Mean Session Distance per Player (m)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Distance total (mean)"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Distance total (mean)","type":"bar","encode":{"x":"Player","y":"Distance total (mean)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":3834.672,"name":"Mean","label":{"formatter":"Mean 3,834.67","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Total time (mean)","Total time (max)","Total time (sum)","Distance total (mean)","Distance total (max)","Distance total (sum)","HMLD (mean)","HMLD (max)","HMLD (sum)","Energy expenditure (mean)","Energy expenditure (max)","Energy expenditure (sum)","High speed running (absolute) (mean)","High speed running (absolute) (max)","High speed running (absolute) (sum)","Sprint distance (mean)","Sprint distance (max)","Sprint distance (sum)","Sprints (mean)","Sprints (max)","Sprints (sum)","Explosive distance (absolute) (mean)","Explosive distance (absolute) (max)","Explosive distance (absolute) (sum)","HIBS number (mean)","HIBS number (max)","HIBS number (sum)","Accelerations (relative) (mean)","Accelerations (relative) (max)","Accelerations (relative) (sum)","Decelerations (relative) (mean)","Decelerations (relative) (max)","Decelerations (relative) (sum)","DSL (mean)","DSL (max)","DSL (sum)"],["Noah Katterbach",10,3736,6479,37364,3949,7442,39488,611,1188,6105,400,755,3999,249,862,2486,84,236,841,3,7,33,362,924,3616,2,8,16,31,55,307,27,61,271,59,106,594],["Fabio Baldé",9,3939,6479,35452,3972,7300,35744,609,1278,5480,406,747,3654,207,447,1865,77,214,692,3,8,30,402,831,3616,3,8,24,46,88,416,27,56,246,66,118,595],["Albert Grønbæk",8,3820,6479,30563,4414,7990,35313,760,1613,6081,473,869,3782,223,463,1780,38,120,302,2,3,12,537,1185,4299,2,4,18,44,84,352,34,68,268,149,375,1196],["Otto Stange",8,5082,12042,40656,4405,8318,35236,637,1423,5093,467,880,3733,157,316,1255,56,111,450,3,6,25,479,1107,3835,2,4,15,38,74,305,33,70,264,46,93,369],["Robert Glatzel",8,3907,6479,31253,4111,7761,32886,550,1299,4397,452,861,3614,167,498,1335,52,165,419,2,5,15,383,800,3060,1,1,4,29,55,232,22,52,177,48,97,387],["Jean-Luc Dompé",8,3680,6479,29436,2926,5589,23407,320,792,2563,252,467,2019,90,361,719,20,67,162,1,3,8,231,431,1846,0,2,3,21,39,165,10,21,77,58,131,463],["Philip Otele",8,3647,6479,29174,3309,6918,26472,476,1075,3809,353,749,2827,161,277,1286,64,128,513,3,6,20,315,798,2522,2,6,12,35,85,280,21,58,164,69,155,556],["Daniel Elfadli",7,3927,5364,27492,3596,4561,25175,505,920,3536,371,464,2599,190,592,1329,42,119,293,1,3,10,315,452,2205,1,4,8,31,52,217,18,39,127,54,80,376],["Rayan Philippe",7,4055,6479,28384,4070,7539,28489,612,1285,4282,426,783,2984,171,381,1199,59,125,411,3,6,19,440,904,3083,1,4,10,39,62,275,29,45,204,64,114,446],["Giorgi Gocholeishvili",7,4063,6479,28442,4049,7694,28343,707,1648,4950,423,823,2959,247,648,1732,78,206,548,4,9,25,460,1000,3218,2,10,16,43,101,302,43,105,298,67,155,469],["Albert Sambi Lokonga",7,3762,6477,26337,3782,7516,26474,551,1304,3856,400,797,2797,132,353,927,37,88,256,1,3,9,419,951,2930,1,3,8,34,63,237,18,53,129,78,190,549],["Bakery Jatta",6,3174,4199,19041,4208,4879,25250,302,659,1812,421,482,2106,97,271,580,47,119,283,2,4,10,205,510,1232,1,3,5,23,57,137,14,47,86,60,82,300]]}}},{"id":"chart_11","title":"Mean Session HMLD per Player (m)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["HMLD (mean)"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"HMLD (mean)","type":"bar","encode":{"x":"Player","y":"HMLD (mean)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":558.903,"name":"Mean","label":{"formatter":"Mean 558.9","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Total time (mean)","Total time (max)","Total time (sum)","Distance total (mean)","Distance total (max)","Distance total (sum)","HMLD (mean)","HMLD (max)","HMLD (sum)","Energy expenditure (mean)","Energy expenditure (max)","Energy expenditure (sum)","High speed running (absolute) (mean)","High speed running (absolute) (max)","High speed running (absolute) (sum)","Sprint distance (mean)","Sprint distance (max)","Sprint distance (sum)","Sprints (mean)","Sprints (max)","Sprints (sum)","Explosive distance (absolute) (mean)","Explosive distance (absolute) (max)","Explosive distance (absolute) (sum)","HIBS number (mean)","HIBS number (max)","HIBS number (sum)","Accelerations (relative) (mean)","Accelerations (relative) (max)","Accelerations (relative) (sum)","Decelerations (relative) (mean)","Decelerations (relative) (max)","Decelerations (relative) (sum)","DSL (mean)","DSL (max)","DSL (sum)"],["Noah Katterbach",10,3736,6479,37364,3949,7442,39488,611,1188,6105,400,755,3999,249,862,2486,84,236,841,3,7,33,362,924,3616,2,8,16,31,55,307,27,61,271,59,106,594],["Fabio Baldé",9,3939,6479,35452,3972,7300,35744,609,1278,5480,406,747,3654,207,447,1865,77,214,692,3,8,30,402,831,3616,3,8,24,46,88,416,27,56,246,66,118,595],["Albert Grønbæk",8,3820,6479,30563,4414,7990,35313,760,1613,6081,473,869,3782,223,463,1780,38,120,302,2,3,12,537,1185,4299,2,4,18,44,84,352,34,68,268,149,375,1196],["Otto Stange",8,5082,12042,40656,4405,8318,35236,637,1423,5093,467,880,3733,157,316,1255,56,111,450,3,6,25,479,1107,3835,2,4,15,38,74,305,33,70,264,46,93,369],["Robert Glatzel",8,3907,6479,31253,4111,7761,32886,550,1299,4397,452,861,3614,167,498,1335,52,165,419,2,5,15,383,800,3060,1,1,4,29,55,232,22,52,177,48,97,387],["Jean-Luc Dompé",8,3680,6479,29436,2926,5589,23407,320,792,2563,252,467,2019,90,361,719,20,67,162,1,3,8,231,431,1846,0,2,3,21,39,165,10,21,77,58,131,463],["Philip Otele",8,3647,6479,29174,3309,6918,26472,476,1075,3809,353,749,2827,161,277,1286,64,128,513,3,6,20,315,798,2522,2,6,12,35,85,280,21,58,164,69,155,556],["Daniel Elfadli",7,3927,5364,27492,3596,4561,25175,505,920,3536,371,464,2599,190,592,1329,42,119,293,1,3,10,315,452,2205,1,4,8,31,52,217,18,39,127,54,80,376],["Rayan Philippe",7,4055,6479,28384,4070,7539,28489,612,1285,4282,426,783,2984,171,381,1199,59,125,411,3,6,19,440,904,3083,1,4,10,39,62,275,29,45,204,64,114,446],["Giorgi Gocholeishvili",7,4063,6479,28442,4049,7694,28343,707,1648,4950,423,823,2959,247,648,1732,78,206,548,4,9,25,460,1000,3218,2,10,16,43,101,302,43,105,298,67,155,469],["Albert Sambi Lokonga",7,3762,6477,26337,3782,7516,26474,551,1304,3856,400,797,2797,132,353,927,37,88,256,1,3,9,419,951,2930,1,3,8,34,63,237,18,53,129,78,190,549],["Bakery Jatta",6,3174,4199,19041,4208,4879,25250,302,659,1812,421,482,2106,97,271,580,47,119,283,2,4,10,205,510,1232,1,3,5,23,57,137,14,47,86,60,82,300]]}}},{"id":"chart_12","title":"Body Soreness Evolution – Bakery Jatta","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Body Soreness Rating"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"line","encode":{"x":"Date","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":38.545,"name":"Mean","label":{"formatter":"Mean 38.55","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating"],["Bakery Jatta","2026-03-01",38,null,34,null],["Bakery Jatta","2026-03-02",39,null,34,null],["Bakery Jatta","2026-03-03",36,null,35,null],["Bakery Jatta","2026-03-04",37,null,34,null],["Bakery Jatta","2026-03-08",40,null,34,null],["Bakery Jatta","2026-03-09",40,null,34,null],["Bakery Jatta","2026-03-10",36,null,34,null],["Bakery Jatta","2026-03-11",40,null,34,null],["Bakery Jatta","2026-03-12",39,null,40,null],["Bakery Jatta","2026-03-13",40,null,38,null],["Bakery Jatta","2026-03-14",39,null,35,null]]}}},{"id":"chart_13","title":"Body Soreness Evolution – Damion Downs","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Body Soreness Rating"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"line","encode":{"x":"Date","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":35.1,"name":"Mean","label":{"formatter":"Mean 35.1","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating"],["Damion Downs","2026-03-01",33,null,31,null],["Damion Downs","2026-03-03",40,null,33,null],["Damion Downs","2026-03-04",36,null,33,null],["Damion Downs","2026-03-06",37,null,33,null],["Damion Downs","2026-03-07",34,null,32,null],["Damion Downs","2026-03-10",31,null,32,null],["Damion Downs","2026-03-11",33,null,32,null],["Damion Downs","2026-03-12",38,null,32,null],["Damion Downs","2026-03-13",35,null,33,null],["Damion Downs","2026-03-14",34,null,32,null]]}}},{"id":"chart_14","title":"Sleep Efficiency % (mean)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Sleep Efficiency Percentage"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Sleep Efficiency Percentage","type":"bar","encode":{"x":"Player","y":"Sleep Efficiency Percentage"}}],"animation":false,"dataset":{"source":[["Player","Date","Quality Rating","Sleep Efficiency Percentage","Sleep Consistency Percentage","Hours In Bed","Hours Slow Wave","Hours Rem","Hours Awake"],["Damion Downs",null,38,null,null,null,null,null,null],["Ransford Königsdörffer",null,35,null,null,null,null,null,null],["Fabio Baldé",null,33,null,null,null,null,null,null],["Bakery Jatta",null,33,null,null,null,null,null,null],["Bilal Yalçınkaya",null,33,null,null,null,null,null,null],["Fábio Vieira",null,32,null,null,null,null,null,null],["Omar Megeed",null,32,null,null,null,null,null,null],["Warmed Omari",null,29,null,null,null,null,null,null],["Daniel Elfadli",null,28,null,null,null,null,null,null],["Jean-Luc Dompé",null,28,null,null,null,null,null,null],["Jordan Torunarigha",null,28,null,null,null,null,null,null],["Robert Glatzel",null,26,null,null,null,null,null,null]]}}},{"id":"chart_15","title":"Latest ACWR (sRPE, EWMA 7:28)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Acwr Ewma"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Acwr Ewma","type":"bar","encode":{"x":"Player","y":"Acwr Ewma"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1.091,"name":"Mean","label":{"formatter":"Mean 1.09","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit","Acwr Ewma"],["Luka Vušković","2026-03-14",7080,"score",1],["William Mikelbrencis","2026-03-14",5310,"score",1],["Ransford Königsdörffer","2026-03-14",4130,null,1],["Damion Downs","2026-03-14",4012,null,1],["Nicolai Remberg","2026-03-14",4012,null,1],["Otto Stange","2026-03-14",4012,null,1],["Fabio Baldé","2026-03-14",3540,null,1],["Jean-Luc Dompé","2026-03-14",3540,"score",1],["Fábio Vieira","2026-03-14",3422,null,1],["Albert Sambi Lokonga","2026-03-14",3304,null,1],["Miro Muheim","2026-03-14",3186,null,1],["Robert Glatzel","2026-03-14",3068,null,1]]}}},{"id":"chart_16","title":"ACWR Evolution – Bakery Jatta","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Acwr Ewma"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Acwr Ewma","type":"line","encode":{"x":"Date","y":"Acwr Ewma"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1.411,"name":"Mean","label":{"formatter":"Mean 1.41","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit","Acwr Ewma"],["Bakery Jatta","2026-02-01",0,null,null],["Bakery Jatta","2026-02-02",0,null,null],["Bakery Jatta","2026-02-03",2160,"score",null],["Bakery Jatta","2026-02-04",3956,"score",3],["Bakery Jatta","2026-02-05",2684,"score",3],["Bakery Jatta","2026-02-06",4095,null,3],["Bakery Jatta","2026-02-07",5760,"score",3],["Bakery Jatta","2026-02-08",0,null,2],["Bakery Jatta","2026-02-09",0,null,2],["Bakery Jatta","2026-02-10",2632,null,2],["Bakery Jatta","2026-02-11",4692,"score",2],["Bakery Jatta","2026-02-12",3384,null,2],["Bakery Jatta","2026-02-13",4302,"score",2],["Bakery Jatta","2026-02-14",6566,null,2],["Bakery Jatta","2026-02-15",0,null,2],["Bakery Jatta","2026-02-16",2770,null,2],["Bakery Jatta","2026-02-17",4886,null,2],["Bakery Jatta","2026-02-18",3128,"score",2],["Bakery Jatta","2026-02-19",2700,null,1],["Bakery Jatta","2026-02-20",5593,"score",2],["Bakery Jatta","2026-02-21",0,null,1],["Bakery Jatta","2026-02-22",0,null,1],["Bakery Jatta","2026-02-23",0,null,1],["Bakery Jatta","2026-02-24",2444,null,1],["Bakery Jatta","2026-02-25",13030,"score",2],["Bakery Jatta","2026-02-26",4048,"score",2],["Bakery Jatta","2026-02-27",0,"score",1],["Bakery Jatta","2026-02-28",2726,null,1],["Bakery Jatta","2026-03-01",3080,"score",1],["Bakery Jatta","2026-03-02",3015,"score",1],["Bakery Jatta","2026-03-03",2610,null,1],["Bakery Jatta","2026-03-04",5310,null,1],["Bakery Jatta","2026-03-05",0,null,1],["Bakery Jatta","2026-03-06",0,null,1],["Bakery Jatta","2026-03-07",0,null,1],["Bakery Jatta","2026-03-08",0,"score",1],["Bakery Jatta","2026-03-09",0,null,0],["Bakery Jatta","2026-03-10",0,"score",0],["Bakery Jatta","2026-03-11",0,"score",0],["Bakery Jatta","2026-03-12",1680,"score",0],["Bakery Jatta","2026-03-13",3440,"score",1],["Bakery Jatta","2026-03-14",1720,null,1]]}}},{"id":"chart_17","title":"Latest Training Monotony (7-day)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["monotony"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"monotony","type":"bar","encode":{"x":"Player","y":"monotony"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1.039,"name":"Mean","label":{"formatter":"Mean 1.04","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit","monotony"],["Luka Vušković","2026-03-14",7080,"score",1],["William Mikelbrencis","2026-03-14",5310,"score",1],["Ransford Königsdörffer","2026-03-14",4130,null,1],["Damion Downs","2026-03-14",4012,null,1],["Nicolai Remberg","2026-03-14",4012,null,1],["Otto Stange","2026-03-14",4012,null,1],["Fabio Baldé","2026-03-14",3540,null,1],["Jean-Luc Dompé","2026-03-14",3540,"score",1],["Fábio Vieira","2026-03-14",3422,null,1],["Albert Sambi Lokonga","2026-03-14",3304,null,1],["Miro Muheim","2026-03-14",3186,null,1],["Robert Glatzel","2026-03-14",3068,null,1]]}}}];
+  const palette = ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"];
+  const fontFamily = "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif";
+  const ink = "#0f1220";
+  const injectMissingHosts = true;
+  const stripLineSymbols = false;
+  const instances = [];
+  const isPrint = () => window.matchMedia('print').matches;
+
+  const whenEchartsReady = (cb) => {
+    if (window.echarts) {
+      cb();
+      return;
+    }
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      if (!window.echarts) return;
+      done = true;
+      cb();
+    };
+    window.__maunaOnEchartsLoad = finish;
+    const tag = document.querySelector('script[src*="echarts"]');
+    if (tag) tag.addEventListener('load', finish);
+    let n = 0;
+    const t = setInterval(() => {
+      n += 1;
+      if (window.echarts) {
+        clearInterval(t);
+        finish();
+        return;
+      }
+      if (n > 50) {
+        clearInterval(t);
+        if (!done) {
+          done = true;
+          cb();
+        }
+      }
+    }, 100);
+  };
+
+  const ensureHost = (chart) => {
+    let el = document.getElementById(chart.id);
+    if (el || !injectMissingHosts) return el;
+    const host = document.getElementById('mauna-charts-fallback') || (() => {
+      const d = document.createElement('section');
+      d.id = 'mauna-charts-fallback';
+      d.setAttribute('data-injected', '1');
+      document.body.appendChild(d);
+      return d;
+    })();
+    const card = document.createElement('div');
+    card.className = 'chart-card';
+    card.innerHTML = '<h3></h3><div class="chart-box" id="' + chart.id + '"></div>';
+    card.querySelector('h3').textContent = chart.title || chart.id;
+    host.appendChild(card);
+    return document.getElementById(chart.id);
+  };
+
+  const boot = () => {
+    for (const chart of charts) {
+      const el = ensureHost(chart);
+      if (!el || !window.echarts) continue;
+      el.classList.add('chart-box');
+      const series = Array.isArray(chart.option && chart.option.series) ? chart.option.series : [];
+      const isLine = series.some((s) => s && (s.type === 'line' || s.type == null));
+      if (isLine) {
+        el.classList.add('line-chart');
+        el.dataset.chartKind = 'line';
+      }
+      const defaultH = isLine ? (isPrint() ? 340 : 360) : (isPrint() ? 260 : 300);
+      el.style.height = defaultH + 'px';
+      const w = el.clientWidth || 700;
+      const h = el.clientHeight || defaultH;
+      const instance = window.echarts.init(el, null, {
+        renderer: 'canvas',
+        width: w,
+        height: h,
+      });
+      const baseLegend =
+        chart.option && chart.option.legend && typeof chart.option.legend === 'object'
+          ? chart.option.legend
+          : {};
+      let option = {
+        animation: !isPrint(),
+        backgroundColor: '#ffffff',
+        textStyle: { fontFamily: fontFamily, color: ink },
+        color: palette,
+        ...chart.option,
+        legend: { ...baseLegend, type: 'plain' },
+      };
+      if (stripLineSymbols && Array.isArray(option.series)) {
+        option.series = option.series.map((s) => {
+          if (!s || typeof s !== 'object') return s;
+          if (s.type === 'line' || s.type == null) {
+            return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+          }
+          return s;
+        });
+      }
+      instance.setOption(option, true);
+      el.dataset.ready = '1';
+      instances.push(instance);
+    }
+    document.documentElement.dataset.chartsReady = '1';
+    const resizeAll = () => {
+      instances.forEach((i) => {
+        const dom = i.getDom && i.getDom();
+        if (dom) {
+          i.resize({ width: dom.clientWidth || 700, height: dom.clientHeight || 220 });
+        } else {
+          i.resize();
+        }
+      });
+    };
+    window.__maunaResizeCharts = resizeAll;
+    window.addEventListener('resize', resizeAll);
+    window.addEventListener('beforeprint', () => {
+      instances.forEach((i) => i.setOption({ animation: false }));
+      resizeAll();
+    });
+  };
+
+  whenEchartsReady(boot);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rehab Return &amp; Load Conflict Flags – 14d Medical Brief</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #0f766e;
+      --primary: #0f766e;
+      --light: #5eead4;
+      --ink: #134e4a;
+      --ink-soft: #334155;
+      --paper: #f0fdfa;
+      --line: #ccfbf1;
+      --muted: #64748b;
+      --cherry: #DC2626;
+      --cherry-soft: rgba(220,38,38,0.14);
+      --saffron: #CA8A04;
+      --saffron-soft: rgba(202,138,4,0.16);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: linear-gradient(165deg, #134e4a 0%, #0f766e 45%, #115e59 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #99f6e4; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #ccfbf1; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #134e4a, #0f766e 60%, #14b8a6);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 300px; }
+    .chart-box.wide { height: 340px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 12px;
+      padding: 10px 12px; border-radius: 10px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner img {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: grid; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2026-2027</div>
+      <h1 class="cover-title">Rehab Return &amp; Load Conflict Flags – 14d Medical Brief</h1>
+      <p class="cover-sub">Club report — MAUNA data only</p>
+      <div class="date-pill">Sun, 04/10/26 · 2026-09-21 → 2026-10-04</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">Executive Summary</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">Injury &amp; Rehab Context</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">Cross-Domain Flags: Load × GPS × Wellness</span></div><div class="signal-item"><span class="signal-index">04</span><span class="signal-text">Albert Sambi Lokonga – Elevated Injury Risk Despite Controlled ACWR</span></div><div class="signal-item"><span class="signal-index">05</span><span class="signal-text">Bakery Jatta – Wellness Distress + Moderate Injury Risk</span></div><div class="signal-item"><span class="signal-index">06</span><span class="signal-text">Yussuf Poulsen – ACWR 1.07 + Elevated Injury Risk</span></div><div class="signal-item"><span class="signal-index">07</span><span class="signal-text">Team Overview: ACWR &amp; Wellness Distribution</span></div><div class="signal-item"><span class="signal-index">08</span><span class="signal-text">Recommendations</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Rehab Return &amp; Load Conflict Flags – 14d Medical Brief</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Staff read</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Injury &amp; Rehab Context</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · Cross-Domain Flags: Load × GPS × Wellness</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Albert Sambi Lokonga – Elevated Injury Risk Despite Controlled ACWR</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Bakery Jatta – Wellness Distress + Moderate Injury Risk</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Yussuf Poulsen – ACWR 1.07 + Elevated Injury Risk</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>08 · Robert Glatzel, Ransford Königsdörffer, William Mikelbrencis – Injury Risk Without GPS Data</span><span class="hint">§6</span></a></li><li><a href="#section-7"><span>09 · Team Overview: ACWR &amp; Wellness Distribution</span><span class="hint">§7</span></a></li><li><a href="#section-8"><span>10 · Recommendations</span><span class="hint">§8</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Staff read</h1>
+    <div class="meta">2026-09-21 → 2026-10-04</div>
+  </div>
+  <p class="staff-read-lead">rehab_progressions_and_load_wellness_conflicts</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Narrative thread</h3><ul><li>Albert Sambi Lokonga shows elevated injury risk (mean 45, max 47) despite controlled ACWR EWMA 0.84, warranting medical review before tomorrow's session.</li><li>Bakery Jatta presents converging wellness distress (soreness 39, mood 35, sleep quality 34) alongside moderate injury risk (29) with no ACWR available; recommend modified session or rest day.</li><li>Yussuf Poulsen ACWR 1.07 (upper typical range) with elevated sprint exposure (105 m/session, max 477 m) and injury risk 33; monitor for spike if intensity increases.</li><li>Robert Glatzel (risk 35), Ransford Königsdörffer (40), and William Mikelbrencis (31) flag injury risk with zero GPS/load data over 7 days; verify training participation.</li><li>Only 13 of 38 athletes have sufficient chronic history for ACWR calculation; 25 lack ≥21 days of data.</li><li>No strong linear relationship between body soreness and injury risk across the squad, suggesting individual variability dominates.</li></ul></div></div>
+  <div class="staff-read-panel"><h3>Canvas sections</h3><ul class="staff-section-index"><li><span>Team Overview: ACWR &amp; Wellness Distribution</span><span class="kind">Team</span></li><li><span>Elevated Injury Risk Despite Controlled ACWR</span><span class="kind">Team</span></li><li><span>Wellness Distress + Moderate Injury Risk</span><span class="kind">Team</span></li><li><span>ACWR 1.07 + Elevated Injury Risk</span><span class="kind">Team</span></li><li><span>Injury Risk Without GPS Data</span><span class="kind">Team</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Injury &amp; Rehab Context</h1>
+    <div class="meta">2026-09-21 → 2026-10-04</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Recent Injuries &amp; Return Timeline</h3><table class="report-table"><thead><tr><th>Player</th><th>Date Of Injury</th><th>Recovery Date</th><th>tissue</th><th>context</th></tr></thead><tbody><tr><td class="">Patson Daka</td><td class="">2026-09-25</td><td class="">—</td><td class="">rectus femoris</td><td class="">—</td></tr><tr><td class="">Albert Grønbæk</td><td class="">2026-09-24</td><td class="">—</td><td class="">biceps femoris</td><td class="">—</td></tr><tr><td class="">Terem Moffi</td><td class="">2026-09-20</td><td class="">—</td><td class="">—</td><td class="">match</td></tr><tr><td class="">Sebastiaan  Bornauw</td><td class="">2026-09-06</td><td class="">2026-09-22</td><td class="">biceps femoris</td><td class="">—</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">2026-08-22</td><td class="">2026-08-27</td><td class="">semitendinosus</td><td class="">—</td></tr><tr><td class="">Miro Muheim</td><td class="">2026-08-12</td><td class="">2026-09-05</td><td class="">adductor magnus</td><td class="">—</td></tr><tr><td class="">Warmed Omari</td><td class="">2026-08-08</td><td class="">—</td><td class="">labrum</td><td class="">—</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">2026-04-29</td><td class="">—</td><td class="">syndesmotic ligament</td><td class="">—</td></tr></tbody></table></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>Cross-Domain Flags: Load × GPS × Wellness</h1>
+    <div class="meta">2026-09-21 → 2026-10-04</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>High Injury Risk Athletes (&gt;25) – Load, GPS &amp; Wellness Summary</h3><div class="legend"><span><i class="swatch" style="background:rgba(220,38,38,0.14);outline:1px solid #DC2626"></i>high</span><span><i class="swatch" style="background:rgba(202,138,4,0.16);outline:1px solid #CA8A04"></i>medium</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>low</span><span>vs squad (terciles)</span></div><table class="report-table"><thead><tr><th>Player</th><th>Injury Risk Score Mean</th><th>Acwr Ewma</th><th>High speed running (absolute) (mean)</th><th>Decelerations (relative) (mean)</th><th>Body Soreness Rating Mean</th><th>Mood Rating Mean</th><th>Quality Rating Mean</th></tr></thead><tbody><tr><td class="">Albert Sambi Lokonga</td><td class="lvl-hi">45.25</td><td class="">0.84</td><td class="lvl-hi">329.71</td><td class="lvl-mid">36.86</td><td class="lvl-hi">18</td><td class="lvl-hi">10</td><td class="lvl-mid">18</td></tr><tr><td class="">Bakery Jatta</td><td class="lvl-lo">29</td><td class="">—</td><td class="lvl-hi">291.5</td><td class="lvl-hi">44.75</td><td class="lvl-hi">39</td><td class="lvl-hi">34.67</td><td class="lvl-hi">34.33</td></tr><tr><td class="">Immanuël Pherai</td><td class="lvl-mid">30</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Noah Katterbach</td><td class="lvl-lo">28</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="lvl-hi">40</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Robert Glatzel</td><td class="lvl-hi">35</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">William Mikelbrencis</td><td class="lvl-mid">31</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Yussuf Poulsen</td><td class="lvl-mid">33</td><td class="">1.07</td><td class="lvl-mid">256.88</td><td class="lvl-hi">45</td><td class="lvl-mid">12.73</td><td class="lvl-hi">10</td><td class="lvl-hi">20.91</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Injury Risk Score (14d mean)</h3>
+  <div id="chart_1" class="chart-box compact"></div>
+  
+</div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Albert Sambi Lokonga – Elevated Injury Risk Despite Controlled ACWR</h1>
+    <div class="meta">2026-09-21 → 2026-10-04</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3bc9009-f865-4563-a61d-a97a8771ef04.png" alt="" /><div><div class="name">Albert Sambi Lokonga</div><div class="meta">CENTRAL MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><table class="report-table"><thead><tr><th>Acwr Ewma</th><th>monotony</th><th>High speed running (absolute) (mean)</th><th>Decelerations (relative) (mean)</th><th>Body Soreness Rating Mean</th><th>Mood Rating Mean</th><th>Injury Risk Score Mean</th></tr></thead><tbody><tr><td class="">0.84</td><td class="">0.71</td><td class="">329.71</td><td class="">36.86</td><td class="">18</td><td class="">10</td><td class="">45.25</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Sambi Lokonga – Load Trend (EWMA 7d)</h3>
+  <div id="chart_2" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Sambi Lokonga – Injury Risk Evolution</h3>
+  <div id="chart_3" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><p>Sambi Lokonga injury risk score averaged 45 (max 47) over 14 days despite ACWR EWMA 0.84 (typical underload range). HSR mean 330 m/session and decels 37/session are moderate. Wellness stable (soreness 18, mood 10). The disconnect between controlled load ratios and elevated injury risk warrants medical review before tomorrow's main session.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Bakery Jatta – Wellness Distress + Moderate Injury Risk</h1>
+    <div class="meta">2026-09-21 → 2026-10-04</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3d2aa33-5992-4cf5-a047-8e6b6482e55d.png" alt="" /><div><div class="name">Bakery Jatta</div><div class="meta">WINGER</div></div></div>
+  <div class="section-body"><div class="split-row split-chart-table"><div class="chart-card">
+  <h3>Bakery Jatta – Body Soreness Evolution</h3>
+  <div id="chart_4" class="chart-box compact"></div>
+  
+</div><div class="card"><table class="report-table"><thead><tr><th>High speed running (absolute) (mean)</th><th>Decelerations (relative) (mean)</th><th>Body Soreness Rating Mean</th><th>Mood Rating Mean</th><th>Quality Rating Mean</th><th>Injury Risk Score Mean</th></tr></thead><tbody><tr><td class="">291.5</td><td class="">44.75</td><td class="">39</td><td class="">34.67</td><td class="">34.33</td><td class="">29</td></tr></tbody></table></div></div>
+<div class="chart-card">
+  <h3>Bakery Jatta – Mood Rating Evolution</h3>
+  <div id="chart_5" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><p><strong>Jatta shows converging wellness distress:</strong> body soreness 39, mood 35, sleep quality 34 (all elevated). Injury risk 29. ACWR unavailable (insufficient chronic history). GPS moderate (HSR 292 m, decels 45). The wellness cluster flags cumulative fatigue despite no load spike. Recommend modified session or rest day.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5">
+  <div class="band">
+    <h1>Yussuf Poulsen – ACWR 1.07 + Elevated Injury Risk</h1>
+    <div class="meta">2026-09-21 → 2026-10-04</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/bbd75f0b-8dd1-4ff0-b3f4-5d07e8559076.png" alt="" /><div><div class="name">Yussuf Poulsen</div><div class="meta">STRIKER</div></div></div>
+  <div class="section-body"><div class="card"><table class="report-table"><thead><tr><th>Acwr Ewma</th><th>monotony</th><th>High speed running (absolute) (mean)</th><th>Sprint distance (mean)</th><th>Decelerations (relative) (mean)</th><th>Body Soreness Rating Mean</th><th>Injury Risk Score Mean</th></tr></thead><tbody><tr><td class="">1.07</td><td class="">0.73</td><td class="">256.88</td><td class="">104.5</td><td class="">45</td><td class="">12.73</td><td class="">33</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Yussuf Poulsen – ACWR EWMA Evolution</h3>
+  <div id="chart_6" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><p>Poulsen ACWR EWMA 1.07 (upper typical range) with injury risk 33 (max 38). Sprint distance elevated at 105 m/session (max 477 m). Wellness good (soreness 13, mood 10). The ACWR sits just above 1.0 with high sprint exposure; monitor for spike if intensity increases further.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-6">
+  <div class="band">
+    <h1>Robert Glatzel, Ransford Königsdörffer, William Mikelbrencis – Injury Risk Without GPS Data</h1>
+    <div class="meta">2026-09-21 → 2026-10-04</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b62453e2-6ddf-4b25-848f-42f5ea8c9d1b.png" alt="" /><div><div class="name">Robert Glatzel</div><div class="meta">STRIKER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Athletes with Injury Risk but No GPS Data (n=3 days)</h3><table class="report-table"><thead><tr><th>Player</th><th>Injury Risk Score Mean</th><th>Performance Score Mean</th><th>Cumulative 7</th></tr></thead><tbody><tr><td class="">Noah Katterbach</td><td class="lvl-lo">28</td><td class="lvl-hi">51</td><td class="lvl-hi">0</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="lvl-hi">40</td><td class="lvl-hi">51</td><td class="lvl-hi">0</td></tr><tr><td class="">Robert Glatzel</td><td class="lvl-hi">35</td><td class="lvl-hi">51</td><td class="lvl-hi">0</td></tr><tr><td class="">William Mikelbrencis</td><td class="lvl-mid">31</td><td class="lvl-hi">51</td><td class="lvl-hi">0</td></tr><tr><td class="">Yussuf Poulsen</td><td class="lvl-mid">33</td><td class="lvl-hi">52</td><td class="">40,446.73</td></tr></tbody></table></div>
+<div class="prose-block"><p>Glatzel (risk 35), Königsdörffer (40), and Mikelbrencis (31) show elevated injury risk scores with zero GPS data and zero cumulative load over 7 days. This suggests either non-training status or data-collection gaps. Verify availability and training participation before tomorrow's session.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-7">
+  <div class="band">
+    <h1>Team Overview: ACWR &amp; Wellness Distribution</h1>
+    <div class="meta">2026-09-21 → 2026-10-04</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>ACWR EWMA Distribution (Athletes with Sufficient History)</h3>
+  <div id="chart_7" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Body Soreness vs Injury Risk (14d mean)</h3>
+  <div id="chart_8" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><p>Only 13 of 38 athletes have sufficient chronic history (≥21 days) for ACWR calculation. Among those with ACWR, Martin Adeline (1.13) and Bilal Nadir (1.06) sit at upper typical range; Yussuf Poulsen (1.07) just above 1.0. Kofi Amoako (0.45) and Jordan Torunarigha (0.55) show underload. The scatter plot reveals no strong linear relationship between body soreness and injury risk across the squad, suggesting individual variability dominates.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-7</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-8">
+  <div class="band">
+    <h1>Recommendations</h1>
+    <div class="meta">2026-09-21 → 2026-10-04</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><p><strong>Pull from tomorrow's main session:</strong> Bakery Jatta (wellness cluster distress) and consider modified load for Albert Sambi Lokonga (injury risk 45 despite controlled ACWR). Verify training status for Glatzel, Königsdörffer, Mikelbrencis (injury risk flags with zero GPS/load data). Monitor Yussuf Poulsen ACWR and sprint exposure if intensity increases. Continue building chronic history for 25 athletes currently lacking ACWR context.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-8</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Injury Risk Score (14d mean)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury Risk Score Mean","type":"bar","encode":{"x":"Player","y":"Injury Risk Score Mean"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":33.906,"name":"Mean","label":{"formatter":"Mean 33.91","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7","N","Total time (sum)","Total time (mean)","Total time (max)","Distance total (sum)","Distance total (mean)","Distance total (max)","HMLD (sum)","HMLD (mean)","HMLD (max)","Energy expenditure (sum)","Energy expenditure (mean)","Energy expenditure (max)","High speed running (absolute) (sum)","High speed running (absolute) (mean)","High speed running (absolute) (max)","Sprint distance (sum)","Sprint distance (mean)","Sprint distance (max)","Sprints (sum)","Sprints (mean)","Sprints (max)","Explosive distance (absolute) (sum)","Explosive distance (absolute) (mean)","Explosive distance (absolute) (max)","HIBS number (sum)","HIBS number (mean)","HIBS number (max)","Accelerations (relative) (sum)","Accelerations (relative) (mean)","Accelerations (relative) (max)","Decelerations (relative) (sum)","Decelerations (relative) (mean)","Decelerations (relative) (max)","DSL (sum)","DSL (mean)","DSL (max)","Body Soreness Rating Mean","Body Soreness Rating Max","Mood Rating Mean","Mood Rating Max","Quality Rating Mean","Quality Rating Min","Performance Score Mean","Performance Score Max","Injury Risk Score Mean","Injury Risk Score Max"],["Albert Sambi Lokonga",1234.792,0,1465.823,0.712,7481.103,0.842,67827.267,4,48740,6962.857,9103,47563,6794.714,10010,7964,1137.714,1921,5034.8,719.257,1027,2308,329.714,652,383,54.714,129,17,2.429,5,5654,807.714,1269,30,4.286,7,426,60.857,88,258,36.857,48,1511.1,215.871,310.1,18,30,10,10,18,10,52.25,53,45.25,47],["Bakery Jatta",null,null,null,null,null,null,104008.55,4,26559,6639.75,9425,24421,6105.25,9373,3928,982,1591,2626.6,656.65,1005.2,1166,291.5,504,387,96.75,179,18,4.5,6,2762,690.5,1087,26,6.5,9,306,76.5,104,179,44.75,71,671.5,167.875,281.3,39,40,34.667,40,34.333,30,53,54,29,32],["Immanuël Pherai",null,null,null,null,null,null,39951.283,4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,30,30],["Noah Katterbach",null,null,null,null,null,null,0,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,28,28],["Ransford Königsdörffer",null,null,null,null,null,null,0,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,40,40],["Robert Glatzel",null,null,null,null,null,null,0,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,35,35],["William Mikelbrencis",null,null,null,null,null,null,0,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,31,31],["Yussuf Poulsen",1051.24,0,984.895,0.728,6487.815,1.067,40446.733,3,50909,6363.625,8313,40995,5124.375,7232,7003,875.375,1403,4688.3,586.038,816.2,2055,256.875,599,836,104.5,477,21,2.625,9,4949,618.625,958,22,2.75,6,500,62.5,94,360,45,71,607,75.875,124.5,12.727,20,10,10,20.909,10,52,53,33,38]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}},{"id":"chart_2","title":"Sambi Lokonga – Load Trend (EWMA 7d)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Ewma 7","type":"line","encode":{"x":"Date","y":"Ewma 7"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1718.735,"name":"Mean","label":{"formatter":"Mean 1,718.74","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit","Ewma 7"],["Albert Sambi Lokonga","2026-08-24",2688,null,2688],["Albert Sambi Lokonga","2026-08-25",0,null,2016],["Albert Sambi Lokonga","2026-08-26",2077,null,2031.25],["Albert Sambi Lokonga","2026-08-27",952.8333333333334,null,1761.646],["Albert Sambi Lokonga","2026-08-28",2732.4,null,2004.334],["Albert Sambi Lokonga","2026-08-29",3232.6666666666665,null,2311.417],["Albert Sambi Lokonga","2026-08-30",0,null,1733.563],["Albert Sambi Lokonga","2026-08-31",0,null,1300.172],["Albert Sambi Lokonga","2026-09-01",5700,null,2400.129],["Albert Sambi Lokonga","2026-09-02",1035,null,2058.847],["Albert Sambi Lokonga","2026-09-03",3564,null,2435.135],["Albert Sambi Lokonga","2026-09-04",1710,null,2253.851],["Albert Sambi Lokonga","2026-09-05",1280,null,2010.389],["Albert Sambi Lokonga","2026-09-06",0,null,1507.791],["Albert Sambi Lokonga","2026-09-07",0,null,1130.844],["Albert Sambi Lokonga","2026-09-08",0,null,848.133],["Albert Sambi Lokonga","2026-09-09",1260,null,951.1],["Albert Sambi Lokonga","2026-09-10",2280,null,1283.325],["Albert Sambi Lokonga","2026-09-11",1860,null,1427.493],["Albert Sambi Lokonga","2026-09-12",2179,null,1615.37],["Albert Sambi Lokonga","2026-09-13",6086.733333333334,null,2733.211],["Albert Sambi Lokonga","2026-09-14",0,null,2049.908],["Albert Sambi Lokonga","2026-09-15",5574,null,2930.931],["Albert Sambi Lokonga","2026-09-16",1977,null,2692.448],["Albert Sambi Lokonga","2026-09-17",2280,null,2589.336],["Albert Sambi Lokonga","2026-09-18",1360,null,2282.002],["Albert Sambi Lokonga","2026-09-19",5691.466666666666,null,3134.368],["Albert Sambi Lokonga","2026-09-20",0,null,2350.776],["Albert Sambi Lokonga","2026-09-21",0,null,1763.082],["Albert Sambi Lokonga","2026-09-22",1800,null,1772.312],["Albert Sambi Lokonga","2026-09-23",0,null,1329.234],["Albert Sambi Lokonga","2026-09-24",0,null,996.925],["Albert Sambi Lokonga","2026-09-25",0,null,747.694],["Albert Sambi Lokonga","2026-09-26",0,null,560.77],["Albert Sambi Lokonga","2026-09-27",0,null,420.578],["Albert Sambi Lokonga","2026-09-28",0,null,315.433],["Albert Sambi Lokonga","2026-09-29",1607.1666666666667,null,638.367],["Albert Sambi Lokonga","2026-09-30",0,null,478.775],["Albert Sambi Lokonga","2026-10-01",4786,null,1555.581],["Albert Sambi Lokonga","2026-10-02",4114,null,2195.186],["Albert Sambi Lokonga","2026-10-03",0,null,1646.389],["Albert Sambi Lokonga","2026-10-04",0,null,1234.792]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}},{"id":"chart_3","title":"Sambi Lokonga – Injury Risk Evolution","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury Risk Score","type":"line","encode":{"x":"Date","y":"Injury Risk Score"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":50.545,"name":"Mean","label":{"formatter":"Mean 50.55","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Performance Score","Injury Risk Score"],["Albert Sambi Lokonga","2026-09-21",47,55],["Albert Sambi Lokonga","2026-09-22",49,55],["Albert Sambi Lokonga","2026-09-23",49,56],["Albert Sambi Lokonga","2026-09-24",51,56],["Albert Sambi Lokonga","2026-09-25",48,54],["Albert Sambi Lokonga","2026-09-26",49,52],["Albert Sambi Lokonga","2026-09-27",50,47],["Albert Sambi Lokonga","2026-09-28",52,47],["Albert Sambi Lokonga","2026-09-29",52,45],["Albert Sambi Lokonga","2026-09-30",52,44],["Albert Sambi Lokonga","2026-10-01",53,45]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}},{"id":"chart_4","title":"Bakery Jatta – Body Soreness Evolution","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"line","encode":{"x":"Date","y":"Body Soreness Rating"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating"],["Bakery Jatta","2026-09-21",40,null,30,null],["Bakery Jatta","2026-09-22",37,null,34,null],["Bakery Jatta","2026-10-02",40,null,40,null]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}},{"id":"chart_5","title":"Bakery Jatta – Mood Rating Evolution","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Mood Rating","type":"line","encode":{"x":"Date","y":"Mood Rating"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating"],["Bakery Jatta","2026-09-21",40,null,30,null],["Bakery Jatta","2026-09-22",37,null,34,null],["Bakery Jatta","2026-10-02",40,null,40,null]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}},{"id":"chart_6","title":"Yussuf Poulsen – ACWR EWMA Evolution","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Acwr Ewma","type":"line","encode":{"x":"Date","y":"Acwr Ewma"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":0.938,"name":"Mean","label":{"formatter":"Mean 0.94","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit","Acwr Ewma"],["Yussuf Poulsen","2026-08-24",1120,null,1],["Yussuf Poulsen","2026-08-25",0,null,0.806],["Yussuf Poulsen","2026-08-26",0,null,0.649],["Yussuf Poulsen","2026-08-27",952.8333333333334,null,0.733],["Yussuf Poulsen","2026-08-28",1012,null,0.808],["Yussuf Poulsen","2026-08-29",2486.6666666666665,null,1.125],["Yussuf Poulsen","2026-08-30",800,null,1.048],["Yussuf Poulsen","2026-08-31",0,null,0.844],["Yussuf Poulsen","2026-09-01",1140,null,0.912],["Yussuf Poulsen","2026-09-02",1035,null,0.942],["Yussuf Poulsen","2026-09-03",2160,null,1.155],["Yussuf Poulsen","2026-09-04",0,null,0.93],["Yussuf Poulsen","2026-09-05",640,null,0.879],["Yussuf Poulsen","2026-09-06",1268.5,null,0.963],["Yussuf Poulsen","2026-09-07",833.5,null,0.942],["Yussuf Poulsen","2026-09-08",0,null,0.759],["Yussuf Poulsen","2026-09-09",630,null,0.757],["Yussuf Poulsen","2026-09-10",1140,null,0.868],["Yussuf Poulsen","2026-09-11",1860,null,1.082],["Yussuf Poulsen","2026-09-12",2396.9,null,1.294],["Yussuf Poulsen","2026-09-13",1851.3333333333333,null,1.333],["Yussuf Poulsen","2026-09-14",0,null,1.074],["Yussuf Poulsen","2026-09-15",1393.5,null,1.111],["Yussuf Poulsen","2026-09-16",1977,null,1.222],["Yussuf Poulsen","2026-09-17",2280,null,1.325],["Yussuf Poulsen","2026-09-18",680,null,1.169],["Yussuf Poulsen","2026-09-19",1601.5,null,1.187],["Yussuf Poulsen","2026-09-20",0,null,0.956],["Yussuf Poulsen","2026-09-21",0,null,0.77],["Yussuf Poulsen","2026-09-22",900,null,0.8],["Yussuf Poulsen","2026-09-23",1376.1666666666667,null,0.911],["Yussuf Poulsen","2026-09-24",0,null,0.734],["Yussuf Poulsen","2026-09-25",0,null,0.591],["Yussuf Poulsen","2026-09-26",0,null,0.476],["Yussuf Poulsen","2026-09-27",0,null,0.384],["Yussuf Poulsen","2026-09-28",0,null,0.309],["Yussuf Poulsen","2026-09-29",1607.1666666666667,null,0.715],["Yussuf Poulsen","2026-09-30",0,null,0.576],["Yussuf Poulsen","2026-10-01",3190.6666666666665,null,1.224],["Yussuf Poulsen","2026-10-02",4114,null,1.645],["Yussuf Poulsen","2026-10-03",0,null,1.325],["Yussuf Poulsen","2026-10-04",0,null,1.067]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}},{"id":"chart_7","title":"ACWR EWMA Distribution (Athletes with Sufficient History)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Acwr Ewma","type":"bar","encode":{"x":"Player","y":"Acwr Ewma"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":0.82,"name":"Mean","label":{"formatter":"Mean 0.82","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7","N","Total time (sum)","Total time (mean)","Total time (max)","Distance total (sum)","Distance total (mean)","Distance total (max)","HMLD (sum)","HMLD (mean)","HMLD (max)","Energy expenditure (sum)","Energy expenditure (mean)","Energy expenditure (max)","High speed running (absolute) (sum)","High speed running (absolute) (mean)","High speed running (absolute) (max)","Sprint distance (sum)","Sprint distance (mean)","Sprint distance (max)","Sprints (sum)","Sprints (mean)","Sprints (max)","Explosive distance (absolute) (sum)","Explosive distance (absolute) (mean)","Explosive distance (absolute) (max)","HIBS number (sum)","HIBS number (mean)","HIBS number (max)","Accelerations (relative) (sum)","Accelerations (relative) (mean)","Accelerations (relative) (max)","Decelerations (relative) (sum)","Decelerations (relative) (mean)","Decelerations (relative) (max)","DSL (sum)","DSL (mean)","DSL (max)","Body Soreness Rating Mean","Body Soreness Rating Max","Mood Rating Mean","Mood Rating Max","Quality Rating Mean","Quality Rating Min","Performance Score Mean","Performance Score Max","Injury Risk Score Mean","Injury Risk Score Max"],["Albert Sambi Lokonga",1234.792,0,1465.823,0.712,7481.103,0.842,67827.267,4,48740,6962.857,9103,47563,6794.714,10010,7964,1137.714,1921,5034.8,719.257,1027,2308,329.714,652,383,54.714,129,17,2.429,5,5654,807.714,1269,30,4.286,7,426,60.857,88,258,36.857,48,1511.1,215.871,310.1,18,30,10,10,18,10,52.25,53,45.25,47],["Bilal Nadir",2033.322,0,1915.539,1.12,17550.027,1.061,57371.7,6,47456,5932,8029,40609,5076.125,8995,5894,736.75,1441,4256,532,937.9,1588,198.5,433,460,57.5,160,24,3,8,4307,538.375,1008,32,4,9,424,53,94,329,41.125,77,1159.7,144.963,246.4,22.833,30,21.333,28,25.167,20,null,null,null,null],["Jordan Torunarigha",775.152,0,1398.434,0.557,4213.241,0.554,79002.517,4,37353,6225.5,8884,30447,5074.5,7219,4275,712.5,1101,3288.3,548.05,773,1270,211.667,497,540,90,337,18,3,8,3006,501,771,17,2.833,6,298,49.667,83,246,41,60,875.6,145.933,269.4,29.429,30,24.143,30,31,20,49.5,51,23.5,31],["Kofi Amoako",699.887,0,1550.111,0.846,4719.411,0.452,67693.6,10,47412,6773.143,9984,40532,5790.286,8275,6861,980.143,1716,4372.2,624.6,892.2,2361,337.286,896,775,110.714,374,28,4,10,4501,643,922,45,6.429,10,435,62.143,104,324,46.286,71,1537.5,219.643,343.2,26.6,50,21.4,40,21.2,10,null,null,null,null],["Martin Adeline",1940.92,0,1723.251,1.291,15229.368,1.126,48483.85,5,37954,7590.8,8300,47543,9508.6,12483,9926,1985.2,3015,4960.7,992.14,1281.3,2856,571.2,1203,762,152.4,330,41,8.2,19,7070,1414,1812,48,9.6,16,368,73.6,78,467,93.4,109,1931.8,386.36,611.1,15,27,13,20,18.2,10,null,null,null,null],["Miro Muheim",971.076,0,1350.062,0.492,3489.51,0.719,66124.3,4,51675,6459.375,7967,54330,6791.25,9301,10078,1259.75,2179,5748.5,718.563,974.1,3639,454.875,970,1408,176,405,55,6.875,15,6439,804.875,1208,63,7.875,16,617,77.125,115,563,70.375,91,1529.2,191.15,264.8,18.4,22,20.8,24,21.4,20,50.5,52,21.25,27],["Nicolai Remberg",860.207,0,919.263,0.675,4938.638,0.936,40539.833,3,44518,7419.667,9159,50863,8477.167,11624,8594,1432.333,2283,6034.4,1005.733,1342.1,1795,299.167,552,331,55.167,156,16,2.667,5,6801,1133.5,1731,56,9.333,17,420,70,111,596,99.333,151,2111.9,351.983,553.9,10,10,10,10,12.5,10,68,74,8,11],["Nicolás Capaldo",760.096,0,1465.749,0.619,4920.359,0.519,77908.017,3,48779,5419.889,7776,43009,4778.778,8598,6042,671.333,1497,4089.7,454.411,858.9,2041,226.778,425,297,33,84,16,1.778,5,4000,444.444,1071,33,3.667,17,306,34,91,297,33,98,1604.3,178.256,429,25.286,50,21,28,23.143,10,50.333,51,5.667,12],["Otto Stange",51.542,0,1070.553,null,null,0.048,75342.267,3,8478,8478,8478,7800,7800,7800,1555,1555,1555,827.8,827.8,827.8,701,701,701,274,274,274,10,10,10,854,854,854,4,4,4,48,48,48,60,60,60,108,108,108,26.667,30,23.333,30,30,20,52.333,54,0,0],["Sebastiaan Bornauw",1478.441,0,741.899,0.928,12277.904,1.993,13230.5,6,44885,7480.833,10035,41419,6903.167,9708,6166,1027.667,1736,4825.5,804.25,1131.5,1310,218.333,471,368,61.333,106,16,2.667,5,4857,809.5,1265,16,2.667,7,399,66.5,91,339,56.5,80,1170.7,195.117,395.4,null,null,null,null,null,null,null,null,null,null],["Shafiq Nandja",2114.33,0,2782.704,0.75,12408,0.76,112463.667,10,38876,7775.2,11008,38923,7784.6,10559,6917,1383.4,1693,4270.8,854.16,1170.7,2231,446.2,691,651,130.2,253,28,5.6,10,4687,937.4,1336,23,4.6,6,426,85.2,144,361,72.2,108,840.7,168.14,305.4,26.9,30,20.5,25,30.2,20,null,null,null,null],["Terem Moffi",283.651,0,483.379,0.713,1468.78,0.587,22275.667,11,12985,2597,3599,14909,2981.8,4260,1621,324.2,564,1475.8,295.16,418.3,781,156.2,324,183,36.6,137,6,1.2,3,841,168.2,382,1,0.2,1,61,12.2,31,39,7.8,18,399.7,79.94,119.5,21.818,30,20.909,30,16.364,10,null,null,null,null],["Yussuf Poulsen",1051.24,0,984.895,0.728,6487.815,1.067,40446.733,3,50909,6363.625,8313,40995,5124.375,7232,7003,875.375,1403,4688.3,586.038,816.2,2055,256.875,599,836,104.5,477,21,2.625,9,4949,618.625,958,22,2.75,6,500,62.5,94,360,45,71,607,75.875,124.5,12.727,20,10,10,20.909,10,52,53,33,38]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}},{"id":"chart_8","title":"Body Soreness vs Injury Risk (14d mean)","option":{"legend":{"show":false},"grid":{"left":64,"right":72,"top":48,"containLabel":true,"bottom":28},"xAxis":{"type":"value","name":"Body Soreness Rating Mean","scale":true,"nameLocation":"middle","nameGap":28},"yAxis":{"type":"value","name":"Injury Risk Score Mean","scale":true,"nameLocation":"middle","nameGap":40},"tooltip":{"trigger":"item"},"series":[{"type":"scatter","symbolSize":14,"encode":{"x":"Body Soreness Rating Mean","y":"Injury Risk Score Mean","tooltip":["Player","Body Soreness Rating Mean","Injury Risk Score Mean"]}}],"animation":false,"dataset":{"source":[["Player","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7","N","Total time (sum)","Total time (mean)","Total time (max)","Distance total (sum)","Distance total (mean)","Distance total (max)","HMLD (sum)","HMLD (mean)","HMLD (max)","Energy expenditure (sum)","Energy expenditure (mean)","Energy expenditure (max)","High speed running (absolute) (sum)","High speed running (absolute) (mean)","High speed running (absolute) (max)","Sprint distance (sum)","Sprint distance (mean)","Sprint distance (max)","Sprints (sum)","Sprints (mean)","Sprints (max)","Explosive distance (absolute) (sum)","Explosive distance (absolute) (mean)","Explosive distance (absolute) (max)","HIBS number (sum)","HIBS number (mean)","HIBS number (max)","Accelerations (relative) (sum)","Accelerations (relative) (mean)","Accelerations (relative) (max)","Decelerations (relative) (sum)","Decelerations (relative) (mean)","Decelerations (relative) (max)","DSL (sum)","DSL (mean)","DSL (max)","Body Soreness Rating Mean","Body Soreness Rating Max","Mood Rating Mean","Mood Rating Max","Quality Rating Mean","Quality Rating Min","Performance Score Mean","Performance Score Max","Injury Risk Score Mean","Injury Risk Score Max"],["Albert Grønbæk",null,null,null,0.64,1286.4,null,56378.5,4,7020,2340,3000,9688,3229.333,3911,492,164,331,921.7,307.233,361.5,36,12,36,0,0,0,0,0,0,456,152,295,0,0,0,27,9,26,26,8.667,26,417.9,139.3,262.5,23,40,16,30,20,10,53.5,57,0,0],["Albert Sambi Lokonga",1234.792,0,1465.823,0.712,7481.103,0.842,67827.267,4,48740,6962.857,9103,47563,6794.714,10010,7964,1137.714,1921,5034.8,719.257,1027,2308,329.714,652,383,54.714,129,17,2.429,5,5654,807.714,1269,30,4.286,7,426,60.857,88,258,36.857,48,1511.1,215.871,310.1,18,30,10,10,18,10,52.25,53,45.25,47],["Alexander Røssing-Lelesiit",null,null,null,0.501,4801.501,null,62627.617,4,34064,6812.8,9285,35290,7058,9629,6974,1394.8,2272,3294.1,658.82,898.6,1967,393.4,808,286,57.2,131,19,3.8,8,5006,1001.2,1464,60,12,15,561,112.2,184,458,91.6,127,940.2,188.04,292.2,25,40,18.75,20,21.25,20,53,54,2.75,5],["Bakery Jatta",null,null,null,null,null,null,104008.55,4,26559,6639.75,9425,24421,6105.25,9373,3928,982,1591,2626.6,656.65,1005.2,1166,291.5,504,387,96.75,179,18,4.5,6,2762,690.5,1087,26,6.5,9,306,76.5,104,179,44.75,71,671.5,167.875,281.3,39,40,34.667,40,34.333,30,53,54,29,32],["Bilal Nadir",2033.322,0,1915.539,1.12,17550.027,1.061,57371.7,6,47456,5932,8029,40609,5076.125,8995,5894,736.75,1441,4256,532,937.9,1588,198.5,433,460,57.5,160,24,3,8,4307,538.375,1008,32,4,9,424,53,94,329,41.125,77,1159.7,144.963,246.4,22.833,30,21.333,28,25.167,20,null,null,null,null],["Damion Downs",null,null,null,null,null,null,0,4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,13,13],["Daniel Elfadli",null,null,null,null,null,null,19030.067,4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,12.25,13],["David Möller Wolfe",null,null,null,null,null,null,34227.833,5,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,18,30,16,20,22,10,null,null,null,null],["Emir Sahiti",null,null,null,null,null,null,11327.5,4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,24,24],["Fabio Baldé",null,null,null,null,null,null,0,4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,0,0],["Fábio Vieira",null,null,null,0.959,8546.448,null,58369.65,4,38824,6470.667,7877,37798,6299.667,7459,5867,977.833,1361,3529.3,588.217,673.2,1839,306.5,547,732,122,288,18,3,6,4029,671.5,909,24,4,8,360,60,76,252,42,56,1135.4,189.233,227.1,25.6,40,22.4,32,22.6,20,50.75,53,19.5,22],["Giorgi Gocholeishvili",null,null,null,null,null,null,0,4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,0,0],["Immanuël Pherai",null,null,null,null,null,null,39951.283,4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,30,30],["Jean-Luc Dompé",null,null,null,null,null,null,0,4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,19.5,21],["Jordan Torunarigha",775.152,0,1398.434,0.557,4213.241,0.554,79002.517,4,37353,6225.5,8884,30447,5074.5,7219,4275,712.5,1101,3288.3,548.05,773,1270,211.667,497,540,90,337,18,3,8,3006,501,771,17,2.833,6,298,49.667,83,246,41,60,875.6,145.933,269.4,29.429,30,24.143,30,31,20,49.5,51,23.5,31],["Kofi Amoako",699.887,0,1550.111,0.846,4719.411,0.452,67693.6,10,47412,6773.143,9984,40532,5790.286,8275,6861,980.143,1716,4372.2,624.6,892.2,2361,337.286,896,775,110.714,374,28,4,10,4501,643,922,45,6.429,10,435,62.143,104,324,46.286,71,1537.5,219.643,343.2,26.6,50,21.4,40,21.2,10,null,null,null,null],["Luka Vušković",null,null,null,null,null,null,0,4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,4.5,6],["Mario Vušković",null,null,null,0.765,10307.483,null,21752.167,4,49051,6131.375,8636,54690,6836.25,9223,7045,880.625,1539,6172.9,771.613,1052.5,1438,179.75,303,289,36.125,167,11,1.375,4,5605,700.625,1236,39,4.875,14,496,62,98,449,56.125,87,1451,181.375,223.9,17.778,30,10,10,10,10,51.25,52,18.75,26],["Martin Adeline",1940.92,0,1723.251,1.291,15229.368,1.126,48483.85,5,37954,7590.8,8300,47543,9508.6,12483,9926,1985.2,3015,4960.7,992.14,1281.3,2856,571.2,1203,762,152.4,330,41,8.2,19,7070,1414,1812,48,9.6,16,368,73.6,78,467,93.4,109,1931.8,386.36,611.1,15,27,13,20,18.2,10,null,null,null,null],["Miro Muheim",971.076,0,1350.062,0.492,3489.51,0.719,66124.3,4,51675,6459.375,7967,54330,6791.25,9301,10078,1259.75,2179,5748.5,718.563,974.1,3639,454.875,970,1408,176,405,55,6.875,15,6439,804.875,1208,63,7.875,16,617,77.125,115,563,70.375,91,1529.2,191.15,264.8,18.4,22,20.8,24,21.4,20,50.5,52,21.25,27],["Nicolai Remberg",860.207,0,919.263,0.675,4938.638,0.936,40539.833,3,44518,7419.667,9159,50863,8477.167,11624,8594,1432.333,2283,6034.4,1005.733,1342.1,1795,299.167,552,331,55.167,156,16,2.667,5,6801,1133.5,1731,56,9.333,17,420,70,111,596,99.333,151,2111.9,351.983,553.9,10,10,10,10,12.5,10,68,74,8,11],["Nicolás Capaldo",760.096,0,1465.749,0.619,4920.359,0.519,77908.017,3,48779,5419.889,7776,43009,4778.778,8598,6042,671.333,1497,4089.7,454.411,858.9,2041,226.778,425,297,33,84,16,1.778,5,4000,444.444,1071,33,3.667,17,306,34,91,297,33,98,1604.3,178.256,429,25.286,50,21,28,23.143,10,50.333,51,5.667,12],["Noah Katterbach",null,null,null,null,null,null,0,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,28,28],["Omar Megeed",null,null,null,null,null,null,0,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,18,18],["Otto Stange",51.542,0,1070.553,null,null,0.048,75342.267,3,8478,8478,8478,7800,7800,7800,1555,1555,1555,827.8,827.8,827.8,701,701,701,274,274,274,10,10,10,854,854,854,4,4,4,48,48,48,60,60,60,108,108,108,26.667,30,23.333,30,30,20,52.333,54,0,0],["Patson Daka",null,null,null,null,null,null,32536.133,10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,14,30,12,30,10,10,null,null,null,null],["Philip Otele",null,null,null,null,null,null,0,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,7,7],["Ransford Königsdörffer",null,null,null,null,null,null,0,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,40,40],["Rayan Philippe",null,null,null,null,null,null,15111.4,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,9.667,11],["Robert Glatzel",null,null,null,null,null,null,0,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,35,35],["Sebastiaan Bornauw",1478.441,0,741.899,0.928,12277.904,1.993,13230.5,6,44885,7480.833,10035,41419,6903.167,9708,6166,1027.667,1736,4825.5,804.25,1131.5,1310,218.333,471,368,61.333,106,16,2.667,5,4857,809.5,1265,16,2.667,7,399,66.5,91,339,56.5,80,1170.7,195.117,395.4,null,null,null,null,null,null,null,null,null,null],["Shafiq Nandja",2114.33,0,2782.704,0.75,12408,0.76,112463.667,10,38876,7775.2,11008,38923,7784.6,10559,6917,1383.4,1693,4270.8,854.16,1170.7,2231,446.2,691,651,130.2,253,28,5.6,10,4687,937.4,1336,23,4.6,6,426,85.2,144,361,72.2,108,840.7,168.14,305.4,26.9,30,20.5,25,30.2,20,null,null,null,null],["Terem Moffi",283.651,0,483.379,0.713,1468.78,0.587,22275.667,11,12985,2597,3599,14909,2981.8,4260,1621,324.2,564,1475.8,295.16,418.3,781,156.2,324,183,36.6,137,6,1.2,3,841,168.2,382,1,0.2,1,61,12.2,31,39,7.8,18,399.7,79.94,119.5,21.818,30,20.909,30,16.364,10,null,null,null,null],["Warmed Omari",null,null,null,null,null,null,36918.233,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,20,30,10,10,25,10,51,51,0,0],["William Mikelbrencis",null,null,null,null,null,null,0,3,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,51,31,31],["Yussuf Poulsen",1051.24,0,984.895,0.728,6487.815,1.067,40446.733,3,50909,6363.625,8313,40995,5124.375,7232,7003,875.375,1403,4688.3,586.038,816.2,2055,256.875,599,836,104.5,477,21,2.625,9,4949,618.625,958,22,2.75,6,500,62.5,94,360,45,71,607,75.875,124.5,12.727,20,10,10,20.909,10,52,53,33,38],["Zakaria El Ouahdi",null,null,null,null,null,null,28101.017,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["Sebastiaan  Bornauw",null,null,null,null,null,null,null,6,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,22.333,30,21.333,28,21.833,20,null,null,null,null]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"Source Sans 3\", ui-sans-serif, system-ui, sans-serif", color: "#134e4a" },
+          color: ["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

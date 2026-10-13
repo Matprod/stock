@@ -1,0 +1,21 @@
+2026/10/09-12:15:48.391 5c07e Creating DB /Users/matprod/mauna/backend-v2/tmp/sofascore-brave/Default/IndexedDB/https_www.sofascore.com_0.indexeddb.leveldb since it was missing.
+2026/10/09-12:15:48.392 5c07e Reusing MANIFEST /Users/matprod/mauna/backend-v2/tmp/sofascore-brave/Default/IndexedDB/https_www.sofascore.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/10/09-12:15:48.483 5c07f Level-0 table #5: started
+2026/10/09-12:15:48.484 5c07f Level-0 table #5: 749 bytes OK
+2026/10/09-12:15:48.485 5c07f Delete type=0 #3
+2026/10/09-12:15:48.485 5c07f Manual compaction at level-0 from '\x00\x02\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x03\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/10/09-12:15:48.689 5c07f Level-0 table #7: started
+2026/10/09-12:15:48.692 5c07f Level-0 table #7: 1654 bytes OK
+2026/10/09-12:15:48.694 5c07f Delete type=0 #4
+2026/10/09-12:15:48.694 5c07f Manual compaction at level-0 from '\x00\x03\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x04\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/10/09-12:15:54.452 5c081 Manual compaction at level-0 from '\x00\x06\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x07\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/10/09-12:15:54.590 5c081 Level-0 table #9: started
+2026/10/09-12:15:54.591 5c081 Level-0 table #9: 4226 bytes OK
+2026/10/09-12:15:54.593 5c081 Delete type=0 #6
+2026/10/09-12:15:54.594 5c07e Manual compaction at level-0 from '\x00\x07\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x08\x00\x00\x00' @ 0 : 0; will stop at '\x00\x07\x00\x00\x05' @ 275 : 1
+2026/10/09-12:15:54.595 5c07e Compacting 1@0 + 1@1 files
+2026/10/09-12:15:54.596 5c07e Generated table #10@0: 135 keys, 2866 bytes
+2026/10/09-12:15:54.596 5c07e Compacted 1@0 + 1@1 files => 2866 bytes
+2026/10/09-12:15:54.597 5c07e compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/10/09-12:15:54.597 5c07e Delete type=2 #9
+2026/10/09-12:15:54.597 5c07e Manual compaction at level-0 from '\x00\x07\x00\x00\x05' @ 275 : 1 .. '\x00\x08\x00\x00\x00' @ 0 : 0; will stop at (end)

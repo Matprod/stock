@@ -1,0 +1,5 @@
+2026/10/09-12:15:45.143 5c10a Creating DB /Users/matprod/mauna/backend-v2/tmp/sofascore-brave/Default/Session Storage since it was missing.
+2026/10/09-12:15:45.146 5c10a Reusing MANIFEST /Users/matprod/mauna/backend-v2/tmp/sofascore-brave/Default/Session Storage/MANIFEST-000001
+2026/10/09-12:15:54.641 5c107 Level-0 table #5: started
+2026/10/09-12:15:54.643 5c107 Level-0 table #5: 82354 bytes OK
+2026/10/09-12:15:54.644 5c107 Delete type=0 #3

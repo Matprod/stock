@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Charge, HSR &amp; ACWR – Semaine 29 sept.–5 oct.</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 300px; }
+    .chart-box.wide { height: 340px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 12px;
+      padding: 10px 12px; border-radius: 10px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner .avatar-wrap {
+      position: relative; width: 52px; height: 52px; flex: 0 0 52px;
+    }
+    .athlete-banner img {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: none; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner.no-photo img { display: none; }
+    .athlete-banner.no-photo .avatar-fallback { display: grid; }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2026-2027</div>
+      <h1 class="cover-title">Charge, HSR &amp; ACWR – Semaine 29 sept.–5 oct.</h1>
+      <p class="cover-sub">Rapport club — données MAUNA uniquement</p>
+      <div class="date-pill">lun. 05/10/26 · 2026-09-29 → 2026-10-05</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">Martin Adeline domine le volume HSR (2 856 m) et les décélérations (467), avec monotonie 1.29 et Strain 15 229 – vigilance sur variabilité de charge.</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">Kofi Amoako affiche courbatures 31.5 et humeur 28.5 malgré un HSR modéré (1 471 m) – signal de récupération insuffisante ou sensibilité individuelle.</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">Shafiq Nandja cumule HSR élevé (2 231 m), charge 7j maximale (97 061), et ressenti notable (courbatures 27.3, humeur 21.3) – surveiller évolution fatigue.</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Sommaire</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Charge, HSR &amp; ACWR – Semaine 29 sept.–5 oct.</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Couverture</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Lecture staff</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Vue d'ensemble – Équipe</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · ACWR &amp; Charge – Historique insuffisant</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Croisement GPS × Wellness</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Martin Adeline</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Kofi Amoako</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>08 · Shafiq Nandja</span><span class="hint">§6</span></a></li><li><a href="#section-7"><span>09 · Miro Muheim</span><span class="hint">§7</span></a></li><li><a href="#section-8"><span>10 · Alexander Røssing-Lelesiit</span><span class="hint">§8</span></a></li><li><a href="#section-9"><span>11 · Synthèse – Liste de vigilance</span><span class="hint">§9</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Lecture staff</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <p class="staff-read-lead">Volume HSR élevé (Adeline 2856m, Muheim 2698m), accélérations/décélérations intenses, et convergence GPS–wellness chez trois milieux (Adeline, Amoako, Nandja). ACWR indisponible (historique &lt; 21j).</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Fil narratif</h3><ul><li>Martin Adeline domine le volume HSR (2 856 m) et les décélérations (467), avec monotonie 1.29 et Strain 15 229 – vigilance sur variabilité de charge.</li><li>Kofi Amoako affiche courbatures 31.5 et humeur 28.5 malgré un HSR modéré (1 471 m) – signal de récupération insuffisante ou sensibilité individuelle.</li><li>Shafiq Nandja cumule HSR élevé (2 231 m), charge 7j maximale (97 061), et ressenti notable (courbatures 27.3, humeur 21.3) – surveiller évolution fatigue.</li></ul></div><div class="staff-read-panel"><h3>Signaux</h3><ul class="signal-roster"><li><span class="signal-badge info">Info</span><div><div class="signal-body">Martin Adeline domine le volume HSR (2 856 m) et les décélérations (467), avec monotonie 1.29 et Strain 15 229 – vigilance sur variabilité de charge.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Kofi Amoako affiche courbatures 31.5 et humeur 28.5 malgré un HSR modéré (1 471 m) – signal de récupération insuffisante ou sensibilité individuelle.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Shafiq Nandja cumule HSR élevé (2 231 m), charge 7j maximale (97 061), et ressenti notable (courbatures 27.3, humeur 21.3) – surveiller évolution fatigue.</div></div></li></ul></div></div>
+  <div class="staff-read-panel"><h3>Sections canvas</h3><ul class="staff-section-index"><li><span>Vue d'ensemble – Équipe</span><span class="kind">Équipe</span></li><li><span>Croisement GPS × Wellness</span><span class="kind">Équipe</span></li><li><span>Joueurs à surveiller</span><span class="kind">Équipe</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Vue d'ensemble – Équipe</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="split-row split-chart-table"><div class="chart-card">
+  <h3>Top 10 – Volume HSR (m)</h3>
+  <div id="chart_1" class="chart-box compact"></div>
+  
+</div><div class="card"><h3>Moyennes par poste – HSR, accélérations/décélérations &amp; ACWR</h3><div class="legend"><span><i class="swatch" style="background:rgba(224,112,112,0.22);outline:1px solid #E07070"></i>élevé</span><span><i class="swatch" style="background:rgba(251,191,36,0.22);outline:1px solid #E8B84A"></i>moyen</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>bas</span><span>vs le groupe (terciles)</span></div><table class="report-table"><thead><tr><th>Poste</th><th>N</th><th>High speed running (absolute) (mean)</th><th>Accelerations (relative) (mean)</th><th>Decelerations (relative) (mean)</th></tr></thead><tbody><tr><td class="">MIDFIELDER</td><td class="">5</td><td class="lvl-hi">1 676</td><td class="lvl-mid">294</td><td class="lvl-mid">268</td></tr><tr><td class="">DEFENDER</td><td class="">1</td><td class="lvl-mid">1 310</td><td class="lvl-hi">399</td><td class="lvl-hi">339</td></tr><tr><td class="">CENTRAL DEFENDER</td><td class="">3</td><td class="lvl-lo">951</td><td class="lvl-mid">255</td><td class="lvl-mid">237</td></tr><tr><td class="">WINGER</td><td class="">3</td><td class="lvl-lo">885</td><td class="lvl-lo">232</td><td class="lvl-lo">176</td></tr><tr><td class="">FULL BACK</td><td class="">1</td><td class="lvl-hi">2 698</td><td class="lvl-hi">474</td><td class="lvl-hi">432</td></tr><tr><td class="">STRIKER</td><td class="">2</td><td class="lvl-mid">1 062</td><td class="lvl-lo">209</td><td class="lvl-lo">169</td></tr><tr><td class="">DEFENSIVE MIDFIELDER</td><td class="">1</td><td class="lvl-hi">1 795</td><td class="lvl-hi">420</td><td class="lvl-hi">596</td></tr><tr><td class="">CENTRAL MIDFIELDER</td><td class="">2</td><td class="lvl-mid">1 413</td><td class="lvl-mid">302</td><td class="lvl-mid">200</td></tr></tbody></table></div></div>
+<div class="chart-card">
+  <h3>Top 10 – Accélérations (count)</h3>
+  <div id="chart_2" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Top 10 – Décélérations (count)</h3>
+  <div id="chart_3" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Martin Adeline domine le volume HSR (2 856 m) avec 368 accélérations et 467 décélérations. Miro Muheim (2 698 m HSR, 474 accél.) et Shafiq Nandja (2 231 m, 426 accél.) complètent le podium. Nicolai Remberg affiche le pic de décélérations (596) malgré un HSR modéré (1 795 m).</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>ACWR &amp; Charge – Historique insuffisant</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Monotonie &amp; Strain – Joueurs actifs (n ≥ 4 sessions)</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Poste</th><th>N</th><th>Monotonie</th><th>Strain</th><th>Cumul 7j</th></tr></thead><tbody><tr><td class="">Martin Adeline</td><td class="">MIDFIELDER</td><td class="">5</td><td class="lvl-hi">1</td><td class="lvl-hi">15 229</td><td class="lvl-mid">39 583</td></tr><tr><td class="">Kofi Amoako</td><td class="">MIDFIELDER</td><td class="">5</td><td class="lvl-hi">1</td><td class="lvl-lo">4 719</td><td class="lvl-mid">51 172</td></tr><tr><td class="">Sebastiaan Bornauw</td><td class="">DEFENDER</td><td class="">6</td><td class="lvl-hi">1</td><td class="lvl-hi">12 278</td><td class="lvl-lo">13 231</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">CENTRAL DEFENDER</td><td class="">6</td><td class="lvl-hi">1</td><td class="lvl-mid">5 445</td><td class="lvl-hi">67 166</td></tr><tr><td class="">Albert Grønbæk</td><td class="">WINGER</td><td class="">3</td><td class="lvl-hi">1</td><td class="lvl-lo">1 455</td><td class="lvl-mid">43 180</td></tr><tr><td class="">Bakery Jatta</td><td class="">WINGER</td><td class="">3</td><td class="">—</td><td class="">—</td><td class="lvl-hi">80 383</td></tr><tr><td class="">Terem Moffi</td><td class="">MIDFIELDER</td><td class="">5</td><td class="lvl-hi">1</td><td class="lvl-lo">1 681</td><td class="lvl-lo">22 276</td></tr><tr><td class="">Miro Muheim</td><td class="">FULL BACK</td><td class="">6</td><td class="lvl-hi">1</td><td class="lvl-lo">3 802</td><td class="lvl-mid">49 108</td></tr><tr><td class="">Bilal Nadir</td><td class="">MIDFIELDER</td><td class="">6</td><td class="lvl-hi">1</td><td class="lvl-hi">17 550</td><td class="lvl-hi">57 372</td></tr><tr><td class="">Shafiq Nandja</td><td class="">MIDFIELDER</td><td class="">5</td><td class="lvl-hi">1</td><td class="lvl-hi">14 013</td><td class="lvl-hi">97 061</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">STRIKER</td><td class="">6</td><td class="lvl-hi">1</td><td class="lvl-mid">7 299</td><td class="lvl-lo">34 075</td></tr><tr><td class="">Nicolai Remberg</td><td class="">DEFENSIVE MIDFIELDER</td><td class="">6</td><td class="lvl-hi">1</td><td class="lvl-mid">5 502</td><td class="lvl-lo">29 993</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">WINGER</td><td class="">4</td><td class="lvl-hi">1</td><td class="lvl-mid">5 309</td><td class="lvl-mid">49 265</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">CENTRAL MIDFIELDER</td><td class="">6</td><td class="lvl-hi">1</td><td class="lvl-mid">8 395</td><td class="lvl-mid">56 144</td></tr><tr><td class="">Otto Stange</td><td class="">STRIKER</td><td class="">1</td><td class="">—</td><td class="">—</td><td class="lvl-hi">58 152</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">CENTRAL DEFENDER</td><td class="">4</td><td class="lvl-hi">1</td><td class="lvl-lo">4 629</td><td class="lvl-hi">69 150</td></tr><tr><td class="">Fábio Vieira</td><td class="">CENTRAL MIDFIELDER</td><td class="">4</td><td class="lvl-hi">1</td><td class="lvl-hi">10 970</td><td class="lvl-hi">58 370</td></tr><tr><td class="">Mario Vušković</td><td class="">CENTRAL DEFENDER</td><td class="">5</td><td class="lvl-hi">1</td><td class="lvl-hi">11 924</td><td class="lvl-lo">21 752</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>ACWR EWMA indisponible pour tous les joueurs (historique chronique &lt; 21 jours). Monotonie élevée : Martin Adeline (1.29), Sebastiaan Bornauw (0.93), Mario Vušković (0.89) – vigilance sur la variabilité de charge. Strain maximal : Adeline (15 229), Nandja (14 013), Bornauw (12 278).</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Croisement GPS × Wellness</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Top 12 HSR – Courbatures &amp; humeur</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Poste</th><th>High speed running (absolute)</th><th>Accelerations (relative)</th><th>Decelerations (relative)</th><th>Courbatures</th><th>Humeur</th><th>N jours</th></tr></thead><tbody><tr><td class="">Martin Adeline</td><td class="">MIDFIELDER</td><td class="lvl-hi">2 856</td><td class="lvl-mid">368</td><td class="lvl-hi">467</td><td class="lvl-lo">16</td><td class="lvl-mid">14</td><td class="">4</td></tr><tr><td class="">Miro Muheim</td><td class="">FULL BACK</td><td class="lvl-hi">2 698</td><td class="lvl-hi">474</td><td class="lvl-hi">432</td><td class="lvl-mid">20</td><td class="lvl-hi">20</td><td class="">2</td></tr><tr><td class="">Shafiq Nandja</td><td class="">MIDFIELDER</td><td class="lvl-hi">2 231</td><td class="lvl-hi">426</td><td class="lvl-hi">361</td><td class="lvl-hi">27</td><td class="lvl-hi">21</td><td class="">4</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">CENTRAL MIDFIELDER</td><td class="lvl-hi">1 907</td><td class="lvl-mid">354</td><td class="lvl-lo">223</td><td class="lvl-mid">20</td><td class="lvl-lo">10</td><td class="">3</td></tr><tr><td class="">Nicolai Remberg</td><td class="">DEFENSIVE MIDFIELDER</td><td class="lvl-hi">1 795</td><td class="lvl-hi">420</td><td class="lvl-hi">596</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">WINGER</td><td class="lvl-mid">1 744</td><td class="lvl-hi">446</td><td class="lvl-hi">360</td><td class="lvl-hi">30</td><td class="lvl-hi">20</td><td class="">3</td></tr><tr><td class="">Kofi Amoako</td><td class="">MIDFIELDER</td><td class="lvl-mid">1 471</td><td class="lvl-lo">306</td><td class="lvl-lo">231</td><td class="lvl-hi">32</td><td class="lvl-hi">29</td><td class="">4</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">STRIKER</td><td class="lvl-mid">1 423</td><td class="lvl-mid">370</td><td class="lvl-mid">277</td><td class="lvl-lo">13</td><td class="lvl-lo">10</td><td class="">3</td></tr><tr><td class="">Sebastiaan Bornauw</td><td class="">DEFENDER</td><td class="lvl-mid">1 310</td><td class="lvl-hi">399</td><td class="lvl-mid">339</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">CENTRAL DEFENDER</td><td class="lvl-lo">1 248</td><td class="lvl-lo">246</td><td class="lvl-mid">247</td><td class="lvl-lo">15</td><td class="lvl-mid">16</td><td class="">3</td></tr><tr><td class="">Bilal Nadir</td><td class="">MIDFIELDER</td><td class="lvl-lo">1 041</td><td class="lvl-lo">307</td><td class="lvl-lo">241</td><td class="lvl-hi">24</td><td class="lvl-hi">22</td><td class="">4</td></tr><tr><td class="">Mario Vušković</td><td class="">CENTRAL DEFENDER</td><td class="lvl-lo">941</td><td class="lvl-mid">357</td><td class="lvl-mid">329</td><td class="lvl-mid">17</td><td class="lvl-lo">10</td><td class="">3</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Kofi Amoako (1 471 m HSR, 306 accél.) rapporte courbatures 31.5 et humeur 28.5 (échelle 10–60) – charge modérée mais ressenti élevé. Alexander Røssing-Lelesiit (1 744 m, 446 accél.) : courbatures 30.0. Shafiq Nandja (2 231 m, 426 accél.) : courbatures 27.3, humeur 21.3 – volume élevé avec ressenti notable. Martin Ad…</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Martin Adeline</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/9188fca4-ad94-4954-abfc-8e0c3c2abcad.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T005357Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=7ab7fa325ca99cbf6f4cd891e75ba003ccc122294e098c3825b45decbccfda70&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">MA</div></div><div><div class="name">Martin Adeline</div><div class="meta">MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Profil – Martin Adeline</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Poste</th><th>N</th><th>High speed running (absolute)</th><th>Accelerations (relative)</th><th>Decelerations (relative)</th><th>Monotonie</th><th>Strain</th><th>Courbatures</th><th>Humeur</th></tr></thead><tbody><tr><td class="">Martin Adeline</td><td class="">MIDFIELDER</td><td class="">5</td><td class="lvl-hi">2 856</td><td class="lvl-mid">368</td><td class="lvl-hi">467</td><td class="lvl-hi">1</td><td class="lvl-hi">15 229</td><td class="lvl-lo">16</td><td class="lvl-mid">14</td></tr><tr><td class="">Miro Muheim</td><td class="">FULL BACK</td><td class="">6</td><td class="lvl-hi">2 698</td><td class="lvl-hi">474</td><td class="lvl-hi">432</td><td class="lvl-hi">1</td><td class="lvl-lo">3 802</td><td class="lvl-mid">20</td><td class="lvl-hi">20</td></tr><tr><td class="">Shafiq Nandja</td><td class="">MIDFIELDER</td><td class="">5</td><td class="lvl-hi">2 231</td><td class="lvl-hi">426</td><td class="lvl-hi">361</td><td class="lvl-hi">1</td><td class="lvl-hi">14 013</td><td class="lvl-hi">27</td><td class="lvl-hi">21</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">CENTRAL MIDFIELDER</td><td class="">6</td><td class="lvl-hi">1 907</td><td class="lvl-mid">354</td><td class="lvl-lo">223</td><td class="lvl-hi">1</td><td class="lvl-mid">8 395</td><td class="lvl-mid">20</td><td class="lvl-lo">10</td></tr><tr><td class="">Nicolai Remberg</td><td class="">DEFENSIVE MIDFIELDER</td><td class="">6</td><td class="lvl-hi">1 795</td><td class="lvl-hi">420</td><td class="lvl-hi">596</td><td class="lvl-hi">1</td><td class="lvl-mid">5 502</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">WINGER</td><td class="">4</td><td class="lvl-mid">1 744</td><td class="lvl-hi">446</td><td class="lvl-hi">360</td><td class="lvl-hi">1</td><td class="lvl-lo">5 309</td><td class="lvl-hi">30</td><td class="lvl-hi">20</td></tr><tr><td class="">Kofi Amoako</td><td class="">MIDFIELDER</td><td class="">5</td><td class="lvl-mid">1 471</td><td class="lvl-lo">306</td><td class="lvl-lo">231</td><td class="lvl-hi">1</td><td class="lvl-lo">4 719</td><td class="lvl-hi">32</td><td class="lvl-hi">29</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">STRIKER</td><td class="">6</td><td class="lvl-mid">1 423</td><td class="lvl-mid">370</td><td class="lvl-mid">277</td><td class="lvl-hi">1</td><td class="lvl-mid">7 299</td><td class="lvl-lo">13</td><td class="lvl-lo">10</td></tr><tr><td class="">Sebastiaan Bornauw</td><td class="">DEFENDER</td><td class="">6</td><td class="lvl-mid">1 310</td><td class="lvl-hi">399</td><td class="lvl-mid">339</td><td class="lvl-hi">1</td><td class="lvl-hi">12 278</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">CENTRAL DEFENDER</td><td class="">6</td><td class="lvl-lo">1 248</td><td class="lvl-lo">246</td><td class="lvl-mid">247</td><td class="lvl-hi">1</td><td class="lvl-mid">5 445</td><td class="lvl-lo">15</td><td class="lvl-mid">16</td></tr><tr><td class="">Bilal Nadir</td><td class="">MIDFIELDER</td><td class="">6</td><td class="lvl-lo">1 041</td><td class="lvl-lo">307</td><td class="lvl-lo">241</td><td class="lvl-hi">1</td><td class="lvl-hi">17 550</td><td class="lvl-hi">24</td><td class="lvl-hi">22</td></tr><tr><td class="">Mario Vušković</td><td class="">CENTRAL DEFENDER</td><td class="">5</td><td class="lvl-lo">941</td><td class="lvl-mid">357</td><td class="lvl-mid">329</td><td class="lvl-hi">1</td><td class="lvl-hi">11 924</td><td class="lvl-mid">17</td><td class="lvl-lo">10</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Monotonie 1.29 (la plus élevée du groupe) + Strain 15 229 + pic HSR 2 856 m + 467 décélérations. Courbatures faibles (16.3) mais humeur basse (13.8). Vigilance sur la variabilité de charge – envisager rotation ou modulation intensité.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5">
+  <div class="band">
+    <h1>Kofi Amoako</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/32fb3017-7fbf-4467-b5df-c49b54feae31.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T005357Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=2e92a2d1a1ce7a04b16eca094b800a019b1b45ea529208ca45576b32f753d324&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">KA</div></div><div><div class="name">Kofi Amoako</div><div class="meta">MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Profil – Kofi Amoako</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Poste</th><th>N</th><th>High speed running (absolute)</th><th>Accelerations (relative)</th><th>Decelerations (relative)</th><th>Monotonie</th><th>Strain</th><th>Courbatures</th><th>Humeur</th></tr></thead><tbody><tr><td class="">Kofi Amoako</td><td class="">MIDFIELDER</td><td class="">5</td><td class="">1 471</td><td class="">306</td><td class="">231</td><td class="">1</td><td class="">4 719</td><td class="">32</td><td class="">29</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>HSR modéré (1 471 m) mais courbatures 31.5 et humeur 28.5 – ressenti élevé par rapport au volume GPS. Monotonie 0.85, Strain 4 719. Signal de récupération insuffisante ou sensibilité individuelle – considérer jour de repos actif.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-6">
+  <div class="band">
+    <h1>Shafiq Nandja</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/c053a060-d5ab-43dc-bec0-6fe24b81cb1a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T005357Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=5c3aa2762add3d702a20575bd34770d38e0ec5db12825f9b17513130e316809a&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">SN</div></div><div><div class="name">Shafiq Nandja</div><div class="meta">MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Profil – Shafiq Nandja</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Poste</th><th>N</th><th>High speed running (absolute)</th><th>Accelerations (relative)</th><th>Decelerations (relative)</th><th>Monotonie</th><th>Strain</th><th>Courbatures</th><th>Humeur</th></tr></thead><tbody><tr><td class="">Shafiq Nandja</td><td class="">MIDFIELDER</td><td class="">5</td><td class="">2 231</td><td class="">426</td><td class="">361</td><td class="">1</td><td class="">14 013</td><td class="">27</td><td class="">21</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>HSR élevé (2 231 m, 3e du groupe) + 426 accélérations + Strain 14 013. Courbatures 27.3, humeur 21.3. Cumul 7j : 97 061 (le plus élevé). Convergence GPS–wellness : surveiller évolution fatigue et envisager allègement volume.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-7">
+  <div class="band">
+    <h1>Miro Muheim</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2ca095e4-97bf-4b4a-af95-2b877e97cfae.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T005357Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=bd1f78483aa05d5887adbad862e360eefd65ba554e2f0e1f14e8e5149f1154c0&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">MM</div></div><div><div class="name">Miro Muheim</div><div class="meta">FULL BACK</div></div></div>
+  <div class="section-body"><div class="card"><h3>Profil – Miro Muheim</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Poste</th><th>N</th><th>High speed running (absolute)</th><th>Accelerations (relative)</th><th>Decelerations (relative)</th><th>Monotonie</th><th>Strain</th><th>Courbatures</th><th>Humeur</th></tr></thead><tbody><tr><td class="">Miro Muheim</td><td class="">FULL BACK</td><td class="">6</td><td class="">2 698</td><td class="">474</td><td class="">432</td><td class="">1</td><td class="">3 802</td><td class="">20</td><td class="">20</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>HSR 2 698 m (2e), 474 accélérations (pic du groupe), 432 décélérations. Monotonie basse (0.54), Strain 3 802. Courbatures 20.0, humeur 20.0 – profil équilibré. Tolérance apparente au volume élevé mais maintenir vigilance sur cumul.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-7</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-8">
+  <div class="band">
+    <h1>Alexander Røssing-Lelesiit</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/8d714cfa-f70e-45e9-82fd-fdc96c8712c6.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T005357Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=785bf5e56b10bbc392516335cb01861f97e2350908e507e84ac38eb4f4bfd6d5&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">AR</div></div><div><div class="name">Alexander Røssing-Lelesiit</div><div class="meta">WINGER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Profil – Alexander Røssing-Lelesiit</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Poste</th><th>N</th><th>High speed running (absolute)</th><th>Accelerations (relative)</th><th>Decelerations (relative)</th><th>Monotonie</th><th>Strain</th><th>Courbatures</th><th>Humeur</th></tr></thead><tbody><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">WINGER</td><td class="">4</td><td class="">1 744</td><td class="">446</td><td class="">360</td><td class="">1</td><td class="">5 309</td><td class="">30</td><td class="">20</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>HSR 1 744 m, 446 accélérations (4e du groupe), 360 décélérations. Courbatures 30.0, humeur 20.0. Monotonie 0.55, Strain 5 309. Convergence accélérations élevées + ressenti notable – surveiller récupération musculaire.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-8</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-9">
+  <div class="band">
+    <h1>Synthèse – Liste de vigilance</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><ul><li>ACWR indisponible (historique &lt; 21j). Vigilance prioritaire : Martin Adeline (monotonie + volume), Kofi Amoako (ressenti élevé vs charge modérée), Shafiq Nandja (cumul + HSR + wellness). Postes à risque : milieux de terrain (3/5 watchlist). Aucun signal d'alerte immédiate mais maintenir suivi quotidien.</li></ul></div>
+<div class="card"><h3>Liste de vigilance – Convergence GPS × Wellness</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Poste</th><th>Signaux</th><th>Niveau</th></tr></thead><tbody><tr><td class="">Martin Adeline</td><td class="">MIDFIELDER</td><td class="">Monotonie 1.29 + Strain 15229 + HSR 2856m + 467 décél.</td><td class="">Watch</td></tr><tr><td class="">Kofi Amoako</td><td class="">MIDFIELDER</td><td class="">Courbatures 31.5 + humeur 28.5 vs HSR modéré (1471m)</td><td class="">Watch</td></tr><tr><td class="">Shafiq Nandja</td><td class="">MIDFIELDER</td><td class="">HSR 2231m + cumul 97061 + courbatures 27.3 + Strain 14013</td><td class="">Watch</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">WINGER</td><td class="">446 accélérations + courbatures 30.0</td><td class="">Review</td></tr><tr><td class="">Miro Muheim</td><td class="">FULL BACK</td><td class="">HSR 2698m + 474 accél. – tolérance apparente OK</td><td class="">Info</td></tr></tbody></table></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-9</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Top 10 – Volume HSR (m)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"High speed running (absolute)","type":"bar","encode":{"x":"Joueur","y":"High speed running (absolute)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1868.3,"name":"Moyenne","label":{"formatter":"Moyenne 1 868,3","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Joueur","Poste","Photo Url","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL"],["Martin Adeline","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/9188fca4-ad94-4954-abfc-8e0c3c2abcad.png",null,null,null,1,15229,null,39583,5,37954,47543,9926,4961,2856,762,41,7070,48,368,467,1932],["Miro Muheim","FULL BACK","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2ca095e4-97bf-4b4a-af95-2b877e97cfae.png",null,null,null,1,3802,null,49108,6,42075,43628,7885,4595,2698,961,43,5187,50,474,432,1213],["Shafiq Nandja","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/c053a060-d5ab-43dc-bec0-6fe24b81cb1a.png",null,null,null,1,14013,null,97061,5,38876,38923,6917,4271,2231,651,28,4687,23,426,361,841],["Albert Sambi Lokonga","CENTRAL MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3bc9009-f865-4563-a61d-a97a8771ef04.png",null,null,null,1,8395,null,56144,6,43340,42597,7033,4488,1907,326,15,5124,23,354,223,1330],["Nicolai Remberg","DEFENSIVE MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/3447c68c-00e6-4b28-9e21-5a0385d1a9fe.png",null,null,null,1,5502,null,29993,6,44518,50863,8594,6034,1795,331,16,6801,56,420,596,2112],["Alexander Røssing-Lelesiit","WINGER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/8d714cfa-f70e-45e9-82fd-fdc96c8712c6.png",null,null,null,1,5309,null,49265,4,28669,29945,5922,2780,1744,268,18,4178,47,446,360,773],["Kofi Amoako","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/32fb3017-7fbf-4467-b5df-c49b54feae31.png",null,null,null,1,4719,null,51172,5,37832,30094,4844,3225,1471,363,18,3374,32,306,231,1108],["Yussuf Poulsen","STRIKER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/bbd75f0b-8dd1-4ff0-b3f4-5d07e8559076.png",null,null,null,1,7299,null,34075,6,37333,31841,5508,3641,1423,359,12,4086,14,370,277,503],["Sebastiaan Bornauw","DEFENDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2edab964-2480-4c09-9e7c-f3fdfd9e2ad3.png",null,null,null,1,12278,null,13231,6,44885,41419,6166,4826,1310,368,16,4857,16,399,339,1171],["Nicolás Capaldo","CENTRAL DEFENDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/700a4802-79ef-47e8-ac87-42b835181cd8.png",null,null,null,1,5445,null,67166,6,37161,29705,4298,2881,1248,213,14,3049,28,246,247,1139]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"Top 10 – Accélérations (count)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Accelerations (relative)","type":"bar","encode":{"x":"Joueur","y":"Accelerations (relative)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":392.1,"name":"Moyenne","label":{"formatter":"Moyenne 392,1","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Joueur","Poste","Photo Url","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL"],["Miro Muheim","FULL BACK","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2ca095e4-97bf-4b4a-af95-2b877e97cfae.png",null,null,null,1,3802,null,49108,6,42075,43628,7885,4595,2698,961,43,5187,50,474,432,1213],["Alexander Røssing-Lelesiit","WINGER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/8d714cfa-f70e-45e9-82fd-fdc96c8712c6.png",null,null,null,1,5309,null,49265,4,28669,29945,5922,2780,1744,268,18,4178,47,446,360,773],["Shafiq Nandja","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/c053a060-d5ab-43dc-bec0-6fe24b81cb1a.png",null,null,null,1,14013,null,97061,5,38876,38923,6917,4271,2231,651,28,4687,23,426,361,841],["Nicolai Remberg","DEFENSIVE MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/3447c68c-00e6-4b28-9e21-5a0385d1a9fe.png",null,null,null,1,5502,null,29993,6,44518,50863,8594,6034,1795,331,16,6801,56,420,596,2112],["Sebastiaan Bornauw","DEFENDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2edab964-2480-4c09-9e7c-f3fdfd9e2ad3.png",null,null,null,1,12278,null,13231,6,44885,41419,6166,4826,1310,368,16,4857,16,399,339,1171],["Yussuf Poulsen","STRIKER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/bbd75f0b-8dd1-4ff0-b3f4-5d07e8559076.png",null,null,null,1,7299,null,34075,6,37333,31841,5508,3641,1423,359,12,4086,14,370,277,503],["Martin Adeline","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/9188fca4-ad94-4954-abfc-8e0c3c2abcad.png",null,null,null,1,15229,null,39583,5,37954,47543,9926,4961,2856,762,41,7070,48,368,467,1932],["Mario Vušković","CENTRAL DEFENDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/36fead24-f082-42fc-b294-53aefce14b18.png",null,null,null,1,11924,null,21752,5,36228,36615,5210,4208,941,271,10,4268,28,357,329,901],["Albert Sambi Lokonga","CENTRAL MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3bc9009-f865-4563-a61d-a97a8771ef04.png",null,null,null,1,8395,null,56144,6,43340,42597,7033,4488,1907,326,15,5124,23,354,223,1330],["Bilal Nadir","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b6fba227-3a1b-4cf6-b47b-eed7be07db90.png",null,null,null,1,17550,null,57372,6,39394,32658,4548,3398,1041,305,17,3507,20,307,241,908]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3","title":"Top 10 – Décélérations (count)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Decelerations (relative)","type":"bar","encode":{"x":"Joueur","y":"Decelerations (relative)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":364.9,"name":"Moyenne","label":{"formatter":"Moyenne 364,9","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Joueur","Poste","Photo Url","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL"],["Nicolai Remberg","DEFENSIVE MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/3447c68c-00e6-4b28-9e21-5a0385d1a9fe.png",null,null,null,1,5502,null,29993,6,44518,50863,8594,6034,1795,331,16,6801,56,420,596,2112],["Martin Adeline","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/9188fca4-ad94-4954-abfc-8e0c3c2abcad.png",null,null,null,1,15229,null,39583,5,37954,47543,9926,4961,2856,762,41,7070,48,368,467,1932],["Miro Muheim","FULL BACK","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2ca095e4-97bf-4b4a-af95-2b877e97cfae.png",null,null,null,1,3802,null,49108,6,42075,43628,7885,4595,2698,961,43,5187,50,474,432,1213],["Shafiq Nandja","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/c053a060-d5ab-43dc-bec0-6fe24b81cb1a.png",null,null,null,1,14013,null,97061,5,38876,38923,6917,4271,2231,651,28,4687,23,426,361,841],["Alexander Røssing-Lelesiit","WINGER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/8d714cfa-f70e-45e9-82fd-fdc96c8712c6.png",null,null,null,1,5309,null,49265,4,28669,29945,5922,2780,1744,268,18,4178,47,446,360,773],["Sebastiaan Bornauw","DEFENDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2edab964-2480-4c09-9e7c-f3fdfd9e2ad3.png",null,null,null,1,12278,null,13231,6,44885,41419,6166,4826,1310,368,16,4857,16,399,339,1171],["Mario Vušković","CENTRAL DEFENDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/36fead24-f082-42fc-b294-53aefce14b18.png",null,null,null,1,11924,null,21752,5,36228,36615,5210,4208,941,271,10,4268,28,357,329,901],["Yussuf Poulsen","STRIKER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/bbd75f0b-8dd1-4ff0-b3f4-5d07e8559076.png",null,null,null,1,7299,null,34075,6,37333,31841,5508,3641,1423,359,12,4086,14,370,277,503],["Nicolás Capaldo","CENTRAL DEFENDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/700a4802-79ef-47e8-ac87-42b835181cd8.png",null,null,null,1,5445,null,67166,6,37161,29705,4298,2881,1248,213,14,3049,28,246,247,1139],["Bilal Nadir","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b6fba227-3a1b-4cf6-b47b-eed7be07db90.png",null,null,null,1,17550,null,57372,6,39394,32658,4548,3398,1041,305,17,3507,20,307,241,908]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Monitoring Report – March 2026</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a2748;
+      --navy-2: #123a66;
+      --blue: #1d4ed8;
+      --blue-soft: #dbeafe;
+      --steel: #334155;
+      --line: #cbd5e1;
+      --paper: #f1f5f9;
+      --ink: #0f172a;
+      --amber: #b45309;
+      --red: #b91c1c;
+      --ok: #0f766e;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .page {
+      width: 210mm; min-height: 297mm; margin: 0 auto;
+      position: relative; page-break-after: always; break-after: page; overflow: hidden;
+    }
+    .page:last-child { page-break-after: auto; }
+    .cover { padding: 12mm; background: #fff; }
+    .cover-panel {
+      min-height: calc(297mm - 24mm);
+      background: linear-gradient(165deg, #0a2748 0%, #123a66 42%, #1e3a5f 70%, #0c4a6e 100%);
+      border-radius: 8px; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; padding: 22mm 18mm 16mm; color: #fff;
+    }
+    .cover-panel::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(56,189,248,.22), transparent 42%),
+        radial-gradient(circle at 10% 80%, rgba(29,78,216,.28), transparent 45%);
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .07; font-size: 92px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; pointer-events: none;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+    .season { z-index: 1; color: #7dd3fc; font-weight: 600; font-size: 15px; letter-spacing: .08em; }
+    .cover-title {
+      z-index: 1; margin: 14px 0 0; max-width: 165mm;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; line-height: 1.15;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 16px; align-self: flex-start;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(125,211,252,.45);
+      color: #e0f2fe; font-weight: 600; padding: 8px 14px; border-radius: 4px; font-size: 13px;
+    }
+    .comment-card {
+      z-index: 1; margin-top: 28px; width: min(165mm, 100%);
+      background: rgba(255,255,255,.96); color: var(--ink);
+      border-radius: 6px; padding: 18px 20px; position: relative; min-height: 68mm;
+      box-shadow: 0 20px 50px rgba(2,8,23,.35);
+    }
+    .comment-card::before, .comment-card::after {
+      content: ""; position: absolute; width: 36px; height: 36px; border-color: #0284c7; border-style: solid;
+    }
+    .comment-card::before { left: 0; bottom: 0; border-width: 0 0 4px 4px; }
+    .comment-card::after { right: 0; top: 0; border-width: 4px 4px 0 0; }
+    .comment-label {
+      color: #0369a1; font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+    }
+    .comment-body { margin-top: 10px; color: #1e293b; font-size: 13px; line-height: 1.55; white-space: pre-wrap; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #bae6fd; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 13mm 13mm 18mm; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #0a2748, #123a66 55%, #1d4ed8);
+      color: #fff; border-radius: 6px; padding: 11px 14px; margin-bottom: 14px;
+    }
+    .band h1 {
+      margin: 0; font-size: 15px; letter-spacing: .05em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+    .band .meta { color: #bae6fd; font-size: 11px; font-weight: 600; }
+    .toc-title { color: var(--navy); font-size: 20px; font-weight: 700; margin: 0 0 12px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 7px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: #f8fafc; border: 1px solid var(--line); border-left: 4px solid #1d4ed8;
+      border-radius: 6px; padding: 11px 13px; color: var(--navy); font-weight: 600;
+    }
+    .toc-list a:hover { background: var(--blue-soft); }
+    .toc-list .hint { color: #64748b; font-size: 11px; font-weight: 600; }
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+    .kpi {
+      border-radius: 8px; padding: 12px; color: #fff; min-height: 76px;
+      background: linear-gradient(145deg, #0a2748, #1d4ed8);
+      box-shadow: 0 8px 18px rgba(15,23,42,.12);
+    }
+    .kpi.c1 { background: linear-gradient(145deg, #0c4a6e, #0284c7); }
+    .kpi.c2 { background: linear-gradient(145deg, #1e3a8a, #2563eb); }
+    .kpi.c3 { background: linear-gradient(145deg, #334155, #475569); }
+    .kpi .label { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; opacity: .9; font-weight: 700; }
+    .kpi .value { margin-top: 6px; font-size: 21px; font-weight: 700; line-height: 1.1; }
+    .kpi .sub { margin-top: 4px; font-size: 10px; opacity: .9; }
+    .section-title {
+      margin: 8px 0 10px; color: var(--navy); font-size: 14px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase;
+      border-left: 4px solid #1d4ed8; padding-left: 10px;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+    .prose { color: #334155; font-size: 12.5px; line-height: 1.55; white-space: pre-wrap; margin: 0 0 12px; }
+    .card {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px;
+      margin-bottom: 12px; box-shadow: 0 4px 14px rgba(15,23,42,.04);
+    }
+    .card h3 {
+      margin: 0 0 8px; color: var(--navy); font-size: 11px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase;
+    }
+    .chart-box { width: 100%; height: 300px; }
+    .chart-box.radar { height: 340px; }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table th {
+      background: linear-gradient(90deg, #0a2748, #1d4ed8); color: #fff;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e2e8f0; padding: 6px 8px; }
+    table.report-table tr:nth-child(even) td { background: #f8fafc; }
+    .risk-hi { background: #fecaca !important; color: #991b1b; font-weight: 700; }
+    .risk-mid { background: #fde68a !important; color: #92400e; font-weight: 700; }
+    .risk-ok { background: #ccfbf1 !important; color: #115e59; font-weight: 600; }
+    .legend {
+      margin: 0 0 10px; font-size: 10px; color: #64748b;
+    }
+    .legend span { display: inline-block; margin-right: 10px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #fff;
+      background: linear-gradient(90deg, #0a2748, #1d4ed8);
+    }
+    .chip.empty { background: #94a3b8; text-decoration: line-through; }
+    .footer {
+      position: absolute; left: 13mm; right: 13mm; bottom: 8mm;
+      display: flex; justify-content: space-between; color: #64748b;
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+    }
+    .note {
+      background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px;
+      padding: 10px 12px; color: #1e3a8a; font-size: 11px; margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Sunderland</div>
+      <div class="season">2025-2026</div>
+      <h1 class="cover-title">Monitoring Report – March 2026</h1>
+      <div class="date-pill">Tue, 31/03/26 · 2026-03-01 → 2026-03-31</div>
+      <div class="comment-card">
+        <div class="comment-label">Monitoring comment</div>
+        <div class="comment-body">ACWR spikes on O Nien (1.42) warrant review before next session. Ballard underloading (0.72).</div>
+      </div>
+      <div class="chip-row" style="z-index:1;margin-top:14px">
+        <span class="chip">gps</span><span class="chip">load</span>
+        <span class="chip empty">wellness</span>
+      </div>
+      <div class="club-mark">Sunderland · MAUNA</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Interactive contents</h1>
+      <div class="meta">Sunderland</div>
+    </div>
+    <h2 class="toc-title">Monitoring Report – March 2026</h2>
+    <p class="note">Descriptive monitoring — not injury prediction. Table colours encode risk vs individual norms, not magnitude alone.</p>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#section-1"><span>02 · Headline</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>03 · Squad overview</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>04 · Watchlist</span><span class="hint">§3</span></a></li>
+    </ol>
+    <div class="card" style="margin-top:14px"><h3>Coach brief</h3><p class="prose" style="margin:0">Weekly monitoring March 2026</p></div>
+    <div class="footer"><span>Sunderland · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="section-1">
+  <div class="band">
+    <h1>Headline</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <p class="prose">• O Nien ACWR 1.42 — review
+• Squad HSR +12% vs Feb</p>
+  <div class="footer">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</section>
+
+<section class="page content-page" id="section-2">
+  <div class="band">
+    <h1>Squad overview</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="card"><h3>Daily player load</h3><div class="legend"><span><i class="swatch" style="background:#fecaca"></i>above normal — review</span><span><i class="swatch" style="background:#fde68a"></i>watch</span><span><i class="swatch" style="background:#ccfbf1"></i>in range</span></div><table class="report-table"><thead><tr><th>date_of_day</th><th>joueur</th><th>player_load</th></tr></thead><tbody><tr><td class="">2026-03-01</td><td class="">Luke O Nien</td><td class="">220</td></tr><tr><td class="">2026-03-02</td><td class="">Luke O Nien</td><td class="">180</td></tr><tr><td class="">2026-03-03</td><td class="">Luke O Nien</td><td class="">310</td></tr><tr><td class="">2026-03-01</td><td class="">Chris Rigg</td><td class="">200</td></tr><tr><td class="">2026-03-02</td><td class="">Chris Rigg</td><td class="">150</td></tr><tr><td class="">2026-03-03</td><td class="">Chris Rigg</td><td class="">280</td></tr><tr><td class="">2026-03-01</td><td class="">Noah Sadiki</td><td class="">190</td></tr><tr><td class="">2026-03-02</td><td class="">Noah Sadiki</td><td class="">210</td></tr><tr><td class="">2026-03-03</td><td class="">Noah Sadiki</td><td class="">240</td></tr></tbody></table></div>
+  <div class="footer">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</section>
+
+<section class="page content-page" id="section-3">
+  <div class="band">
+    <h1>Watchlist</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="card"><h3>Ranking · HSR</h3><div id="auto_chart_1" class="chart-box"></div></div>
+<div class="card"><h3>Multi-metric profile radar</h3><div id="auto_chart_2" class="chart-box radar"></div></div>
+<div class="card"><h3>Period profile</h3><div class="legend"><span><i class="swatch" style="background:#fecaca"></i>above normal — review</span><span><i class="swatch" style="background:#fde68a"></i>watch</span><span><i class="swatch" style="background:#ccfbf1"></i>in range</span></div><table class="report-table"><thead><tr><th>Player</th><th>player_load</th><th>HSR</th><th>ACWR</th><th>Energy</th></tr></thead><tbody><tr><td class="">Luke O Nien</td><td class="">15724</td><td class="risk-hi">8200</td><td class="risk-hi">1.42</td><td class="risk-hi">6.2</td></tr><tr><td class="">Chris Rigg</td><td class="">14325</td><td class="risk-mid">7100</td><td class="risk-mid">1.28</td><td class="risk-ok">6.8</td></tr><tr><td class="">Daniel Ballard</td><td class="">6883</td><td class="risk-ok">4100</td><td class="risk-ok">0.72</td><td class="risk-hi">5.2</td></tr><tr><td class="">Eliezer Mayenda</td><td class="">11085</td><td class="risk-mid">6500</td><td class="risk-mid">1.05</td><td class="risk-ok">7.4</td></tr></tbody></table></div>
+  <div class="footer">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</section>
+
+  <script>
+    const charts = [{"id":"auto_chart_1","title":"Ranking · HSR","option":{"color":["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"],"tooltip":{"trigger":"axis","axisPointer":{"type":"shadow"}},"grid":{"left":8,"right":28,"top":20,"bottom":8,"containLabel":true},"xAxis":{"type":"value","axisLabel":{"color":"#64748b"},"splitLine":{"lineStyle":{"color":"#e2e8f0"}}},"yAxis":{"type":"category","data":["Daniel Ballard","Eliezer Mayenda","Chris Rigg","Luke O Nien"],"axisLabel":{"color":"#0f172a","fontSize":11}},"series":[{"type":"bar","data":[{"value":4100,"itemStyle":{"color":"#0b3d91","borderRadius":[0,6,6,0]}},{"value":6500,"itemStyle":{"color":"#1d4ed8","borderRadius":[0,6,6,0]}},{"value":7100,"itemStyle":{"color":"#2563eb","borderRadius":[0,6,6,0]}},{"value":8200,"itemStyle":{"color":"#0284c7","borderRadius":[0,6,6,0]}}],"barMaxWidth":16,"label":{"show":true,"position":"right","color":"#334155","fontSize":10}}]}},{"id":"auto_chart_2","title":"Multi-metric profile radar","option":{"color":["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"],"tooltip":{},"legend":{"top":0,"data":["Luke O Nien","Chris Rigg","Eliezer Mayenda","Daniel Ballard"]},"radar":{"indicator":[{"name":"HSR","max":8610},{"name":"ACWR","max":1.4909999999999999},{"name":"Energy","max":7.7700000000000005}],"splitArea":{"areaStyle":{"color":["#f8fafc","#eff6ff"]}},"axisName":{"color":"#334155","fontSize":10}},"series":[{"type":"radar","data":[{"name":"Luke O Nien","value":[8200,1.42,6.2],"areaStyle":{"opacity":0.12},"lineStyle":{"width":2}},{"name":"Chris Rigg","value":[7100,1.28,6.8],"areaStyle":{"opacity":0.12},"lineStyle":{"width":2}},{"name":"Eliezer Mayenda","value":[6500,1.05,7.4],"areaStyle":{"opacity":0.12},"lineStyle":{"width":2}},{"name":"Daniel Ballard","value":[4100,0.72,5.2],"areaStyle":{"opacity":0.12},"lineStyle":{"width":2}}]}]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas' });
+        instance.setOption({
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: 'IBM Plex Sans, sans-serif', color: '#0f172a' },
+          color: ["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"],
+          ...chart.option,
+        }, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

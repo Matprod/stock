@@ -1,0 +1,1 @@
+{"version":3,"file":"club_seeder.js","sourceRoot":"","sources":["../../../database/seeders/club_seeder.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,iBAAiB,CAAA;AAClC,OAAO,EAAE,UAAU,EAAE,MAAM,yBAAyB,CAAA;AAEpD,MAAM,CAAC,OAAO,MAAO,SAAQ,UAAU;IACrC,KAAK,CAAC,GAAG;QACP,MAAM,IAAI,CAAC,MAAM,CAAC;YAChB,IAAI,EAAE,UAAU;SACjB,CAAC,CAAA;IACJ,CAAC;CACF"}

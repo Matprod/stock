@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html data-artifact="free" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hambourg – Performance & Load Monitoring (22 Sep–5 Oct 2026)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #1a1d2b;
+  --primary: #4f6ef7;
+  --lightPrimary: #74c0fc;
+  --ink: #0f1220;
+  --inkSoft: #334155;
+  --paper: #f4f6fb;
+  --line: #d7dce8;
+  --muted: #8b93a7;
+  --cherry: #E07070;
+  --cherrySoft: rgba(224,112,112,0.22);
+  --saffron: #E8B84A;
+  --saffronSoft: rgba(251,191,36,0.22);
+  --season: #a5b4fc;
+  --clubMark: #c7d2fe;
+  --commentBg: rgba(244,246,251,.98);
+  --commentBorder: rgba(165,180,252,.35);
+}
+
+body {
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--inkSoft);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.header {
+  background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), 
+              radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), 
+              linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+  color: var(--paper);
+  padding: 2.5rem 2rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.club-name {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--clubMark);
+  margin-bottom: 0.5rem;
+}
+
+.report-title {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.date-range {
+  font-size: 0.95rem;
+  color: var(--season);
+  font-weight: 500;
+}
+
+/* Navigation */
+.nav {
+  background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+  padding: 0.75rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  border-bottom: 1px solid rgba(79,110,247,0.3);
+}
+
+.nav-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  color: var(--paper);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--lightPrimary);
+  border-bottom-color: var(--lightPrimary);
+}
+
+/* Main Content */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.section {
+  margin-bottom: 3rem;
+  page-break-inside: avoid;
+}
+
+.section-title {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--primary);
+}
+
+.intro-text {
+  background: var(--commentBg);
+  border-left: 4px solid var(--primary);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--inkSoft);
+}
+
+/* Charts */
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.chart-container {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  page-break-inside: avoid;
+}
+
+.chart-title {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.chart-box {
+  width: 100%;
+  height: 280px;
+}
+
+/* Tables */
+.table-container {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  page-break-inside: avoid;
+}
+
+.table-title {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+thead {
+  background: var(--bg);
+  color: var(--paper);
+}
+
+th {
+  padding: 0.75rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+tbody tr:hover {
+  background: rgba(79,110,247,0.05);
+}
+
+.cell-highlight-volume-mid {
+  background: #C8E6D5 !important;
+}
+
+.cell-highlight-volume-high {
+  background: #2F9E6F !important;
+  color: #fff;
+  font-weight: 600;
+}
+
+.cell-highlight-risk-mid {
+  background: #F5D0A9 !important;
+}
+
+.cell-highlight-risk-high {
+  background: #E07070 !important;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(244,246,251,0.5);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: #fff;
+  }
+  
+  .header {
+    position: relative;
+    page-break-after: avoid;
+  }
+  
+  .nav {
+    display: none;
+  }
+  
+  .section {
+    page-break-inside: avoid;
+  }
+  
+  .chart-container, .table-container {
+    box-shadow: none;
+    border: 1px solid var(--line);
+    page-break-inside: avoid;
+  }
+  
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .container {
+    padding: 1rem;
+  }
+  
+  .header {
+    padding: 1.5rem 1rem;
+  }
+  
+  .nav {
+    padding: 0.5rem 1rem;
+  }
+  
+  table {
+    font-size: 0.75rem;
+  }
+  
+  th, td {
+    padding: 0.5rem;
+  }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<style id="mauna-print-css">@page { size: A4; margin: 9mm; }
+@media print {
+  .no-print, .artifact-nav, .artifact-toolbar, .table-toolbar { display: none !important; }
+  body { background: #fff !important; }
+  .chart-box { break-inside: avoid; page-break-inside: avoid; }
+  table { break-inside: auto; }
+  thead { display: table-header-group; }
+}</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-content">
+    <div class="club-name">Hambourg</div>
+    <h1 class="report-title">Performance & Load Monitoring</h1>
+    <div class="date-range">22 September – 5 October 2026</div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="nav-content">
+    <a href="#gps" class="nav-link">GPS & External Load</a>
+    <a href="#wellness" class="nav-link">Wellness & Readiness</a>
+    <a href="#sleep" class="nav-link">Sleep</a>
+    <a href="#biomarkers" class="nav-link">Biomarkers</a>
+    <a href="#load" class="nav-link">Load Patterns – sRPE</a>
+    <a href="#spotlight" class="nav-link">Individual Spotlight</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <!-- GPS & External Load -->
+  <section id="gps" class="section">
+    <h2 class="section-title">GPS & External Load</h2>
+    
+    <div class="chart-grid">
+      <div class="chart-container">
+        <div class="chart-title">Top 10 – Total Distance (22 Sep–5 Oct)</div>
+        <div class="chart-box" id="chart_1"></div>
+      </div>
+      
+      <div class="chart-container">
+        <div class="chart-title">Top 10 – Sprint Distance (22 Sep–5 Oct)</div>
+        <div class="chart-box" id="chart_2"></div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <div class="table-title">GPS Summary – All Athletes (22 Sep–5 Oct)</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>N</th>
+            <th>Total time (s)</th>
+            <th>Distance total (m)</th>
+            <th>HMLD (m)</th>
+            <th>Sprint distance (m)</th>
+            <th>Sprints (count)</th>
+            <th>Accelerations (relative)</th>
+            <th>Decelerations (relative)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alexander Røssing-Lelesiit</td>
+            <td>5</td>
+            <td>34.06</td>
+            <td>35.29</td>
+            <td class="cell-highlight-volume-high">6.97</td>
+            <td>286</td>
+            <td class="cell-highlight-volume-high">19</td>
+            <td class="cell-highlight-volume-high">561</td>
+            <td class="cell-highlight-volume-mid">458</td>
+          </tr>
+          <tr>
+            <td>Mario Vušković</td>
+            <td>8</td>
+            <td class="cell-highlight-volume-high">49.05</td>
+            <td class="cell-highlight-volume-high">54.69</td>
+            <td class="cell-highlight-volume-mid">7.05</td>
+            <td>289</td>
+            <td>11</td>
+            <td class="cell-highlight-volume-mid">496</td>
+            <td class="cell-highlight-volume-mid">449</td>
+          </tr>
+          <tr>
+            <td>Bilal Nadir</td>
+            <td>8</td>
+            <td class="cell-highlight-volume-mid">47.46</td>
+            <td>40.61</td>
+            <td>5.89</td>
+            <td>460</td>
+            <td class="cell-highlight-volume-mid">24</td>
+            <td>424</td>
+            <td>329</td>
+          </tr>
+          <tr>
+            <td>Bakery Jatta</td>
+            <td>4</td>
+            <td>26.56</td>
+            <td>24.42</td>
+            <td>3.93</td>
+            <td>387</td>
+            <td>18</td>
+            <td>306</td>
+            <td>179</td>
+          </tr>
+          <tr>
+            <td>Yussuf Poulsen</td>
+            <td>8</td>
+            <td class="cell-highlight-volume-high">50.91</td>
+            <td>41</td>
+            <td class="cell-highlight-volume-mid">7</td>
+            <td class="cell-highlight-volume-high">836</td>
+            <td class="cell-highlight-volume-mid">21</td>
+            <td class="cell-highlight-volume-high">500</td>
+            <td class="cell-highlight-volume-mid">360</td>
+          </tr>
+          <tr>
+            <td>Kofi Amoako</td>
+            <td>7</td>
+            <td class="cell-highlight-volume-mid">47.41</td>
+            <td>40.53</td>
+            <td>6.86</td>
+            <td class="cell-highlight-volume-high">775</td>
+            <td class="cell-highlight-volume-high">28</td>
+            <td class="cell-highlight-volume-mid">435</td>
+            <td>324</td>
+          </tr>
+          <tr>
+            <td>Miro Muheim</td>
+            <td>8</td>
+            <td class="cell-highlight-volume-high">51.68</td>
+            <td class="cell-highlight-volume-high">54.33</td>
+            <td class="cell-highlight-volume-high">10.08</td>
+            <td class="cell-highlight-volume-high">1.41</td>
+            <td class="cell-highlight-volume-high">55</td>
+            <td class="cell-highlight-volume-high">617</td>
+            <td class="cell-highlight-volume-high">563</td>
+          </tr>
+          <tr>
+            <td>Albert Sambi Lokonga</td>
+            <td>7</td>
+            <td class="cell-highlight-volume-mid">48.74</td>
+            <td class="cell-highlight-volume-mid">47.56</td>
+            <td class="cell-highlight-volume-mid">7.96</td>
+            <td>383</td>
+            <td>17</td>
+            <td class="cell-highlight-volume-mid">426</td>
+            <td>258</td>
+          </tr>
+          <tr>
+            <td>Fábio Vieira</td>
+            <td>6</td>
+            <td>38.82</td>
+            <td>37.8</td>
+            <td>5.87</td>
+            <td class="cell-highlight-volume-mid">732</td>
+            <td>18</td>
+            <td>360</td>
+            <td>252</td>
+          </tr>
+          <tr>
+            <td>Jordan Torunarigha</td>
+            <td>6</td>
+            <td>37.35</td>
+            <td>30.45</td>
+            <td>4.28</td>
+            <td class="cell-highlight-volume-mid">540</td>
+            <td>18</td>
+            <td>298</td>
+            <td>246</td>
+          </tr>
+          <tr>
+            <td>Nicolás Capaldo</td>
+            <td>9</td>
+            <td class="cell-highlight-volume-mid">48.78</td>
+            <td class="cell-highlight-volume-mid">43.01</td>
+            <td>6.04</td>
+            <td>297</td>
+            <td>16</td>
+            <td>306</td>
+            <td>297</td>
+          </tr>
+          <tr>
+            <td>Nicolai Remberg</td>
+            <td>6</td>
+            <td>44.52</td>
+            <td class="cell-highlight-volume-high">50.86</td>
+            <td class="cell-highlight-volume-high">8.59</td>
+            <td>331</td>
+            <td>16</td>
+            <td>420</td>
+            <td class="cell-highlight-volume-high">596</td>
+          </tr>
+          <tr>
+            <td>Martin Adeline</td>
+            <td>5</td>
+            <td>37.95</td>
+            <td class="cell-highlight-volume-mid">47.54</td>
+            <td class="cell-highlight-volume-high">9.93</td>
+            <td class="cell-highlight-volume-mid">762</td>
+            <td class="cell-highlight-volume-high">41</td>
+            <td>368</td>
+            <td class="cell-highlight-volume-high">467</td>
+          </tr>
+          <tr>
+            <td>Sebastiaan Bornauw</td>
+            <td>6</td>
+            <td>44.89</td>
+            <td class="cell-highlight-volume-mid">41.42</td>
+            <td>6.17</td>
+            <td>368</td>
+            <td>16</td>
+            <td>399</td>
+            <td>339</td>
+          </tr>
+          <tr>
+            <td>Terem Moffi</td>
+            <td>5</td>
+            <td>12.99</td>
+            <td>14.91</td>
+            <td>1.62</td>
+            <td>183</td>
+            <td>6</td>
+            <td>61</td>
+            <td>39</td>
+          </tr>
+          <tr>
+            <td>Shafiq Nandja</td>
+            <td>5</td>
+            <td>38.88</td>
+            <td>38.92</td>
+            <td class="cell-highlight-volume-mid">6.92</td>
+            <td class="cell-highlight-volume-mid">651</td>
+            <td class="cell-highlight-volume-mid">28</td>
+            <td class="cell-highlight-volume-mid">426</td>
+            <td class="cell-highlight-volume-mid">361</td>
+          </tr>
+          <tr>
+            <td>Albert Grønbæk</td>
+            <td>3</td>
+            <td>7.02</td>
+            <td>9.69</td>
+            <td>492</td>
+            <td>0</td>
+            <td>0</td>
+            <td>27</td>
+            <td>26</td>
+          </tr>
+          <tr>
+            <td>Otto Stange</td>
+            <td>1</td>
+            <td>8.48</td>
+            <td>7.8</td>
+            <td>1.56</td>
+            <td>274</td>
+            <td>10</td>
+            <td>48</td>
+            <td>60</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color" style="background: #C8E6D5;"></div>
+          <span>Moderate Volume</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #2F9E6F;"></div>
+          <span>High Volume</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="intro-text">
+      Mario Vušković (54,690 m) and Miro Muheim (54,330 m) led total distance. Muheim also topped sprint distance (1,408 m, 55 sprints) and showed exceptional high-intensity metrics across accelerations (617) and decelerations (563). Nicolai Remberg recorded the highest deceleration count (596).
+    </div>
+  </section>
+
+  <!-- Wellness & Readiness -->
+  <section id="wellness" class="section">
+    <h2 class="section-title">Wellness & Readiness</h2>
+    
+    <div class="chart-container">
+      <div class="chart-title">Top 10 – Body Soreness (mean, 22 Sep–5 Oct)</div>
+      <div class="chart-box" id="chart_3"></div>
+    </div>
+
+    <div class="table-container">
+      <div class="table-title">Wellness Summary – Body Soreness & Mood</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>N</th>
+            <th>Body Soreness Rating</th>
+            <th>Mood Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Albert Grønbæk</td>
+            <td>10</td>
+            <td>24</td>
+            <td>16</td>
+          </tr>
+          <tr>
+            <td>Albert Sambi Lokonga</td>
+            <td>6</td>
+            <td class="cell-highlight-risk-mid">20.17</td>
+            <td>10.83</td>
+          </tr>
+          <tr>
+            <td>Alexander Røssing-Lelesiit</td>
+            <td>8</td>
+            <td>25</td>
+            <td>18.75</td>
+          </tr>
+          <tr>
+            <td>Bakery Jatta</td>
+            <td>4</td>
+            <td>35.25</td>
+            <td class="cell-highlight-volume-high">36.5</td>
+          </tr>
+          <tr>
+            <td>Bilal Nadir</td>
+            <td>8</td>
+            <td>26</td>
+            <td class="cell-highlight-volume-mid">21.88</td>
+          </tr>
+          <tr>
+            <td>David Möller Wolfe</td>
+            <td>4</td>
+            <td class="cell-highlight-risk-mid">20</td>
+            <td>17.5</td>
+          </tr>
+          <tr>
+            <td>Fábio Vieira</td>
+            <td>6</td>
+            <td>26.33</td>
+            <td class="cell-highlight-volume-high">22</td>
+          </tr>
+          <tr>
+            <td>Jordan Torunarigha</td>
+            <td>8</td>
+            <td>29.13</td>
+            <td class="cell-highlight-volume-high">25.63</td>
+          </tr>
+          <tr>
+            <td>Kofi Amoako</td>
+            <td>11</td>
+            <td>25.55</td>
+            <td class="cell-highlight-volume-mid">21.64</td>
+          </tr>
+          <tr>
+            <td>Mario Vušković</td>
+            <td>10</td>
+            <td class="cell-highlight-risk-mid">17.78</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>Martin Adeline</td>
+            <td>6</td>
+            <td class="cell-highlight-risk-high">15.5</td>
+            <td>15.17</td>
+          </tr>
+          <tr>
+            <td>Miro Muheim</td>
+            <td>7</td>
+            <td>21</td>
+            <td class="cell-highlight-volume-mid">21.29</td>
+          </tr>
+          <tr>
+            <td>Nicolai Remberg</td>
+            <td>5</td>
+            <td class="cell-highlight-risk-high">10.6</td>
+            <td>11.4</td>
+          </tr>
+          <tr>
+            <td>Nicolás Capaldo</td>
+            <td>8</td>
+            <td>22.5</td>
+            <td>21.25</td>
+          </tr>
+          <tr>
+            <td>Otto Stange</td>
+            <td>4</td>
+            <td>25.5</td>
+            <td class="cell-highlight-volume-high">23.25</td>
+          </tr>
+          <tr>
+            <td>Patson Daka</td>
+            <td>10</td>
+            <td class="cell-highlight-risk-high">15</td>
+            <td>12</td>
+          </tr>
+          <tr>
+            <td>Sebastiaan  Bornauw</td>
+            <td>7</td>
+            <td>20.86</td>
+            <td class="cell-highlight-volume-mid">22</td>
+          </tr>
+          <tr>
+            <td>Shafiq Nandja</td>
+            <td>11</td>
+            <td>27.09</td>
+            <td>20.27</td>
+          </tr>
+          <tr>
+            <td>Terem Moffi</td>
+            <td>12</td>
+            <td>21.58</td>
+            <td>18.92</td>
+          </tr>
+          <tr>
+            <td>Warmed Omari</td>
+            <td>2</td>
+            <td class="cell-highlight-risk-mid">20</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>Yussuf Poulsen</td>
+            <td>12</td>
+            <td class="cell-highlight-risk-high">14</td>
+            <td>10</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color" style="background: #C8E6D5;"></div>
+          <span>Moderate</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #2F9E6F;"></div>
+          <span>High</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #F5D0A9;"></div>
+          <span>Elevated Concern</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #E07070;"></div>
+          <span>High Concern</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sleep -->
+  <section id="sleep" class="section">
+    <h2 class="section-title">Sleep</h2>
+    
+    <div class="chart-container">
+      <div class="chart-title">Top 10 – Sleep Quality (mean, 22 Sep–5 Oct)</div>
+      <div class="chart-box" id="chart_4"></div>
+    </div>
+
+    <div class="table-container">
+      <div class="table-title">Sleep Summary – Quality Rating</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>N</th>
+            <th>Quality Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Albert Grønbæk</td>
+            <td>10</td>
+            <td>21</td>
+          </tr>
+          <tr>
+            <td>Albert Sambi Lokonga</td>
+            <td>6</td>
+            <td>18.5</td>
+          </tr>
+          <tr>
+            <td>Alexander Røssing-Lelesiit</td>
+            <td>8</td>
+            <td>22.5</td>
+          </tr>
+          <tr>
+            <td>Bakery Jatta</td>
+            <td>4</td>
+            <td class="cell-highlight-volume-high">36.25</td>
+          </tr>
+          <tr>
+            <td>Bilal Nadir</td>
+            <td>8</td>
+            <td class="cell-highlight-volume-mid">26.5</td>
+          </tr>
+          <tr>
+            <td>David Möller Wolfe</td>
+            <td>4</td>
+            <td class="cell-highlight-volume-mid">25</td>
+          </tr>
+          <tr>
+            <td>Fábio Vieira</td>
+            <td>6</td>
+            <td>22.17</td>
+          </tr>
+          <tr>
+            <td>Jordan Torunarigha</td>
+            <td>8</td>
+            <td class="cell-highlight-volume-high">31.63</td>
+          </tr>
+          <tr>
+            <td>Kofi Amoako</td>
+            <td>11</td>
+            <td>22.09</td>
+          </tr>
+          <tr>
+            <td>Mario Vušković</td>
+            <td>9</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td>Martin Adeline</td>
+            <td>6</td>
+            <td>18.5</td>
+          </tr>
+          <tr>
+            <td>Miro Muheim</td>
+            <td>7</td>
+            <td>23.29</td>
+          </tr>
+          <tr>
+            <td>Nicolai Remberg</td>
+            <td>5</td>
+            <td>13.6</td>
+          </tr>
+          <tr>
+            <td>Nicolás Capaldo</td>
+            <td>8</td>
+            <td>22</td>
+          </tr>
+          <tr>
+            <td>Otto Stange</td>
+            <td>4</td>
+            <td class="cell-highlight-volume-high">28.5</td>
+          </tr>
+          <tr>
+            <td>Patson Daka</td>
+            <td>10</td>
+            <td>11</td>
+          </tr>
+          <tr>
+            <td>Sebastiaan  Bornauw</td>
+            <td>7</td>
+            <td class="cell-highlight-volume-mid">23.43</td>
+          </tr>
+          <tr>
+            <td>Shafiq Nandja</td>
+            <td>11</td>
+            <td class="cell-highlight-volume-high">30.18</td>
+          </tr>
+          <tr>
+            <td>Terem Moffi</td>
+            <td>12</td>
+            <td>16.83</td>
+          </tr>
+          <tr>
+            <td>Warmed Omari</td>
+            <td>2</td>
+            <td class="cell-highlight-volume-mid">25</td>
+          </tr>
+          <tr>
+            <td>Yussuf Poulsen</td>
+            <td>12</td>
+            <td>20.08</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color" style="background: #C8E6D5;"></div>
+          <span>Moderate Quality</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #2F9E6F;"></div>
+          <span>High Quality</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="intro-text">
+      Bakery Jatta reported highest body soreness (35.3) and mood (36.5), Jordan Torunarigha next (29.1 soreness, 25.6 mood). Sleep quality patterns show Bakery Jatta (36.3), Jordan Torunarigha (31.6), and Shafiq Nandja (30.2) with elevated ratings.
+    </div>
+  </section>
+
+  <!-- Biomarkers -->
+  <section id="biomarkers" class="section">
+    <h2 class="section-title">Biomarkers</h2>
+    
+    <div class="table-container">
+      <div class="table-title">Biomarker Measurements (22 Sep–5 Oct)</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Date</th>
+            <th>Biomarker</th>
+            <th>Value</th>
+            <th>Samples (n)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alexander Røssing-Lelesiit</td>
+            <td>2026-09-22</td>
+            <td>ck</td>
+            <td class="cell-highlight-volume-mid">564</td>
+            <td class="cell-highlight-volume-high">1</td>
+          </tr>
+          <tr>
+            <td>Kofi Amoako</td>
+            <td>2026-09-22</td>
+            <td>ck</td>
+            <td>478</td>
+            <td class="cell-highlight-volume-mid">1</td>
+          </tr>
+          <tr>
+            <td>Sebastiaan Bornauw</td>
+            <td>2026-09-22</td>
+            <td>ck</td>
+            <td class="cell-highlight-volume-mid">544</td>
+            <td class="cell-highlight-volume-mid">1</td>
+          </tr>
+          <tr>
+            <td>Terem Moffi</td>
+            <td>2026-09-22</td>
+            <td>ck</td>
+            <td>509</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>Terem Moffi</td>
+            <td>2026-09-28</td>
+            <td>ck</td>
+            <td>435</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>Alexander Røssing-Lelesiit</td>
+            <td>2026-10-01</td>
+            <td>ck</td>
+            <td class="cell-highlight-volume-high">2</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color" style="background: #C8E6D5;"></div>
+          <span>Moderate</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #2F9E6F;"></div>
+          <span>High</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="intro-text">
+      Six biomarker measurements recorded: Alexander Røssing-Lelesiit (Creatine Kinase 564 U/L, 22 Sep; 2 U/L, 1 Oct), Kofi Amoako (478 U/L), Sebastiaan Bornauw (544 U/L), and Terem Moffi (509 U/L on 22 Sep, 435 U/L on 28 Sep).
+    </div>
+  </section>
+
+  <!-- Load Patterns – sRPE -->
+  <section id="load" class="section">
+    <h2 class="section-title">Load Patterns – sRPE</h2>
+    
+    <div class="chart-grid">
+      <div class="chart-container">
+        <div class="chart-title">Top 10 – 7-Day Cumulative sRPE</div>
+        <div class="chart-box" id="chart_5"></div>
+      </div>
+      
+      <div class="chart-container">
+        <div class="chart-title">Top 10 – ACWR (EWMA 7:28)</div>
+        <div class="chart-box" id="chart_6"></div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <div class="table-title">sRPE Load Summary – Monotony, Strain & ACWR</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Cumulative 7</th>
+            <th>monotony</th>
+            <th>strain</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Albert Grønbæk</td>
+            <td>54,854.5</td>
+            <td class="cell-highlight-risk-mid">1.04</td>
+            <td class="cell-highlight-risk-high">3,643.38</td>
+          </tr>
+          <tr>
+            <td>Albert Sambi Lokonga</td>
+            <td class="cell-highlight-volume-mid">71,834.42</td>
+            <td>1.45</td>
+            <td>24,994.97</td>
+          </tr>
+          <tr>
+            <td>Alexander Røssing-Lelesiit</td>
+            <td class="cell-highlight-volume-mid">65,537.62</td>
+            <td class="cell-highlight-risk-high">0.76</td>
+            <td class="cell-highlight-risk-mid">9,470.33</td>
+          </tr>
+          <tr>
+            <td>Bakery Jatta</td>
+            <td class="cell-highlight-volume-high">109,963.08</td>
+            <td class="cell-highlight-risk-high">0.68</td>
+            <td class="cell-highlight-risk-mid">7,617.38</td>
+          </tr>
+          <tr>
+            <td>Bilal Nadir</td>
+            <td class="cell-highlight-volume-mid">64,332.38</td>
+            <td>3.06</td>
+            <td>69,158.35</td>
+          </tr>
+          <tr>
+            <td>Daniel Elfadli</td>
+            <td>16,342.07</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>David Möller Wolfe</td>
+            <td>34,227.83</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Emir Sahiti</td>
+            <td>9,629.5</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Fábio Vieira</td>
+            <td>58,369.65</td>
+            <td class="cell-highlight-risk-mid">0.96</td>
+            <td class="cell-highlight-risk-mid">8,546.45</td>
+          </tr>
+          <tr>
+            <td>Immanuël Pherai</td>
+            <td>37,574.08</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Jordan Torunarigha</td>
+            <td class="cell-highlight-volume-high">86,933.2</td>
+            <td class="cell-highlight-risk-mid">1.23</td>
+            <td>18,981.19</td>
+          </tr>
+          <tr>
+            <td>Kofi Amoako</td>
+            <td class="cell-highlight-volume-mid">71,454.17</td>
+            <td>1.52</td>
+            <td>18,754.77</td>
+          </tr>
+          <tr>
+            <td>Mario Vušković</td>
+            <td>23,692.17</td>
+            <td class="cell-highlight-risk-mid">1.13</td>
+            <td>17,448.46</td>
+          </tr>
+          <tr>
+            <td>Martin Adeline</td>
+            <td>49,397.72</td>
+            <td>1.48</td>
+            <td>21,643.98</td>
+          </tr>
+          <tr>
+            <td>Miro Muheim</td>
+            <td class="cell-highlight-volume-mid">75,582.4</td>
+            <td>1.51</td>
+            <td>29,746.45</td>
+          </tr>
+          <tr>
+            <td>Nicolai Remberg</td>
+            <td>42,360.4</td>
+            <td></td>
+            <td class="cell-highlight-risk-mid">15,079.72</td>
+          </tr>
+          <tr>
+            <td>Nicolás Capaldo</td>
+            <td class="cell-highlight-volume-high">82,628.7</td>
+            <td>1.35</td>
+            <td>20,053.37</td>
+          </tr>
+          <tr>
+            <td>Otto Stange</td>
+            <td class="cell-highlight-volume-high">77,970.23</td>
+            <td class="cell-highlight-risk-high">0.45</td>
+            <td class="cell-highlight-risk-high">2,676.62</td>
+          </tr>
+          <tr>
+            <td>Patson Daka</td>
+            <td>31,416.13</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Rayan Philippe</td>
+            <td>12,871.4</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Sebastiaan Bornauw</td>
+            <td>18,164.48</td>
+            <td>1.74</td>
+            <td>31,606.2</td>
+          </tr>
+          <tr>
+            <td>Shafiq Nandja</td>
+            <td class="cell-highlight-volume-high">116,592.7</td>
+            <td>1.59</td>
+            <td>38,140.42</td>
+          </tr>
+          <tr>
+            <td>Terem Moffi</td>
+            <td>23,833.17</td>
+            <td></td>
+            <td class="cell-highlight-risk-high">4,637.64</td>
+          </tr>
+          <tr>
+            <td>Warmed Omari</td>
+            <td>36,918.23</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Yussuf Poulsen</td>
+            <td>42,938.48</td>
+            <td>1.38</td>
+            <td>17,257.5</td>
+          </tr>
+          <tr>
+            <td>Zakaria El Ouahdi</td>
+            <td>28,101.02</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color" style="background: #C8E6D5;"></div>
+          <span>Moderate Load</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #2F9E6F;"></div>
+          <span>High Load</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #F5D0A9;"></div>
+          <span>Elevated Concern</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #E07070;"></div>
+          <span>High Concern</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="intro-text">
+      Shafiq Nandja led 7-day cumulative sRPE (116,593), followed by Bakery Jatta (109,963) and Jordan Torunarigha (86,933). Monotony and strain patterns show Bilal Nadir with highest strain (69,158), while several athletes display elevated monotony markers requiring monitoring.
+    </div>
+  </section>
+
+  <!-- Individual Spotlight -->
+  <section id="spotlight" class="section">
+    <h2 class="section-title">Individual Spotlight – Notable Patterns</h2>
+    
+    <div class="intro-text">
+      <strong>Albert Sambi Lokonga:</strong> Performance flat (48–52), moderate GPS volume. 7-day cumulative sRPE 71,834 with monotony 1.45 and strain 24,995.<br><br>
+      <strong>Miro Muheim:</strong> Exceptional external load leader across multiple GPS metrics (54,330 m total distance, 1,408 m sprint distance, 617 accelerations). 7-day sRPE 75,582 with monotony 1.51.<br><br>
+      <strong>Bakery Jatta:</strong> Highest wellness scores (body soreness 35.3, mood 36.5, sleep quality 36.3). 7-day cumulative sRPE 109,963 – second highest in squad.<br><br>
+      <strong>Bilal Nadir:</strong> Extreme strain pattern (69,158) with monotony 3.06 – highest in squad. Requires close monitoring despite moderate cumulative load (64,332).
+    </div>
+  </section>
+
+</main>
+
+<script id="mauna-artifact-boot">
+(function () {
+  const charts = [{"id":"chart_1","title":"Top 10 – Total Distance (22 Sep–5 Oct)","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Distance total (m)","type":"bar","encode":{"x":"Player","y":"Distance total (m)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":46155.3,"name":"Mean","label":{"formatter":"Mean 46,155.3","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Total time (s)","Distance total (m)","HMLD (m)","Sprint distance (m)","Sprints (count)","Accelerations (relative)","Decelerations (relative)"],["Mario Vušković",8,49051,54690,7045,289,11,496,449],["Miro Muheim",8,51675,54330,10078,1408,55,617,563],["Nicolai Remberg",6,44518,50863,8594,331,16,420,596],["Albert Sambi Lokonga",7,48740,47563,7964,383,17,426,258],["Martin Adeline",5,37954,47543,9926,762,41,368,467],["Nicolás Capaldo",9,48779,43009,6042,297,16,306,297],["Sebastiaan Bornauw",6,44885,41419,6166,368,16,399,339],["Yussuf Poulsen",8,50909,40995,7003,836,21,500,360],["Bilal Nadir",8,47456,40609,5894,460,24,424,329],["Kofi Amoako",7,47412,40532,6861,775,28,435,324]]}}},{"id":"chart_2","title":"Top 10 – Sprint Distance (22 Sep–5 Oct)","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Sprint distance (m)","type":"bar","encode":{"x":"Player","y":"Sprint distance (m)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":693.4,"name":"Mean","label":{"formatter":"Mean 693.4","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Total time (s)","Distance total (m)","HMLD (m)","Sprint distance (m)","Sprints (count)","Accelerations (relative)","Decelerations (relative)"],["Miro Muheim",8,51675,54330,10078,1408,55,617,563],["Yussuf Poulsen",8,50909,40995,7003,836,21,500,360],["Kofi Amoako",7,47412,40532,6861,775,28,435,324],["Martin Adeline",5,37954,47543,9926,762,41,368,467],["Fábio Vieira",6,38824,37798,5867,732,18,360,252],["Shafiq Nandja",5,38876,38923,6917,651,28,426,361],["Jordan Torunarigha",6,37353,30447,4275,540,18,298,246],["Bilal Nadir",8,47456,40609,5894,460,24,424,329],["Bakery Jatta",4,26559,24421,3928,387,18,306,179],["Albert Sambi Lokonga",7,48740,47563,7964,383,17,426,258]]}}},{"id":"chart_3","title":"Top 10 – Body Soreness (mean, 22 Sep–5 Oct)","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"bar","encode":{"x":"Player","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":26.634,"name":"Mean","label":{"formatter":"Mean 26.63","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Body Soreness Rating","Mood Rating"],["Bakery Jatta",4,35.25,36.5],["Jordan Torunarigha",8,29.125,25.625],["Shafiq Nandja",11,27.091,20.273],["Fábio Vieira",6,26.333,22],["Bilal Nadir",8,26,21.875],["Kofi Amoako",11,25.545,21.636],["Otto Stange",4,25.5,23.25],["Alexander Røssing-Lelesiit",8,25,18.75],["Albert Grønbæk",10,24,16],["Nicolás Capaldo",8,22.5,21.25]]}}},{"id":"chart_4","title":"Top 10 – Sleep Quality (mean, 22 Sep–5 Oct)","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Quality Rating","type":"bar","encode":{"x":"Player","y":"Quality Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":27.227,"name":"Mean","label":{"formatter":"Mean 27.23","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Quality Rating"],["Bakery Jatta",4,36.25],["Jordan Torunarigha",8,31.625],["Shafiq Nandja",11,30.182],["Otto Stange",4,28.5],["Bilal Nadir",8,26.5],["David Möller Wolfe",4,25],["Warmed Omari",2,25],["Sebastiaan  Bornauw",7,23.429],["Miro Muheim",7,23.286],["Alexander Røssing-Lelesiit",8,22.5]]}}},{"id":"chart_5","title":"Top 10 – 7-Day Cumulative sRPE","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Cumulative 7","type":"bar","encode":{"x":"Player","y":"Cumulative 7"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":82282.89,"name":"Mean","label":{"formatter":"Mean 82,282.89","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7"],["Shafiq Nandja",null,null,null,1.587,38140.424,null,116592.7],["Bakery Jatta",null,null,null,0.679,7617.384,null,109963.083],["Jordan Torunarigha",null,null,null,1.225,18981.191,null,86933.2],["Nicolás Capaldo",null,null,null,1.345,20053.367,null,82628.7],["Otto Stange",null,null,null,0.447,2676.621,null,77970.233],["Miro Muheim",null,null,null,1.511,29746.453,null,75582.4],["Albert Sambi Lokonga",null,null,null,1.453,24994.966,null,71834.417],["Kofi Amoako",null,null,null,1.517,18754.772,null,71454.167],["Alexander Røssing-Lelesiit",null,null,null,0.758,9470.326,null,65537.617],["Bilal Nadir",null,null,null,3.056,69158.35,null,64332.383]]}}},{"id":"chart_6","title":"Top 10 – ACWR (EWMA 7:28)","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Acwr Ewma","type":"bar","encode":{"x":"Player","y":"Acwr Ewma"}}],"animation":false,"dataset":{"source":[["Player","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7"],["Albert Grønbæk",null,null,null,1.038,3643.38,null,54854.5],["Albert Sambi Lokonga",null,null,null,1.453,24994.966,null,71834.417],["Alexander Røssing-Lelesiit",null,null,null,0.758,9470.326,null,65537.617],["Bakery Jatta",null,null,null,0.679,7617.384,null,109963.083],["Bilal Nadir",null,null,null,3.056,69158.35,null,64332.383],["Daniel Elfadli",null,null,null,null,null,null,16342.067],["David Möller Wolfe",null,null,null,null,null,null,34227.833],["Emir Sahiti",null,null,null,null,null,null,9629.5],["Fábio Vieira",null,null,null,0.959,8546.448,null,58369.65],["Immanuël Pherai",null,null,null,null,null,null,37574.083]]}}}];
+  const palette = ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"];
+  const fontFamily = "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif";
+  const ink = "#0f1220";
+  const instances = [];
+  const isPrint = () => window.matchMedia('print').matches;
+  const waitEcharts = () => new Promise((resolve) => {
+    if (window.echarts) return resolve(true);
+    let n = 0;
+    const t = setInterval(() => {
+      n += 1;
+      if (window.echarts || n > 80) { clearInterval(t); resolve(!!window.echarts); }
+    }, 100);
+  });
+  const boot = async () => {
+    await waitEcharts();
+    for (const chart of charts) {
+      let el = document.getElementById(chart.id);
+      if (!el) {
+        const host = document.getElementById('mauna-charts-fallback') || (() => {
+          const d = document.createElement('section');
+          d.id = 'mauna-charts-fallback';
+          d.setAttribute('data-injected', '1');
+          document.body.appendChild(d);
+          return d;
+        })();
+        const card = document.createElement('div');
+        card.className = 'chart-card';
+        card.innerHTML = '<h3></h3><div class="chart-box" id="' + chart.id + '" style="width:100%;height:280px"></div>';
+        card.querySelector('h3').textContent = chart.title || chart.id;
+        host.appendChild(card);
+        el = document.getElementById(chart.id);
+      }
+      if (!el || !window.echarts) continue;
+      el.classList.add('chart-box');
+      if (!el.style.height) el.style.height = '280px';
+      const instance = window.echarts.init(el, null, {
+        renderer: 'canvas',
+        width: el.clientWidth || 720,
+        height: el.clientHeight || 280,
+      });
+      const option = {
+        animation: !isPrint(),
+        backgroundColor: '#ffffff',
+        textStyle: { fontFamily, color: ink },
+        color: palette,
+        ...chart.option,
+      };
+      instance.setOption(option, true);
+      el.dataset.ready = '1';
+      instances.push(instance);
+    }
+    document.documentElement.dataset.chartsReady = '1';
+    window.addEventListener('resize', () => instances.forEach((i) => i.resize()));
+    window.addEventListener('beforeprint', () => {
+      instances.forEach((i) => { i.setOption({ animation: false }); i.resize(); });
+    });
+  };
+  boot();
+})();
+</script>
+</body>
+</html>

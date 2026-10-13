@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Synthèse hebdomadaire – Charge, GPS &amp; Bien-être</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 300px; }
+    .chart-box.wide { height: 340px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 12px;
+      padding: 10px 12px; border-radius: 10px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner .avatar-wrap {
+      position: relative; width: 52px; height: 52px; flex: 0 0 52px;
+    }
+    .athlete-banner img {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: none; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner.no-photo img { display: none; }
+    .athlete-banner.no-photo .avatar-fallback { display: grid; }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2026-2027</div>
+      <h1 class="cover-title">Synthèse hebdomadaire – Charge, GPS &amp; Bien-être</h1>
+      <p class="cover-sub">Rapport club — données MAUNA uniquement</p>
+      <div class="date-pill">lun. 05/10/26 · 2026-09-29 → 2026-10-05</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">Distance : Nicolai Remberg (50,9 km), Martin Adeline (47,5 km, 2,9 km HSR leader), Miro Muheim (43,6 km, 2,7 km HSR). Charge aiguë : monotonie et strain dans la bande normale (&lt;1,3) pour tous les joueurs actifs.</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">Bien-être : Bakery Jatta signale courbatures 40, humeur 40, qualité sommeil 40 (signaux convergents de fatigue). Jordan Torunarigha : courbatures 30, humeur 30. Fábio Vieira : courbatures 40.</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">Cross-domaine : Bakery Jatta cumule 80,4 k de charge sur 7j avec volume GPS modéré (19,0 km, 876 m HSR) mais signaux wellness dégradés. Vigilance recommandée.</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Sommaire</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Synthèse hebdomadaire – Charge, GPS &amp; Bien-être</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Couverture</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Lecture staff</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Vue d'ensemble – Charge &amp; GPS</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · Bien-être &amp; Sommeil</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Martin Adeline</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Miro Muheim</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Bakery Jatta</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>08 · Albert Grønbæk</span><span class="hint">§6</span></a></li><li><a href="#section-7"><span>09 · Analyse croisée – Bien-être &amp; GPS</span><span class="hint">§7</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Lecture staff</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <p class="staff-read-lead">Volume GPS élevé (Nicolai Remberg 50,9 km, Martin Adeline 47,5 km) ; signaux de fatigue convergents chez Bakery Jatta (courbatures 40, humeur 40, sommeil 40) malgré volume GPS modéré.</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Fil narratif</h3><ul><li>Distance : Nicolai Remberg (50,9 km), Martin Adeline (47,5 km, 2,9 km HSR leader), Miro Muheim (43,6 km, 2,7 km HSR). Charge aiguë : monotonie et strain dans la bande normale (&lt;1,3) pour tous les joueurs actifs.</li><li>Bien-être : Bakery Jatta signale courbatures 40, humeur 40, qualité sommeil 40 (signaux convergents de fatigue). Jordan Torunarigha : courbatures 30, humeur 30. Fábio Vieira : courbatures 40.</li><li>Cross-domaine : Bakery Jatta cumule 80,4 k de charge sur 7j avec volume GPS modéré (19,0 km, 876 m HSR) mais signaux wellness dégradés. Vigilance recommandée.</li></ul></div><div class="staff-read-panel"><h3>Signaux</h3><ul class="signal-roster"><li><span class="signal-badge info">Info</span><div><div class="signal-body">Distance : Nicolai Remberg (50,9 km), Martin Adeline (47,5 km, 2,9 km HSR leader), Miro Muheim (43,6 km, 2,7 km HSR). Charge aiguë : monotonie et strain dans la bande normale (&lt;1,3) pour tous les joueurs actifs.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Bien-être : Bakery Jatta signale courbatures 40, humeur 40, qualité sommeil 40 (signaux convergents de fatigue). Jordan Torunarigha : courbatures 30, humeur 30. Fábio Vieira : courbatures 40.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Cross-domaine : Bakery Jatta cumule 80,4 k de charge sur 7j avec volume GPS modéré (19,0 km, 876 m HSR) mais signaux wellness dégradés. Vigilance recommandée.</div></div></li></ul></div></div>
+  <div class="staff-read-panel"><h3>Sections canvas</h3><ul class="staff-section-index"><li><span>Vue d'ensemble – Charge &amp; GPS</span><span class="kind">Équipe</span></li><li><span>Bien-être &amp; Sommeil</span><span class="kind">Équipe</span></li><li><span>Fiches joueurs</span><span class="kind">Équipe</span></li><li><span>Analyse croisée – Bien-être &amp; GPS</span><span class="kind">Équipe</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Vue d'ensemble – Charge &amp; GPS</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="split-row split-chart-table"><div class="chart-card">
+  <h3>Distance totale (km) – Semaine du 29 sept. au 5 oct.</h3>
+  <div id="chart_1" class="chart-box compact"></div>
+  
+</div><div class="card"><h3>Top 10 – Charge aiguë (ACWR EWMA)</h3><div class="legend"><span><i class="swatch" style="background:rgba(224,112,112,0.22);outline:1px solid #E07070"></i>élevé</span><span><i class="swatch" style="background:rgba(251,191,36,0.22);outline:1px solid #E8B84A"></i>moyen</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>bas</span><span>vs le groupe (terciles)</span></div><table class="report-table"><thead><tr><th>Joueur</th><th>Photo Url</th><th>monotony</th><th>strain</th><th>Cumulative 7</th><th>N</th></tr></thead><tbody><tr><td class="">Martin Adeline</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/9188fca4-ad94-4954-abfc-8e0c3c2abcad.png</td><td class="lvl-hi">1,3</td><td class="lvl-hi">15 229,4</td><td class="lvl-lo">39 582,8</td><td class="">5</td></tr><tr><td class="">Kofi Amoako</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/32fb3017-7fbf-4467-b5df-c49b54feae31.png</td><td class="lvl-hi">0,9</td><td class="lvl-mid">4 719,4</td><td class="lvl-mid">51 172,2</td><td class="">5</td></tr><tr><td class="">Sebastiaan Bornauw</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2edab964-2480-4c09-9e7c-f3fdfd9e2ad3.png</td><td class="lvl-hi">0,9</td><td class="lvl-hi">12 277,9</td><td class="lvl-lo">13 230,5</td><td class="">6</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/700a4802-79ef-47e8-ac87-42b835181cd8.png</td><td class="lvl-mid">0,7</td><td class="lvl-mid">5 445</td><td class="lvl-hi">67 165,8</td><td class="">6</td></tr><tr><td class="">Albert Grønbæk</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/5eea2bd3-53dc-4080-a182-80fb592f0712.png</td><td class="lvl-mid">0,7</td><td class="lvl-lo">1 455,2</td><td class="lvl-mid">43 179,8</td><td class="">3</td></tr><tr><td class="">Bakery Jatta</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3d2aa33-5992-4cf5-a047-8e6b6482e55d.png</td><td class="">—</td><td class="">—</td><td class="lvl-hi">80 383,2</td><td class="">3</td></tr><tr><td class="">Terem Moffi</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/f14ed1f9-1895-4a4f-8df6-72672182ab73.png</td><td class="lvl-mid">0,8</td><td class="lvl-lo">1 681</td><td class="lvl-lo">22 275,7</td><td class="">5</td></tr><tr><td class="">Miro Muheim</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2ca095e4-97bf-4b4a-af95-2b877e97cfae.png</td><td class="lvl-lo">0,5</td><td class="lvl-mid">3 801,6</td><td class="lvl-mid">49 107,6</td><td class="">6</td></tr><tr><td class="">Bilal Nadir</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b6fba227-3a1b-4cf6-b47b-eed7be07db90.png</td><td class="lvl-hi">1,1</td><td class="lvl-hi">17 550</td><td class="lvl-hi">57 371,7</td><td class="">6</td></tr><tr><td class="">Shafiq Nandja</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/c053a060-d5ab-43dc-bec0-6fe24b81cb1a.png</td><td class="lvl-hi">0,9</td><td class="lvl-hi">14 012,8</td><td class="lvl-hi">97 060,7</td><td class="">5</td></tr></tbody></table></div></div>
+<div class="chart-card">
+  <h3>HSR totale (km) – Semaine du 29 sept. au 5 oct.</h3>
+  <div id="chart_2" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Nicolai Remberg totalise 50,9 km (leader distance), Martin Adeline 47,5 km avec 2,9 km HSR (leader HSR). Miro Muheim 43,6 km et 2,7 km HSR. Charge aiguë : monotonie et strain dans la bande normale pour tous les joueurs actifs (monotonie &lt;1,3).</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>Bien-être &amp; Sommeil</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Bien-être moyen – Semaine du 29 sept. au 5 oct.</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Body Soreness Rating</th><th>Mood Rating</th></tr></thead><tbody><tr><td class="">Albert Grønbæk</td><td class="lvl-mid">20</td><td class="lvl-mid">10</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="lvl-hi">30</td><td class="lvl-mid">10</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="lvl-hi">30</td><td class="lvl-hi">20</td></tr><tr><td class="">Bakery Jatta</td><td class="lvl-hi">40</td><td class="lvl-hi">40</td></tr><tr><td class="">Bilal Nadir</td><td class="lvl-hi">30</td><td class="lvl-hi">20</td></tr><tr><td class="">David Möller Wolfe</td><td class="lvl-hi">30</td><td class="lvl-mid">10</td></tr><tr><td class="">Fábio Vieira</td><td class="lvl-hi">40</td><td class="lvl-hi">20</td></tr><tr><td class="">Jordan Torunarigha</td><td class="lvl-hi">30</td><td class="lvl-hi">30</td></tr><tr><td class="">Kofi Amoako</td><td class="lvl-hi">30</td><td class="lvl-hi">30</td></tr><tr><td class="">Mario Vušković</td><td class="lvl-lo">10</td><td class="lvl-mid">10</td></tr><tr><td class="">Martin Adeline</td><td class="lvl-lo">10</td><td class="lvl-hi">20</td></tr><tr><td class="">Miro Muheim</td><td class="lvl-mid">20</td><td class="lvl-hi">20</td></tr><tr><td class="">Nicolai Remberg</td><td class="lvl-lo">10</td><td class="lvl-mid">10</td></tr><tr><td class="">Nicolás Capaldo</td><td class="lvl-lo">10</td><td class="lvl-mid">10</td></tr><tr><td class="">Otto Stange</td><td class="lvl-mid">20</td><td class="lvl-hi">20</td></tr><tr><td class="">Patson Daka</td><td class="lvl-lo">10</td><td class="lvl-mid">10</td></tr><tr><td class="">Sebastiaan  Bornauw</td><td class="lvl-mid">20</td><td class="lvl-hi">20</td></tr><tr><td class="">Shafiq Nandja</td><td class="lvl-hi">30</td><td class="lvl-hi">20</td></tr><tr><td class="">Terem Moffi</td><td class="lvl-mid">20</td><td class="lvl-mid">10</td></tr><tr><td class="">Warmed Omari</td><td class="lvl-hi">30</td><td class="lvl-mid">10</td></tr><tr><td class="">Yussuf Poulsen</td><td class="lvl-lo">10</td><td class="lvl-mid">10</td></tr></tbody></table></div>
+<div class="card"><h3>Qualité de sommeil moyenne – Semaine du 29 sept. au 5 oct.</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Albert Grønbæk</td><td class="lvl-hi">20</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="lvl-hi">20</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="lvl-hi">20</td></tr><tr><td class="">Bakery Jatta</td><td class="lvl-hi">40</td></tr><tr><td class="">Bilal Nadir</td><td class="lvl-hi">20</td></tr><tr><td class="">David Möller Wolfe</td><td class="lvl-hi">30</td></tr><tr><td class="">Fábio Vieira</td><td class="lvl-hi">20</td></tr><tr><td class="">Jordan Torunarigha</td><td class="lvl-hi">30</td></tr><tr><td class="">Kofi Amoako</td><td class="lvl-hi">20</td></tr><tr><td class="">Mario Vušković</td><td class="lvl-lo">10</td></tr><tr><td class="">Martin Adeline</td><td class="lvl-hi">20</td></tr><tr><td class="">Miro Muheim</td><td class="lvl-hi">20</td></tr><tr><td class="">Nicolai Remberg</td><td class="lvl-lo">10</td></tr><tr><td class="">Nicolás Capaldo</td><td class="lvl-lo">10</td></tr><tr><td class="">Otto Stange</td><td class="lvl-hi">20</td></tr><tr><td class="">Patson Daka</td><td class="lvl-lo">10</td></tr><tr><td class="">Sebastiaan  Bornauw</td><td class="lvl-hi">20</td></tr><tr><td class="">Shafiq Nandja</td><td class="lvl-hi">30</td></tr><tr><td class="">Terem Moffi</td><td class="lvl-hi">20</td></tr><tr><td class="">Warmed Omari</td><td class="lvl-hi">40</td></tr><tr><td class="">Yussuf Poulsen</td><td class="lvl-hi">20</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Courbatures les plus élevées : Bakery Jatta (40), Fábio Vieira (40). Humeur : Bakery Jatta (40), Jordan Torunarigha (30). Qualité de sommeil : Bakery Jatta (40), Shafiq Nandja (40) signalent les scores les plus bas.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Martin Adeline</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/9188fca4-ad94-4954-abfc-8e0c3c2abcad.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T004133Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=9a9e35a694623477eb3b67050c0e209c1db516cd125b7dd958f7b6a56fc42718&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">MA</div></div><div><div class="name">Martin Adeline</div><div class="meta">MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Charge &amp; GPS – Martin Adeline</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Photo Url</th><th>monotony</th><th>strain</th><th>Cumulative 7</th><th>N</th><th>Distance total (m)</th><th>High speed running (absolute)</th><th>Sprint distance (m)</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Martin Adeline</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/9188fca4-ad94-4954-abfc-8e0c3c2abcad.png</td><td class="">1,3</td><td class="">15 229,4</td><td class="">39 582,8</td><td class="">5</td><td class="">47 543</td><td class="">2 856</td><td class="">762</td><td class="">10</td><td class="">20</td><td class="">20</td></tr></tbody></table></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Miro Muheim</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2ca095e4-97bf-4b4a-af95-2b877e97cfae.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T004133Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=27c1b3da08a41dc0cd832fd435c3166bce07c178988b9010c5fe4af15fb3729a&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">MM</div></div><div><div class="name">Miro Muheim</div><div class="meta">FULL BACK</div></div></div>
+  <div class="section-body"><div class="card"><h3>Charge &amp; GPS – Miro Muheim</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Photo Url</th><th>monotony</th><th>strain</th><th>Cumulative 7</th><th>N</th><th>Distance total (m)</th><th>High speed running (absolute)</th><th>Sprint distance (m)</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Miro Muheim</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2ca095e4-97bf-4b4a-af95-2b877e97cfae.png</td><td class="">0,5</td><td class="">3 801,6</td><td class="">49 107,6</td><td class="">6</td><td class="">43 628</td><td class="">2 698</td><td class="">961</td><td class="">20</td><td class="">20</td><td class="">20</td></tr></tbody></table></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5">
+  <div class="band">
+    <h1>Bakery Jatta</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3d2aa33-5992-4cf5-a047-8e6b6482e55d.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T004133Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=ae6c60346c1d8b319866d3cd045526abcf3eddf000a7273269b5b7d05a37e8e5&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">BJ</div></div><div><div class="name">Bakery Jatta</div><div class="meta">WINGER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Charge &amp; GPS – Bakery Jatta</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Photo Url</th><th>Cumulative 7</th><th>N</th><th>Distance total (m)</th><th>High speed running (absolute)</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Bakery Jatta</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3d2aa33-5992-4cf5-a047-8e6b6482e55d.png</td><td class="">80 383,2</td><td class="">3</td><td class="">18 961</td><td class="">876</td><td class="">40</td><td class="">40</td><td class="">40</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Courbatures 40, humeur 40, qualité sommeil 40 : signaux convergents de fatigue. Volume GPS modéré (19,0 km, 876 m HSR) mais charge cumulée 7j élevée (80,4 k). Vigilance recommandée.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-6">
+  <div class="band">
+    <h1>Albert Grønbæk</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/5eea2bd3-53dc-4080-a182-80fb592f0712.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T004133Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=2f8cdd52c51899bb1fa97a2e2ea6bf67cddd0051c218566b5f677f8cd84e11fe&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">AG</div></div><div><div class="name">Albert Grønbæk</div><div class="meta">WINGER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Charge &amp; GPS – Albert Grønbæk</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Photo Url</th><th>monotony</th><th>strain</th><th>Cumulative 7</th><th>N</th><th>Distance total (m)</th><th>High speed running (absolute)</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Albert Grønbæk</td><td class="">https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/5eea2bd3-53dc-4080-a182-80fb592f0712.png</td><td class="">0,7</td><td class="">1 455,2</td><td class="">43 179,8</td><td class="">3</td><td class="">9 688</td><td class="">36</td><td class="">20</td><td class="">10</td><td class="">20</td></tr></tbody></table></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-7">
+  <div class="band">
+    <h1>Analyse croisée – Bien-être &amp; GPS</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Joueurs avec courbatures/humeur élevées (≥30) – Semaine du 29 sept. au 5 oct.</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Avg Soreness</th><th>Avg Mood</th><th>Distance Km</th><th>Hsr Km</th></tr></thead><tbody><tr><td class="">Bakery Jatta</td><td class="lvl-hi">40</td><td class="lvl-hi">40</td><td class="lvl-hi">18,96</td><td class="lvl-hi">0,88</td></tr><tr><td class="">Jordan Torunarigha</td><td class="lvl-hi">30</td><td class="lvl-hi">30</td><td class="lvl-hi">21,69</td><td class="lvl-hi">0,66</td></tr><tr><td class="">Warmed Omari</td><td class="lvl-hi">30</td><td class="lvl-mid">10</td><td class="lvl-mid">0</td><td class="lvl-mid">0</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Bakery Jatta : courbatures 40, humeur 40, 19,0 km parcourus. Jordan Torunarigha : courbatures 30, humeur 30, 21,7 km. Warmed Omari : courbatures 30, aucune activité GPS enregistrée.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-7</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Distance totale (km) – Semaine du 29 sept. au 5 oct.","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Distance Km","type":"bar","encode":{"x":"Joueur","y":"Distance Km"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":30.933,"name":"Moyenne","label":{"formatter":"Moyenne 30,93","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Joueur","Distance Total M","Hsr Total M","Dist Unit","Hsr Unit","Distance Km"],["Nicolai Remberg",50864.6,1794.4,"m","m",50.9],["Martin Adeline",47543.3,2855.9,"m","m",47.5],["Miro Muheim",43627.6,2697.6,"m","m",43.6],["Albert Sambi Lokonga",42596.3,1908,"m","m",42.6],["Sebastiaan  Bornauw",41419.1,1311.4,"m","m",41.4],["Shafiq Nandja",38923.9,2230.1,"m","m",38.9],["Mario Vušković",36614.6,941.8,"m","m",36.6],["Bilal Nadir",32658.3,1040.8,"m","m",32.7],["Yussuf Poulsen",31841.5,1423.3,"m","m",31.8],["Kofi Amoako",30094.6,1470,"m","m",30.1],["Alexander Røssing-Lelesiit",29944.6,1744.2,"m","m",29.9],["Nicolás Capaldo",29704.5,1247.8,"m","m",29.7],["Fábio Vieira",27904.6,918.6,"m","m",27.9],["Jordan Torunarigha",21693.3,664.4,"m","m",21.7],["Bakery Jatta",18961.6,875.3,"m","m",19],["Terem Moffi",14908.8,780.3,"m","m",14.9],["Albert Grønbæk",9687.8,36.3,"m","m",9.7],["Otto Stange",7799.7,701.3,"m","m",7.8]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"HSR totale (km) – Semaine du 29 sept. au 5 oct.","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Hsr Km","type":"bar","encode":{"x":"Joueur","y":"Hsr Km"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1.369,"name":"Moyenne","label":{"formatter":"Moyenne 1,37","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Joueur","Distance Total M","Hsr Total M","Dist Unit","Hsr Unit","Hsr Km"],["Nicolai Remberg",50864.6,1794.4,"m","m",1.8],["Martin Adeline",47543.3,2855.9,"m","m",2.9],["Miro Muheim",43627.6,2697.6,"m","m",2.7],["Albert Sambi Lokonga",42596.3,1908,"m","m",1.9],["Sebastiaan  Bornauw",41419.1,1311.4,"m","m",1.3],["Shafiq Nandja",38923.9,2230.1,"m","m",2.2],["Mario Vušković",36614.6,941.8,"m","m",0.9],["Bilal Nadir",32658.3,1040.8,"m","m",1],["Yussuf Poulsen",31841.5,1423.3,"m","m",1.4],["Kofi Amoako",30094.6,1470,"m","m",1.5],["Alexander Røssing-Lelesiit",29944.6,1744.2,"m","m",1.7],["Nicolás Capaldo",29704.5,1247.8,"m","m",1.2],["Fábio Vieira",27904.6,918.6,"m","m",0.9],["Jordan Torunarigha",21693.3,664.4,"m","m",0.7],["Bakery Jatta",18961.6,875.3,"m","m",0.9],["Terem Moffi",14908.8,780.3,"m","m",0.8],["Albert Grønbæk",9687.8,36.3,"m","m",0],["Otto Stange",7799.7,701.3,"m","m",0.7]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

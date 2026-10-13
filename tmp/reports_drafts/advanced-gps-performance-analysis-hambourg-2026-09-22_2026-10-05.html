@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Advanced GPS Performance Analysis – Hambourg</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 13px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 28px 0 0; max-width: 168mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 38px; font-weight: 700; letter-spacing: .01em; text-transform: uppercase;
+      line-height: 1.1; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 12px; padding: 14px 18px; margin-bottom: 16px;
+      box-shadow: 0 10px 24px rgba(26,29,43,.14);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 15px; letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+      margin: 0 0 14px;
+      box-shadow: 0 1px 0 rgba(15,18,32,.04);
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 300px; }
+    .chart-box.radar { height: 340px; }
+    .chart-box.tall { height: 360px; }
+    .chart-box.wide { height: 420px; }
+    .chart-box.bar-rank { height: 400px; }
+    .split-row .chart-box.bar-rank { height: 280px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 9px 10px; font-weight: 700;
+      letter-spacing: .03em;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 8px 10px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 14px; align-items: center; margin: 0 0 14px;
+      padding: 12px 14px; border-radius: 12px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner .avatar-wrap {
+      position: relative; width: 64px; height: 64px; flex: 0 0 64px;
+    }
+    .athlete-banner img {
+      width: 64px; height: 64px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: none; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 16px;
+    }
+    .athlete-banner.no-photo img { display: none; }
+    .athlete-banner.no-photo .avatar-fallback { display: grid; }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 16px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2026-2027</div>
+      <h1 class="cover-title">Advanced GPS Performance Analysis – Hambourg</h1>
+      <p class="cover-sub">Club report — MAUNA data only</p>
+      <div class="date-pill">Mon, 05/10/26 · 2026-09-22 → 2026-10-05</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">Highest injury risk (50.1) with severe accel/decel imbalance (2.06:1) and declining max speed (7.6→7.2 km/h). Low subjective soreness (10-30) masks underlying neuromuscular fatigue.</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">Elevated risk (35.3) despite low mechanical load. DSL 75.9 m (50% below squad mean) indicates underload. Risk driven by fitness gap, not overtraining.</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">Highest HMLD exposure (10,078 m) with low injury risk (17.6). Balanced accel/decel (1.1:1) and stable max speed. Reference profile for squad capacity.</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Advanced GPS Performance Analysis – Hambourg</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Staff read</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · GPS Performance Derivatives &amp; Injury Risk Analysis</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · Squad Mechanical Load &amp; Intensity Profile</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Intensity Derivatives &amp; Mechanical Efficiency</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Case Study: Albert Sambi Lokonga – High Injury Risk Profile</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Case Study: Yussuf Poulsen – Volume-Risk Mismatch</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>08 · Case Study: Miro Muheim – High Volume, Low Risk</span><span class="hint">§6</span></a></li><li><a href="#section-7"><span>09 · Cross-Domain Analysis: GPS × Wellness × Performance</span><span class="hint">§7</span></a></li><li><a href="#section-8"><span>10 · Technical Recommendations</span><span class="hint">§8</span></a></li><li><a href="#section-9"><span>11 · Summary &amp; Key Findings</span><span class="hint">§9</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Staff read</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  <p class="staff-read-lead">Technical GPS derivative analysis identifying mechanical load imbalances and neuromuscular decline patterns linked to elevated injury risk in key players.</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Signals</h3><ul class="signal-roster"><li><span class="signal-badge info">Info</span><div><div class="signal-body">Highest injury risk (50.1) with severe accel/decel imbalance (2.06:1) and declining max speed (7.6→7.2 km/h). Low subjective soreness (10-30) masks underlying neuromuscular fatigue.</div><div class="signal-meta">Albert Sambi Lokonga · gps · wellness</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Elevated risk (35.3) despite low mechanical load. DSL 75.9 m (50% below squad mean) indicates underload. Risk driven by fitness gap, not overtraining.</div><div class="signal-meta">Yussuf Poulsen · gps · load</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Highest HMLD exposure (10,078 m) with low injury risk (17.6). Balanced accel/decel (1.1:1) and stable max speed. Reference profile for squad capacity.</div><div class="signal-meta">Miro Muheim · gps · load</div></div></li></ul></div></div>
+  <div class="staff-read-panel"><h3>Canvas sections</h3><ul class="staff-section-index"><li><span>Squad Mechanical Load &amp; Intensity Profile</span><span class="kind">Team</span></li><li><span>Intensity Derivatives &amp; Mechanical Efficiency</span><span class="kind">Team</span></li><li><span>Case Study: Albert Sambi Lokonga</span><span class="kind">Team</span></li><li><span>Case Study: Yussuf Poulsen</span><span class="kind">Team</span></li><li><span>Case Study: Miro Muheim</span><span class="kind">Team</span></li><li><span>Cross-Domain Analysis</span><span class="kind">Team</span></li><li><span>Technical Recommendations</span><span class="kind">Team</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>GPS Performance Derivatives &amp; Injury Risk Analysis</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><ul><li>Advanced technical analysis of GPS-derived performance metrics over 14 days (22 Sep – 5 Oct 2026). Focus on mechanical load patterns, intensity derivatives, and their relationship with injury risk and performance decline.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>Squad Mechanical Load &amp; Intensity Profile</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Sprint Distance Volume – Top 12 Players (m)</h3>
+  <div id="chart_1" class="chart-box bar-rank"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Total Distance Covered – Top 12 Players (m)</h3>
+  <div id="chart_2" class="chart-box bar-rank"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>High Metabolic Load Distance (HMLD) – Top 12 (m)</h3>
+  <div id="chart_3" class="chart-box bar-rank"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>High-Speed Running Volume – Top 12 Players (m)</h3>
+  <div id="chart_4" class="chart-box bar-rank"></div>
+  
+</div>
+<div class="card"><h3>Squad GPS Performance Summary (Period Totals &amp; Averages)</h3><div class="legend"><span><i class="swatch" style="background:rgba(224,112,112,0.22);outline:1px solid #E07070"></i>high</span><span><i class="swatch" style="background:rgba(251,191,36,0.22);outline:1px solid #E8B84A"></i>medium</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>low</span><span>vs squad (terciles)</span></div><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (sum)</th><th>HMLD (sum)</th><th>High speed running (absolute) (sum)</th><th>DSL (mean)</th><th>Max speed (max)</th><th>Performance Score Mean</th></tr></thead><tbody><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">12</td><td class="lvl-mid">35.3</td><td class="lvl-hi">7</td><td class="lvl-mid">2</td><td class="lvl-mid">188</td><td class="lvl-mid">8.8</td><td class="lvl-hi">52.9</td></tr><tr><td class="">Mario Vušković</td><td class="">12</td><td class="lvl-hi">54.7</td><td class="lvl-hi">7</td><td class="lvl-lo">1.4</td><td class="lvl-mid">181.4</td><td class="lvl-hi">9.2</td><td class="lvl-hi">51.1</td></tr><tr><td class="">Bilal Nadir</td><td class="">8</td><td class="lvl-mid">40.6</td><td class="lvl-mid">5.9</td><td class="lvl-lo">1.6</td><td class="lvl-lo">145</td><td class="lvl-hi">9.2</td><td class="">—</td></tr><tr><td class="">Bakery Jatta</td><td class="">12</td><td class="lvl-lo">24.4</td><td class="lvl-lo">3.9</td><td class="lvl-lo">1.2</td><td class="lvl-mid">167.9</td><td class="lvl-lo">8.7</td><td class="lvl-hi">55.2</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">13</td><td class="lvl-mid">41</td><td class="lvl-hi">7</td><td class="lvl-mid">2.1</td><td class="lvl-lo">75.9</td><td class="lvl-mid">9</td><td class="lvl-lo">50.9</td></tr><tr><td class="">Kofi Amoako</td><td class="">11</td><td class="lvl-mid">40.5</td><td class="lvl-mid">6.9</td><td class="lvl-hi">2.4</td><td class="lvl-hi">219.6</td><td class="lvl-hi">9.4</td><td class="">—</td></tr><tr><td class="">Miro Muheim</td><td class="">13</td><td class="lvl-hi">54.3</td><td class="lvl-hi">10.1</td><td class="lvl-hi">3.6</td><td class="lvl-hi">191.2</td><td class="lvl-mid">9</td><td class="lvl-lo">49.8</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">13</td><td class="lvl-hi">47.6</td><td class="lvl-hi">8</td><td class="lvl-hi">2.3</td><td class="lvl-hi">215.9</td><td class="lvl-lo">8.4</td><td class="lvl-lo">50.5</td></tr><tr><td class="">Fábio Vieira</td><td class="">11</td><td class="lvl-mid">37.8</td><td class="lvl-mid">5.9</td><td class="lvl-mid">1.8</td><td class="lvl-hi">189.2</td><td class="lvl-lo">8.4</td><td class="lvl-lo">49.7</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">13</td><td class="lvl-lo">30.4</td><td class="lvl-lo">4.3</td><td class="lvl-lo">1.3</td><td class="lvl-mid">145.9</td><td class="lvl-mid">9.1</td><td class="lvl-lo">48.9</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">13</td><td class="lvl-hi">43</td><td class="lvl-mid">6</td><td class="lvl-mid">2</td><td class="lvl-mid">178.3</td><td class="lvl-hi">9.5</td><td class="lvl-lo">50.5</td></tr><tr><td class="">Nicolai Remberg</td><td class="">13</td><td class="lvl-hi">50.9</td><td class="lvl-hi">8.6</td><td class="lvl-mid">1.8</td><td class="lvl-hi">352</td><td class="lvl-hi">9.2</td><td class="lvl-hi">69.3</td></tr><tr><td class="">Martin Adeline</td><td class="">5</td><td class="lvl-hi">47.5</td><td class="lvl-hi">9.9</td><td class="lvl-hi">2.9</td><td class="lvl-hi">386.4</td><td class="lvl-hi">9.3</td><td class="">—</td></tr><tr><td class="">Sebastiaan Bornauw</td><td class="">6</td><td class="lvl-hi">41.4</td><td class="lvl-mid">6.2</td><td class="lvl-lo">1.3</td><td class="lvl-hi">195.1</td><td class="lvl-hi">9.7</td><td class="">—</td></tr><tr><td class="">Terem Moffi</td><td class="">12</td><td class="lvl-lo">14.9</td><td class="lvl-lo">1.6</td><td class="lvl-hi">781</td><td class="lvl-lo">79.9</td><td class="lvl-mid">9</td><td class="">—</td></tr><tr><td class="">Shafiq Nandja</td><td class="">11</td><td class="lvl-mid">38.9</td><td class="lvl-mid">6.9</td><td class="lvl-mid">2.2</td><td class="lvl-mid">168.1</td><td class="lvl-hi">10.2</td><td class="">—</td></tr><tr><td class="">Albert Grønbæk</td><td class="">12</td><td class="lvl-lo">9.7</td><td class="lvl-hi">492</td><td class="lvl-hi">36</td><td class="lvl-lo">139.3</td><td class="lvl-lo">6.4</td><td class="lvl-hi">54.2</td></tr><tr><td class="">Otto Stange</td><td class="">12</td><td class="lvl-lo">7.8</td><td class="lvl-lo">1.6</td><td class="lvl-hi">701</td><td class="lvl-lo">108</td><td class="lvl-mid">8.8</td><td class="lvl-hi">51.2</td></tr><tr><td class="">David Möller Wolfe</td><td class="">4</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Patson Daka</td><td class="">9</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Sebastiaan  Bornauw</td><td class="">5</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Warmed Omari</td><td class="">11</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">50.9</td></tr><tr><td class="">Fabio Baldé</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Damion Downs</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Daniel Elfadli</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Robert Glatzel</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Noah Katterbach</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Omar Megeed</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">William Mikelbrencis</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Philip Otele</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Immanuël Pherai</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">50.5</td></tr><tr><td class="">Rayan Philippe</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Emir Sahiti</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Luka Vušković</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Muheim leads HMLD exposure (10,078 m) with high sprint volume (1,408 m). Adeline shows extreme per-session intensity (mean 1,985 m HMLD/session, max 3,015 m). Sambi Lokonga combines moderate volume with elevated injury risk (mean 50.1). Poulsen shows high injury risk (35.3) despite lower HMLD, suggesting recovery deficit.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Intensity Derivatives &amp; Mechanical Efficiency</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Mean Injury Risk Score – Top 12 Players</h3>
+  <div id="chart_5" class="chart-box bar-rank"></div>
+  
+</div>
+<div class="chart-card chart-wide">
+  <h3>Performance Score vs Injury Risk – Daily Evolution</h3>
+  <div id="chart_6" class="chart-box wide"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Sambi Lokonga: injury risk 50.1 (highest in squad) with moderate performance 50.5. Poulsen: risk 35.3 despite lower HMLD volume, indicating insufficient recovery capacity. Königsdörffer &amp; Glatzel: elevated risk without GPS data suggests non-training load factors. Correlation analysis: max speed vs injury r = -0.02 (n=45), body soreness vs performance r = -0.15 (n=56).</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Case Study: Albert Sambi Lokonga – High Injury Risk Profile</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3bc9009-f865-4563-a61d-a97a8771ef04.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T073412Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=e82dd26e877a220ca763252adc3c87bbecd59074b91542cebdbdbe6c08e49986&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">AS</div></div><div><div class="name">Albert Sambi Lokonga</div><div class="meta">CENTRAL MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Sambi Lokonga – Daily GPS &amp; Wellness Profile</h3><table class="report-table"><thead><tr><th>Date</th><th>Distance total (m)</th><th>HMLD (m)</th><th>Max speed (km/h)</th><th>Accelerations (relative)</th><th>Decelerations (relative)</th><th>Body Soreness Rating</th><th>Performance Score</th></tr></thead><tbody><tr><td class="">2026-09-22</td><td class="lvl-lo">5</td><td class="lvl-hi">931</td><td class="lvl-mid">7.6</td><td class="lvl-hi">72</td><td class="lvl-mid">35</td><td class="lvl-mid">10</td><td class="lvl-mid">49</td></tr><tr><td class="">2026-09-29</td><td class="lvl-hi">7.4</td><td class="lvl-hi">941</td><td class="lvl-hi">8</td><td class="lvl-hi">88</td><td class="lvl-hi">48</td><td class="lvl-mid">10</td><td class="lvl-hi">52</td></tr><tr><td class="">2026-09-30</td><td class="lvl-mid">6.5</td><td class="lvl-lo">1.3</td><td class="lvl-mid">7.5</td><td class="lvl-mid">66</td><td class="lvl-hi">48</td><td class="">—</td><td class="lvl-hi">52</td></tr><tr><td class="">2026-10-01</td><td class="lvl-hi">7.8</td><td class="lvl-lo">1.4</td><td class="lvl-mid">7.5</td><td class="lvl-mid">55</td><td class="lvl-lo">31</td><td class="lvl-hi">20</td><td class="lvl-hi">53</td></tr><tr><td class="">2026-10-02</td><td class="lvl-mid">6.9</td><td class="lvl-hi">954</td><td class="lvl-hi">8.4</td><td class="lvl-hi">71</td><td class="lvl-mid">37</td><td class="lvl-hi">30</td><td class="">—</td></tr><tr><td class="">2026-10-03</td><td class="lvl-lo">4</td><td class="lvl-mid">456</td><td class="lvl-lo">6.5</td><td class="lvl-lo">25</td><td class="lvl-lo">15</td><td class="">—</td><td class="">—</td></tr><tr><td class="">2026-10-04</td><td class="lvl-hi">10</td><td class="lvl-mid">1.9</td><td class="lvl-hi">7.9</td><td class="lvl-lo">49</td><td class="lvl-hi">44</td><td class="">—</td><td class="">—</td></tr><tr><td class="">2026-09-28</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">52</td></tr><tr><td class="">2026-09-27</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-mid">50</td></tr><tr><td class="">2026-09-26</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-mid">49</td></tr><tr><td class="">2026-09-25</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">48</td></tr><tr><td class="">2026-09-24</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-mid">51</td></tr><tr><td class="">2026-09-23</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-mid">49</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Sambi Lokonga – Injury Risk &amp; Performance Trend</h3>
+  <div id="chart_7" class="chart-box tall"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Injury Risk Score</span><span><i style="background:#34D399"></i>Performance Score</span></div>
+</div>
+<div class="chart-card">
+  <h3>Sambi Lokonga – HMLD &amp; Max Speed Evolution</h3>
+  <div id="chart_8" class="chart-box tall"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Max speed (km/h)</span><span><i style="background:#34D399"></i>HMLD (m)</span></div>
+</div>
+<div class="prose-block"><ul><li>Sambi Lokonga shows persistently elevated injury risk (peak 56, mean 50.1) despite moderate GPS load. Max speed declining from 7.6 to 7.2 km/h over period. Accel/decel ratio highly imbalanced (mean 2.06:1, squad mean ~1.3:1), indicating eccentric loading deficit. Body soreness ratings low (10-30) do not reflect underlying risk — disconnect suggests poor subjective awareness or chronic adaptation.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5">
+  <div class="band">
+    <h1>Case Study: Yussuf Poulsen – Volume-Risk Mismatch</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/bbd75f0b-8dd1-4ff0-b3f4-5d07e8559076.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T073412Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=7d8a553c4cc65e5810e9fff5799f766d5983419477ab536405f876beafc58ebb&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">YP</div></div><div><div class="name">Yussuf Poulsen</div><div class="meta">STRIKER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Poulsen – Daily GPS &amp; Wellness Profile</h3><table class="report-table"><thead><tr><th>Date</th><th>Distance total (m)</th><th>HMLD (m)</th><th>High speed running (absolute)</th><th>Max speed (km/h)</th><th>Body Soreness Rating</th><th>Performance Score</th></tr></thead><tbody><tr><td class="">2026-09-22</td><td class="lvl-mid">3.6</td><td class="lvl-mid">555</td><td class="lvl-lo">33</td><td class="lvl-lo">7.2</td><td class="lvl-hi">20</td><td class="lvl-lo">49</td></tr><tr><td class="">2026-09-23</td><td class="lvl-mid">5.5</td><td class="lvl-hi">940</td><td class="lvl-hi">599</td><td class="lvl-hi">8.4</td><td class="lvl-hi">10</td><td class="lvl-lo">48</td></tr><tr><td class="">2026-09-29</td><td class="lvl-hi">6.9</td><td class="lvl-lo">1</td><td class="lvl-lo">72</td><td class="lvl-lo">6.8</td><td class="lvl-hi">10</td><td class="lvl-hi">52</td></tr><tr><td class="">2026-09-30</td><td class="lvl-hi">6.3</td><td class="lvl-lo">1.3</td><td class="lvl-hi">330</td><td class="lvl-mid">7.4</td><td class="">—</td><td class="lvl-mid">51</td></tr><tr><td class="">2026-10-01</td><td class="lvl-hi">7.2</td><td class="lvl-mid">1.4</td><td class="lvl-hi">568</td><td class="lvl-mid">7.9</td><td class="lvl-hi">20</td><td class="lvl-hi">53</td></tr><tr><td class="">2026-10-02</td><td class="lvl-mid">5.3</td><td class="lvl-hi">818</td><td class="lvl-mid">134</td><td class="lvl-hi">9</td><td class="lvl-hi">10</td><td class="">—</td></tr><tr><td class="">2026-10-03</td><td class="lvl-lo">3.5</td><td class="lvl-mid">401</td><td class="lvl-mid">126</td><td class="lvl-mid">7.7</td><td class="">—</td><td class="">—</td></tr><tr><td class="">2026-10-04</td><td class="lvl-lo">2.7</td><td class="lvl-hi">576</td><td class="lvl-mid">193</td><td class="lvl-hi">8.8</td><td class="">—</td><td class="">—</td></tr><tr><td class="">2026-09-24</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">20</td><td class="lvl-mid">51</td></tr><tr><td class="">2026-09-25</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">10</td><td class="lvl-hi">52</td></tr><tr><td class="">2026-09-26</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">10</td><td class="lvl-mid">51</td></tr><tr><td class="">2026-09-27</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">10</td><td class="lvl-lo">50</td></tr><tr><td class="">2026-09-28</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">10</td><td class="lvl-hi">52</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Poulsen – Injury Risk vs HMLD</h3>
+  <div id="chart_9" class="chart-box tall"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Injury Risk Score</span><span><i style="background:#34D399"></i>HMLD (m)</span></div>
+</div>
+<div class="prose-block"><ul><li>Poulsen: injury risk 35.3 with below-squad-mean HMLD (875 m/session vs squad ~1,100 m). DSL extremely low (mean 75.9 vs squad ~180), suggesting underload or modified training. High sprint volume (mean 104.5 m) but low mechanical load indicates incomplete neuromuscular preparation. Risk driven by fitness-fatigue imbalance, not acute overload.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-6">
+  <div class="band">
+    <h1>Case Study: Miro Muheim – High Volume, Low Risk</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2ca095e4-97bf-4b4a-af95-2b877e97cfae.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T073412Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=fb3da852c43be0323ca56097b99ef39f0b2edebd73aebf622c4e898701722119&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">MM</div></div><div><div class="name">Miro Muheim</div><div class="meta">FULL BACK</div></div></div>
+  <div class="section-body"><div class="card"><h3>Muheim – Daily GPS &amp; Wellness Profile</h3><table class="report-table"><thead><tr><th>Date</th><th>Distance total (m)</th><th>HMLD (m)</th><th>High speed running (absolute)</th><th>Sprint distance (m)</th><th>Max speed (km/h)</th><th>Performance Score</th></tr></thead><tbody><tr><td class="">2026-09-22</td><td class="lvl-mid">5.6</td><td class="lvl-mid">1.1</td><td class="lvl-mid">322</td><td class="lvl-lo">61</td><td class="lvl-mid">8.4</td><td class="lvl-hi">50</td></tr><tr><td class="">2026-09-23</td><td class="lvl-lo">5.1</td><td class="lvl-mid">1.1</td><td class="lvl-hi">619</td><td class="lvl-hi">386</td><td class="lvl-mid">8.2</td><td class="lvl-lo">48</td></tr><tr><td class="">2026-09-29</td><td class="lvl-hi">7.8</td><td class="lvl-lo">1</td><td class="lvl-lo">78</td><td class="lvl-lo">0</td><td class="lvl-lo">7</td><td class="lvl-hi">50</td></tr><tr><td class="">2026-09-30</td><td class="lvl-mid">6.5</td><td class="lvl-mid">1.4</td><td class="lvl-mid">576</td><td class="lvl-mid">190</td><td class="lvl-hi">8.8</td><td class="lvl-hi">50</td></tr><tr><td class="">2026-10-01</td><td class="lvl-hi">9.1</td><td class="lvl-hi">1.7</td><td class="lvl-hi">598</td><td class="lvl-hi">210</td><td class="lvl-hi">8.8</td><td class="lvl-hi">52</td></tr><tr><td class="">2026-10-02</td><td class="lvl-mid">6.9</td><td class="lvl-mid">1.1</td><td class="lvl-lo">236</td><td class="lvl-mid">74</td><td class="lvl-hi">8.8</td><td class="">—</td></tr><tr><td class="">2026-10-03</td><td class="lvl-lo">4</td><td class="lvl-hi">516</td><td class="lvl-mid">240</td><td class="lvl-mid">82</td><td class="lvl-lo">8.1</td><td class="">—</td></tr><tr><td class="">2026-10-04</td><td class="lvl-hi">9.3</td><td class="lvl-hi">2.2</td><td class="lvl-hi">970</td><td class="lvl-hi">405</td><td class="lvl-hi">9</td><td class="">—</td></tr><tr><td class="">2026-09-28</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">50</td></tr><tr><td class="">2026-09-27</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">49</td></tr><tr><td class="">2026-09-26</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">50</td></tr><tr><td class="">2026-09-25</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">49</td></tr><tr><td class="">2026-09-24</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">50</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Muheim – HMLD &amp; Sprint Distance Evolution</h3>
+  <div id="chart_10" class="chart-box tall"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>HMLD (m)</span><span><i style="background:#34D399"></i>Sprint distance (m)</span></div>
+</div>
+<div class="prose-block"><ul><li>Muheim: highest HMLD exposure (10,078 m total, mean 1,260 m/session) yet injury risk only 17.6. Sprint volume 1,408 m (squad leader). Balanced accel/decel profile (77:70 ratio ~1.1:1). Max speed stable 8.4–9.0 km/h. Demonstrates robust tolerance to high mechanical load — reference profile for squad capacity benchmarking.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-7">
+  <div class="band">
+    <h1>Cross-Domain Analysis: GPS × Wellness × Performance</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Wellness &amp; Risk Summary – Active Players (Display Period)</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (mean)</th><th>Distance total (sum)</th><th>Distance total (max)</th><th>HMLD (mean)</th><th>HMLD (sum)</th><th>HMLD (max)</th><th>High speed running (absolute) (mean)</th><th>High speed running (absolute) (sum)</th><th>High speed running (absolute) (max)</th><th>Sprint distance (mean)</th><th>Sprint distance (sum)</th><th>Sprint distance (max)</th></tr></thead><tbody><tr><td class="">Miro Muheim</td><td class="">13</td><td class="">6,791.25</td><td class="lvl-hi">54.3</td><td class="lvl-mid">9.3</td><td class="">1,259.75</td><td class="lvl-hi">10.1</td><td class="lvl-hi">2.2</td><td class="lvl-hi">454.9</td><td class="lvl-hi">3.6</td><td class="lvl-hi">970</td><td class="lvl-hi">176</td><td class="lvl-lo">1.4</td><td class="lvl-hi">405</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">13</td><td class="">5,124.38</td><td class="lvl-mid">41</td><td class="lvl-lo">7.2</td><td class="lvl-mid">875.4</td><td class="lvl-hi">7</td><td class="lvl-mid">1.4</td><td class="lvl-mid">256.9</td><td class="lvl-mid">2.1</td><td class="lvl-hi">599</td><td class="lvl-mid">104.5</td><td class="lvl-hi">836</td><td class="lvl-hi">477</td></tr><tr><td class="">Kofi Amoako</td><td class="">11</td><td class="">5,790.29</td><td class="lvl-mid">40.5</td><td class="lvl-mid">8.3</td><td class="lvl-hi">980.1</td><td class="lvl-mid">6.9</td><td class="lvl-hi">1.7</td><td class="lvl-hi">337.3</td><td class="lvl-hi">2.4</td><td class="lvl-hi">896</td><td class="lvl-hi">110.7</td><td class="lvl-hi">775</td><td class="lvl-hi">374</td></tr><tr><td class="">Martin Adeline</td><td class="">5</td><td class="">9,508.6</td><td class="lvl-hi">47.5</td><td class="lvl-hi">12.5</td><td class="">1,985.2</td><td class="lvl-hi">9.9</td><td class="lvl-hi">3</td><td class="lvl-hi">571.2</td><td class="lvl-hi">2.9</td><td class="lvl-lo">1.2</td><td class="lvl-hi">152.4</td><td class="lvl-hi">762</td><td class="lvl-hi">330</td></tr><tr><td class="">Fábio Vieira</td><td class="">11</td><td class="">6,299.67</td><td class="lvl-lo">37.8</td><td class="lvl-lo">7.5</td><td class="lvl-hi">977.8</td><td class="lvl-mid">5.9</td><td class="lvl-mid">1.4</td><td class="lvl-mid">306.5</td><td class="lvl-mid">1.8</td><td class="lvl-mid">547</td><td class="lvl-hi">122</td><td class="lvl-hi">732</td><td class="lvl-mid">288</td></tr><tr><td class="">Shafiq Nandja</td><td class="">11</td><td class="">7,784.6</td><td class="lvl-mid">38.9</td><td class="lvl-hi">10.6</td><td class="">1,383.4</td><td class="lvl-mid">6.9</td><td class="lvl-hi">1.7</td><td class="lvl-hi">446.2</td><td class="lvl-hi">2.2</td><td class="lvl-hi">691</td><td class="lvl-hi">130.2</td><td class="lvl-hi">651</td><td class="lvl-mid">253</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">13</td><td class="">5,074.5</td><td class="lvl-lo">30.4</td><td class="lvl-lo">7.2</td><td class="lvl-lo">712.5</td><td class="lvl-lo">4.3</td><td class="lvl-lo">1.1</td><td class="lvl-lo">211.7</td><td class="lvl-lo">1.3</td><td class="lvl-mid">497</td><td class="lvl-mid">90</td><td class="lvl-mid">540</td><td class="lvl-hi">337</td></tr><tr><td class="">Bilal Nadir</td><td class="">8</td><td class="">5,076.13</td><td class="lvl-mid">40.6</td><td class="lvl-mid">9</td><td class="lvl-mid">736.8</td><td class="lvl-mid">5.9</td><td class="lvl-mid">1.4</td><td class="lvl-lo">198.5</td><td class="lvl-mid">1.6</td><td class="lvl-lo">433</td><td class="lvl-lo">57.5</td><td class="lvl-mid">460</td><td class="lvl-mid">160</td></tr><tr><td class="">Bakery Jatta</td><td class="">12</td><td class="">6,105.25</td><td class="lvl-lo">24.4</td><td class="lvl-mid">9.4</td><td class="lvl-hi">982</td><td class="lvl-lo">3.9</td><td class="lvl-mid">1.6</td><td class="lvl-mid">291.5</td><td class="lvl-lo">1.2</td><td class="lvl-mid">504</td><td class="lvl-mid">96.8</td><td class="lvl-mid">387</td><td class="lvl-mid">179</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">13</td><td class="">6,794.71</td><td class="lvl-hi">47.6</td><td class="lvl-hi">10</td><td class="">1,137.71</td><td class="lvl-hi">8</td><td class="lvl-hi">1.9</td><td class="lvl-hi">329.7</td><td class="lvl-hi">2.3</td><td class="lvl-hi">652</td><td class="lvl-lo">54.7</td><td class="lvl-mid">383</td><td class="lvl-lo">129</td></tr><tr><td class="">Sebastiaan Bornauw</td><td class="">6</td><td class="">6,903.17</td><td class="lvl-hi">41.4</td><td class="lvl-hi">9.7</td><td class="">1,027.67</td><td class="lvl-mid">6.2</td><td class="lvl-hi">1.7</td><td class="lvl-lo">218.3</td><td class="lvl-lo">1.3</td><td class="lvl-lo">471</td><td class="lvl-mid">61.3</td><td class="lvl-lo">368</td><td class="lvl-lo">106</td></tr><tr><td class="">Nicolai Remberg</td><td class="">13</td><td class="">8,477.17</td><td class="lvl-hi">50.9</td><td class="lvl-hi">11.6</td><td class="">1,432.33</td><td class="lvl-hi">8.6</td><td class="lvl-hi">2.3</td><td class="lvl-mid">299.2</td><td class="lvl-mid">1.8</td><td class="lvl-mid">552</td><td class="lvl-lo">55.2</td><td class="lvl-lo">331</td><td class="lvl-lo">156</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Training RPE Distribution – Display Period</h3>
+  <div id="chart_11" class="chart-box bar-rank"></div>
+  
+</div>
+<div class="card"><h3>Multi-Domain Risk Profile – Key Players</h3><table class="report-table"><thead><tr><th>Player</th><th>HMLD (mean)</th><th>DSL (mean)</th><th>Max speed (max)</th><th>Performance Score Mean</th></tr></thead><tbody><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">1,394.8</td><td class="lvl-mid">188</td><td class="lvl-mid">8.8</td><td class="lvl-hi">52.9</td></tr><tr><td class="">Mario Vušković</td><td class="lvl-hi">880.6</td><td class="lvl-mid">181.4</td><td class="lvl-hi">9.2</td><td class="lvl-hi">51.1</td></tr><tr><td class="">Bilal Nadir</td><td class="lvl-mid">736.8</td><td class="lvl-lo">145</td><td class="lvl-hi">9.2</td><td class="">—</td></tr><tr><td class="">Bakery Jatta</td><td class="lvl-hi">982</td><td class="lvl-mid">167.9</td><td class="lvl-lo">8.7</td><td class="lvl-hi">55.2</td></tr><tr><td class="">Yussuf Poulsen</td><td class="lvl-mid">875.4</td><td class="lvl-lo">75.9</td><td class="lvl-mid">9</td><td class="lvl-lo">50.9</td></tr><tr><td class="">Kofi Amoako</td><td class="lvl-hi">980.1</td><td class="lvl-hi">219.6</td><td class="lvl-hi">9.4</td><td class="">—</td></tr><tr><td class="">Miro Muheim</td><td class="">1,259.75</td><td class="lvl-hi">191.2</td><td class="lvl-mid">9</td><td class="lvl-lo">49.8</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">1,137.71</td><td class="lvl-hi">215.9</td><td class="lvl-lo">8.4</td><td class="lvl-lo">50.5</td></tr><tr><td class="">Fábio Vieira</td><td class="lvl-hi">977.8</td><td class="lvl-hi">189.2</td><td class="lvl-lo">8.4</td><td class="lvl-lo">49.7</td></tr><tr><td class="">Jordan Torunarigha</td><td class="lvl-mid">712.5</td><td class="lvl-mid">145.9</td><td class="lvl-mid">9.1</td><td class="lvl-lo">48.9</td></tr><tr><td class="">Nicolás Capaldo</td><td class="lvl-mid">671.3</td><td class="lvl-mid">178.3</td><td class="lvl-hi">9.5</td><td class="lvl-lo">50.5</td></tr><tr><td class="">Nicolai Remberg</td><td class="">1,432.33</td><td class="lvl-hi">352</td><td class="lvl-hi">9.2</td><td class="lvl-hi">69.3</td></tr><tr><td class="">Martin Adeline</td><td class="">1,985.2</td><td class="lvl-hi">386.4</td><td class="lvl-hi">9.3</td><td class="">—</td></tr><tr><td class="">Sebastiaan Bornauw</td><td class="">1,027.67</td><td class="lvl-hi">195.1</td><td class="lvl-hi">9.7</td><td class="">—</td></tr><tr><td class="">Terem Moffi</td><td class="lvl-lo">324.2</td><td class="lvl-lo">79.9</td><td class="lvl-mid">9</td><td class="">—</td></tr><tr><td class="">Shafiq Nandja</td><td class="">1,383.4</td><td class="lvl-mid">168.1</td><td class="lvl-hi">10.2</td><td class="">—</td></tr><tr><td class="">Albert Grønbæk</td><td class="lvl-lo">164</td><td class="lvl-lo">139.3</td><td class="lvl-lo">6.4</td><td class="lvl-hi">54.2</td></tr><tr><td class="">Otto Stange</td><td class="lvl-lo">1.6</td><td class="lvl-lo">108</td><td class="lvl-mid">8.8</td><td class="lvl-hi">51.2</td></tr><tr><td class="">David Möller Wolfe</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Patson Daka</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Sebastiaan  Bornauw</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Warmed Omari</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">50.9</td></tr><tr><td class="">Fabio Baldé</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Damion Downs</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Daniel Elfadli</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Robert Glatzel</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Noah Katterbach</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Omar Megeed</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">William Mikelbrencis</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Philip Otele</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Immanuël Pherai</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">50.5</td></tr><tr><td class="">Rayan Philippe</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Emir Sahiti</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr><tr><td class="">Luka Vušković</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">51</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Weak correlation between subjective soreness and injury risk (r = -0.15, n=56) suggests athletes underreport or normalize chronic fatigue. Sambi Lokonga reports low soreness (10-30) despite risk 50+. Poulsen similar pattern. Recommendation: prioritize objective GPS derivatives (accel/decel imbalance, max speed decline) over self-report for injury flagging.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-7</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-8">
+  <div class="band">
+    <h1>Technical Recommendations</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><ul><li>Sambi Lokonga: Reduce eccentric loading volume. Accel:decel ratio 2.06:1 (target &lt;1.5:1). Prescribe dedicated deceleration drills. Monitor max speed weekly — current decline 7.6→7.2 km/h flags neuromuscular fatigue. 2. Poulsen: Increase DSL exposure gradually (current 75.9 m, target 150+ m). Low mechanical load despite sprint volume indicates incomplete conditioning. Risk driven by fitness gap, not overload. 3. Sq…</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-8</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-9">
+  <div class="band">
+    <h1>Summary &amp; Key Findings</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><ul><li>Period analysis (22 Sep – 5 Oct) reveals three distinct injury risk profiles: (1) High-risk despite moderate load (Sambi Lokonga, Poulsen) — driven by mechanical imbalance and neuromuscular decline; (2) Low-risk high-volume (Muheim, Remberg) — robust tolerance benchmarks; (3) Elevated risk without GPS data (Königsdörffer, Glatzel) — non-training factors. Advanced derivatives (HMLD/min, accel/decel ratio, max speed…</li></ul></div>
+<div class="chart-card">
+  <h3>Performance Score vs Injury Risk – Squad Comparison</h3>
+  <div id="chart_12" class="chart-box bar-rank"></div>
+  
+</div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-9</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Sprint Distance Volume – Top 12 Players (m)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Sprint distance (sum)","type":"bar","encode":{"x":"Player","y":"Sprint distance (sum)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":600.833,"name":"Mean","label":{"formatter":"Mean 600.83","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","N","Distance total (mean)","Distance total (sum)","Distance total (max)","HMLD (mean)","HMLD (sum)","HMLD (max)","High speed running (absolute) (mean)","High speed running (absolute) (sum)","High speed running (absolute) (max)","Sprint distance (mean)","Sprint distance (sum)","Sprint distance (max)","DSL (mean)","DSL (sum)","DSL (max)","Max speed (mean)","Max speed (sum)","Max speed (max)","Accelerations (relative) (mean)","Accelerations (relative) (sum)","Accelerations (relative) (max)","Decelerations (relative) (mean)","Decelerations (relative) (sum)","Decelerations (relative) (max)","Performance Score Mean","Performance Score Sum","Performance Score Max","Injury Risk Score Mean","Injury Risk Score Sum","Injury Risk Score Max"],["Miro Muheim",13,6791.3,54330,9301,1259.8,10078,2179,454.9,3639,970,176,1408,405,191.2,1529.2,264.8,8.4,67.1,9,77.1,617,115,70.4,563,91,49.8,498,52,17.6,176,29],["Martin Adeline",5,9508.6,47543,12483,1985.2,9926,3015,571.2,2856,1203,152.4,762,330,386.4,1931.8,611.1,8.4,41.9,9.3,73.6,368,78,93.4,467,109,null,null,null,null,null,null],["Kofi Amoako",11,5790.3,40532,8275,980.1,6861,1716,337.3,2361,896,110.7,775,374,219.6,1537.5,343.2,8.1,56.5,9.4,62.1,435,104,46.3,324,71,null,null,null,null,null,null],["Albert Sambi Lokonga",13,6794.7,47563,10010,1137.7,7964,1921,329.7,2308,652,54.7,383,129,215.9,1511.1,310.1,7.6,53.4,8.4,60.9,426,88,36.9,258,48,50.5,505,53,50.1,501,56],["Shafiq Nandja",11,7784.6,38923,10559,1383.4,6917,1693,446.2,2231,691,130.2,651,253,168.1,840.7,305.4,8.7,43.3,10.2,85.2,426,144,72.2,361,108,null,null,null,null,null,null],["Yussuf Poulsen",13,5124.4,40995,7232,875.4,7003,1403,256.9,2055,599,104.5,836,477,75.9,607,124.5,7.9,63.2,9,62.5,500,94,45,360,71,50.9,509,53,35.3,353,38],["Nicolás Capaldo",13,4778.8,43009,8598,671.3,6042,1497,226.8,2041,425,33,297,84,178.3,1604.3,429,7.6,68.4,9.5,34,306,91,33,297,98,50.5,505,52,4,40,12],["Alexander Røssing-Lelesiit",12,7058,35290,9629,1394.8,6974,2272,393.4,1967,808,57.2,286,131,188,940.2,292.2,8.3,41.5,8.8,112.2,561,184,91.6,458,127,52.9,529,57,2.6,26,8],["Fábio Vieira",11,6299.7,37798,7459,977.8,5867,1361,306.5,1839,547,122,732,288,189.2,1135.4,227.1,7.8,46.9,8.4,60,360,76,42,252,56,49.7,497,53,17.4,174,22],["Nicolai Remberg",13,8477.2,50863,11624,1432.3,8594,2283,299.2,1795,552,55.2,331,156,352,2111.9,553.9,8.2,49.3,9.2,70,420,111,99.3,596,151,69.3,693,74,9,90,14],["Bilal Nadir",8,5076.1,40609,8995,736.8,5894,1441,198.5,1588,433,57.5,460,160,145,1159.7,246.4,7.6,61.1,9.2,53,424,94,41.1,329,77,null,null,null,null,null,null],["Mario Vušković",12,6836.3,54690,9223,880.6,7045,1539,179.8,1438,303,36.1,289,167,181.4,1451,223.9,7.8,62,9.2,62,496,98,56.1,449,87,51.1,511,52,26.5,265,35]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"Total Distance Covered – Top 12 Players (m)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Distance total (sum)","type":"bar","encode":{"x":"Player","y":"Distance total (sum)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":41895.467,"name":"Mean","label":{"formatter":"Mean 41,895.47","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","N","Distance total (mean)","Distance total (sum)","Distance total (max)","HMLD (mean)","HMLD (sum)","HMLD (max)","High speed running (absolute) (mean)","High speed running (absolute) (sum)","High speed running (absolute) (max)","Sprint distance (mean)","Sprint distance (sum)","Sprint distance (max)","DSL (mean)","DSL (sum)","DSL (max)","Max speed (mean)","Max speed (sum)","Max speed (max)","Accelerations (relative) (mean)","Accelerations (relative) (sum)","Accelerations (relative) (max)","Decelerations (relative) (mean)","Decelerations (relative) (sum)","Decelerations (relative) (max)","Performance Score Mean","Performance Score Sum","Performance Score Max","Injury Risk Score Mean","Injury Risk Score Sum","Injury Risk Score Max"],["Miro Muheim",13,6791.3,54330,9301,1259.8,10078,2179,454.9,3639,970,176,1408,405,191.2,1529.2,264.8,8.4,67.1,9,77.1,617,115,70.4,563,91,49.8,498,52,17.6,176,29],["Martin Adeline",5,9508.6,47543,12483,1985.2,9926,3015,571.2,2856,1203,152.4,762,330,386.4,1931.8,611.1,8.4,41.9,9.3,73.6,368,78,93.4,467,109,null,null,null,null,null,null],["Nicolai Remberg",13,8477.2,50863,11624,1432.3,8594,2283,299.2,1795,552,55.2,331,156,352,2111.9,553.9,8.2,49.3,9.2,70,420,111,99.3,596,151,69.3,693,74,9,90,14],["Mario Vušković",12,6836.3,54690,9223,880.6,7045,1539,179.8,1438,303,36.1,289,167,181.4,1451,223.9,7.8,62,9.2,62,496,98,56.1,449,87,51.1,511,52,26.5,265,35],["Albert Sambi Lokonga",13,6794.7,47563,10010,1137.7,7964,1921,329.7,2308,652,54.7,383,129,215.9,1511.1,310.1,7.6,53.4,8.4,60.9,426,88,36.9,258,48,50.5,505,53,50.1,501,56],["Shafiq Nandja",11,7784.6,38923,10559,1383.4,6917,1693,446.2,2231,691,130.2,651,253,168.1,840.7,305.4,8.7,43.3,10.2,85.2,426,144,72.2,361,108,null,null,null,null,null,null],["Sebastiaan Bornauw",6,6903.2,41419,9708,1027.7,6166,1736,218.3,1310,471,61.3,368,106,195.1,1170.7,395.4,8.2,48.9,9.7,66.5,399,91,56.5,339,80,null,null,null,null,null,null],["Kofi Amoako",11,5790.3,40532,8275,980.1,6861,1716,337.3,2361,896,110.7,775,374,219.6,1537.5,343.2,8.1,56.5,9.4,62.1,435,104,46.3,324,71,null,null,null,null,null,null],["Nicolás Capaldo",13,4778.8,43009,8598,671.3,6042,1497,226.8,2041,425,33,297,84,178.3,1604.3,429,7.6,68.4,9.5,34,306,91,33,297,98,50.5,505,52,4,40,12],["Yussuf Poulsen",13,5124.4,40995,7232,875.4,7003,1403,256.9,2055,599,104.5,836,477,75.9,607,124.5,7.9,63.2,9,62.5,500,94,45,360,71,50.9,509,53,35.3,353,38],["Alexander Røssing-Lelesiit",12,7058,35290,9629,1394.8,6974,2272,393.4,1967,808,57.2,286,131,188,940.2,292.2,8.3,41.5,8.8,112.2,561,184,91.6,458,127,52.9,529,57,2.6,26,8],["Bilal Nadir",8,5076.1,40609,8995,736.8,5894,1441,198.5,1588,433,57.5,460,160,145,1159.7,246.4,7.6,61.1,9.2,53,424,94,41.1,329,77,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3","title":"High Metabolic Load Distance (HMLD) – Top 12 (m)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"HMLD (sum)","type":"bar","encode":{"x":"Player","y":"HMLD (sum)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":6902.267,"name":"Mean","label":{"formatter":"Mean 6,902.27","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","N","Distance total (mean)","Distance total (sum)","Distance total (max)","HMLD (mean)","HMLD (sum)","HMLD (max)","High speed running (absolute) (mean)","High speed running (absolute) (sum)","High speed running (absolute) (max)","Sprint distance (mean)","Sprint distance (sum)","Sprint distance (max)","DSL (mean)","DSL (sum)","DSL (max)","Max speed (mean)","Max speed (sum)","Max speed (max)","Accelerations (relative) (mean)","Accelerations (relative) (sum)","Accelerations (relative) (max)","Decelerations (relative) (mean)","Decelerations (relative) (sum)","Decelerations (relative) (max)","Performance Score Mean","Performance Score Sum","Performance Score Max","Injury Risk Score Mean","Injury Risk Score Sum","Injury Risk Score Max"],["Miro Muheim",13,6791.3,54330,9301,1259.8,10078,2179,454.9,3639,970,176,1408,405,191.2,1529.2,264.8,8.4,67.1,9,77.1,617,115,70.4,563,91,49.8,498,52,17.6,176,29],["Martin Adeline",5,9508.6,47543,12483,1985.2,9926,3015,571.2,2856,1203,152.4,762,330,386.4,1931.8,611.1,8.4,41.9,9.3,73.6,368,78,93.4,467,109,null,null,null,null,null,null],["Nicolai Remberg",13,8477.2,50863,11624,1432.3,8594,2283,299.2,1795,552,55.2,331,156,352,2111.9,553.9,8.2,49.3,9.2,70,420,111,99.3,596,151,69.3,693,74,9,90,14],["Mario Vušković",12,6836.3,54690,9223,880.6,7045,1539,179.8,1438,303,36.1,289,167,181.4,1451,223.9,7.8,62,9.2,62,496,98,56.1,449,87,51.1,511,52,26.5,265,35],["Albert Sambi Lokonga",13,6794.7,47563,10010,1137.7,7964,1921,329.7,2308,652,54.7,383,129,215.9,1511.1,310.1,7.6,53.4,8.4,60.9,426,88,36.9,258,48,50.5,505,53,50.1,501,56],["Shafiq Nandja",11,7784.6,38923,10559,1383.4,6917,1693,446.2,2231,691,130.2,651,253,168.1,840.7,305.4,8.7,43.3,10.2,85.2,426,144,72.2,361,108,null,null,null,null,null,null],["Sebastiaan Bornauw",6,6903.2,41419,9708,1027.7,6166,1736,218.3,1310,471,61.3,368,106,195.1,1170.7,395.4,8.2,48.9,9.7,66.5,399,91,56.5,339,80,null,null,null,null,null,null],["Kofi Amoako",11,5790.3,40532,8275,980.1,6861,1716,337.3,2361,896,110.7,775,374,219.6,1537.5,343.2,8.1,56.5,9.4,62.1,435,104,46.3,324,71,null,null,null,null,null,null],["Nicolás Capaldo",13,4778.8,43009,8598,671.3,6042,1497,226.8,2041,425,33,297,84,178.3,1604.3,429,7.6,68.4,9.5,34,306,91,33,297,98,50.5,505,52,4,40,12],["Yussuf Poulsen",13,5124.4,40995,7232,875.4,7003,1403,256.9,2055,599,104.5,836,477,75.9,607,124.5,7.9,63.2,9,62.5,500,94,45,360,71,50.9,509,53,35.3,353,38],["Alexander Røssing-Lelesiit",12,7058,35290,9629,1394.8,6974,2272,393.4,1967,808,57.2,286,131,188,940.2,292.2,8.3,41.5,8.8,112.2,561,184,91.6,458,127,52.9,529,57,2.6,26,8],["Bilal Nadir",8,5076.1,40609,8995,736.8,5894,1441,198.5,1588,433,57.5,460,160,145,1159.7,246.4,7.6,61.1,9.2,53,424,94,41.1,329,77,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_4","title":"High-Speed Running Volume – Top 12 Players (m)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"High speed running (absolute) (sum)","type":"bar","encode":{"x":"Player","y":"High speed running (absolute) (sum)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":2176.5,"name":"Mean","label":{"formatter":"Mean 2,176.5","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","N","Distance total (mean)","Distance total (sum)","Distance total (max)","HMLD (mean)","HMLD (sum)","HMLD (max)","High speed running (absolute) (mean)","High speed running (absolute) (sum)","High speed running (absolute) (max)","Sprint distance (mean)","Sprint distance (sum)","Sprint distance (max)","DSL (mean)","DSL (sum)","DSL (max)","Max speed (mean)","Max speed (sum)","Max speed (max)","Accelerations (relative) (mean)","Accelerations (relative) (sum)","Accelerations (relative) (max)","Decelerations (relative) (mean)","Decelerations (relative) (sum)","Decelerations (relative) (max)","Performance Score Mean","Performance Score Sum","Performance Score Max","Injury Risk Score Mean","Injury Risk Score Sum","Injury Risk Score Max"],["Miro Muheim",13,6791.3,54330,9301,1259.8,10078,2179,454.9,3639,970,176,1408,405,191.2,1529.2,264.8,8.4,67.1,9,77.1,617,115,70.4,563,91,49.8,498,52,17.6,176,29],["Martin Adeline",5,9508.6,47543,12483,1985.2,9926,3015,571.2,2856,1203,152.4,762,330,386.4,1931.8,611.1,8.4,41.9,9.3,73.6,368,78,93.4,467,109,null,null,null,null,null,null],["Kofi Amoako",11,5790.3,40532,8275,980.1,6861,1716,337.3,2361,896,110.7,775,374,219.6,1537.5,343.2,8.1,56.5,9.4,62.1,435,104,46.3,324,71,null,null,null,null,null,null],["Albert Sambi Lokonga",13,6794.7,47563,10010,1137.7,7964,1921,329.7,2308,652,54.7,383,129,215.9,1511.1,310.1,7.6,53.4,8.4,60.9,426,88,36.9,258,48,50.5,505,53,50.1,501,56],["Shafiq Nandja",11,7784.6,38923,10559,1383.4,6917,1693,446.2,2231,691,130.2,651,253,168.1,840.7,305.4,8.7,43.3,10.2,85.2,426,144,72.2,361,108,null,null,null,null,null,null],["Yussuf Poulsen",13,5124.4,40995,7232,875.4,7003,1403,256.9,2055,599,104.5,836,477,75.9,607,124.5,7.9,63.2,9,62.5,500,94,45,360,71,50.9,509,53,35.3,353,38],["Nicolás Capaldo",13,4778.8,43009,8598,671.3,6042,1497,226.8,2041,425,33,297,84,178.3,1604.3,429,7.6,68.4,9.5,34,306,91,33,297,98,50.5,505,52,4,40,12],["Alexander Røssing-Lelesiit",12,7058,35290,9629,1394.8,6974,2272,393.4,1967,808,57.2,286,131,188,940.2,292.2,8.3,41.5,8.8,112.2,561,184,91.6,458,127,52.9,529,57,2.6,26,8],["Fábio Vieira",11,6299.7,37798,7459,977.8,5867,1361,306.5,1839,547,122,732,288,189.2,1135.4,227.1,7.8,46.9,8.4,60,360,76,42,252,56,49.7,497,53,17.4,174,22],["Nicolai Remberg",13,8477.2,50863,11624,1432.3,8594,2283,299.2,1795,552,55.2,331,156,352,2111.9,553.9,8.2,49.3,9.2,70,420,111,99.3,596,151,69.3,693,74,9,90,14],["Bilal Nadir",8,5076.1,40609,8995,736.8,5894,1441,198.5,1588,433,57.5,460,160,145,1159.7,246.4,7.6,61.1,9.2,53,424,94,41.1,329,77,null,null,null,null,null,null],["Mario Vušković",12,6836.3,54690,9223,880.6,7045,1539,179.8,1438,303,36.1,289,167,181.4,1451,223.9,7.8,62,9.2,62,496,98,56.1,449,87,51.1,511,52,26.5,265,35]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_5","title":"Mean Injury Risk Score – Top 12 Players","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury Risk Score Mean","type":"bar","encode":{"x":"Player","y":"Injury Risk Score Mean"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":31.283,"name":"Mean","label":{"formatter":"Mean 31.28","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","N","Distance total (mean)","Distance total (sum)","Distance total (max)","HMLD (mean)","HMLD (sum)","HMLD (max)","High speed running (absolute) (mean)","High speed running (absolute) (sum)","High speed running (absolute) (max)","Sprint distance (mean)","Sprint distance (sum)","Sprint distance (max)","DSL (mean)","DSL (sum)","DSL (max)","Max speed (mean)","Max speed (sum)","Max speed (max)","Accelerations (relative) (mean)","Accelerations (relative) (sum)","Accelerations (relative) (max)","Decelerations (relative) (mean)","Decelerations (relative) (sum)","Decelerations (relative) (max)","Performance Score Mean","Performance Score Sum","Performance Score Max","Injury Risk Score Mean","Injury Risk Score Sum","Injury Risk Score Max"],["Albert Sambi Lokonga",13,6794.7,47563,10010,1137.7,7964,1921,329.7,2308,652,54.7,383,129,215.9,1511.1,310.1,7.6,53.4,8.4,60.9,426,88,36.9,258,48,50.5,505,53,50.1,501,56],["Ransford Königsdörffer",10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,510,51,40,400,40],["Yussuf Poulsen",13,5124.4,40995,7232,875.4,7003,1403,256.9,2055,599,104.5,836,477,75.9,607,124.5,7.9,63.2,9,62.5,500,94,45,360,71,50.9,509,53,35.3,353,38],["Robert Glatzel",10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,510,51,35,350,35],["William Mikelbrencis",10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,510,51,31,310,31],["Immanuël Pherai",10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,50.5,505,51,30.3,303,32],["Bakery Jatta",12,6105.3,24421,9373,982,3928,1591,291.5,1166,504,96.8,387,179,167.9,671.5,281.3,8.5,33.8,8.7,76.5,306,104,44.8,179,71,55.2,552,61,29.6,296,35],["Noah Katterbach",10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,510,51,28,280,28],["Mario Vušković",12,6836.3,54690,9223,880.6,7045,1539,179.8,1438,303,36.1,289,167,181.4,1451,223.9,7.8,62,9.2,62,496,98,56.1,449,87,51.1,511,52,26.5,265,35],["Jordan Torunarigha",13,5074.5,30447,7219,712.5,4275,1101,211.7,1270,497,90,540,337,145.9,875.6,269.4,8,47.8,9.1,49.7,298,83,41,246,60,48.9,489,51,25,250,35],["Emir Sahiti",10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,510,51,24,240,24],["Jean-Luc Dompé",10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,510,51,20.6,206,22]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_6","title":"Performance Score vs Injury Risk – Daily Evolution","option":{"legend":{"show":false},"grid":{"left":64,"right":72,"top":48,"containLabel":true,"bottom":28},"xAxis":{"type":"value","name":"Performance Score","scale":true,"nameLocation":"middle","nameGap":28},"yAxis":{"type":"value","name":"Injury Risk Score","scale":true,"nameLocation":"middle","nameGap":40},"tooltip":{"trigger":"item"},"series":[{"type":"scatter","symbolSize":14,"encode":{"x":"Performance Score","y":"Injury Risk Score","tooltip":["Date","Performance Score","Injury Risk Score"]}}],"animation":false,"dataset":{"source":[["Player","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating","Performance Score","Injury Risk Score"],["Mario Vušković","2026-09-22",5400,5929,970,715.8,121,18,1,848,7,89,86,215.2,43.9,11,55,66,11,277,6.5,8.1,5.3,6.1,2,10,2279,2147,9532,9224,8331,8071,2237,1975,3172,3348,215.2,30,null,10,null,51,34],["Bakery Jatta","2026-09-22",5400,5460,874,588.6,290,179,6,584,9,82,38,281.3,59.3,7.9,127,61,10,256,5.8,8.5,5.3,4.8,3,0,1941,2291,8418,10641,7123,8771,2451,3626,2845,3708,281.3,37,null,34,null,57,25],["Yussuf Poulsen","2026-09-22",5400,3621,555,435.9,33,0,0,522,5,81,45,42.2,9.2,1.7,5,40,6,167,4,7.2,5.6,4.6,2,0,445,570,1821,2312,1527,1993,353,500,795,930,42.2,20,null,10,null,49,38],["Albert Sambi Lokonga","2026-09-22",5400,4966,931,547.1,401,57,2,530,7,72,35,180.8,31,4.6,68,55,10,238,5.3,7.6,5.5,5.6,4,1,1770,1494,7589,6333,6485,5524,1701,1287,2891,2366,180.8,10,null,10,null,49,55],["Yussuf Poulsen","2026-09-23",8176,5533,940,611.4,599,477,9,341,3,49,38,61.7,8,1.2,7,41,7,265,3.7,8.4,5.3,9.5,2,2,450,720,1922,2983,1636,2517,284,726,881,1255,61.7,10,null,10,null,48,36],["Mario Vušković","2026-09-23",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,30,null,10,null,51,34],["Bakery Jatta","2026-09-23",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,50,35],["Albert Sambi Lokonga","2026-09-23",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,49,56],["Mario Vušković","2026-09-24",4108,4534,650,504.7,293,0,0,357,3,39,27,127.3,12.8,3.6,26,66,10,216,6,7,5.3,5,2,0,1555,1729,6171,7358,5378,6463,1283,1307,2365,2904,127.3,20,null,10,null,51,34],["Yussuf Poulsen","2026-09-24",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,20,null,10,null,51,38],["Bakery Jatta","2026-09-24",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,56,35],["Albert Sambi Lokonga","2026-09-24",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,56],["Yussuf Poulsen","2026-09-25",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,10,null,10,null,52,38],["Bakery Jatta","2026-09-25",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,56,31],["Albert Sambi Lokonga","2026-09-25",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,48,54],["Mario Vušković","2026-09-25",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,25],["Mario Vušković","2026-09-26",3315,7612,215,744.7,83,0,0,132,1,11,7,207.5,0.1,0.1,0,138,4,382,11.1,6.4,5.5,5.9,2,2,5163,4014,19587,17054,16628,14290,2242,1292,9772,8995,207.5,null,null,null,null,51,28],["Yussuf Poulsen","2026-09-26",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,10,null,10,null,51,37],["Bakery Jatta","2026-09-26",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,60,29],["Albert Sambi Lokonga","2026-09-26",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,49,52],["Mario Vušković","2026-09-27",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,10,null,10,null,51,35],["Yussuf Poulsen","2026-09-27",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,10,null,10,null,50,34],["Bakery Jatta","2026-09-27",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,61,25],["Albert Sambi Lokonga","2026-09-27",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,50,47],["Mario Vušković","2026-09-28",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,10,null,10,null,52,21],["Yussuf Poulsen","2026-09-28",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,10,null,10,null,52,33],["Bakery Jatta","2026-09-28",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,53,26],["Albert Sambi Lokonga","2026-09-28",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,52,47],["Mario Vušković","2026-09-29",8636,8797,1094,1016,31,0,0,1063,14,98,82,223.9,22.5,3.1,49,124,16,405,5.9,6.9,5.2,7.5,2,17,3683,2091,14479,8390,12661,7508,4079,1452,4407,2945,223.9,10,null,10,null,51,17],["Albert Sambi Lokonga","2026-09-29",9103,7382,941,789.7,110,35,3,831,4,88,48,229.2,28.7,5.2,55,101,13,344,4.7,8,8.6,5.4,5,2,2068,2388,8858,10277,7414,8738,1802,1922,3830,4490,229.2,10,null,10,null,52,45],["Yussuf Poulsen","2026-09-29",8313,6931,1022,793.5,72,0,0,951,4,84,71,124.5,16.4,2.1,14,102,15,323,4.8,6.8,4.6,5.5,0,4,706,2168,2820,9182,2422,7851,462,2102,1082,3722,124.5,10,null,10,null,52,32],["Bakery Jatta","2026-09-29",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,54,32],["Bakery Jatta","2026-09-30",6240,6014,1016,664.8,176,20,3,840,8,94,55,121.3,30.9,4.6,28,58,10,286,5.6,7.9,6.4,5.5,8,5,804,1504,3525,6485,2889,5428,629,1356,1664,2909,121.3,null,null,null,null,54,30],["Yussuf Poulsen","2026-09-30",6240,6258,1288,744.3,330,18,2,958,6,94,67,103.2,20,4.2,18,60,12,301,5.9,7.4,6,6,8,6,926,1153,4088,4897,3434,4219,779,1093,1848,1967,103.2,null,null,null,null,51,38],["Mario Vušković","2026-09-30",6240,6831,1212,809,206,39,2,1005,9,76,87,181.7,29.9,5.9,48,66,12,325,6.4,8.3,5.4,6.9,4,10,2462,1362,10417,5859,8749,5053,3122,1010,3788,2461,181.7,null,null,null,null,50,11],["Albert Sambi Lokonga","2026-09-30",6240,6505,1313,711.5,380,25,2,932,6,66,48,246,29.4,6.4,116,63,13,317,6,7.5,5.3,6,2,1,1930,1664,8926,7417,7470,6376,2146,1225,3600,3134,246,null,null,null,null,52,44],["Bakery Jatta","2026-10-01",9425,9373,1591,1005.2,504,104,5,1087,7,104,71,192,40.1,5.5,46,60,10,449,5.6,8.7,5.7,8.1,8,5,1826,1756,8050,7391,6688,6319,1966,1935,3364,2840,192,null,null,null,null,51,28],["Mario Vušković","2026-10-01",7380,9223,1539,1052.5,303,50,3,1236,1,73,71,218.2,24.2,3.7,42,75,13,441,7,8.2,5.3,5.7,1,5,3518,2408,14270,9502,12506,8647,4331,1757,4083,2976,218.2,30,null,10,null,52,26],["Yussuf Poulsen","2026-10-01",7619,7232,1403,816.2,568,180,5,835,3,64,50,111.7,17.1,3.2,14,57,11,352,5.3,7.9,8.6,6.4,2,6,1189,1258,5186,5273,4431,4596,1077,1037,2218,2104,111.7,20,null,10,null,53,29],["Albert Sambi Lokonga","2026-10-01",7380,7787,1448,817,478,23,1,969,4,55,31,273.8,27.3,4.9,99,63,12,381,5.8,7.5,5,6.4,1,6,1765,3015,7644,13294,6673,11468,1231,2760,2940,5268,273.8,20,null,10,null,53,45],["Mario Vušković","2026-10-02",8152,7410,930,850,285,167,4,645,2,75,57,181.4,30.2,3,51,113,15,344,5.3,9.2,4.4,4.8,0,0,2664,1371,11282,5598,9510,4998,3517,898,3877,2052,181.4,10,null,10,null,null,null],["Albert Sambi Lokonga","2026-10-02",7441,6881,954,731.1,213,129,4,741,6,71,37,170.9,25.5,1.5,50,113,16,322,5.3,8.4,4.8,4.8,0,0,1034,2408,4384,10341,3606,8742,918,2623,1952,4165,170.9,30,null,10,null,null,null],["Yussuf Poulsen","2026-10-02",7535,5290,818,602.4,134,80,2,684,0,61,49,65.6,8.5,0.9,4,86,14,246,4.1,9,5.4,4.4,2,0,979,787,4016,3078,3527,2718,783,482,1529,1220,65.6,10,null,10,null,null,null],["Bakery Jatta","2026-10-02",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,40,null,40,null,null,null],["Yussuf Poulsen","2026-10-03",5820,3466,401,384.7,126,20,1,275,1,41,21,41.9,9.8,1.9,4,36,4,157,3.3,7.7,5.4,6.5,3,5,470,518,1992,2159,1732,1901,363,424,778,809,41.9,null,null,null,null,null,null],["Mario Vušković","2026-10-03",5820,4354,435,480.2,116,15,1,319,2,35,32,95.8,16,5.5,34,45,4,197,4.1,7.9,5.4,5.5,2,2,1238,678,5078,2785,4440,2503,1425,511,1497,895,95.8,null,null,null,null,null,null],["Bakery Jatta","2026-10-03",5494,3574,447,368,196,84,4,251,2,26,15,76.9,13.5,2.6,24,39,5,165,3.5,8.7,6,6.4,1,4,866,692,3689,3053,3097,2531,841,688,1551,1366,76.9,null,null,null,null,null,null],["Albert Sambi Lokonga","2026-10-03",5449,4032,456,411.4,74,0,0,382,0,25,15,100.3,11.4,2.5,38,44,5,184,3.9,6.5,5.7,5.6,2,1,976,727,4269,3259,3553,2762,889,505,1896,1480,100.3,null,null,null,null,null,null],["Albert Sambi Lokonga","2026-10-04",7727,10010,1921,1027,652,114,5,1269,3,49,44,310.1,19.1,3,98,78,15,508,7,7.9,5.5,7.1,4,2,2573,3830,10861,16566,9369,14383,1741,2987,4556,6843,310.1,null,null,null,null,null,null],["Yussuf Poulsen","2026-10-04",1806,2664,576,299.9,193,61,2,383,0,26,19,56.2,8.2,1.5,12,89,19,134,8.3,8.8,4.9,6,0,3,470,666,2103,2835,1761,2397,299,644,988,1225,56.2,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_7","title":"Sambi Lokonga – Injury Risk & Performance Trend","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury Risk Score","type":"line","encode":{"x":"Date","y":"Injury Risk Score"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":50.1,"name":"Mean","label":{"formatter":"Mean 50.1","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Performance Score","type":"line","encode":{"x":"Date","y":"Performance Score"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating","Performance Score","Injury Risk Score"],["Albert Sambi Lokonga","2026-09-22",5400,4966,931,547.1,401,57,2,530,7,72,35,180.8,31,4.6,68,55,10,238,5.3,7.6,5.5,5.6,4,1,1770,1494,7589,6333,6485,5524,1701,1287,2891,2366,180.8,10,null,10,null,49,55],["Albert Sambi Lokonga","2026-09-23",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,49,56],["Albert Sambi Lokonga","2026-09-24",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,56],["Albert Sambi Lokonga","2026-09-25",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,48,54],["Albert Sambi Lokonga","2026-09-26",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,49,52],["Albert Sambi Lokonga","2026-09-27",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,50,47],["Albert Sambi Lokonga","2026-09-28",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,52,47],["Albert Sambi Lokonga","2026-09-29",9103,7382,941,789.7,110,35,3,831,4,88,48,229.2,28.7,5.2,55,101,13,344,4.7,8,8.6,5.4,5,2,2068,2388,8858,10277,7414,8738,1802,1922,3830,4490,229.2,10,null,10,null,52,45],["Albert Sambi Lokonga","2026-09-30",6240,6505,1313,711.5,380,25,2,932,6,66,48,246,29.4,6.4,116,63,13,317,6,7.5,5.3,6,2,1,1930,1664,8926,7417,7470,6376,2146,1225,3600,3134,246,null,null,null,null,52,44],["Albert Sambi Lokonga","2026-10-01",7380,7787,1448,817,478,23,1,969,4,55,31,273.8,27.3,4.9,99,63,12,381,5.8,7.5,5,6.4,1,6,1765,3015,7644,13294,6673,11468,1231,2760,2940,5268,273.8,20,null,10,null,53,45],["Albert Sambi Lokonga","2026-10-02",7441,6881,954,731.1,213,129,4,741,6,71,37,170.9,25.5,1.5,50,113,16,322,5.3,8.4,4.8,4.8,0,0,1034,2408,4384,10341,3606,8742,918,2623,1952,4165,170.9,30,null,10,null,null,null],["Albert Sambi Lokonga","2026-10-03",5449,4032,456,411.4,74,0,0,382,0,25,15,100.3,11.4,2.5,38,44,5,184,3.9,6.5,5.7,5.6,2,1,976,727,4269,3259,3553,2762,889,505,1896,1480,100.3,null,null,null,null,null,null],["Albert Sambi Lokonga","2026-10-04",7727,10010,1921,1027,652,114,5,1269,3,49,44,310.1,19.1,3,98,78,15,508,7,7.9,5.5,7.1,4,2,2573,3830,10861,16566,9369,14383,1741,2987,4556,6843,310.1,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_8","title":"Sambi Lokonga – HMLD & Max Speed Evolution","option":{"legend":{"show":false},"grid":{"left":72,"right":80,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":[{"type":"value"},{"type":"value","position":"right","axisLine":{"show":true},"splitLine":{"show":false}}],"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Max speed (km/h)","type":"line","encode":{"x":"Date","y":"Max speed (km/h)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1137.714,"name":"Mean","label":{"formatter":"Mean 1,137.71","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"HMLD (m)","type":"line","yAxisIndex":1,"encode":{"x":"Date","y":"HMLD (m)"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating","Performance Score","Injury Risk Score"],["Albert Sambi Lokonga","2026-09-22",5400,4966,931,547.1,401,57,2,530,7,72,35,180.8,31,4.6,68,55,10,238,5.3,7.6,5.5,5.6,4,1,1770,1494,7589,6333,6485,5524,1701,1287,2891,2366,180.8,10,null,10,null,49,55],["Albert Sambi Lokonga","2026-09-23",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,49,56],["Albert Sambi Lokonga","2026-09-24",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,56],["Albert Sambi Lokonga","2026-09-25",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,48,54],["Albert Sambi Lokonga","2026-09-26",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,49,52],["Albert Sambi Lokonga","2026-09-27",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,50,47],["Albert Sambi Lokonga","2026-09-28",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,52,47],["Albert Sambi Lokonga","2026-09-29",9103,7382,941,789.7,110,35,3,831,4,88,48,229.2,28.7,5.2,55,101,13,344,4.7,8,8.6,5.4,5,2,2068,2388,8858,10277,7414,8738,1802,1922,3830,4490,229.2,10,null,10,null,52,45],["Albert Sambi Lokonga","2026-09-30",6240,6505,1313,711.5,380,25,2,932,6,66,48,246,29.4,6.4,116,63,13,317,6,7.5,5.3,6,2,1,1930,1664,8926,7417,7470,6376,2146,1225,3600,3134,246,null,null,null,null,52,44],["Albert Sambi Lokonga","2026-10-01",7380,7787,1448,817,478,23,1,969,4,55,31,273.8,27.3,4.9,99,63,12,381,5.8,7.5,5,6.4,1,6,1765,3015,7644,13294,6673,11468,1231,2760,2940,5268,273.8,20,null,10,null,53,45],["Albert Sambi Lokonga","2026-10-02",7441,6881,954,731.1,213,129,4,741,6,71,37,170.9,25.5,1.5,50,113,16,322,5.3,8.4,4.8,4.8,0,0,1034,2408,4384,10341,3606,8742,918,2623,1952,4165,170.9,30,null,10,null,null,null],["Albert Sambi Lokonga","2026-10-03",5449,4032,456,411.4,74,0,0,382,0,25,15,100.3,11.4,2.5,38,44,5,184,3.9,6.5,5.7,5.6,2,1,976,727,4269,3259,3553,2762,889,505,1896,1480,100.3,null,null,null,null,null,null],["Albert Sambi Lokonga","2026-10-04",7727,10010,1921,1027,652,114,5,1269,3,49,44,310.1,19.1,3,98,78,15,508,7,7.9,5.5,7.1,4,2,2573,3830,10861,16566,9369,14383,1741,2987,4556,6843,310.1,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_9","title":"Poulsen – Injury Risk vs HMLD","option":{"legend":{"show":false},"grid":{"left":72,"right":80,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":[{"type":"value"},{"type":"value","position":"right","axisLine":{"show":true},"splitLine":{"show":false}}],"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury Risk Score","type":"line","encode":{"x":"Date","y":"Injury Risk Score"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":35.3,"name":"Mean","label":{"formatter":"Mean 35.3","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"HMLD (m)","type":"line","yAxisIndex":1,"encode":{"x":"Date","y":"HMLD (m)"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating","Performance Score","Injury Risk Score"],["Yussuf Poulsen","2026-09-22",5400,3621,555,435.9,33,0,0,522,5,81,45,42.2,9.2,1.7,5,40,6,167,4,7.2,5.6,4.6,2,0,445,570,1821,2312,1527,1993,353,500,795,930,42.2,20,null,10,null,49,38],["Yussuf Poulsen","2026-09-23",8176,5533,940,611.4,599,477,9,341,3,49,38,61.7,8,1.2,7,41,7,265,3.7,8.4,5.3,9.5,2,2,450,720,1922,2983,1636,2517,284,726,881,1255,61.7,10,null,10,null,48,36],["Yussuf Poulsen","2026-09-24",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,20,null,10,null,51,38],["Yussuf Poulsen","2026-09-25",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,10,null,10,null,52,38],["Yussuf Poulsen","2026-09-26",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,10,null,10,null,51,37],["Yussuf Poulsen","2026-09-27",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,10,null,10,null,50,34],["Yussuf Poulsen","2026-09-28",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,10,null,10,null,52,33],["Yussuf Poulsen","2026-09-29",8313,6931,1022,793.5,72,0,0,951,4,84,71,124.5,16.4,2.1,14,102,15,323,4.8,6.8,4.6,5.5,0,4,706,2168,2820,9182,2422,7851,462,2102,1082,3722,124.5,10,null,10,null,52,32],["Yussuf Poulsen","2026-09-30",6240,6258,1288,744.3,330,18,2,958,6,94,67,103.2,20,4.2,18,60,12,301,5.9,7.4,6,6,8,6,926,1153,4088,4897,3434,4219,779,1093,1848,1967,103.2,null,null,null,null,51,38],["Yussuf Poulsen","2026-10-01",7619,7232,1403,816.2,568,180,5,835,3,64,50,111.7,17.1,3.2,14,57,11,352,5.3,7.9,8.6,6.4,2,6,1189,1258,5186,5273,4431,4596,1077,1037,2218,2104,111.7,20,null,10,null,53,29],["Yussuf Poulsen","2026-10-02",7535,5290,818,602.4,134,80,2,684,0,61,49,65.6,8.5,0.9,4,86,14,246,4.1,9,5.4,4.4,2,0,979,787,4016,3078,3527,2718,783,482,1529,1220,65.6,10,null,10,null,null,null],["Yussuf Poulsen","2026-10-03",5820,3466,401,384.7,126,20,1,275,1,41,21,41.9,9.8,1.9,4,36,4,157,3.3,7.7,5.4,6.5,3,5,470,518,1992,2159,1732,1901,363,424,778,809,41.9,null,null,null,null,null,null],["Yussuf Poulsen","2026-10-04",1806,2664,576,299.9,193,61,2,383,0,26,19,56.2,8.2,1.5,12,89,19,134,8.3,8.8,4.9,6,0,3,470,666,2103,2835,1761,2397,299,644,988,1225,56.2,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_10","title":"Muheim – HMLD & Sprint Distance Evolution","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"HMLD (m)","type":"line","encode":{"x":"Date","y":"HMLD (m)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1259.75,"name":"Mean","label":{"formatter":"Mean 1,259.75","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Sprint distance (m)","type":"line","encode":{"x":"Date","y":"Sprint distance (m)"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating","Performance Score","Injury Risk Score"],["Miro Muheim","2026-09-22",5400,5623,1066,611.5,322,61,4,744,8,76,77,169,28.9,6.4,53,62,12,268,6.2,8.4,5.8,6,5,6,838,1880,3604,8610,3129,7637,758,2115,1329,2742,169,22,null,24,null,50,1],["Miro Muheim","2026-09-23",4200,5079,1127,541.7,619,386,8,508,5,67,54,146.8,25.7,3.1,48,73,16,253,7,8.2,6.3,7.3,5,3,742,1900,3119,8457,2679,7411,599,2319,1263,2646,146.8,20,null,20,null,48,5],["Miro Muheim","2026-09-24",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,50,13],["Miro Muheim","2026-09-25",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,49,29],["Miro Muheim","2026-09-26",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,50,23],["Miro Muheim","2026-09-27",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,49,20],["Miro Muheim","2026-09-28",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,50,21],["Miro Muheim","2026-09-29",7967,7796,1027,816.6,78,0,0,949,8,115,81,185.5,32.1,2.6,40,118,16,360,5.6,7,5.4,5.4,2,4,1112,3144,4681,13277,4043,11801,853,3337,1789,4172,185.5,20,null,20,null,50,16],["Miro Muheim","2026-09-30",6240,6540,1406,716.4,576,190,11,831,16,87,79,240.3,54.5,12.3,91,63,14,322,6.2,8.8,5.9,6.5,7,10,1286,2520,5474,11674,4774,10215,1206,2760,1916,4143,240.3,null,null,null,null,50,27],["Miro Muheim","2026-10-01",7173,9100,1698,955,598,210,11,1100,8,87,82,240.2,33.3,12.8,59,76,14,444,7.2,8.8,5.6,6.4,4,4,1703,2980,7096,13290,6258,11946,1305,2332,2571,4500,240.2,null,null,null,null,52,21],["Miro Muheim","2026-10-02",7447,6884,1059,729.3,236,74,2,823,4,92,76,174.5,38.9,4,64,113,18,320,5.4,8.8,5.9,6.5,2,6,1599,1340,7128,5928,6279,5268,1600,986,2322,2149,174.5,20,null,20,null,null,null],["Miro Muheim","2026-10-03",5820,4007,516,403.9,240,82,4,276,4,27,23,108.1,18.3,2.7,52,41,5,185,3.8,8.1,6.2,5.3,4,1,539,992,2338,4545,2060,4033,440,915,787,1566,108.1,null,null,null,null,null,null],["Miro Muheim","2026-10-04",7428,9301,2179,974.1,970,405,15,1208,10,66,91,264.8,28.9,12.8,65,75,18,477,7.1,9,5.6,7.2,3,9,1651,3624,6645,16173,5742,14143,1065,3205,2750,6272,264.8,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_11","title":"Training RPE Distribution – Display Period","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Metric Value","type":"bar","encode":{"x":"Player","y":"Metric Value"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":25.365,"name":"Mean","label":{"formatter":"Mean 25.37","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","Date","Metric Name","Metric Value","Unit"],["Bakery Jatta",null,null,46.2,null],["David Möller Wolfe",null,null,31.5,null],["Otto Stange",null,null,31.1,null],["Immanuël Pherai",null,null,31,null],["Albert Sambi Lokonga",null,null,29,null],["Mario Vušković",null,null,29,null],["Albert Grønbæk",null,null,27.8,null],["Alexander Røssing-Lelesiit",null,null,27.8,null],["Jordan Torunarigha",null,null,27.4,null],["Fábio Vieira",null,null,26.2,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_12","title":"Performance Score vs Injury Risk – Squad Comparison","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Performance Score Mean","type":"bar","encode":{"x":"Player","y":"Performance Score Mean"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":52.85,"name":"Mean","label":{"formatter":"Mean 52.85","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","N","Distance total (mean)","Distance total (sum)","Distance total (max)","HMLD (mean)","HMLD (sum)","HMLD (max)","High speed running (absolute) (mean)","High speed running (absolute) (sum)","High speed running (absolute) (max)","Sprint distance (mean)","Sprint distance (sum)","Sprint distance (max)","DSL (mean)","DSL (sum)","DSL (max)","Max speed (mean)","Max speed (sum)","Max speed (max)","Accelerations (relative) (mean)","Accelerations (relative) (sum)","Accelerations (relative) (max)","Decelerations (relative) (mean)","Decelerations (relative) (sum)","Decelerations (relative) (max)","Performance Score Mean","Performance Score Sum","Performance Score Max","Injury Risk Score Mean","Injury Risk Score Sum","Injury Risk Score Max"],["Miro Muheim",13,6791.3,54330,9301,1259.8,10078,2179,454.9,3639,970,176,1408,405,191.2,1529.2,264.8,8.4,67.1,9,77.1,617,115,70.4,563,91,49.8,498,52,17.6,176,29],["Martin Adeline",5,9508.6,47543,12483,1985.2,9926,3015,571.2,2856,1203,152.4,762,330,386.4,1931.8,611.1,8.4,41.9,9.3,73.6,368,78,93.4,467,109,null,null,null,null,null,null],["Nicolai Remberg",13,8477.2,50863,11624,1432.3,8594,2283,299.2,1795,552,55.2,331,156,352,2111.9,553.9,8.2,49.3,9.2,70,420,111,99.3,596,151,69.3,693,74,9,90,14],["Mario Vušković",12,6836.3,54690,9223,880.6,7045,1539,179.8,1438,303,36.1,289,167,181.4,1451,223.9,7.8,62,9.2,62,496,98,56.1,449,87,51.1,511,52,26.5,265,35],["Albert Sambi Lokonga",13,6794.7,47563,10010,1137.7,7964,1921,329.7,2308,652,54.7,383,129,215.9,1511.1,310.1,7.6,53.4,8.4,60.9,426,88,36.9,258,48,50.5,505,53,50.1,501,56],["Shafiq Nandja",11,7784.6,38923,10559,1383.4,6917,1693,446.2,2231,691,130.2,651,253,168.1,840.7,305.4,8.7,43.3,10.2,85.2,426,144,72.2,361,108,null,null,null,null,null,null],["Sebastiaan Bornauw",6,6903.2,41419,9708,1027.7,6166,1736,218.3,1310,471,61.3,368,106,195.1,1170.7,395.4,8.2,48.9,9.7,66.5,399,91,56.5,339,80,null,null,null,null,null,null],["Kofi Amoako",11,5790.3,40532,8275,980.1,6861,1716,337.3,2361,896,110.7,775,374,219.6,1537.5,343.2,8.1,56.5,9.4,62.1,435,104,46.3,324,71,null,null,null,null,null,null],["Nicolás Capaldo",13,4778.8,43009,8598,671.3,6042,1497,226.8,2041,425,33,297,84,178.3,1604.3,429,7.6,68.4,9.5,34,306,91,33,297,98,50.5,505,52,4,40,12],["Yussuf Poulsen",13,5124.4,40995,7232,875.4,7003,1403,256.9,2055,599,104.5,836,477,75.9,607,124.5,7.9,63.2,9,62.5,500,94,45,360,71,50.9,509,53,35.3,353,38]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

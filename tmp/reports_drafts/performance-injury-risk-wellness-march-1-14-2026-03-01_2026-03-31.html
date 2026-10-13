@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Performance, Injury Risk &amp; Wellness – March 1–14</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 300px; }
+    .chart-box.wide { height: 340px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 12px;
+      padding: 10px 12px; border-radius: 10px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner .avatar-wrap {
+      position: relative; width: 52px; height: 52px; flex: 0 0 52px;
+    }
+    .athlete-banner img {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: none; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner.no-photo img { display: none; }
+    .athlete-banner.no-photo .avatar-fallback { display: grid; }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2025-2026</div>
+      <h1 class="cover-title">Performance, Injury Risk &amp; Wellness – March 1–14</h1>
+      <p class="cover-sub">Club report — MAUNA data only</p>
+      <div class="date-pill">Tue, 31/03/26 · 2026-03-01 → 2026-03-31</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">Yussuf Poulsen: peak injury risk 70, mean 57 over 13 days – sustained elevated risk. Bakery Jatta: peak 67, mean 25.1 – high variability. Robert Glatzel: peak 23, mean 19.4 – consistent moderate risk.</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">Nicolai Remberg: 69,474 m (10 sessions, 6,947 m avg). Jordan Torunarigha: 55,239 m (11 sessions). Warmed Omari: 55,363 m (10 sessions). Miro Muheim: 58,550 m (10 sessions).</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">William Mikelbrencis: 4,304 m HSR (9 sessions, 478 m avg). Miro Muheim: 4,050 m (10 sessions, 405 m avg). Nicolai Remberg: 4,030 m (10 sessions, 403 m avg). Giorgi Gocholeishvili: 3,482 m (11 sessions, 317 m avg).</span></div><div class="signal-item"><span class="signal-index">04</span><span class="signal-text">Sustained injury risk: mean 57, peak 70 over 13 days. Performance score 51.4 (below squad average). GPS: 26,123 m total distance (8 sessions, 3,265 m avg), 1,394 m HSR (174 m avg). Lower volume than squad leaders – consider workload management vs readiness.</span></div><div class="signal-item"><span class="signal-index">05</span><span class="signal-text">Consistent moderate injury risk: mean 19.4, peak 23. Performance score 50.4. GPS: 41,988 m total (12 sessions, 3,499 m avg), 1,450 m HSR (121 m avg). Higher session count than Poulsen but similar per-session load. Monitor closely.</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Performance, Injury Risk &amp; Wellness – March 1–14</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Staff read</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Team Overview – Injury Risk &amp; Performance</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · GPS Volume &amp; Intensity – Cross-Domain View</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Wellness &amp; Sleep – Squad Averages</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Yussuf Poulsen – STRIKER</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Robert Glatzel – STRIKER</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>08 · Bakery Jatta – WINGER</span><span class="hint">§6</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Staff read</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <p class="staff-read-lead">Synthesized from canvas (analyst did not commit InsightIR)</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Narrative thread</h3><ul><li>Yussuf Poulsen: peak injury risk 70, mean 57 over 13 days – sustained elevated risk. Bakery Jatta: peak 67, mean 25.1 – high variability. Robert Glatzel: peak 23, mean 19.4 – consistent moderate risk.</li><li>Nicolai Remberg: 69,474 m (10 sessions, 6,947 m avg). Jordan Torunarigha: 55,239 m (11 sessions). Warmed Omari: 55,363 m (10 sessions). Miro Muheim: 58,550 m (10 sessions).</li><li>William Mikelbrencis: 4,304 m HSR (9 sessions, 478 m avg). Miro Muheim: 4,050 m (10 sessions, 405 m avg). Nicolai Remberg: 4,030 m (10 sessions, 403 m avg). Giorgi Gocholeishvili: 3,482 m (11 sessions, 317 m avg).</li></ul></div><div class="staff-read-panel"><h3>Signals</h3><ul class="signal-roster"><li><span class="signal-badge info">Info</span><div><div class="signal-body">Yussuf Poulsen: peak injury risk 70, mean 57 over 13 days – sustained elevated risk. Bakery Jatta: peak 67, mean 25.1 – high variability. Robert Glatzel: peak 23, mean 19.4 – consistent moderate risk.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Nicolai Remberg: 69,474 m (10 sessions, 6,947 m avg). Jordan Torunarigha: 55,239 m (11 sessions). Warmed Omari: 55,363 m (10 sessions). Miro Muheim: 58,550 m (10 sessions).</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">William Mikelbrencis: 4,304 m HSR (9 sessions, 478 m avg). Miro Muheim: 4,050 m (10 sessions, 405 m avg). Nicolai Remberg: 4,030 m (10 sessions, 403 m avg). Giorgi Gocholeishvili: 3,482 m (11 sessions, 317 m avg).</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Sustained injury risk: mean 57, peak 70 over 13 days. Performance score 51.4 (below squad average). GPS: 26,123 m total distance (8 sessions, 3,265 m avg), 1,394 m HSR (174 m avg). Lower volume than squad leaders – consider workload management vs readiness.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Consistent moderate injury risk: mean 19.4, peak 23. Performance score 50.4. GPS: 41,988 m total (12 sessions, 3,499 m avg), 1,450 m HSR (121 m avg). Higher session count than Poulsen but similar per-session load. Monitor closely.</div></div></li></ul></div></div>
+  <div class="staff-read-panel"><h3>Canvas sections</h3><ul class="staff-section-index"><li><span>Team Overview – Injury Risk &amp; Performance</span><span class="kind">Team</span></li><li><span>GPS Volume &amp; Intensity – Cross-Domain View</span><span class="kind">Team</span></li><li><span>Wellness &amp; Sleep – Squad Averages</span><span class="kind">Team</span></li><li><span>Individual Profiles – Flagged Athletes</span><span class="kind">Team</span></li><li><span>Yussuf Poulsen – STRIKER</span><span class="kind">Team</span></li><li><span>Robert Glatzel – STRIKER</span><span class="kind">Team</span></li><li><span>Bakery Jatta – WINGER</span><span class="kind">Team</span></li><li><span>Positional Comparison – GPS Volume by Role</span><span class="kind">Team</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Team Overview – Injury Risk &amp; Performance</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Injury Risk Watchlist – Top 15 (March 1–14)</h3><div class="legend"><span><i class="swatch" style="background:rgba(224,112,112,0.22);outline:1px solid #E07070"></i>high</span><span><i class="swatch" style="background:rgba(251,191,36,0.22);outline:1px solid #E8B84A"></i>medium</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>low</span><span>vs squad (terciles)</span></div><table class="report-table"><thead><tr><th>Player</th><th>Position</th><th>N Days</th><th>Performance Score Mean</th></tr></thead><tbody><tr><td class="">Yussuf Poulsen</td><td class="">STRIKER</td><td class="">13</td><td class="lvl-mid">51.4</td></tr><tr><td class="">Bakery Jatta</td><td class="">WINGER</td><td class="">14</td><td class="lvl-hi">65.9</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">CENTRAL DEFENDER</td><td class="">14</td><td class="lvl-hi">65.3</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">FULL BACK</td><td class="">14</td><td class="lvl-hi">52.6</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">CENTRAL DEFENDER</td><td class="">14</td><td class="lvl-hi">52.5</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">WINGER</td><td class="">14</td><td class="lvl-lo">48.4</td></tr><tr><td class="">Robert Glatzel</td><td class="">STRIKER</td><td class="">14</td><td class="lvl-mid">50.4</td></tr><tr><td class="">Nicolai Remberg</td><td class="">DEFENSIVE MIDFIELDER</td><td class="">14</td><td class="lvl-mid">51.4</td></tr><tr><td class="">Daniel Elfadli</td><td class="">DEFENSIVE MIDFIELDER</td><td class="">14</td><td class="lvl-mid">49.4</td></tr><tr><td class="">Otto Stange</td><td class="">STRIKER</td><td class="">14</td><td class="lvl-lo">48.6</td></tr><tr><td class="">Miro Muheim</td><td class="">FULL BACK</td><td class="">14</td><td class="lvl-mid">50.9</td></tr><tr><td class="">Noah Katterbach</td><td class="">FULL BACK</td><td class="">14</td><td class="lvl-hi">57.4</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">STRIKER</td><td class="">14</td><td class="lvl-hi">60.6</td></tr><tr><td class="">Philip Otele</td><td class="">WINGER</td><td class="">14</td><td class="lvl-lo">44.9</td></tr><tr><td class="">Warmed Omari</td><td class="">CENTRAL DEFENDER</td><td class="">14</td><td class="lvl-lo">48.4</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Injury Risk Score – Peak Values (March 1–14)</h3>
+  <div id="chart_1" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Yussuf Poulsen: peak injury risk 70, mean 57 over 13 days – sustained elevated risk. Bakery Jatta: peak 67, mean 25.1 – high variability. Robert Glatzel: peak 23, mean 19.4 – consistent moderate risk.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>GPS Volume &amp; Intensity – Cross-Domain View</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>GPS + Performance + Injury Risk – Full Squad</h3><table class="report-table"><thead><tr><th>Player</th><th>Position</th><th>N Sessions</th><th>Total distance (métres)</th><th>Total Hsr</th><th>Performance Score Mean</th></tr></thead><tbody><tr><td class="">Yussuf Poulsen</td><td class="">STRIKER</td><td class="">8</td><td class="lvl-lo">26.12</td><td class="lvl-lo">1.39</td><td class="lvl-mid">51.4</td></tr><tr><td class="">Bakery Jatta</td><td class="">WINGER</td><td class="">7</td><td class="lvl-lo">28.39</td><td class="lvl-hi">909</td><td class="lvl-hi">65.9</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">CENTRAL DEFENDER</td><td class="">4</td><td class="lvl-lo">11.14</td><td class="lvl-hi">256</td><td class="lvl-hi">65.3</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">FULL BACK</td><td class="">11</td><td class="lvl-hi">47.29</td><td class="lvl-hi">3.48</td><td class="lvl-hi">52.6</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">CENTRAL DEFENDER</td><td class="">11</td><td class="lvl-hi">55.24</td><td class="lvl-mid">2.84</td><td class="lvl-mid">52.5</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">WINGER</td><td class="">12</td><td class="lvl-lo">40.52</td><td class="lvl-lo">1.7</td><td class="lvl-lo">48.4</td></tr><tr><td class="">Robert Glatzel</td><td class="">STRIKER</td><td class="">12</td><td class="lvl-mid">41.99</td><td class="lvl-lo">1.45</td><td class="lvl-mid">50.4</td></tr><tr><td class="">Nicolai Remberg</td><td class="">DEFENSIVE MIDFIELDER</td><td class="">10</td><td class="lvl-hi">69.47</td><td class="lvl-hi">4.03</td><td class="lvl-mid">51.4</td></tr><tr><td class="">Daniel Elfadli</td><td class="">DEFENSIVE MIDFIELDER</td><td class="">11</td><td class="lvl-mid">46.87</td><td class="lvl-mid">2.73</td><td class="lvl-lo">49.4</td></tr><tr><td class="">Otto Stange</td><td class="">STRIKER</td><td class="">11</td><td class="lvl-mid">45.23</td><td class="lvl-lo">1.67</td><td class="lvl-lo">48.6</td></tr><tr><td class="">Miro Muheim</td><td class="">FULL BACK</td><td class="">10</td><td class="lvl-hi">58.55</td><td class="lvl-hi">4.05</td><td class="lvl-mid">50.9</td></tr><tr><td class="">Noah Katterbach</td><td class="">FULL BACK</td><td class="">11</td><td class="lvl-lo">41.57</td><td class="lvl-mid">2.49</td><td class="lvl-hi">57.4</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">STRIKER</td><td class="">8</td><td class="lvl-hi">47.68</td><td class="lvl-hi">3.61</td><td class="lvl-hi">60.6</td></tr><tr><td class="">Philip Otele</td><td class="">WINGER</td><td class="">11</td><td class="lvl-mid">44.51</td><td class="lvl-mid">2.63</td><td class="lvl-lo">44.9</td></tr><tr><td class="">Warmed Omari</td><td class="">CENTRAL DEFENDER</td><td class="">10</td><td class="lvl-hi">55.36</td><td class="lvl-mid">2.62</td><td class="lvl-lo">48.4</td></tr><tr><td class="">Fabio Baldé</td><td class="">WINGER</td><td class="">12</td><td class="lvl-mid">42.32</td><td class="lvl-lo">2.25</td><td class="lvl-mid">50.3</td></tr><tr><td class="">William Mikelbrencis</td><td class="">FULL BACK</td><td class="">9</td><td class="lvl-hi">52.42</td><td class="lvl-hi">4.3</td><td class="lvl-hi">53.1</td></tr><tr><td class="">Omar Megeed</td><td class="">ATTACKING MIDFIELDER</td><td class="">3</td><td class="lvl-lo">10.51</td><td class="lvl-hi">477</td><td class="lvl-mid">50.4</td></tr><tr><td class="">Rayan Philippe</td><td class="">STRIKER</td><td class="">10</td><td class="lvl-mid">43.25</td><td class="lvl-lo">2.45</td><td class="lvl-hi">54.5</td></tr><tr><td class="">Fábio Vieira</td><td class="">CENTRAL MIDFIELDER</td><td class="">7</td><td class="lvl-mid">45.04</td><td class="lvl-mid">2.66</td><td class="lvl-hi">55</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">CENTRAL MIDFIELDER</td><td class="">11</td><td class="lvl-hi">54.53</td><td class="lvl-mid">2.58</td><td class="lvl-mid">51.1</td></tr><tr><td class="">Luka Vušković</td><td class="">CENTRAL DEFENDER</td><td class="">8</td><td class="lvl-hi">60.3</td><td class="lvl-mid">3.02</td><td class="lvl-hi">54.9</td></tr><tr><td class="">Damion Downs</td><td class="">STRIKER</td><td class="">9</td><td class="lvl-mid">46.79</td><td class="lvl-hi">3.27</td><td class="lvl-lo">45.3</td></tr><tr><td class="">Albert Grønbæk</td><td class="">WINGER</td><td class="">8</td><td class="lvl-lo">35.31</td><td class="lvl-lo">1.78</td><td class="lvl-lo">49.8</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Total Distance (m) – Top 12 Players</h3>
+  <div id="chart_2" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Nicolai Remberg: 69,474 m (10 sessions, 6,947 m avg). Jordan Torunarigha: 55,239 m (11 sessions). Warmed Omari: 55,363 m (10 sessions). Miro Muheim: 58,550 m (10 sessions).</li></ul></div>
+<div class="chart-card">
+  <h3>High-Speed Running (m) – Top 12 Players</h3>
+  <div id="chart_3" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><ul><li>William Mikelbrencis: 4,304 m HSR (9 sessions, 478 m avg). Miro Muheim: 4,050 m (10 sessions, 405 m avg). Nicolai Remberg: 4,030 m (10 sessions, 403 m avg). Giorgi Gocholeishvili: 3,482 m (11 sessions, 317 m avg).</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Wellness &amp; Sleep – Squad Averages</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Wellness Ratings – March 1–14</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Body Soreness Rating</th><th>Mood Rating</th></tr></thead><tbody><tr><td class="">Albert Grønbæk</td><td class="">22</td><td class="lvl-lo">14.18</td><td class="lvl-lo">11.73</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">22</td><td class="lvl-lo">20.5</td><td class="lvl-lo">17.77</td></tr><tr><td class="">Bakery Jatta</td><td class="">25</td><td class="lvl-hi">38.08</td><td class="lvl-hi">34.92</td></tr><tr><td class="">Bilal Yalçınkaya</td><td class="">31</td><td class="lvl-hi">32.42</td><td class="lvl-hi">28</td></tr><tr><td class="">Damion Downs</td><td class="">15</td><td class="lvl-hi">35.07</td><td class="lvl-hi">32.27</td></tr><tr><td class="">Daniel Elfadli</td><td class="">30</td><td class="lvl-hi">31.07</td><td class="lvl-mid">26</td></tr><tr><td class="">Fabio Baldé</td><td class="">27</td><td class="lvl-hi">35.11</td><td class="lvl-hi">30.96</td></tr><tr><td class="">Fábio Vieira</td><td class="">20</td><td class="lvl-hi">28.5</td><td class="lvl-hi">35.15</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">25</td><td class="lvl-lo">14.44</td><td class="lvl-lo">14.24</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">24</td><td class="lvl-hi">30.38</td><td class="lvl-mid">20.42</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">22</td><td class="lvl-mid">26.64</td><td class="lvl-mid">24.96</td></tr><tr><td class="">Luka Vušković</td><td class="">26</td><td class="lvl-lo">13.54</td><td class="lvl-lo">10.58</td></tr><tr><td class="">Miro Muheim</td><td class="">16</td><td class="lvl-mid">27.19</td><td class="lvl-mid">21.06</td></tr><tr><td class="">Nicolai Remberg</td><td class="">23</td><td class="lvl-lo">17.65</td><td class="lvl-lo">17.78</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">16</td><td class="lvl-mid">24.06</td><td class="lvl-mid">24.19</td></tr><tr><td class="">Noah Katterbach</td><td class="">29</td><td class="lvl-mid">26.31</td><td class="lvl-hi">32.83</td></tr><tr><td class="">Omar Megeed</td><td class="">13</td><td class="lvl-hi">30.92</td><td class="lvl-hi">41</td></tr><tr><td class="">Otto Stange</td><td class="">18</td><td class="lvl-lo">19.22</td><td class="lvl-lo">17.11</td></tr><tr><td class="">Philip Otele</td><td class="">28</td><td class="lvl-lo">19.07</td><td class="lvl-lo">15.61</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">25</td><td class="lvl-hi">35.36</td><td class="lvl-hi">34.8</td></tr><tr><td class="">Rayan Philippe</td><td class="">22</td><td class="lvl-mid">24.27</td><td class="lvl-lo">10.27</td></tr><tr><td class="">Robert Glatzel</td><td class="">29</td><td class="lvl-mid">28.45</td><td class="lvl-hi">27.17</td></tr><tr><td class="">Warmed Omari</td><td class="">22</td><td class="lvl-mid">27.36</td><td class="lvl-mid">24.46</td></tr><tr><td class="">William Mikelbrencis</td><td class="">27</td><td class="lvl-lo">20.78</td><td class="lvl-mid">20.22</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">8</td><td class="lvl-mid">22.5</td><td class="lvl-mid">20.38</td></tr></tbody></table></div>
+<div class="card"><h3>Sleep Quality – March 1–14</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Albert Grønbæk</td><td class="">22</td><td class="lvl-lo">14.41</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">22</td><td class="lvl-lo">21.14</td></tr><tr><td class="">Bakery Jatta</td><td class="">25</td><td class="lvl-hi">33.16</td></tr><tr><td class="">Bilal Yalçınkaya</td><td class="">31</td><td class="lvl-hi">33.36</td></tr><tr><td class="">Damion Downs</td><td class="">15</td><td class="lvl-hi">37.07</td></tr><tr><td class="">Daniel Elfadli</td><td class="">30</td><td class="lvl-hi">29.33</td></tr><tr><td class="">Fabio Baldé</td><td class="">27</td><td class="lvl-hi">33.74</td></tr><tr><td class="">Fábio Vieira</td><td class="">20</td><td class="lvl-hi">31.65</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">25</td><td class="lvl-lo">13.36</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">24</td><td class="lvl-mid">26.42</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">22</td><td class="lvl-mid">26.68</td></tr><tr><td class="">Luka Vušković</td><td class="">26</td><td class="lvl-lo">11.23</td></tr><tr><td class="">Miro Muheim</td><td class="">16</td><td class="lvl-mid">24.13</td></tr><tr><td class="">Nicolai Remberg</td><td class="">23</td><td class="lvl-lo">17.48</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">16</td><td class="lvl-mid">21.5</td></tr><tr><td class="">Noah Katterbach</td><td class="">29</td><td class="lvl-mid">25.03</td></tr><tr><td class="">Omar Megeed</td><td class="">13</td><td class="lvl-hi">31.46</td></tr><tr><td class="">Otto Stange</td><td class="">18</td><td class="lvl-lo">17.06</td></tr><tr><td class="">Philip Otele</td><td class="">28</td><td class="lvl-lo">19.54</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">25</td><td class="lvl-hi">34.84</td></tr><tr><td class="">Rayan Philippe</td><td class="">22</td><td class="lvl-mid">22.91</td></tr><tr><td class="">Robert Glatzel</td><td class="">29</td><td class="lvl-mid">28.31</td></tr><tr><td class="">Warmed Omari</td><td class="">22</td><td class="lvl-hi">29.68</td></tr><tr><td class="">William Mikelbrencis</td><td class="">27</td><td class="lvl-lo">19.85</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">8</td><td class="lvl-mid">21.88</td></tr></tbody></table></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Yussuf Poulsen – STRIKER</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/bbd75f0b-8dd1-4ff0-b3f4-5d07e8559076.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T053821Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=df7fc3614867808beb9f8e6b0de8cf13050808f03c6eb0c21cae95f8a7f0ebc8&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">YP</div></div><div><div class="name">Yussuf Poulsen</div><div class="meta">STRIKER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Yussuf Poulsen – Performance &amp; GPS Summary</h3><table class="report-table"><thead><tr><th>Player</th><th>Position</th><th>N Days</th><th>N Sessions</th><th>Performance Score Mean</th><th>Total distance (métres)</th><th>Total Hsr</th></tr></thead><tbody><tr><td class="">Yussuf Poulsen</td><td class="">STRIKER</td><td class="">13</td><td class="">8</td><td class="">51.4</td><td class="">26.12</td><td class="">1.39</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Sustained injury risk: mean 57, peak 70 over 13 days. Performance score 51.4 (below squad average). GPS: 26,123 m total distance (8 sessions, 3,265 m avg), 1,394 m HSR (174 m avg). Lower volume than squad leaders – consider workload management vs readiness.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5">
+  <div class="band">
+    <h1>Robert Glatzel – STRIKER</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b62453e2-6ddf-4b25-848f-42f5ea8c9d1b.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T053821Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=2bed081e16c32d0e2603ae22bf2560e67838df1082d84bebbba7a6b065c29104&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">RG</div></div><div><div class="name">Robert Glatzel</div><div class="meta">STRIKER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Robert Glatzel – Performance &amp; GPS Summary</h3><table class="report-table"><thead><tr><th>Player</th><th>Position</th><th>N Days</th><th>N Sessions</th><th>Performance Score Mean</th><th>Total distance (métres)</th><th>Total Hsr</th></tr></thead><tbody><tr><td class="">Robert Glatzel</td><td class="">STRIKER</td><td class="">14</td><td class="">12</td><td class="">50.4</td><td class="">41.99</td><td class="">1.45</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Consistent moderate injury risk: mean 19.4, peak 23. Performance score 50.4. GPS: 41,988 m total (12 sessions, 3,499 m avg), 1,450 m HSR (121 m avg). Higher session count than Poulsen but similar per-session load. Monitor closely.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-6">
+  <div class="band">
+    <h1>Bakery Jatta – WINGER</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3d2aa33-5992-4cf5-a047-8e6b6482e55d.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T053821Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=8fbb20d2ffbf2fa05b97909e360476dc879ca0bcba4c27a46936d58ee89129be&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">BJ</div></div><div><div class="name">Bakery Jatta</div><div class="meta">WINGER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Bakery Jatta – Performance &amp; GPS Summary</h3><table class="report-table"><thead><tr><th>Player</th><th>Position</th><th>N Days</th><th>N Sessions</th><th>Performance Score Mean</th><th>Total distance (métres)</th><th>Total Hsr</th></tr></thead><tbody><tr><td class="">Bakery Jatta</td><td class="">WINGER</td><td class="">14</td><td class="">7</td><td class="">65.9</td><td class="">28.39</td><td class="">909</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>High variability: injury risk peak 67, mean 25.1. Performance score 65.9 (highest among flagged players). GPS: 28,387 m total (7 sessions, 4,055 m avg – high per-session), 909 m HSR (130 m avg). Good performance despite injury risk spikes – watch for acute load changes.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Injury Risk Score – Peak Values (March 1–14)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury Risk Score Max","type":"bar","encode":{"x":"Player","y":"Injury Risk Score Max"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":24.6,"name":"Mean","label":{"formatter":"Mean 24.6","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Position","N Days","Performance Score Mean","Injury Risk Score Mean","Injury Risk Score Max"],["Yussuf Poulsen","STRIKER",13,51.4,57,70],["Bakery Jatta","WINGER",14,65.9,25.1,67],["Nicolás Capaldo","CENTRAL DEFENDER",14,65.3,4.9,52],["Giorgi Gocholeishvili","FULL BACK",14,52.6,2.6,33],["Jordan Torunarigha","CENTRAL DEFENDER",14,52.5,5.9,26],["Jean-Luc Dompé","WINGER",14,48.4,8,25],["Robert Glatzel","STRIKER",14,50.4,19.4,23],["Nicolai Remberg","DEFENSIVE MIDFIELDER",14,51.4,3.2,12],["Daniel Elfadli","DEFENSIVE MIDFIELDER",14,49.4,8.1,10],["Otto Stange","STRIKER",14,48.6,3.1,9],["Miro Muheim","FULL BACK",14,50.9,1.9,9],["Noah Katterbach","FULL BACK",14,57.4,1.5,9],["Ransford Königsdörffer","STRIKER",14,60.6,3.7,9],["Philip Otele","WINGER",14,44.9,1.2,8],["Warmed Omari","CENTRAL DEFENDER",14,48.4,1.4,7]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"Total Distance (m) – Top 12 Players","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Total distance (métres)","type":"bar","encode":{"x":"Player","y":"Total distance (métres)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":42673.9,"name":"Mean","label":{"formatter":"Mean 42,673.9","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Position","N Days","Performance Score Mean","Injury Risk Score Mean","Injury Risk Score Max","N Sessions","Total distance (métres)","Avg Distance","Unit","Total Hsr","Avg Hsr"],["Yussuf Poulsen","STRIKER",13,51.4,57,70,8,26123,3265,"m",1394,174],["Bakery Jatta","WINGER",14,65.9,25.1,67,7,28387,4055,"m",909,130],["Nicolás Capaldo","CENTRAL DEFENDER",14,65.3,4.9,52,4,11137,2784,"m",256,64],["Giorgi Gocholeishvili","FULL BACK",14,52.6,2.6,33,11,47289,4299,"m",3482,317],["Jordan Torunarigha","CENTRAL DEFENDER",14,52.5,5.9,26,11,55239,5022,"m",2836,258],["Jean-Luc Dompé","WINGER",14,48.4,8,25,12,40516,3376,"m",1704,142],["Robert Glatzel","STRIKER",14,50.4,19.4,23,12,41988,3499,"m",1450,121],["Nicolai Remberg","DEFENSIVE MIDFIELDER",14,51.4,3.2,12,10,69474,6947,"m",4030,403],["Daniel Elfadli","DEFENSIVE MIDFIELDER",14,49.4,8.1,10,11,46874,4261,"m",2728,248],["Otto Stange","STRIKER",14,48.6,3.1,9,11,45234,4112,"m",1665,151],["Miro Muheim","FULL BACK",14,50.9,1.9,9,10,58550,5855,"m",4050,405],["Noah Katterbach","FULL BACK",14,57.4,1.5,9,11,41574,3779,"m",2492,227],["Ransford Königsdörffer","STRIKER",14,60.6,3.7,9,8,47681,5960,"m",3608,451],["Philip Otele","WINGER",14,44.9,1.2,8,11,44512,4047,"m",2626,239],["Warmed Omari","CENTRAL DEFENDER",14,48.4,1.4,7,10,55363,5536,"m",2621,262],["Fabio Baldé","WINGER",14,50.3,1,6,12,42320,3527,"m",2254,188],["William Mikelbrencis","FULL BACK",14,53.1,4.9,6,9,52417,5824,"m",4304,478],["Omar Megeed","ATTACKING MIDFIELDER",14,50.4,1.7,5,3,10505,3502,"m",477,159],["Rayan Philippe","STRIKER",14,54.5,1.6,5,10,43253,4325,"m",2454,245],["Fábio Vieira","CENTRAL MIDFIELDER",14,55,1,5,7,45042,6435,"m",2659,380]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3","title":"High-Speed Running (m) – Top 12 Players","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Total Hsr","type":"bar","encode":{"x":"Player","y":"Total Hsr"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":2399.95,"name":"Mean","label":{"formatter":"Mean 2,399.95","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Position","N Days","Performance Score Mean","Injury Risk Score Mean","Injury Risk Score Max","N Sessions","Total distance (métres)","Avg Distance","Unit","Total Hsr","Avg Hsr"],["Yussuf Poulsen","STRIKER",13,51.4,57,70,8,26123,3265,"m",1394,174],["Bakery Jatta","WINGER",14,65.9,25.1,67,7,28387,4055,"m",909,130],["Nicolás Capaldo","CENTRAL DEFENDER",14,65.3,4.9,52,4,11137,2784,"m",256,64],["Giorgi Gocholeishvili","FULL BACK",14,52.6,2.6,33,11,47289,4299,"m",3482,317],["Jordan Torunarigha","CENTRAL DEFENDER",14,52.5,5.9,26,11,55239,5022,"m",2836,258],["Jean-Luc Dompé","WINGER",14,48.4,8,25,12,40516,3376,"m",1704,142],["Robert Glatzel","STRIKER",14,50.4,19.4,23,12,41988,3499,"m",1450,121],["Nicolai Remberg","DEFENSIVE MIDFIELDER",14,51.4,3.2,12,10,69474,6947,"m",4030,403],["Daniel Elfadli","DEFENSIVE MIDFIELDER",14,49.4,8.1,10,11,46874,4261,"m",2728,248],["Otto Stange","STRIKER",14,48.6,3.1,9,11,45234,4112,"m",1665,151],["Miro Muheim","FULL BACK",14,50.9,1.9,9,10,58550,5855,"m",4050,405],["Noah Katterbach","FULL BACK",14,57.4,1.5,9,11,41574,3779,"m",2492,227],["Ransford Königsdörffer","STRIKER",14,60.6,3.7,9,8,47681,5960,"m",3608,451],["Philip Otele","WINGER",14,44.9,1.2,8,11,44512,4047,"m",2626,239],["Warmed Omari","CENTRAL DEFENDER",14,48.4,1.4,7,10,55363,5536,"m",2621,262],["Fabio Baldé","WINGER",14,50.3,1,6,12,42320,3527,"m",2254,188],["William Mikelbrencis","FULL BACK",14,53.1,4.9,6,9,52417,5824,"m",4304,478],["Omar Megeed","ATTACKING MIDFIELDER",14,50.4,1.7,5,3,10505,3502,"m",477,159],["Rayan Philippe","STRIKER",14,54.5,1.6,5,10,43253,4325,"m",2454,245],["Fábio Vieira","CENTRAL MIDFIELDER",14,55,1,5,7,45042,6435,"m",2659,380]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

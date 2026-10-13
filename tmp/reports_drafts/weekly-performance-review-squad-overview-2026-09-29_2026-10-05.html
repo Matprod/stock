@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weekly Performance Review – Squad Overview</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 300px; }
+    .chart-box.wide { height: 340px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 12px;
+      padding: 10px 12px; border-radius: 10px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner img {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: grid; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2026-2027</div>
+      <h1 class="cover-title">Weekly Performance Review – Squad Overview</h1>
+      <p class="cover-sub">Club report — MAUNA data only</p>
+      <div class="date-pill">Mon, 05/10/26 · 2026-09-29 → 2026-10-05</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">High GPS load with elevated soreness, mood concerns, and poor sleep quality — convergence of external load and compromised recovery.</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">High HMLD and sprint exposure with elevated soreness, mood, and notably poor sleep quality — accumulating fatigue pattern.</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">Single wellness entry with acute distress signals (all metrics at 40.0) alongside substantial GPS load — requires follow-up.</span></div><div class="signal-item"><span class="signal-index">04</span><span class="signal-text">Highest average HMLD in the squad; wellness metrics relatively low (soreness 16.3, mood 13.8, sleep 20.3) but warrant monitoring given load exposure.</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Weekly Performance Review – Squad Overview</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Staff read</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Team Overview – GPS &amp; Wellness Divergence</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · Martin Adeline</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Cross-Domain Summary &amp; Signals</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Training Load Analysis</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Bakery Jatta</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>08 · Shafiq Nandja</span><span class="hint">§6</span></a></li><li><a href="#section-7"><span>09 · Individual Athletes – High GPS Load with Wellness Concerns</span><span class="hint">§7</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Staff read</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <p class="staff-read-lead">Cross-domain analysis of GPS intensity spikes and wellness/sleep decline across the squad during the display week.</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Narrative thread</h3><ul><li>Team GPS intensity metrics (HMLD, HSR, sprint distance) peaked on 30 Sep, 1 Oct, and 4 Oct, while wellness (body soreness, mood) and sleep quality declined from 29 Sep to 2 Oct, creating a divergence between external load and recovery indicators.</li><li>Alexander Røssing-Lelesiit shows elevated GPS load (avg HMLD 1184 m, HSR 349 m) combined with high body soreness (30.0), mood concerns (20.0), and sleep quality 20.0, indicating compromised recovery under high mechanical stress.</li><li>Shafiq Nandja demonstrates high HMLD (1153 m) and sprint exposure (108 m) with elevated soreness (27.3), mood (21.3), and notably poor sleep quality (33.0), suggesting accumulating fatigue.</li><li>Bakery Jatta reported acute distress with single wellness entry showing soreness/mood/sleep all at 40.0 alongside substantial GPS load (HMLD 1018 m), requiring follow-up to confirm pattern.</li><li>No wellness or sleep data were captured on 3–4 Oct despite continued high GPS loads (HMLD 1393 m, HSR 485 m on 4 Oct), limiting visibility into recovery status during peak training days.</li><li>ACWR values are null due to insufficient chronic history (&lt;21 days), preventing ratio-based spike detection; analysis relies on absolute load metrics (cumulative 7d, monotony, strain) and cross-domain wellness signals.</li></ul></div><div class="staff-read-panel"><h3>Signals</h3><ul class="signal-roster"><li><span class="signal-badge watch">Watch</span><div><div class="signal-body">High GPS load with elevated soreness, mood concerns, and poor sleep quality — convergence of external load and compromised recovery.</div><div class="signal-meta">Alexander Røssing-Lelesiit · gps · wellness · sleep</div></div></li><li><span class="signal-badge watch">Watch</span><div><div class="signal-body">High HMLD and sprint exposure with elevated soreness, mood, and notably poor sleep quality — accumulating fatigue pattern.</div><div class="signal-meta">Shafiq Nandja · gps · wellness · sleep</div></div></li><li><span class="signal-badge review">Review</span><div><div class="signal-body">Single wellness entry with acute distress signals (all metrics at 40.0) alongside substantial GPS load — requires follow-up.</div><div class="signal-meta">Bakery Jatta · wellness · sleep · gps</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Highest average HMLD in the squad; wellness metrics relatively low (soreness 16.3, mood 13.8, sleep 20.3) but warrant monitoring given load exposure.</div><div class="signal-meta">Martin Adeline · gps</div></div></li></ul></div></div>
+  <div class="staff-read-panel"><h3>Canvas sections</h3><ul class="staff-section-index"><li><span>Team Overview – GPS &amp; Wellness Divergence</span><span class="kind">Team</span></li><li><span>Individual Athletes – High GPS Load with Wellness Concerns</span><span class="kind">Team</span></li><li><span>Training Load Analysis</span><span class="kind">Team</span></li><li><span>Cross-Domain Summary &amp; Signals</span><span class="kind">Team</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Team Overview – GPS &amp; Wellness Divergence</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Daily Team Average – Sleep Quality</h3>
+  <div id="chart_1" class="chart-box compact"></div>
+  
+</div>
+<div class="card"><h3>Top 10 Players by Average HMLD – Cross-Domain Summary</h3><div class="legend"><span><i class="swatch" style="background:rgba(224,112,112,0.22);outline:1px solid #E07070"></i>high</span><span><i class="swatch" style="background:rgba(251,191,36,0.22);outline:1px solid #E8B84A"></i>medium</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>low</span><span>vs squad (terciles)</span></div><table class="report-table"><thead><tr><th>Player</th><th>N Sessions</th><th>Avg Hmld</th><th>Avg Hsr</th><th>Avg Sprint Distance</th><th>Avg Soreness</th><th>Avg Mood</th><th>Avg Sleep Quality</th></tr></thead><tbody><tr><td class="">Martin Adeline</td><td class="">5</td><td class="lvl-lo">1.42</td><td class="lvl-hi">408</td><td class="lvl-hi">109</td><td class="lvl-lo">16.3</td><td class="lvl-mid">13.8</td><td class="lvl-mid">20.3</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">4</td><td class="lvl-lo">1.18</td><td class="lvl-hi">349</td><td class="lvl-hi">54</td><td class="lvl-hi">30</td><td class="lvl-hi">20</td><td class="lvl-mid">20</td></tr><tr><td class="">Shafiq Nandja</td><td class="">5</td><td class="lvl-lo">1.15</td><td class="lvl-hi">372</td><td class="lvl-hi">108</td><td class="lvl-hi">27.3</td><td class="lvl-hi">21.3</td><td class="lvl-hi">33</td></tr><tr><td class="">Nicolai Remberg</td><td class="">6</td><td class="lvl-lo">1.07</td><td class="lvl-mid">224</td><td class="lvl-mid">41</td><td class="lvl-lo">10</td><td class="lvl-lo">10</td><td class="lvl-lo">13.3</td></tr><tr><td class="">Bakery Jatta</td><td class="">3</td><td class="lvl-lo">1.02</td><td class="lvl-hi">292</td><td class="lvl-hi">70</td><td class="lvl-hi">40</td><td class="lvl-hi">40</td><td class="lvl-hi">40</td></tr><tr><td class="">Miro Muheim</td><td class="">6</td><td class="lvl-hi">986</td><td class="lvl-hi">337</td><td class="lvl-hi">120</td><td class="lvl-mid">20</td><td class="lvl-hi">20</td><td class="lvl-mid">20</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">6</td><td class="lvl-hi">879</td><td class="lvl-hi">239</td><td class="lvl-mid">41</td><td class="lvl-mid">20</td><td class="lvl-lo">10</td><td class="lvl-mid">20</td></tr><tr><td class="">Sebastiaan  Bornauw</td><td class="">6</td><td class="lvl-hi">771</td><td class="lvl-mid">164</td><td class="lvl-mid">46</td><td class="lvl-mid">21</td><td class="lvl-hi">22</td><td class="lvl-mid">20.3</td></tr><tr><td class="">Mario Vušković</td><td class="">5</td><td class="lvl-hi">744</td><td class="lvl-lo">135</td><td class="lvl-mid">39</td><td class="lvl-lo">16.7</td><td class="lvl-lo">10</td><td class="lvl-lo">10</td></tr><tr><td class="">Kofi Amoako</td><td class="">5</td><td class="lvl-hi">692</td><td class="lvl-mid">210</td><td class="lvl-mid">52</td><td class="lvl-hi">31.5</td><td class="lvl-hi">28.5</td><td class="lvl-hi">28</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">6</td><td class="lvl-hi">689</td><td class="lvl-mid">178</td><td class="lvl-mid">45</td><td class="lvl-lo">13.3</td><td class="lvl-lo">10</td><td class="lvl-mid">23.3</td></tr><tr><td class="">Fábio Vieira</td><td class="">4</td><td class="lvl-mid">656</td><td class="lvl-lo">153</td><td class="lvl-hi">54</td><td class="lvl-mid">23.3</td><td class="lvl-hi">20</td><td class="lvl-mid">20</td></tr><tr><td class="">Bilal Nadir</td><td class="">6</td><td class="lvl-mid">568</td><td class="lvl-lo">130</td><td class="lvl-lo">38</td><td class="lvl-mid">24.3</td><td class="lvl-hi">22</td><td class="lvl-hi">25.3</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">6</td><td class="lvl-mid">537</td><td class="lvl-mid">156</td><td class="lvl-lo">27</td><td class="lvl-lo">14.7</td><td class="lvl-mid">16</td><td class="lvl-lo">15.7</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">4</td><td class="lvl-mid">432</td><td class="lvl-lo">111</td><td class="lvl-lo">32</td><td class="lvl-hi">30</td><td class="lvl-hi">30</td><td class="lvl-hi">30</td></tr><tr><td class="">Terem Moffi</td><td class="">5</td><td class="lvl-mid">324</td><td class="lvl-mid">156</td><td class="lvl-lo">37</td><td class="lvl-mid">20</td><td class="lvl-mid">13.3</td><td class="lvl-mid">20</td></tr><tr><td class="">Albert Grønbæk</td><td class="">3</td><td class="lvl-mid">164</td><td class="lvl-lo">12</td><td class="lvl-lo">0</td><td class="lvl-mid">23.3</td><td class="lvl-mid">13.3</td><td class="lvl-mid">20</td></tr><tr><td class="">Warmed Omari</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">40</td></tr><tr><td class="">Patson Daka</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">10</td><td class="lvl-mid">16.7</td><td class="">—</td></tr><tr><td class="">Warmed Omari</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">30</td><td class="lvl-lo">10</td><td class="">—</td></tr><tr><td class="">David Möller Wolfe</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">25</td><td class="lvl-mid">15</td><td class="">—</td></tr><tr><td class="">Patson Daka</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">10</td></tr><tr><td class="">Otto Stange</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">30</td></tr><tr><td class="">David Möller Wolfe</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">25</td></tr><tr><td class="">Otto Stange</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">26.7</td><td class="lvl-hi">23.3</td><td class="">—</td></tr></tbody></table></div>
+<div class="card"><h3>Bakery Jatta – Daily Detail</h3><table class="report-table"><thead><tr><th>Date</th><th>hmld</th><th>hsr</th><th>Sprint Distance</th><th>soreness</th><th>mood</th><th>Sleep Quality</th></tr></thead><tbody><tr><td class="">2026-09-30</td><td class="">1,015.87</td><td class="lvl-mid">176.05</td><td class="lvl-mid">20.37</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">2026-10-01</td><td class="">1,590.72</td><td class="lvl-hi">503.66</td><td class="lvl-hi">104.39</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">2026-10-02</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">40</td><td class="">40</td><td class="">—</td></tr><tr><td class="">2026-10-02</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">40</td></tr><tr><td class="">2026-10-03</td><td class="">447.01</td><td class="lvl-hi">195.62</td><td class="lvl-hi">84.27</td><td class="">—</td><td class="">—</td><td class="">—</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>ACWR Distribution – Top 15 Athletes</h3>
+  <div id="chart_2" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><p><strong>Key findings:</strong> (1) Team GPS intensity (HMLD, HSR, sprint) peaked 30 Sep–4 Oct while wellness (soreness, mood) and sleep quality declined 29 Sep–2 Oct. (2) Alexander Røssing-Lelesiit: high HMLD (1184 m avg), elevated soreness (30.0), mood concerns (20.0), sleep quality 20.0 — convergence of high external load and compromised recovery. (3) Shafiq Nandja: HMLD 1153 m, soreness 27.3, mood 21.3, sleep quality 33.0 (poor) — accumulating fatigue pattern. (4) Bakery Jatta: single wellness entry with soreness/mood/sleep all at 40.0 (acute distress signal), HMLD 1018 m — requires follow-up. (5) No wellness/sleep data captured 3–4 Oct despite continued high GPS loads, limiting visibility into recovery status. (6) Insufficient chronic load history prevents ACWR-based spike detection; reliance on absolute load (cumulative 7d, monotony, strain) and wellness cross-checks.</p></div>
+<div class="card"><h3>Cross-Domain Profile – Top 10 HMLD Athletes with Load Metrics</h3><table class="report-table"><thead><tr><th>Player</th><th>Avg Hmld</th><th>Avg Hsr</th><th>Avg Soreness</th><th>Avg Mood</th><th>Avg Sleep Quality</th><th>monotony</th><th>strain</th><th>Cumulative 7</th></tr></thead><tbody><tr><td class="">Martin Adeline</td><td class="lvl-mid">1.42</td><td class="lvl-hi">408</td><td class="lvl-lo">16.3</td><td class="lvl-mid">13.8</td><td class="lvl-hi">20.3</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="lvl-mid">1.18</td><td class="lvl-hi">349</td><td class="lvl-hi">30</td><td class="lvl-mid">20</td><td class="lvl-mid">20</td><td class="lvl-lo">0.55</td><td class="">5,309.44</td><td class="">49,264.62</td></tr><tr><td class="">Shafiq Nandja</td><td class="lvl-lo">1.15</td><td class="lvl-hi">372</td><td class="lvl-hi">27.3</td><td class="lvl-hi">21.3</td><td class="lvl-hi">33</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Nicolai Remberg</td><td class="lvl-lo">1.07</td><td class="lvl-mid">224</td><td class="lvl-lo">10</td><td class="lvl-lo">10</td><td class="lvl-lo">13.3</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Bakery Jatta</td><td class="lvl-lo">1.02</td><td class="lvl-mid">292</td><td class="lvl-hi">40</td><td class="lvl-hi">40</td><td class="lvl-hi">40</td><td class="">—</td><td class="">—</td><td class="">80,383.17</td></tr><tr><td class="">Miro Muheim</td><td class="lvl-hi">986</td><td class="lvl-hi">337</td><td class="lvl-mid">20</td><td class="lvl-mid">20</td><td class="lvl-mid">20</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="lvl-hi">879</td><td class="lvl-mid">239</td><td class="lvl-mid">20</td><td class="lvl-lo">10</td><td class="lvl-mid">20</td><td class="lvl-hi">0.8</td><td class="">8,395.23</td><td class="">56,144.37</td></tr><tr><td class="">Sebastiaan  Bornauw</td><td class="lvl-hi">771</td><td class="lvl-lo">164</td><td class="lvl-mid">21</td><td class="lvl-hi">22</td><td class="lvl-hi">20.3</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Mario Vušković</td><td class="lvl-hi">744</td><td class="lvl-lo">135</td><td class="lvl-lo">16.7</td><td class="lvl-lo">10</td><td class="lvl-lo">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Kofi Amoako</td><td class="lvl-mid">692</td><td class="lvl-lo">210</td><td class="lvl-hi">31.5</td><td class="lvl-hi">28.5</td><td class="lvl-hi">28</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Albert Grønbæk</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-mid">0.72</td><td class="">1,455.24</td><td class="">43,179.83</td></tr><tr><td class="">Bilal Nadir</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">1.12</td><td class="">17,550.03</td><td class="">57,371.7</td></tr><tr><td class="">Damion Downs</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td></tr><tr><td class="">Daniel Elfadli</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">3,208.5</td></tr><tr><td class="">David Möller Wolfe</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">34,227.83</td></tr><tr><td class="">Emir Sahiti</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td></tr><tr><td class="">Fabio Baldé</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td></tr><tr><td class="">Fábio Vieira</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">1.23</td><td class="">10,970.47</td><td class="">58,369.65</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td></tr><tr><td class="">Immanuël Pherai</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">29,343.58</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-mid">0.61</td><td class="">4,629.27</td><td class="">69,150.48</td></tr></tbody></table></div>
+<div class="card"><h3>Martin Adeline – Daily Detail</h3><table class="report-table"><thead><tr><th>Date</th><th>hmld</th><th>hsr</th><th>Sprint Distance</th><th>soreness</th><th>mood</th><th>Sleep Quality</th></tr></thead><tbody><tr><td class="">2026-09-29</td><td class="">1,319.05</td><td class="lvl-lo">120.79</td><td class="lvl-lo">23</td><td class="lvl-mid">10</td><td class="lvl-mid">10</td><td class="lvl-lo">10</td></tr><tr><td class="">2026-09-30</td><td class="">1.78</td><td class="lvl-hi">507.97</td><td class="lvl-mid">86.32</td><td class="lvl-hi">18</td><td class="lvl-mid">10</td><td class="lvl-hi">22</td></tr><tr><td class="">2026-10-01</td><td class="">2,451.03</td><td class="lvl-hi">704.35</td><td class="lvl-mid">150.98</td><td class="lvl-hi">27</td><td class="lvl-hi">15</td><td class="lvl-hi">29</td></tr><tr><td class="">2026-10-02</td><td class="">1,357.32</td><td class="lvl-mid">319.89</td><td class="lvl-hi">172.23</td><td class="lvl-mid">10</td><td class="lvl-hi">20</td><td class="lvl-mid">20</td></tr><tr><td class="">2026-10-04</td><td class="">3,015.25</td><td class="">1,202.9</td><td class="lvl-hi">329.97</td><td class="">—</td><td class="">—</td><td class="">—</td></tr></tbody></table></div>
+<div class="prose-block"><p>Highest average HMLD in the squad at 1418 m, with HSR 408 m and sprint distance 109 m across 5 sessions. Wellness metrics are relatively favorable (soreness 16.3, mood 13.8, sleep quality 20.3, all n=4), suggesting good tolerance to high load. However, the absolute GPS exposure warrants continued monitoring to ensure recovery capacity is maintained.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>Martin Adeline</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/9188fca4-ad94-4954-abfc-8e0c3c2abcad.png" alt="" /><div><div class="name">Martin Adeline</div><div class="meta">MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="chart-card">
+  <h3>Average HSR vs Sleep Quality – Top 10 Athletes</h3>
+  <div id="chart_3" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Average HMLD vs Body Soreness – Top 10 Athletes</h3>
+  <div id="chart_4" class="chart-box compact"></div>
+  
+</div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Cross-Domain Summary &amp; Signals</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><p>ACWR values are null for the latest snapshot, indicating insufficient chronic history (less than 21 days of usable data) for ratio calculation. Monotony and strain are available: Bilal Nadir shows highest strain (17,550) with monotony 1.12, suggesting repetitive high load. Alexander Røssing-Lelesiit has strain 5,309 with monotony 0.554. Cumulative 7-day load ranges from 43,180 (Grønbæk) to 80,383 (Jatta). Without valid ACWR, we rely on absolute load metrics (cumulative 7d, monotony, strain) and cross-domain wellness signals to flag athletes.</p></div>
+<div class="card"><h3>Top 15 Athletes by ACWR (7:28 EWMA) – Latest Values</h3><table class="report-table"><thead><tr><th>Player</th><th>monotony</th><th>strain</th><th>Cumulative 7</th></tr></thead><tbody><tr><td class="">Albert Grønbæk</td><td class="lvl-mid">0.72</td><td class="">1,455.24</td><td class="">43,179.83</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="lvl-hi">0.8</td><td class="">8,395.23</td><td class="">56,144.37</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="lvl-lo">0.55</td><td class="">5,309.44</td><td class="">49,264.62</td></tr><tr><td class="">Bakery Jatta</td><td class="">—</td><td class="">—</td><td class="">80,383.17</td></tr><tr><td class="">Bilal Nadir</td><td class="lvl-hi">1.12</td><td class="">17,550.03</td><td class="">57,371.7</td></tr><tr><td class="">Damion Downs</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td></tr><tr><td class="">Daniel Elfadli</td><td class="">—</td><td class="">—</td><td class="">3,208.5</td></tr><tr><td class="">David Möller Wolfe</td><td class="">—</td><td class="">—</td><td class="">34,227.83</td></tr><tr><td class="">Emir Sahiti</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td></tr><tr><td class="">Fabio Baldé</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td></tr><tr><td class="">Fábio Vieira</td><td class="lvl-hi">1.23</td><td class="">10,970.47</td><td class="">58,369.65</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td></tr><tr><td class="">Immanuël Pherai</td><td class="">—</td><td class="">—</td><td class="">29,343.58</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td></tr><tr><td class="">Jordan Torunarigha</td><td class="lvl-mid">0.61</td><td class="">4,629.27</td><td class="">69,150.48</td></tr></tbody></table></div>
+<div class="prose-block"><p>Load monitoring via session RPE shows 37 athletes with sufficient data. ACWR (acute:chronic ratio, 7:28 EWMA) provides context for the GPS spikes observed. Athletes with ACWR &gt;1.30 combined with elevated HMLD and declining wellness represent the highest vigilance group. Those with ACWR 1.00–1.30 but rising monotony/strain alongside wellness dips also warrant attention.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Training Load Analysis</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><p><strong>Highest wellness concern:</strong> soreness 40.0, mood 40.0, sleep quality 40.0 (all n=1, limited data). GPS load substantial (avg HMLD 1018 m, HSR 292 m over 3 sessions). Single wellness entry limits trend analysis, but the reported values are at the upper end of the scale, signaling acute distress. Requires follow-up to confirm pattern.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5">
+  <div class="band">
+    <h1>Bakery Jatta</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3d2aa33-5992-4cf5-a047-8e6b6482e55d.png" alt="" /><div><div class="name">Bakery Jatta</div><div class="meta">WINGER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Shafiq Nandja – Daily Detail</h3><table class="report-table"><thead><tr><th>Date</th><th>hmld</th><th>hsr</th><th>Sprint Distance</th><th>soreness</th><th>mood</th><th>Sleep Quality</th></tr></thead><tbody><tr><td class="">2026-09-29</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">20</td><td class="lvl-hi">20</td><td class="">—</td></tr><tr><td class="">2026-09-29</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-mid">30</td></tr><tr><td class="">2026-09-30</td><td class="">1,565.68</td><td class="lvl-hi">691.41</td><td class="lvl-hi">228.3</td><td class="lvl-mid">29</td><td class="lvl-hi">25</td><td class="lvl-hi">32</td></tr><tr><td class="">2026-10-01</td><td class="">1,693.17</td><td class="lvl-mid">357.61</td><td class="lvl-mid">76.02</td><td class="lvl-hi">30</td><td class="lvl-hi">20</td><td class="lvl-hi">40</td></tr><tr><td class="">2026-10-02</td><td class="">1,607.31</td><td class="lvl-hi">588.63</td><td class="lvl-hi">252.99</td><td class="lvl-hi">30</td><td class="lvl-hi">20</td><td class="lvl-mid">30</td></tr><tr><td class="">2026-10-03</td><td class="">374.6</td><td class="lvl-lo">114.7</td><td class="lvl-lo">24.55</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">2026-10-04</td><td class="">1,676.02</td><td class="lvl-mid">477.73</td><td class="lvl-mid">68.65</td><td class="">—</td><td class="">—</td><td class="">—</td></tr></tbody></table></div>
+<div class="prose-block"><p>High HMLD (1153 m avg) and sprint exposure (108 m avg) over 5 sessions. Body soreness elevated at 27.3 (n=4), mood at 21.3. Sleep quality notably poor at 33.0 (n=4), indicating inadequate recovery despite high training demands. Peak speed 10.2 km/h reflects intense running bouts. Cross-domain pattern suggests accumulating fatigue.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-6">
+  <div class="band">
+    <h1>Shafiq Nandja</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/c053a060-d5ab-43dc-bec0-6fe24b81cb1a.png" alt="" /><div><div class="name">Shafiq Nandja</div><div class="meta">MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Alexander Røssing-Lelesiit – Daily Detail</h3><table class="report-table"><thead><tr><th>Date</th><th>hmld</th><th>hsr</th><th>Sprint Distance</th><th>soreness</th><th>mood</th><th>Sleep Quality</th></tr></thead><tbody><tr><td class="">2026-09-29</td><td class="">1,566.54</td><td class="lvl-mid">182.53</td><td class="lvl-lo">0</td><td class="lvl-mid">20</td><td class="lvl-hi">20</td><td class="lvl-hi">20</td></tr><tr><td class="">2026-09-30</td><td class="">1,598.24</td><td class="lvl-hi">581.49</td><td class="lvl-hi">131.17</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">2026-10-01</td><td class="">2,272.39</td><td class="lvl-hi">808.29</td><td class="lvl-hi">99.82</td><td class="lvl-hi">40</td><td class="lvl-hi">20</td><td class="lvl-hi">20</td></tr><tr><td class="">2026-10-02</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">20</td></tr><tr><td class="">2026-10-02</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">30</td><td class="lvl-hi">20</td><td class="">—</td></tr><tr><td class="">2026-10-03</td><td class="">485.08</td><td class="lvl-lo">171.89</td><td class="lvl-mid">36.98</td><td class="">—</td><td class="">—</td><td class="">—</td></tr></tbody></table></div>
+<div class="prose-block"><p>Elevated GPS load (avg HMLD 1184 m, HSR 349 m across 4 sessions) combined with notably high body soreness (30.0, n=3) and mood concerns (20.0). Sleep quality at 20.0 (n=3) suggests insufficient recovery. High acceleration/deceleration exposure (89/72 per session) adds mechanical stress. This convergence of high external load and compromised wellness warrants monitoring.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-7">
+  <div class="band">
+    <h1>Individual Athletes – High GPS Load with Wellness Concerns</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Daily Team Average – Body Soreness</h3>
+  <div id="chart_5" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Daily Team Average – HSR</h3>
+  <div id="chart_6" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Daily Team Average – HMLD</h3>
+  <div id="chart_7" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><p><strong>This week showed a notable divergence:</strong> GPS intensity metrics (HMLD, HSR, sprint distance) peaked on 30 Sep, 1 Oct, and 4 Oct, while wellness (body soreness, mood) and sleep quality declined across the same period. On 29 Sep, 19 athletes reported wellness with average soreness 18.1 and mood 18.3; by 2 Oct (n=21), soreness rose to 22.9 and mood dropped to 17.1. Sleep quality fell from 19.8 (29 Sep) to 21.4 (2 Oct). Meanwhile, team average HMLD climbed from 934 m (29 Sep) to 1458 m (1 Oct), HSR from 77 m to 426 m, and sprint distance from 4 m to 95 m. No wellness or sleep data were captured on 3–4 Oct despite continued high GPS loads (HMLD 1393 m, HSR 485 m on 4 Oct).</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-7</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Daily Team Average – Sleep Quality","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Avg Sleep Quality","type":"line","encode":{"x":"Date","y":"Avg Sleep Quality"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":23.125,"name":"Mean","label":{"formatter":"Mean 23.13","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Date","N Gps","Avg Distance","Avg Hmld","Avg Hsr","Avg Sprint Distance","Avg Accel","Avg Decel","Avg Dsl","N Wellness","Avg Soreness","Avg Energy","Avg Mood","Avg Stress","N Sleep","Avg Sleep Quality","Avg Sleep Efficiency","Avg Hours In Bed"],["2026-09-29",14,7220,934,77,4,82,64,211.1,19,18.1,null,18.3,null,19,19.8,null,null],["2026-09-30",14,6437,1261,353,73,81,71,203.8,5,24.8,null,23,null,5,27.6,null,null],["2026-10-01",15,8040,1458,426,95,70,70,237.2,16,23.6,null,17.2,null,16,23.7,null,null],["2026-10-02",15,6647,910,278,119,63,51,190.1,21,22.9,null,17.1,null,21,21.4,null,null],["2026-10-03",15,3527,382,117,22,25,18,84.1,null,null,null,null,null,null,null,null,null],["2026-10-04",13,7106,1393,485,135,48,54,243.4,null,null,null,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"ACWR Distribution – Top 15 Athletes","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Acwr Ewma","type":"bar","encode":{"x":"Player","y":"Acwr Ewma"}}],"animation":false,"dataset":{"source":[["Player","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7"],["Albert Grønbæk",null,null,null,0.724,1455.24,null,43179.833],["Albert Sambi Lokonga",null,null,null,0.799,8395.226,null,56144.367],["Alexander Røssing-Lelesiit",null,null,null,0.554,5309.444,null,49264.617],["Bakery Jatta",null,null,null,null,null,null,80383.167],["Bilal Nadir",null,null,null,1.12,17550.027,null,57371.7],["Damion Downs",null,null,null,null,null,null,0],["Daniel Elfadli",null,null,null,null,null,null,3208.5],["David Möller Wolfe",null,null,null,null,null,null,34227.833],["Emir Sahiti",null,null,null,null,null,null,0],["Fabio Baldé",null,null,null,null,null,null,0],["Fábio Vieira",null,null,null,1.231,10970.467,null,58369.65],["Giorgi Gocholeishvili",null,null,null,null,null,null,0],["Immanuël Pherai",null,null,null,null,null,null,29343.583],["Jean-Luc Dompé",null,null,null,null,null,null,0],["Jordan Torunarigha",null,null,null,0.612,4629.27,null,69150.483]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3","title":"Average HSR vs Sleep Quality – Top 10 Athletes","option":{"legend":{"show":false},"grid":{"left":64,"right":72,"top":48,"containLabel":true,"bottom":28},"xAxis":{"type":"value","name":"Avg Hsr","scale":true,"nameLocation":"middle","nameGap":28},"yAxis":{"type":"value","name":"Avg Sleep Quality","scale":true,"nameLocation":"middle","nameGap":40},"tooltip":{"trigger":"item"},"series":[{"type":"scatter","symbolSize":14,"encode":{"x":"Avg Hsr","y":"Avg Sleep Quality","tooltip":["Player","Avg Hsr","Avg Sleep Quality"]}}],"animation":false,"dataset":{"source":[["Player","N Sessions","Avg Distance","Avg Hmld","Avg Hsr","Avg Sprint Distance","Avg Accel","Avg Decel","Max speed (km/h)","N Wellness","Avg Soreness","Avg Energy","Avg Mood","N Sleep","Avg Sleep Quality","Avg Sleep Efficiency","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7"],["Martin Adeline",5,6792,1418,408,109,53,67,9.3,4,16.3,null,13.8,4,20.3,null,null,null,null,null,null,null,null],["Alexander Røssing-Lelesiit",4,5989,1184,349,54,89,72,8.8,3,30,null,20,3,20,null,null,null,null,0.554,5309.444,null,49264.617],["Shafiq Nandja",5,6487,1153,372,108,71,60,10.2,4,27.3,null,21.3,4,33,null,null,null,null,null,null,null,null],["Nicolai Remberg",6,6358,1074,224,41,53,75,9.2,3,10,null,10,3,13.3,null,null,null,null,null,null,null,null],["Bakery Jatta",3,6321,1018,292,70,75,47,8.7,1,40,null,40,1,40,null,null,null,null,null,null,null,80383.167],["Miro Muheim",6,5453,986,337,120,59,54,9,2,20,null,20,2,20,null,null,null,null,null,null,null,null],["Albert Sambi Lokonga",6,5325,879,239,41,44,28,8.4,3,20,null,10,3,20,null,null,null,null,0.799,8395.226,null,56144.367],["Sebastiaan  Bornauw",6,5177,771,164,46,50,42,9.7,4,21,null,22,4,20.3,null,null,null,null,null,null,null,null],["Mario Vušković",5,5231,744,135,39,51,47,9.2,3,16.7,null,10,3,10,null,null,null,null,null,null,null,null],["Kofi Amoako",5,4299,692,210,52,44,33,9.4,4,31.5,null,28.5,4,28,null,null,null,null,null,null,null,null],["Albert Grønbæk",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0.724,1455.24,null,43179.833],["Bilal Nadir",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,1.12,17550.027,null,57371.7],["Damion Downs",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0],["Daniel Elfadli",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,3208.5],["David Möller Wolfe",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,34227.833],["Emir Sahiti",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0],["Fabio Baldé",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0],["Fábio Vieira",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,1.231,10970.467,null,58369.65],["Giorgi Gocholeishvili",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0],["Immanuël Pherai",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,29343.583],["Jean-Luc Dompé",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0],["Jordan Torunarigha",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0.612,4629.27,null,69150.483]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_4","title":"Average HMLD vs Body Soreness – Top 10 Athletes","option":{"legend":{"show":false},"grid":{"left":64,"right":72,"top":48,"containLabel":true,"bottom":28},"xAxis":{"type":"value","name":"Avg Hmld","scale":true,"nameLocation":"middle","nameGap":28},"yAxis":{"type":"value","name":"Avg Soreness","scale":true,"nameLocation":"middle","nameGap":40},"tooltip":{"trigger":"item"},"series":[{"type":"scatter","symbolSize":14,"encode":{"x":"Avg Hmld","y":"Avg Soreness","tooltip":["Player","Avg Hmld","Avg Soreness"]}}],"animation":false,"dataset":{"source":[["Player","N Sessions","Avg Distance","Avg Hmld","Avg Hsr","Avg Sprint Distance","Avg Accel","Avg Decel","Max speed (km/h)","N Wellness","Avg Soreness","Avg Energy","Avg Mood","N Sleep","Avg Sleep Quality","Avg Sleep Efficiency","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7"],["Martin Adeline",5,6792,1418,408,109,53,67,9.3,4,16.3,null,13.8,4,20.3,null,null,null,null,null,null,null,null],["Alexander Røssing-Lelesiit",4,5989,1184,349,54,89,72,8.8,3,30,null,20,3,20,null,null,null,null,0.554,5309.444,null,49264.617],["Shafiq Nandja",5,6487,1153,372,108,71,60,10.2,4,27.3,null,21.3,4,33,null,null,null,null,null,null,null,null],["Nicolai Remberg",6,6358,1074,224,41,53,75,9.2,3,10,null,10,3,13.3,null,null,null,null,null,null,null,null],["Bakery Jatta",3,6321,1018,292,70,75,47,8.7,1,40,null,40,1,40,null,null,null,null,null,null,null,80383.167],["Miro Muheim",6,5453,986,337,120,59,54,9,2,20,null,20,2,20,null,null,null,null,null,null,null,null],["Albert Sambi Lokonga",6,5325,879,239,41,44,28,8.4,3,20,null,10,3,20,null,null,null,null,0.799,8395.226,null,56144.367],["Sebastiaan  Bornauw",6,5177,771,164,46,50,42,9.7,4,21,null,22,4,20.3,null,null,null,null,null,null,null,null],["Mario Vušković",5,5231,744,135,39,51,47,9.2,3,16.7,null,10,3,10,null,null,null,null,null,null,null,null],["Kofi Amoako",5,4299,692,210,52,44,33,9.4,4,31.5,null,28.5,4,28,null,null,null,null,null,null,null,null],["Albert Grønbæk",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0.724,1455.24,null,43179.833],["Bilal Nadir",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,1.12,17550.027,null,57371.7],["Damion Downs",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0],["Daniel Elfadli",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,3208.5],["David Möller Wolfe",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,34227.833],["Emir Sahiti",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0],["Fabio Baldé",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0],["Fábio Vieira",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,1.231,10970.467,null,58369.65],["Giorgi Gocholeishvili",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0],["Immanuël Pherai",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,29343.583],["Jean-Luc Dompé",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0],["Jordan Torunarigha",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0.612,4629.27,null,69150.483]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_5","title":"Daily Team Average – Body Soreness","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Avg Soreness","type":"line","encode":{"x":"Date","y":"Avg Soreness"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":22.35,"name":"Mean","label":{"formatter":"Mean 22.35","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Date","N Gps","Avg Distance","Avg Hmld","Avg Hsr","Avg Sprint Distance","Avg Accel","Avg Decel","Avg Dsl","N Wellness","Avg Soreness","Avg Energy","Avg Mood","Avg Stress","N Sleep","Avg Sleep Quality","Avg Sleep Efficiency","Avg Hours In Bed"],["2026-09-29",14,7220,934,77,4,82,64,211.1,19,18.1,null,18.3,null,19,19.8,null,null],["2026-09-30",14,6437,1261,353,73,81,71,203.8,5,24.8,null,23,null,5,27.6,null,null],["2026-10-01",15,8040,1458,426,95,70,70,237.2,16,23.6,null,17.2,null,16,23.7,null,null],["2026-10-02",15,6647,910,278,119,63,51,190.1,21,22.9,null,17.1,null,21,21.4,null,null],["2026-10-03",15,3527,382,117,22,25,18,84.1,null,null,null,null,null,null,null,null,null],["2026-10-04",13,7106,1393,485,135,48,54,243.4,null,null,null,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_6","title":"Daily Team Average – HSR","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Avg Hsr","type":"line","encode":{"x":"Date","y":"Avg Hsr"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":289.333,"name":"Mean","label":{"formatter":"Mean 289.33","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Date","N Gps","Avg Distance","Avg Hmld","Avg Hsr","Avg Sprint Distance","Avg Accel","Avg Decel","Avg Dsl","N Wellness","Avg Soreness","Avg Energy","Avg Mood","Avg Stress","N Sleep","Avg Sleep Quality","Avg Sleep Efficiency","Avg Hours In Bed"],["2026-09-29",14,7220,934,77,4,82,64,211.1,19,18.1,null,18.3,null,19,19.8,null,null],["2026-09-30",14,6437,1261,353,73,81,71,203.8,5,24.8,null,23,null,5,27.6,null,null],["2026-10-01",15,8040,1458,426,95,70,70,237.2,16,23.6,null,17.2,null,16,23.7,null,null],["2026-10-02",15,6647,910,278,119,63,51,190.1,21,22.9,null,17.1,null,21,21.4,null,null],["2026-10-03",15,3527,382,117,22,25,18,84.1,null,null,null,null,null,null,null,null,null],["2026-10-04",13,7106,1393,485,135,48,54,243.4,null,null,null,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_7","title":"Daily Team Average – HMLD","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Avg Hmld","type":"line","encode":{"x":"Date","y":"Avg Hmld"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1056.333,"name":"Mean","label":{"formatter":"Mean 1,056.33","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Date","N Gps","Avg Distance","Avg Hmld","Avg Hsr","Avg Sprint Distance","Avg Accel","Avg Decel","Avg Dsl","N Wellness","Avg Soreness","Avg Energy","Avg Mood","Avg Stress","N Sleep","Avg Sleep Quality","Avg Sleep Efficiency","Avg Hours In Bed"],["2026-09-29",14,7220,934,77,4,82,64,211.1,19,18.1,null,18.3,null,19,19.8,null,null],["2026-09-30",14,6437,1261,353,73,81,71,203.8,5,24.8,null,23,null,5,27.6,null,null],["2026-10-01",15,8040,1458,426,95,70,70,237.2,16,23.6,null,17.2,null,16,23.7,null,null],["2026-10-02",15,6647,910,278,119,63,51,190.1,21,22.9,null,17.1,null,21,21.4,null,null],["2026-10-03",15,3527,382,117,22,25,18,84.1,null,null,null,null,null,null,null,null,null],["2026-10-04",13,7106,1393,485,135,48,54,243.4,null,null,null,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

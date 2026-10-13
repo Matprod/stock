@@ -1,0 +1,18 @@
+declare module '@adonisjs/lucid/types/model' {
+    type ModelWithSoftDeletes = LucidModel & {
+        ignoreDeleted(query: any): void;
+        ignoreDeletedPaginate([countQuery, query]: [any, any]): void;
+        disableIgnore(query: any): any;
+    };
+    type ExcludeSoftDeletesMethods<Methods, Model> = {
+        [Method in keyof Methods]: Model extends ModelWithSoftDeletes ? Methods[Method] : never;
+    };
+    type SoftDeletesMethods<Model extends LucidModel> = {
+        withTrashed(): ModelQueryBuilderContract<Model>;
+        onlyTrashed(): ModelQueryBuilderContract<Model>;
+        restore(): Promise<void>;
+    };
+    interface ModelQueryBuilderContract<Model extends LucidModel, Result = InstanceType<Model>> extends ExcludeSoftDeletesMethods<SoftDeletesMethods<Model>, Model> {
+    }
+}
+export {};

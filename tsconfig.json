@@ -1,0 +1,16 @@
+{
+  "extends": "@adonisjs/tsconfig/tsconfig.app.json",
+  "compilerOptions": {
+    "moduleResolution": "NodeNext",
+    "paths": {
+      "#adomin/*": ["./app/adomin/*.js"],
+      "#types/*": ["./app/types/*.js"],
+      "#contracts/*": ["./contracts/*.js"],
+      "#utils/*": ["./app/utils/*.js"],
+      "@typesafe-ai/sdk": ["./node_modules/@typesafe-ai/sdk/dist/index.d.mts"]
+    },
+    "rootDir": "./",
+    "outDir": "./build"
+  },
+  "exclude": ["app/controllers/test_controller.ts", "app/controllers/test_controller_v2.ts"]
+}

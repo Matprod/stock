@@ -1,0 +1,53 @@
+export const EVENT_CATEGORY = {
+  TRAINING: 'training',
+  MATCHES: 'matches',
+  MEDICAL: 'medical',
+  TRAVEL: 'travel',
+} as const
+
+export type EventCategory = (typeof EVENT_CATEGORY)[keyof typeof EVENT_CATEGORY]
+
+export const EVENT_ICON = {
+  ACTIVITY: 'activity',
+  ARROW_DOWN: 'arrow-down',
+  BIKE: 'bike',
+  BUS: 'bus',
+  CAR: 'car',
+  CIRCLE_DOT: 'circle-dot',
+  COMPASS: 'compass',
+  CROSSHAIR: 'crosshair',
+  DRIBBLE: 'dribbble',
+  DROPLETS: 'droplets',
+  DUMBBELL: 'dumbbell',
+  FLAG: 'flag',
+  FLOWER_2: 'flower-2',
+  FOOTPRINTS: 'footprints',
+  GHOST: 'ghost',
+  HAMMER: 'hammer',
+  HEART_PULSE: 'heart-pulse',
+  HOME: 'home',
+  LAYERS: 'layers',
+  MAP: 'map',
+  MAP_PIN: 'map-pin',
+  MORE_HORIZONTAL: 'more-horizontal',
+  MOUNTAIN: 'mountain',
+  MOUNTAIN_SNOW: 'mountain-snow',
+  MUSIC: 'music',
+  ORBIT: 'orbit',
+  PLANE: 'plane',
+  SAILBOAT: 'sailboat',
+  SNOWFLAKE: 'snowflake',
+  STETHOSCOPE: 'stethoscope',
+  SWORDS: 'swords',
+  TENT: 'tent',
+  TIMER: 'timer',
+  TRAIN_FRONT: 'train-front',
+  TRAM_FRONT: 'tram-front',
+  TRENDING_UP: 'trending-up',
+  TROPHY: 'trophy',
+  WAVES: 'waves',
+  WIND: 'wind',
+  ZAP: 'zap',
+} as const
+
+export type EventIcon = (typeof EVENT_ICON)[keyof typeof EVENT_ICON]

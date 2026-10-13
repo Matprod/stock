@@ -1,0 +1,95 @@
+import { METRIC_AGGREGATION_METHOD, METRIC_DATA_TYPE } from '#constants/metrics.constants'
+import SportActivityMetric from '#models_pg/sport_activity_metric'
+import { BaseCommand, flags } from '@adonisjs/core/ace'
+import type { CommandOptions } from '@adonisjs/core/types/ace'
+
+const SPORT_ACTIVITY_METRIC_DEFS = {
+  minutes_played: {
+    description: 'Minutes played in the session/competition',
+    unit: 'min',
+    dataType: METRIC_DATA_TYPE.FLOAT,
+    aggregationMethod: METRIC_AGGREGATION_METHOD.SUM,
+  },
+  total_distance: {
+    description: 'Total distance covered',
+    unit: 'm',
+    dataType: METRIC_DATA_TYPE.FLOAT,
+    aggregationMethod: METRIC_AGGREGATION_METHOD.SUM,
+  },
+  sprint_distance: {
+    description: 'Distance covered while sprinting',
+    unit: 'm',
+    dataType: METRIC_DATA_TYPE.FLOAT,
+    aggregationMethod: METRIC_AGGREGATION_METHOD.SUM,
+  },
+  intensive_run_distance: {
+    description: 'Distance covered in intensive runs',
+    unit: 'm',
+    dataType: METRIC_DATA_TYPE.FLOAT,
+    aggregationMethod: METRIC_AGGREGATION_METHOD.SUM,
+  },
+  max_speed: {
+    description: 'Maximum speed reached',
+    unit: 'km/h',
+    dataType: METRIC_DATA_TYPE.FLOAT,
+    aggregationMethod: METRIC_AGGREGATION_METHOD.MAX,
+  },
+  tackles_contested: {
+    description: 'Number of contested tackles',
+    unit: 'count',
+    dataType: METRIC_DATA_TYPE.INTEGER,
+    aggregationMethod: METRIC_AGGREGATION_METHOD.SUM,
+  },
+  tackles_won: {
+    description: 'Number of tackles won',
+    unit: 'count',
+    dataType: METRIC_DATA_TYPE.INTEGER,
+    aggregationMethod: METRIC_AGGREGATION_METHOD.SUM,
+  },
+} as const
+
+export default class SeedSportActivityMetrics extends BaseCommand {
+  static commandName = 'sport-activity-metrics:seed'
+  static description = 'Create sport_activity_metrics catalog rows'
+
+  static options: CommandOptions = {
+    startApp: true,
+  }
+
+  @flags.boolean({ description: 'List metrics without writing to DB' })
+  declare dryRun: boolean
+
+  async run() {
+    const entries = Object.entries(SPORT_ACTIVITY_METRIC_DEFS)
+    this.logger.info(`${entries.length} sport activity metrics to seed`)
+
+    let created = 0
+    let existing = 0
+
+    for (const [name, def] of entries) {
+      if (this.dryRun) {
+        this.logger.info(`  ${name} (${def.dataType}, ${def.aggregationMethod})`)
+        continue
+      }
+
+      const existingMetric = await SportActivityMetric.findBy('name', name)
+      if (existingMetric) {
+        existing++
+        continue
+      }
+
+      await SportActivityMetric.create({
+        name,
+        description: def.description,
+        unit: def.unit,
+        dataType: def.dataType,
+        aggregationMethod: def.aggregationMethod,
+      })
+      created++
+    }
+
+    if (this.dryRun) return
+
+    this.logger.success(`Done: ${created} created, ${existing} already existed`)
+  }
+}

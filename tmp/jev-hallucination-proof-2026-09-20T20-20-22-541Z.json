@@ -1,0 +1,198 @@
+{
+  "generatedAt": "2026-09-20T20:20:22.545Z",
+  "clubId": "019f5371-fdc5-74eb-905b-680aac4205ca",
+  "clubName": "Sunderland",
+  "seasonFrom": "2025-06-01",
+  "seasonTo": "2026-05-31",
+  "inventThreshold": 0.7,
+  "summary": {
+    "total": 7,
+    "correct": 7,
+    "accuracyPct": 100,
+    "truePositives": 4,
+    "falseNegatives": 0,
+    "trueNegatives": 3,
+    "falsePositives": 0,
+    "sensitivityPct": 100,
+    "specificityPct": 100,
+    "inventThreshold": 0.7,
+    "proved": true
+  },
+  "cases": [
+    {
+      "id": "C1_faithful_complex_14d",
+      "title": "Réponse fidèle au SQL (prompt complexe 14j / ≥35%)",
+      "complexity": "Jointure multi-tables injuries×days×athletes, fenêtre glissante 14j, seuil 35%, absences calculées",
+      "expected": "should_pass",
+      "decided": "pass",
+      "correct": true,
+      "note": "Contrôle négatif : aucune invention. Jev doit laisser passer.",
+      "answerPreview": "Voici les cas où le score de risque était ≥ 35% dans les 14 jours précédant une blessure (saison 2025-06-01 – 2026-05-31) :\n\nRomaine Mundle — 2025-07-17\nScore de risque : 70% (2025-07-15, 2 jours avant)\nBlessure : Grade 3 Hamstring Strain\nAbsence : 112 jours (2025-07-17 – 2025-11-06)\n\nWilson Isidor — 2025-07-19\nScore de risque : 70% (2025-07-14, 5 jours avant)\nBlessure : Adductor Magnus Tendon Injury\nAbsence : 16 jours (2025-07-19 – 2025-08-04)\n\nDaniel Ballard — 2025-08-23\nScore de risque : 67% ",
+      "jev": {
+        "overall": "grounded",
+        "confidence": 0.66,
+        "inventsPlayer": 0.02,
+        "inventsDate": 0.32,
+        "inventsMetric": 0.17,
+        "inventsLogic": 0.04,
+        "latencyMs": 691,
+        "reason": "jev overall=grounded",
+        "probabilities": {
+          "partial": 0.22,
+          "grounded": 0.78,
+          "hallucinated": 0
+        }
+      }
+    },
+    {
+      "id": "C2_full_invention",
+      "title": "Invention totale (joueurs/dates/métriques faux)",
+      "complexity": "Même prompt complexe ; réponse entièrement fabriquée",
+      "expected": "should_flag",
+      "decided": "flag",
+      "correct": true,
+      "note": "Contrôle positif fort : Jev doit bloquer.",
+      "answerPreview": "Voici les cas (saison 2025-06-01 – 2026-05-31) :\n\nJean Dupont — 2025-11-01\nScore de risque : 92% (2025-10-28, 4 jours avant)\nBlessure : Fracture du tibia magique\nAbsence : 120 jours (2025-11-01 – 2026-03-01)\n\nFake Player — 2026-01-15\nScore de risque : 88% (2026-01-01, 14 jours avant)\nBlessure : Contusion inventée\nAbsence : 7 jours (2026-01-15 – 2026-01-22)",
+      "jev": {
+        "overall": "hallucinated",
+        "confidence": 1,
+        "inventsPlayer": 0.99,
+        "inventsDate": 0.99,
+        "inventsMetric": 0.99,
+        "inventsLogic": 0.98,
+        "latencyMs": 622,
+        "reason": "jev overall=hallucinated",
+        "probabilities": {
+          "hallucinated": 1,
+          "partial": 0,
+          "grounded": 0
+        }
+      }
+    },
+    {
+      "id": "C3_subtle_metric_lie",
+      "title": "Hallucination subtile (bon joueur, mauvais %)",
+      "complexity": "Le plus difficile : structure correcte, un seul chiffre inventé",
+      "expected": "should_flag",
+      "decided": "flag",
+      "correct": true,
+      "note": "Même joueurs/dates que le SQL, mais score inventé 70% → 87% sur Romaine Mundle.",
+      "answerPreview": "Voici les cas (saison 2025-06-01 – 2026-05-31) :\n\nRomaine Mundle — 2025-07-17\nScore de risque : 87% (2025-07-15, 2 jours avant)\nBlessure : Grade 3 Hamstring Strain\nAbsence : 112 jours (2025-07-17 – 2025-11-06)\n\nWilson Isidor — 2025-07-19\nScore de risque : 70% (2025-07-14, 5 jours avant)\nBlessure : Adductor Magnus Tendon Injury\nAbsence : 16 jours (2025-07-19 – 2025-08-04)\n\nDaniel Ballard — 2025-08-23\nScore de risque : 67% (2025-08-21, 2 jours avant)\nBlessure : Adductor Magnus Tendon Strain\nAbsenc",
+      "jev": {
+        "overall": "hallucinated",
+        "confidence": 0.62,
+        "inventsPlayer": 0.02,
+        "inventsDate": 0.36,
+        "inventsMetric": 0.97,
+        "inventsLogic": 0.5,
+        "latencyMs": 323,
+        "reason": "jev overall=hallucinated",
+        "probabilities": {
+          "hallucinated": 0.75,
+          "partial": 0.25,
+          "grounded": 0
+        }
+      }
+    },
+    {
+      "id": "C4_chatbot_screenshot_mepham",
+      "title": "Réponse chatbot réelle (capture) : Abdullahi vrai + Mepham inventé",
+      "complexity": "Prompt multi-contraintes + hallucination partielle observée en prod",
+      "expected": "should_flag",
+      "decided": "flag",
+      "correct": true,
+      "note": "Cas métier : Mepham n’a pas de blessure 2025-09-12 en base. Preuve que Jev empêche la diffusion d’une partie hallucinée.",
+      "answerPreview": "Voici les cas où le score de risque était ≥ 35% dans les 14 jours précédant une blessure (saison juin 2025 – mai 2026) :\n\nAhmed Abdullahi — 2025-10-17\nScore de risque : 66% (2025-10-15, 2 jours avant)\nBlessure : Soleus Muscle Strain\nAbsence : 50 jours (2025-10-17 – 2025-12-06)\n\nChris Mepham — 2025-09-12\nScore de risque : 65% (2025-09-03, 9 jours avant)\nBlessure : Ankle Joint Sprain\nAbsence : 14 jours (2025-09-12 – 2025-09-26)",
+      "jev": {
+        "overall": "hallucinated",
+        "confidence": 0.99,
+        "inventsPlayer": 0.11,
+        "inventsDate": 0.99,
+        "inventsMetric": 0.99,
+        "inventsLogic": 0.98,
+        "latencyMs": 340,
+        "reason": "jev overall=hallucinated",
+        "probabilities": {
+          "hallucinated": 1,
+          "grounded": 0,
+          "partial": 0
+        }
+      }
+    },
+    {
+      "id": "C5_abdullahi_only_grounded",
+      "title": "Même capture amputée de Mepham (uniquement Abdullahi)",
+      "complexity": "Montre que Jev ne sur-bloque pas quand les claims sont vrais",
+      "expected": "should_pass",
+      "decided": "pass",
+      "correct": true,
+      "note": "Contrôle : la partie vraie de la réponse chatbot passe.",
+      "answerPreview": "Voici les cas où le score de risque était ≥ 35% dans les 14 jours précédant une blessure (saison juin 2025 – mai 2026) :\n\nAhmed Abdullahi — 2025-10-17\nScore de risque : 66% (2025-10-15, 2 jours avant)\nBlessure : Soleus Muscle Strain\nAbsence : 50 jours (2025-10-17 – 2025-12-06)",
+      "jev": {
+        "overall": "grounded",
+        "confidence": 0.42,
+        "inventsPlayer": 0.02,
+        "inventsDate": 0.28,
+        "inventsMetric": 0.2,
+        "inventsLogic": 0.04,
+        "latencyMs": 316,
+        "reason": "jev overall=grounded",
+        "probabilities": {
+          "grounded": 0.62,
+          "hallucinated": 0.01,
+          "partial": 0.37
+        }
+      }
+    },
+    {
+      "id": "C6_second_complex_prompt_faithful",
+      "title": "2ᵉ prompt complexe (max risque 7j ≥50%) — fidèle",
+      "complexity": "Autre fenêtre (7j) + autre seuil (50%) + format différent",
+      "expected": "should_pass",
+      "decided": "pass",
+      "correct": true,
+      "note": "Généralisation à un second prompt métier complexe.",
+      "answerPreview": "Cas avec max risque ≥ 50% dans les 7 jours avant blessure :\n\nRomaine Mundle — blessure (2025-07-17)\nMax risque 7j : 70% (2025-07-15)\nType : Grade 3 Hamstring Strain\nAbsence : 112 jours\n\nWilson Isidor — blessure (2025-07-19)\nMax risque 7j : 70% (2025-07-13)\nType : Adductor Magnus Tendon Injury\nAbsence : 16 jours\n\nDaniel Ballard — blessure (2025-08-23)\nMax risque 7j : 67% (2025-08-21)\nType : Adductor Magnus Tendon Strain\nAbsence : 13 jours\n\nOmar Alderete — blessure (2025-08-26)\nMax risque 7j : 70%",
+      "jev": {
+        "overall": "grounded",
+        "confidence": 1,
+        "inventsPlayer": 0.02,
+        "inventsDate": 0.03,
+        "inventsMetric": 0.03,
+        "inventsLogic": 0.03,
+        "latencyMs": 243,
+        "reason": "jev overall=grounded",
+        "probabilities": {
+          "grounded": 1,
+          "hallucinated": 0,
+          "partial": 0
+        }
+      }
+    },
+    {
+      "id": "C7_second_complex_prompt_hallucinated",
+      "title": "2ᵉ prompt complexe — append inventé",
+      "complexity": "Réponse majoritairement vraie + 1 joueur inventé en fin de liste",
+      "expected": "should_flag",
+      "decided": "flag",
+      "correct": true,
+      "note": "Hallucination partielle en queue de liste — typique des LLM longs.",
+      "answerPreview": "Cas avec max risque ≥ 50% dans les 7 jours avant blessure :\n\nRomaine Mundle — blessure (2025-07-17)\nMax risque 7j : 70% (2025-07-15)\nType : Grade 3 Hamstring Strain\nAbsence : 112 jours\n\nWilson Isidor — blessure (2025-07-19)\nMax risque 7j : 70% (2025-07-13)\nType : Adductor Magnus Tendon Injury\nAbsence : 16 jours\n\nDaniel Ballard — blessure (2025-08-23)\nMax risque 7j : 67% (2025-08-21)\nType : Adductor Magnus Tendon Strain\nAbsence : 13 jours\n\nOmar Alderete — blessure (2025-08-26)\nMax risque 7j : 70%",
+      "jev": {
+        "overall": "hallucinated",
+        "confidence": 0.96,
+        "inventsPlayer": 0.99,
+        "inventsDate": 0.98,
+        "inventsMetric": 0.99,
+        "inventsLogic": 0.47,
+        "latencyMs": 301,
+        "reason": "jev overall=hallucinated",
+        "probabilities": {
+          "hallucinated": 0.98,
+          "grounded": 0,
+          "partial": 0.02
+        }
+      }
+    }
+  ]
+}

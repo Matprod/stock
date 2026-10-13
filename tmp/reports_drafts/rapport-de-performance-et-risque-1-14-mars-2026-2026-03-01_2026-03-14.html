@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html data-artifact="free" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rapport de performance et risque — 1–14 mars 2026 | Hambourg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --lightPrimary: #74c0fc;
+      --ink: #0f1220;
+      --inkSoft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherrySoft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffronSoft: rgba(251,191,36,0.22);
+      --coverGradient: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      --bandGradient: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      --commentBg: rgba(244,246,251,.98);
+      --commentBorder: rgba(165,180,252,.35);
+      --season: #a5b4fc;
+      --clubMark: #c7d2fe;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #ffffff;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      font-size: 12px;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Cover */
+    .cover {
+      min-height: 48vh;
+      padding: 40px 32px;
+      background: var(--coverGradient);
+      color: #ffffff;
+      page-break-after: always;
+      break-after: page;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .cover .eyebrow {
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: 10.5px;
+      opacity: .88;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--lightPrimary);
+    }
+    .cover h1 {
+      margin: 0 0 12px;
+      font-size: 32px;
+      line-height: 1.12;
+      font-weight: 700;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      letter-spacing: -.01em;
+    }
+    .cover .meta {
+      color: var(--lightPrimary);
+      font-size: 13.5px;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+    .cover .brief {
+      margin-top: 24px;
+      padding: 16px 18px;
+      background: rgba(255,255,255,.08);
+      border-left: 3px solid var(--lightPrimary);
+      border-radius: 6px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: rgba(255,255,255,.94);
+      max-width: 820px;
+    }
+    
+    /* Main flow */
+    .report-flow {
+      padding: 16px 20px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    /* Section block */
+    .section-block {
+      margin: 0 0 28px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-block h2 {
+      margin: 0 0 12px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border-bottom: 2.5px solid var(--primary);
+      padding-bottom: 6px;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    
+    /* TOC */
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 7px;
+    }
+    .toc-list a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      background: var(--paper);
+      border: 1.75px solid var(--line);
+      border-left: 4px solid var(--primary);
+      border-radius: 7px;
+      padding: 10px 13px;
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 12px;
+      transition: all .15s ease;
+    }
+    .toc-list a:hover {
+      background: #ffffff;
+      border-left-color: var(--lightPrimary);
+    }
+    .toc-list .hint {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    
+    /* Cards */
+    .card, .chart-card {
+      background: #ffffff;
+      border: 2px solid #94a3b8;
+      border-radius: 9px;
+      padding: 14px 16px;
+      margin: 0 0 14px;
+      overflow: visible;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .card:has(table.report-table) {
+      break-inside: auto;
+      page-break-inside: auto;
+    }
+    .chart-card.chart-wide {
+      page-break-before: auto;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .prose {
+      color: var(--inkSoft);
+      font-size: 12px;
+      line-height: 1.5;
+      margin: 0 0 10px;
+    }
+    .prose:last-child {
+      margin-bottom: 0;
+    }
+    .prose strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    
+    /* Split layouts */
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 0 0 14px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table {
+      grid-template-columns: minmax(140px, 58%) 1fr;
+    }
+    .split-row.triple {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    
+    /* Chart hosts */
+    .chart-box {
+      width: 100%;
+      height: 280px;
+      max-height: 280px;
+    }
+    .chart-box.line-chart {
+      height: 340px;
+      max-height: 340px;
+    }
+    .chart-box.bar-rank {
+      height: 310px;
+      max-height: 310px;
+    }
+    .chart-box.heatmap-chart {
+      height: 360px;
+      max-height: 360px;
+    }
+    .chart-box.compact {
+      height: 200px;
+      max-height: 200px;
+    }
+    
+    /* Tables */
+    table.report-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5px;
+      margin-top: 4px;
+    }
+    table.report-table th,
+    table.report-table td {
+      border-bottom: 1.5px solid #94a3b8;
+      padding: 6px 7px;
+      text-align: left;
+    }
+    table.report-table th {
+      border-bottom: 2px solid #64748b;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 9.5px;
+      letter-spacing: .05em;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    table.report-table td {
+      color: var(--inkSoft);
+    }
+    table.report-table tr {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    table.report-table tbody tr:hover {
+      background: var(--paper);
+    }
+    
+    /* Signal badges */
+    .signal-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-right: 6px;
+    }
+    .signal-badge.watch {
+      background: var(--saffronSoft);
+      color: #92400e;
+      border: 1px solid var(--saffron);
+    }
+    .signal-badge.review {
+      background: var(--cherrySoft);
+      color: #991b1b;
+      border: 1px solid var(--cherry);
+    }
+    .signal-badge.info {
+      background: rgba(79,110,247,.12);
+      color: #1e3a8a;
+      border: 1px solid var(--primary);
+    }
+    
+    /* Athlete focus card */
+    .athlete-focus {
+      border-left: 4px solid var(--primary);
+      background: linear-gradient(to right, var(--paper), #ffffff);
+    }
+    
+    /* Key metrics grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .metric-box {
+      padding: 10px 12px;
+      background: var(--paper);
+      border: 1.5px solid var(--line);
+      border-radius: 6px;
+    }
+    .metric-box .label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .metric-box .value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .metric-box .unit {
+      font-size: 11px;
+      color: var(--muted);
+      margin-left: 2px;
+    }
+    
+    /* Print */
+    @media print {
+      body { font-size: 11px; }
+      .cover { page-break-after: always; min-height: 36vh; }
+      .card, .chart-card, .split-row { break-inside: avoid; page-break-inside: avoid; }
+      .card:has(table.report-table) { break-inside: auto; page-break-inside: auto; }
+      .section-block { page-break-inside: auto; }
+      .toc-list a { padding: 8px 11px; }
+    }
+    
+    @media screen and (max-width: 768px) {
+      .split-row, .split-row.split-chart-table, .split-row.triple {
+        grid-template-columns: 1fr;
+      }
+      .cover { padding: 28px 20px; }
+      .report-flow { padding: 12px 14px 24px; }
+    }
+  </style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" onload="window.__maunaEchartsLoaded=1;window.__maunaOnEchartsLoad&&window.__maunaOnEchartsLoad()"></script>
+<style id="mauna-print-css">@page { size: A4; margin: 8mm; }
+html, body { position: relative; }
+body {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+body::before {
+  content: 'mauna';
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, sans-serif;
+  font-weight: 800;
+  font-size: min(22vw, 160px);
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  color: rgba(15, 23, 42, 0.055);
+  transform: rotate(-28deg);
+  pointer-events: none;
+  z-index: 0;
+}
+body > * { position: relative; z-index: 1; }
+.card, .chart-card, .frame, .coach-brief, .section-block > .card,
+article.card, article.chart-card {
+  border: 1.75px solid #94a3b8 !important;
+  border-radius: 8px;
+}
+.toc-list a {
+  border: 1.5px solid #94a3b8 !important;
+  border-left: 3px solid #4f6ef7 !important;
+}
+table, table.report-table {
+  border-collapse: collapse;
+}
+table.report-table th,
+table.report-table td,
+table th, table td {
+  border-bottom: 1.5px solid #94a3b8 !important;
+}
+table.report-table thead th,
+table thead th {
+  border-bottom: 2px solid #64748b !important;
+}
+@media print {
+  .no-print, .artifact-nav, .artifact-toolbar, .table-toolbar { display: none !important; }
+  html, body { background: #fff !important; }
+  body {
+    font-size: 10.5pt !important;
+    line-height: 1.35 !important;
+  }
+  body::before {
+    color: rgba(15, 23, 42, 0.07) !important;
+  }
+  h1 { font-size: 1.35rem !important; margin: 0 0 0.35em !important; }
+  h2 { font-size: 1.1rem !important; margin: 0.55em 0 0.3em !important; }
+  h3 { font-size: 0.98rem !important; margin: 0.4em 0 0.25em !important; }
+  p, li { margin: 0.25em 0 !important; }
+  section, .section, .chart-card, article {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 8px !important;
+  }
+  .chart-box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    height: 260px !important;
+    max-height: 280px !important;
+    width: 100% !important;
+  }
+  .chart-box.line-chart,
+  .chart-box[data-chart-kind="line"] {
+    height: 340px !important;
+    max-height: 360px !important;
+  }
+  .chart-card { padding: 6px 8px !important; }
+  table { break-inside: auto; font-size: 9pt !important; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  .chart-card + .chart-card { margin-top: 4px !important; }
+}</style>
+</head>
+<body>
+  <header class="cover">
+    <p class="eyebrow">Hambourg</p>
+    <h1>Rapport de performance et risque<br/>1–14 mars 2026</h1>
+    <p class="meta">Analyse complète : performance, risque blessure, wellness & biomarqueurs</p>
+    <div class="brief">
+      <strong>Demande du coach :</strong> Bilan global du 1er au 14 mars avec contexte d'équipe, focus sur la performance (scores et drivers), identification de trois joueurs (deux en baisse, un en hausse) avec corrélations, même approche pour les risques de blessures, et analyse générale de la wellness et des biomarqueurs.
+    </div>
+  </header>
+
+  <main class="report-flow">
+    <!-- Sommaire -->
+    <section id="sommaire" class="section-block">
+      <h2>Sommaire</h2>
+<aside class="coach-brief" id="coach-brief" data-mauna-coach-brief="1" style="border:1px solid #e2e8f0;border-left:3px solid #4f6ef7;border-radius:8px;padding:10px 12px;margin:0 0 12px;background:#f8fafc">
+  <p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#64748b">Coach brief</p>
+  <blockquote style="margin:0;font-size:12px;line-height:1.45;white-space:pre-wrap;font-style:normal;color:#334155">Fait moi un rapport du 1 er au 14 mars, 
+Fait moi un bilan global de certaines données pour presenter le contexte, puis un focus sur la performance de l’équipe avec leurs scores et les données qui influence ce score , et flag moi trois joueurs, deux joueurs avec une baisse la performance sur la trend de la période et un avec une hausse et trouve la correlation d’ou ca vient. Fait ensuite la meme chose avec les risques de blessures . Fait ensuite une analyse general de la wellness, et des biomarkers</blockquote>
+</aside>
+      <div class="card">
+        <ul class="toc-list">
+          <li><a href="#context"><span>Contexte — Vue d'ensemble (1–14 mars)</span> <span class="hint">Squad</span></a></li>
+          <li><a href="#team-perf"><span>Performance équipe — Scores & drivers</span> <span class="hint">Analyse</span></a></li>
+          <li><a href="#indiv-perf"><span>Performance — Focus individuel</span> <span class="hint">3 athlètes</span></a></li>
+          <li><a href="#injury-risk"><span>Risque blessure — Équipe & focus</span> <span class="hint">Signaux</span></a></li>
+          <li><a href="#wellness"><span>Wellness — Analyse squad</span> <span class="hint">Variabilité</span></a></li>
+          <li><a href="#biomarkers"><span>Biomarqueurs — Analyse</span> <span class="hint">Couverture</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Context -->
+    <section id="context" class="section-block">
+      <h2>Contexte — Vue d'ensemble (1–14 mars)</h2>
+      <div class="card">
+        <p class="prose">
+          <strong>25 athlètes</strong> suivis sur 14 jours. Leaders de charge d'entraînement : <strong>Otto Stange</strong> (35 661 sRPE), <strong>Jean-Luc Dompé</strong> (35 180), <strong>Luka Vušković</strong> (34 570). Leaders de volume GPS : <strong>Noah Katterbach</strong> (39 488m), <strong>Fabio Baldé</strong> (35 744m), <strong>Albert Grønbæk</strong> (35 313m). Activité match concentrée sur Luka Vušković, Nicolai Remberg, William Mikelbrencis (tous 4 matchs, 600+ minutes).
+        </p>
+      </div>
+      
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <div class="label">Athlètes suivis</div>
+          <div class="value">25</div>
+        </div>
+        <div class="metric-box">
+          <div class="label">Période</div>
+          <div class="value">14 <span class="unit">jours</span></div>
+        </div>
+        <div class="metric-box">
+          <div class="label">Charge max</div>
+          <div class="value">35.7k <span class="unit">sRPE</span></div>
+        </div>
+        <div class="metric-box">
+          <div class="label">Volume GPS max</div>
+          <div class="value">39.5k <span class="unit">m</span></div>
+        </div>
+      </div>
+
+      <div class="split-row">
+        <article class="card">
+          <h3>Charge d'entraînement — Top 10</h3>
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Joueur</th>
+                <th>N</th>
+                <th>sRPE total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Otto Stange</td><td>14</td><td>35,661</td></tr>
+              <tr><td>Jean-Luc Dompé</td><td>14</td><td>35,180</td></tr>
+              <tr><td>Luka Vušković</td><td>14</td><td>34,570</td></tr>
+              <tr><td>Nicolai Remberg</td><td>14</td><td>29,567</td></tr>
+              <tr><td>Fabio Baldé</td><td>14</td><td>29,311</td></tr>
+              <tr><td>Robert Glatzel</td><td>14</td><td>29,265</td></tr>
+              <tr><td>Ransford Königsdörffer</td><td>14</td><td>28,900</td></tr>
+              <tr><td>Damion Downs</td><td>14</td><td>28,625</td></tr>
+              <tr><td>Philip Otele</td><td>14</td><td>28,494</td></tr>
+              <tr><td>Albert Sambi Lokonga</td><td>14</td><td>28,400</td></tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="card">
+          <h3>Activité match (1–14 mars)</h3>
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Joueur</th>
+                <th>Matchs</th>
+                <th>Minutes</th>
+                <th>Distance (m)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Luka Vušković</td><td>4</td><td>814</td><td>84,800</td></tr>
+              <tr><td>Nicolai Remberg</td><td>4</td><td>814</td><td>92,900</td></tr>
+              <tr><td>William Mikelbrencis</td><td>4</td><td>693</td><td>71,300</td></tr>
+              <tr><td>Jordan Torunarigha</td><td>4</td><td>638</td><td>63,900</td></tr>
+              <tr><td>Fábio Vieira</td><td>4</td><td>635</td><td>69,500</td></tr>
+              <tr><td>Ransford Königsdörffer</td><td>4</td><td>613</td><td>68,000</td></tr>
+              <tr><td>Miro Muheim</td><td>3</td><td>609</td><td>65,400</td></tr>
+              <tr><td>Warmed Omari</td><td>4</td><td>606</td><td>61,600</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <!-- Team Performance -->
+    <section id="team-perf" class="section-block">
+      <h2>Performance équipe — Scores & drivers</h2>
+      <div class="card">
+        <p class="prose">
+          <strong>Score moyen d'équipe : ~51/100.</strong> Top performers : <strong>Bakery Jatta</strong> (65.9), <strong>Nicolás Capaldo</strong> (65.3), <strong>Ransford Königsdörffer</strong> (60.6). Plus bas : <strong>Philip Otele</strong> (44.9), <strong>Damion Downs</strong> (45.3), <strong>Warmed Omari</strong> (48.4). La performance montre une corrélation positive faible avec l'humeur (r=0.11) et la charge d'entraînement (r=0.13), corrélation minimale avec les courbatures ou la qualité du sommeil.
+        </p>
+      </div>
+
+      <article class="chart-card chart-wide">
+        <h3>Évolution performance score — Squad (1–14 mars)</h3>
+        <div class="chart-box line-chart" id="chart_1"></div>
+      </article>
+
+      <article class="chart-card chart-wide">
+        <h3>Évolution performance score — Squad (suite)</h3>
+        <div class="chart-box line-chart" id="chart_2"></div>
+      </article>
+
+      <article class="chart-card chart-wide">
+        <h3>Évolution performance score — Squad (suite)</h3>
+        <div class="chart-box line-chart" id="chart_3"></div>
+      </article>
+
+      <article class="chart-card chart-wide">
+        <h3>Évolution performance score — Squad (suite)</h3>
+        <div class="chart-box line-chart" id="chart_4"></div>
+      </article>
+
+      <article class="chart-card chart-wide">
+        <h3>Corrélation performance × wellness & charge</h3>
+        <div class="chart-box heatmap-chart" id="chart_5"></div>
+      </article>
+
+      <div class="card">
+        <h3>Interprétation des corrélations</h3>
+        <p class="prose">
+          La matrice de corrélation révèle que les marqueurs de wellness sont fortement corrélés entre eux (courbatures ↔ humeur : r=0.73, courbatures ↔ qualité sommeil : r=0.84), mais montrent des liens faibles avec le score de performance. La charge d'entraînement quotidienne (sRPE) présente une corrélation négative avec les marqueurs de wellness (r=-0.21 avec courbatures, r=-0.16 avec humeur), suggérant que les charges élevées impactent le ressenti sans nécessairement dégrader la performance immédiate. <strong>Implication :</strong> le score de performance semble davantage influencé par des facteurs non capturés (tactique, technique, contexte match) que par les seuls marqueurs de wellness et charge.
+        </p>
+      </div>
+    </section>
+
+    <!-- Individual Performance Focus -->
+    <section id="indiv-perf" class="section-block">
+      <h2>Performance — Focus individuel</h2>
+      
+      <!-- Philip Otele -->
+      <article class="card athlete-focus">
+        <h3><span class="signal-badge review">Review</span> Philip Otele — Baisse de performance</h3>
+        <p class="prose">
+          <strong>Moyenne : 44.9/100</strong> (plus bas du squad), avec une chute notable à <strong>26 le 8 mars</strong>. Charge initiale élevée (6 844 sRPE le 1er mars) suivie d'un pattern irrégulier. Wellness montre un pic de courbatures (25→35 sur échelle humeur) et qualité de sommeil faible (30 le 8 mars). <strong>Corrélation :</strong> récupération insuffisante après session à haute charge — revoir distribution de l'entraînement et protocoles de récupération.
+        </p>
+        
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="label">Perf. moyenne</div>
+            <div class="value">44.9 <span class="unit">/100</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Perf. min</div>
+            <div class="value">26 <span class="unit">/100</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Charge totale</div>
+            <div class="value">28.5k <span class="unit">sRPE</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Courbatures moy.</div>
+            <div class="value">18.5 <span class="unit">/100</span></div>
+          </div>
+        </div>
+
+        <div class="split-row split-chart-table">
+          <div>
+            <h3 style="margin-top: 12px;">Wellness markers</h3>
+            <table class="report-table">
+              <thead>
+                <tr><th>Date</th><th>Courbatures</th><th>Humeur</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>01/03</td><td>16</td><td>15</td></tr>
+                <tr><td>02/03</td><td>51</td><td>19</td></tr>
+                <tr><td>03/03</td><td>22</td><td>10</td></tr>
+                <tr><td>04/03</td><td>17</td><td>15</td></tr>
+                <tr><td>05/03</td><td>14</td><td>15</td></tr>
+                <tr><td>06/03</td><td>20</td><td>18</td></tr>
+                <tr><td>07/03</td><td>12</td><td>12</td></tr>
+                <tr><td>08/03</td><td>25</td><td>35</td></tr>
+                <tr><td>10/03</td><td>18</td><td>16</td></tr>
+                <tr><td>11/03</td><td>12</td><td>10</td></tr>
+                <tr><td>12/03</td><td>17</td><td>15</td></tr>
+                <tr><td>13/03</td><td>20</td><td>12</td></tr>
+                <tr><td>14/03</td><td>17</td><td>14</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3 style="margin-top: 12px;">Charge d'entraînement (sRPE)</h3>
+            <table class="report-table">
+              <thead>
+                <tr><th>Date</th><th>sRPE</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>01/03</td><td>6,844</td></tr>
+                <tr><td>02/03</td><td>0</td></tr>
+                <tr><td>03/03</td><td>1,900</td></tr>
+                <tr><td>04/03</td><td>1,000</td></tr>
+                <tr><td>05/03</td><td>968</td></tr>
+                <tr><td>06/03</td><td>1,400</td></tr>
+                <tr><td>07/03</td><td>2,400</td></tr>
+                <tr><td>08/03</td><td>0</td></tr>
+                <tr><td>09/03</td><td>0</td></tr>
+                <tr><td>10/03</td><td>2,000</td></tr>
+                <tr><td>11/03</td><td>6,091</td></tr>
+                <tr><td>12/03</td><td>2,600</td></tr>
+                <tr><td>13/03</td><td>1,400</td></tr>
+                <tr><td>14/03</td><td>1,800</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+
+      <!-- Damion Downs -->
+      <article class="card athlete-focus">
+        <h3><span class="signal-badge review">Review</span> Damion Downs — Baisse de performance</h3>
+        <p class="prose">
+          <strong>Moyenne : 45.3/100</strong> (deuxième plus bas), avec plusieurs chutes sous 40 (36, 34, 38). Wellness stable (courbatures 31–40, humeur 31–33) mais <strong>charge cumulée la plus élevée du squad</strong> (28 625 sRPE). <strong>Corrélation :</strong> récupération insuffisante entre sessions à haute charge malgré marqueurs de wellness stables — pattern suggère une fatigue cumulée non détectée par les marqueurs subjectifs.
+        </p>
+        
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="label">Perf. moyenne</div>
+            <div class="value">45.3 <span class="unit">/100</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Perf. min</div>
+            <div class="value">34 <span class="unit">/100</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Charge totale</div>
+            <div class="value">28.6k <span class="unit">sRPE</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Courbatures moy.</div>
+            <div class="value">35.1 <span class="unit">/100</span></div>
+          </div>
+        </div>
+
+        <div class="split-row split-chart-table">
+          <div>
+            <h3 style="margin-top: 12px;">Wellness markers</h3>
+            <table class="report-table">
+              <thead>
+                <tr><th>Date</th><th>Courbatures</th><th>Humeur</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>01/03</td><td>33</td><td>31</td></tr>
+                <tr><td>03/03</td><td>40</td><td>33</td></tr>
+                <tr><td>04/03</td><td>36</td><td>33</td></tr>
+                <tr><td>06/03</td><td>37</td><td>33</td></tr>
+                <tr><td>07/03</td><td>34</td><td>32</td></tr>
+                <tr><td>10/03</td><td>31</td><td>32</td></tr>
+                <tr><td>11/03</td><td>33</td><td>32</td></tr>
+                <tr><td>12/03</td><td>38</td><td>32</td></tr>
+                <tr><td>13/03</td><td>35</td><td>33</td></tr>
+                <tr><td>14/03</td><td>34</td><td>32</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3 style="margin-top: 12px;">Charge d'entraînement (sRPE)</h3>
+            <table class="report-table">
+              <thead>
+                <tr><th>Date</th><th>sRPE</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>01/03</td><td>4,000</td></tr>
+                <tr><td>02/03</td><td>0</td></tr>
+                <tr><td>03/03</td><td>0</td></tr>
+                <tr><td>04/03</td><td>4,200</td></tr>
+                <tr><td>05/03</td><td>0</td></tr>
+                <tr><td>06/03</td><td>2,300</td></tr>
+                <tr><td>07/03</td><td>3,800</td></tr>
+                <tr><td>08/03</td><td>0</td></tr>
+                <tr><td>09/03</td><td>0</td></tr>
+                <tr><td>10/03</td><td>2,000</td></tr>
+                <tr><td>11/03</td><td>3,766</td></tr>
+                <tr><td>12/03</td><td>1,800</td></tr>
+                <tr><td>13/03</td><td>2,700</td></tr>
+                <tr><td>14/03</td><td>4,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+
+      <!-- Bakery Jatta -->
+      <article class="card athlete-focus">
+        <h3><span class="signal-badge info">Info</span> Bakery Jatta — Amélioration de performance</h3>
+        <p class="prose">
+          <strong>Moyenne : 65.9/100</strong> (plus haut du squad) avec tendance à la hausse forte à partir du 5 mars (39→73 le 8 mars). Wellness stable (courbatures 36–40, humeur 34–35). Pattern de charge montre concentration en début de période (1–4 mars) suivie de jours de repos (5–8 mars). <strong>Corrélation :</strong> gains de performance alignés avec phase de réduction de charge (taper efficace) — gestion de charge efficace. Risque blessure a chuté de 67 à 4 durant la même période.
+        </p>
+        
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="label">Perf. moyenne</div>
+            <div class="value">65.9 <span class="unit">/100</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Perf. max</div>
+            <div class="value">79 <span class="unit">/100</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Charge totale</div>
+            <div class="value">20.8k <span class="unit">sRPE</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Courbatures moy.</div>
+            <div class="value">38.5 <span class="unit">/100</span></div>
+          </div>
+        </div>
+
+        <div class="split-row split-chart-table">
+          <div>
+            <h3 style="margin-top: 12px;">Wellness markers</h3>
+            <table class="report-table">
+              <thead>
+                <tr><th>Date</th><th>Courbatures</th><th>Humeur</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>01/03</td><td>38</td><td>34</td></tr>
+                <tr><td>02/03</td><td>39</td><td>34</td></tr>
+                <tr><td>03/03</td><td>36</td><td>35</td></tr>
+                <tr><td>04/03</td><td>37</td><td>34</td></tr>
+                <tr><td>08/03</td><td>40</td><td>34</td></tr>
+                <tr><td>09/03</td><td>40</td><td>34</td></tr>
+                <tr><td>10/03</td><td>36</td><td>34</td></tr>
+                <tr><td>11/03</td><td>40</td><td>34</td></tr>
+                <tr><td>12/03</td><td>39</td><td>40</td></tr>
+                <tr><td>13/03</td><td>40</td><td>38</td></tr>
+                <tr><td>14/03</td><td>39</td><td>35</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3 style="margin-top: 12px;">Charge d'entraînement (sRPE)</h3>
+            <table class="report-table">
+              <thead>
+                <tr><th>Date</th><th>sRPE</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>01/03</td><td>3,100</td></tr>
+                <tr><td>02/03</td><td>3,000</td></tr>
+                <tr><td>03/03</td><td>2,600</td></tr>
+                <tr><td>04/03</td><td>5,300</td></tr>
+                <tr><td>05/03</td><td>0</td></tr>
+                <tr><td>06/03</td><td>0</td></tr>
+                <tr><td>07/03</td><td>0</td></tr>
+                <tr><td>08/03</td><td>0</td></tr>
+                <tr><td>09/03</td><td>0</td></tr>
+                <tr><td>10/03</td><td>0</td></tr>
+                <tr><td>11/03</td><td>0</td></tr>
+                <tr><td>12/03</td><td>1,700</td></tr>
+                <tr><td>13/03</td><td>3,400</td></tr>
+                <tr><td>14/03</td><td>1,700</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Injury Risk -->
+    <section id="injury-risk" class="section-block">
+      <h2>Risque blessure — Équipe & focus individuel</h2>
+      <div class="card">
+        <p class="prose">
+          <strong>Moyenne squad : ~6/100.</strong> Risques les plus élevés : <strong>Yussuf Poulsen</strong> (57.0), <strong>Bakery Jatta</strong> (25.1), <strong>Robert Glatzel</strong> (19.4). La plupart des athlètes présentent un risque <5/100. Le risque ne montre aucune corrélation avec le score de performance (r=-0.02).
+        </p>
+      </div>
+
+      <!-- Yussuf Poulsen -->
+      <article class="card athlete-focus">
+        <h3><span class="signal-badge watch">Watch</span> Yussuf Poulsen — Risque élevé persistant</h3>
+        <p class="prose">
+          <strong>Moyenne : 57.0/100</strong> (plus haut du squad), élévation persistante sur toute la période (plage 49–70), pic le 6 mars (70). Wellness stable (courbatures 20–25, humeur 20–22), charge modérée (10 866 sRPE). <strong>Corrélation :</strong> risque élevé indépendant des pics de charge récents — revoir historique de charge chronique et qualité de mouvement.
+        </p>
+        
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="label">Risque moyen</div>
+            <div class="value">57.0 <span class="unit">/100</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Risque max</div>
+            <div class="value">70 <span class="unit">/100</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Charge totale</div>
+            <div class="value">10.9k <span class="unit">sRPE</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Courbatures moy.</div>
+            <div class="value">22.5 <span class="unit">/100</span></div>
+          </div>
+        </div>
+
+        <div class="split-row split-chart-table">
+          <div>
+            <h3 style="margin-top: 12px;">Wellness markers</h3>
+            <table class="report-table">
+              <thead>
+                <tr><th>Date</th><th>Courbatures</th><th>Humeur</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>01/03</td><td>23</td><td>20</td></tr>
+                <tr><td>03/03</td><td>25</td><td>20</td></tr>
+                <tr><td>04/03</td><td>25</td><td>20</td></tr>
+                <tr><td>05/03</td><td>20</td><td>20</td></tr>
+                <tr><td>06/03</td><td>24</td><td>22</td></tr>
+                <tr><td>07/03</td><td>23</td><td>21</td></tr>
+                <tr><td>10/03</td><td>20</td><td>20</td></tr>
+                <tr><td>11/03</td><td>20</td><td>20</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3 style="margin-top: 12px;">Charge d'entraînement (sRPE)</h3>
+            <table class="report-table">
+              <thead>
+                <tr><th>Date</th><th>sRPE</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>01/03</td><td>2,700</td></tr>
+                <tr><td>02/03</td><td>0</td></tr>
+                <tr><td>03/03</td><td>1,700</td></tr>
+                <tr><td>04/03</td><td>1,100</td></tr>
+                <tr><td>05/03</td><td>1,100</td></tr>
+                <tr><td>06/03</td><td>1,600</td></tr>
+                <tr><td>07/03</td><td>2,700</td></tr>
+                <tr><td>08/03</td><td>0</td></tr>
+                <tr><td>09/03</td><td>0</td></tr>
+                <tr><td>10/03</td><td>1,500</td></tr>
+                <tr><td>11/03</td><td>2,700</td></tr>
+                <tr><td>12/03</td><td>0</td></tr>
+                <tr><td>13/03</td><td>0</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+
+      <!-- Robert Glatzel -->
+      <article class="card athlete-focus">
+        <h3><span class="signal-badge watch">Watch</span> Robert Glatzel — Risque modéré persistant</h3>
+        <p class="prose">
+          <strong>Moyenne : 19.4/100</strong> (troisième plus haut), élévation stable (plage 16–21) sans pics majeurs. Wellness cohérent (courbatures 25–28, humeur 23–28), charge modérée (16 860 sRPE). <strong>Corrélation :</strong> risque modéré persistant sans déclencheurs aigus clairs — considérer screening de mouvement ou ajustement de charge chronique.
+        </p>
+        
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="label">Risque moyen</div>
+            <div class="value">19.4 <span class="unit">/100</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Risque max</div>
+            <div class="value">21 <span class="unit">/100</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Charge totale</div>
+            <div class="value">29.3k <span class="unit">sRPE</span></div>
+          </div>
+          <div class="metric-box">
+            <div class="label">Courbatures moy.</div>
+            <div class="value">26.2 <span class="unit">/100</span></div>
+          </div>
+        </div>
+
+        <div class="split-row split-chart-table">
+          <div>
+            <h3 style="margin-top: 12px;">Wellness markers</h3>
+            <table class="report-table">
+              <thead>
+                <tr><th>Date</th><th>Courbatures</th><th>Humeur</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>01/03</td><td>25</td><td>23</td></tr>
+                <tr><td>02/03</td><td>27</td><td>24</td></tr>
+                <tr><td>03/03</td><td>26</td><td>24</td></tr>
+                <tr><td>04/03</td><td>27</td><td>24</td></tr>
+                <tr><td>05/03</td><td>26</td><td>25</td></tr>
+                <tr><td>06/03</td><td>25</td><td>26</td></tr>
+                <tr><td>07/03</td><td>28</td><td>25</td></tr>
+                <tr><td>08/03</td><td>26</td><td>28</td></tr>
+                <tr><td>09/03</td><td>26</td><td>26</td></tr>
+                <tr><td>10/03</td><td>23</td><td>26</td></tr>
+                <tr><td>11/03</td><td>28</td><td>27</td></tr>
+                <tr><td>12/03</td><td>28</td><td>29</td></tr>
+                <tr><td>13/03</td><td>26</td><td>25</td></tr>
+                <tr><td>14/03</td><td>26</td><td>27</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3 style="margin-top: 12px;">Charge d'entraînement (sRPE)</h3>
+            <table class="report-table">
+              <thead>
+                <tr><th>Date</th><th>sRPE</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>01/03</td><td>2,400</td></tr>
+                <tr><td>02/03</td><td>2,400</td></tr>
+                <tr><td>03/03</td><td>2,100</td></tr>
+                <tr><td>04/03</td><td>3,100</td></tr>
+                <tr><td>05/03</td><td>1,700</td></tr>
+                <tr><td>06/03</td><td>2,400</td></tr>
+                <tr><td>07/03</td><td>2,900</td></tr>
+                <tr><td>08/03</td><td>0</td></tr>
+                <tr><td>09/03</td><td>0</td></tr>
+                <tr><td>10/03</td><td>1,500</td></tr>
+                <tr><td>11/03</td><td>4,209</td></tr>
+                <tr><td>12/03</td><td>1,500</td></tr>
+                <tr><td>13/03</td><td>2,100</td></tr>
+                <tr><td>14/03</td><td>3,100</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+
+      <div class="card">
+        <h3>Bakery Jatta — Réduction efficace du risque</h3>
+        <p class="prose">
+          <strong>Moyenne : 25.1/100</strong>, mais tendance à la baisse forte de 67 (1–3 mars) à 4 (14 mars). Coïncide avec le taper de charge (concentration en début de période puis jours de repos 5–8 mars). Démontre une réduction efficace du risque par gestion de charge — continuer la surveillance lors de la reprise de l'entraînement.
+        </p>
+      </div>
+    </section>
+
+    <!-- Wellness -->
+    <section id="wellness" class="section-block">
+      <h2>Wellness — Analyse squad</h2>
+      <div class="card">
+        <p class="prose">
+          Le squad montre une large plage de variabilité dans les courbatures (13–39/100 moyenne) et l'humeur (10–35/100 moyenne). <strong>Courbatures les plus élevées :</strong> Bakery Jatta (38.5), Damion Downs (35.1), Fabio Baldé (33.2). <strong>Humeur la plus basse :</strong> Albert Grønbæk (10), Daniel Elfadli (25.7). Qualité de sommeil relativement cohérente (plage 13–38). Pas de crise de wellness à l'échelle du squad, mais la variabilité individuelle suggère des besoins de récupération personnalisés.
+        </p>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <div class="label">Courbatures (plage)</div>
+          <div class="value">13–39 <span class="unit">/100</span></div>
+        </div>
+        <div class="metric-box">
+          <div class="label">Humeur (plage)</div>
+          <div class="value">10–35 <span class="unit">/100</span></div>
+        </div>
+        <div class="metric-box">
+          <div class="label">Sommeil (plage)</div>
+          <div class="value">13–38 <span class="unit">/100</span></div>
+        </div>
+        <div class="metric-box">
+          <div class="label">Variabilité</div>
+          <div class="value">Élevée</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Athlètes nécessitant attention wellness</h3>
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Athlète</th>
+              <th>Courbatures moy.</th>
+              <th>Humeur moy.</th>
+              <th>Sommeil moy.</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bakery Jatta</td>
+              <td>38.5</td>
+              <td>34.9</td>
+              <td>—</td>
+              <td>Courbatures élevées mais performance excellente</td>
+            </tr>
+            <tr>
+              <td>Damion Downs</td>
+              <td>35.1</td>
+              <td>32.1</td>
+              <td>—</td>
+              <td>Courbatures élevées + charge max + perf. basse</td>
+            </tr>
+            <tr>
+              <td>Albert Grønbæk</td>
+              <td>—</td>
+              <td>10.0</td>
+              <td>—</td>
+              <td>Humeur très basse — check-in recommandé</td>
+            </tr>
+            <tr>
+              <td>Philip Otele</td>
+              <td>18.5</td>
+              <td>16.2</td>
+              <td>30 (8/03)</td>
+              <td>Pic courbatures + sommeil faible coïncide avec chute perf.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Recommandations wellness</h3>
+        <p class="prose">
+          <strong>1. Personnalisation de la récupération :</strong> La large variabilité individuelle suggère que les protocoles de récupération standardisés peuvent être insuffisants. Considérer des stratégies personnalisées basées sur les profils de wellness individuels.<br/><br/>
+          <strong>2. Surveillance humeur :</strong> Albert Grønbæk présente une humeur moyenne très basse (10/100) — check-in psychologique recommandé pour identifier facteurs contextuels (stress, fatigue mentale, facteurs personnels).<br/><br/>
+          <strong>3. Corrélation charge-wellness :</strong> Les athlètes avec charge élevée (Damion Downs, Philip Otele) montrent des patterns de wellness dégradés et performance réduite — ajuster distribution de charge et fenêtres de récupération.<br/><br/>
+          <strong>4. Monitoring sommeil :</strong> Qualité de sommeil relativement stable mais données incomplètes — augmenter couverture pour identifier liens avec performance et récupération.
+        </p>
+      </div>
+    </section>
+
+    <!-- Biomarkers -->
+    <section id="biomarkers" class="section-block">
+      <h2>Biomarqueurs — Analyse</h2>
+      <div class="card">
+        <p class="prose">
+          <strong>Couverture limitée :</strong> 8 mesures, 4 joueurs seulement. Valeurs CK 150–190 U/L (plage normale post-entraînement). Testostérone 17.8–20.1 nmol/L (plage normale 15–25). Pas de signaux d'alerte chez les athlètes échantillonnés (Luka Vušković, Nicolás Capaldo, Ransford Königsdörffer, Robert Glatzel), mais la couverture sparse limite l'interprétation à l'échelle du squad.
+        </p>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <div class="label">Mesures totales</div>
+          <div class="value">8</div>
+        </div>
+        <div class="metric-box">
+          <div class="label">Athlètes couverts</div>
+          <div class="value">4 <span class="unit">/25</span></div>
+        </div>
+        <div class="metric-box">
+          <div class="label">CK (plage)</div>
+          <div class="value">150–190 <span class="unit">U/L</span></div>
+        </div>
+        <div class="metric-box">
+          <div class="label">Testostérone (plage)</div>
+          <div class="value">17.8–20.1 <span class="unit">nmol/L</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Recommandations biomarqueurs</h3>
+        <p class="prose">
+          <strong>1. Augmenter la couverture :</strong> Seulement 16% du squad échantillonné. Prioriser les athlètes à risque élevé (Yussuf Poulsen, Robert Glatzel) et ceux avec performance dégradée (Philip Otele, Damion Downs) pour identifier marqueurs objectifs de fatigue ou inflammation.<br/><br/>
+          <strong>2. Fréquence de mesure :</strong> Établir protocole de mesure régulier (hebdomadaire ou bi-hebdomadaire) pour suivre tendances et détecter déviations précoces.<br/><br/>
+          <strong>3. Marqueurs additionnels :</strong> Considérer cortisol (stress/récupération), ratio testostérone/cortisol (équilibre anabolique/catabolique), et CRP (inflammation) pour compléter le profil.<br/><br/>
+          <strong>4. Intégration avec wellness :</strong> Corréler biomarqueurs objectifs avec marqueurs subjectifs (wellness) pour valider et affiner interprétation des signaux de fatigue et récupération.
+        </p>
+      </div>
+    </section>
+
+    <!-- Summary & Actions -->
+    <section class="section-block">
+      <h2>Synthèse & Actions recommandées</h2>
+      <div class="card">
+        <h3>Points clés</h3>
+        <p class="prose">
+          <strong>Performance :</strong> Score moyen squad 51/100. Bakery Jatta (65.9) démontre l'efficacité d'un taper de charge bien géré. Philip Otele (44.9) et Damion Downs (45.3) montrent des baisses liées à récupération insuffisante après charges élevées.<br/><br/>
+          <strong>Risque blessure :</strong> Yussuf Poulsen (57.0) présente risque élevé persistant indépendant de charge récente — investigation approfondie nécessaire. Bakery Jatta démontre réduction efficace du risque (67→4) via gestion de charge.<br/><br/>
+          <strong>Wellness :</strong> Variabilité individuelle élevée suggère besoins de récupération personnalisés. Albert Grønbæk nécessite attention (humeur très basse).<br/><br/>
+          <strong>Biomarqueurs :</strong> Couverture insuffisante (16% squad) limite interprétation — augmenter échantillonnage prioritaire.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Actions prioritaires</h3>
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Priorité</th>
+              <th>Athlète / Domaine</th>
+              <th>Action</th>
+              <th>Échéance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>HAUTE</strong></td>
+              <td>Yussuf Poulsen</td>
+              <td>Screening mouvement + revue charge chronique + biomarqueurs</td>
+              <td>48h</td>
+            </tr>
+            <tr>
+              <td><strong>HAUTE</strong></td>
+              <td>Philip Otele</td>
+              <td>Ajuster distribution charge + protocoles récupération renforcés</td>
+              <td>Immédiat</td>
+            </tr>
+            <tr>
+              <td><strong>HAUTE</strong></td>
+              <td>Damion Downs</td>
+              <td>Réduire charge cumulée + fenêtres récupération élargies</td>
+              <td>Immédiat</td>
+            </tr>
+            <tr>
+              <td><strong>MOYENNE</strong></td>
+              <td>Albert Grønbæk</td>
+              <td>Check-in psychologique (humeur très basse)</td>
+              <td>72h</td>
+            </tr>
+            <tr>
+              <td><strong>MOYENNE</strong></td>
+              <td>Robert Glatzel</td>
+              <td>Screening mouvement + monitoring risque continu</td>
+              <td>1 semaine</td>
+            </tr>
+            <tr>
+              <td><strong>MOYENNE</strong></td>
+              <td>Bakery Jatta</td>
+              <td>Continuer surveillance lors reprise entraînement (risque réduit)</td>
+              <td>Continu</td>
+            </tr>
+            <tr>
+              <td><strong>BASSE</strong></td>
+              <td>Biomarqueurs squad</td>
+              <td>Augmenter couverture à 40%+ squad, focus athlètes à risque</td>
+              <td>2 semaines</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+<script id="mauna-artifact-boot">
+(function () {
+  const charts = [{"id":"chart_1","title":"Performance score — Squad evolution (1–14 March)","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":8,"icon":"roundRect","textStyle":{"fontSize":9,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Albert Grønbæk","Albert Sambi Lokonga","Bakery Jatta","Damion Downs","Daniel Elfadli","Fabio Baldé"]},"grid":{"containLabel":true,"left":48,"right":56,"top":64,"bottom":64},"xAxis":{"type":"category","data":["01/03","02/03","03/03","04/03","05/03","06/03","07/03","08/03","09/03","10/03","11/03","12/03","13/03","14/03"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Albert Grønbæk","type":"line","data":[49,47,48,47,49,47,52,50,50,49,49,52,54,54],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Albert Sambi Lokonga","type":"line","data":[59,46,56,55,45,45,61,34,57,69,56,41,44,48],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Bakery Jatta","type":"line","data":[71,57,49,55,39,64,72,73,73,76,79,79,68,67],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Damion Downs","type":"line","data":[49,36,46,45,34,45,47,38,48,49,49,49,51,48],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Daniel Elfadli","type":"line","data":[53,51,42,45,25,50,52,29,55,69,58,53,53,57],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Fabio Baldé","type":"line","data":[52,52,44,51,50,46,50,43,59,66,48,45,49,49],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false}},{"id":"chart_2","title":"Performance score — Squad evolution (continued)","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":8,"icon":"roundRect","textStyle":{"fontSize":9,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Fábio Vieira","Giorgi Gocholeishvili","Jean-Luc Dompé","Jordan Torunarigha","Luka Vušković","Miro Muheim"]},"grid":{"containLabel":true,"left":48,"right":56,"top":64,"bottom":64},"xAxis":{"type":"category","data":["01/03","02/03","03/03","04/03","05/03","06/03","07/03","08/03","09/03","10/03","11/03","12/03","13/03","14/03"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Fábio Vieira","type":"line","data":[52,32,57,51,31,52,68,45,64,70,71,52,64,61],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Giorgi Gocholeishvili","type":"line","data":[59,49,45,46,30,58,56,43,66,72,62,44,52,54],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Jean-Luc Dompé","type":"line","data":[60,42,54,56,36,40,47,29,53,63,50,46,50,52],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Jordan Torunarigha","type":"line","data":[58,33,60,56,42,48,53,31,62,75,62,46,54,55],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Luka Vušković","type":"line","data":[61,40,59,54,33,56,67,39,62,70,56,49,55,68],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Miro Muheim","type":"line","data":[57,32,56,66,52,42,51,27,55,70,55,49,49,52],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false}},{"id":"chart_3","title":"Performance score — Squad evolution (continued)","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":8,"icon":"roundRect","textStyle":{"fontSize":9,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Nicolai Remberg","Nicolás Capaldo","Noah Katterbach","Omar Megeed","Otto Stange","Philip Otele"]},"grid":{"containLabel":true,"left":48,"right":56,"top":64,"bottom":64},"xAxis":{"type":"category","data":["01/03","02/03","03/03","04/03","05/03","06/03","07/03","08/03","09/03","10/03","11/03","12/03","13/03","14/03"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Nicolai Remberg","type":"line","data":[54,30,58,53,26,53,58,35,65,77,60,50,50,51],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Nicolás Capaldo","type":"line","data":[53,47,61,67,68,68,70,72,72,72,72,72,60,60],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Noah Katterbach","type":"line","data":[57,47,45,53,59,52,50,68,70,73,65,52,59,54],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Omar Megeed","type":"line","data":[51,51,51,52,51,48,52,49,49,49,50,51,51,51],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Otto Stange","type":"line","data":[50,53,49,51,41,46,54,42,47,47,48,49,52,51],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Philip Otele","type":"line","data":[51,37,47,47,47,46,50,26,42,55,48,41,41,51],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false}},{"id":"chart_4","title":"Performance score — Squad evolution (continued)","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":8,"icon":"roundRect","textStyle":{"fontSize":9,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Ransford Königsdörffer","Rayan Philippe","Robert Glatzel","Warmed Omari","William Mikelbrencis","Yussuf Poulsen"]},"grid":{"containLabel":true,"left":48,"right":56,"top":64,"bottom":64},"xAxis":{"type":"category","data":["01/03","02/03","03/03","04/03","05/03","06/03","07/03","08/03","09/03","10/03","11/03","12/03","13/03","14/03"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Ransford Königsdörffer","type":"line","data":[56,45,68,59,32,64,66,36,67,75,76,75,69,60],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Rayan Philippe","type":"line","data":[53,38,46,46,26,57,54,69,75,77,55,57,53,57],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Robert Glatzel","type":"line","data":[51,50,46,52,44,41,43,43,68,74,63,43,45,43],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Warmed Omari","type":"line","data":[52,38,51,47,31,46,53,35,57,64,52,48,52,51],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"William Mikelbrencis","type":"line","data":[58,28,54,52,28,58,56,31,62,73,74,57,58,54],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Yussuf Poulsen","type":"line","data":[50,44,62,49,44,39,48,35,58,68,54,52,65,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false}},{"id":"chart_5","title":"Performance score — Correlation with wellness & load","option":{"tooltip":{"position":"top"},"grid":{"containLabel":true,"left":"18%","right":"6%","top":"6%","bottom":"22%","height":"62%"},"xAxis":{"type":"category","data":["Performance Score","Body Soreness Rating","Mood Rating","Quality Rating","Srpe Daily"],"splitArea":{"show":true},"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":false,"rotate":40,"interval":0},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"category","data":["Performance Score","Body Soreness Rating","Mood Rating","Quality Rating","Srpe Daily"],"splitArea":{"show":true},"inverse":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"interval":0},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"visualMap":{"min":-1,"max":1,"calculable":true,"orient":"horizontal","left":"center","bottom":"2%","itemWidth":16,"itemHeight":120,"inRange":{"color":["#313695","#4575b4","#74add1","#abd9e9","#e0f3f8","#ffffbf","#fee090","#fdae61","#f46d43","#d73027","#a50026"]},"text":["+1","−1"]},"series":[{"type":"heatmap","data":[[0,0,1],[0,1,-0.046],[1,0,-0.046],[0,2,0.114],[2,0,0.114],[0,3,-0.036],[3,0,-0.036],[0,4,0.129],[4,0,0.129],[1,1,1],[1,2,0.732],[2,1,0.732],[1,3,0.841],[3,1,0.841],[1,4,-0.21],[4,1,-0.21],[2,2,1],[2,3,0.757],[3,2,0.757],[2,4,-0.156],[4,2,-0.156],[3,3,1],[3,4,-0.154],[4,3,-0.154],[4,4,1]],"label":{"show":true},"emphasis":{"itemStyle":{"shadowBlur":10,"shadowColor":"rgba(0, 0, 0, 0.45)"}}}],"animation":false,"legend":{"type":"plain","top":2,"left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"textStyle":{"fontSize":10,"color":"#475569"}}}}];
+  const palette = ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"];
+  const fontFamily = "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif";
+  const ink = "#0f1220";
+  const injectMissingHosts = true;
+  const stripLineSymbols = true;
+  const instances = [];
+  const isPrint = () => window.matchMedia('print').matches;
+
+  const whenEchartsReady = (cb) => {
+    if (window.echarts) {
+      cb();
+      return;
+    }
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      if (!window.echarts) return;
+      done = true;
+      cb();
+    };
+    window.__maunaOnEchartsLoad = finish;
+    const tag = document.querySelector('script[src*="echarts"]');
+    if (tag) tag.addEventListener('load', finish);
+    let n = 0;
+    const t = setInterval(() => {
+      n += 1;
+      if (window.echarts) {
+        clearInterval(t);
+        finish();
+        return;
+      }
+      if (n > 50) {
+        clearInterval(t);
+        if (!done) {
+          done = true;
+          cb();
+        }
+      }
+    }, 100);
+  };
+
+  const ensureHost = (chart) => {
+    let el = document.getElementById(chart.id);
+    if (el || !injectMissingHosts) return el;
+    const host = document.getElementById('mauna-charts-fallback') || (() => {
+      const d = document.createElement('section');
+      d.id = 'mauna-charts-fallback';
+      d.setAttribute('data-injected', '1');
+      document.body.appendChild(d);
+      return d;
+    })();
+    const card = document.createElement('div');
+    card.className = 'chart-card';
+    card.innerHTML = '<h3></h3><div class="chart-box" id="' + chart.id + '"></div>';
+    card.querySelector('h3').textContent = chart.title || chart.id;
+    host.appendChild(card);
+    return document.getElementById(chart.id);
+  };
+
+  const boot = () => {
+    for (const chart of charts) {
+      const el = ensureHost(chart);
+      if (!el || !window.echarts) continue;
+      el.classList.add('chart-box');
+      const series = Array.isArray(chart.option && chart.option.series) ? chart.option.series : [];
+      const isLine = series.some((s) => s && s.type === 'line');
+      const isBar = series.some((s) => s && s.type === 'bar');
+      if (isLine) {
+        el.classList.add('line-chart');
+        el.dataset.chartKind = 'line';
+      } else if (isBar) {
+        el.classList.add('bar-rank');
+        el.dataset.chartKind = 'bar';
+      }
+      const defaultH = isLine ? (isPrint() ? 340 : 360) : (isPrint() ? 260 : 300);
+      el.style.height = defaultH + 'px';
+      const w = el.clientWidth || 700;
+      const h = el.clientHeight || defaultH;
+      const instance = window.echarts.init(el, null, {
+        renderer: 'canvas',
+        width: w,
+        height: h,
+      });
+      const baseLegend =
+        chart.option && chart.option.legend && typeof chart.option.legend === 'object'
+          ? chart.option.legend
+          : {};
+      let option = {
+        animation: !isPrint(),
+        backgroundColor: '#ffffff',
+        textStyle: { fontFamily: fontFamily, color: ink },
+        color: palette,
+        ...chart.option,
+        legend: {
+          icon: 'roundRect',
+          itemWidth: 12,
+          itemHeight: 8,
+          itemGap: 10,
+          textStyle: { fontSize: 10, color: '#475569', fontFamily: fontFamily },
+          ...baseLegend,
+          type: 'plain',
+        },
+      };
+      if (Array.isArray(option.series)) {
+        option.series = option.series.map((s) => {
+          if (!s || typeof s !== 'object') return s;
+          if (s.type === 'line' || s.type == null) {
+            const lineStyle = s.lineStyle && typeof s.lineStyle === 'object' ? s.lineStyle : {};
+            return {
+              ...s,
+              smooth: s.smooth == null ? 0.18 : s.smooth,
+              showSymbol: stripLineSymbols ? false : s.showSymbol,
+              symbol: stripLineSymbols ? 'none' : s.symbol,
+              symbolSize: stripLineSymbols ? 0 : s.symbolSize,
+              lineStyle: { width: 2.35, ...lineStyle },
+              emphasis: { focus: 'series', ...(s.emphasis || {}), lineStyle: { width: 3.1 } },
+            };
+          }
+          if (s.type === 'bar') {
+            const itemStyle = s.itemStyle && typeof s.itemStyle === 'object' ? s.itemStyle : {};
+            const yCat =
+              option.yAxis &&
+              typeof option.yAxis === 'object' &&
+              !Array.isArray(option.yAxis) &&
+              option.yAxis.type === 'category';
+            return {
+              ...s,
+              barMaxWidth: s.barMaxWidth == null ? 18 : s.barMaxWidth,
+              itemStyle: {
+                borderRadius: yCat ? [0, 4, 4, 0] : [3, 3, 0, 0],
+                ...itemStyle,
+              },
+            };
+          }
+          return s;
+        });
+      }
+      instance.setOption(option, true);
+      el.dataset.ready = '1';
+      instances.push(instance);
+    }
+    document.documentElement.dataset.chartsReady = '1';
+    const resizeAll = () => {
+      instances.forEach((i) => {
+        const dom = i.getDom && i.getDom();
+        if (dom) {
+          i.resize({ width: dom.clientWidth || 700, height: dom.clientHeight || 220 });
+        } else {
+          i.resize();
+        }
+      });
+    };
+    window.__maunaResizeCharts = resizeAll;
+    window.addEventListener('resize', resizeAll);
+    window.addEventListener('beforeprint', () => {
+      instances.forEach((i) => i.setOption({ animation: false }));
+      resizeAll();
+    });
+  };
+
+  whenEchartsReady(boot);
+})();
+</script>
+</body>
+</html>

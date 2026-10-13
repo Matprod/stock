@@ -1,0 +1,1472 @@
+[ info ] Running 3 benchmark prompt(s) (≤7d) on Hambourg (019fa7cc-684c-783e-9609-c132a26eb4e3)…
+[ info ] [1/3] fr-coach-wellness-dip-week (fr)
+
+════════════════════════════════════════════════════════════
+full-staff  START  │  Hambourg  │  2026-09-29 → 2026-10-05
+full-staff  domains  │  load, gps, wellness, sleep, biomarkers
+full-staff  prompt  │  Cette semaine uniquement : qui a une baisse nette de wellness/sommeil alors que la charge GPS reste haute ? Top 5 à surveiller.
+────────────────────────────────────────────────────────────
+premium  dump    │  full_staff.route
+premium         {
+premium           grain: 'individual',
+premium           depth: 'standard',
+premium           pack: 'mauna',
+premium           domains: [
+premium             'load',
+premium             'gps',
+premium             'wellness',
+premium             'sleep',
+premium             'biomarkers'
+premium           ],
+premium           photos: true,
+premium           daySpan: 7,
+premium           analystMinIterations: 4
+premium         }
+[01:09:50.874] INFO (95173): full_staff.router
+    grain: "individual"
+    depth: "standard"
+    pack: "mauna"
+    durationSec: 0.289
+premium  iter 01  │  tool_use  │  4.923s  │  6 tool(s)  │  in=19 out=391 cacheR=15k cacheW=4.3k  │  $0.027  │  cum $0.027
+premium  sql     │  ok  │  0.101s  │  template=daily_srpe  │  rows=1114
+premium  tool    │  ok  │  0.128s  │  build_load_summary  │  summary=ds_8 rows=37
+premium  tool    │  ok  │  0.128s  │  build_load_summary  │  2026-09-01 → 2026-10-05
+premium  tool    │  ok  │  0s  │  fetch_club_roster  │  n=76
+premium  tool    │  ok  │  0s  │  fetch_club_roster  │  ? → ?
+premium  sql     │  ok  │  0.086s  │  template=gps_intensity_daily  │  rows=86
+premium  tool    │  ok  │  0.106s  │  fetch_gps_intensity_daily  │  2026-09-29 → 2026-10-05
+premium  sql     │  ok  │  0.01s  │  template=fetch_wellness_daily  │  rows=61
+premium  tool    │  ok  │  0.02s  │  fetch_wellness_daily  │  datasetId=ds_11
+premium  tool    │  ok  │  0.02s  │  fetch_wellness_daily  │  2026-09-29 → 2026-10-05
+premium  sql     │  ok  │  0.022s  │  template=fetch_sleep_daily  │  rows=61
+premium  tool    │  ok  │  0.03s  │  fetch_sleep_daily  │  datasetId=ds_12
+premium  tool    │  ok  │  0.03s  │  fetch_sleep_daily  │  2026-09-29 → 2026-10-05
+premium  sql     │  ok  │  0.012s  │  template=biomarkers  │  rows=1
+premium  tool    │  ok  │  0.02s  │  fetch_biomarkers  │  2026-09-29 → 2026-10-05
+full-staff  iter 01  │  tool_use  │  5.227s  │  $0.027  │  tok in=19 out=391 cacheR=15k  │  cum $0.027
+full-staff  action  │  tools: build_load_summary, fetch_club_roster, fetch_gps_intensity_daily, fetch_wellness_daily, fetch_sleep_daily, fetch_biomarkers
+full-staff    └ tool  │  ok  │  build_load_summary  │  0.128s  │  2026-09-01 → 2026-10-05
+full-staff    └ tool  │  ok  │  fetch_club_roster  │  0.000s  │  ? → ?
+full-staff    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.106s  │  2026-09-29 → 2026-10-05
+full-staff    └ tool  │  ok  │  fetch_wellness_daily  │  0.020s  │  2026-09-29 → 2026-10-05
+full-staff    └ tool  │  ok  │  fetch_sleep_daily  │  0.030s  │  2026-09-29 → 2026-10-05
+full-staff    └ tool  │  ok  │  fetch_biomarkers  │  0.020s  │  2026-09-29 → 2026-10-05
+full-staff    └ cost  │  this prompt $0.027  │  total so far $0.027  │  iter time 5.227s
+premium  iter 02  │  tool_use  │  4.007s  │  3 tool(s)  │  in=7.3k out=265 cacheR=14k cacheW=4.2k  │  $0.046  │  cum $0.073
+premium  tool    │  ok  │  0.002s  │  aggregate_dataset
+premium  tool    │  ok  │  0s  │  aggregate_dataset
+premium  tool    │  ok  │  0s  │  aggregate_dataset
+full-staff  iter 02  │  tool_use  │  4.010s  │  $0.046  │  tok in=7.3k out=265 cacheR=14k  │  cum $0.073
+full-staff  action  │  tools: aggregate_dataset, aggregate_dataset, aggregate_dataset
+full-staff    └ tool  │  ok  │  aggregate_dataset  │  0.002s
+full-staff    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+full-staff    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+full-staff    └ cost  │  this prompt $0.046  │  total so far $0.073  │  iter time 4.010s
+premium  iter 03  │  tool_use  │  2.506s  │  1 tool(s)  │  in=9.7k out=89 cacheR=19k  │  $0.036  │  cum $0.109
+premium  tool    │  ok  │  0.001s  │  join_datasets
+full-staff  iter 03  │  tool_use  │  2.507s  │  $0.036  │  tok in=9.7k out=89 cacheR=19k  │  cum $0.109
+full-staff  action  │  tools: join_datasets
+full-staff    └ tool  │  ok  │  join_datasets  │  0.001s
+full-staff    └ cost  │  this prompt $0.036  │  total so far $0.109  │  iter time 2.507s
+premium  iter 04  │  tool_use  │  5.637s  │  4 tool(s)  │  in=12k out=448 cacheR=19k  │  $0.047  │  cum $0.156
+premium  tool    │  ok  │  0.001s  │  filter_dataset
+premium  tool    │  ERR  │  0s  │  filter_dataset  │  no rows for date_of_day gte "2026-10-03"
+premium  tool    │  ok  │  0.001s  │  filter_dataset
+premium  tool    │  ERR  │  0s  │  filter_dataset  │  no rows for date_of_day gte "2026-10-03"
+full-staff  iter 04  │  tool_use  │  5.642s  │  $0.047  │  tok in=12k out=448 cacheR=19k  │  cum $0.156
+full-staff  action  │  tools: filter_dataset, filter_dataset, filter_dataset, filter_dataset
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.001s
+full-staff    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  no rows for date_of_day gte "2026-10-03"
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.001s
+full-staff    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  no rows for date_of_day gte "2026-10-03"
+full-staff    └ cost  │  this prompt $0.047  │  total so far $0.156  │  iter time 5.642s
+premium  iter 05  │  tool_use  │  3.238s  │  2 tool(s)  │  in=13k out=226 cacheR=19k  │  $0.049  │  cum $0.205
+premium  tool    │  ok  │  0s  │  filter_dataset
+premium  tool    │  ok  │  0s  │  filter_dataset
+full-staff  iter 05  │  tool_use  │  3.238s  │  $0.049  │  tok in=13k out=226 cacheR=19k  │  cum $0.205
+full-staff  action  │  tools: filter_dataset, filter_dataset
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ cost  │  this prompt $0.049  │  total so far $0.205  │  iter time 3.238s
+premium  iter 06  │  tool_use  │  12.314s  │  1 tool(s)  │  in=15k out=1.1k cacheR=19k  │  $0.067  │  cum $0.272
+premium  sql     │  ok  │  0.037s  │  query_database  │  rows=19
+premium  tool    │  ok  │  0.049s  │  query_database
+full-staff  iter 06  │  tool_use  │  12.364s  │  $0.067  │  tok in=15k out=1.1k cacheR=19k  │  cum $0.272
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ok  │  query_database  │  0.049s
+full-staff    └ cost  │  this prompt $0.067  │  total so far $0.272  │  iter time 12.364s
+premium  iter 07  │  end_turn  │  5.187s  │  in=17k out=30 cacheW=3.9k  │  $0.065  │  cum $0.337
+full-staff  iter 07  │  end_turn  │  5.187s  │  $0.065  │  tok in=17k out=30  │  cum $0.337
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.065  │  total so far $0.337  │  iter time 5.187s
+[01:10:29.280] INFO (95173): full_staff.linker_done
+    datasets: 22
+    iterations: 7
+premium  iter 01  │  tool_use  │  18.42s  │  1 tool(s)  │  in=19 out=1.8k cacheR=17k cacheW=6.8k  │  $0.058  │  cum $0.058
+premium  sql     │  ok  │  0.032s  │  query_database  │  rows=0
+premium  tool    │  ok  │  0.032s  │  query_database
+full-staff  iter 01  │  tool_use  │  18.452s  │  $0.058  │  tok in=19 out=1.8k cacheR=17k  │  cum $0.058
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ok  │  query_database  │  0.032s
+full-staff    └ cost  │  this prompt $0.058  │  total so far $0.058  │  iter time 18.452s
+premium  iter 02  │  tool_use  │  14.863s  │  1 tool(s)  │  in=1.9k out=1.9k cacheR=16k cacheW=6.7k  │  $0.064  │  cum $0.122
+premium  sql     │  ok  │  0.031s  │  query_database  │  rows=0
+premium  tool    │  ok  │  0.032s  │  query_database
+full-staff  iter 02  │  tool_use  │  14.896s  │  $0.064  │  tok in=1.9k out=1.9k cacheR=16k  │  cum $0.122
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ok  │  query_database  │  0.032s
+full-staff    └ cost  │  this prompt $0.064  │  total so far $0.122  │  iter time 14.896s
+premium  iter 03  │  tool_use  │  3.702s  │  1 tool(s)  │  in=3.8k out=242 cacheR=22k  │  $0.022  │  cum $0.144
+premium  sql     │  ok  │  0.04s  │  query_database  │  rows=61
+premium  tool    │  ok  │  0.052s  │  query_database
+full-staff  iter 03  │  tool_use  │  3.755s  │  $0.022  │  tok in=3.8k out=242 cacheR=22k  │  cum $0.144
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ok  │  query_database  │  0.052s
+full-staff    └ cost  │  this prompt $0.022  │  total so far $0.144  │  iter time 3.755s
+premium  iter 04  │  tool_use  │  3.48s  │  1 tool(s)  │  in=4.6k out=259 cacheR=22k  │  $0.024  │  cum $0.168
+premium  sql     │  ERR  │  0.013s  │  query_database  │  rows=0
+premium  sql     │  SELECT 
+  ad.date_of_day,
+  TRIM(a.first_name) || ' ' || TRIM(a.last_name) AS joueur,
+  s.quality_rating,
+  s.sleep_efficiency_percentage,
+  ROUND(s.total_in_bed_time_milli / 3600000.0, 1) AS hours_in_bed
+FROM sleeps s
+JOIN days ad ON s.day_id = ad.id
+JOIN athletes a ON ad.athlete_id = a.id
+WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+  AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+ORDER BY ad.date_of_day DESC, joueur
+LIMIT 100 - function round(double precision, integer) does not exist
+premium  sql    │ SELECT 
+premium  sql    │   ad.date_of_day,
+premium  sql    │   TRIM(a.first_name) || ' ' || TRIM(a.last_name) AS joueur,
+premium  sql    │   s.quality_rating,
+premium  sql    │   s.sleep_efficiency_percentage,
+premium  sql    │   ROUND(s.total_in_bed_time_milli / 3600000.0, 1) AS hours_in_bed
+premium  sql    │ FROM sleeps s
+premium  sql    │ JOIN days ad ON s.day_id = ad.id
+premium  sql    │ JOIN athletes a ON ad.athlete_id = a.id
+premium  sql    │ WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │   AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │ ORDER BY ad.date_of_day DESC, joueur
+premium  sql    │ LIMIT 100
+premium  tool    │  ERR  │  0.013s  │  query_database  │  SELECT ad.date_of_day, TRIM(a.first_name) || ' ' || TRIM(a.last_name) AS joueur, s.quality_rating, s.sleep_efficiency_percentage, ROUND(s.total_in_bed_time_mill
+full-staff  iter 04  │  tool_use  │  3.493s  │  $0.024  │  tok in=4.6k out=259 cacheR=22k  │  cum $0.168
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ERR  │  query_database  │  0.013s  │  SELECT ad.date_of_day, TRIM(a.first_name) || ' ' || TRIM(a.last_name) AS joueur, s.quality_rating, s.sleep_efficiency_percentage, ROUND(s.total_in_bed_time_mill
+full-staff    └ cost  │  this prompt $0.024  │  total so far $0.168  │  iter time 3.493s
+premium  iter 05  │  tool_use  │  3.105s  │  1 tool(s)  │  in=5.1k out=264 cacheR=22k  │  $0.026  │  cum $0.194
+premium  tool    │  ERR  │  0s  │  query_database  │  LOOP_DETECTED
+full-staff  iter 05  │  tool_use  │  3.105s  │  $0.026  │  tok in=5.1k out=264 cacheR=22k  │  cum $0.194
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ERR  │  query_database  │  0.000s  │  LOOP_DETECTED
+full-staff    └ cost  │  this prompt $0.026  │  total so far $0.194  │  iter time 3.105s
+premium  iter 06  │  tool_use  │  12.522s  │  1 tool(s)  │  in=5.4k out=1.6k cacheR=22k  │  $0.046  │  cum $0.240
+premium  tool    │  ERR  │  0s  │  query_database  │  LOOP_DETECTED
+full-staff  iter 06  │  tool_use  │  12.522s  │  $0.046  │  tok in=5.4k out=1.6k cacheR=22k  │  cum $0.240
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ERR  │  query_database  │  0.000s  │  LOOP_DETECTED
+full-staff    └ cost  │  this prompt $0.046  │  total so far $0.240  │  iter time 12.522s
+premium  iter 07  │  tool_use  │  3.559s  │  1 tool(s)  │  in=7.0k out=217 cacheR=22k  │  $0.031  │  cum $0.271
+premium  tool    │  ERR  │  0s  │  query_database  │  LOOP_DETECTED
+full-staff  iter 07  │  tool_use  │  3.560s  │  $0.031  │  tok in=7.0k out=217 cacheR=22k  │  cum $0.271
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ERR  │  query_database  │  0.000s  │  LOOP_DETECTED
+full-staff    └ cost  │  this prompt $0.031  │  total so far $0.271  │  iter time 3.560s
+premium  iter 08  │  tool_use  │  2.976s  │  1 tool(s)  │  in=7.2k out=119 cacheR=22k  │  $0.030  │  cum $0.301
+premium  tool    │  ERR  │  0s  │  join_datasets  │  LOOP_DETECTED
+full-staff  iter 08  │  tool_use  │  2.976s  │  $0.030  │  tok in=7.2k out=119 cacheR=22k  │  cum $0.301
+full-staff  action  │  tools: join_datasets
+full-staff    └ tool  │  ERR  │  join_datasets  │  0.000s  │  LOOP_DETECTED
+full-staff    └ cost  │  this prompt $0.030  │  total so far $0.301  │  iter time 2.976s
+premium  iter 09  │  tool_use  │  2.369s  │  1 tool(s)  │  in=7.3k out=115 cacheR=22k  │  $0.030  │  cum $0.331
+premium  tool    │  ok  │  0.001s  │  filter_dataset
+full-staff  iter 09  │  tool_use  │  2.371s  │  $0.030  │  tok in=7.3k out=115 cacheR=22k  │  cum $0.331
+full-staff  action  │  tools: filter_dataset
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.001s
+full-staff    └ cost  │  this prompt $0.030  │  total so far $0.331  │  iter time 2.371s
+premium  iter 10  │  end_turn  │  4.513s  │  in=8.1k out=21 cacheW=6.4k  │  $0.049  │  cum $0.380
+full-staff  iter 10  │  end_turn  │  4.513s  │  $0.049  │  tok in=8.1k out=21  │  cum $0.380
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.049  │  total so far $0.380  │  iter time 4.513s
+[01:11:39.088] WARN (95173): full_staff.analyst_thin_canvas_recovery
+    charts: 0
+    tables: 0
+    thin: true
+premium  iter 01  │  tool_use  │  20.033s  │  1 tool(s)  │  in=19 out=2.0k cacheR=17k cacheW=6.0k  │  $0.057  │  cum $0.057
+premium  sql     │  ERR  │  0.002s  │  query_database  │  rows=0
+premium  sql     │  Blocked: free SQL on metric/biomarker values needs unit (COALESCE club period unit / pm.unit, or MAX(sam.unit)) or CASE WHEN pm.name= pivot. Prefer macro fetch_gps_intensity_daily — do not multi-JOIN period_metric_values.
+premium  sql    │ WITH gps_week AS (
+premium  sql    │   SELECT 
+premium  sql    │     a.id AS athlete_id,
+premium  sql    │     TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+premium  sql    │     COUNT(DISTINCT ad.date_of_day) AS n_sessions,
+premium  sql    │     SUM(CAST(pmv_dist.value AS DECIMAL)) AS total_distance_m,
+premium  sql    │     SUM(CAST(pmv_hsr.value AS DECIMAL)) AS total_hsr_m,
+premium  sql    │     SUM(CAST(pmv_hmld.value AS DECIMAL)) AS total_hmld
+premium  sql    │   FROM athletes a
+premium  sql    │   JOIN days ad ON ad.athlete_id = a.id
+premium  sql    │   JOIN sport_activities sa ON sa.day_id = ad.id
+premium  sql    │   JOIN periods p ON p.sport_activity_id = sa.id
+premium  sql    │   LEFT JOIN period_metric_values pmv_dist ON pmv_dist.period_id = p.id
+premium  sql    │   LEFT JOIN period_metrics pm_dist ON pmv_dist.metric_id = pm_dist.id AND pm_dist.name = 'kpi_distanceTotal'
+premium  sql    │   LEFT JOIN period_metric_values pmv_hsr ON pmv_hsr.period_id = p.id
+premium  sql    │   LEFT JOIN period_metrics pm_hsr ON pmv_hsr.metric_id = pm_hsr.id AND pm_hsr.name = 'kpi_highSpeedRunningAbs'
+premium  sql    │   LEFT JOIN period_metric_values pmv_hmld ON pmv_hmld.period_id = p.id
+premium  sql    │   LEFT JOIN period_metrics pm_hmld ON pmv_hmld.metric_id = pm_hmld.id AND pm_hmld.name = 'kpi_hmld'
+premium  sql    │   WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │     AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │     AND (
+premium  sql    │       p.name ILIKE '%entire session%'
+premium  sql    │       OR NOT EXISTS (
+premium  sql    │         SELECT 1 FROM periods p2
+premium  sql    │         WHERE p2.sport_activity_id = p.sport_activity_id AND p2.name ILIKE '%entire session%'
+premium  sql    │       )
+premium  sql    │     )
+premium  sql    │   GROUP BY a.id, joueur
+premium  sql    │ ),
+premium  sql    │ wellness_change AS (
+premium  sql    │   SELECT 
+premium  sql    │     a.id AS athlete_id,
+premium  sql    │     TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+premium  sql    │     MIN(CASE WHEN ad.date_of_day = '2026-09-29' THEN hr.body_soreness_rating END) AS soreness_start,
+premium  sql    │     MAX(CASE WHEN ad.date_of_day = '2026-10-05' THEN hr.body_soreness_rating END) AS soreness_end,
+premium  sql    │     MIN(CASE WHEN ad.date_of_day = '2026-09-29' THEN hr.mood_rating END) AS mood_start,
+premium  sql    │     MAX(CASE WHEN ad.date_of_day = '2026-10-05' THEN hr.mood_rating END) AS mood_end,
+premium  sql    │     MIN(CASE WHEN ad.date_of_day = '2026-09-29' THEN hr.energy_rating END) AS energy_start,
+premium  sql    │     MAX(CASE WHEN ad.date_of_day = '2026-10-05' T
+premium  sql    │ … (2528 more chars)
+premium  tool    │  ERR  │  0.002s  │  query_database  │  Blocked: free SQL on metric/biomarker values needs unit (COALESCE club period unit / pm.unit, or MAX(sam.unit)) or CASE WHEN pm.name= pivot. Prefer macro fetch_
+full-staff  iter 01  │  tool_use  │  20.036s  │  $0.057  │  tok in=19 out=2.0k cacheR=17k  │  cum $0.057
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ERR  │  query_database  │  0.002s  │  Blocked: free SQL on metric/biomarker values needs unit (COALESCE club period unit / pm.unit, or MAX(sam.unit)) or CASE WHEN pm.name= pivot. Prefer macro fetch_
+full-staff    └ cost  │  this prompt $0.057  │  total so far $0.057  │  iter time 20.036s
+premium  iter 02  │  tool_use  │  11.311s  │  1 tool(s)  │  in=2.1k out=1.4k cacheR=17k cacheW=5.9k  │  $0.054  │  cum $0.111
+premium  sql     │  ok  │  0.023s  │  query_database  │  rows=0
+premium  tool    │  ok  │  0.023s  │  query_database
+full-staff  iter 02  │  tool_use  │  11.334s  │  $0.054  │  tok in=2.1k out=1.4k cacheR=17k  │  cum $0.111
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ok  │  query_database  │  0.023s
+full-staff    └ cost  │  this prompt $0.054  │  total so far $0.111  │  iter time 11.334s
+premium  iter 03  │  tool_use  │  12.002s  │  1 tool(s)  │  in=3.5k out=1.4k cacheR=22k  │  $0.038  │  cum $0.149
+premium  sql     │  ERR  │  0.012s  │  query_database  │  rows=0
+premium  sql     │  WITH wellness_week AS (
+  SELECT 
+    a.id AS athlete_id,
+    TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+    ad.date_of_day,
+    hr.body_soreness_rating,
+    hr.mood_rating,
+    hr.energy_rating,
+    hr.stress_rating
+  FROM athletes a
+  JOIN days ad ON ad.athlete_id = a.id
+  JOIN health_ratings hr ON hr.day_id = ad.id
+  WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+    AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+),
+sleep_week AS (
+  SELECT 
+    a.id AS athlete_id,
+    TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+    ad.date_of_day,
+    s.quality_rating,
+    s.sleep_efficiency_percentage
+  FROM athletes a
+  JOIN days ad ON ad.athlete_id = a.id
+  JOIN sleeps s ON s.day_id = ad.id
+  WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+    AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+),
+gps_load AS (
+  SELECT 
+    TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+    COUNT(DISTINCT ad.date_of_day) AS n_sessions
+  FROM athletes a
+  JOIN days ad ON ad.athlete_id = a.id
+  JOIN sport_activities sa ON sa.day_id = ad.id
+  WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+    AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+  GROUP BY joueur
+),
+wellness_agg AS (
+  SELECT 
+    joueur,
+    MIN(body_soreness_rating) AS min_soreness,
+    MAX(body_soreness_rating) AS max_soreness,
+    AVG(body_soreness_rating) AS avg_soreness,
+    MIN(mood_rating) AS min_mood,
+    MAX(mood_rating) AS max_mood,
+    AVG(mood_rating) AS avg_mood,
+    MIN(energy_rating) AS min_energy,
+    MAX(energy_rating) AS max_energy,
+    AVG(energy_rating) AS avg_energy,
+    MAX(body_soreness_rating) - MIN(body_soreness_rating) AS soreness_range,
+    MAX(mood_rating) - MIN(mood_rating) AS mood_range,
+    MAX(energy_rating) - MIN(energy_rating) AS energy_range,
+    COUNT(*) AS n_wellness
+  FROM wellness_week
+  GROUP BY joueur
+),
+sleep_agg AS (
+  SELECT 
+    joueur,
+    MIN(quality_rating) AS min_sleep,
+    MAX(quality_rating) AS max_sleep,
+    AVG(quality_rating) AS avg_sleep,
+    AVG(sleep_efficiency_percentage) AS avg_efficiency,
+    MAX(quality_rating) - MIN(quality_rating) AS sleep_range,
+    COUNT(*) AS n_sleep
+  FROM sleep_week
+  GROUP BY joueur
+)
+SELECT 
+  w.joueur,
+  g.n_sessions,
+  w.n_wellness,
+  s.n_sleep,
+  ROUND(w.avg_soreness, 1) AS avg_soreness,
+  ROUND(w.min_soreness, 1) AS min_soreness,
+  ROUND(w.soreness_range, 1) AS soreness_range,
+  ROUND(w.avg_mood, 1) AS avg_mood,
+  ROUND(w.min_mood, 1) AS min_mood,
+  ROUND(w.mood_range, 1) AS mood_range,
+  ROUND(w.avg_energy, 1) AS avg_energy,
+  ROUND(w.min_energy, 1) AS min_energy,
+  ROUND(w.energy_range, 1) AS energy_range,
+  ROUND(s.avg_sleep, 1) AS avg_sleep,
+  ROUND(s.min_sleep, 1) AS min_sleep,
+  ROUND(s.sleep_range, 1) AS sleep_range,
+  ROUND(s.avg_efficiency, 1) AS avg_efficiency,
+  ROUND(w.soreness_range + w.mood_range + w.energy_range + COALESCE(s.sleep_range, 0), 1) AS total_variability
+FROM wellness_agg w
+LEFT JOIN sleep_agg s ON w.joueur = s.joueur
+LEFT JOIN gps_load g ON w.joueur = g.joueur
+WHERE g.n_sessions >= 3
+  AND (w.min_soreness <= 30 OR w.min_mood <= 30 OR w.min_energy <= 30 OR s.min_sleep <= 30)
+ORDER BY total_variability DESC, w.min_soreness ASC
+LIMIT 10 - function round(double precision, integer) does not exist
+premium  sql    │ WITH wellness_week AS (
+premium  sql    │   SELECT 
+premium  sql    │     a.id AS athlete_id,
+premium  sql    │     TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+premium  sql    │     ad.date_of_day,
+premium  sql    │     hr.body_soreness_rating,
+premium  sql    │     hr.mood_rating,
+premium  sql    │     hr.energy_rating,
+premium  sql    │     hr.stress_rating
+premium  sql    │   FROM athletes a
+premium  sql    │   JOIN days ad ON ad.athlete_id = a.id
+premium  sql    │   JOIN health_ratings hr ON hr.day_id = ad.id
+premium  sql    │   WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │     AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │ ),
+premium  sql    │ sleep_week AS (
+premium  sql    │   SELECT 
+premium  sql    │     a.id AS athlete_id,
+premium  sql    │     TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+premium  sql    │     ad.date_of_day,
+premium  sql    │     s.quality_rating,
+premium  sql    │     s.sleep_efficiency_percentage
+premium  sql    │   FROM athletes a
+premium  sql    │   JOIN days ad ON ad.athlete_id = a.id
+premium  sql    │   JOIN sleeps s ON s.day_id = ad.id
+premium  sql    │   WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │     AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │ ),
+premium  sql    │ gps_load AS (
+premium  sql    │   SELECT 
+premium  sql    │     TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+premium  sql    │     COUNT(DISTINCT ad.date_of_day) AS n_sessions
+premium  sql    │   FROM athletes a
+premium  sql    │   JOIN days ad ON ad.athlete_id = a.id
+premium  sql    │   JOIN sport_activities sa ON sa.day_id = ad.id
+premium  sql    │   WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │     AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │   GROUP BY joueur
+premium  sql    │ ),
+premium  sql    │ wellness_agg AS (
+premium  sql    │   SELECT 
+premium  sql    │     joueur,
+premium  sql    │     MIN(body_soreness_rating) AS min_soreness,
+premium  sql    │     MAX(body_soreness_rating) AS max_soreness,
+premium  sql    │     AVG(body_soreness_rating) AS avg_soreness,
+premium  sql    │     MIN(mood_rating) AS min_mood,
+premium  sql    │     MAX(mood_rating) AS max_mood,
+premium  sql    │     AVG(mood_rating) AS avg_mood,
+premium  sql    │     MIN(energy_rating) AS min_energy,
+premium  sql    │     MAX(energy_rating) AS max_energy,
+premium  sql    │     AVG(energy_rating) AS avg_energy,
+premium  sql    │     MAX(body_soreness_rating) - MIN(body_soreness_rating) AS soreness_range,
+premium  sql    │     MAX(mood_rating) - MIN(mood_rating) AS mood_range,
+premium  sql    │     MAX(energy_rating) - MIN(energy_rating) AS energy_range,
+premium  sql    │     COUNT(*) AS n_wellness
+premium  sql    │   FROM wellness_week
+premium  sql    │   GROUP BY joueur
+premium  sql    │ ),
+premium  sql    │ sleep_agg AS (
+premium  sql    │   SELECT 
+premium  sql    │     joueur,
+premium  sql    │     MIN(quality_rating) AS min_sleep,
+premium  sql    │     MAX(quality_rating) AS max_sleep,
+premium  sql    │    
+premium  sql    │ … (1214 more chars)
+premium  tool    │  ERR  │  0.012s  │  query_database  │  WITH wellness_week AS ( SELECT a.id AS athlete_id, TRIM(a.first_name || ' ' || a.last_name) AS joueur, ad.date_of_day, hr.body_soreness_rating, hr.mood_rating, 
+full-staff  iter 03  │  tool_use  │  12.016s  │  $0.038  │  tok in=3.5k out=1.4k cacheR=22k  │  cum $0.149
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ERR  │  query_database  │  0.012s  │  WITH wellness_week AS ( SELECT a.id AS athlete_id, TRIM(a.first_name || ' ' || a.last_name) AS joueur, ad.date_of_day, hr.body_soreness_rating, hr.mood_rating, 
+full-staff    └ cost  │  this prompt $0.038  │  total so far $0.149  │  iter time 12.016s
+premium  iter 04  │  tool_use  │  11.947s  │  1 tool(s)  │  in=6.3k out=1.5k cacheR=22k  │  $0.049  │  cum $0.198
+premium  sql     │  ok  │  0.029s  │  query_database  │  rows=10
+premium  tool    │  ok  │  0.042s  │  query_database
+full-staff  iter 04  │  tool_use  │  11.989s  │  $0.049  │  tok in=6.3k out=1.5k cacheR=22k  │  cum $0.198
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ok  │  query_database  │  0.042s
+full-staff    └ cost  │  this prompt $0.049  │  total so far $0.198  │  iter time 11.989s
+premium  iter 05  │  end_turn  │  4.372s  │  in=9.1k out=8 cacheW=6.6k  │  $0.052  │  cum $0.250
+full-staff  iter 05  │  end_turn  │  4.372s  │  $0.052  │  tok in=9.1k out=8  │  cum $0.250
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.052  │  total so far $0.250  │  iter time 4.372s
+[01:12:38.839] WARN (95173): full_staff.insight_ir_synthesized
+    headings: 0
+[01:12:38.840] INFO (95173): full_staff.analyst_done
+    blocks: 0
+    charts: 0
+    tables: 0
+    insight: true
+    iterations: 10
+    macrosSkipped: true
+    shortWindow: true
+premium  iter 01  │  tool_use  │  1.637s  │  1 tool(s)  │  in=19 out=59 cacheW=1.3k  │  $0.0058  │  cum $0.0058
+premium  tool    │  ok  │  0.045s  │  build_artifact_html
+full-staff  iter 01  │  tool_use  │  1.682s  │  $0.0058  │  tok in=19 out=59  │  cum $0.0058
+full-staff  action  │  tools: build_artifact_html
+full-staff    └ tool  │  ok  │  build_artifact_html  │  0.045s
+full-staff    └ cost  │  this prompt $0.0058  │  total so far $0.0058  │  iter time 1.682s
+premium  iter 02  │  end_turn  │  3.209s  │  in=111 out=110 cacheW=1.2k  │  $0.0065  │  cum $0.012
+full-staff  iter 02  │  end_turn  │  3.209s  │  $0.0065  │  tok in=111 out=110  │  cum $0.012
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.0065  │  total so far $0.012  │  iter time 3.209s
+[01:12:43.732] INFO (95173): full_staff.designer_done
+    htmlBytes: 17821
+    iterations: 2
+full-staff  pdf  │  1.907s  │  cette-semaine-uniquement-qui-a-une-baisse-nette--2026-09-29_2026-10-05.pdf  │  340 KB
+────────────────────────────────────────────────────────────
+full-staff  TOTAL  │  24 iteration(s)  │  175.134s  │  $0.979
+full-staff  tokens  │  in=145k  │  out=16k  │  cacheR=370k  │  cacheW=53k  │  all=161k
+full-staff  per-iter time  │  #1=5.23s  │  #2=4.01s  │  #3=2.51s  │  #4=5.64s  │  #5=3.24s  │  #6=12.36s  │  #7=5.19s  │  #8=18.45s  │  #9=14.90s  │  #10=3.75s  │  #11=3.49s  │  #12=3.10s  │  #13=12.52s  │  #14=3.56s  │  #15=2.98s  │  #16=2.37s  │  #17=4.51s  │  #18=20.04s  │  #19=11.33s  │  #20=12.02s  │  #21=11.99s  │  #22=4.37s  │  #23=1.68s  │  #24=3.21s
+full-staff  per-iter $  │  #1=$0.027  │  #2=$0.046  │  #3=$0.036  │  #4=$0.047  │  #5=$0.049  │  #6=$0.067  │  #7=$0.065  │  #8=$0.058  │  #9=$0.064  │  #10=$0.022  │  #11=$0.024  │  #12=$0.026  │  #13=$0.046  │  #14=$0.031  │  #15=$0.030  │  #16=$0.030  │  #17=$0.049  │  #18=$0.057  │  #19=$0.054  │  #20=$0.038  │  #21=$0.049  │  #22=$0.052  │  #23=$0.0058  │  #24=$0.0065
+full-staff  canvas  │  blocks=0  │  charts=0  │  cette-semaine-uniquement-qui-a-une-baisse-nette--2026-09-29_2026-10-05.pdf
+════════════════════════════════════════════════════════════
+
+[ info ] fr-coach-wellness-dip-week          7d  17/20  DI=4 DS=3 SC=5 HE=5  175s  $0.98  charts=0  PASS
+[ info ] [2/3] en-ss-sleep-vs-gps-week (en)
+
+════════════════════════════════════════════════════════════
+full-staff  START  │  Hambourg  │  2026-09-29 → 2026-10-05
+full-staff  domains  │  load, gps, wellness, sleep, biomarkers
+full-staff  prompt  │  This week: squad cases where sleep/wellness dipped but GPS spikes went up. Cross the two — do not go beyond this week.
+────────────────────────────────────────────────────────────
+premium  dump    │  full_staff.route
+premium         {
+premium           grain: 'team',
+premium           depth: 'standard',
+premium           pack: 'mauna',
+premium           domains: [
+premium             'load',
+premium             'gps',
+premium             'wellness',
+premium             'sleep',
+premium             'biomarkers'
+premium           ],
+premium           photos: true,
+premium           daySpan: 7,
+premium           analystMinIterations: 4
+premium         }
+[01:12:46.100] INFO (95173): full_staff.router
+    grain: "team"
+    depth: "standard"
+    pack: "mauna"
+    durationSec: 0.382
+premium  iter 01  │  tool_use  │  4.685s  │  6 tool(s)  │  in=19 out=391 cacheR=15k cacheW=4.3k  │  $0.027  │  cum $0.027
+premium  sql     │  ok  │  0.1s  │  template=daily_srpe  │  rows=1114
+premium  tool    │  ok  │  0.128s  │  build_load_summary  │  summary=ds_8 rows=37
+premium  tool    │  ok  │  0.128s  │  build_load_summary  │  2026-09-01 → 2026-10-05
+premium  tool    │  ok  │  0.001s  │  fetch_club_roster  │  n=76
+premium  tool    │  ok  │  0.001s  │  fetch_club_roster  │  ? → ?
+premium  sql     │  ok  │  0.096s  │  template=gps_intensity_daily  │  rows=86
+premium  tool    │  ok  │  0.138s  │  fetch_gps_intensity_daily  │  2026-09-29 → 2026-10-05
+premium  sql     │  ok  │  0.01s  │  template=fetch_wellness_daily  │  rows=61
+premium  tool    │  ok  │  0.02s  │  fetch_wellness_daily  │  datasetId=ds_11
+premium  tool    │  ok  │  0.02s  │  fetch_wellness_daily  │  2026-09-29 → 2026-10-05
+premium  sql     │  ok  │  0.022s  │  template=fetch_sleep_daily  │  rows=61
+premium  tool    │  ok  │  0.03s  │  fetch_sleep_daily  │  datasetId=ds_12
+premium  tool    │  ok  │  0.03s  │  fetch_sleep_daily  │  2026-09-29 → 2026-10-05
+premium  sql     │  ok  │  0.012s  │  template=biomarkers  │  rows=1
+premium  tool    │  ok  │  0.02s  │  fetch_biomarkers  │  2026-09-29 → 2026-10-05
+full-staff  iter 01  │  tool_use  │  5.023s  │  $0.027  │  tok in=19 out=391 cacheR=15k  │  cum $0.027
+full-staff  action  │  tools: build_load_summary, fetch_club_roster, fetch_gps_intensity_daily, fetch_wellness_daily, fetch_sleep_daily, fetch_biomarkers
+full-staff    └ tool  │  ok  │  build_load_summary  │  0.128s  │  2026-09-01 → 2026-10-05
+full-staff    └ tool  │  ok  │  fetch_club_roster  │  0.001s  │  ? → ?
+full-staff    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.138s  │  2026-09-29 → 2026-10-05
+full-staff    └ tool  │  ok  │  fetch_wellness_daily  │  0.020s  │  2026-09-29 → 2026-10-05
+full-staff    └ tool  │  ok  │  fetch_sleep_daily  │  0.030s  │  2026-09-29 → 2026-10-05
+full-staff    └ tool  │  ok  │  fetch_biomarkers  │  0.020s  │  2026-09-29 → 2026-10-05
+full-staff    └ cost  │  this prompt $0.027  │  total so far $0.027  │  iter time 5.023s
+premium  iter 02  │  end_turn  │  8.282s  │  in=7.3k out=423 cacheR=14k cacheW=4.2k  │  $0.048  │  cum $0.075
+full-staff  iter 02  │  end_turn  │  8.282s  │  $0.048  │  tok in=7.3k out=423 cacheR=14k  │  cum $0.075
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.048  │  total so far $0.075  │  iter time 8.282s
+premium  iter 03  │  tool_use  │  2.292s  │  1 tool(s)  │  in=7.8k out=96 cacheR=19k  │  $0.030  │  cum $0.105
+premium  tool    │  ok  │  0.001s  │  join_datasets
+full-staff  iter 03  │  tool_use  │  2.293s  │  $0.030  │  tok in=7.8k out=96 cacheR=19k  │  cum $0.105
+full-staff  action  │  tools: join_datasets
+full-staff    └ tool  │  ok  │  join_datasets  │  0.001s
+full-staff    └ cost  │  this prompt $0.030  │  total so far $0.105  │  iter time 2.293s
+premium  iter 04  │  tool_use  │  3.145s  │  1 tool(s)  │  in=14k out=150 cacheR=19k  │  $0.049  │  cum $0.154
+premium  tool    │  ok  │  0.002s  │  aggregate_dataset
+full-staff  iter 04  │  tool_use  │  3.147s  │  $0.049  │  tok in=14k out=150 cacheR=19k  │  cum $0.154
+full-staff  action  │  tools: aggregate_dataset
+full-staff    └ tool  │  ok  │  aggregate_dataset  │  0.002s
+full-staff    └ cost  │  this prompt $0.049  │  total so far $0.154  │  iter time 3.147s
+premium  iter 05  │  tool_use  │  2.524s  │  1 tool(s)  │  in=15k out=114 cacheR=19k  │  $0.052  │  cum $0.206
+premium  tool    │  ok  │  0.002s  │  filter_dataset
+full-staff  iter 05  │  tool_use  │  2.527s  │  $0.052  │  tok in=15k out=114 cacheR=19k  │  cum $0.206
+full-staff  action  │  tools: filter_dataset
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.002s
+full-staff    └ cost  │  this prompt $0.052  │  total so far $0.206  │  iter time 2.527s
+premium  iter 06  │  tool_use  │  2.663s  │  1 tool(s)  │  in=21k out=111 cacheR=19k  │  $0.070  │  cum $0.276
+premium  tool    │  ok  │  0s  │  filter_dataset
+full-staff  iter 06  │  tool_use  │  2.664s  │  $0.070  │  tok in=21k out=111 cacheR=19k  │  cum $0.276
+full-staff  action  │  tools: filter_dataset
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ cost  │  this prompt $0.070  │  total so far $0.276  │  iter time 2.664s
+premium  iter 07  │  end_turn  │  7.414s  │  in=27k out=8 cacheW=3.9k  │  $0.095  │  cum $0.371
+full-staff  iter 07  │  end_turn  │  7.415s  │  $0.095  │  tok in=27k out=8  │  cum $0.371
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.095  │  total so far $0.371  │  iter time 7.415s
+[01:13:17.682] INFO (95173): full_staff.linker_done
+    datasets: 17
+    iterations: 7
+premium  iter 01  │  tool_use  │  28.38s  │  1 tool(s)  │  in=19 out=3.2k cacheR=17k cacheW=7.4k  │  $0.080  │  cum $0.080
+premium  sql     │  ERR  │  0.011s  │  query_database  │  rows=0
+premium  sql     │  WITH gps_week AS (
+  SELECT 
+    ad.athlete_id,
+    TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+    SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_distanceTotal') AS total_distance,
+    SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_hmld') AS total_hmld,
+    SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_highSpeedRunningAbs') AS total_hsr,
+    SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_sprintDistance') AS total_sprint_dist,
+    SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_accelerationsRel') AS total_accel,
+    SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_decelerationsRel') AS total_decel,
+    MAX(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_maxSpeed') AS max_speed,
+    COUNT(DISTINCT ad.date_of_day) AS n_sessions, MAX(COALESCE((SELECT pmcu.unit FROM period_metric_club_units pmcu WHERE pmcu.metric_id = pm.id AND pmcu.club_id = a.club_id LIMIT 1), pm.unit)) AS unit
+FROM period_metric_values pmv
+  JOIN period_metrics pm ON pmv.metric_id = pm.id
+  JOIN periods p ON pmv.period_id = p.id
+  JOIN sport_activities sa ON p.sport_activity_id = sa.id
+  JOIN days ad ON sa.day_id = ad.id
+  JOIN athletes a ON ad.athlete_id = a.id
+  WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+    AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+    AND pm.name IN ('kpi_distanceTotal', 'kpi_hmld', 'kpi_highSpeedRunningAbs', 'kpi_sprintDistance', 
+                    'kpi_accelerationsRel', 'kpi_decelerationsRel', 'kpi_maxSpeed')
+    AND (
+      p.name ILIKE '%entire session%'
+      OR NOT EXISTS (
+        SELECT 1 FROM periods p2
+        WHERE p2.sport_activity_id = p.sport_activity_id AND p2.name ILIKE '%entire session%'
+      )
+    )
+  GROUP BY ad.athlete_id, TRIM(a.first_name || ' ' || a.last_name)
+  HAVING COUNT(DISTINCT ad.date_of_day) > 0
+),
+wellness_week AS (
+  SELECT 
+    ad.athlete_id,
+    TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+    ROUND(AVG(hr.body_soreness_rating), 1) AS avg_soreness,
+    ROUND(AVG(hr.energy_rating), 1) AS avg_energy,
+    ROUND(AVG(hr.mood_rating), 1) AS avg_mood,
+    ROUND(AVG(hr.stress_rating), 1) AS avg_stress,
+    COUNT(DISTINCT ad.date_of_day) AS n_wellness
+  FROM health_ratings hr
+  JOIN days ad ON hr.day_id = ad.id
+  JOIN athletes a ON ad.athlete_id = a.id
+  WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+    AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+  GROUP BY ad.athlete_id, TRIM(a.first_name || ' ' || a.last_name)
+),
+sleep_week AS (
+  SELECT 
+    ad.athlete_id,
+    TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+    ROUND(AVG(s.quality_rating), 1) AS avg_sleep_quality,
+    ROUND(AVG(s.sleep_efficiency_percentage), 1) AS avg_sleep_efficiency,
+    ROUND(AVG(s.total_in_bed_time_milli / 3600000.0), 1) AS avg_hours_in_bed,
+    COUNT(DISTINCT ad.date_of_day) AS n_sleep
+  FROM sleeps s
+  JOIN days ad ON s.day_id = ad.id
+  JOIN athletes a ON ad.athlete_id = a.id
+  WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+    AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+  GROUP BY ad.athlete_id, TRIM(a.first_name || ' ' || a.last_name)
+),
+baseline_gps AS (
+  SELECT 
+    ad.athlete_id,
+    AVG(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_distanceTotal') AS baseline_distance,
+    AVG(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_hmld') AS baseline_hmld,
+    AVG(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_highSpeedRunningAbs') AS baseline_hsr,
+    AVG(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_accelerationsRel') AS baseline_accel
+  FROM period_metric_values pmv
+  JOIN period_metrics pm ON pmv.metric_id = pm.id
+  JOIN periods p ON pmv.period_id = p.id
+  JOIN sport_activities sa ON p.sport_activity_id = sa.id
+  JOIN days ad ON sa.day_id = ad.id
+  JOIN athletes a ON ad.athlete_id = a.id
+  WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+    AND ad.date_of_day BETWEEN '2026-09-01' AND '2026-09-28'
+    AND pm.name IN ('kpi_distanceTotal', 'kpi_hmld', 'kpi_highSpeedRunningAbs', 'kpi_accelerationsRel')
+    AND (
+      p.name ILIKE '%entire session%'
+      OR NOT EXISTS (
+        SELECT 1 FROM periods p2
+        WHERE p2.sport_activity_id = p.sport_activity_id AND p2.name ILIKE '%entire session%'
+      )
+    )
+  GROUP BY ad.athlete_id
+),
+baseline_wellness AS (
+  SELECT 
+    ad.athlete_id,
+    AVG(hr.body_soreness_rating) AS baseline_soreness,
+    AVG(hr.energy_rating) AS baseline_energy,
+    AVG(hr.mood_rating) AS baseline_mood
+  FROM health_ratings hr
+  JOIN days ad ON hr.day_id = ad.id
+  JOIN athletes a ON ad.athlete_id = a.id
+  WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+    AND ad.date_of_day BETWEEN '2026-09-01' AND '2026-09-28'
+  GROUP BY ad.athlete_id
+),
+baseline_sleep AS (
+  SELECT 
+    ad.athlete_id,
+    AVG(s.quality_rating) AS baseline_sleep_quality,
+    AVG(s.sleep_efficiency_percentage) AS baseline_sleep_efficiency
+  FROM sleeps s
+  JOIN days ad ON s.day_id = ad.id
+  JOIN athletes a ON ad.athlete_id = a.id
+  WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+    AND ad.date_of_day BETWEEN '2026-09-01' AND '2026-09-28'
+  GROUP BY ad.athlete_id
+)
+SELECT 
+  g.joueur,
+  g.n_sessions,
+  ROUND(g.total_distance, 0) AS total_distance_m,
+  ROUND(g.total_hmld, 0) AS total_hmld_m,
+  ROUND(g.total_hsr, 0) AS total_hsr_m,
+  ROUND(g.total_sprint_dist, 0) AS total_sprint_m,
+  ROUND(g.total_accel, 0) AS total_accel,
+  ROUND(g.total_decel, 0) AS total_decel,
+  ROUND(g.max_speed, 1) AS max_speed_kmh,
+  ROUND(((g.total_distance / NULLIF(bg.baseline_distance, 0) - 1) * 100), 0) AS distance_vs_baseline_pct,
+  ROUND(((g.total_hmld / NULLIF(bg.baseline_hmld, 0) - 1) * 100), 0) AS hmld_vs_baseline_pct,
+  ROUND(((g.total_hsr / NULLIF(bg.baseline_hsr, 0) - 1) * 100), 0) AS hsr_vs_baseline_pct,
+  ROUND(((g.total_accel / NULLIF(bg.baseline_accel, 0) - 1) * 100), 0) AS accel_vs_baseline_pct,
+  w.avg_soreness,
+  w.avg_energy,
+  w.avg_mood,
+  w.avg_stress,
+  w.n_wellness,
+  ROUND((w.avg_soreness - bw.baseline_soreness), 1) AS soreness_delta,
+  ROUND((w.avg_energy - bw.baseline_energy), 1) AS energy_delta,
+  ROUND((w.avg_mood - bw.baseline_mood), 1) AS mood_delta,
+  sl.avg_sleep_quality,
+  sl.avg_sleep_efficiency,
+  sl.avg_hours_in_bed,
+  sl.n_sleep,
+  ROUND((sl.avg_sleep_quality - bs.baseline_sleep_quality), 1) AS sleep_quality_delta,
+  ROUND((sl.avg_sleep_efficiency - bs.baseline_sleep_efficiency), 1) AS sleep_efficiency_delta
+FROM gps_week g
+LEFT JOIN wellness_week w ON g.athlete_id = w.athlete_id
+LEFT JOIN sleep_week sl ON g.athlete_id = sl.athlete_id
+LEFT JOIN baseline_gps bg ON g.athlete_id = bg.athlete_id
+LEFT JOIN baseline_wellness bw ON g.athlete_id = bw.athlete_id
+LEFT JOIN baseline_sleep bs ON g.athlete_id = bs.athlete_id
+WHERE (
+  (w.avg_soreness IS NOT NULL AND bw.baseline_soreness IS NOT NULL AND (w.avg_soreness - bw.baseline_soreness) > 3)
+  OR (w.avg_energy IS NOT NULL AND bw.baseline_energy IS NOT NULL AND (w.avg_energy - bw.baseline_energy) < -3)
+  OR (w.avg_mood IS NOT NULL AND bw.baseline_mood IS NOT NULL AND (w.avg_mood - bw.baseline_mood) < -3)
+  OR (sl.avg_sleep_quality IS NOT NULL AND bs.baseline_sleep_quality IS NOT NULL AND (sl.avg_sleep_quality - bs.baseline_sleep_quality) < -3)
+  OR (sl.avg_sleep_efficiency IS NOT NULL AND bs.baseline_sleep_efficiency IS NOT NULL AND (sl.avg_sleep_efficiency - bs.baseline_sleep_efficiency) < -5)
+)
+AND (
+  (g.total_hmld / NULLIF(bg.baseline_hmld, 0) > 1.15)
+  OR (g.total_hsr / NULLIF(bg.baseline_hsr, 0) > 1.15)
+  OR (g.total_accel / NULLIF(bg.baseline_accel, 0) > 1.15)
+)
+ORDER BY 
+  COALESCE((g.total_hmld / NULLIF(bg.baseline_hmld, 0)), 0) DESC,
+  COALESCE((w.avg_soreness - bw.baseline_soreness), 0) DESC
+LIMIT 100 - function round(double precision, integer) does not exist
+premium  sql    │ WITH gps_week AS (
+premium  sql    │   SELECT 
+premium  sql    │     ad.athlete_id,
+premium  sql    │     TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+premium  sql    │     SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_distanceTotal') AS total_distance,
+premium  sql    │     SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_hmld') AS total_hmld,
+premium  sql    │     SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_highSpeedRunningAbs') AS total_hsr,
+premium  sql    │     SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_sprintDistance') AS total_sprint_dist,
+premium  sql    │     SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_accelerationsRel') AS total_accel,
+premium  sql    │     SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_decelerationsRel') AS total_decel,
+premium  sql    │     MAX(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_maxSpeed') AS max_speed,
+premium  sql    │     COUNT(DISTINCT ad.date_of_day) AS n_sessions
+premium  sql    │   FROM period_metric_values pmv
+premium  sql    │   JOIN period_metrics pm ON pmv.metric_id = pm.id
+premium  sql    │   JOIN periods p ON pmv.period_id = p.id
+premium  sql    │   JOIN sport_activities sa ON p.sport_activity_id = sa.id
+premium  sql    │   JOIN days ad ON sa.day_id = ad.id
+premium  sql    │   JOIN athletes a ON ad.athlete_id = a.id
+premium  sql    │   WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │     AND ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │     AND pm.name IN ('kpi_distanceTotal', 'kpi_hmld', 'kpi_highSpeedRunningAbs', 'kpi_sprintDistance', 
+premium  sql    │                     'kpi_accelerationsRel', 'kpi_decelerationsRel', 'kpi_maxSpeed')
+premium  sql    │     AND (
+premium  sql    │       p.name ILIKE '%entire session%'
+premium  sql    │       OR NOT EXISTS (
+premium  sql    │         SELECT 1 FROM periods p2
+premium  sql    │         WHERE p2.sport_activity_id = p.sport_activity_id AND p2.name ILIKE '%entire session%'
+premium  sql    │       )
+premium  sql    │     )
+premium  sql    │   GROUP BY ad.athlete_id, TRIM(a.first_name || ' ' || a.last_name)
+premium  sql    │   HAVING COUNT(DISTINCT ad.date_of_day) > 0
+premium  sql    │ ),
+premium  sql    │ wellness_week AS (
+premium  sql    │   SELECT 
+premium  sql    │     ad.athlete_id,
+premium  sql    │     TRIM(a.first_name || ' ' || a.last_name) AS joueur,
+premium  sql    │     ROUND(AVG(hr.body_soreness_rating), 1) AS avg_soreness,
+premium  sql    │     ROUND(AVG(hr.energy_rating), 1) AS avg_energy,
+premium  sql    │     ROUND(AVG(hr.mood_rating), 1) AS avg_mood,
+premium  sql    │     ROUND(AV
+premium  sql    │ … (5591 more chars)
+premium  tool    │  ERR  │  0.012s  │  query_database  │  WITH gps_week AS ( SELECT ad.athlete_id, TRIM(a.first_name || ' ' || a.last_name) AS joueur, SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_distan
+full-staff  iter 01  │  tool_use  │  28.392s  │  $0.080  │  tok in=19 out=3.2k cacheR=17k  │  cum $0.080
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ERR  │  query_database  │  0.012s  │  WITH gps_week AS ( SELECT ad.athlete_id, TRIM(a.first_name || ' ' || a.last_name) AS joueur, SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_distan
+full-staff    └ cost  │  this prompt $0.080  │  total so far $0.080  │  iter time 28.392s
+premium  iter 02  │  tool_use  │  22.819s  │  1 tool(s)  │  in=6.6k out=3.2k cacheR=16k cacheW=7.3k  │  $0.100  │  cum $0.180
+premium  sql     │  ok  │  0.405s  │  query_database  │  rows=8
+premium  tool    │  ok  │  0.419s  │  query_database
+full-staff  iter 02  │  tool_use  │  23.239s  │  $0.100  │  tok in=6.6k out=3.2k cacheR=16k  │  cum $0.180
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ok  │  query_database  │  0.419s
+full-staff    └ cost  │  this prompt $0.100  │  total so far $0.180  │  iter time 23.239s
+premium  iter 03  │  tool_use  │  8.804s  │  4 tool(s)  │  in=12k out=514 cacheR=23k  │  $0.050  │  cum $0.230
+premium  tool    │  ok  │  0.001s  │  set_report_meta
+premium  tool    │  ok  │  0.002s  │  add_heading
+premium  tool    │  ok  │  0s  │  add_text
+premium  tool    │  ok  │  0.006s  │  add_table  │  ds_18
+full-staff  iter 03  │  tool_use  │  8.814s  │  $0.050  │  tok in=12k out=514 cacheR=23k  │  cum $0.230
+full-staff  action  │  tools: set_report_meta, add_heading, add_text, add_table
+full-staff    └ tool  │  ok  │  set_report_meta  │  0.001s
+full-staff    └ tool  │  ok  │  add_heading  │  0.002s
+full-staff    └ tool  │  ok  │  add_text  │  0.000s
+full-staff    └ tool  │  ok  │  add_table  │  0.006s  │  ds_18
+full-staff    └ cost  │  this prompt $0.050  │  total so far $0.230  │  iter time 8.814s
+premium  iter 04  │  tool_use  │  3.806s  │  2 tool(s)  │  in=13k out=262 cacheR=23k  │  $0.049  │  cum $0.279
+premium  tool    │  ok  │  0.007s  │  add_chart  │  ds_18
+premium  tool    │  ok  │  0.001s  │  add_chart  │  ds_18
+full-staff  iter 04  │  tool_use  │  3.815s  │  $0.049  │  tok in=13k out=262 cacheR=23k  │  cum $0.279
+full-staff  action  │  tools: add_chart, add_chart
+full-staff    └ tool  │  ok  │  add_chart  │  0.007s  │  ds_18
+full-staff    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_18
+full-staff    └ cost  │  this prompt $0.049  │  total so far $0.279  │  iter time 3.815s
+premium  iter 05  │  tool_use  │  6.725s  │  1 tool(s)  │  in=13k out=487 cacheR=23k  │  $0.053  │  cum $0.332
+premium  sql     │  ERR  │  0s  │  query_database  │  rows=0
+premium  sql     │  Blocked: team queries must filter club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3' (JOIN athletes a … WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'). A JOIN on athlete_id = a.id is not a club filter.
+premium  sql    │ SELECT 
+premium  sql    │   joueur,
+premium  sql    │   hmld_vs_baseline_pct AS hmld_spike_pct,
+premium  sql    │   COALESCE(soreness_delta, 0) + COALESCE(mood_delta, 0) + COALESCE(sleep_quality_delta, 0) AS wellness_sleep_decline_total
+premium  sql    │ FROM (
+premium  sql    │   SELECT 
+premium  sql    │     joueur,
+premium  sql    │     hmld_vs_baseline_pct,
+premium  sql    │     soreness_delta,
+premium  sql    │     mood_delta,
+premium  sql    │     sleep_quality_delta
+premium  sql    │   FROM (VALUES
+premium  sql    │     ('Miro Muheim', 991, -0.3, -0.7, -4.0),
+premium  sql    │     ('Alexander Røssing-Lelesiit', 658, 3.2, -4.0, -6.9),
+premium  sql    │     ('Bilal Nadir', 640, -1.4, -4.4, -4.5),
+premium  sql    │     ('Kofi Amoako', 497, 4.9, 3.2, 4.7),
+premium  sql    │     ('Fábio Vieira', 400, -2.8, -9.3, -9.5),
+premium  sql    │     ('Bakery Jatta', 368, 5.9, 7.6, 8.3),
+premium  sql    │     ('Nicolás Capaldo', 332, -14.2, -7.5, -9.1),
+premium  sql    │     ('Terem Moffi', 80, -4.3, -7.1, -0.4)
+premium  sql    │   ) AS t(joueur, hmld_vs_baseline_pct, soreness_delta, mood_delta, sleep_quality_delta)
+premium  sql    │ ) sub
+premium  sql    │ ORDER BY hmld_spike_pct DESC
+premium  tool    │  ERR  │  0s  │  query_database  │  Blocked: team queries must filter club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3' (JOIN athletes a … WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3').
+full-staff  iter 05  │  tool_use  │  6.725s  │  $0.053  │  tok in=13k out=487 cacheR=23k  │  cum $0.332
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ERR  │  query_database  │  0.000s  │  Blocked: team queries must filter club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3' (JOIN athletes a … WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3').
+full-staff    └ cost  │  this prompt $0.053  │  total so far $0.332  │  iter time 6.725s
+premium  iter 06  │  tool_use  │  3.68s  │  2 tool(s)  │  in=14k out=260 cacheR=23k  │  $0.052  │  cum $0.384
+premium  tool    │  ok  │  0.002s  │  transform_columns  │  scale
+premium  tool    │  ok  │  0s  │  transform_columns  │  add
+full-staff  iter 06  │  tool_use  │  3.682s  │  $0.052  │  tok in=14k out=260 cacheR=23k  │  cum $0.384
+full-staff  action  │  tools: transform_columns, transform_columns
+full-staff    └ tool  │  ok  │  transform_columns  │  0.002s  │  scale
+full-staff    └ tool  │  ok  │  transform_columns  │  0.000s  │  add
+full-staff    └ cost  │  this prompt $0.052  │  total so far $0.384  │  iter time 3.682s
+premium  iter 07  │  tool_use  │  3.073s  │  1 tool(s)  │  in=18k out=133 cacheR=23k  │  $0.064  │  cum $0.448
+premium  tool    │  ok  │  0.004s  │  add_chart  │  ds_18
+full-staff  iter 07  │  tool_use  │  3.077s  │  $0.064  │  tok in=18k out=133 cacheR=23k  │  cum $0.448
+full-staff  action  │  tools: add_chart
+full-staff    └ tool  │  ok  │  add_chart  │  0.004s  │  ds_18
+full-staff    └ cost  │  this prompt $0.064  │  total so far $0.448  │  iter time 3.077s
+premium  iter 08  │  tool_use  │  14.142s  │  1 tool(s)  │  in=19k out=1.0k cacheR=23k  │  $0.078  │  cum $0.526
+premium  sql     │  ERR  │  0.012s  │  query_database  │  rows=0
+premium  sql     │  WITH target_athletes AS (
+  SELECT id, TRIM(first_name || ' ' || last_name) AS joueur, MAX(COALESCE((SELECT pmcu.unit FROM period_metric_club_units pmcu WHERE pmcu.metric_id = pm.id AND pmcu.club_id = a.club_id LIMIT 1), pm.unit)) AS unit
+FROM athletes
+  WHERE club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+    AND TRIM(first_name || ' ' || last_name) IN ('Miro Muheim', 'Alexander Røssing-Lelesiit', 'Fábio Vieira')
+),
+daily_gps AS (
+  SELECT 
+    ad.date_of_day,
+    ta.joueur,
+    SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_hmld') AS hmld_daily,
+    SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_highSpeedRunningAbs') AS hsr_daily,
+    SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_accelerationsRel') AS accel_daily
+  FROM period_metric_values pmv
+  JOIN period_metrics pm ON pmv.metric_id = pm.id
+  JOIN periods p ON pmv.period_id = p.id
+  JOIN sport_activities sa ON p.sport_activity_id = sa.id
+  JOIN days ad ON sa.day_id = ad.id
+  JOIN target_athletes ta ON ad.athlete_id = ta.id
+  WHERE ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+    AND pm.name IN ('kpi_hmld', 'kpi_highSpeedRunningAbs', 'kpi_accelerationsRel')
+    AND (
+      p.name ILIKE '%entire session%'
+      OR NOT EXISTS (
+        SELECT 1 FROM periods p2
+        WHERE p2.sport_activity_id = p.sport_activity_id AND p2.name ILIKE '%entire session%'
+      )
+    )
+  GROUP BY ad.date_of_day, ta.joueur
+),
+daily_wellness AS (
+  SELECT 
+    ad.date_of_day,
+    ta.joueur,
+    hr.body_soreness_rating,
+    hr.mood_rating
+  FROM health_ratings hr
+  JOIN days ad ON hr.day_id = ad.id
+  JOIN target_athletes ta ON ad.athlete_id = ta.id
+  WHERE ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+),
+daily_sleep AS (
+  SELECT 
+    ad.date_of_day,
+    ta.joueur,
+    s.quality_rating AS sleep_quality
+  FROM sleeps s
+  JOIN days ad ON s.day_id = ad.id
+  JOIN target_athletes ta ON ad.athlete_id = ta.id
+  WHERE ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+)
+SELECT 
+  COALESCE(g.date_of_day, w.date_of_day, sl.date_of_day) AS date_of_day,
+  COALESCE(g.joueur, w.joueur, sl.joueur) AS joueur,
+  g.hmld_daily,
+  g.hsr_daily,
+  g.accel_daily,
+  w.body_soreness_rating,
+  w.mood_rating,
+  sl.sleep_quality
+FROM daily_gps g
+FULL OUTER JOIN daily_wellness w ON g.date_of_day = w.date_of_day AND g.joueur = w.joueur
+FULL OUTER JOIN daily_sleep sl ON COALESCE(g.date_of_day, w.date_of_day) = sl.date_of_day 
+  AND COALESCE(g.joueur, w.joueur) = sl.joueur
+ORDER BY joueur, date_of_day - missing FROM-clause entry for table "pm"
+premium  sql    │ WITH target_athletes AS (
+premium  sql    │   SELECT id, TRIM(first_name || ' ' || last_name) AS joueur
+premium  sql    │   FROM athletes
+premium  sql    │   WHERE club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │     AND TRIM(first_name || ' ' || last_name) IN ('Miro Muheim', 'Alexander Røssing-Lelesiit', 'Fábio Vieira')
+premium  sql    │ ),
+premium  sql    │ daily_gps AS (
+premium  sql    │   SELECT 
+premium  sql    │     ad.date_of_day,
+premium  sql    │     ta.joueur,
+premium  sql    │     SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_hmld') AS hmld_daily,
+premium  sql    │     SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_highSpeedRunningAbs') AS hsr_daily,
+premium  sql    │     SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_accelerationsRel') AS accel_daily
+premium  sql    │   FROM period_metric_values pmv
+premium  sql    │   JOIN period_metrics pm ON pmv.metric_id = pm.id
+premium  sql    │   JOIN periods p ON pmv.period_id = p.id
+premium  sql    │   JOIN sport_activities sa ON p.sport_activity_id = sa.id
+premium  sql    │   JOIN days ad ON sa.day_id = ad.id
+premium  sql    │   JOIN target_athletes ta ON ad.athlete_id = ta.id
+premium  sql    │   WHERE ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │     AND pm.name IN ('kpi_hmld', 'kpi_highSpeedRunningAbs', 'kpi_accelerationsRel')
+premium  sql    │     AND (
+premium  sql    │       p.name ILIKE '%entire session%'
+premium  sql    │       OR NOT EXISTS (
+premium  sql    │         SELECT 1 FROM periods p2
+premium  sql    │         WHERE p2.sport_activity_id = p.sport_activity_id AND p2.name ILIKE '%entire session%'
+premium  sql    │       )
+premium  sql    │     )
+premium  sql    │   GROUP BY ad.date_of_day, ta.joueur
+premium  sql    │ ),
+premium  sql    │ daily_wellness AS (
+premium  sql    │   SELECT 
+premium  sql    │     ad.date_of_day,
+premium  sql    │     ta.joueur,
+premium  sql    │     hr.body_soreness_rating,
+premium  sql    │     hr.mood_rating
+premium  sql    │   FROM health_ratings hr
+premium  sql    │   JOIN days ad ON hr.day_id = ad.id
+premium  sql    │   JOIN target_athletes ta ON ad.athlete_id = ta.id
+premium  sql    │   WHERE ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │ ),
+premium  sql    │ daily_sleep AS (
+premium  sql    │   SELECT 
+premium  sql    │     ad.date_of_day,
+premium  sql    │     ta.joueur,
+premium  sql    │     s.quality_rating AS sleep_quality
+premium  sql    │   FROM sleeps s
+premium  sql    │   JOIN days ad ON s.day_id = ad.id
+premium  sql    │   JOIN target_athletes ta ON ad.athlete_id = ta.id
+premium  sql    │   WHERE ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │ )
+premium  sql    │ SELECT 
+premium  sql    │   COALESCE(g.date_of_day, w.date_of_day, sl.date_of_day) AS date_of_day,
+premium  sql    │   COALESCE(g.joueur, w.joueur, sl.joueur) AS joueur,
+premium  sql    │   g.hmld_daily,
+premium  sql    │   g.hsr_daily,
+premium  sql    │ … (353 more chars)
+premium  tool    │  ERR  │  0.012s  │  query_database  │  WITH target_athletes AS ( SELECT id, TRIM(first_name || ' ' || last_name) AS joueur, MAX(COALESCE((SELECT pmcu.unit FROM period_metric_club_units pmcu WHERE pmc
+full-staff  iter 08  │  tool_use  │  14.154s  │  $0.078  │  tok in=19k out=1.0k cacheR=23k  │  cum $0.526
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ERR  │  query_database  │  0.012s  │  WITH target_athletes AS ( SELECT id, TRIM(first_name || ' ' || last_name) AS joueur, MAX(COALESCE((SELECT pmcu.unit FROM period_metric_club_units pmcu WHERE pmc
+full-staff    └ cost  │  this prompt $0.078  │  total so far $0.526  │  iter time 14.154s
+premium  iter 09  │  tool_use  │  8.865s  │  1 tool(s)  │  in=21k out=1.1k cacheR=23k  │  $0.085  │  cum $0.611
+premium  sql     │  ERR  │  0.01s  │  query_database  │  rows=0
+premium  sql     │  WITH target_athletes AS (
+  SELECT id, TRIM(first_name || ' ' || last_name) AS joueur, MAX(COALESCE((SELECT pmcu.unit FROM period_metric_club_units pmcu WHERE pmcu.metric_id = pm.id AND pmcu.club_id = a.club_id LIMIT 1), pm.unit)) AS unit
+FROM athletes
+  WHERE club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+    AND TRIM(first_name || ' ' || last_name) IN ('Miro Muheim', 'Alexander Røssing-Lelesiit', 'Fábio Vieira')
+),
+daily_gps AS (
+  SELECT 
+    ad.date_of_day,
+    ta.joueur,
+    SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_hmld') AS hmld_daily,
+    SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_highSpeedRunningAbs') AS hsr_daily,
+    SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_accelerationsRel') AS accel_daily
+  FROM period_metric_values pmv
+  JOIN period_metrics pm ON pmv.metric_id = pm.id
+  JOIN periods p ON pmv.period_id = p.id
+  JOIN sport_activities sa ON p.sport_activity_id = sa.id
+  JOIN days ad ON sa.day_id = ad.id
+  JOIN target_athletes ta ON ad.athlete_id = ta.id
+  WHERE ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+    AND pm.name IN ('kpi_hmld', 'kpi_highSpeedRunningAbs', 'kpi_accelerationsRel')
+    AND (
+      p.name ILIKE '%entire session%'
+      OR NOT EXISTS (
+        SELECT 1 FROM periods p2
+        WHERE p2.sport_activity_id = p.sport_activity_id AND p2.name ILIKE '%entire session%'
+      )
+    )
+  GROUP BY ad.date_of_day, ta.joueur
+),
+daily_wellness AS (
+  SELECT 
+    ad.date_of_day,
+    ta.joueur,
+    hr.body_soreness_rating,
+    hr.mood_rating
+  FROM health_ratings hr
+  JOIN days ad ON hr.day_id = ad.id
+  JOIN target_athletes ta ON ad.athlete_id = ta.id
+  WHERE ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+),
+daily_sleep AS (
+  SELECT 
+    ad.date_of_day,
+    ta.joueur,
+    s.quality_rating AS sleep_quality
+  FROM sleeps s
+  JOIN days ad ON s.day_id = ad.id
+  JOIN target_athletes ta ON ad.athlete_id = ta.id
+  WHERE ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+)
+SELECT 
+  COALESCE(g.date_of_day, w.date_of_day, sl.date_of_day) AS date_of_day,
+  COALESCE(g.joueur, w.joueur, sl.joueur) AS joueur,
+  (g.hmld_daily)::INTEGER AS hmld_daily_m,
+  (g.hsr_daily)::INTEGER AS hsr_daily_m,
+  (g.accel_daily)::INTEGER AS accel_daily,
+  w.body_soreness_rating,
+  w.mood_rating,
+  sl.sleep_quality
+FROM daily_gps g
+FULL OUTER JOIN daily_wellness w ON g.date_of_day = w.date_of_day AND g.joueur = w.joueur
+FULL OUTER JOIN daily_sleep sl ON COALESCE(g.date_of_day, w.date_of_day) = sl.date_of_day 
+  AND COALESCE(g.joueur, w.joueur) = sl.joueur
+ORDER BY joueur, date_of_day - missing FROM-clause entry for table "pm"
+premium  sql    │ WITH target_athletes AS (
+premium  sql    │   SELECT id, TRIM(first_name || ' ' || last_name) AS joueur
+premium  sql    │   FROM athletes
+premium  sql    │   WHERE club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │     AND TRIM(first_name || ' ' || last_name) IN ('Miro Muheim', 'Alexander Røssing-Lelesiit', 'Fábio Vieira')
+premium  sql    │ ),
+premium  sql    │ daily_gps AS (
+premium  sql    │   SELECT 
+premium  sql    │     ad.date_of_day,
+premium  sql    │     ta.joueur,
+premium  sql    │     SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_hmld') AS hmld_daily,
+premium  sql    │     SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_highSpeedRunningAbs') AS hsr_daily,
+premium  sql    │     SUM(CAST(pmv.value AS DECIMAL)) FILTER (WHERE pm.name = 'kpi_accelerationsRel') AS accel_daily
+premium  sql    │   FROM period_metric_values pmv
+premium  sql    │   JOIN period_metrics pm ON pmv.metric_id = pm.id
+premium  sql    │   JOIN periods p ON pmv.period_id = p.id
+premium  sql    │   JOIN sport_activities sa ON p.sport_activity_id = sa.id
+premium  sql    │   JOIN days ad ON sa.day_id = ad.id
+premium  sql    │   JOIN target_athletes ta ON ad.athlete_id = ta.id
+premium  sql    │   WHERE ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │     AND pm.name IN ('kpi_hmld', 'kpi_highSpeedRunningAbs', 'kpi_accelerationsRel')
+premium  sql    │     AND (
+premium  sql    │       p.name ILIKE '%entire session%'
+premium  sql    │       OR NOT EXISTS (
+premium  sql    │         SELECT 1 FROM periods p2
+premium  sql    │         WHERE p2.sport_activity_id = p.sport_activity_id AND p2.name ILIKE '%entire session%'
+premium  sql    │       )
+premium  sql    │     )
+premium  sql    │   GROUP BY ad.date_of_day, ta.joueur
+premium  sql    │ ),
+premium  sql    │ daily_wellness AS (
+premium  sql    │   SELECT 
+premium  sql    │     ad.date_of_day,
+premium  sql    │     ta.joueur,
+premium  sql    │     hr.body_soreness_rating,
+premium  sql    │     hr.mood_rating
+premium  sql    │   FROM health_ratings hr
+premium  sql    │   JOIN days ad ON hr.day_id = ad.id
+premium  sql    │   JOIN target_athletes ta ON ad.athlete_id = ta.id
+premium  sql    │   WHERE ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │ ),
+premium  sql    │ daily_sleep AS (
+premium  sql    │   SELECT 
+premium  sql    │     ad.date_of_day,
+premium  sql    │     ta.joueur,
+premium  sql    │     s.quality_rating AS sleep_quality
+premium  sql    │   FROM sleeps s
+premium  sql    │   JOIN days ad ON s.day_id = ad.id
+premium  sql    │   JOIN target_athletes ta ON ad.athlete_id = ta.id
+premium  sql    │   WHERE ad.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │ )
+premium  sql    │ SELECT 
+premium  sql    │   COALESCE(g.date_of_day, w.date_of_day, sl.date_of_day) AS date_of_day,
+premium  sql    │   COALESCE(g.joueur, w.joueur, sl.joueur) AS joueur,
+premium  sql    │   (g.hmld_daily)::INTEGER AS h
+premium  sql    │ … (432 more chars)
+premium  tool    │  ERR  │  0.011s  │  query_database  │  WITH target_athletes AS ( SELECT id, TRIM(first_name || ' ' || last_name) AS joueur, MAX(COALESCE((SELECT pmcu.unit FROM period_metric_club_units pmcu WHERE pmc
+full-staff  iter 09  │  tool_use  │  8.876s  │  $0.085  │  tok in=21k out=1.1k cacheR=23k  │  cum $0.611
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ERR  │  query_database  │  0.011s  │  WITH target_athletes AS ( SELECT id, TRIM(first_name || ' ' || last_name) AS joueur, MAX(COALESCE((SELECT pmcu.unit FROM period_metric_club_units pmcu WHERE pmc
+full-staff    └ cost  │  this prompt $0.085  │  total so far $0.611  │  iter time 8.876s
+[01:14:58.621] WARN (95173): premium_report.sql_circuit_open
+    key: "unit"
+    count: 3
+    total: 4
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+premium  iter 10  │  end_turn  │  5.907s  │  in=23k out=21 cacheW=7.0k  │  $0.095  │  cum $0.707
+full-staff  iter 10  │  end_turn  │  5.908s  │  $0.095  │  tok in=23k out=21  │  cum $0.707
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.095  │  total so far $0.707  │  iter time 5.908s
+[01:15:04.532] WARN (95173): full_staff.insight_ir_synthesized
+    headings: 1
+[01:15:04.532] INFO (95173): full_staff.analyst_done
+    blocks: 6
+    charts: 3
+    tables: 1
+    insight: true
+    iterations: 10
+    macrosSkipped: true
+    shortWindow: true
+premium  iter 01  │  tool_use  │  1.771s  │  1 tool(s)  │  in=19 out=61 cacheW=2.5k  │  $0.010  │  cum $0.010
+premium  tool    │  ok  │  0.034s  │  build_artifact_html
+full-staff  iter 01  │  tool_use  │  1.805s  │  $0.010  │  tok in=19 out=61  │  cum $0.010
+full-staff  action  │  tools: build_artifact_html
+full-staff    └ tool  │  ok  │  build_artifact_html  │  0.034s
+full-staff    └ cost  │  this prompt $0.010  │  total so far $0.010  │  iter time 1.805s
+premium  iter 02  │  end_turn  │  4.362s  │  in=113 out=190 cacheW=2.4k  │  $0.012  │  cum $0.023
+full-staff  iter 02  │  end_turn  │  4.363s  │  $0.012  │  tok in=113 out=190  │  cum $0.023
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.012  │  total so far $0.023  │  iter time 4.363s
+[01:15:10.701] INFO (95173): full_staff.designer_done
+    htmlBytes: 29724
+    iterations: 2
+full-staff  pdf  │  2.014s  │  week-29-sep-05-oct-gps-spikes-with-wellness-slee-2026-09-29_2026-10-05.pdf  │  653 KB
+────────────────────────────────────────────────────────────
+full-staff  TOTAL  │  19 iteration(s)  │  147.077s  │  $1.100
+full-staff  tokens  │  in=230k  │  out=12k  │  cacheR=296k  │  cacheW=39k  │  all=242k
+full-staff  per-iter time  │  #1=5.02s  │  #2=8.28s  │  #3=2.29s  │  #4=3.15s  │  #5=2.53s  │  #6=2.66s  │  #7=7.42s  │  #8=28.39s  │  #9=23.24s  │  #10=8.81s  │  #11=3.81s  │  #12=6.72s  │  #13=3.68s  │  #14=3.08s  │  #15=14.15s  │  #16=8.88s  │  #17=5.91s  │  #18=1.80s  │  #19=4.36s
+full-staff  per-iter $  │  #1=$0.027  │  #2=$0.048  │  #3=$0.030  │  #4=$0.049  │  #5=$0.052  │  #6=$0.070  │  #7=$0.095  │  #8=$0.080  │  #9=$0.100  │  #10=$0.050  │  #11=$0.049  │  #12=$0.053  │  #13=$0.052  │  #14=$0.064  │  #15=$0.078  │  #16=$0.085  │  #17=$0.095  │  #18=$0.010  │  #19=$0.012
+full-staff  canvas  │  blocks=6  │  charts=3  │  week-29-sep-05-oct-gps-spikes-with-wellness-slee-2026-09-29_2026-10-05.pdf
+════════════════════════════════════════════════════════════
+
+[ info ] en-ss-sleep-vs-gps-week             7d  20/20  DI=5 DS=5 SC=5 HE=5  147s  $1.10  charts=3  PASS
+[ info ] [3/3] en-hop-gps-wellness-team-7d (en)
+
+════════════════════════════════════════════════════════════
+full-staff  START  │  Hambourg  │  2026-09-29 → 2026-10-05
+full-staff  domains  │  load, gps, wellness, sleep, biomarkers
+full-staff  prompt  │  Past 7 days squad view: where GPS (distance, HSR) and wellness disagree — high load with low readiness. Charts first, short bullets.
+────────────────────────────────────────────────────────────
+premium  dump    │  full_staff.route
+premium         {
+premium           grain: 'team',
+premium           depth: 'standard',
+premium           pack: 'mauna',
+premium           domains: [
+premium             'load',
+premium             'gps',
+premium             'wellness',
+premium             'sleep',
+premium             'biomarkers'
+premium           ],
+premium           photos: true,
+premium           daySpan: 7,
+premium           analystMinIterations: 4
+premium         }
+[01:15:13.100] INFO (95173): full_staff.router
+    grain: "team"
+    depth: "standard"
+    pack: "mauna"
+    durationSec: 0.262
+premium  iter 01  │  tool_use  │  4.619s  │  6 tool(s)  │  in=19 out=391 cacheR=16k cacheW=4.0k  │  $0.026  │  cum $0.026
+premium  sql     │  ok  │  0.1s  │  template=daily_srpe  │  rows=1114
+premium  tool    │  ok  │  0.129s  │  build_load_summary  │  summary=ds_8 rows=37
+premium  tool    │  ok  │  0.129s  │  build_load_summary  │  2026-09-01 → 2026-10-05
+premium  tool    │  ok  │  0s  │  fetch_club_roster  │  n=76
+premium  tool    │  ok  │  0s  │  fetch_club_roster  │  ? → ?
+premium  sql     │  ok  │  0.094s  │  template=gps_intensity_daily  │  rows=86
+premium  tool    │  ok  │  0.121s  │  fetch_gps_intensity_daily  │  2026-09-29 → 2026-10-05
+premium  sql     │  ok  │  0.011s  │  template=fetch_wellness_daily  │  rows=61
+premium  tool    │  ok  │  0.022s  │  fetch_wellness_daily  │  datasetId=ds_11
+premium  tool    │  ok  │  0.022s  │  fetch_wellness_daily  │  2026-09-29 → 2026-10-05
+premium  sql     │  ok  │  0.022s  │  template=fetch_sleep_daily  │  rows=61
+premium  tool    │  ok  │  0.034s  │  fetch_sleep_daily  │  datasetId=ds_12
+premium  tool    │  ok  │  0.034s  │  fetch_sleep_daily  │  2026-09-29 → 2026-10-05
+premium  sql     │  ok  │  0.01s  │  template=biomarkers  │  rows=1
+premium  tool    │  ok  │  0.02s  │  fetch_biomarkers  │  2026-09-29 → 2026-10-05
+full-staff  iter 01  │  tool_use  │  4.946s  │  $0.026  │  tok in=19 out=391 cacheR=16k  │  cum $0.026
+full-staff  action  │  tools: build_load_summary, fetch_club_roster, fetch_gps_intensity_daily, fetch_wellness_daily, fetch_sleep_daily, fetch_biomarkers
+full-staff    └ tool  │  ok  │  build_load_summary  │  0.129s  │  2026-09-01 → 2026-10-05
+full-staff    └ tool  │  ok  │  fetch_club_roster  │  0.000s  │  ? → ?
+full-staff    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.121s  │  2026-09-29 → 2026-10-05
+full-staff    └ tool  │  ok  │  fetch_wellness_daily  │  0.022s  │  2026-09-29 → 2026-10-05
+full-staff    └ tool  │  ok  │  fetch_sleep_daily  │  0.034s  │  2026-09-29 → 2026-10-05
+full-staff    └ tool  │  ok  │  fetch_biomarkers  │  0.020s  │  2026-09-29 → 2026-10-05
+full-staff    └ cost  │  this prompt $0.026  │  total so far $0.026  │  iter time 4.946s
+premium  iter 02  │  end_turn  │  7.398s  │  in=7.3k out=247 cacheR=15k cacheW=3.9k  │  $0.045  │  cum $0.070
+full-staff  iter 02  │  end_turn  │  7.398s  │  $0.045  │  tok in=7.3k out=247 cacheR=15k  │  cum $0.070
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.045  │  total so far $0.070  │  iter time 7.398s
+premium  iter 03  │  tool_use  │  4.202s  │  4 tool(s)  │  in=7.6k out=346 cacheR=19k  │  $0.033  │  cum $0.104
+premium  tool    │  ERR  │  0s  │  filter_dataset  │  no rows for date_of_day gte "2026-09-29"
+premium  tool    │  ok  │  0.002s  │  aggregate_dataset
+premium  tool    │  ok  │  0s  │  aggregate_dataset
+premium  tool    │  ok  │  0s  │  aggregate_dataset
+full-staff  iter 03  │  tool_use  │  4.204s  │  $0.033  │  tok in=7.6k out=346 cacheR=19k  │  cum $0.104
+full-staff  action  │  tools: filter_dataset, aggregate_dataset, aggregate_dataset, aggregate_dataset
+full-staff    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  no rows for date_of_day gte "2026-09-29"
+full-staff    └ tool  │  ok  │  aggregate_dataset  │  0.002s
+full-staff    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+full-staff    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+full-staff    └ cost  │  this prompt $0.033  │  total so far $0.104  │  iter time 4.204s
+premium  iter 04  │  tool_use  │  2.273s  │  1 tool(s)  │  in=10k out=89 cacheR=19k  │  $0.038  │  cum $0.142
+premium  tool    │  ok  │  0.001s  │  join_datasets
+full-staff  iter 04  │  tool_use  │  2.274s  │  $0.038  │  tok in=10k out=89 cacheR=19k  │  cum $0.142
+full-staff  action  │  tools: join_datasets
+full-staff    └ tool  │  ok  │  join_datasets  │  0.001s
+full-staff    └ cost  │  this prompt $0.038  │  total so far $0.142  │  iter time 2.274s
+premium  iter 05  │  tool_use  │  2.843s  │  1 tool(s)  │  in=12k out=135 cacheR=19k  │  $0.044  │  cum $0.186
+premium  tool    │  ok  │  0s  │  transform_columns  │  scale
+full-staff  iter 05  │  tool_use  │  2.844s  │  $0.044  │  tok in=12k out=135 cacheR=19k  │  cum $0.186
+full-staff  action  │  tools: transform_columns
+full-staff    └ tool  │  ok  │  transform_columns  │  0.000s  │  scale
+full-staff    └ cost  │  this prompt $0.044  │  total so far $0.186  │  iter time 2.844s
+premium  iter 06  │  tool_use  │  4.096s  │  3 tool(s)  │  in=14k out=315 cacheR=19k  │  $0.053  │  cum $0.239
+premium  tool    │  ok  │  0.001s  │  filter_dataset
+premium  tool    │  ok  │  0s  │  filter_dataset
+premium  tool    │  ok  │  0s  │  filter_dataset
+full-staff  iter 06  │  tool_use  │  4.097s  │  $0.053  │  tok in=14k out=315 cacheR=19k  │  cum $0.239
+full-staff  action  │  tools: filter_dataset, filter_dataset, filter_dataset
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.001s
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ cost  │  this prompt $0.053  │  total so far $0.239  │  iter time 4.097s
+premium  iter 07  │  end_turn  │  5.425s  │  in=20k out=8 cacheW=3.9k  │  $0.074  │  cum $0.313
+full-staff  iter 07  │  end_turn  │  5.425s  │  $0.074  │  tok in=20k out=8  │  cum $0.313
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.074  │  total so far $0.313  │  iter time 5.425s
+[01:15:44.481] INFO (95173): full_staff.linker_done
+    datasets: 21
+    iterations: 7
+premium  iter 01  │  tool_use  │  18.968s  │  3 tool(s)  │  in=19 out=1.9k cacheR=18k cacheW=6.1k  │  $0.056  │  cum $0.056
+premium  sql     │  ERR  │  0.001s  │  query_database  │  rows=0
+premium  sql     │  Blocked: free SQL on metric/biomarker values needs unit (COALESCE club period unit / pm.unit, or MAX(sam.unit)) or CASE WHEN pm.name= pivot. Prefer macro fetch_gps_intensity_daily — do not multi-JOIN period_metric_values.
+premium  sql    │ WITH gps_agg AS (
+premium  sql    │   SELECT 
+premium  sql    │     d.athlete_id,
+premium  sql    │     TRIM(a.first_name) || ' ' || TRIM(a.last_name) AS joueur,
+premium  sql    │     COUNT(DISTINCT d.date_of_day) AS n_gps,
+premium  sql    │     ROUND(AVG(CAST(pmv_dist.value AS DECIMAL)), 0) AS avg_distance,
+premium  sql    │     ROUND(AVG(CAST(pmv_hsr.value AS DECIMAL)), 0) AS avg_hsr,
+premium  sql    │     ROUND(SUM(CAST(pmv_dist.value AS DECIMAL)), 0) AS total_distance,
+premium  sql    │     ROUND(SUM(CAST(pmv_hsr.value AS DECIMAL)), 0) AS total_hsr
+premium  sql    │   FROM days d
+premium  sql    │   JOIN athletes a ON a.id = d.athlete_id
+premium  sql    │   JOIN sport_activities sa ON sa.day_id = d.id
+premium  sql    │   JOIN periods p ON p.sport_activity_id = sa.id
+premium  sql    │   LEFT JOIN period_metric_values pmv_dist ON pmv_dist.period_id = p.id
+premium  sql    │   LEFT JOIN period_metrics pm_dist ON pm_dist.id = pmv_dist.metric_id AND pm_dist.name = 'kpi_distanceTotal'
+premium  sql    │   LEFT JOIN period_metric_values pmv_hsr ON pmv_hsr.period_id = p.id
+premium  sql    │   LEFT JOIN period_metrics pm_hsr ON pm_hsr.id = pmv_hsr.metric_id AND pm_hsr.name = 'kpi_highSpeedRunningAbs'
+premium  sql    │   WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │     AND d.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │     AND (
+premium  sql    │       p.name ILIKE '%entire session%'
+premium  sql    │       OR NOT EXISTS (
+premium  sql    │         SELECT 1 FROM periods p2
+premium  sql    │         WHERE p2.sport_activity_id = p.sport_activity_id AND p2.name ILIKE '%entire session%'
+premium  sql    │       )
+premium  sql    │     )
+premium  sql    │   GROUP BY d.athlete_id, joueur
+premium  sql    │ ),
+premium  sql    │ wellness_agg AS (
+premium  sql    │   SELECT 
+premium  sql    │     d.athlete_id,
+premium  sql    │     COUNT(DISTINCT d.date_of_day) AS n_wellness,
+premium  sql    │     ROUND(AVG(hr.body_soreness_rating), 1) AS avg_soreness,
+premium  sql    │     ROUND(AVG(hr.mood_rating), 1) AS avg_mood,
+premium  sql    │     ROUND(AVG(hr.energy_rating), 1) AS avg_energy
+premium  sql    │   FROM days d
+premium  sql    │   JOIN athletes a ON a.id = d.athlete_id
+premium  sql    │   JOIN health_ratings hr ON hr.day_id = d.id
+premium  sql    │   WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │     AND d.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │   GROUP BY d.athlete_id
+premium  sql    │ ),
+premium  sql    │ sleep_agg AS (
+premium  sql    │   SELECT 
+premium  sql    │     d.athlete_id,
+premium  sql    │     COUNT(DISTINCT d.date_of_day) AS n_sleep,
+premium  sql    │     ROUND(AVG(s.quality_rating), 1) AS avg_sleep_quality
+premium  sql    │   FROM days d
+premium  sql    │   JOIN athletes a ON a.id = d.athlete_id
+premium  sql    │   JOIN slee
+premium  sql    │ … (770 more chars)
+premium  tool    │  ERR  │  0.001s  │  query_database  │  Blocked: free SQL on metric/biomarker values needs unit (COALESCE club period unit / pm.unit, or MAX(sam.unit)) or CASE WHEN pm.name= pivot. Prefer macro fetch_
+premium  sql     │  ERR  │  0s  │  query_database  │  rows=0
+premium  sql     │  Blocked: free SQL on metric/biomarker values needs unit (COALESCE club period unit / pm.unit, or MAX(sam.unit)) or CASE WHEN pm.name= pivot. Prefer macro fetch_gps_intensity_daily — do not multi-JOIN period_metric_values.
+premium  sql    │ SELECT 
+premium  sql    │   TRIM(a.first_name) || ' ' || TRIM(a.last_name) AS joueur,
+premium  sql    │   d.date_of_day,
+premium  sql    │   ROUND(CAST(pmv_dist.value AS DECIMAL), 0) AS distance,
+premium  sql    │   ROUND(CAST(pmv_hsr.value AS DECIMAL), 0) AS hsr,
+premium  sql    │   hr.body_soreness_rating,
+premium  sql    │   hr.mood_rating,
+premium  sql    │   hr.energy_rating,
+premium  sql    │   s.quality_rating
+premium  sql    │ FROM days d
+premium  sql    │ JOIN athletes a ON a.id = d.athlete_id
+premium  sql    │ LEFT JOIN sport_activities sa ON sa.day_id = d.id
+premium  sql    │ LEFT JOIN periods p ON p.sport_activity_id = sa.id
+premium  sql    │   AND (
+premium  sql    │     p.name ILIKE '%entire session%'
+premium  sql    │     OR NOT EXISTS (
+premium  sql    │       SELECT 1 FROM periods p2
+premium  sql    │       WHERE p2.sport_activity_id = p.sport_activity_id AND p2.name ILIKE '%entire session%'
+premium  sql    │     )
+premium  sql    │   )
+premium  sql    │ LEFT JOIN period_metric_values pmv_dist ON pmv_dist.period_id = p.id
+premium  sql    │ LEFT JOIN period_metrics pm_dist ON pm_dist.id = pmv_dist.metric_id AND pm_dist.name = 'kpi_distanceTotal'
+premium  sql    │ LEFT JOIN period_metric_values pmv_hsr ON pmv_hsr.period_id = p.id
+premium  sql    │ LEFT JOIN period_metrics pm_hsr ON pm_hsr.id = pmv_hsr.metric_id AND pm_hsr.name = 'kpi_highSpeedRunningAbs'
+premium  sql    │ LEFT JOIN health_ratings hr ON hr.day_id = d.id
+premium  sql    │ LEFT JOIN sleeps s ON s.day_id = d.id
+premium  sql    │ WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │   AND d.date_of_day BETWEEN '2026-09-29' AND '2026-10-05'
+premium  sql    │   AND (pmv_dist.value IS NOT NULL OR hr.body_soreness_rating IS NOT NULL)
+premium  sql    │ ORDER BY d.date_of_day, joueur
+premium  tool    │  ERR  │  0s  │  query_database  │  Blocked: free SQL on metric/biomarker values needs unit (COALESCE club period unit / pm.unit, or MAX(sam.unit)) or CASE WHEN pm.name= pivot. Prefer macro fetch_
+premium  tool    │  ok  │  0s  │  set_report_meta
+full-staff  iter 01  │  tool_use  │  18.969s  │  $0.056  │  tok in=19 out=1.9k cacheR=18k  │  cum $0.056
+full-staff  action  │  tools: query_database, query_database, set_report_meta
+full-staff    └ tool  │  ERR  │  query_database  │  0.001s  │  Blocked: free SQL on metric/biomarker values needs unit (COALESCE club period unit / pm.unit, or MAX(sam.unit)) or CASE WHEN pm.name= pivot. Prefer macro fetch_
+full-staff    └ tool  │  ERR  │  query_database  │  0.000s  │  Blocked: free SQL on metric/biomarker values needs unit (COALESCE club period unit / pm.unit, or MAX(sam.unit)) or CASE WHEN pm.name= pivot. Prefer macro fetch_
+full-staff    └ tool  │  ok  │  set_report_meta  │  0.000s
+full-staff    └ cost  │  this prompt $0.056  │  total so far $0.056  │  iter time 18.969s
+premium  iter 02  │  tool_use  │  6.265s  │  4 tool(s)  │  in=2.2k out=436 cacheR=17k cacheW=6.0k  │  $0.041  │  cum $0.097
+premium  tool    │  ok  │  0.001s  │  transform_columns  │  scale
+premium  tool    │  ok  │  0s  │  filter_dataset
+premium  tool    │  ok  │  0s  │  filter_dataset
+premium  tool    │  ok  │  0.001s  │  add_heading
+full-staff  iter 02  │  tool_use  │  6.268s  │  $0.041  │  tok in=2.2k out=436 cacheR=17k  │  cum $0.097
+full-staff  action  │  tools: transform_columns, filter_dataset, filter_dataset, add_heading
+full-staff    └ tool  │  ok  │  transform_columns  │  0.001s  │  scale
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ tool  │  ok  │  add_heading  │  0.001s
+full-staff    └ cost  │  this prompt $0.041  │  total so far $0.097  │  iter time 6.268s
+premium  iter 03  │  tool_use  │  8.516s  │  6 tool(s)  │  in=8.3k out=728 cacheR=23k  │  $0.043  │  cum $0.139
+premium  tool    │  ok  │  0.001s  │  transform_columns  │  add
+premium  tool    │  ERR  │  0s  │  transform_columns  │  mul  leftColumn and rightColumn required for op
+premium  tool    │  ERR  │  0.001s  │  add_chart  │  ds_22  scatter needs two numeric columns
+premium  tool    │  ok  │  0.002s  │  add_chart  │  ds_22
+premium  tool    │  ok  │  0.001s  │  add_chart  │  ds_22
+premium  tool    │  ok  │  0.001s  │  add_chart  │  ds_22
+full-staff  iter 03  │  tool_use  │  8.522s  │  $0.043  │  tok in=8.3k out=728 cacheR=23k  │  cum $0.139
+full-staff  action  │  tools: transform_columns, transform_columns, add_chart, add_chart, add_chart, add_chart
+full-staff    └ tool  │  ok  │  transform_columns  │  0.001s  │  add
+full-staff    └ tool  │  ERR  │  transform_columns  │  0.000s  │  mul  leftColumn and rightColumn required for op
+full-staff    └ tool  │  ERR  │  add_chart  │  0.001s  │  ds_22  scatter needs two numeric columns
+full-staff    └ tool  │  ok  │  add_chart  │  0.002s  │  ds_22
+full-staff    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_22
+full-staff    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_22
+full-staff    └ cost  │  this prompt $0.043  │  total so far $0.139  │  iter time 8.522s
+premium  iter 04  │  tool_use  │  7.052s  │  4 tool(s)  │  in=11k out=518 cacheR=23k  │  $0.049  │  cum $0.188
+premium  tool    │  ok  │  0s  │  transform_columns  │  div
+premium  tool    │  ok  │  0.005s  │  add_chart  │  ds_26
+premium  tool    │  ok  │  0s  │  add_text
+premium  tool    │  ok  │  0.002s  │  add_table  │  ds_22
+full-staff  iter 04  │  tool_use  │  7.060s  │  $0.049  │  tok in=11k out=518 cacheR=23k  │  cum $0.188
+full-staff  action  │  tools: transform_columns, add_chart, add_text, add_table
+full-staff    └ tool  │  ok  │  transform_columns  │  0.000s  │  div
+full-staff    └ tool  │  ok  │  add_chart  │  0.005s  │  ds_26
+full-staff    └ tool  │  ok  │  add_text  │  0.000s
+full-staff    └ tool  │  ok  │  add_table  │  0.002s  │  ds_22
+full-staff    └ cost  │  this prompt $0.049  │  total so far $0.188  │  iter time 7.060s
+premium  iter 05  │  tool_use  │  7.474s  │  5 tool(s)  │  in=14k out=481 cacheR=23k  │  $0.056  │  cum $0.244
+premium  tool    │  ok  │  0s  │  filter_dataset
+premium  tool    │  ok  │  0s  │  add_heading
+premium  tool    │  ok  │  0.001s  │  add_chart  │  ds_27
+premium  tool    │  ok  │  0.001s  │  add_chart  │  ds_27
+premium  tool    │  ok  │  0s  │  add_text
+full-staff  iter 05  │  tool_use  │  7.477s  │  $0.056  │  tok in=14k out=481 cacheR=23k  │  cum $0.244
+full-staff  action  │  tools: filter_dataset, add_heading, add_chart, add_chart, add_text
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ tool  │  ok  │  add_heading  │  0.000s
+full-staff    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_27
+full-staff    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_27
+full-staff    └ tool  │  ok  │  add_text  │  0.000s
+full-staff    └ cost  │  this prompt $0.056  │  total so far $0.244  │  iter time 7.477s
+premium  iter 06  │  tool_use  │  7.656s  │  5 tool(s)  │  in=15k out=573 cacheR=23k  │  $0.062  │  cum $0.306
+premium  tool    │  ok  │  0s  │  filter_dataset
+premium  tool    │  ok  │  0s  │  filter_dataset
+premium  tool    │  ERR  │  0.002s  │  update_block  │  bar needs a numeric value column
+premium  tool    │  ERR  │  0s  │  update_block  │  bar needs a numeric value column
+premium  tool    │  ok  │  0s  │  update_block
+full-staff  iter 06  │  tool_use  │  7.659s  │  $0.062  │  tok in=15k out=573 cacheR=23k  │  cum $0.306
+full-staff  action  │  tools: filter_dataset, filter_dataset, update_block, update_block, update_block
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ tool  │  ERR  │  update_block  │  0.002s  │  bar needs a numeric value column
+full-staff    └ tool  │  ERR  │  update_block  │  0.000s  │  bar needs a numeric value column
+full-staff    └ tool  │  ok  │  update_block  │  0.000s
+full-staff    └ cost  │  this prompt $0.062  │  total so far $0.306  │  iter time 7.659s
+premium  iter 07  │  tool_use  │  4.301s  │  3 tool(s)  │  in=16k out=331 cacheR=23k  │  $0.061  │  cum $0.367
+premium  tool    │  ok  │  0s  │  filter_dataset
+premium  tool    │  ok  │  0.001s  │  update_block
+premium  tool    │  ok  │  0.003s  │  update_block
+full-staff  iter 07  │  tool_use  │  4.306s  │  $0.061  │  tok in=16k out=331 cacheR=23k  │  cum $0.367
+full-staff  action  │  tools: filter_dataset, update_block, update_block
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ tool  │  ok  │  update_block  │  0.001s
+full-staff    └ tool  │  ok  │  update_block  │  0.003s
+full-staff    └ cost  │  this prompt $0.061  │  total so far $0.367  │  iter time 4.306s
+premium  iter 08  │  tool_use  │  6.787s  │  4 tool(s)  │  in=17k out=399 cacheR=23k  │  $0.065  │  cum $0.432
+premium  tool    │  ok  │  0s  │  join_datasets
+premium  tool    │  ok  │  0.001s  │  add_heading
+premium  tool    │  ok  │  0.001s  │  add_table  │  ds_31
+premium  tool    │  ok  │  0s  │  add_text
+full-staff  iter 08  │  tool_use  │  6.789s  │  $0.065  │  tok in=17k out=399 cacheR=23k  │  cum $0.432
+full-staff  action  │  tools: join_datasets, add_heading, add_table, add_text
+full-staff    └ tool  │  ok  │  join_datasets  │  0.000s
+full-staff    └ tool  │  ok  │  add_heading  │  0.001s
+full-staff    └ tool  │  ok  │  add_table  │  0.001s  │  ds_31
+full-staff    └ tool  │  ok  │  add_text  │  0.000s
+full-staff    └ cost  │  this prompt $0.065  │  total so far $0.432  │  iter time 6.789s
+premium  iter 09  │  tool_use  │  7.542s  │  4 tool(s)  │  in=20k out=593 cacheR=23k  │  $0.077  │  cum $0.509
+premium  tool    │  ok  │  0.004s  │  correlate  │  pair
+premium  tool    │  ok  │  0s  │  correlate  │  pair
+premium  tool    │  ok  │  0s  │  correlate  │  pair
+premium  tool    │  ok  │  0.001s  │  add_text
+full-staff  iter 09  │  tool_use  │  7.547s  │  $0.077  │  tok in=20k out=593 cacheR=23k  │  cum $0.509
+full-staff  action  │  tools: correlate, correlate, correlate, add_text
+full-staff    └ tool  │  ok  │  correlate  │  0.004s  │  pair
+full-staff    └ tool  │  ok  │  correlate  │  0.000s  │  pair
+full-staff    └ tool  │  ok  │  correlate  │  0.000s  │  pair
+full-staff    └ tool  │  ok  │  add_text  │  0.001s
+full-staff    └ cost  │  this prompt $0.077  │  total so far $0.509  │  iter time 7.547s
+premium  iter 10  │  end_turn  │  7.603s  │  in=21k out=8 cacheW=6.6k  │  $0.089  │  cum $0.598
+full-staff  iter 10  │  end_turn  │  7.606s  │  $0.089  │  tok in=21k out=8  │  cum $0.598
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.089  │  total so far $0.598  │  iter time 7.606s
+[01:17:06.850] WARN (95173): full_staff.insight_ir_synthesized
+    headings: 3
+[01:17:06.850] INFO (95173): full_staff.analyst_done
+    blocks: 15
+    charts: 6
+    tables: 2
+    insight: true
+    iterations: 10
+    macrosSkipped: true
+    shortWindow: true
+premium  iter 01  │  tool_use  │  1.791s  │  1 tool(s)  │  in=19 out=57 cacheW=4.7k  │  $0.019  │  cum $0.019
+premium  tool    │  ok  │  0.022s  │  build_artifact_html
+full-staff  iter 01  │  tool_use  │  1.813s  │  $0.019  │  tok in=19 out=57  │  cum $0.019
+full-staff  action  │  tools: build_artifact_html
+full-staff    └ tool  │  ok  │  build_artifact_html  │  0.022s
+full-staff    └ cost  │  this prompt $0.019  │  total so far $0.019  │  iter time 1.813s
+premium  iter 02  │  end_turn  │  4.239s  │  in=109 out=191 cacheW=4.7k  │  $0.021  │  cum $0.039
+full-staff  iter 02  │  end_turn  │  4.239s  │  $0.021  │  tok in=109 out=191  │  cum $0.039
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.021  │  total so far $0.039  │  iter time 4.239s
+[01:17:12.902] INFO (95173): full_staff.designer_done
+    htmlBytes: 50522
+    iterations: 2
+full-staff  pdf  │  2.282s  │  load-vs-readiness-divergence-week-29-sep-5-oct-2026-09-29_2026-10-05.pdf  │  1050 KB
+────────────────────────────────────────────────────────────
+full-staff  TOTAL  │  19 iteration(s)  │  122.466s  │  $0.951
+full-staff  tokens  │  in=199k  │  out=7.7k  │  cacheR=296k  │  cacheW=40k  │  all=207k
+full-staff  per-iter time  │  #1=4.95s  │  #2=7.40s  │  #3=4.20s  │  #4=2.27s  │  #5=2.84s  │  #6=4.10s  │  #7=5.42s  │  #8=18.97s  │  #9=6.27s  │  #10=8.52s  │  #11=7.06s  │  #12=7.48s  │  #13=7.66s  │  #14=4.31s  │  #15=6.79s  │  #16=7.55s  │  #17=7.61s  │  #18=1.81s  │  #19=4.24s
+full-staff  per-iter $  │  #1=$0.026  │  #2=$0.045  │  #3=$0.033  │  #4=$0.038  │  #5=$0.044  │  #6=$0.053  │  #7=$0.074  │  #8=$0.056  │  #9=$0.041  │  #10=$0.043  │  #11=$0.049  │  #12=$0.056  │  #13=$0.062  │  #14=$0.061  │  #15=$0.065  │  #16=$0.077  │  #17=$0.089  │  #18=$0.019  │  #19=$0.021
+full-staff  canvas  │  blocks=15  │  charts=6  │  load-vs-readiness-divergence-week-29-sep-5-oct-2026-09-29_2026-10-05.pdf
+════════════════════════════════════════════════════════════
+
+[ info ] en-hop-gps-wellness-team-7d         7d  20/20  DI=5 DS=5 SC=5 HE=5  122s  $0.95  charts=6  PASS
+[ info ] 
+[ info ] === SCOREBOARD ===
+[ info ] fr-coach-wellness-dip-week          7d  17/20  DI=4 DS=3 SC=5 HE=5  175s  $0.98  charts=0  PASS
+[ info ] en-ss-sleep-vs-gps-week             7d  20/20  DI=5 DS=5 SC=5 HE=5  147s  $1.10  charts=3  PASS
+[ info ] en-hop-gps-wellness-team-7d         7d  20/20  DI=5 DS=5 SC=5 HE=5  122s  $0.95  charts=6  PASS
+[ info ] Wrote /Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/results.json
+[ info ] Pass 3/3

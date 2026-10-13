@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hambourg Performance Monitoring – May 2026</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 9mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+      --ok-soft: rgba(52,211,153,.16);
+      --ok: #065f46;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12.5px;
+    }
+    .page.cover, .page.toc-page {
+      width: 192mm;
+      min-height: 279mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 192mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 4mm;
+    }
+    .report-flow { padding-bottom: 4mm; }
+    .section-block {
+      margin: 0 0 8px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(120px, 30%) 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 0 0 10px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 0 0 10px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 170px; }
+    .cover-panel {
+      min-height: 279mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 16mm 14mm 12mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .04; font-size: 88px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 11px; font-weight: 700; letter-spacing: .28em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 12px; color: #a5b4fc; font-weight: 600; font-size: 12px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 24px 0 0; max-width: 168mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .01em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 8px; max-width: 150mm;
+      color: #94a3b8; font-size: 12px; line-height: 1.4; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 16px; align-self: flex-start;
+      background: rgba(116,192,252,.12); border: 1px solid rgba(116,192,252,.35);
+      color: #dbeafe; font-weight: 600; padding: 8px 14px; border-radius: 999px; font-size: 11px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 22px; display: grid; gap: 6px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.38); border: 1px solid rgba(165,180,252,.18);
+      border-radius: 8px; padding: 8px 10px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 20px; height: 20px; border-radius: 5px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.5); color: #eef2ff;
+      font-size: 9px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 11px; line-height: 1.35; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 16px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; font-size: 10px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 8px; padding: 11px 14px; margin-bottom: 10px;
+      break-after: avoid; page-break-after: avoid;
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .section-block > .band + .section-intro,
+    .section-block > .band + .section-body {
+      break-before: avoid;
+      page-break-before: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .05em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 10px; font-weight: 600; letter-spacing: .03em; }
+    .toc-title { color: var(--ink); font-size: 16px; font-weight: 700; margin: 0 0 8px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 5px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 6px; padding: 8px 10px; color: var(--ink); font-weight: 600; font-size: 12px;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 10px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12px; line-height: 1.45; margin: 0 0 8px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 6px; }
+    .prose-block ul { margin: 0 0 6px; padding-left: 16px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px;
+      margin: 0 0 10px;
+      overflow: visible;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    /* Tall data tables must paginate — avoid clipping mid-card. */
+    .card:has(table.report-table) {
+      break-inside: auto;
+      page-break-inside: auto;
+      overflow: visible;
+    }
+    .chart-card.chart-wide {
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 6px; color: var(--ink); font-size: 10.5px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 250px; max-height: 250px; }
+    .chart-box.radar { height: 280px; max-height: 280px; }
+    .chart-box.tall { height: 290px; max-height: 290px; }
+    .chart-box.wide { height: 300px; max-height: 300px; }
+    .chart-box.bar-rank { height: 310px; max-height: 310px; }
+    .chart-box.compact { height: 170px; max-height: 170px; }
+    .split-row .chart-box.bar-rank { height: 230px; max-height: 230px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 5px 10px; margin-top: 6px;
+      font-size: 9.5px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+      letter-spacing: .02em;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: var(--ok-soft) !important; color: var(--ok); font-weight: 600; }
+    .legend { margin: 0 0 8px; font-size: 9.5px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 10px; }
+    .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 3px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 10px; }
+    .chip {
+      border-radius: 999px; padding: 3px 8px; font-size: 9px; font-weight: 700;
+      letter-spacing: .04em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.5); border: 1px solid rgba(165,180,252,.3);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 10px;
+      padding: 10px 12px; border-radius: 8px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner .avatar-wrap {
+      position: relative; width: 56px; height: 56px; flex: 0 0 56px;
+    }
+    .athlete-banner img {
+      width: 56px; height: 56px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 56px; height: 56px; border-radius: 50%;
+      display: none; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner.no-photo img { display: none; }
+    .athlete-banner.no-photo .avatar-fallback { display: grid; }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 10px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 15px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 9px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--line);
+    }
+    .note { display: none; }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12px; line-height: 1.45; margin: 0 0 10px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 10px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 8px;
+      padding: 10px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .05em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 16px; color: var(--ink-soft); font-size: 11.5px; line-height: 1.4; }
+    .staff-read-panel li { margin: 0 0 5px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: start;
+      padding: 7px 8px; border-radius: 6px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 8.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      border-radius: 999px; padding: 3px 7px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11px; line-height: 1.35; color: var(--ink-soft); }
+    .signal-meta { font-size: 9.5px; color: var(--muted); margin-top: 3px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 5px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 7px 8px; border-radius: 6px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 9.5px; text-transform: uppercase; letter-spacing: .04em;
+    }
+    @media print {
+      .section-block, .section-body, .report-flow { break-inside: auto; page-break-inside: auto; }
+      .chart-card, .split-row > *, .athlete-banner, .band {
+        break-inside: avoid; page-break-inside: avoid;
+      }
+      .card:not(:has(table.report-table)) {
+        break-inside: avoid; page-break-inside: avoid;
+      }
+      .card:has(table.report-table) {
+        break-inside: auto; page-break-inside: auto;
+      }
+      table.report-table { break-inside: auto; page-break-inside: auto; }
+      table.report-table thead { display: table-header-group; }
+      table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: auto; page-break-before: auto; }
+      .section-block > .band + .section-body,
+      .section-block > .band + .section-intro {
+        break-before: avoid; page-break-before: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2025-2026</div>
+      <h1 class="cover-title">Hambourg Performance Monitoring – May 2026</h1>
+      <p class="cover-sub">Staff brief · club data</p>
+      <div class="date-pill">Sun, 31/05/26 · 2026-05-01 → 2026-05-31</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">High GPS volume (31.4 km, 4.8 km HMLD) with highest squad soreness (37.3) and below-average…</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">Squad volume leader: 33.2 km distance, 5.1 km HMLD, 1.8 km HSR over 8 sessions. Wellness…</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">Lowest sleep efficiency (70.8%) and quality (35.3) in squad. Elevated soreness (34.3), low…</span></div><div class="signal-item"><span class="signal-index">04</span><span class="signal-text">Highest HSR volume (2.1 km) across 9 sessions. Mean 237 m HSR per session, 52 accelerations…</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Hambourg Performance Monitoring – May 2026</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Staff read</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Squad Overview – May 2026</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · Wellness &amp; Sleep Patterns</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Load &amp; Intensity Trends</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Bakery Jatta</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Daniel Elfadli</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>08 · Bilal Yalçınkaya</span><span class="hint">§6</span></a></li><li><a href="#section-7"><span>09 · Data Coverage</span><span class="hint">§7</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Staff read</h1>
+    <div class="meta">2026-05-01 → 2026-05-31</div>
+  </div>
+  <p class="staff-read-lead">Squad GPS volume, wellness patterns, and sleep quality across 26 players during May 2026 training block</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Signals</h3><ul class="signal-roster"><li><span class="signal-badge watch">Watch</span><div><div class="signal-body">High GPS volume (31.4 km, 4.8 km HMLD) with highest squad soreness (37.3) and below-average sleep efficiency (76.5%). Peak load May 7 coincided with soreness spike to 44 on May 8.</div><div class="signal-meta">Bakery Jatta · gps · wellness · sleep</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Squad volume leader: 33.2 km distance, 5.1 km HMLD, 1.8 km HSR over 8 sessions. Wellness stable (soreness 29.1, sleep efficiency 79.8%) despite sustained high load.</div><div class="signal-meta">Daniel Elfadli · gps · wellness</div></div></li><li><span class="signal-badge review">Review</span><div><div class="signal-body">Lowest sleep efficiency (70.8%) and quality (35.3) in squad. Elevated soreness (34.3), low mood (28.0). No GPS data in May. Sleep pattern warrants review.</div><div class="signal-meta">Bilal Yalçınkaya · wellness · sleep</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Highest HSR volume (2.1 km) across 9 sessions. Mean 237 m HSR per session, 52 accelerations on May 1. Sustained high-intensity exposure.</div><div class="signal-meta">Giorgi Gocholeishvili · gps</div></div></li></ul></div></div>
+  <div class="staff-read-panel"><h3>Canvas sections</h3><ul class="staff-section-index"><li><span>Squad Overview – May 2026</span><span class="kind">Team</span></li><li><span>Wellness &amp; Sleep Patterns</span><span class="kind">Team</span></li><li><span>Load &amp; Intensity Trends</span><span class="kind">Team</span></li><li><span>Cross-Domain Signals</span><span class="kind">Team</span></li><li><span>Individual Profiles</span><span class="kind">Team</span></li><li><span>Data Coverage</span><span class="kind">Team</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Squad Overview – May 2026</h1>
+    <div class="meta">2026-05-01 → 2026-05-31</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Total Distance – Top 12 Players (May 2026)</h3>
+  <div id="chart_1" class="chart-box bar-rank"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>High Metabolic Load Distance – Top 12 (May 2026)</h3>
+  <div id="chart_2" class="chart-box bar-rank"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Body Soreness – Highest Averages (May 2026)</h3>
+  <div id="chart_3" class="chart-box bar-rank"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Daniel Elfadli led total distance (33.2 km) and HMLD (5.1 km) over 8 sessions. Giorgi Gocholeishvili recorded the highest HSR volume (2.1 km) across 9 sessions. Bakery Jatta averaged 37.3 body soreness (scale 10–60), highest in the squad.</li></ul></div>
+<div class="card"><h3>Squad GPS Summary – May 2026</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (sum)</th><th>HMLD (sum)</th><th>High speed running (absolute) (sum)</th><th>Sprint distance (sum)</th><th>Sprints (sum)</th></tr></thead><tbody><tr><td class="">Nicolai Remberg</td><td class="">8</td><td class="">30.2</td><td class="">4.58</td><td class="">1.54</td><td class="">379</td><td class="">19</td></tr><tr><td class="">Bakery Jatta</td><td class="">8</td><td class="">31.43</td><td class="">4.76</td><td class="">1.78</td><td class="">572</td><td class="">23</td></tr><tr><td class="">Albert Grønbæk</td><td class="">8</td><td class="">32.76</td><td class="">4.97</td><td class="">1.47</td><td class="">300</td><td class="">18</td></tr><tr><td class="">Rayan Philippe</td><td class="">8</td><td class="">30.64</td><td class="">4.47</td><td class="">1.47</td><td class="">433</td><td class="">20</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">6</td><td class="">22.45</td><td class="">3.15</td><td class="">1.24</td><td class="">378</td><td class="">20</td></tr><tr><td class="">Daniel Elfadli</td><td class="">8</td><td class="">33.23</td><td class="">5.14</td><td class="">1.77</td><td class="">507</td><td class="">25</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">9</td><td class="">30.04</td><td class="">5.16</td><td class="">2.14</td><td class="">506</td><td class="">28</td></tr><tr><td class="">Warmed Omari</td><td class="">8</td><td class="">28.22</td><td class="">4.29</td><td class="">1.42</td><td class="">279</td><td class="">13</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">5</td><td class="">18.33</td><td class="">3.16</td><td class="">1.08</td><td class="">306</td><td class="">13</td></tr><tr><td class="">Luka Vušković</td><td class="">9</td><td class="">34.45</td><td class="">4.94</td><td class="">1.52</td><td class="">348</td><td class="">15</td></tr><tr><td class="">Fabio Baldé</td><td class="">8</td><td class="">30.42</td><td class="">4.19</td><td class="">1.2</td><td class="">422</td><td class="">16</td></tr><tr><td class="">Damion Downs</td><td class="">9</td><td class="">32.43</td><td class="">4.06</td><td class="">1.37</td><td class="">371</td><td class="">20</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">8</td><td class="">29.22</td><td class="">4.51</td><td class="">1.43</td><td class="">460</td><td class="">18</td></tr><tr><td class="">Otto Stange</td><td class="">5</td><td class="">22.29</td><td class="">3.42</td><td class="">1.14</td><td class="">424</td><td class="">19</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">7</td><td class="">23.05</td><td class="">3.11</td><td class="">1.08</td><td class="">435</td><td class="">16</td></tr><tr><td class="">Fábio Vieira</td><td class="">5</td><td class="">17.9</td><td class="">2.62</td><td class="">788</td><td class="">119</td><td class="">5</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">7</td><td class="">24.99</td><td class="">3.61</td><td class="">841</td><td class="">83</td><td class="">3</td></tr><tr><td class="">Noah Katterbach</td><td class="">8</td><td class="">31.15</td><td class="">4.67</td><td class="">1.47</td><td class="">434</td><td class="">17</td></tr><tr><td class="">Robert Glatzel</td><td class="">5</td><td class="">17.78</td><td class="">2.05</td><td class="">603</td><td class="">54</td><td class="">2</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">8</td><td class="">21.43</td><td class="">2.33</td><td class="">897</td><td class="">95</td><td class="">6</td></tr><tr><td class="">William Mikelbrencis</td><td class="">10</td><td class="">31.83</td><td class="">4.96</td><td class="">2.01</td><td class="">510</td><td class="">24</td></tr><tr><td class="">Miro Muheim</td><td class="">10</td><td class="">33.43</td><td class="">4.54</td><td class="">1.86</td><td class="">474</td><td class="">15</td></tr><tr><td class="">Philip Otele</td><td class="">5</td><td class="">19.23</td><td class="">3</td><td class="">1.1</td><td class="">325</td><td class="">15</td></tr></tbody></table></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>Wellness &amp; Sleep Patterns</h1>
+    <div class="meta">2026-05-01 → 2026-05-31</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><ul><li>Bilal Yalçınkaya reported the lowest sleep efficiency (70.8%) and quality (35.8). Bakery Jatta combined high body soreness (37.3) with below-average sleep efficiency (76.5%). Jean-Luc Dompé showed low mood (20.1) alongside elevated soreness (29.7).</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Load &amp; Intensity Trends</h1>
+    <div class="meta">2026-05-01 → 2026-05-31</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Daniel Elfadli – Daily Distance &amp; HMLD</h3>
+  <div id="chart_4" class="chart-box tall"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Distance total (m)</span><span><i style="background:#34D399"></i>HMLD (m)</span></div>
+</div>
+<div class="chart-card">
+  <h3>Bakery Jatta – Daily HSR &amp; Sprint Distance</h3>
+  <div id="chart_5" class="chart-box tall"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>High speed running (…</span><span><i style="background:#34D399"></i>Sprint distance (m)</span></div>
+</div>
+<div class="chart-card chart-wide">
+  <h3>Giorgi Gocholeishvili – Daily HSR &amp; Accelerations</h3>
+  <div id="chart_6" class="chart-box wide"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Bakery Jatta</span><span><i style="background:#34D399"></i>Daniel Elfadli</span><span><i style="background:#FBBF24"></i>Albert Grønbæk</span><span><i style="background:#A78BFA"></i>Damion Downs</span></div>
+</div>
+<div class="prose-block"><ul><li>Elfadli peaked at 5.6 km distance on May 7 with 1.1 km HMLD. Jatta recorded 435 m HSR and 142 m sprint distance on May 1. Gocholeishvili sustained high HSR across 9 sessions (mean 237 m), with 52 accelerations on May 1.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Bakery Jatta</h1>
+    <div class="meta">2026-05-01 → 2026-05-31</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3d2aa33-5992-4cf5-a047-8e6b6482e55d.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T075811Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=4d23bd12bf166f7db5ab392120bf16a349fba9195b88140d1031fc6eb874cbbe&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">BJ</div></div><div><div class="name">Bakery Jatta</div><div class="meta">WINGER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Bakery Jatta – Daily Metrics (May 2026)</h3><table class="report-table"><thead><tr><th>Date</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">2026-05-01</td><td class="">35</td><td class="">28</td><td class="">36</td></tr><tr><td class="">2026-05-02</td><td class="">32</td><td class="">28</td><td class="">37</td></tr><tr><td class="">2026-05-04</td><td class="">34</td><td class="">28</td><td class="">37</td></tr><tr><td class="">2026-05-05</td><td class="">38</td><td class="">28</td><td class="">35</td></tr><tr><td class="">2026-05-06</td><td class="">33</td><td class="">28</td><td class="">36</td></tr><tr><td class="">2026-05-07</td><td class="">34</td><td class="">28</td><td class="">36</td></tr><tr><td class="">2026-05-09</td><td class="">34</td><td class="">28</td><td class="">34</td></tr><tr><td class="">2026-05-10</td><td class="">35</td><td class="">28</td><td class="">35</td></tr><tr><td class="">2026-05-11</td><td class="">34</td><td class="">28</td><td class="">34</td></tr><tr><td class="">2026-05-13</td><td class="">32</td><td class="">28</td><td class="">34</td></tr><tr><td class="">2026-05-14</td><td class="">35</td><td class="">28</td><td class="">35</td></tr><tr><td class="">2026-05-15</td><td class="">36</td><td class="">28</td><td class="">34</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Jatta accumulated 31.4 km total distance and 4.8 km HMLD across 8 sessions. Highest body soreness in squad (mean 37.3, scale 10–60). Sleep efficiency below squad average (76.5% vs ~80%). Peak load on May 7 (5.1 km distance, 993 m HMLD) coincided with soreness spike to 44 on May 8.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5">
+  <div class="band">
+    <h1>Daniel Elfadli</h1>
+    <div class="meta">2026-05-01 → 2026-05-31</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/e538135c-2020-4576-bfa1-428b26b17b69.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T075811Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=e977918cdd26066e0d9bd3a7f9a5939010ac3d7309745edbf217710afd16ab15&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">DE</div></div><div><div class="name">Daniel Elfadli</div><div class="meta">DEFENSIVE MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Daniel Elfadli – Daily Metrics (May 2026)</h3><table class="report-table"><thead><tr><th>Date</th><th>Distance total (m)</th><th>HMLD (m)</th><th>High speed running (absolute)</th><th>Sprints (count)</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">2026-05-01</td><td class="">3.93</td><td class="">666</td><td class="">297</td><td class="">6</td><td class="">29</td><td class="">28</td><td class="">28</td></tr><tr><td class="">2026-05-06</td><td class="">4.46</td><td class="">635</td><td class="">124</td><td class="">1</td><td class="">29</td><td class="">30</td><td class="">33</td></tr><tr><td class="">2026-05-07</td><td class="">5.56</td><td class="">1.08</td><td class="">444</td><td class="">8</td><td class="">32</td><td class="">31</td><td class="">32</td></tr><tr><td class="">2026-05-08</td><td class="">4.14</td><td class="">735</td><td class="">288</td><td class="">2</td><td class="">37</td><td class="">26</td><td class="">34</td></tr><tr><td class="">2026-05-09</td><td class="">4.61</td><td class="">619</td><td class="">212</td><td class="">3</td><td class="">30</td><td class="">29</td><td class="">31</td></tr><tr><td class="">2026-05-13</td><td class="">2.88</td><td class="">245</td><td class="">22</td><td class="">0</td><td class="">32</td><td class="">31</td><td class="">34</td></tr><tr><td class="">2026-05-14</td><td class="">4.35</td><td class="">633</td><td class="">178</td><td class="">3</td><td class="">30</td><td class="">27</td><td class="">29</td></tr><tr><td class="">2026-05-15</td><td class="">3.3</td><td class="">531</td><td class="">207</td><td class="">2</td><td class="">32</td><td class="">32</td><td class="">29</td></tr><tr><td class="">2026-05-02</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">22</td><td class="">22</td><td class="">28</td></tr><tr><td class="">2026-05-04</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">31</td><td class="">29</td><td class="">33</td></tr><tr><td class="">2026-05-05</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">18</td><td class="">30</td><td class="">29</td></tr><tr><td class="">2026-05-10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">28</td><td class="">27</td><td class="">26</td></tr><tr><td class="">2026-05-12</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">28</td><td class="">27</td><td class="">30</td></tr><tr><td class="">2026-05-16</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">29</td><td class="">26</td><td class="">28</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Elfadli led squad volume: 33.2 km distance, 5.1 km HMLD, 1.8 km HSR over 8 sessions. Peak session May 7 (5.6 km, 1.1 km HMLD, 8 sprints). Body soreness averaged 29.1, mood 28.2 (both mid-range). Sleep efficiency stable at 79.8%. Sustained high load without marked wellness degradation.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-6">
+  <div class="band">
+    <h1>Bilal Yalçınkaya</h1>
+    <div class="meta">2026-05-01 → 2026-05-31</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/16ac896c-2f2b-430b-b5e3-e968fa4f605b.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T075811Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=323219bc5b19fb70c4722d35b2d2ee5906c37b106326d0b81e797e1bc75863c5&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">BY</div></div><div><div class="name">Bilal Yalçınkaya</div><div class="meta">ATTACKING MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="chart-card">
+  <h3>Bilal Yalçınkaya – Sleep Quality Trend (May 2026)</h3>
+  <div id="chart_7" class="chart-box tall"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Yalçınkaya reported lowest sleep efficiency in squad (70.8%) and quality (35.3). Body soreness elevated (34.3), mood low (28.0). No GPS data in May window. Sleep pattern warrants review: efficiency dipped to 61% on May 10, quality to 20 on May 13.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-7">
+  <div class="band">
+    <h1>Data Coverage</h1>
+    <div class="meta">2026-05-01 → 2026-05-31</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Data Availability by Player (May 2026)</h3><table class="report-table"><thead><tr><th>Player</th><th>Days With Data</th><th>Days With Gps</th><th>Days With Wellness</th><th>Days With Sleep</th></tr></thead><tbody><tr><td class="">Albert Grønbæk</td><td class="">17</td><td class="">11</td><td class="">11</td><td class="">11</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">17</td><td class="">10</td><td class="">11</td><td class="">11</td></tr><tr><td class="">Bakery Jatta</td><td class="">17</td><td class="">11</td><td class="">11</td><td class="">11</td></tr><tr><td class="">Daniel Elfadli</td><td class="">17</td><td class="">11</td><td class="">14</td><td class="">14</td></tr><tr><td class="">Fabio Baldé</td><td class="">17</td><td class="">10</td><td class="">11</td><td class="">11</td></tr><tr><td class="">Fábio Vieira</td><td class="">17</td><td class="">8</td><td class="">8</td><td class="">8</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">17</td><td class="">11</td><td class="">16</td><td class="">16</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">17</td><td class="">9</td><td class="">10</td><td class="">10</td></tr><tr><td class="">Luka Vušković</td><td class="">17</td><td class="">12</td><td class="">14</td><td class="">14</td></tr><tr><td class="">Miro Muheim</td><td class="">17</td><td class="">11</td><td class="">11</td><td class="">11</td></tr><tr><td class="">Nicolai Remberg</td><td class="">17</td><td class="">11</td><td class="">11</td><td class="">11</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">17</td><td class="">8</td><td class="">7</td><td class="">7</td></tr><tr><td class="">Otto Stange</td><td class="">17</td><td class="">7</td><td class="">7</td><td class="">7</td></tr><tr><td class="">Rayan Philippe</td><td class="">17</td><td class="">10</td><td class="">10</td><td class="">10</td></tr><tr><td class="">Warmed Omari</td><td class="">17</td><td class="">11</td><td class="">11</td><td class="">11</td></tr><tr><td class="">William Mikelbrencis</td><td class="">17</td><td class="">11</td><td class="">12</td><td class="">12</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">17</td><td class="">11</td><td class="">11</td><td class="">11</td></tr><tr><td class="">Damion Downs</td><td class="">16</td><td class="">10</td><td class="">10</td><td class="">10</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">16</td><td class="">9</td><td class="">9</td><td class="">9</td></tr><tr><td class="">Noah Katterbach</td><td class="">16</td><td class="">8</td><td class="">10</td><td class="">10</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">16</td><td class="">8</td><td class="">12</td><td class="">12</td></tr><tr><td class="">Robert Glatzel</td><td class="">16</td><td class="">6</td><td class="">12</td><td class="">12</td></tr><tr><td class="">Omar Megeed</td><td class="">14</td><td class="">0</td><td class="">1</td><td class="">1</td></tr><tr><td class="">Bilal Yalçınkaya</td><td class="">12</td><td class="">0</td><td class="">12</td><td class="">12</td></tr><tr><td class="">Philip Otele</td><td class="">10</td><td class="">5</td><td class="">8</td><td class="">8</td></tr><tr><td class="">Davie Selke</td><td class="">1</td><td class="">0</td><td class="">0</td><td class="">0</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>26 players recorded data in May. GPS sessions ranged 6–11 per player. Wellness and sleep data collected on 8–16 days. No RPE data collected at this club. ACWR insufficient history (&lt;21 days chronic window). Coverage gaps on May 3–5 (rest days or off-site).</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-7</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Total Distance – Top 12 Players (May 2026)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Distance Km","type":"bar","encode":{"x":"Player","y":"Distance Km"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":27.119,"name":"Mean","label":{"formatter":"Mean 27.12","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","N","Total time (sum)","Total time (mean)","Total time (max)","Distance total (sum)","Distance total (mean)","Distance total (max)","HMLD (sum)","HMLD (mean)","HMLD (max)","Energy expenditure (sum)","Energy expenditure (mean)","Energy expenditure (max)","High speed running (absolute) (sum)","High speed running (absolute) (mean)","High speed running (absolute) (max)","Sprint distance (sum)","Sprint distance (mean)","Sprint distance (max)","Sprints (sum)","Sprints (mean)","Sprints (max)","Explosive distance (absolute) (sum)","Explosive distance (absolute) (mean)","Explosive distance (absolute) (max)","HIBS number (sum)","HIBS number (mean)","HIBS number (max)","Accelerations (relative) (sum)","Accelerations (relative) (mean)","Accelerations (relative) (max)","Decelerations (relative) (sum)","Decelerations (relative) (mean)","Decelerations (relative) (max)","DSL (sum)","DSL (mean)","DSL (max)","Distance Km"],["Damion Downs",9,42275,4697.222,9223,32429,3603.222,5563,4061,451.222,580,3479.6,386.622,600.3,1370,152.222,340,371,41.222,99,20,2.222,5,2691,299,463,20,2.222,4,382,42.444,86,210,23.333,39,551.5,61.278,85.8,32.429],["Luka Vušković",9,35044,3893.778,5232,34445,3827.222,4682,4941,549,846,3751.5,416.833,534,1522,169.111,313,348,38.667,87,15,1.667,6,3419,379.889,663,12,1.333,4,260,28.889,42,205,22.778,41,935.5,103.944,158.7,34.445],["Daniel Elfadli",8,33128,4141,5399,33226,4153.25,5558,5139,642.375,1075,3451.7,431.463,577.2,1772,221.5,444,507,63.375,163,25,3.125,8,3368,421,631,18,2.25,4,281,35.125,51,230,28.75,37,580.8,72.6,110.7,33.226],["Albert Grønbæk",8,33172,4146.5,5399,32760,4095,5401,4966,620.75,1087,3489.1,436.137,590.8,1470,183.75,354,300,37.5,92,18,2.25,4,3495,436.875,733,14,1.75,4,291,36.375,57,213,26.625,48,905.2,113.15,148.7,32.76],["Fabio Baldé",8,35414,4426.75,8205,30416,3802,5807,4193,524.125,756,3054.3,381.788,604.4,1202,150.25,313,422,52.75,157,16,2,6,2991,373.875,572,11,1.375,4,243,30.375,52,166,20.75,37,444,55.5,81.1,30.416],["Bakery Jatta",8,32736,4092,5399,31434,3929.25,5140,4763,595.375,993,3317.9,414.738,551.3,1780,222.5,435,572,71.5,142,23,2.875,7,2983,372.875,558,16,2,4,325,40.625,57,204,25.5,37,554.6,69.325,96.3,31.434],["Giorgi Gocholeishvili",9,35158,3906.444,5399,30041,3337.889,4378,5160,573.333,824,3095.4,343.933,459.5,2136,237.333,368,506,56.222,123,28,3.111,7,3025,336.111,485,18,2,4,343,38.111,52,285,31.667,47,508,56.444,74.6,30.041],["Rayan Philippe",8,33095,4136.875,5399,30636,3829.5,5394,4473,559.125,911,3176.7,397.088,560.8,1470,183.75,345,433,54.125,131,20,2.5,5,3002,375.25,566,12,1.5,2,244,30.5,40,192,24,34,466.1,58.263,89.5,30.636],["Noah Katterbach",8,31839,3979.875,5039,31148,3893.5,5360,4673,584.125,952,3101.5,387.688,543.7,1469,183.625,310,434,54.25,192,17,2.125,5,3204,400.5,711,4,0.5,2,226,28.25,42,173,21.625,43,450.3,56.287,96.8,31.148],["Nicolai Remberg",8,32455,4056.875,5177,30201,3775.125,4207,4579,572.375,871,3229.3,403.662,477.3,1540,192.5,375,379,47.375,113,19,2.375,6,3037,379.625,544,21,2.625,6,272,34,46,234,29.25,38,712.6,89.075,150.4,30.201],["Yussuf Poulsen",8,33172,4146.5,5399,29220,3652.5,4206,4507,563.375,670,3230.3,403.788,471.5,1425,178.125,313,460,57.5,157,18,2.25,6,3082,385.25,484,10,1.25,3,294,36.75,50,187,23.375,30,343.9,42.987,54.3,29.22],["Warmed Omari",8,32986,4123.25,5399,28215,3526.875,4863,4285,535.625,836,3020.5,377.563,526.2,1424,178,310,279,34.875,100,13,1.625,4,2862,357.75,574,10,1.25,4,259,32.375,50,232,29,48,777.6,97.2,154.2,28.215]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"High Metabolic Load Distance – Top 12 (May 2026)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Hmld Km","type":"bar","encode":{"x":"Player","y":"Hmld Km"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":3.959,"name":"Mean","label":{"formatter":"Mean 3.96","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","N","Total time (sum)","Total time (mean)","Total time (max)","Distance total (sum)","Distance total (mean)","Distance total (max)","HMLD (sum)","HMLD (mean)","HMLD (max)","Energy expenditure (sum)","Energy expenditure (mean)","Energy expenditure (max)","High speed running (absolute) (sum)","High speed running (absolute) (mean)","High speed running (absolute) (max)","Sprint distance (sum)","Sprint distance (mean)","Sprint distance (max)","Sprints (sum)","Sprints (mean)","Sprints (max)","Explosive distance (absolute) (sum)","Explosive distance (absolute) (mean)","Explosive distance (absolute) (max)","HIBS number (sum)","HIBS number (mean)","HIBS number (max)","Accelerations (relative) (sum)","Accelerations (relative) (mean)","Accelerations (relative) (max)","Decelerations (relative) (sum)","Decelerations (relative) (mean)","Decelerations (relative) (max)","DSL (sum)","DSL (mean)","DSL (max)","Hmld Km"],["Damion Downs",9,42275,4697.222,9223,32429,3603.222,5563,4061,451.222,580,3479.6,386.622,600.3,1370,152.222,340,371,41.222,99,20,2.222,5,2691,299,463,20,2.222,4,382,42.444,86,210,23.333,39,551.5,61.278,85.8,4.061],["Luka Vušković",9,35044,3893.778,5232,34445,3827.222,4682,4941,549,846,3751.5,416.833,534,1522,169.111,313,348,38.667,87,15,1.667,6,3419,379.889,663,12,1.333,4,260,28.889,42,205,22.778,41,935.5,103.944,158.7,4.941],["Daniel Elfadli",8,33128,4141,5399,33226,4153.25,5558,5139,642.375,1075,3451.7,431.463,577.2,1772,221.5,444,507,63.375,163,25,3.125,8,3368,421,631,18,2.25,4,281,35.125,51,230,28.75,37,580.8,72.6,110.7,5.139],["Albert Grønbæk",8,33172,4146.5,5399,32760,4095,5401,4966,620.75,1087,3489.1,436.137,590.8,1470,183.75,354,300,37.5,92,18,2.25,4,3495,436.875,733,14,1.75,4,291,36.375,57,213,26.625,48,905.2,113.15,148.7,4.966],["Fabio Baldé",8,35414,4426.75,8205,30416,3802,5807,4193,524.125,756,3054.3,381.788,604.4,1202,150.25,313,422,52.75,157,16,2,6,2991,373.875,572,11,1.375,4,243,30.375,52,166,20.75,37,444,55.5,81.1,4.193],["Bakery Jatta",8,32736,4092,5399,31434,3929.25,5140,4763,595.375,993,3317.9,414.738,551.3,1780,222.5,435,572,71.5,142,23,2.875,7,2983,372.875,558,16,2,4,325,40.625,57,204,25.5,37,554.6,69.325,96.3,4.763],["Giorgi Gocholeishvili",9,35158,3906.444,5399,30041,3337.889,4378,5160,573.333,824,3095.4,343.933,459.5,2136,237.333,368,506,56.222,123,28,3.111,7,3025,336.111,485,18,2,4,343,38.111,52,285,31.667,47,508,56.444,74.6,5.16],["Rayan Philippe",8,33095,4136.875,5399,30636,3829.5,5394,4473,559.125,911,3176.7,397.088,560.8,1470,183.75,345,433,54.125,131,20,2.5,5,3002,375.25,566,12,1.5,2,244,30.5,40,192,24,34,466.1,58.263,89.5,4.473],["Noah Katterbach",8,31839,3979.875,5039,31148,3893.5,5360,4673,584.125,952,3101.5,387.688,543.7,1469,183.625,310,434,54.25,192,17,2.125,5,3204,400.5,711,4,0.5,2,226,28.25,42,173,21.625,43,450.3,56.287,96.8,4.673],["Nicolai Remberg",8,32455,4056.875,5177,30201,3775.125,4207,4579,572.375,871,3229.3,403.662,477.3,1540,192.5,375,379,47.375,113,19,2.375,6,3037,379.625,544,21,2.625,6,272,34,46,234,29.25,38,712.6,89.075,150.4,4.579],["Yussuf Poulsen",8,33172,4146.5,5399,29220,3652.5,4206,4507,563.375,670,3230.3,403.788,471.5,1425,178.125,313,460,57.5,157,18,2.25,6,3082,385.25,484,10,1.25,3,294,36.75,50,187,23.375,30,343.9,42.987,54.3,4.507],["Warmed Omari",8,32986,4123.25,5399,28215,3526.875,4863,4285,535.625,836,3020.5,377.563,526.2,1424,178,310,279,34.875,100,13,1.625,4,2862,357.75,574,10,1.25,4,259,32.375,50,232,29,48,777.6,97.2,154.2,4.285]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3","title":"Body Soreness – Highest Averages (May 2026)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"bar","encode":{"x":"Player","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":31.167,"name":"Mean","label":{"formatter":"Mean 31.17","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","N","Body Soreness Rating","Mood Rating"],["Ransford Königsdörffer",12,35.083,35],["Bakery Jatta",11,37.273,33.636],["Damion Downs",10,36.1,32.4],["Fabio Baldé",11,34.273,32.545],["Bilal Yalçınkaya",12,34.333,28],["Daniel Elfadli",14,29.071,28.214],["Fábio Vieira",8,26.375,36.625],["Robert Glatzel",12,26.833,26.667],["Jean-Luc Dompé",9,29.667,20.111],["Warmed Omari",11,24.818,22.364]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_4","title":"Daniel Elfadli – Daily Distance & HMLD","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Distance total (m)","type":"line","encode":{"x":"Date","y":"Distance total (m)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":4153.25,"name":"Mean","label":{"formatter":"Mean 4,153.25","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"HMLD (m)","type":"line","encode":{"x":"Date","y":"HMLD (m)"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)"],["Daniel Elfadli","2026-05-01",3959,3926,666,411.5,297,103,6,369,4,33,31,58.4,9.8,2.1,5,59,10,189,5.6,31,5.4,7.3,1,4,723,952,2874,3926,2523,3439,533,928,1087,1433,58.4],["Daniel Elfadli","2026-05-06",3299,4457,635,465.1,124,11,1,511,3,34,37,110.7,9.4,6.2,21,81,12,213,7.6,30.6,5.2,5.3,1,3,1452,1534,5752,6357,5168,5673,1454,1504,1628,2073,110.7],["Daniel Elfadli","2026-05-07",4259,5558,1075,577.2,444,163,8,631,1,41,35,101,11.9,3.2,11,78,15,276,7.3,31.4,5.4,9,2,4,997,1824,4023,7581,3563,6759,689,2032,1504,2338,101],["Daniel Elfadli","2026-05-08",3899,4140,735,437.1,288,55,2,447,3,51,34,63.5,11.3,2.3,10,64,11,200,6,31.4,5.6,5.2,1,2,771,988,2956,4111,2635,3510,541,1212,1023,1511,63.5],["Daniel Elfadli","2026-05-09",5399,4612,619,471.3,212,61,3,407,0,37,24,67.2,7.5,2.9,7,51,7,216,4.7,30.3,6.1,4.5,1,0,708,1087,2916,4580,2585,4004,472,1084,1116,1701,67.2],["Daniel Elfadli","2026-05-13",3719,2883,245,291.1,22,0,0,223,0,15,17,39.2,3.5,1.1,2,47,4,130,4.2,23.2,4.2,5.4,0,1,376,554,1543,2376,1242,1902,249,647,835,1194,39.2],["Daniel Elfadli","2026-05-14",4995,4354,633,453.3,178,71,3,456,4,43,32,95,16.3,4.3,20,52,8,205,4.9,30,8.5,5.2,2,2,1030,1195,4266,5107,3778,4427,1055,1427,1371,1815,95],["Daniel Elfadli","2026-05-15",3599,3296,531,345.1,207,43,2,324,3,27,20,45.8,6,1,2,55,9,157,5.1,30,6,6,3,2,429,799,1664,3427,1465,2797,260,974,629,1505,45.8]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_5","title":"Bakery Jatta – Daily HSR & Sprint Distance","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"High speed running (absolute)","type":"line","encode":{"x":"Date","y":"High speed running (absolute)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":237.333,"name":"Mean","label":{"formatter":"Mean 237.33","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Sprint distance (m)","type":"line","encode":{"x":"Date","y":"Sprint distance (m)"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)"],["Giorgi Gocholeishvili","2026-05-01",3959,3543,631,358.8,270,56,4,361,1,32,25,74.6,13.1,2,17,54,10,170,5.1,29.5,5.5,6,1,2,634,520,2965,2260,2245,1749,696,515,1624,1207,74.6],["Giorgi Gocholeishvili","2026-05-06",3299,3370,521,347.8,132,11,1,390,3,38,37,46.4,9.4,2.5,4,61,9,158,5.9,27.5,5.2,5.9,1,2,548,552,2217,2295,1858,1876,515,575,968,1042,46.4],["Giorgi Gocholeishvili","2026-05-07",4259,4378,824,459.5,339,111,5,485,4,52,47,71.7,14.9,2.5,8,62,12,212,6,32.8,6.1,6.4,4,8,764,957,3177,4041,2678,3330,731,1091,1305,1756,71.7],["Giorgi Gocholeishvili","2026-05-08",3683,3573,719,375.7,362,123,7,357,3,42,35,64.6,14,3.7,8,58,12,175,5.7,31.1,6.4,7.1,3,6,577,735,2433,3206,1964,2518,546,878,1113,1537,64.6],["Giorgi Gocholeishvili","2026-05-09",5399,3891,641,400.4,273,80,4,368,2,39,38,73.4,11.3,3.8,16,43,7,183,4.1,31.1,6.4,5.5,5,5,478,917,1984,4148,1702,3431,407,1137,763,1735,73.4],["Giorgi Gocholeishvili","2026-05-10",3599,3295,637,335.3,368,0,0,269,0,49,30,52,10.2,1,8,55,11,158,5.2,26.1,5.1,4.7,3,0,561,676,2347,2844,2001,2383,495,655,973,1277,52],["Giorgi Gocholeishvili","2026-05-13",2322,1949,256,203.2,44,8,1,212,2,27,29,46.4,9.3,1.2,13,50,7,91,4.9,26.8,5.4,6.1,2,3,417,397,1792,1728,1517,1422,482,482,613,714,46.4],["Giorgi Gocholeishvili","2026-05-14",5039,3469,623,359.9,256,108,5,367,3,47,29,52,12.8,1.8,11,41,7,166,4,30.5,5.3,5.8,5,7,387,713,1594,2999,1344,2418,289,828,676,1391,52],["Giorgi Gocholeishvili","2026-05-15",3599,2573,308,254.8,92,9,1,216,0,17,15,26.9,2.1,0.3,2,43,5,117,4,26.6,8.3,9.8,5,5,320,369,1351,1566,1132,1313,274,342,618,688,26.9]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_6","title":"Giorgi Gocholeishvili – Daily HSR & Accelerations","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":64,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["01/05","02/05","04/05","05/05","06/05","07/05","08/05","09/05","10/05","11/05","12/05","13/05","14/05","15/05","16/05"],"axisLabel":{"color":"#8b93a7","fontSize":9,"hideOverlap":true,"rotate":40}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Bakery Jatta","type":"line","data":[345,null,null,null,140,435,293,238,null,null,null,28,196,105,null],"connectNulls":false,"showSymbol":false,"symbolSize":0,"symbol":"none","smooth":true,"lineStyle":{"width":2.4}},{"name":"Daniel Elfadli","type":"line","data":[297,null,null,null,124,444,288,212,null,null,null,22,178,207,null],"connectNulls":false,"showSymbol":false,"symbolSize":0,"symbol":"none","smooth":true,"lineStyle":{"width":2.4}},{"name":"Albert Grønbæk","type":"line","data":[287,null,null,null,172,354,215,196,null,null,null,35,127,84,null],"connectNulls":false,"showSymbol":false,"symbolSize":0,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":174.019,"name":"Mean","label":{"formatter":"Mean 174.02","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"symbol":"none","smooth":true,"lineStyle":{"width":2.4}},{"name":"Damion Downs","type":"line","data":[155,null,null,null,114,217,165,100,340,null,null,57,160,62,null],"connectNulls":false,"showSymbol":false,"symbolSize":0,"symbol":"none","smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_7","title":"Bilal Yalçınkaya – Sleep Quality Trend (May 2026)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Quality Rating","type":"line","encode":{"x":"Date","y":"Quality Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":35.25,"name":"Mean","label":{"formatter":"Mean 35.25","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Quality Rating","Sleep Efficiency Percentage","Sleep Consistency Percentage","Hours In Bed","Hours Slow Wave","Hours Rem","Hours Awake"],["Bilal Yalçınkaya","2026-05-01",36,null,null,null,null,null,null],["Bilal Yalçınkaya","2026-05-02",37,null,null,null,null,null,null],["Bilal Yalçınkaya","2026-05-04",37,null,null,null,null,null,null],["Bilal Yalçınkaya","2026-05-05",35,null,null,null,null,null,null],["Bilal Yalçınkaya","2026-05-06",36,null,null,null,null,null,null],["Bilal Yalçınkaya","2026-05-07",36,null,null,null,null,null,null],["Bilal Yalçınkaya","2026-05-09",34,null,null,null,null,null,null],["Bilal Yalçınkaya","2026-05-10",35,null,null,null,null,null,null],["Bilal Yalçınkaya","2026-05-11",34,null,null,null,null,null,null],["Bilal Yalçınkaya","2026-05-13",34,null,null,null,null,null,null],["Bilal Yalçınkaya","2026-05-14",35,null,null,null,null,null,null],["Bilal Yalçınkaya","2026-05-15",34,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

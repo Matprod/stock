@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bilan Performance – Mars 2026</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0b2a4a;
+      --navy-2: #12385f;
+      --accent: #e11d48;
+      --sky: #0ea5e9;
+      --emerald: #059669;
+      --amber: #d97706;
+      --violet: #7c3aed;
+      --paper: #eef2f7;
+      --ink: #0f172a;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Manrope, ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      position: relative;
+      page-break-after: always;
+      break-after: page;
+      overflow: hidden;
+    }
+    .page:last-child { page-break-after: auto; }
+    .cover {
+      padding: 14mm;
+      background: linear-gradient(160deg, #ffffff 0%, #f8fafc 55%, #e0f2fe 100%);
+    }
+    .cover-panel {
+      min-height: calc(297mm - 28mm);
+      background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+      border-radius: 10px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 22mm 16mm 16mm;
+      overflow: hidden;
+    }
+    .cover-panel::before {
+      content: "";
+      position: absolute;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(14,165,233,.18), transparent 70%);
+      top: -80px; right: -60px;
+    }
+    .cover-panel::after {
+      content: "";
+      position: absolute;
+      width: 360px; height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(225,29,72,.12), transparent 70%);
+      bottom: -40px; left: -40px;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 800; letter-spacing: .08em;
+      color: var(--navy); text-transform: uppercase; pointer-events: none;
+    }
+    .season { color: var(--accent); font-weight: 700; font-size: 18px; z-index: 1; }
+    .cover-title {
+      z-index: 1; margin: 10px 0 0; text-align: center; max-width: 160mm;
+      color: var(--navy); font-size: 30px; font-weight: 800; letter-spacing: .05em;
+      text-transform: uppercase; line-height: 1.2;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 14px; background: #fff; border: 1px solid #cbd5e1;
+      color: var(--accent); font-weight: 700; padding: 8px 14px; border-radius: 999px; font-size: 14px;
+    }
+    .comment-card {
+      z-index: 1; margin-top: 22px; width: min(158mm, 100%); background: #fff;
+      border-radius: 12px; padding: 20px 22px; box-shadow: 0 18px 40px rgba(15,23,42,.12);
+      position: relative; min-height: 72mm;
+    }
+    .comment-card::before, .comment-card::after {
+      content: ""; position: absolute; width: 44px; height: 44px; border-color: var(--navy); border-style: solid;
+    }
+    .comment-card::before { left: 0; bottom: 0; border-width: 0 0 5px 5px; border-radius: 0 0 0 8px; }
+    .comment-card::after { right: 0; top: 0; border-width: 5px 5px 0 0; border-radius: 0 8px 0 0; }
+    .comment-label {
+      color: var(--sky); font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
+    }
+    .comment-body { margin-top: 10px; color: #334155; font-size: 13.5px; line-height: 1.55; white-space: pre-wrap; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 18px; color: var(--navy); font-weight: 800;
+      letter-spacing: .2em; text-transform: uppercase; font-size: 12px;
+    }
+    .toc-page, .content-page { padding: 14mm 14mm 18mm; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, var(--navy), var(--navy-2) 60%, #0ea5e9);
+      color: #fff; border-radius: 10px; padding: 12px 14px; margin-bottom: 16px;
+    }
+    .band h1 { margin: 0; font-size: 16px; letter-spacing: .04em; text-transform: uppercase; }
+    .band .meta { color: #fecdd3; font-size: 12px; font-weight: 700; }
+    .toc-title { color: var(--navy); font-size: 22px; font-weight: 800; margin: 0 0 14px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: linear-gradient(90deg, #f0f9ff, #ecfdf5);
+      border: 1px solid #bfdbfe; border-left: 5px solid var(--sky);
+      border-radius: 10px; padding: 12px 14px; color: var(--navy); font-weight: 700;
+    }
+    .toc-list a:nth-child(2n) { border-left-color: var(--emerald); background: linear-gradient(90deg, #ecfdf5, #fffbeb); }
+    .toc-list a:nth-child(3n) { border-left-color: var(--accent); background: linear-gradient(90deg, #fff1f2, #eff6ff); }
+    .toc-list .hint { color: #64748b; font-size: 11px; font-weight: 600; }
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+    .kpi {
+      border-radius: 12px; padding: 12px; color: #fff; min-height: 78px;
+      box-shadow: 0 8px 18px rgba(15,23,42,.12);
+    }
+    .kpi .label { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; opacity: .9; font-weight: 700; }
+    .kpi .value { margin-top: 6px; font-size: 22px; font-weight: 800; line-height: 1.1; }
+    .kpi .sub { margin-top: 4px; font-size: 10px; opacity: .9; }
+    .kpi.c0 { background: linear-gradient(145deg, #0284c7, #0ea5e9); }
+    .kpi.c1 { background: linear-gradient(145deg, #047857, #10b981); }
+    .kpi.c2 { background: linear-gradient(145deg, #b45309, #f59e0b); }
+    .kpi.c3 { background: linear-gradient(145deg, #be123c, #f43f5e); }
+    .section-title {
+      margin: 8px 0 10px; color: var(--navy); font-size: 15px; font-weight: 800;
+      letter-spacing: .05em; text-transform: uppercase;
+      border-left: 4px solid var(--accent); padding-left: 10px;
+    }
+    .prose { color: #334155; font-size: 12.5px; line-height: 1.55; white-space: pre-wrap; margin: 0 0 12px; }
+    .card {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;
+      margin-bottom: 12px; box-shadow: 0 6px 16px rgba(15,23,42,.05);
+    }
+    .card h3 {
+      margin: 0 0 8px; color: var(--navy); font-size: 12px; font-weight: 800;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .chart-box { width: 100%; height: 300px; }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table th {
+      background: linear-gradient(90deg, var(--navy), #0369a1); color: #fff;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e2e8f0; padding: 6px 8px; }
+    table.report-table tr:nth-child(even) td { background: #f8fafc; }
+    .heat-hi { background: #fecaca !important; color: #9f1239; font-weight: 700; }
+    .heat-mid { background: #fde68a !important; color: #92400e; font-weight: 700; }
+    .heat-lo { background: #bbf7d0 !important; color: #166534; font-weight: 700; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 800;
+      letter-spacing: .05em; text-transform: uppercase; color: #fff;
+      background: linear-gradient(90deg, #0284c7, #059669);
+    }
+    .chip.empty { background: #cbd5e1; color: #475569; text-decoration: line-through; }
+    .footer {
+      position: absolute; left: 14mm; right: 14mm; bottom: 8mm;
+      display: flex; justify-content: space-between; color: #64748b;
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+    }
+    @media print {
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Sunderland</div>
+      <div class="season">2025-2026</div>
+      <h1 class="cover-title">Bilan Performance – Mars 2026</h1>
+      <div class="date-pill">mar. 31/03/26 · 2026-03-01 → 2026-03-31</div>
+      <div class="comment-card">
+        <div class="comment-label">Commentaire staff</div>
+        <div class="comment-body">Charge GPS soutenue.</div>
+      </div>
+      <div class="chip-row" style="z-index:1;margin-top:14px;justify-content:center">
+        <span class="chip">gps</span><span class="chip">wellness</span>
+        
+      </div>
+      <div class="club-mark">Sunderland</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Sommaire interactif</h1>
+      <div class="meta">Sunderland</div>
+    </div>
+    <h2 class="toc-title">Bilan Performance – Mars 2026</h2>
+    <p class="prose">Clique une section pour y accéder dans le PDF.</p>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Couverture</span><span class="hint">cover</span></a></li>
+      <li><a href="#section-1"><span>02 · Charge GPS</span><span class="hint">Section 1</span></a></li><li><a href="#section-2"><span>03 · Wellness</span><span class="hint">Section 2</span></a></li>
+    </ol>
+    <div class="card" style="margin-top:16px"><h3>Consigne coach</h3><p class="prose" style="margin:0">mars 2026</p></div>
+    <div class="footer"><span>Sunderland · confidential</span><span>sommaire</span></div>
+  </section>
+
+  
+<section class="page content-page" id="section-1">
+  <div class="band">
+    <h1>Charge GPS</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="kpi-row"><div class="kpi c0"><div class="label">High metabolic</div><div class="value">69658</div><div class="sub">max · moy 52503.5 · n=4</div></div></div>
+  <div class="card"><h3>Volume GPS total · High metabolic</h3><div id="auto_chart_1" class="chart-box"></div></div>
+<div class="card"><h3>Volume GPS total</h3><table class="report-table"><thead><tr><th>Player</th><th>Total player load</th><th>High metabolic</th></tr></thead><tbody><tr><td class="">Luke O Nien</td><td class="">15724</td><td class="heat-mid">57509</td></tr><tr><td class="">Chris Rigg</td><td class="">14325</td><td class="heat-mid">45566</td></tr><tr><td class="">Noah Sadiki</td><td class="">10100</td><td class="heat-hi">69658</td></tr><tr><td class="">Wilson Isidor</td><td class="">11266</td><td class="heat-lo">37281</td></tr></tbody></table></div>
+  <div class="footer">
+    <span>Sunderland · confidential</span>
+    <span>section-1</span>
+  </div>
+</section>
+
+<section class="page content-page" id="section-2">
+  <div class="band">
+    <h1>Wellness</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="card"><h3>Moyennes bien-etre · Body Soreness</h3><div id="auto_chart_2" class="chart-box"></div></div>
+<div class="card"><h3>Moyennes bien-etre · Energy</h3><div id="auto_chart_3" class="chart-box"></div></div>
+<div class="card"><h3>Moyennes bien-etre</h3><table class="report-table"><thead><tr><th>Player</th><th>Body Soreness</th><th>Energy</th></tr></thead><tbody><tr><td class="">Eliezer Mayenda</td><td class="heat-hi">7.1</td><td class="heat-hi">7.4</td></tr><tr><td class="">Daniel Ballard</td><td class="heat-lo">5.2</td><td class="heat-lo">5.5</td></tr><tr><td class="">Chemsdine Talbi</td><td class="heat-mid">7</td><td class="heat-mid">7.2</td></tr></tbody></table></div>
+  <div class="footer">
+    <span>Sunderland · confidential</span>
+    <span>section-2</span>
+  </div>
+</section>
+
+  <script>
+    const charts = [{"id":"auto_chart_1","title":"Volume GPS total · High metabolic","option":{"color":["#0ea5e9","#10b981","#f59e0b","#ef4444","#8b5cf6","#14b8a6","#f97316","#3b82f6","#ec4899","#84cc16"],"tooltip":{"trigger":"axis","axisPointer":{"type":"shadow"}},"grid":{"left":8,"right":24,"top":28,"bottom":8,"containLabel":true},"xAxis":{"type":"value","axisLabel":{"color":"#64748b"},"splitLine":{"lineStyle":{"color":"#e2e8f0"}}},"yAxis":{"type":"category","data":["Wilson Isidor","Chris Rigg","Luke O Nien","Noah Sadiki"],"axisLabel":{"color":"#0f172a","fontSize":11}},"series":[{"type":"bar","data":[{"value":37281,"itemStyle":{"color":"#0ea5e9","borderRadius":[0,8,8,0]}},{"value":45566,"itemStyle":{"color":"#10b981","borderRadius":[0,8,8,0]}},{"value":57509,"itemStyle":{"color":"#f59e0b","borderRadius":[0,8,8,0]}},{"value":69658,"itemStyle":{"color":"#ef4444","borderRadius":[0,8,8,0]}}],"barMaxWidth":18,"label":{"show":true,"position":"right","color":"#334155","fontSize":10}}]}},{"id":"auto_chart_2","title":"Moyennes bien-etre · Body Soreness","option":{"color":["#0ea5e9","#10b981","#f59e0b","#ef4444","#8b5cf6","#14b8a6","#f97316","#3b82f6","#ec4899","#84cc16"],"tooltip":{"trigger":"axis","axisPointer":{"type":"shadow"}},"grid":{"left":8,"right":24,"top":28,"bottom":8,"containLabel":true},"xAxis":{"type":"value","axisLabel":{"color":"#64748b"},"splitLine":{"lineStyle":{"color":"#e2e8f0"}}},"yAxis":{"type":"category","data":["Daniel Ballard","Chemsdine Talbi","Eliezer Mayenda"],"axisLabel":{"color":"#0f172a","fontSize":11}},"series":[{"type":"bar","data":[{"value":5.2,"itemStyle":{"color":"#0ea5e9","borderRadius":[0,8,8,0]}},{"value":7,"itemStyle":{"color":"#10b981","borderRadius":[0,8,8,0]}},{"value":7.1,"itemStyle":{"color":"#f59e0b","borderRadius":[0,8,8,0]}}],"barMaxWidth":18,"label":{"show":true,"position":"right","color":"#334155","fontSize":10}}]}},{"id":"auto_chart_3","title":"Moyennes bien-etre · Energy","option":{"color":["#0ea5e9","#10b981","#f59e0b","#ef4444","#8b5cf6","#14b8a6","#f97316","#3b82f6","#ec4899","#84cc16"],"tooltip":{"trigger":"axis","axisPointer":{"type":"shadow"}},"grid":{"left":8,"right":24,"top":28,"bottom":8,"containLabel":true},"xAxis":{"type":"value","axisLabel":{"color":"#64748b"},"splitLine":{"lineStyle":{"color":"#e2e8f0"}}},"yAxis":{"type":"category","data":["Daniel Ballard","Chemsdine Talbi","Eliezer Mayenda"],"axisLabel":{"color":"#0f172a","fontSize":11}},"series":[{"type":"bar","data":[{"value":5.5,"itemStyle":{"color":"#0ea5e9","borderRadius":[0,8,8,0]}},{"value":7.2,"itemStyle":{"color":"#10b981","borderRadius":[0,8,8,0]}},{"value":7.4,"itemStyle":{"color":"#f59e0b","borderRadius":[0,8,8,0]}}],"barMaxWidth":18,"label":{"show":true,"position":"right","color":"#334155","fontSize":10}}]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 50) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas' });
+        instance.setOption({
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: 'Manrope, sans-serif', color: '#0f172a' },
+          color: ["#0ea5e9","#10b981","#f59e0b","#ef4444","#8b5cf6","#14b8a6","#f97316","#3b82f6","#ec4899","#84cc16"],
+          ...chart.option,
+        }, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

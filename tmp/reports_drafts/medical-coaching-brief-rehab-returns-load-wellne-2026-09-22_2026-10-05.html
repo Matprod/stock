@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Medical &amp; Coaching Brief: Rehab Returns &amp; Load–Wellness Discordance</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #0f766e;
+      --primary: #0f766e;
+      --light: #5eead4;
+      --ink: #134e4a;
+      --ink-soft: #334155;
+      --paper: #f0fdfa;
+      --line: #ccfbf1;
+      --muted: #64748b;
+      --cherry: #DC2626;
+      --cherry-soft: rgba(220,38,38,0.14);
+      --saffron: #CA8A04;
+      --saffron-soft: rgba(202,138,4,0.16);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: linear-gradient(165deg, #134e4a 0%, #0f766e 45%, #115e59 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #99f6e4; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #ccfbf1; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #134e4a, #0f766e 60%, #14b8a6);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 300px; }
+    .chart-box.wide { height: 340px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 12px;
+      padding: 10px 12px; border-radius: 10px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner img {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: grid; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2026-2027</div>
+      <h1 class="cover-title">Medical &amp; Coaching Brief: Rehab Returns &amp; Load–Wellness Discordance</h1>
+      <p class="cover-sub">Club report — MAUNA data only</p>
+      <div class="date-pill">Mon, 05/10/26 · 2026-09-22 → 2026-10-05</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">Three athletes returned from injury during the lookback window (Bornauw, Muheim, Torunarigha). Bornauw and Muheim have ramped GPS intensity (HSR, decels) back to squad norms, but Bornauw shows elevated CK (544 U/L) and Muheim logged high decel counts (avg 79/session) without corresponding wellness dips—monitor fatigue accumulation. Torunarigha remains conservative in HSR (avg 211 m/session vs squad ~400 m) despite full session minutes. Three currently injured players (Daka quad tear 25-Sep, Grønbæk hamstring 24-Sep, Moffi knee swelling 20-Sep) show no GPS data but report low wellness (Daka soreness 14.4, mood 12.2; Grønbæk soreness 24.4, mood 16.7). Across the active squad, Albert Sambi Lokonga flags highest injury risk (50.1) with low wellness (soreness 17.5, mood 10) despite normal GPS output—pull from tomorrow's main session for recovery day. Yussuf Poulsen (injury risk 35.3, soreness 13, mood 10) and Bakery Jatta (injury risk 29.6, soreness 38.5, mood 37) also warrant load reduction.</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">Bornauw completed 6 GPS sessions (avg 6903 m, 218 m HSR, 57 decels/session). HSR ramped from 0 m on 29-Sep to 471 m on 4-Oct (match simulation). Decel load stable (42–80/session). CK measured at 544 U/L (elevated; squad median ~480). No wellness data in period. Cleared for full training but schedule blood retest within 48 hours.</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">Muheim completed 8 GPS sessions (avg 7394 m, 507 m HSR, 71 decels/session). HSR exposure high (peak 970 m on 4-Oct). Decel load consistently elevated (avg 79/session, peak 91 on 4-Oct). No wellness data in period. GPS output exceeds pre-injury baseline; consider 48-hour recovery window before next high-intensity block.</span></div><div class="signal-item"><span class="signal-index">04</span><span class="signal-text">Torunarigha completed 6 GPS sessions (avg 5074 m, 211 m HSR, 41 decels/session). HSR remains conservative (peak 497 m on 23-Sep, then dropped to 43–406 m). Decel load low (10–60/session). Wellness stable (soreness 29.3, mood 24.8). GPS intensity lags squad norms despite full session minutes—progress HSR prescription or confirm hamstring confidence with medical.</span></div><div class="signal-item"><span class="signal-index">05</span><span class="signal-text">Patson Daka (quad rectus femoris tear, 25-Sep): 9 wellness entries, avg soreness 14.4, mood 12.2, sleep quality 10.0. Grønbæk (hamstring biceps femoris, 24-Sep): 8 entries, soreness 24.4, mood 16.7, sleep 21.1. Moffi (knee swelling post-match 19-Sep): no wellness data. Daka and Grønbæk report low mood and poor sleep—schedule psych check-in alongside physio progression.</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Medical &amp; Coaching Brief: Rehab Returns &amp; Load–Wellness Discordance</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Staff read</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Executive Summary</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · Sebastiaan Bornauw (Hamstring MFR, returned 22-Sep)</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Miro Muheim (Adductor MFR, returned 5-Sep)</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Jordan Torunarigha (Hamstring strain, returned 27-Aug)</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Currently Injured: Wellness Monitoring</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>08 · Albert Sambi Lokonga (PULL from tomorrow)</span><span class="hint">§6</span></a></li><li><a href="#section-7"><span>09 · Yussuf Poulsen &amp; Bakery Jatta (Load reduction)</span><span class="hint">§7</span></a></li><li><a href="#section-8"><span>10 · Cross-Domain: Injury Risk vs Wellness</span><span class="hint">§8</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Staff read</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  <p class="staff-read-lead">Synthesized from canvas (analyst did not commit InsightIR)</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Narrative thread</h3><ul><li>Three athletes returned from injury during the lookback window (Bornauw, Muheim, Torunarigha). Bornauw and Muheim have ramped GPS intensity (HSR, decels) back to squad norms, but Bornauw shows elevated CK (544 U/L) and Muheim logged high decel counts (avg 79/session) without corresponding wellness dips—monitor fatigue accumulation. Torunarigha remains conservative in HSR (avg 211 m/session vs squad ~400 m) despite full session minutes. Three currently injured players (Daka quad tear 25-Sep, Grønbæk hamstring 24-Sep, Moffi knee swelling 20-Sep) show no GPS data but report low wellness (Daka soreness 14.4, mood 12.2; Grønbæk soreness 24.4, mood 16.7). Across the active squad, Albert Sambi Lokonga flags highest injury risk (50.1) with low wellness (soreness 17.5, mood 10) despite normal GPS output—pull from tomorrow's main session for recovery day. Yussuf Poulsen (injury risk 35.3, soreness 13, mood 10) and Bakery Jatta (injury risk 29.6, soreness 38.5, mood 37) also warrant load reduction.</li><li>Bornauw completed 6 GPS sessions (avg 6903 m, 218 m HSR, 57 decels/session). HSR ramped from 0 m on 29-Sep to 471 m on 4-Oct (match simulation). Decel load stable (42–80/session). CK measured at 544 U/L (elevated; squad median ~480). No wellness data in period. Cleared for full training but schedule blood retest within 48 hours.</li><li>Muheim completed 8 GPS sessions (avg 7394 m, 507 m HSR, 71 decels/session). HSR exposure high (peak 970 m on 4-Oct). Decel load consistently elevated (avg 79/session, peak 91 on 4-Oct). No wellness data in period. GPS output exceeds pre-injury baseline; consider 48-hour recovery window before next high-intensity block.</li><li>Torunarigha completed 6 GPS sessions (avg 5074 m, 211 m HSR, 41 decels/session). HSR remains conservative (peak 497 m on 23-Sep, then dropped to 43–406 m). Decel load low (10–60/session). Wellness stable (soreness 29.3, mood 24.8). GPS intensity lags squad norms despite full session minutes—progress HSR prescription or confirm hamstring confidence with medical.</li><li>Patson Daka (quad rectus femoris tear, 25-Sep): 9 wellness entries, avg soreness 14.4, mood 12.2, sleep quality 10.0. Grønbæk (hamstring biceps femoris, 24-Sep): 8 entries, soreness 24.4, mood 16.7, sleep 21.1. Moffi (knee swelling post-match 19-Sep): no wellness data. Daka and Grønbæk report low mood and poor sleep—schedule psych check-in alongside physio progression.</li><li>Sambi Lokonga: 13 sessions, avg 3659 m/session, 178 m HSR, 20 decels. GPS output normal. Wellness critically low (soreness 17.5, mood 10.0). Injury risk score 50.1 (highest in squad). Discordance = external load tolerable but internal recovery failing. Mandatory rest day tomorrow; retest wellness Friday before clearing for weekend match.</li></ul></div><div class="staff-read-panel"><h3>Signals</h3><ul class="signal-roster"><li><span class="signal-badge info">Info</span><div><div class="signal-body">Three athletes returned from injury during the lookback window (Bornauw, Muheim, Torunarigha). Bornauw and Muheim have ramped GPS intensity (HSR, decels) back to squad norms, but Bornauw shows elevated CK (544 U/L) and Muheim logged high decel counts (avg 79/session) without corresponding wellness dips—monitor fatigue accumulation. Torunarigha remains conservative in HSR (avg 211 m/session vs squad ~400 m) despite full session minutes. Three currently injured players (Daka quad tear 25-Sep, Grønbæk hamstring 24-Sep, Moffi knee swelling 20-Sep) show no GPS data but report low wellness (Daka soreness 14.4, mood 12.2; Grønbæk soreness 24.4, mood 16.7). Across the active squad, Albert Sambi Lokonga flags highest injury risk (50.1) with low wellness (soreness 17.5, mood 10) despite normal GPS output—pull from tomorrow's main session for recovery day. Yussuf Poulsen (injury risk 35.3, soreness 13, mood 10) and Bakery Jatta (injury risk 29.6, soreness 38.5, mood 37) also warrant load reduction.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Bornauw completed 6 GPS sessions (avg 6903 m, 218 m HSR, 57 decels/session). HSR ramped from 0 m on 29-Sep to 471 m on 4-Oct (match simulation). Decel load stable (42–80/session). CK measured at 544 U/L (elevated; squad median ~480). No wellness data in period. Cleared for full training but schedule blood retest within 48 hours.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Muheim completed 8 GPS sessions (avg 7394 m, 507 m HSR, 71 decels/session). HSR exposure high (peak 970 m on 4-Oct). Decel load consistently elevated (avg 79/session, peak 91 on 4-Oct). No wellness data in period. GPS output exceeds pre-injury baseline; consider 48-hour recovery window before next high-intensity block.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Torunarigha completed 6 GPS sessions (avg 5074 m, 211 m HSR, 41 decels/session). HSR remains conservative (peak 497 m on 23-Sep, then dropped to 43–406 m). Decel load low (10–60/session). Wellness stable (soreness 29.3, mood 24.8). GPS intensity lags squad norms despite full session minutes—progress HSR prescription or confirm hamstring confidence with medical.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Patson Daka (quad rectus femoris tear, 25-Sep): 9 wellness entries, avg soreness 14.4, mood 12.2, sleep quality 10.0. Grønbæk (hamstring biceps femoris, 24-Sep): 8 entries, soreness 24.4, mood 16.7, sleep 21.1. Moffi (knee swelling post-match 19-Sep): no wellness data. Daka and Grønbæk report low mood and poor sleep—schedule psych check-in alongside physio progression.</div></div></li></ul></div></div>
+  <div class="staff-read-panel"><h3>Canvas sections</h3><ul class="staff-section-index"><li><span>Executive Summary</span><span class="kind">Team</span></li><li><span>Rehab Returns: GPS vs Wellness</span><span class="kind">Team</span></li><li><span>Sebastiaan Bornauw (Hamstring MFR, returned 22-Sep)</span><span class="kind">Team</span></li><li><span>Miro Muheim (Adductor MFR, returned 5-Sep)</span><span class="kind">Team</span></li><li><span>Jordan Torunarigha (Hamstring strain, returned 27-Aug)</span><span class="kind">Team</span></li><li><span>Currently Injured: Wellness Monitoring</span><span class="kind">Team</span></li><li><span>Active Squad: Load–Wellness Discordance</span><span class="kind">Team</span></li><li><span>Albert Sambi Lokonga (PULL from tomorrow)</span><span class="kind">Team</span></li><li><span>Yussuf Poulsen &amp; Bakery Jatta (Load reduction)</span><span class="kind">Team</span></li><li><span>Squad Overview: Injury Risk &amp; Wellness</span><span class="kind">Team</span></li><li><span>Cross-Domain: Injury Risk vs Wellness</span><span class="kind">Team</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Executive Summary</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><p>Three athletes returned from injury during the lookback window (Bornauw, Muheim, Torunarigha). Bornauw and Muheim have ramped GPS intensity (HSR, decels) back to squad norms, but Bornauw shows elevated CK (544 U/L) and Muheim logged high decel counts (avg 79/session) without corresponding wellness dips—monitor fatigue accumulation. Torunarigha remains conservative in HSR (avg 211 m/session vs squad ~400 m) despite full session minutes. Three currently injured players (Daka quad tear 25-Sep, Grønbæk hamstring 24-Sep, Moffi knee swelling 20-Sep) show no GPS data but report low wellness (Daka soreness 14.4, mood 12.2; Grønbæk soreness 24.4, mood 16.7). Across the active squad, Albert Sambi Lokonga flags highest injury risk (50.1) with low wellness (soreness 17.5, mood 10) despite normal GPS output—pull from tomorrow's main session for recovery day. Yussuf Poulsen (injury risk 35.3, soreness 13, mood 10) and Bakery Jatta (injury risk 29.6, soreness 38.5, mood 37) also warrant load reduction.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>Sebastiaan Bornauw (Hamstring MFR, returned 22-Sep)</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2edab964-2480-4c09-9e7c-f3fdfd9e2ad3.png" alt="" /><div><div class="name">Sebastiaan Bornauw</div><div class="meta">DEFENDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>14-day summary</h3><div class="legend"><span><i class="swatch" style="background:rgba(220,38,38,0.14);outline:1px solid #DC2626"></i>high</span><span><i class="swatch" style="background:rgba(202,138,4,0.16);outline:1px solid #CA8A04"></i>medium</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>low</span><span>vs squad (terciles)</span></div><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (m)</th><th>High speed running (absolute)</th><th>Sprint distance (m)</th><th>Decelerations (relative)</th><th>Cumulative 7</th><th>Value</th></tr></thead><tbody><tr><td class="">Martin Adeline</td><td class="">5</td><td class="lvl-hi">48</td><td class="lvl-hi">3</td><td class="lvl-hi">762</td><td class="lvl-hi">467</td><td class="">46,579.85</td><td class="">—</td></tr><tr><td class="">Kofi Amoako</td><td class="">11</td><td class="lvl-hi">41</td><td class="lvl-hi">2</td><td class="lvl-hi">775</td><td class="lvl-mid">324</td><td class="">64,669.6</td><td class="lvl-hi">478</td></tr><tr><td class="">Fabio Baldé</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td></tr><tr><td class="">Sebastiaan Bornauw</td><td class="">6</td><td class="lvl-hi">41</td><td class="lvl-lo">1</td><td class="lvl-mid">368</td><td class="lvl-mid">339</td><td class="">13,230.5</td><td class="lvl-hi">544</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">13</td><td class="lvl-hi">43</td><td class="lvl-hi">2</td><td class="lvl-mid">297</td><td class="lvl-mid">297</td><td class="">75,668.02</td><td class="">—</td></tr><tr><td class="">Patson Daka</td><td class="">9</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">31,416.13</td><td class="">—</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td></tr><tr><td class="">Damion Downs</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td></tr><tr><td class="">Daniel Elfadli</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">16,342.07</td><td class="">—</td></tr><tr><td class="">Robert Glatzel</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td></tr><tr><td class="">Albert Grønbæk</td><td class="">12</td><td class="lvl-lo">10</td><td class="lvl-hi">36</td><td class="lvl-lo">0</td><td class="lvl-lo">26</td><td class="">53,354.5</td><td class="">—</td></tr><tr><td class="">Bakery Jatta</td><td class="">12</td><td class="lvl-lo">24</td><td class="lvl-lo">1</td><td class="lvl-mid">387</td><td class="lvl-lo">179</td><td class="">98,744.55</td><td class="">—</td></tr><tr><td class="">Noah Katterbach</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td></tr><tr><td class="">Omar Megeed</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td></tr><tr><td class="">William Mikelbrencis</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td></tr><tr><td class="">Terem Moffi</td><td class="">12</td><td class="lvl-lo">15</td><td class="lvl-hi">781</td><td class="lvl-lo">183</td><td class="lvl-lo">39</td><td class="">22,275.67</td><td class="lvl-mid">472</td></tr><tr><td class="">Miro Muheim</td><td class="">13</td><td class="lvl-hi">54</td><td class="lvl-hi">4</td><td class="lvl-lo">1</td><td class="lvl-hi">563</td><td class="">62,988.3</td><td class="">—</td></tr><tr><td class="">Bilal Nadir</td><td class="">8</td><td class="lvl-hi">41</td><td class="lvl-hi">2</td><td class="lvl-hi">460</td><td class="lvl-mid">329</td><td class="">57,371.7</td><td class="">—</td></tr><tr><td class="">Shafiq Nandja</td><td class="">11</td><td class="lvl-mid">39</td><td class="lvl-hi">2</td><td class="lvl-hi">651</td><td class="lvl-hi">361</td><td class="">109,103.67</td><td class="">—</td></tr><tr><td class="">Warmed Omari</td><td class="">11</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">36,918.23</td><td class="">—</td></tr><tr><td class="">Philip Otele</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td></tr><tr><td class="">Immanuël Pherai</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">37,574.08</td><td class="">—</td></tr><tr><td class="">Rayan Philippe</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">12,871.4</td><td class="">—</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">13</td><td class="lvl-hi">41</td><td class="lvl-hi">2</td><td class="lvl-hi">836</td><td class="lvl-hi">360</td><td class="">39,326.73</td><td class="">—</td></tr><tr><td class="">Nicolai Remberg</td><td class="">13</td><td class="lvl-hi">51</td><td class="lvl-hi">2</td><td class="lvl-mid">331</td><td class="lvl-hi">596</td><td class="">37,515.83</td><td class="">—</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">12</td><td class="lvl-mid">35</td><td class="lvl-hi">2</td><td class="lvl-lo">286</td><td class="lvl-hi">458</td><td class="">62,627.62</td><td class="lvl-lo">1</td></tr><tr><td class="">Emir Sahiti</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">9,629.5</td><td class="">—</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">13</td><td class="lvl-hi">48</td><td class="lvl-hi">2</td><td class="lvl-mid">383</td><td class="lvl-mid">258</td><td class="">65,139.27</td><td class="">—</td></tr><tr><td class="">Otto Stange</td><td class="">12</td><td class="lvl-lo">8</td><td class="lvl-hi">701</td><td class="lvl-lo">274</td><td class="lvl-lo">60</td><td class="">71,982.27</td><td class="">—</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">13</td><td class="lvl-lo">30</td><td class="lvl-lo">1</td><td class="lvl-hi">540</td><td class="lvl-lo">246</td><td class="">79,002.52</td><td class="">—</td></tr><tr><td class="">Fábio Vieira</td><td class="">11</td><td class="lvl-mid">38</td><td class="lvl-hi">2</td><td class="lvl-hi">732</td><td class="lvl-mid">252</td><td class="">58,369.65</td><td class="">—</td></tr><tr><td class="">Mario Vušković</td><td class="">12</td><td class="lvl-hi">55</td><td class="lvl-lo">1</td><td class="lvl-mid">289</td><td class="lvl-hi">449</td><td class="">21,752.17</td><td class="">—</td></tr><tr><td class="">Luka Vušković</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td></tr><tr><td class="">Sebastiaan  Bornauw</td><td class="">7</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Bornauw: Daily HSR &amp; Decelerations</h3>
+  <div id="chart_1" class="chart-box compact"></div>
+  <div class="chart-legend-html"><span><i style="background:#0D9488"></i>High speed running (…</span><span><i style="background:#0891B2"></i>Decelerations (relat…</span></div>
+</div>
+<div class="prose-block"><p>Bornauw completed 6 GPS sessions (avg 6903 m, 218 m HSR, 57 decels/session). HSR ramped from 0 m on 29-Sep to 471 m on 4-Oct (match simulation). Decel load stable (42–80/session). CK measured at 544 U/L (elevated; squad median ~480). No wellness data in period. Cleared for full training but schedule blood retest within 48 hours.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Miro Muheim (Adductor MFR, returned 5-Sep)</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/2ca095e4-97bf-4b4a-af95-2b877e97cfae.png" alt="" /><div><div class="name">Miro Muheim</div><div class="meta">FULL BACK</div></div></div>
+  <div class="section-body"><div class="card"><h3>14-day summary</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (m)</th><th>High speed running (absolute)</th><th>Sprint distance (m)</th><th>Decelerations (relative)</th><th>Cumulative 7</th></tr></thead><tbody><tr><td class="">Sebastiaan Bornauw</td><td class="">6</td><td class="">41</td><td class="">1</td><td class="">368</td><td class="">339</td><td class="">13,230.5</td></tr><tr><td class="">Sebastiaan  Bornauw</td><td class="">7</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Muheim: Daily HSR &amp; Decelerations</h3>
+  <div id="chart_2" class="chart-box compact"></div>
+  <div class="chart-legend-html"><span><i style="background:#0D9488"></i>Decelerations (relat…</span><span><i style="background:#0891B2"></i>High speed running (…</span></div>
+</div>
+<div class="prose-block"><p>Muheim completed 8 GPS sessions (avg 7394 m, 507 m HSR, 71 decels/session). HSR exposure high (peak 970 m on 4-Oct). Decel load consistently elevated (avg 79/session, peak 91 on 4-Oct). No wellness data in period. GPS output exceeds pre-injury baseline; consider 48-hour recovery window before next high-intensity block.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Jordan Torunarigha (Hamstring strain, returned 27-Aug)</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/5050dbbe-0f53-4585-983d-a3a551167d80.png" alt="" /><div><div class="name">Jordan Torunarigha</div><div class="meta">CENTRAL DEFENDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>14-day summary</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (m)</th><th>High speed running (absolute)</th><th>Sprint distance (m)</th><th>Decelerations (relative)</th><th>Cumulative 7</th><th>Body Soreness Rating</th><th>Mood Rating</th></tr></thead><tbody><tr><td class="">Miro Muheim</td><td class="">13</td><td class="">54</td><td class="">4</td><td class="">1</td><td class="">563</td><td class="">62,988.3</td><td class="">21</td><td class="">21</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Torunarigha: Daily HSR &amp; Decelerations</h3>
+  <div id="chart_3" class="chart-box compact"></div>
+  <div class="chart-legend-html"><span><i style="background:#0D9488"></i>High speed running (…</span><span><i style="background:#0891B2"></i>Decelerations (relat…</span></div>
+</div>
+<div class="prose-block"><p>Torunarigha completed 6 GPS sessions (avg 5074 m, 211 m HSR, 41 decels/session). HSR remains conservative (peak 497 m on 23-Sep, then dropped to 43–406 m). Decel load low (10–60/session). Wellness stable (soreness 29.3, mood 24.8). GPS intensity lags squad norms despite full session minutes—progress HSR prescription or confirm hamstring confidence with medical.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5">
+  <div class="band">
+    <h1>Currently Injured: Wellness Monitoring</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Open injuries (no GPS in 14d window)</h3><table class="report-table"><thead><tr><th>Player</th><th>Date Of Injury</th><th>mechanism</th><th>tissue</th><th>Injury Type</th></tr></thead><tbody><tr><td class="">Patson Daka</td><td class="">2026-09-25</td><td class="">quadriceps fiber tear</td><td class="">rectus femoris</td><td class="">Großer MFR mit Faszienbeteiligung, Rectus fem., links</td></tr><tr><td class="">Albert Grønbæk</td><td class="">2026-09-24</td><td class="">hamstring fiber tear</td><td class="">biceps femoris</td><td class="">MFR Biceps femoris, rechts</td></tr><tr><td class="">Terem Moffi</td><td class="">2026-09-20</td><td class="">—</td><td class="">—</td><td class="">Knieschwellung n. d. Spiel am 19.9.26, links</td></tr><tr><td class="">Warmed Omari</td><td class="">2026-08-08</td><td class="">shoulder dislocation</td><td class="">labrum</td><td class="">Schulter-Subluxation mit Labrum-Verletzung dorsal, links</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">2026-04-29</td><td class="">syndesmosis injury</td><td class="">syndesmotic ligament</td><td class="">Erneute Verletzung Syndesmose, rechts</td></tr><tr><td class="">Sebastiaan  Bornauw</td><td class="">2026-09-06</td><td class="">hamstring fiber tear</td><td class="">biceps femoris</td><td class="">MFR Biceps femoris, rechts</td></tr><tr><td class="">Miro Muheim</td><td class="">2026-08-12</td><td class="">adductor fiber tear</td><td class="">adductor magnus</td><td class="">kleiner MFR Adductor magnus, limks</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">2026-08-22</td><td class="">hamstring strain</td><td class="">semitendinosus</td><td class="">Zerrung semitendinosus, rechts</td></tr></tbody></table></div>
+<div class="card"><h3>Wellness scores (14d)</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Martin Adeline</td><td class="">5</td><td class="lvl-lo">16</td><td class="lvl-mid">14</td><td class="lvl-mid">20</td></tr><tr><td class="">Kofi Amoako</td><td class="">11</td><td class="lvl-hi">26</td><td class="lvl-hi">22</td><td class="lvl-mid">21</td></tr><tr><td class="">Fabio Baldé</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Sebastiaan Bornauw</td><td class="">6</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">13</td><td class="lvl-mid">21</td><td class="lvl-hi">21</td><td class="lvl-mid">22</td></tr><tr><td class="">Patson Daka</td><td class="">9</td><td class="lvl-lo">14</td><td class="lvl-lo">12</td><td class="lvl-lo">10</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Damion Downs</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Daniel Elfadli</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Robert Glatzel</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Albert Grønbæk</td><td class="">12</td><td class="lvl-mid">24</td><td class="lvl-mid">17</td><td class="lvl-mid">21</td></tr><tr><td class="">Bakery Jatta</td><td class="">12</td><td class="lvl-hi">39</td><td class="lvl-hi">37</td><td class="lvl-hi">37</td></tr><tr><td class="">Noah Katterbach</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Omar Megeed</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">William Mikelbrencis</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Terem Moffi</td><td class="">12</td><td class="lvl-mid">22</td><td class="lvl-mid">20</td><td class="lvl-lo">17</td></tr><tr><td class="">Miro Muheim</td><td class="">13</td><td class="lvl-mid">21</td><td class="lvl-hi">21</td><td class="lvl-mid">22</td></tr><tr><td class="">Bilal Nadir</td><td class="">8</td><td class="lvl-mid">23</td><td class="lvl-hi">21</td><td class="lvl-hi">25</td></tr><tr><td class="">Shafiq Nandja</td><td class="">11</td><td class="lvl-hi">27</td><td class="lvl-hi">21</td><td class="lvl-hi">30</td></tr><tr><td class="">Warmed Omari</td><td class="">11</td><td class="lvl-mid">20</td><td class="lvl-lo">10</td><td class="lvl-hi">25</td></tr><tr><td class="">Philip Otele</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Immanuël Pherai</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Rayan Philippe</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">13</td><td class="lvl-lo">13</td><td class="lvl-lo">10</td><td class="lvl-mid">20</td></tr><tr><td class="">Nicolai Remberg</td><td class="">13</td><td class="lvl-lo">10</td><td class="lvl-lo">10</td><td class="lvl-lo">13</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">12</td><td class="lvl-hi">26</td><td class="lvl-mid">19</td><td class="lvl-mid">21</td></tr><tr><td class="">Emir Sahiti</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">13</td><td class="lvl-lo">18</td><td class="lvl-lo">10</td><td class="lvl-lo">18</td></tr><tr><td class="">Otto Stange</td><td class="">12</td><td class="lvl-hi">27</td><td class="lvl-hi">23</td><td class="lvl-hi">30</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">13</td><td class="lvl-hi">29</td><td class="lvl-hi">25</td><td class="lvl-hi">30</td></tr><tr><td class="">Fábio Vieira</td><td class="">11</td><td class="lvl-hi">26</td><td class="lvl-hi">22</td><td class="lvl-hi">23</td></tr><tr><td class="">Mario Vušković</td><td class="">12</td><td class="lvl-lo">19</td><td class="lvl-lo">10</td><td class="lvl-lo">10</td></tr><tr><td class="">Luka Vušković</td><td class="">10</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Sebastiaan  Bornauw</td><td class="">7</td><td class="lvl-mid">21</td><td class="lvl-hi">22</td><td class="lvl-mid">22</td></tr></tbody></table></div>
+<div class="chart-card chart-wide">
+  <h3>Injured cohort: Daily wellness</h3>
+  <div id="chart_4" class="chart-box wide"></div>
+  <div class="chart-legend-html"><span><i style="background:#0D9488"></i>Albert Grønbæk</span><span><i style="background:#0891B2"></i>Terem Moffi</span><span><i style="background:#64748B"></i>Jordan Torunarigha</span><span><i style="background:#CA8A04"></i>Patson Daka</span></div>
+</div>
+<div class="prose-block"><p>Patson Daka (quad rectus femoris tear, 25-Sep): 9 wellness entries, avg soreness 14.4, mood 12.2, sleep quality 10.0. Grønbæk (hamstring biceps femoris, 24-Sep): 8 entries, soreness 24.4, mood 16.7, sleep 21.1. Moffi (knee swelling post-match 19-Sep): no wellness data. Daka and Grønbæk report low mood and poor sleep—schedule psych check-in alongside physio progression.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-6">
+  <div class="band">
+    <h1>Albert Sambi Lokonga (PULL from tomorrow)</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3bc9009-f865-4563-a61d-a97a8771ef04.png" alt="" /><div><div class="name">Albert Sambi Lokonga</div><div class="meta">CENTRAL MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>14-day summary</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (m)</th><th>High speed running (absolute)</th><th>Decelerations (relative)</th><th>Cumulative 7</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Injury Risk Score</th></tr></thead><tbody><tr><td class="">Albert Sambi Lokonga</td><td class="">13</td><td class="">48</td><td class="">2</td><td class="">258</td><td class="">65,139.27</td><td class="">18</td><td class="">10</td><td class="">50</td></tr></tbody></table></div>
+<div class="prose-block"><p><strong>Sambi Lokonga:</strong> 13 sessions, avg 3659 m/session, 178 m HSR, 20 decels. GPS output normal. Wellness critically low (soreness 17.5, mood 10.0). Injury risk score 50.1 (highest in squad). Discordance = external load tolerable but internal recovery failing. Mandatory rest day tomorrow; retest wellness Friday before clearing for weekend match.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-7">
+  <div class="band">
+    <h1>Yussuf Poulsen &amp; Bakery Jatta (Load reduction)</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3d2aa33-5992-4cf5-a047-8e6b6482e55d.png" alt="" /><div><div class="name">Bakery Jatta</div><div class="meta">WINGER</div></div></div>
+  <div class="section-body"><div class="card"><h3>14-day summary</h3><table class="report-table"><thead><tr><th>Player</th><th>Position</th><th>Cumulative 7</th><th>N</th><th>Distance total (m)</th><th>High speed running (absolute)</th></tr></thead><tbody><tr><td class="">Yussuf Poulsen</td><td class="">STRIKER</td><td class="">39,326.73</td><td class="">13</td><td class="">41</td><td class="">2</td></tr><tr><td class="">Bakery Jatta</td><td class="">WINGER</td><td class="">98,744.55</td><td class="">12</td><td class="">24</td><td class="">1</td></tr></tbody></table></div>
+<div class="prose-block"><p><strong>Poulsen:</strong> 13 sessions, avg 3153 m, 158 m HSR, 28 decels. Wellness low (soreness 13.0, mood 10.0). Injury risk 35.3. Jatta: 12 sessions, avg 2035 m, 97 m HSR, 15 decels. Wellness very low (soreness 38.5, mood 37.0). Injury risk 29.6. Both show GPS below squad mean but wellness scores in bottom quartile—reduce volume 20% tomorrow, technical/tactical focus, no conditioning blocks.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-7</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-8">
+  <div class="band">
+    <h1>Cross-Domain: Injury Risk vs Wellness</h1>
+    <div class="meta">2026-09-22 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Top 10 injury risk scores (14d avg)</h3>
+  <div id="chart_5" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Top 10 body soreness (14d avg)</h3>
+  <div id="chart_6" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><p>Sambi Lokonga leads injury risk at 50.1 with critically low wellness (soreness 17.5, mood 10). Poulsen (35.3 risk, soreness 13, mood 10) and Jatta (29.6 risk, soreness 38.5, mood 37) also flag high. Soreness distribution shows Jatta, Torunarigha, Amoako, Nandja, and Vieira all above 25. No squad-wide load spike detected; individual wellness divergence drives risk.</p></div>
+<div class="prose-block"><p>Spearman correlation between injury risk score and body soreness across 6 active players with ≥5 days of paired data: r = -0.64, n = 6. Negative association suggests this club's soreness scale is inverted (lower = worse) or injury risk elevates when athletes under-report soreness. Poulsen shows highest risk (35.0) with lowest soreness (13.3) and mood (10.0)—classic under-reporting pattern. Torunarigha shows moderate risk (17.4) with higher soreness (29.2)—honest reporting. Cross-domain mismatch flags Poulsen and Sambi Lokonga for mandatory rest.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-8</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Bornauw: Daily HSR & Decelerations","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"High speed running (absolute)","type":"line","encode":{"x":"Date","y":"High speed running (absolute)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":218.333,"name":"Mean","label":{"formatter":"Mean 218.33","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Decelerations (relative)","type":"line","encode":{"x":"Date","y":"Decelerations (relative)"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)"],["Sebastiaan Bornauw","2026-09-29",7942,7097,734,815,0,0,0,734,0,58,42,159,13,1,12,108,11,323,5,5,6,5,2,2,2806,1684,11674,6787,10657,6233,2215,1009,3397,2110,159],["Sebastiaan Bornauw","2026-09-30",6240,6340,1140,764,233,82,4,907,4,77,77,168,35,6,30,61,11,301,6,9,6,7,6,7,1312,2229,5515,9888,4958,8956,966,1938,1820,2960,168],["Sebastiaan Bornauw","2026-10-01",7380,8765,1471,1023,326,89,5,1145,3,77,77,260,32,6,29,71,12,420,7,8,5,7,1,4,2812,2605,12435,11388,11498,10511,2015,1771,3429,3311,260],["Sebastiaan Bornauw","2026-10-02",7715,6177,702,717,170,84,2,532,0,69,46,122,19,2,7,98,11,281,5,10,6,5,2,0,1347,1821,5555,7759,5020,7103,990,1463,1766,2226,122],["Sebastiaan Bornauw","2026-10-03",5573,3332,383,376,110,7,1,274,2,27,17,67,13,1,3,36,4,152,3,7,8,8,3,2,818,796,3452,3428,3139,3179,731,533,957,964,67],["Sebastiaan Bornauw","2026-10-04",10035,9708,1736,1132,471,106,4,1265,7,91,80,395,46,10,66,58,10,472,6,9,8,8,5,8,2923,5322,12368,23657,11143,21415,2044,4608,4021,7460,395]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}},{"id":"chart_2","title":"Muheim: Daily HSR & Decelerations","option":{"legend":{"show":false},"grid":{"left":72,"right":80,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":[{"type":"value"},{"type":"value","position":"right","axisLine":{"show":true},"splitLine":{"show":false}}],"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Decelerations (relative)","type":"line","encode":{"x":"Date","y":"Decelerations (relative)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":454.875,"name":"Mean","label":{"formatter":"Mean 454.88","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"High speed running (absolute)","type":"line","yAxisIndex":1,"encode":{"x":"Date","y":"High speed running (absolute)"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)"],["Miro Muheim","2026-09-22",5400,5623,1066,612,322,61,4,744,8,76,77,169,29,6,53,62,12,268,6,8,6,6,5,6,838,1880,3604,8610,3129,7637,758,2115,1329,2742,169],["Miro Muheim","2026-09-23",4200,5079,1127,542,619,386,8,508,5,67,54,147,26,3,48,73,16,253,7,8,6,7,5,3,742,1900,3119,8457,2679,7411,599,2319,1263,2646,147],["Miro Muheim","2026-09-29",7967,7796,1027,817,78,0,0,949,8,115,81,186,32,3,40,118,16,360,6,7,5,5,2,4,1112,3144,4681,13277,4043,11801,853,3337,1789,4172,186],["Miro Muheim","2026-09-30",6240,6540,1406,716,576,190,11,831,16,87,79,240,55,12,91,63,14,322,6,9,6,7,7,10,1286,2520,5474,11674,4774,10215,1206,2760,1916,4143,240],["Miro Muheim","2026-10-01",7173,9100,1698,955,598,210,11,1100,8,87,82,240,33,13,59,76,14,444,7,9,6,6,4,4,1703,2980,7096,13290,6258,11946,1305,2332,2571,4500,240],["Miro Muheim","2026-10-02",7447,6884,1059,729,236,74,2,823,4,92,76,175,39,4,64,113,18,320,5,9,6,7,2,6,1599,1340,7128,5928,6279,5268,1600,986,2322,2149,175],["Miro Muheim","2026-10-03",5820,4007,516,404,240,82,4,276,4,27,23,108,18,3,52,41,5,185,4,8,6,5,4,1,539,992,2338,4545,2060,4033,440,915,787,1566,108],["Miro Muheim","2026-10-04",7428,9301,2179,974,970,405,15,1208,10,66,91,265,29,13,65,75,18,477,7,9,6,7,3,9,1651,3624,6645,16173,5742,14143,1065,3205,2750,6272,265]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}},{"id":"chart_3","title":"Torunarigha: Daily HSR & Decelerations","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"High speed running (absolute)","type":"line","encode":{"x":"Date","y":"High speed running (absolute)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":211.667,"name":"Mean","label":{"formatter":"Mean 211.67","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Decelerations (relative)","type":"line","encode":{"x":"Date","y":"Decelerations (relative)"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Player","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)"],["Jordan Torunarigha","2026-09-22",5400,4131,611,463,109,8,1,502,2,52,50,109,18,2,20,46,7,190,5,7,6,7,2,5,998,998,4391,4471,3762,3815,1255,898,1544,1950,109],["Jordan Torunarigha","2026-09-23",4200,4623,1074,537,497,337,8,578,6,83,60,109,21,6,14,66,15,230,7,8,6,7,11,4,1388,1416,5793,5891,5045,5085,1147,1413,2269,2276,109],["Jordan Torunarigha","2026-09-29",8884,7219,814,773,43,0,0,771,2,70,60,185,21,5,20,101,11,329,5,7,5,7,0,4,2306,2429,9630,10257,8568,8960,2116,2296,3336,3982,185],["Jordan Torunarigha","2026-10-02",5335,4547,385,477,138,68,2,247,2,32,24,126,16,1,30,103,9,205,5,9,5,4,0,0,1222,1537,5057,6636,4537,5723,767,1808,1831,2429,126],["Jordan Torunarigha","2026-10-03",5820,3109,290,319,77,0,0,213,0,23,10,76,7,1,16,32,3,140,3,7,4,4,0,0,782,743,3404,3281,2993,2844,814,598,1209,1379,76],["Jordan Torunarigha","2026-10-04",7714,6818,1101,720,406,127,7,695,5,38,42,269,28,9,46,53,9,332,5,9,5,6,0,4,2068,2865,9186,13094,8246,11414,1552,3415,3163,4725,269]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}},{"id":"chart_4","title":"Injured cohort: Daily wellness","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":64,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10"],"axisLabel":{"color":"#8b93a7","fontSize":9,"hideOverlap":true,"rotate":40}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Albert Grønbæk","type":"line","data":[20,20,20,40,30,null,20,30,null,20,20],"connectNulls":false,"showSymbol":false,"symbolSize":0,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":21.674,"name":"Mean","label":{"formatter":"Mean 21.67","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"symbol":"none","smooth":true,"lineStyle":{"width":2.4}},{"name":"Terem Moffi","type":"line","data":[20,30,20,20,30,20,20,20,null,20,20],"connectNulls":false,"showSymbol":false,"symbolSize":0,"symbol":"none","smooth":true,"lineStyle":{"width":2.4}},{"name":"Jordan Torunarigha","type":"line","data":[28,28,null,30,null,null,30,30,null,null,30],"connectNulls":false,"showSymbol":false,"symbolSize":0,"symbol":"none","smooth":true,"lineStyle":{"width":2.4}},{"name":"Patson Daka","type":"line","data":[20,30,20,10,null,10,10,10,null,10,10],"connectNulls":false,"showSymbol":false,"symbolSize":0,"symbol":"none","smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}},{"id":"chart_5","title":"Top 10 injury risk scores (14d avg)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury Risk Score","type":"bar","encode":{"x":"Player","y":"Injury Risk Score"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":33.08,"name":"Mean","label":{"formatter":"Mean 33.08","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Position","Photo Url","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Quality Rating","Performance Score","Injury Risk Score"],["Albert Sambi Lokonga","CENTRAL MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3bc9009-f865-4563-a61d-a97a8771ef04.png",null,null,null,1,8395,null,65139,13,48740,47563,7964,5035,2308,383,17,5654,30,426,258,1511,18,10,18,51,50],["Ransford Königsdörffer","STRIKER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/daddb0c9-bfdc-4ccf-9152-c9a835f28ac0.png",null,null,null,null,null,null,0,10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,40],["Yussuf Poulsen","STRIKER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/bbd75f0b-8dd1-4ff0-b3f4-5d07e8559076.png",null,null,null,1,7299,null,39327,13,50909,40995,7003,4688,2055,836,21,4949,22,500,360,607,13,10,20,51,35],["Robert Glatzel","STRIKER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b62453e2-6ddf-4b25-848f-42f5ea8c9d1b.png",null,null,null,null,null,null,0,10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,35],["William Mikelbrencis","FULL BACK","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/0e194c00-e72b-410d-a0f1-3da86bb3cc1c.png",null,null,null,null,null,null,0,10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,31],["Immanuël Pherai","ATTACKING MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/a5e43cdc-8b02-4db3-8730-dec88077e904.png",null,null,null,null,null,null,37574,10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,30],["Bakery Jatta","WINGER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3d2aa33-5992-4cf5-a047-8e6b6482e55d.png",null,null,null,null,null,null,98745,12,26559,24421,3928,2627,1166,387,18,2762,26,306,179,672,39,37,37,55,30],["Noah Katterbach","FULL BACK","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/d77a12be-55de-45cf-b1af-36bd5c0c79e0.png",null,null,null,null,null,null,0,10,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,51,28],["Mario Vušković","CENTRAL DEFENDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/36fead24-f082-42fc-b294-53aefce14b18.png",null,null,null,1,11924,null,21752,12,49051,54690,7045,6173,1438,289,11,5605,39,496,449,1451,19,10,10,51,27],["Jordan Torunarigha","CENTRAL DEFENDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/5050dbbe-0f53-4585-983d-a3a551167d80.png",null,null,null,1,4629,null,79003,13,37353,30447,4275,3288,1270,540,18,3006,17,298,246,876,29,25,30,49,25]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}},{"id":"chart_6","title":"Top 10 body soreness (14d avg)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"bar","encode":{"x":"Player","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":26.787,"name":"Mean","label":{"formatter":"Mean 26.79","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Position","Photo Url","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Quality Rating","Performance Score","Injury Risk Score","Biomarker","Value","Samples (n)","Unit"],["Bakery Jatta","WINGER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3d2aa33-5992-4cf5-a047-8e6b6482e55d.png",null,null,null,null,null,null,98745,12,26559,24421,3928,2627,1166,387,18,2762,26,306,179,672,39,37,37,55,30,null,null,null,null],["Jordan Torunarigha","CENTRAL DEFENDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/5050dbbe-0f53-4585-983d-a3a551167d80.png",null,null,null,1,4629,null,79003,13,37353,30447,4275,3288,1270,540,18,3006,17,298,246,876,29,25,30,49,25,null,null,null,null],["Otto Stange","STRIKER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/75d29790-a388-4b5f-a5cb-81410a41b6af.png",null,null,null,null,null,null,71982,12,8478,7800,1555,828,701,274,10,854,4,48,60,108,27,23,30,51,1,null,null,null,null],["Shafiq Nandja","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/c053a060-d5ab-43dc-bec0-6fe24b81cb1a.png",null,null,null,1,14013,null,109104,11,38876,38923,6917,4271,2231,651,28,4687,23,426,361,841,27,21,30,null,null,null,null,null,null],["Kofi Amoako","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/32fb3017-7fbf-4467-b5df-c49b54feae31.png",null,null,null,1,4719,null,64670,11,47412,40532,6861,4372,2361,775,28,4501,45,435,324,1538,26,22,21,null,null,"ck",478,1,"U/L"],["Alexander Røssing-Lelesiit","WINGER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/8d714cfa-f70e-45e9-82fd-fdc96c8712c6.png",null,null,null,1,5309,null,62628,12,34064,35290,6974,3294,1967,286,19,5006,60,561,458,940,26,19,21,53,3,"ck",1282,2,"U/L"],["Fábio Vieira","CENTRAL MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/5f91ca68-532e-4064-b2c1-04255aebb5b6.png",null,null,null,1,10970,null,58370,11,38824,37798,5867,3529,1839,732,18,4029,24,360,252,1135,26,22,23,50,17,null,null,null,null],["Albert Grønbæk","WINGER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/5eea2bd3-53dc-4080-a182-80fb592f0712.png",null,null,null,1,1455,null,53355,12,7020,9688,492,922,36,0,0,456,0,27,26,418,24,17,21,54,0,null,null,null,null],["Bilal Nadir","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b6fba227-3a1b-4cf6-b47b-eed7be07db90.png",null,null,null,1,17550,null,57372,8,47456,40609,5894,4256,1588,460,24,4307,32,424,329,1160,23,21,25,null,null,null,null,null,null],["Terem Moffi","MIDFIELDER","https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/f14ed1f9-1895-4a4f-8df6-72672182ab73.png",null,null,null,1,1681,null,22276,12,12985,14909,1621,1476,781,183,6,841,1,61,39,400,22,20,17,null,null,"ck",472,2,"U/L"]]},"color":["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"Source Sans 3\", ui-sans-serif, system-ui, sans-serif", color: "#134e4a" },
+          color: ["#0D9488","#0891B2","#64748B","#CA8A04","#DC2626","#7C3AED","#059669","#EA580C","#0284C7","#4B5563"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

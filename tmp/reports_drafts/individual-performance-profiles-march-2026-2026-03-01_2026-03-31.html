@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Individual Performance Profiles – March 2026</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page {
+      width: 190mm;
+      margin: 0 auto 8mm;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 14px;
+      break-inside: avoid-page;
+      page-break-inside: avoid;
+      break-before: auto;
+    }
+    .chart-card {
+      break-before: avoid-page;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 280px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.risk-hi):not(.risk-mid) { background: #f8f9fc; }
+    .risk-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .risk-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2025-2026</div>
+      <h1 class="cover-title">Individual Performance Profiles – March 2026</h1>
+      <p class="cover-sub">Performance &amp; load signals — club data only</p>
+      <div class="date-pill">Tue, 31/03/26 · 2026-03-01 → 2026-03-31</div>
+      
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Individual Performance Profiles – March 2026</h2>
+    <p class="note">Descriptive monitoring — not injury prediction. Table colours only on risk metrics (ACWR, asymmetry, wellness…), never on volume/distance alone.</p>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#section-1"><span>02 · Individual Performance Profiles – March 2026</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>03 · Risk Signals</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>04 · Performance &amp; Wellness Scores</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>05 · Training RPE</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>06 · Biomarkers</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>07 · Subjective Wellness Profiles</span><span class="hint">§6</span></a></li><li><a href="#section-7"><span>08 · GPS Intensity Profiles</span><span class="hint">§7</span></a></li>
+    </ol>
+    <div class="card" style="margin-top:14px"><h3>Coach brief</h3><p class="prose" style="margin:0">Je ne veux pas des tableaux resumant mes stats sur mes joueurs mais des vrais focus individuelle pour faire le bilan de chaque joueur sur le mois , comme sa moyenne de scores de perf et de blessures, ses sprints , ses accelerations ses donnes subjectives etc etc ..</p></div>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="section-1">
+  <div class="band">
+    <h1>Individual Performance Profiles – March 2026</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="card"><h3>Individual Performance Summary – March 2026</h3><div class="legend"><span><i class="swatch" style="background:rgba(224,112,112,0.22);outline:1px solid #E07070"></i>elevated risk (ACWR / asym / wellness…)</span><span><i class="swatch" style="background:rgba(251,191,36,0.22);outline:1px solid #E8B84A"></i>watch</span><span>volume & distance = no risk colour</span></div><table class="report-table"><thead><tr><th>Player</th><th>Performance Score</th><th>Injury Risk Score</th><th>Distance total (m)</th><th>High speed running (absolute)</th><th>Sprints (count)</th><th>Accelerations (relative)</th><th>DSL</th><th>Body Soreness</th><th>Mood</th><th>Sleep Quality</th></tr></thead><tbody><tr><td class="">Fabio Baldé</td><td class="">53.9</td><td class="">1</td><td class="">69.1</td><td class="">4</td><td class="">61</td><td class="">780</td><td class="">1,313.2</td><td class="risk-hi">35.1</td><td class="">31</td><td class="">33.7</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">62.8</td><td class="">3.3</td><td class="">37.8</td><td class="">807</td><td class="">2</td><td class="">44</td><td class="">949.2</td><td class="">24.1</td><td class="">24.2</td><td class="">21.5</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">54.2</td><td class="risk-mid">9.1</td><td class="">67.9</td><td class="">2.6</td><td class="">34</td><td class="">586</td><td class="">1,565.8</td><td class="">30.4</td><td class="">20.4</td><td class="">26.4</td></tr><tr><td class="">Damion Downs</td><td class="">48.2</td><td class="">0.8</td><td class="">68.4</td><td class="">4.4</td><td class="">63</td><td class="">777</td><td class="">1,574.1</td><td class="risk-hi">35.1</td><td class="">32.3</td><td class="">37.1</td></tr><tr><td class="">Daniel Elfadli</td><td class="">53.1</td><td class="risk-mid">8.5</td><td class="">103.2</td><td class="">4.8</td><td class="">47</td><td class="">950</td><td class="">1,866.6</td><td class="">31.1</td><td class="">26</td><td class="">29.3</td></tr><tr><td class="">Robert Glatzel</td><td class="">55</td><td class="risk-hi">20.6</td><td class="">94</td><td class="">3.2</td><td class="">30</td><td class="">703</td><td class="">1,167.4</td><td class="">28.5</td><td class="">27.2</td><td class="">28.3</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">58.2</td><td class="">1.8</td><td class="">83.2</td><td class="">6</td><td class="">71</td><td class="">873</td><td class="">1,422.5</td><td class="">14.4</td><td class="risk-mid">14.2</td><td class="risk-hi">13.4</td></tr><tr><td class="">Albert Grønbæk</td><td class="">49.7</td><td class="">0.6</td><td class="">83.1</td><td class="">4.1</td><td class="">30</td><td class="">905</td><td class="">2,500.5</td><td class="">14.2</td><td class="risk-hi">11.7</td><td class="risk-hi">14.4</td></tr><tr><td class="">Bakery Jatta</td><td class="">65.7</td><td class="risk-hi">17.6</td><td class="">82</td><td class="">3.3</td><td class="">26</td><td class="">577</td><td class="">1.1</td><td class="risk-hi">38.1</td><td class="">34.9</td><td class="">33.2</td></tr><tr><td class="">Noah Katterbach</td><td class="">58.5</td><td class="">1.5</td><td class="">102.6</td><td class="">4.9</td><td class="">54</td><td class="">805</td><td class="">1.5</td><td class="">26.3</td><td class="">32.8</td><td class="">25</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">62.8</td><td class="">3.7</td><td class="">74.5</td><td class="">5.3</td><td class="">81</td><td class="">667</td><td class="">1,910.6</td><td class="risk-hi">35.4</td><td class="">34.8</td><td class="">34.8</td></tr><tr><td class="">Omar Megeed</td><td class="">51.3</td><td class="">1.8</td><td class="">43.5</td><td class="">1.5</td><td class="">16</td><td class="">425</td><td class="">789.1</td><td class="">30.9</td><td class="">41</td><td class="">31.5</td></tr><tr><td class="">William Mikelbrencis</td><td class="">55.6</td><td class="">5.6</td><td class="">103.4</td><td class="">7.2</td><td class="">93</td><td class="">1.1</td><td class="">3,032.4</td><td class="">20.8</td><td class="">20.2</td><td class="">19.9</td></tr><tr><td class="">Miro Muheim</td><td class="">51.3</td><td class="">3</td><td class="">86.9</td><td class="">5.6</td><td class="">67</td><td class="">749</td><td class="">2,538.9</td><td class="">27.2</td><td class="">21.1</td><td class="">24.1</td></tr><tr><td class="">Warmed Omari</td><td class="">51.1</td><td class="">0.7</td><td class="">110.9</td><td class="">4.6</td><td class="">33</td><td class="">856</td><td class="">3,624.9</td><td class="">27.4</td><td class="">24.5</td><td class="">29.7</td></tr><tr><td class="">Philip Otele</td><td class="">49.8</td><td class="">1</td><td class="">65.3</td><td class="">4</td><td class="">52</td><td class="">626</td><td class="">1,966.3</td><td class="">19.1</td><td class="risk-mid">15.6</td><td class="risk-mid">19.5</td></tr><tr><td class="">Rayan Philippe</td><td class="">57.2</td><td class="">1.5</td><td class="">94.1</td><td class="">4.7</td><td class="">58</td><td class="">980</td><td class="">1,665.2</td><td class="">24.3</td><td class="risk-hi">10.3</td><td class="">22.9</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">54.7</td><td class="risk-hi">51.5</td><td class="">26.1</td><td class="">1.4</td><td class="">15</td><td class="">306</td><td class="">533.2</td><td class="">22.5</td><td class="">20.4</td><td class="">21.9</td></tr><tr><td class="">Nicolai Remberg</td><td class="">54.4</td><td class="">3.5</td><td class="">135.1</td><td class="">7.2</td><td class="">82</td><td class="">1.2</td><td class="">4,844.1</td><td class="">17.7</td><td class="">17.8</td><td class="risk-mid">17.5</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">51</td><td class="">3</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">53.7</td><td class="">1.4</td><td class="">99.2</td><td class="">4.5</td><td class="">30</td><td class="">772</td><td class="">2,515.5</td><td class="">20.5</td><td class="">17.8</td><td class="">21.1</td></tr><tr><td class="">Otto Stange</td><td class="">48.3</td><td class="">3.3</td><td class="">72.2</td><td class="">2.9</td><td class="">50</td><td class="">654</td><td class="">959.2</td><td class="">19.2</td><td class="risk-mid">17.1</td><td class="risk-mid">17.1</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">56</td><td class="">7.5</td><td class="">108.3</td><td class="">4.6</td><td class="">66</td><td class="">778</td><td class="">2,623.9</td><td class="">26.6</td><td class="">25</td><td class="">26.7</td></tr><tr><td class="">Fábio Vieira</td><td class="">55.3</td><td class="">1.3</td><td class="">100.6</td><td class="">4.3</td><td class="">55</td><td class="">799</td><td class="">2,020.7</td><td class="">28.5</td><td class="">35.2</td><td class="">31.7</td></tr><tr><td class="">Luka Vušković</td><td class="">59.6</td><td class="">1.6</td><td class="">88.4</td><td class="">4</td><td class="">39</td><td class="">529</td><td class="">2,577.5</td><td class="">13.5</td><td class="risk-hi">10.6</td><td class="risk-hi">11.2</td></tr><tr><td class="">Bilal Yalçınkaya</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="risk-mid">32.4</td><td class="">28</td><td class="">33.4</td></tr></tbody></table></div>
+<div class="card"><h3>High Performers (Performance Score ≥55)</h3><table class="report-table"><thead><tr><th>Player</th><th>Performance Score</th><th>Injury Risk Score</th><th>Distance (m)</th><th>Sprints</th></tr></thead><tbody></tbody></table></div>
+<div class="card"><h3>Players with Elevated Injury Risk (≥5.0)</h3><table class="report-table"><thead><tr><th>Player</th><th>Injury Risk Score</th><th>Performance Score</th><th>Player Load (DSL)</th><th>Body Soreness</th></tr></thead><tbody></tbody></table></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</section>
+
+<section class="page content-page" id="section-2">
+  <div class="band">
+    <h1>Risk Signals</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="chart-card">
+  <h3>Performance Score – Top Performers</h3>
+  <div id="chart_1" class="chart-box"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Injury Risk Score – Players at Risk</h3>
+  <div id="chart_2" class="chart-box"></div>
+  
+</div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</section>
+
+<section class="page content-page" id="section-3">
+  <div class="band">
+    <h1>Performance &amp; Wellness Scores</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="chart-card">
+  <h3>Sleep Quality – March Average by Player</h3>
+  <div id="chart_3" class="chart-box"></div>
+  
+</div>
+<div class="card"><h3>Session RPE – March Averages</h3><table class="report-table"><thead><tr><th>Player</th><th>RPE Type</th><th>Average Value</th></tr></thead><tbody><tr><td class="">Fabio Baldé</td><td class="">post_training_rpe</td><td class="">35.8</td></tr><tr><td class="">Fabio Baldé</td><td class="">training_rpe</td><td class="">29.7</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">pre_training_rpe</td><td class="">41</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">training_rpe</td><td class="">26.8</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">post_training_rpe</td><td class="">36.2</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">pre_training_rpe</td><td class="">30</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">training_rpe</td><td class="">32.4</td></tr><tr><td class="">Damion Downs</td><td class="">training_rpe</td><td class="">35.3</td></tr><tr><td class="">Daniel Elfadli</td><td class="">post_training_rpe</td><td class="">29.8</td></tr><tr><td class="">Daniel Elfadli</td><td class="">pre_training_rpe</td><td class="">25</td></tr><tr><td class="">Daniel Elfadli</td><td class="">training_rpe</td><td class="">28.1</td></tr><tr><td class="">Robert Glatzel</td><td class="">post_training_rpe</td><td class="">33.4</td></tr><tr><td class="">Robert Glatzel</td><td class="">pre_training_rpe</td><td class="">25.8</td></tr><tr><td class="">Robert Glatzel</td><td class="">training_rpe</td><td class="">29.2</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">post_training_rpe</td><td class="">23.5</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">pre_training_rpe</td><td class="">11</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">training_rpe</td><td class="">20.3</td></tr><tr><td class="">Albert Grønbæk</td><td class="">post_training_rpe</td><td class="">38</td></tr><tr><td class="">Albert Grønbæk</td><td class="">training_rpe</td><td class="">33.2</td></tr><tr><td class="">Bakery Jatta</td><td class="">post_training_rpe</td><td class="">43.1</td></tr><tr><td class="">Bakery Jatta</td><td class="">pre_training_rpe</td><td class="">42.5</td></tr><tr><td class="">Bakery Jatta</td><td class="">training_rpe</td><td class="">44.7</td></tr><tr><td class="">Noah Katterbach</td><td class="">post_training_rpe</td><td class="">24.8</td></tr><tr><td class="">Noah Katterbach</td><td class="">pre_training_rpe</td><td class="">17.3</td></tr><tr><td class="">Noah Katterbach</td><td class="">training_rpe</td><td class="">26.2</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">post_training_rpe</td><td class="">47.5</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">training_rpe</td><td class="">38.4</td></tr><tr><td class="">William Mikelbrencis</td><td class="">post_training_rpe</td><td class="">29.5</td></tr><tr><td class="">William Mikelbrencis</td><td class="">training_rpe</td><td class="">29</td></tr><tr><td class="">Miro Muheim</td><td class="">training_rpe</td><td class="">30.2</td></tr><tr><td class="">Warmed Omari</td><td class="">post_training_rpe</td><td class="">15</td></tr><tr><td class="">Warmed Omari</td><td class="">pre_training_rpe</td><td class="">18.5</td></tr><tr><td class="">Warmed Omari</td><td class="">training_rpe</td><td class="">28.4</td></tr><tr><td class="">Philip Otele</td><td class="">post_training_rpe</td><td class="">30.4</td></tr><tr><td class="">Philip Otele</td><td class="">pre_training_rpe</td><td class="">19.2</td></tr><tr><td class="">Philip Otele</td><td class="">training_rpe</td><td class="">29.5</td></tr><tr><td class="">Rayan Philippe</td><td class="">post_training_rpe</td><td class="">32</td></tr><tr><td class="">Rayan Philippe</td><td class="">training_rpe</td><td class="">30</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">training_rpe</td><td class="">24.6</td></tr><tr><td class="">Nicolai Remberg</td><td class="">post_training_rpe</td><td class="">35.7</td></tr></tbody></table></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</section>
+
+<section class="page content-page" id="section-4">
+  <div class="band">
+    <h1>Training RPE</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="card"><h3>Creatine Kinase (CK) – March Sample</h3><table class="report-table"><thead><tr><th>Player</th><th>Value</th><th>Unit</th></tr></thead><tbody><tr><td class="">Nicolai Remberg</td><td class="">424</td><td class="">U/L</td></tr><tr><td class="">Philip Otele</td><td class="">348</td><td class="">U/L</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">310</td><td class="">U/L</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">289</td><td class="">U/L</td></tr><tr><td class="">Warmed Omari</td><td class="">267</td><td class="">U/L</td></tr><tr><td class="">Bilal Yalçınkaya</td><td class="">245</td><td class="">U/L</td></tr><tr><td class="">Otto Stange</td><td class="">198</td><td class="">U/L</td></tr><tr><td class="">Omar Megeed</td><td class="">187</td><td class="">U/L</td></tr></tbody></table></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</section>
+
+<section class="page content-page" id="section-5">
+  <div class="band">
+    <h1>Biomarkers</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="chart-card">
+  <h3>Mood – March Average by Player</h3>
+  <div id="chart_4" class="chart-box"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Body Soreness – March Average by Player</h3>
+  <div id="chart_5" class="chart-box"></div>
+  
+</div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</section>
+
+<section class="page content-page" id="section-6">
+  <div class="band">
+    <h1>Subjective Wellness Profiles</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="chart-card">
+  <h3>Player Load (DSL) – March by Player</h3>
+  <div id="chart_6" class="chart-box"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Accelerations – March by Player</h3>
+  <div id="chart_7" class="chart-box"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Sprint Count – March by Player</h3>
+  <div id="chart_8" class="chart-box"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>High-Speed Running (m) – March by Player</h3>
+  <div id="chart_9" class="chart-box"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Total Distance (m) – March by Player</h3>
+  <div id="chart_10" class="chart-box"></div>
+  
+</div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</section>
+
+<section class="page content-page" id="section-7">
+  <div class="band">
+    <h1>GPS Intensity Profiles</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="chart-card">
+  <h3>Injury Safety Score (100 - Risk) – March Average by Player</h3>
+  <div id="chart_11" class="chart-box"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Performance Score – March Average by Player</h3>
+  <div id="chart_12" class="chart-box"></div>
+  
+</div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-7</span>
+  </div>
+</section>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Performance Score – Top Performers","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":24},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Avg Performance Score","type":"bar","encode":{"x":"Player","y":"Avg Performance Score"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":58.791,"name":"Mean","label":{"formatter":"Mean 58.79","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Avg Performance Score","Avg Injury Risk Score","Days Tracked","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Avg Sleep Quality","Avg Sleep Efficiency Pct","Avg Hours In Bed"],["Nicolás Capaldo",62.8,3.3,31,16,34695,37836,2973,3032.2,807,81,2,2166,1,44,62,949.2,24.1,24.2,21.5,null,null],["Robert Glatzel",55,20.6,31,29,105325,93956,12126,10359.2,3161,776,30,8965,13,703,489,1167.4,28.4,27.2,28.3,null,null],["Giorgi Gocholeishvili",58.2,1.8,31,25,98003,83183,15423,8672.1,5992,1469,71,9432,57,873,901,1422.5,14.4,14.2,13.4,null,null],["Bakery Jatta",65.7,17.6,31,25,67696,81975,9856,7799,3301,817,26,6556,12,577,377,1133,38.1,34.9,33.2,null,null],["Noah Katterbach",58.5,1.5,31,29,96297,102577,15605,10380.7,4898,1208,54,10707,39,805,700,1476,26.3,32.8,25,null,null],["Ransford Königsdörffer",62.8,3.7,31,25,67523,74525,13269,7738.3,5348,1641,81,7921,40,667,441,1910.6,35.4,34.8,34.8,null,null],["William Mikelbrencis",55.6,5.6,31,27,97041,103406,20275,9122.2,7187,2016,93,13089,111,1109,1075,3032.4,20.8,20.2,19.9,null,null],["Rayan Philippe",57.2,1.5,31,22,99865,94098,15930,10008.6,4658,1041,58,11272,43,980,797,1665.2,24.3,10.3,22.9,null,null],["Jordan Torunarigha",56,7.5,31,22,105190,108337,16773,11528.2,4649,1400,66,12124,37,778,717,2623.9,26.6,25,26.7,null,null],["Fábio Vieira",55.3,1.3,31,20,97552,100612,16215,8246.9,4282,1141,55,11933,52,799,745,2020.7,28.5,35.2,31.7,null,null],["Luka Vušković",59.6,1.6,31,26,69352,88442,14171,9812.3,3969,902,39,10202,39,529,550,2577.5,13.5,10.6,11.2,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"Injury Risk Score – Players at Risk","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":24},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Avg Injury Risk Score","type":"bar","encode":{"x":"Player","y":"Avg Injury Risk Score"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":17.2,"name":"Mean","label":{"formatter":"Mean 17.2","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Avg Performance Score","Avg Injury Risk Score","Days Tracked","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Avg Sleep Quality","Avg Sleep Efficiency Pct","Avg Hours In Bed"],["Jean-Luc Dompé",54.2,9.1,31,24,90735,67892,9283,5892.7,2576,624,34,6706,40,586,409,1565.8,30.4,20.4,26.4,null,null],["Daniel Elfadli",53.1,8.5,31,30,104237,103179,16330,10818.7,4777,972,47,11553,49,950,798,1866.6,31.1,26,29.3,null,null],["Robert Glatzel",55,20.6,31,29,105325,93956,12126,10359.2,3161,776,30,8965,13,703,489,1167.4,28.4,27.2,28.3,null,null],["Bakery Jatta",65.7,17.6,31,25,67696,81975,9856,7799,3301,817,26,6556,12,577,377,1133,38.1,34.9,33.2,null,null],["William Mikelbrencis",55.6,5.6,31,27,97041,103406,20275,9122.2,7187,2016,93,13089,111,1109,1075,3032.4,20.8,20.2,19.9,null,null],["Yussuf Poulsen",54.7,51.5,15,8,32491,26123,4294,2962.4,1394,369,15,2901,19,306,237,533.2,22.5,20.4,21.9,null,null],["Jordan Torunarigha",56,7.5,31,22,105190,108337,16773,11528.2,4649,1400,66,12124,37,778,717,2623.9,26.6,25,26.7,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3","title":"Sleep Quality – March Average by Player","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":24},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Avg Sleep Quality","type":"bar","encode":{"x":"Player","y":"Avg Sleep Quality"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":25.479,"name":"Mean","label":{"formatter":"Mean 25.48","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Avg Performance Score","Avg Injury Risk Score","Days Tracked","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Avg Sleep Quality","Avg Sleep Efficiency Pct","Avg Hours In Bed"],["Fabio Baldé",53.9,1,31,27,85148,69123,11365,7059.6,4003,1329,61,7363,48,780,499,1313.2,35.1,31,33.7,null,null],["Nicolás Capaldo",62.8,3.3,31,16,34695,37836,2973,3032.2,807,81,2,2166,1,44,62,949.2,24.1,24.2,21.5,null,null],["Jean-Luc Dompé",54.2,9.1,31,24,90735,67892,9283,5892.7,2576,624,34,6706,40,586,409,1565.8,30.4,20.4,26.4,null,null],["Damion Downs",48.2,0.8,31,15,73397,68358,12149,7449.1,4362,1285,63,7787,53,777,521,1574.1,35.1,32.3,37.1,null,null],["Daniel Elfadli",53.1,8.5,31,30,104237,103179,16330,10818.7,4777,972,47,11553,49,950,798,1866.6,31.1,26,29.3,null,null],["Robert Glatzel",55,20.6,31,29,105325,93956,12126,10359.2,3161,776,30,8965,13,703,489,1167.4,28.4,27.2,28.3,null,null],["Giorgi Gocholeishvili",58.2,1.8,31,25,98003,83183,15423,8672.1,5992,1469,71,9432,57,873,901,1422.5,14.4,14.2,13.4,null,null],["Albert Grønbæk",49.7,0.6,31,22,76231,83104,14476,9000,4058,613,30,10418,56,905,749,2500.5,14.2,11.7,14.4,null,null],["Bakery Jatta",65.7,17.6,31,25,67696,81975,9856,7799,3301,817,26,6556,12,577,377,1133,38.1,34.9,33.2,null,null],["Noah Katterbach",58.5,1.5,31,29,96297,102577,15605,10380.7,4898,1208,54,10707,39,805,700,1476,26.3,32.8,25,null,null],["Ransford Königsdörffer",62.8,3.7,31,25,67523,74525,13269,7738.3,5348,1641,81,7921,40,667,441,1910.6,35.4,34.8,34.8,null,null],["Omar Megeed",51.3,1.8,30,13,39290,43468,6900,4678.1,1462,335,16,5439,15,425,374,789.1,30.9,41,31.5,null,null],["William Mikelbrencis",55.6,5.6,31,27,97041,103406,20275,9122.2,7187,2016,93,13089,111,1109,1075,3032.4,20.8,20.2,19.9,null,null],["Miro Muheim",51.3,3,24,16,72639,86854,15488,8958.2,5634,1374,67,9855,56,749,704,2538.9,27.2,21.1,24.1,null,null],["Warmed Omari",51.1,0.7,31,22,109410,110886,16866,11816.3,4641,672,33,12225,56,856,825,3624.9,27.4,24.5,29.7,null,null],["Philip Otele",49.8,1,31,28,71546,65317,11177,7019.2,4017,1212,52,7160,59,626,472,1966.3,19.1,15.6,19.5,null,null],["Rayan Philippe",57.2,1.5,31,22,99865,94098,15930,10008.6,4658,1041,58,11272,43,980,797,1665.2,24.3,10.3,22.9,null,null],["Yussuf Poulsen",54.7,51.5,15,8,32491,26123,4294,2962.4,1394,369,15,2901,19,306,237,533.2,22.5,20.4,21.9,null,null],["Nicolai Remberg",54.4,3.5,31,23,101644,135119,24797,15710.6,7155,1584,82,17642,145,1161,1332,4844.1,17.7,17.8,17.5,null,null],["Alexander Røssing-Lelesiit",51,3,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_4","title":"Mood – March Average by Player","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":24},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Mood Rating","type":"bar","encode":{"x":"Player","y":"Mood Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":24.226,"name":"Mean","label":{"formatter":"Mean 24.23","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Avg Performance Score","Avg Injury Risk Score","Days Tracked","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Avg Sleep Quality","Avg Sleep Efficiency Pct","Avg Hours In Bed"],["Fabio Baldé",53.9,1,31,27,85148,69123,11365,7059.6,4003,1329,61,7363,48,780,499,1313.2,35.1,31,33.7,null,null],["Nicolás Capaldo",62.8,3.3,31,16,34695,37836,2973,3032.2,807,81,2,2166,1,44,62,949.2,24.1,24.2,21.5,null,null],["Jean-Luc Dompé",54.2,9.1,31,24,90735,67892,9283,5892.7,2576,624,34,6706,40,586,409,1565.8,30.4,20.4,26.4,null,null],["Damion Downs",48.2,0.8,31,15,73397,68358,12149,7449.1,4362,1285,63,7787,53,777,521,1574.1,35.1,32.3,37.1,null,null],["Daniel Elfadli",53.1,8.5,31,30,104237,103179,16330,10818.7,4777,972,47,11553,49,950,798,1866.6,31.1,26,29.3,null,null],["Robert Glatzel",55,20.6,31,29,105325,93956,12126,10359.2,3161,776,30,8965,13,703,489,1167.4,28.4,27.2,28.3,null,null],["Giorgi Gocholeishvili",58.2,1.8,31,25,98003,83183,15423,8672.1,5992,1469,71,9432,57,873,901,1422.5,14.4,14.2,13.4,null,null],["Albert Grønbæk",49.7,0.6,31,22,76231,83104,14476,9000,4058,613,30,10418,56,905,749,2500.5,14.2,11.7,14.4,null,null],["Bakery Jatta",65.7,17.6,31,25,67696,81975,9856,7799,3301,817,26,6556,12,577,377,1133,38.1,34.9,33.2,null,null],["Noah Katterbach",58.5,1.5,31,29,96297,102577,15605,10380.7,4898,1208,54,10707,39,805,700,1476,26.3,32.8,25,null,null],["Ransford Königsdörffer",62.8,3.7,31,25,67523,74525,13269,7738.3,5348,1641,81,7921,40,667,441,1910.6,35.4,34.8,34.8,null,null],["Omar Megeed",51.3,1.8,30,13,39290,43468,6900,4678.1,1462,335,16,5439,15,425,374,789.1,30.9,41,31.5,null,null],["William Mikelbrencis",55.6,5.6,31,27,97041,103406,20275,9122.2,7187,2016,93,13089,111,1109,1075,3032.4,20.8,20.2,19.9,null,null],["Miro Muheim",51.3,3,24,16,72639,86854,15488,8958.2,5634,1374,67,9855,56,749,704,2538.9,27.2,21.1,24.1,null,null],["Warmed Omari",51.1,0.7,31,22,109410,110886,16866,11816.3,4641,672,33,12225,56,856,825,3624.9,27.4,24.5,29.7,null,null],["Philip Otele",49.8,1,31,28,71546,65317,11177,7019.2,4017,1212,52,7160,59,626,472,1966.3,19.1,15.6,19.5,null,null],["Rayan Philippe",57.2,1.5,31,22,99865,94098,15930,10008.6,4658,1041,58,11272,43,980,797,1665.2,24.3,10.3,22.9,null,null],["Yussuf Poulsen",54.7,51.5,15,8,32491,26123,4294,2962.4,1394,369,15,2901,19,306,237,533.2,22.5,20.4,21.9,null,null],["Nicolai Remberg",54.4,3.5,31,23,101644,135119,24797,15710.6,7155,1584,82,17642,145,1161,1332,4844.1,17.7,17.8,17.5,null,null],["Alexander Røssing-Lelesiit",51,3,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_5","title":"Body Soreness – March Average by Player","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":24},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"bar","encode":{"x":"Player","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":26.434,"name":"Mean","label":{"formatter":"Mean 26.43","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Avg Performance Score","Avg Injury Risk Score","Days Tracked","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Avg Sleep Quality","Avg Sleep Efficiency Pct","Avg Hours In Bed"],["Fabio Baldé",53.9,1,31,27,85148,69123,11365,7059.6,4003,1329,61,7363,48,780,499,1313.2,35.1,31,33.7,null,null],["Nicolás Capaldo",62.8,3.3,31,16,34695,37836,2973,3032.2,807,81,2,2166,1,44,62,949.2,24.1,24.2,21.5,null,null],["Jean-Luc Dompé",54.2,9.1,31,24,90735,67892,9283,5892.7,2576,624,34,6706,40,586,409,1565.8,30.4,20.4,26.4,null,null],["Damion Downs",48.2,0.8,31,15,73397,68358,12149,7449.1,4362,1285,63,7787,53,777,521,1574.1,35.1,32.3,37.1,null,null],["Daniel Elfadli",53.1,8.5,31,30,104237,103179,16330,10818.7,4777,972,47,11553,49,950,798,1866.6,31.1,26,29.3,null,null],["Robert Glatzel",55,20.6,31,29,105325,93956,12126,10359.2,3161,776,30,8965,13,703,489,1167.4,28.4,27.2,28.3,null,null],["Giorgi Gocholeishvili",58.2,1.8,31,25,98003,83183,15423,8672.1,5992,1469,71,9432,57,873,901,1422.5,14.4,14.2,13.4,null,null],["Albert Grønbæk",49.7,0.6,31,22,76231,83104,14476,9000,4058,613,30,10418,56,905,749,2500.5,14.2,11.7,14.4,null,null],["Bakery Jatta",65.7,17.6,31,25,67696,81975,9856,7799,3301,817,26,6556,12,577,377,1133,38.1,34.9,33.2,null,null],["Noah Katterbach",58.5,1.5,31,29,96297,102577,15605,10380.7,4898,1208,54,10707,39,805,700,1476,26.3,32.8,25,null,null],["Ransford Königsdörffer",62.8,3.7,31,25,67523,74525,13269,7738.3,5348,1641,81,7921,40,667,441,1910.6,35.4,34.8,34.8,null,null],["Omar Megeed",51.3,1.8,30,13,39290,43468,6900,4678.1,1462,335,16,5439,15,425,374,789.1,30.9,41,31.5,null,null],["William Mikelbrencis",55.6,5.6,31,27,97041,103406,20275,9122.2,7187,2016,93,13089,111,1109,1075,3032.4,20.8,20.2,19.9,null,null],["Miro Muheim",51.3,3,24,16,72639,86854,15488,8958.2,5634,1374,67,9855,56,749,704,2538.9,27.2,21.1,24.1,null,null],["Warmed Omari",51.1,0.7,31,22,109410,110886,16866,11816.3,4641,672,33,12225,56,856,825,3624.9,27.4,24.5,29.7,null,null],["Philip Otele",49.8,1,31,28,71546,65317,11177,7019.2,4017,1212,52,7160,59,626,472,1966.3,19.1,15.6,19.5,null,null],["Rayan Philippe",57.2,1.5,31,22,99865,94098,15930,10008.6,4658,1041,58,11272,43,980,797,1665.2,24.3,10.3,22.9,null,null],["Yussuf Poulsen",54.7,51.5,15,8,32491,26123,4294,2962.4,1394,369,15,2901,19,306,237,533.2,22.5,20.4,21.9,null,null],["Nicolai Remberg",54.4,3.5,31,23,101644,135119,24797,15710.6,7155,1584,82,17642,145,1161,1332,4844.1,17.7,17.8,17.5,null,null],["Alexander Røssing-Lelesiit",51,3,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_6","title":"Player Load (DSL) – March by Player","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":24},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"DSL","type":"bar","encode":{"x":"Player","y":"DSL"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1888.053,"name":"Mean","label":{"formatter":"Mean 1,888.05","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Avg Performance Score","Avg Injury Risk Score","Days Tracked","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Avg Sleep Quality","Avg Sleep Efficiency Pct","Avg Hours In Bed"],["Fabio Baldé",53.9,1,31,27,85148,69123,11365,7059.6,4003,1329,61,7363,48,780,499,1313.2,35.1,31,33.7,null,null],["Nicolás Capaldo",62.8,3.3,31,16,34695,37836,2973,3032.2,807,81,2,2166,1,44,62,949.2,24.1,24.2,21.5,null,null],["Jean-Luc Dompé",54.2,9.1,31,24,90735,67892,9283,5892.7,2576,624,34,6706,40,586,409,1565.8,30.4,20.4,26.4,null,null],["Damion Downs",48.2,0.8,31,15,73397,68358,12149,7449.1,4362,1285,63,7787,53,777,521,1574.1,35.1,32.3,37.1,null,null],["Daniel Elfadli",53.1,8.5,31,30,104237,103179,16330,10818.7,4777,972,47,11553,49,950,798,1866.6,31.1,26,29.3,null,null],["Robert Glatzel",55,20.6,31,29,105325,93956,12126,10359.2,3161,776,30,8965,13,703,489,1167.4,28.4,27.2,28.3,null,null],["Giorgi Gocholeishvili",58.2,1.8,31,25,98003,83183,15423,8672.1,5992,1469,71,9432,57,873,901,1422.5,14.4,14.2,13.4,null,null],["Albert Grønbæk",49.7,0.6,31,22,76231,83104,14476,9000,4058,613,30,10418,56,905,749,2500.5,14.2,11.7,14.4,null,null],["Bakery Jatta",65.7,17.6,31,25,67696,81975,9856,7799,3301,817,26,6556,12,577,377,1133,38.1,34.9,33.2,null,null],["Noah Katterbach",58.5,1.5,31,29,96297,102577,15605,10380.7,4898,1208,54,10707,39,805,700,1476,26.3,32.8,25,null,null],["Ransford Königsdörffer",62.8,3.7,31,25,67523,74525,13269,7738.3,5348,1641,81,7921,40,667,441,1910.6,35.4,34.8,34.8,null,null],["Omar Megeed",51.3,1.8,30,13,39290,43468,6900,4678.1,1462,335,16,5439,15,425,374,789.1,30.9,41,31.5,null,null],["William Mikelbrencis",55.6,5.6,31,27,97041,103406,20275,9122.2,7187,2016,93,13089,111,1109,1075,3032.4,20.8,20.2,19.9,null,null],["Miro Muheim",51.3,3,24,16,72639,86854,15488,8958.2,5634,1374,67,9855,56,749,704,2538.9,27.2,21.1,24.1,null,null],["Warmed Omari",51.1,0.7,31,22,109410,110886,16866,11816.3,4641,672,33,12225,56,856,825,3624.9,27.4,24.5,29.7,null,null],["Philip Otele",49.8,1,31,28,71546,65317,11177,7019.2,4017,1212,52,7160,59,626,472,1966.3,19.1,15.6,19.5,null,null],["Rayan Philippe",57.2,1.5,31,22,99865,94098,15930,10008.6,4658,1041,58,11272,43,980,797,1665.2,24.3,10.3,22.9,null,null],["Yussuf Poulsen",54.7,51.5,15,8,32491,26123,4294,2962.4,1394,369,15,2901,19,306,237,533.2,22.5,20.4,21.9,null,null],["Nicolai Remberg",54.4,3.5,31,23,101644,135119,24797,15710.6,7155,1584,82,17642,145,1161,1332,4844.1,17.7,17.8,17.5,null,null],["Alexander Røssing-Lelesiit",51,3,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_7","title":"Accelerations – March by Player","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":24},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Accelerations (relative)","type":"bar","encode":{"x":"Player","y":"Accelerations (relative)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":730.474,"name":"Mean","label":{"formatter":"Mean 730.47","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Avg Performance Score","Avg Injury Risk Score","Days Tracked","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Avg Sleep Quality","Avg Sleep Efficiency Pct","Avg Hours In Bed"],["Fabio Baldé",53.9,1,31,27,85148,69123,11365,7059.6,4003,1329,61,7363,48,780,499,1313.2,35.1,31,33.7,null,null],["Nicolás Capaldo",62.8,3.3,31,16,34695,37836,2973,3032.2,807,81,2,2166,1,44,62,949.2,24.1,24.2,21.5,null,null],["Jean-Luc Dompé",54.2,9.1,31,24,90735,67892,9283,5892.7,2576,624,34,6706,40,586,409,1565.8,30.4,20.4,26.4,null,null],["Damion Downs",48.2,0.8,31,15,73397,68358,12149,7449.1,4362,1285,63,7787,53,777,521,1574.1,35.1,32.3,37.1,null,null],["Daniel Elfadli",53.1,8.5,31,30,104237,103179,16330,10818.7,4777,972,47,11553,49,950,798,1866.6,31.1,26,29.3,null,null],["Robert Glatzel",55,20.6,31,29,105325,93956,12126,10359.2,3161,776,30,8965,13,703,489,1167.4,28.4,27.2,28.3,null,null],["Giorgi Gocholeishvili",58.2,1.8,31,25,98003,83183,15423,8672.1,5992,1469,71,9432,57,873,901,1422.5,14.4,14.2,13.4,null,null],["Albert Grønbæk",49.7,0.6,31,22,76231,83104,14476,9000,4058,613,30,10418,56,905,749,2500.5,14.2,11.7,14.4,null,null],["Bakery Jatta",65.7,17.6,31,25,67696,81975,9856,7799,3301,817,26,6556,12,577,377,1133,38.1,34.9,33.2,null,null],["Noah Katterbach",58.5,1.5,31,29,96297,102577,15605,10380.7,4898,1208,54,10707,39,805,700,1476,26.3,32.8,25,null,null],["Ransford Königsdörffer",62.8,3.7,31,25,67523,74525,13269,7738.3,5348,1641,81,7921,40,667,441,1910.6,35.4,34.8,34.8,null,null],["Omar Megeed",51.3,1.8,30,13,39290,43468,6900,4678.1,1462,335,16,5439,15,425,374,789.1,30.9,41,31.5,null,null],["William Mikelbrencis",55.6,5.6,31,27,97041,103406,20275,9122.2,7187,2016,93,13089,111,1109,1075,3032.4,20.8,20.2,19.9,null,null],["Miro Muheim",51.3,3,24,16,72639,86854,15488,8958.2,5634,1374,67,9855,56,749,704,2538.9,27.2,21.1,24.1,null,null],["Warmed Omari",51.1,0.7,31,22,109410,110886,16866,11816.3,4641,672,33,12225,56,856,825,3624.9,27.4,24.5,29.7,null,null],["Philip Otele",49.8,1,31,28,71546,65317,11177,7019.2,4017,1212,52,7160,59,626,472,1966.3,19.1,15.6,19.5,null,null],["Rayan Philippe",57.2,1.5,31,22,99865,94098,15930,10008.6,4658,1041,58,11272,43,980,797,1665.2,24.3,10.3,22.9,null,null],["Yussuf Poulsen",54.7,51.5,15,8,32491,26123,4294,2962.4,1394,369,15,2901,19,306,237,533.2,22.5,20.4,21.9,null,null],["Nicolai Remberg",54.4,3.5,31,23,101644,135119,24797,15710.6,7155,1584,82,17642,145,1161,1332,4844.1,17.7,17.8,17.5,null,null],["Alexander Røssing-Lelesiit",51,3,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_8","title":"Sprint Count – March by Player","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":24},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Sprints (count)","type":"bar","encode":{"x":"Player","y":"Sprints (count)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":48.158,"name":"Mean","label":{"formatter":"Mean 48.16","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Avg Performance Score","Avg Injury Risk Score","Days Tracked","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Avg Sleep Quality","Avg Sleep Efficiency Pct","Avg Hours In Bed"],["Fabio Baldé",53.9,1,31,27,85148,69123,11365,7059.6,4003,1329,61,7363,48,780,499,1313.2,35.1,31,33.7,null,null],["Nicolás Capaldo",62.8,3.3,31,16,34695,37836,2973,3032.2,807,81,2,2166,1,44,62,949.2,24.1,24.2,21.5,null,null],["Jean-Luc Dompé",54.2,9.1,31,24,90735,67892,9283,5892.7,2576,624,34,6706,40,586,409,1565.8,30.4,20.4,26.4,null,null],["Damion Downs",48.2,0.8,31,15,73397,68358,12149,7449.1,4362,1285,63,7787,53,777,521,1574.1,35.1,32.3,37.1,null,null],["Daniel Elfadli",53.1,8.5,31,30,104237,103179,16330,10818.7,4777,972,47,11553,49,950,798,1866.6,31.1,26,29.3,null,null],["Robert Glatzel",55,20.6,31,29,105325,93956,12126,10359.2,3161,776,30,8965,13,703,489,1167.4,28.4,27.2,28.3,null,null],["Giorgi Gocholeishvili",58.2,1.8,31,25,98003,83183,15423,8672.1,5992,1469,71,9432,57,873,901,1422.5,14.4,14.2,13.4,null,null],["Albert Grønbæk",49.7,0.6,31,22,76231,83104,14476,9000,4058,613,30,10418,56,905,749,2500.5,14.2,11.7,14.4,null,null],["Bakery Jatta",65.7,17.6,31,25,67696,81975,9856,7799,3301,817,26,6556,12,577,377,1133,38.1,34.9,33.2,null,null],["Noah Katterbach",58.5,1.5,31,29,96297,102577,15605,10380.7,4898,1208,54,10707,39,805,700,1476,26.3,32.8,25,null,null],["Ransford Königsdörffer",62.8,3.7,31,25,67523,74525,13269,7738.3,5348,1641,81,7921,40,667,441,1910.6,35.4,34.8,34.8,null,null],["Omar Megeed",51.3,1.8,30,13,39290,43468,6900,4678.1,1462,335,16,5439,15,425,374,789.1,30.9,41,31.5,null,null],["William Mikelbrencis",55.6,5.6,31,27,97041,103406,20275,9122.2,7187,2016,93,13089,111,1109,1075,3032.4,20.8,20.2,19.9,null,null],["Miro Muheim",51.3,3,24,16,72639,86854,15488,8958.2,5634,1374,67,9855,56,749,704,2538.9,27.2,21.1,24.1,null,null],["Warmed Omari",51.1,0.7,31,22,109410,110886,16866,11816.3,4641,672,33,12225,56,856,825,3624.9,27.4,24.5,29.7,null,null],["Philip Otele",49.8,1,31,28,71546,65317,11177,7019.2,4017,1212,52,7160,59,626,472,1966.3,19.1,15.6,19.5,null,null],["Rayan Philippe",57.2,1.5,31,22,99865,94098,15930,10008.6,4658,1041,58,11272,43,980,797,1665.2,24.3,10.3,22.9,null,null],["Yussuf Poulsen",54.7,51.5,15,8,32491,26123,4294,2962.4,1394,369,15,2901,19,306,237,533.2,22.5,20.4,21.9,null,null],["Nicolai Remberg",54.4,3.5,31,23,101644,135119,24797,15710.6,7155,1584,82,17642,145,1161,1332,4844.1,17.7,17.8,17.5,null,null],["Alexander Røssing-Lelesiit",51,3,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_9","title":"High-Speed Running (m) – March by Player","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":24},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"High speed running (absolute)","type":"bar","encode":{"x":"Player","y":"High speed running (absolute)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":4180.579,"name":"Mean","label":{"formatter":"Mean 4,180.58","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Avg Performance Score","Avg Injury Risk Score","Days Tracked","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Avg Sleep Quality","Avg Sleep Efficiency Pct","Avg Hours In Bed"],["Fabio Baldé",53.9,1,31,27,85148,69123,11365,7059.6,4003,1329,61,7363,48,780,499,1313.2,35.1,31,33.7,null,null],["Nicolás Capaldo",62.8,3.3,31,16,34695,37836,2973,3032.2,807,81,2,2166,1,44,62,949.2,24.1,24.2,21.5,null,null],["Jean-Luc Dompé",54.2,9.1,31,24,90735,67892,9283,5892.7,2576,624,34,6706,40,586,409,1565.8,30.4,20.4,26.4,null,null],["Damion Downs",48.2,0.8,31,15,73397,68358,12149,7449.1,4362,1285,63,7787,53,777,521,1574.1,35.1,32.3,37.1,null,null],["Daniel Elfadli",53.1,8.5,31,30,104237,103179,16330,10818.7,4777,972,47,11553,49,950,798,1866.6,31.1,26,29.3,null,null],["Robert Glatzel",55,20.6,31,29,105325,93956,12126,10359.2,3161,776,30,8965,13,703,489,1167.4,28.4,27.2,28.3,null,null],["Giorgi Gocholeishvili",58.2,1.8,31,25,98003,83183,15423,8672.1,5992,1469,71,9432,57,873,901,1422.5,14.4,14.2,13.4,null,null],["Albert Grønbæk",49.7,0.6,31,22,76231,83104,14476,9000,4058,613,30,10418,56,905,749,2500.5,14.2,11.7,14.4,null,null],["Bakery Jatta",65.7,17.6,31,25,67696,81975,9856,7799,3301,817,26,6556,12,577,377,1133,38.1,34.9,33.2,null,null],["Noah Katterbach",58.5,1.5,31,29,96297,102577,15605,10380.7,4898,1208,54,10707,39,805,700,1476,26.3,32.8,25,null,null],["Ransford Königsdörffer",62.8,3.7,31,25,67523,74525,13269,7738.3,5348,1641,81,7921,40,667,441,1910.6,35.4,34.8,34.8,null,null],["Omar Megeed",51.3,1.8,30,13,39290,43468,6900,4678.1,1462,335,16,5439,15,425,374,789.1,30.9,41,31.5,null,null],["William Mikelbrencis",55.6,5.6,31,27,97041,103406,20275,9122.2,7187,2016,93,13089,111,1109,1075,3032.4,20.8,20.2,19.9,null,null],["Miro Muheim",51.3,3,24,16,72639,86854,15488,8958.2,5634,1374,67,9855,56,749,704,2538.9,27.2,21.1,24.1,null,null],["Warmed Omari",51.1,0.7,31,22,109410,110886,16866,11816.3,4641,672,33,12225,56,856,825,3624.9,27.4,24.5,29.7,null,null],["Philip Otele",49.8,1,31,28,71546,65317,11177,7019.2,4017,1212,52,7160,59,626,472,1966.3,19.1,15.6,19.5,null,null],["Rayan Philippe",57.2,1.5,31,22,99865,94098,15930,10008.6,4658,1041,58,11272,43,980,797,1665.2,24.3,10.3,22.9,null,null],["Yussuf Poulsen",54.7,51.5,15,8,32491,26123,4294,2962.4,1394,369,15,2901,19,306,237,533.2,22.5,20.4,21.9,null,null],["Nicolai Remberg",54.4,3.5,31,23,101644,135119,24797,15710.6,7155,1584,82,17642,145,1161,1332,4844.1,17.7,17.8,17.5,null,null],["Alexander Røssing-Lelesiit",51,3,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_10","title":"Total Distance (m) – March by Player","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":24},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Distance total (m)","type":"bar","encode":{"x":"Player","y":"Distance total (m)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":80577.842,"name":"Mean","label":{"formatter":"Mean 80,577.84","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Avg Performance Score","Avg Injury Risk Score","Days Tracked","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Avg Sleep Quality","Avg Sleep Efficiency Pct","Avg Hours In Bed"],["Fabio Baldé",53.9,1,31,27,85148,69123,11365,7059.6,4003,1329,61,7363,48,780,499,1313.2,35.1,31,33.7,null,null],["Nicolás Capaldo",62.8,3.3,31,16,34695,37836,2973,3032.2,807,81,2,2166,1,44,62,949.2,24.1,24.2,21.5,null,null],["Jean-Luc Dompé",54.2,9.1,31,24,90735,67892,9283,5892.7,2576,624,34,6706,40,586,409,1565.8,30.4,20.4,26.4,null,null],["Damion Downs",48.2,0.8,31,15,73397,68358,12149,7449.1,4362,1285,63,7787,53,777,521,1574.1,35.1,32.3,37.1,null,null],["Daniel Elfadli",53.1,8.5,31,30,104237,103179,16330,10818.7,4777,972,47,11553,49,950,798,1866.6,31.1,26,29.3,null,null],["Robert Glatzel",55,20.6,31,29,105325,93956,12126,10359.2,3161,776,30,8965,13,703,489,1167.4,28.4,27.2,28.3,null,null],["Giorgi Gocholeishvili",58.2,1.8,31,25,98003,83183,15423,8672.1,5992,1469,71,9432,57,873,901,1422.5,14.4,14.2,13.4,null,null],["Albert Grønbæk",49.7,0.6,31,22,76231,83104,14476,9000,4058,613,30,10418,56,905,749,2500.5,14.2,11.7,14.4,null,null],["Bakery Jatta",65.7,17.6,31,25,67696,81975,9856,7799,3301,817,26,6556,12,577,377,1133,38.1,34.9,33.2,null,null],["Noah Katterbach",58.5,1.5,31,29,96297,102577,15605,10380.7,4898,1208,54,10707,39,805,700,1476,26.3,32.8,25,null,null],["Ransford Königsdörffer",62.8,3.7,31,25,67523,74525,13269,7738.3,5348,1641,81,7921,40,667,441,1910.6,35.4,34.8,34.8,null,null],["Omar Megeed",51.3,1.8,30,13,39290,43468,6900,4678.1,1462,335,16,5439,15,425,374,789.1,30.9,41,31.5,null,null],["William Mikelbrencis",55.6,5.6,31,27,97041,103406,20275,9122.2,7187,2016,93,13089,111,1109,1075,3032.4,20.8,20.2,19.9,null,null],["Miro Muheim",51.3,3,24,16,72639,86854,15488,8958.2,5634,1374,67,9855,56,749,704,2538.9,27.2,21.1,24.1,null,null],["Warmed Omari",51.1,0.7,31,22,109410,110886,16866,11816.3,4641,672,33,12225,56,856,825,3624.9,27.4,24.5,29.7,null,null],["Philip Otele",49.8,1,31,28,71546,65317,11177,7019.2,4017,1212,52,7160,59,626,472,1966.3,19.1,15.6,19.5,null,null],["Rayan Philippe",57.2,1.5,31,22,99865,94098,15930,10008.6,4658,1041,58,11272,43,980,797,1665.2,24.3,10.3,22.9,null,null],["Yussuf Poulsen",54.7,51.5,15,8,32491,26123,4294,2962.4,1394,369,15,2901,19,306,237,533.2,22.5,20.4,21.9,null,null],["Nicolai Remberg",54.4,3.5,31,23,101644,135119,24797,15710.6,7155,1584,82,17642,145,1161,1332,4844.1,17.7,17.8,17.5,null,null],["Alexander Røssing-Lelesiit",51,3,2,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_11","title":"Injury Safety Score (100 - Risk) – March Average by Player","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":24},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury Safety Score","type":"bar","encode":{"x":"Player","y":"Injury Safety Score"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":93.01,"name":"Mean","label":{"formatter":"Mean 93.01","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Performance Score","Injury Safety Score","Body Soreness","mood","Sleep Quality","Training Days"],["Fabio Baldé",53.9,99,35.1,31,33.7,18],["Nicolás Capaldo",62.8,96.7,24.1,24.2,21.5,11],["Jean-Luc Dompé",54.2,90.9,30.4,20.4,26.4,19],["Damion Downs",48.2,99.2,35.1,32.3,37.1,14],["Daniel Elfadli",53.1,91.5,31.1,26,29.3,22],["Robert Glatzel",55,79.4,28.4,27.2,28.3,22],["Giorgi Gocholeishvili",58.2,98.2,14.4,14.2,13.4,19],["Albert Grønbæk",49.7,99.4,14.2,11.7,14.4,17],["Bakery Jatta",65.6,82.7,38,34.9,33.2,18],["Noah Katterbach",58.5,98.5,26.3,32.8,25,22],["Ransford Königsdörffer",62.8,96.3,35.4,34.8,34.8,13],["Omar Megeed",51.3,98.2,30.9,41,31.5,10],["William Mikelbrencis",55.6,94.4,20.8,20.2,19.9,19],["Miro Muheim",51.3,97,27.2,21.1,24.1,15],["Warmed Omari",51.1,99.3,27.4,24.5,29.7,20],["Philip Otele",49.8,99,19.1,15.6,19.5,15],["Rayan Philippe",57.2,98.5,24.3,10.3,22.9,20],["Yussuf Poulsen",54.7,48.5,22.5,20.4,21.9,8],["Nicolai Remberg",54.4,96.5,17.7,17.8,17.5,20],["Alexander Røssing-Lelesiit",51,97,null,null,null,0]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_12","title":"Performance Score – March Average by Player","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":24},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Performance Score","type":"bar","encode":{"x":"Player","y":"Performance Score"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":54.92,"name":"Mean","label":{"formatter":"Mean 54.92","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Performance Score","Injury Safety Score","Body Soreness","mood","Sleep Quality","Training Days"],["Fabio Baldé",53.9,99,35.1,31,33.7,18],["Nicolás Capaldo",62.8,96.7,24.1,24.2,21.5,11],["Jean-Luc Dompé",54.2,90.9,30.4,20.4,26.4,19],["Damion Downs",48.2,99.2,35.1,32.3,37.1,14],["Daniel Elfadli",53.1,91.5,31.1,26,29.3,22],["Robert Glatzel",55,79.4,28.4,27.2,28.3,22],["Giorgi Gocholeishvili",58.2,98.2,14.4,14.2,13.4,19],["Albert Grønbæk",49.7,99.4,14.2,11.7,14.4,17],["Bakery Jatta",65.6,82.7,38,34.9,33.2,18],["Noah Katterbach",58.5,98.5,26.3,32.8,25,22],["Ransford Königsdörffer",62.8,96.3,35.4,34.8,34.8,13],["Omar Megeed",51.3,98.2,30.9,41,31.5,10],["William Mikelbrencis",55.6,94.4,20.8,20.2,19.9,19],["Miro Muheim",51.3,97,27.2,21.1,24.1,15],["Warmed Omari",51.1,99.3,27.4,24.5,29.7,20],["Philip Otele",49.8,99,19.1,15.6,19.5,15],["Rayan Philippe",57.2,98.5,24.3,10.3,22.9,20],["Yussuf Poulsen",54.7,48.5,22.5,20.4,21.9,8],["Nicolai Remberg",54.4,96.5,17.7,17.8,17.5,20],["Alexander Røssing-Lelesiit",51,97,null,null,null,0]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

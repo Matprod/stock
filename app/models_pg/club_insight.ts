@@ -1,0 +1,29 @@
+import { DateTime } from 'luxon'
+import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import Club from '#models_pg/club'
+import Insight from '#models_pg/insight'
+
+export default class ClubInsight extends BaseModel {
+  @column({ isPrimary: true })
+  declare id: string
+
+  @column()
+  declare clubId: string
+
+  @column()
+  declare insightId: string
+
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+
+  // Relations
+  @belongsTo(() => Club)
+  declare club: BelongsTo<typeof Club>
+
+  @belongsTo(() => Insight)
+  declare insight: BelongsTo<typeof Insight>
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"garmin.js","sourceRoot":"","sources":["../../../../app/schemas/mobile/garmin.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,cAAc,CAAA;AAE/B,MAAM,CAAC,MAAM,sBAAsB,GAAG,IAAI,CAAC,OAAO,CAChD,IAAI,CAAC,MAAM,CAAC;IACV,aAAa,EAAE,IAAI,CAAC,MAAM,EAAE;IAC5B,oBAAoB,EAAE,IAAI,CAAC,MAAM,EAAE;IACnC,IAAI,EAAE,IAAI,CAAC,MAAM,EAAE;CACpB,CAAC,CACH,CAAA"}

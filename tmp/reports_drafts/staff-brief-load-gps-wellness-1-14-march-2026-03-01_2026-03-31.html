@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Staff Brief — Load, GPS &amp; Wellness (1–14 March)</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 13px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 28px 0 0; max-width: 168mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 38px; font-weight: 700; letter-spacing: .01em; text-transform: uppercase;
+      line-height: 1.1; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 12px; padding: 14px 18px; margin-bottom: 16px;
+      box-shadow: 0 10px 24px rgba(26,29,43,.14);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 15px; letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+      margin: 0 0 14px;
+      box-shadow: 0 1px 0 rgba(15,18,32,.04);
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 300px; }
+    .chart-box.radar { height: 340px; }
+    .chart-box.tall { height: 360px; }
+    .chart-box.wide { height: 420px; }
+    .chart-box.bar-rank { height: 400px; }
+    .split-row .chart-box.bar-rank { height: 280px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 9px 10px; font-weight: 700;
+      letter-spacing: .03em;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 8px 10px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 14px; align-items: center; margin: 0 0 14px;
+      padding: 12px 14px; border-radius: 12px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner .avatar-wrap {
+      position: relative; width: 64px; height: 64px; flex: 0 0 64px;
+    }
+    .athlete-banner img {
+      width: 64px; height: 64px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: none; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 16px;
+    }
+    .athlete-banner.no-photo img { display: none; }
+    .athlete-banner.no-photo .avatar-fallback { display: grid; }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 16px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2025-2026</div>
+      <h1 class="cover-title">Staff Brief — Load, GPS &amp; Wellness (1–14 March)</h1>
+      <p class="cover-sub">Club report — MAUNA data only</p>
+      <div class="date-pill">Tue, 31/03/26 · 2026-03-01 → 2026-03-31</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">Squad Overview — Load &amp; GPS Volume</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">Load Management — ACWR &amp; Monotony Flags</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">Wellness × External Load — Cross-Domain Flags</span></div><div class="signal-item"><span class="signal-index">04</span><span class="signal-text">Individual Flags — Atypical Profiles</span></div><div class="signal-item"><span class="signal-index">05</span><span class="signal-text">Albert Grønbæk — High ACWR + Strong HMLD</span></div><div class="signal-item"><span class="signal-index">06</span><span class="signal-text">Giorgi Gocholeishvili — Highest ACWR + Sprint Exposure</span></div><div class="signal-item"><span class="signal-index">07</span><span class="signal-text">Robert Glatzel — High Load + Elevated ACWR</span></div><div class="signal-item"><span class="signal-index">08</span><span class="signal-text">Rayan Philippe — High ACWR + Low Monotony</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Staff Brief — Load, GPS &amp; Wellness (1–14 March)</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Staff read</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Squad Overview — Load &amp; GPS Volume</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · Load Management — ACWR &amp; Monotony Flags</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Wellness × External Load — Cross-Domain Flags</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Albert Grønbæk — High ACWR + Strong HMLD</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Bakery Jatta — Underload + Poor Recovery</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>08 · Giorgi Gocholeishvili — Highest ACWR + Sprint Exposure</span><span class="hint">§6</span></a></li><li><a href="#section-7"><span>09 · Robert Glatzel — High Load + Elevated ACWR</span><span class="hint">§7</span></a></li><li><a href="#section-8"><span>10 · Rayan Philippe — High ACWR + Low Monotony</span><span class="hint">§8</span></a></li><li><a href="#section-9"><span>11 · Decision Matrix — Tomorrow's Session</span><span class="hint">§9</span></a></li><li><a href="#section-10"><span>12 · Biomarkers — CK Spot Checks</span><span class="hint">§10</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Staff read</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <p class="staff-read-lead">Pre-match load management: identify athletes ready to push, those requiring modified intensity, and wellness-driven rest cases based on ACWR, GPS volume, and subjective recovery markers.</p>
+  
+  <div class="staff-read-panel"><h3>Canvas sections</h3><ul class="staff-section-index"><li><span>Squad Overview — Load &amp; GPS Volume</span><span class="kind">Team</span></li><li><span>Load Management — ACWR &amp; Monotony Flags</span><span class="kind">Team</span></li><li><span>Wellness × External Load — Cross-Domain Flags</span><span class="kind">Cross</span></li><li><span>Individual Flags — Atypical Profiles</span><span class="kind">Team</span></li><li><span>Decision Matrix — Tomorrow's Session</span><span class="kind">Team</span></li><li><span>Biomarkers — CK Spot Checks</span><span class="kind">Team</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Squad Overview — Load &amp; GPS Volume</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Top 15 — Total Volume &amp; High-Intensity GPS</h3><div class="legend"><span><i class="swatch" style="background:rgba(224,112,112,0.22);outline:1px solid #E07070"></i>high</span><span><i class="swatch" style="background:rgba(251,191,36,0.22);outline:1px solid #E8B84A"></i>medium</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>low</span><span>vs squad (terciles)</span></div><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (sum)</th><th>High speed running (absolute) (sum)</th><th>Decelerations (relative) (sum)</th><th>HMLD (sum)</th><th>S RPE</th><th>ACWR</th></tr></thead><tbody><tr><td class="">Noah Katterbach</td><td class="">29</td><td class="lvl-hi">100.49</td><td class="lvl-hi">4.89</td><td class="lvl-hi">696</td><td class="lvl-hi">15.45</td><td class="">98,799.62</td><td class="lvl-mid">1.19</td></tr><tr><td class="">Robert Glatzel</td><td class="">29</td><td class="lvl-hi">84.85</td><td class="lvl-mid">3.05</td><td class="lvl-mid">450</td><td class="lvl-hi">11.19</td><td class="">115,966.27</td><td class="lvl-hi">1.26</td></tr><tr><td class="">Albert Grønbæk</td><td class="">22</td><td class="lvl-hi">80.26</td><td class="lvl-hi">3.62</td><td class="lvl-hi">742</td><td class="lvl-hi">13.86</td><td class="">73,889.97</td><td class="lvl-hi">1.39</td></tr><tr><td class="">Bakery Jatta</td><td class="">25</td><td class="lvl-hi">78.84</td><td class="lvl-mid">2.97</td><td class="lvl-lo">342</td><td class="lvl-mid">9.08</td><td class="">138,440.85</td><td class="lvl-lo">0.96</td></tr><tr><td class="">Daniel Elfadli</td><td class="">30</td><td class="lvl-hi">77.57</td><td class="lvl-mid">2.89</td><td class="lvl-hi">575</td><td class="lvl-hi">10.93</td><td class="">110,664.55</td><td class="lvl-mid">1.2</td></tr><tr><td class="">Nicolai Remberg</td><td class="">23</td><td class="lvl-hi">76.87</td><td class="lvl-hi">3.36</td><td class="lvl-hi">772</td><td class="lvl-hi">12.78</td><td class="">125,296.18</td><td class="lvl-mid">1.19</td></tr><tr><td class="">Rayan Philippe</td><td class="">22</td><td class="lvl-mid">75.77</td><td class="lvl-mid">3.03</td><td class="lvl-hi">621</td><td class="lvl-hi">12.21</td><td class="">108,882.62</td><td class="lvl-hi">1.33</td></tr><tr><td class="">Warmed Omari</td><td class="">22</td><td class="lvl-mid">68.8</td><td class="lvl-mid">2.45</td><td class="lvl-mid">512</td><td class="lvl-mid">9.82</td><td class="">107,198.57</td><td class="lvl-mid">1.17</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">22</td><td class="lvl-mid">67.01</td><td class="lvl-lo">2.09</td><td class="lvl-lo">404</td><td class="lvl-lo">8.99</td><td class="">103,537.45</td><td class="lvl-lo">1.11</td></tr><tr><td class="">Fábio Vieira</td><td class="">20</td><td class="lvl-mid">60.98</td><td class="lvl-lo">1.59</td><td class="lvl-lo">383</td><td class="lvl-lo">8.09</td><td class="">100,814.45</td><td class="lvl-hi">1.24</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">25</td><td class="lvl-mid">60.83</td><td class="lvl-hi">3.67</td><td class="lvl-hi">637</td><td class="lvl-mid">10.83</td><td class="">90,343.82</td><td class="lvl-hi">1.41</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">22</td><td class="lvl-lo">59.85</td><td class="lvl-lo">2.11</td><td class="lvl-lo">335</td><td class="lvl-lo">8.8</td><td class="">75,145.63</td><td class="lvl-hi">1.36</td></tr><tr><td class="">William Mikelbrencis</td><td class="">27</td><td class="lvl-lo">58.37</td><td class="lvl-hi">3.32</td><td class="lvl-mid">521</td><td class="lvl-mid">10.18</td><td class="">101,827.98</td><td class="lvl-mid">1.19</td></tr><tr><td class="">Otto Stange</td><td class="">18</td><td class="lvl-lo">57.89</td><td class="lvl-lo">2.26</td><td class="lvl-mid">469</td><td class="lvl-lo">8.72</td><td class="">120,865.03</td><td class="lvl-lo">0.13</td></tr><tr><td class="">Fabio Baldé</td><td class="">27</td><td class="lvl-lo">57.74</td><td class="lvl-hi">3.19</td><td class="lvl-mid">421</td><td class="lvl-mid">9.35</td><td class="">83,784.53</td><td class="lvl-lo">0.15</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Total Distance — Top 10 Athletes – Sprints (mean)</h3>
+  <div id="chart_1" class="chart-box bar-rank"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>High-Speed Running — Top 10 Athletes (m)</h3>
+  <div id="chart_2" class="chart-box bar-rank"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Katterbach leads volume (100.5 km) with high HSR (4.9 km) and decelerations (696). Grønbæk shows elevated ACWR (1.39) with strong HMLD exposure. Glatzel high load (ACWR 1.26) with moderate HSR. Jatta underloaded (ACWR 0.96) despite high monotony (1.41).</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>Load Management — ACWR &amp; Monotony Flags</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Elevated ACWR (&gt;1.25) — Acute Load Watch</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Acwr Ewma</th><th>Ewma 7</th><th>Ewma 28</th><th>monotony</th><th>strain</th><th>Body Soreness Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Albert Grønbæk</td><td class="">22</td><td class="lvl-hi">1.39</td><td class="">2,306.73</td><td class="">1,662.17</td><td class="lvl-hi">0.96</td><td class="">13,286.81</td><td class="lvl-lo">14.18</td><td class="lvl-mid">14.41</td></tr><tr><td class="">Rayan Philippe</td><td class="">22</td><td class="lvl-mid">1.33</td><td class="">2,604.29</td><td class="">1,965.87</td><td class="lvl-mid">0.67</td><td class="">8,245.02</td><td class="lvl-hi">24.27</td><td class="lvl-hi">22.91</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">25</td><td class="lvl-hi">1.41</td><td class="">2,182.03</td><td class="">1,544.62</td><td class="lvl-lo">0.42</td><td class="">3,588.17</td><td class="lvl-mid">14.44</td><td class="lvl-lo">13.36</td></tr><tr><td class="">Robert Glatzel</td><td class="">29</td><td class="lvl-lo">1.26</td><td class="">2,402.38</td><td class="">1,907.73</td><td class="lvl-mid">0.85</td><td class="">11,976.55</td><td class="lvl-hi">28.45</td><td class="lvl-hi">28.31</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">22</td><td class="lvl-mid">1.36</td><td class="">2,246.16</td><td class="">1,646.42</td><td class="lvl-hi">0.86</td><td class="">10,867.07</td><td class="lvl-mid">20.5</td><td class="lvl-mid">21.14</td></tr></tbody></table></div>
+<div class="card"><h3>High Monotony (&gt;1.3) — Training Variability Risk</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>monotony</th><th>strain</th><th>Acwr Ewma</th><th>Srpe Daily Mean</th><th>Body Soreness Rating</th><th>Mood Rating</th></tr></thead><tbody><tr><td class="">Bakery Jatta</td><td class="">25</td><td class="">1.41</td><td class="">18,462.61</td><td class="">0.96</td><td class="">2,346.46</td><td class="">38.08</td><td class="">34.92</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>ACWR Distribution — Squad Overview</h3>
+  <div id="chart_3" class="chart-box bar-rank"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Five athletes &gt;1.25 ACWR: Gocholeishvili (1.41), Grønbæk (1.39), Sambi Lokonga (1.36), Philippe (1.33), Glatzel (1.26). Jatta isolated with monotony 1.41 + strain 18,463 but underloaded (ACWR 0.96) — high soreness (38.1) and mood (34.9) suggest poor recovery despite lower acute load.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Wellness × External Load — Cross-Domain Flags</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Load vs Wellness — Full Squad Profile</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (sum)</th><th>High speed running (absolute) (sum)</th><th>Srpe Daily Mean</th><th>Acwr Ewma</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Fabio Baldé</td><td class="">27</td><td class="lvl-mid">57.74</td><td class="lvl-hi">3.19</td><td class="">1,420.08</td><td class="lvl-lo">0.15</td><td class="lvl-hi">35.11</td><td class="lvl-hi">30.96</td><td class="lvl-hi">33.74</td></tr><tr><td class="">Albert Grønbæk</td><td class="">22</td><td class="lvl-hi">80.26</td><td class="lvl-hi">3.62</td><td class="">1,319.46</td><td class="lvl-hi">1.39</td><td class="lvl-lo">14.18</td><td class="lvl-lo">11.73</td><td class="lvl-lo">14.41</td></tr><tr><td class="">Bakery Jatta</td><td class="">25</td><td class="lvl-hi">78.84</td><td class="lvl-mid">2.97</td><td class="">2,346.46</td><td class="lvl-mid">0.96</td><td class="lvl-hi">38.08</td><td class="lvl-hi">34.92</td><td class="lvl-hi">33.16</td></tr><tr><td class="">Noah Katterbach</td><td class="">29</td><td class="lvl-hi">100.49</td><td class="lvl-hi">4.89</td><td class="">1,674.57</td><td class="lvl-hi">1.19</td><td class="lvl-mid">26.31</td><td class="lvl-hi">32.83</td><td class="lvl-mid">25.03</td></tr><tr><td class="">Daniel Elfadli</td><td class="">30</td><td class="lvl-hi">77.57</td><td class="lvl-mid">2.89</td><td class="">1,875.67</td><td class="lvl-hi">1.2</td><td class="lvl-hi">31.07</td><td class="lvl-mid">26</td><td class="lvl-hi">29.33</td></tr><tr><td class="">Rayan Philippe</td><td class="">22</td><td class="lvl-hi">75.77</td><td class="lvl-mid">3.03</td><td class="">1,845.47</td><td class="lvl-hi">1.33</td><td class="lvl-mid">24.27</td><td class="lvl-lo">10.27</td><td class="lvl-mid">22.91</td></tr><tr><td class="">Omar Megeed</td><td class="">13</td><td class="lvl-mid">43.47</td><td class="lvl-lo">1.46</td><td class="lvl-hi">0</td><td class="">—</td><td class="lvl-hi">30.92</td><td class="lvl-hi">41</td><td class="lvl-hi">31.46</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">25</td><td class="lvl-mid">60.83</td><td class="lvl-hi">3.67</td><td class="">1,531.25</td><td class="lvl-hi">1.41</td><td class="lvl-lo">14.44</td><td class="lvl-lo">14.24</td><td class="lvl-lo">13.36</td></tr><tr><td class="">Otto Stange</td><td class="">18</td><td class="lvl-mid">57.89</td><td class="lvl-mid">2.26</td><td class="">2,048.56</td><td class="lvl-lo">0.13</td><td class="lvl-lo">19.22</td><td class="lvl-lo">17.11</td><td class="lvl-lo">17.06</td></tr><tr><td class="">Robert Glatzel</td><td class="">29</td><td class="lvl-hi">84.85</td><td class="lvl-hi">3.05</td><td class="">1,965.53</td><td class="lvl-hi">1.26</td><td class="lvl-mid">28.45</td><td class="lvl-hi">27.17</td><td class="lvl-mid">28.31</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">24</td><td class="lvl-mid">47.8</td><td class="lvl-lo">1.52</td><td class="">1,742.12</td><td class="lvl-lo">0.28</td><td class="lvl-hi">30.38</td><td class="lvl-mid">20.42</td><td class="lvl-mid">26.42</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">22</td><td class="lvl-mid">59.85</td><td class="lvl-mid">2.11</td><td class="">1,273.66</td><td class="lvl-hi">1.36</td><td class="lvl-lo">20.5</td><td class="lvl-lo">17.77</td><td class="lvl-lo">21.14</td></tr><tr><td class="">Warmed Omari</td><td class="">22</td><td class="lvl-hi">68.8</td><td class="lvl-mid">2.45</td><td class="">1,816.93</td><td class="lvl-mid">1.17</td><td class="lvl-mid">27.36</td><td class="lvl-mid">24.46</td><td class="lvl-hi">29.68</td></tr><tr><td class="">Nicolai Remberg</td><td class="">23</td><td class="lvl-hi">76.87</td><td class="lvl-hi">3.36</td><td class="">2,123.66</td><td class="lvl-hi">1.19</td><td class="lvl-lo">17.65</td><td class="lvl-lo">17.78</td><td class="lvl-lo">17.48</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">25</td><td class="lvl-lo">30.85</td><td class="lvl-lo">1.69</td><td class="">1,881.84</td><td class="lvl-lo">0.15</td><td class="lvl-hi">35.36</td><td class="lvl-hi">34.8</td><td class="lvl-hi">34.84</td></tr><tr><td class="">Fábio Vieira</td><td class="">20</td><td class="lvl-mid">60.98</td><td class="lvl-lo">1.59</td><td class="">1,708.72</td><td class="lvl-hi">1.24</td><td class="lvl-hi">28.5</td><td class="lvl-hi">35.15</td><td class="lvl-hi">31.65</td></tr><tr><td class="">William Mikelbrencis</td><td class="">27</td><td class="lvl-mid">58.37</td><td class="lvl-hi">3.32</td><td class="">1,725.9</td><td class="lvl-hi">1.19</td><td class="lvl-lo">20.78</td><td class="lvl-mid">20.22</td><td class="lvl-lo">19.85</td></tr><tr><td class="">Philip Otele</td><td class="">28</td><td class="lvl-lo">38.85</td><td class="lvl-lo">2.05</td><td class="lvl-hi">1.62</td><td class="lvl-lo">0.17</td><td class="lvl-lo">19.07</td><td class="lvl-lo">15.61</td><td class="lvl-lo">19.54</td></tr><tr><td class="">Luka Vušković</td><td class="">26</td><td class="lvl-lo">35.73</td><td class="lvl-lo">1.32</td><td class="">1,648.31</td><td class="lvl-lo">0.14</td><td class="lvl-lo">13.54</td><td class="lvl-lo">10.58</td><td class="lvl-lo">11.23</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">8</td><td class="lvl-lo">17.73</td><td class="lvl-hi">675</td><td class="">1,331.83</td><td class="lvl-mid">0.46</td><td class="lvl-mid">22.5</td><td class="lvl-mid">20.38</td><td class="lvl-mid">21.88</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">22</td><td class="lvl-hi">67.01</td><td class="lvl-mid">2.09</td><td class="">1,754.87</td><td class="lvl-mid">1.11</td><td class="lvl-mid">26.64</td><td class="lvl-mid">24.96</td><td class="lvl-mid">26.68</td></tr><tr><td class="">Miro Muheim</td><td class="">16</td><td class="lvl-lo">43.16</td><td class="lvl-mid">2.1</td><td class="">1,472.95</td><td class="lvl-mid">0.72</td><td class="lvl-mid">27.19</td><td class="lvl-mid">21.06</td><td class="lvl-mid">24.13</td></tr><tr><td class="">Damion Downs</td><td class="">15</td><td class="lvl-lo">36.13</td><td class="lvl-lo">1.69</td><td class="">1,717.63</td><td class="lvl-lo">0.15</td><td class="lvl-hi">35.07</td><td class="lvl-hi">32.27</td><td class="lvl-hi">37.07</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">16</td><td class="lvl-lo">35.71</td><td class="lvl-hi">617</td><td class="">1,138.75</td><td class="lvl-mid">0.57</td><td class="lvl-mid">24.06</td><td class="lvl-mid">24.19</td><td class="lvl-mid">21.5</td></tr><tr><td class="">Bilal Yalçınkaya</td><td class="">31</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="lvl-hi">32.42</td><td class="lvl-hi">28</td><td class="lvl-hi">33.36</td></tr></tbody></table></div>
+<div class="card"><h3>Highest Soreness — Load &amp; Recovery Profile</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th><th>Distance total (sum)</th><th>High speed running (absolute) (sum)</th><th>Acwr Ewma</th><th>monotony</th></tr></thead><tbody><tr><td class="">Bakery Jatta</td><td class="">25</td><td class="lvl-hi">38.08</td><td class="lvl-hi">34.92</td><td class="lvl-mid">33.16</td><td class="lvl-hi">78.84</td><td class="lvl-hi">2.97</td><td class="lvl-hi">0.96</td><td class="lvl-hi">1.41</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">25</td><td class="lvl-hi">35.36</td><td class="lvl-hi">34.8</td><td class="lvl-hi">34.84</td><td class="lvl-lo">30.85</td><td class="lvl-mid">1.69</td><td class="lvl-mid">0.15</td><td class="">—</td></tr><tr><td class="">Fabio Baldé</td><td class="">27</td><td class="lvl-hi">35.11</td><td class="lvl-mid">30.96</td><td class="lvl-hi">33.74</td><td class="lvl-hi">57.74</td><td class="lvl-hi">3.19</td><td class="lvl-mid">0.15</td><td class="">—</td></tr><tr><td class="">Damion Downs</td><td class="">15</td><td class="lvl-mid">35.07</td><td class="lvl-mid">32.27</td><td class="lvl-hi">37.07</td><td class="lvl-lo">36.13</td><td class="lvl-mid">1.69</td><td class="lvl-mid">0.15</td><td class="">—</td></tr><tr><td class="">Bilal Yalçınkaya</td><td class="">31</td><td class="lvl-mid">32.42</td><td class="lvl-mid">28</td><td class="lvl-mid">33.36</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Daniel Elfadli</td><td class="">30</td><td class="lvl-mid">31.07</td><td class="lvl-lo">26</td><td class="lvl-lo">29.33</td><td class="lvl-hi">77.57</td><td class="lvl-hi">2.89</td><td class="lvl-hi">1.2</td><td class="lvl-hi">0.9</td></tr><tr><td class="">Omar Megeed</td><td class="">13</td><td class="lvl-lo">30.92</td><td class="lvl-hi">41</td><td class="lvl-mid">31.46</td><td class="lvl-mid">43.47</td><td class="lvl-lo">1.46</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">24</td><td class="lvl-lo">30.38</td><td class="lvl-lo">20.42</td><td class="lvl-lo">26.42</td><td class="lvl-mid">47.8</td><td class="lvl-lo">1.52</td><td class="lvl-hi">0.28</td><td class="lvl-mid">0.38</td></tr></tbody></table></div>
+<div class="chart-card chart-wide">
+  <h3>Soreness vs Distance — Squad Scatter</h3>
+  <div id="chart_4" class="chart-box wide"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Jatta: highest soreness (38.1), mood (34.9), sleep quality (33.2) despite underload (ACWR 0.96). Königsdörffer, Baldé, Downs, Yalçınkaya all &gt;32 soreness with low/zero acute load (ACWR &lt;0.2). Megeed mood 41 (outlier) with moderate soreness (30.9). Pattern: poor wellness not driven by external load — recovery or non-training stress factors.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Albert Grønbæk — High ACWR + Strong HMLD</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="athlete-banner no-photo"><div class="avatar-wrap"><div class="avatar-fallback">AG</div></div><div><div class="name">Albert Grønbæk</div><div class="meta">WINGER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Grønbæk — Full Profile</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (sum)</th><th>HMLD (sum)</th><th>High speed running (absolute) (sum)</th><th>Decelerations (relative) (sum)</th><th>Acwr Ewma</th><th>monotony</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Albert Grønbæk</td><td class="">22</td><td class="">80.26</td><td class="">13.86</td><td class="">3.62</td><td class="">742</td><td class="">1.39</td><td class="">0.96</td><td class="">14.18</td><td class="">11.73</td><td class="">14.41</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>ACWR 1.39 (acute 2,307 vs chronic 1,662). Distance 80.3 km, HMLD 13.9 km (highest in squad), HSR 3.6 km, decelerations 742. Wellness excellent: soreness 14.2, mood 11.7, sleep 14.4 (all low = good). Can push tomorrow — tolerating load well.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5">
+  <div class="band">
+    <h1>Bakery Jatta — Underload + Poor Recovery</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="athlete-banner no-photo"><div class="avatar-wrap"><div class="avatar-fallback">BJ</div></div><div><div class="name">Bakery Jatta</div><div class="meta">WINGER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Jatta — Full Profile</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (sum)</th><th>High speed running (absolute) (sum)</th><th>Decelerations (relative) (sum)</th><th>Acwr Ewma</th><th>monotony</th><th>strain</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Bakery Jatta</td><td class="">25</td><td class="">78.84</td><td class="">2.97</td><td class="">342</td><td class="">0.96</td><td class="">1.41</td><td class="">18,462.61</td><td class="">38.08</td><td class="">34.92</td><td class="">33.16</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>ACWR 0.96 (underloaded) but monotony 1.41 + strain 18,463 (highest). Distance 78.8 km, HSR 3.0 km, decelerations 342. Wellness worst in squad: soreness 38.1, mood 34.9, sleep 33.2. Manage load carefully — not ready for high intensity tomorrow. Investigate non-training stressors.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-6">
+  <div class="band">
+    <h1>Giorgi Gocholeishvili — Highest ACWR + Sprint Exposure</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="athlete-banner no-photo"><div class="avatar-wrap"><div class="avatar-fallback">GG</div></div><div><div class="name">Giorgi Gocholeishvili</div><div class="meta">FULL BACK</div></div></div>
+  <div class="section-body"><div class="card"><h3>Gocholeishvili — Full Profile</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (sum)</th><th>High speed running (absolute) (sum)</th><th>Sprint distance (sum)</th><th>Decelerations (relative) (sum)</th><th>Acwr Ewma</th><th>monotony</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Giorgi Gocholeishvili</td><td class="">25</td><td class="">60.83</td><td class="">3.67</td><td class="">1.06</td><td class="">637</td><td class="">1.41</td><td class="">0.42</td><td class="">14.44</td><td class="">14.24</td><td class="">13.36</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>ACWR 1.41 (highest, acute 2,182 vs chronic 1,545). Distance 60.8 km, HSR 3.7 km (top tier), sprint distance 1.1 km (highest). Monotony 0.42 (low variability). Wellness good: soreness 14.4, mood 14.2, sleep 13.4. Acute spike watch — consider modified intensity tomorrow.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-7">
+  <div class="band">
+    <h1>Robert Glatzel — High Load + Elevated ACWR</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="athlete-banner no-photo"><div class="avatar-wrap"><div class="avatar-fallback">RG</div></div><div><div class="name">Robert Glatzel</div><div class="meta">STRIKER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Glatzel — Full Profile</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (sum)</th><th>High speed running (absolute) (sum)</th><th>Decelerations (relative) (sum)</th><th>Srpe Daily Sum</th><th>Acwr Ewma</th><th>monotony</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Robert Glatzel</td><td class="">29</td><td class="">84.85</td><td class="">3.05</td><td class="">450</td><td class="">115,966.27</td><td class="">1.26</td><td class="">0.85</td><td class="">28.45</td><td class="">27.17</td><td class="">28.31</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>ACWR 1.26 (acute 2,402 vs chronic 1,908). Distance 84.9 km, sRPE 116k (second highest), HSR 3.0 km, decelerations 450. Wellness moderate: soreness 28.4, mood 27.2, sleep 28.3. Monitor — high cumulative load with elevated acute ratio. Reduce volume or intensity tomorrow.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-7</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-8">
+  <div class="band">
+    <h1>Rayan Philippe — High ACWR + Low Monotony</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="athlete-banner no-photo"><div class="avatar-wrap"><div class="avatar-fallback">RP</div></div><div><div class="name">Rayan Philippe</div><div class="meta">STRIKER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Philippe — Full Profile</h3><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>Distance total (sum)</th><th>High speed running (absolute) (sum)</th><th>Decelerations (relative) (sum)</th><th>Acwr Ewma</th><th>monotony</th><th>strain</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Rayan Philippe</td><td class="">22</td><td class="">75.77</td><td class="">3.03</td><td class="">621</td><td class="">1.33</td><td class="">0.67</td><td class="">8,245.02</td><td class="">24.27</td><td class="">10.27</td><td class="">22.91</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>ACWR 1.33 (acute 2,604 vs chronic 1,966). Distance 75.8 km, HSR 3.0 km, decelerations 621. Monotony 0.67 (low, good variability), strain 8,245 (low despite high load). Wellness mixed: soreness 24.3, mood 10.3 (excellent), sleep 22.9. Can sustain load — good training adaptation.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-8</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-9">
+  <div class="band">
+    <h1>Decision Matrix — Tomorrow's Session</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>ACWR &gt;1.25 — Manage Intensity</h3><table class="report-table"><thead><tr><th>Player</th><th>Acwr Ewma</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th></tr></thead><tbody><tr><td class="">Albert Grønbæk</td><td class="lvl-hi">1.39</td><td class="lvl-lo">14.18</td><td class="lvl-mid">11.73</td><td class="lvl-mid">14.41</td></tr><tr><td class="">Rayan Philippe</td><td class="lvl-mid">1.33</td><td class="lvl-hi">24.27</td><td class="lvl-lo">10.27</td><td class="lvl-hi">22.91</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="lvl-hi">1.41</td><td class="lvl-mid">14.44</td><td class="lvl-mid">14.24</td><td class="lvl-lo">13.36</td></tr><tr><td class="">Robert Glatzel</td><td class="lvl-lo">1.26</td><td class="lvl-hi">28.45</td><td class="lvl-hi">27.17</td><td class="lvl-hi">28.31</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="lvl-mid">1.36</td><td class="lvl-mid">20.5</td><td class="lvl-hi">17.77</td><td class="lvl-mid">21.14</td></tr></tbody></table></div>
+<div class="card"><h3>High Soreness (&gt;30) — Reduce Load</h3><table class="report-table"><thead><tr><th>Player</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Acwr Ewma</th><th>Distance total (sum)</th></tr></thead><tbody><tr><td class="">Bakery Jatta</td><td class="lvl-hi">38.08</td><td class="lvl-hi">34.92</td><td class="lvl-hi">0.96</td><td class="lvl-hi">78.84</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="lvl-hi">35.36</td><td class="lvl-hi">34.8</td><td class="lvl-mid">0.15</td><td class="lvl-lo">30.85</td></tr><tr><td class="">Fabio Baldé</td><td class="lvl-hi">35.11</td><td class="lvl-mid">30.96</td><td class="lvl-mid">0.15</td><td class="lvl-hi">57.74</td></tr><tr><td class="">Damion Downs</td><td class="lvl-mid">35.07</td><td class="lvl-mid">32.27</td><td class="lvl-mid">0.15</td><td class="lvl-lo">36.13</td></tr><tr><td class="">Bilal Yalçınkaya</td><td class="lvl-mid">32.42</td><td class="lvl-mid">28</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Daniel Elfadli</td><td class="lvl-mid">31.07</td><td class="lvl-lo">26</td><td class="lvl-hi">1.2</td><td class="lvl-hi">77.57</td></tr><tr><td class="">Omar Megeed</td><td class="lvl-lo">30.92</td><td class="lvl-hi">41</td><td class="">—</td><td class="lvl-mid">43.47</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="lvl-lo">30.38</td><td class="lvl-lo">20.42</td><td class="lvl-hi">0.28</td><td class="lvl-mid">47.8</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>CAN PUSH TOMORROW: Grønbæk (ACWR 1.39 but excellent wellness), Philippe (ACWR 1.33, low monotony, good mood), Katterbach (volume leader, ACWR 1.19, moderate wellness). MANAGE INTENSITY: Gocholeishvili (ACWR 1.41, highest sprint exposure), Glatzel (ACWR 1.26, high cumulative load), Sambi Lokonga (ACWR 1.36). REDUCE/MODIFY: Jatta (poor wellness despite underload — soreness 38, monotony 1.41), Königsdörffer, Baldé, D…</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-9</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-10">
+  <div class="band">
+    <h1>Biomarkers — CK Spot Checks</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>CK Values — Available Athletes</h3><table class="report-table"><thead><tr><th>Player</th><th>Biomarker</th><th>Value</th><th>Acwr Ewma</th><th>Body Soreness Rating</th><th>Distance total (sum)</th></tr></thead><tbody><tr><td class="">Albert Sambi Lokonga</td><td class="">ck</td><td class="lvl-hi">322</td><td class="lvl-hi">1.36</td><td class="lvl-mid">20.5</td><td class="lvl-hi">59.85</td></tr><tr><td class="">Nicolai Remberg</td><td class="">ck</td><td class="lvl-hi">424</td><td class="lvl-hi">1.19</td><td class="lvl-lo">17.65</td><td class="lvl-hi">76.87</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">ck</td><td class="lvl-lo">214</td><td class="lvl-lo">0.15</td><td class="lvl-hi">35.36</td><td class="lvl-lo">30.85</td></tr><tr><td class="">Fábio Vieira</td><td class="">ck</td><td class="lvl-lo">71</td><td class="lvl-hi">1.24</td><td class="lvl-hi">28.5</td><td class="lvl-hi">60.98</td></tr><tr><td class="">William Mikelbrencis</td><td class="">ck</td><td class="lvl-mid">296</td><td class="lvl-hi">1.19</td><td class="lvl-mid">20.78</td><td class="lvl-mid">58.37</td></tr><tr><td class="">Philip Otele</td><td class="">ck</td><td class="lvl-hi">348</td><td class="lvl-mid">0.17</td><td class="lvl-mid">19.07</td><td class="lvl-mid">38.85</td></tr><tr><td class="">Luka Vušković</td><td class="">ck</td><td class="lvl-mid">234</td><td class="lvl-lo">0.14</td><td class="lvl-lo">13.54</td><td class="lvl-lo">35.73</td></tr><tr><td class="">Miro Muheim</td><td class="">ck</td><td class="lvl-mid">295</td><td class="lvl-mid">0.72</td><td class="lvl-hi">27.19</td><td class="lvl-mid">43.16</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Remberg CK 424 U/L (ACWR 1.19, soreness 17.7, distance 76.9 km). Sambi Lokonga CK 322 U/L (ACWR 1.36, soreness 20.5). Königsdörffer CK 214 U/L (ACWR 0.15, soreness 35.4 — low load but elevated CK + poor wellness). Limited sample — expand testing for high-ACWR athletes.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-10</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Total Distance — Top 10 Athletes – Sprints (mean)","option":{"legend":{"show":false},"grid":{"left":72,"right":80,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Sprints (mean)","type":"bar","encode":{"x":"Player","y":"Sprints (mean)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":24.4,"name":"Mean","label":{"formatter":"Mean 24.4","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","N","Total time (sum)","Total time (mean)","Distance total (sum)","Distance total (mean)","HMLD (sum)","HMLD (mean)","Energy expenditure (sum)","Energy expenditure (mean)","High speed running (absolute) (sum)","High speed running (absolute) (mean)","Sprint distance (sum)","Sprint distance (mean)","Sprints (sum)","Sprints (mean)","Explosive distance (absolute) (sum)","Explosive distance (absolute) (mean)","HIBS number (sum)","HIBS number (mean)","Accelerations (relative) (sum)","Accelerations (relative) (mean)","Decelerations (relative) (sum)","Decelerations (relative) (mean)","DSL (sum)","DSL (mean)","Srpe Daily Sum","Srpe Daily Mean","Body Soreness Rating","Mood Rating","Quality Rating","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7","Biomarker","Value","Samples (n)","Unit"],["Noah Katterbach",29,89218,4248.476,100491,4785.286,15451,735.762,10179,484.714,4892,232.952,1206,57.429,54,2.571,10556,502.667,39,1.857,788,37.524,696,33.143,1448.9,68.995,98799.617,1674.57,26.31,32.828,25.034,1990.669,4486.5,1674.513,0.971,11846.686,1.189,98799.617,null,null,null,null],["Robert Glatzel",29,76984,4276.889,84853,4714.056,11190,621.667,9358.8,519.933,3046,169.222,775,43.056,30,1.667,8144,452.444,13,0.722,625,34.722,450,25,1043.9,57.994,115966.267,1965.53,28.448,27.172,28.31,2402.379,6480.5,1907.725,0.851,11976.548,1.259,115966.267,null,null,null,null],["Albert Grønbæk",22,68745,4296.563,80263,5016.438,13862,866.375,8703.9,543.994,3623,226.438,612,38.25,30,1.875,10239,639.938,56,3.5,885,55.313,742,46.375,2425.4,151.588,73889.967,1319.464,14.182,11.727,14.409,2306.728,5317.333333333333,1662.166,0.956,13286.807,1.388,73889.967,null,null,null,null],["Bakery Jatta",25,60617,3565.706,78840,4637.647,9080,534.118,7455.4,465.963,2973,174.882,678,39.882,21,1.235,6106,359.176,8,0.5,538,31.647,342,20.118,1048.2,65.512,138440.85,2346.455,38.08,34.92,33.16,1939.842,2700,2021.528,1.413,18462.611,0.96,138440.85,null,null,null,null],["Daniel Elfadli",30,75345,4432.059,77565,4562.647,10934,643.176,8095.6,476.212,2885,169.706,675,39.706,33,1.941,8049,473.471,32,1.882,699,41.118,575,33.824,1174.5,69.088,110664.55,1875.67,31.067,26,29.333,2235.243,5434,1869.809,0.903,11846.457,1.195,110664.55,null,null,null,null],["Nicolai Remberg",23,65169,4344.6,76869,5124.6,12783,852.2,9064.7,604.313,3358,223.867,761,50.733,41,2.733,9426,628.4,49,3.267,777,51.8,772,51.467,1705.7,113.713,125296.183,2123.664,17.652,17.783,17.478,2661.514,6148.166666666667,2233.549,0.947,15143.635,1.192,125296.183,"ck",424,1,"U/L"],["Rayan Philippe",22,71371,4460.688,75765,4735.313,12207,762.938,8037.2,502.325,3026,189.125,724,45.25,41,2.563,9185,574.063,30,1.875,799,49.938,621,38.813,1221.1,76.319,108882.617,1845.468,24.273,10.273,22.909,2604.286,6979,1965.866,0.67,8245.02,1.325,108882.617,null,null,null,null],["Warmed Omari",22,69657,4643.8,68796,4586.4,9822,654.8,7383.8,492.253,2446,163.067,329,21.933,17,1.133,7380,492,22,1.467,624,41.6,512,34.133,1590,106,107198.567,1816.925,27.364,24.455,29.682,2081.051,4486.5,1776.297,0.991,12650.611,1.172,107198.567,null,null,null,null],["Jordan Torunarigha",22,68715,4294.688,67013,4188.313,8994,562.125,7124.2,445.263,2092,130.75,597,37.313,28,1.75,6902,431.375,10,0.625,511,31.938,404,25.25,1092.6,68.288,103537.45,1754.872,26.636,24.955,26.682,1853.495,4154.166666666667,1676.06,0.968,10895.969,1.106,103537.45,null,null,null,null],["Fábio Vieira",20,61077,5089.75,60981,5081.75,8094,674.5,4996,416.333,1593,132.75,379,31.583,15,1.25,6502,541.833,11,0.917,499,41.583,383,31.917,804.9,67.075,100814.45,1708.719,28.5,35.15,31.65,2179.066,4985,1755.884,0.955,12397.81,1.241,100814.45,"ck",71,1,"U/L"]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"High-Speed Running — Top 10 Athletes (m)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"High speed running (absolute) (sum)","type":"bar","encode":{"x":"Player","y":"High speed running (absolute) (sum)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":2993.4,"name":"Mean","label":{"formatter":"Mean 2,993.4","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","N","Total time (sum)","Total time (mean)","Distance total (sum)","Distance total (mean)","HMLD (sum)","HMLD (mean)","Energy expenditure (sum)","Energy expenditure (mean)","High speed running (absolute) (sum)","High speed running (absolute) (mean)","Sprint distance (sum)","Sprint distance (mean)","Sprints (sum)","Sprints (mean)","Explosive distance (absolute) (sum)","Explosive distance (absolute) (mean)","HIBS number (sum)","HIBS number (mean)","Accelerations (relative) (sum)","Accelerations (relative) (mean)","Decelerations (relative) (sum)","Decelerations (relative) (mean)","DSL (sum)","DSL (mean)","Srpe Daily Sum","Srpe Daily Mean","Body Soreness Rating","Mood Rating","Quality Rating","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7","Biomarker","Value","Samples (n)","Unit"],["Noah Katterbach",29,89218,4248.476,100491,4785.286,15451,735.762,10179,484.714,4892,232.952,1206,57.429,54,2.571,10556,502.667,39,1.857,788,37.524,696,33.143,1448.9,68.995,98799.617,1674.57,26.31,32.828,25.034,1990.669,4486.5,1674.513,0.971,11846.686,1.189,98799.617,null,null,null,null],["Robert Glatzel",29,76984,4276.889,84853,4714.056,11190,621.667,9358.8,519.933,3046,169.222,775,43.056,30,1.667,8144,452.444,13,0.722,625,34.722,450,25,1043.9,57.994,115966.267,1965.53,28.448,27.172,28.31,2402.379,6480.5,1907.725,0.851,11976.548,1.259,115966.267,null,null,null,null],["Albert Grønbæk",22,68745,4296.563,80263,5016.438,13862,866.375,8703.9,543.994,3623,226.438,612,38.25,30,1.875,10239,639.938,56,3.5,885,55.313,742,46.375,2425.4,151.588,73889.967,1319.464,14.182,11.727,14.409,2306.728,5317.333333333333,1662.166,0.956,13286.807,1.388,73889.967,null,null,null,null],["Bakery Jatta",25,60617,3565.706,78840,4637.647,9080,534.118,7455.4,465.963,2973,174.882,678,39.882,21,1.235,6106,359.176,8,0.5,538,31.647,342,20.118,1048.2,65.512,138440.85,2346.455,38.08,34.92,33.16,1939.842,2700,2021.528,1.413,18462.611,0.96,138440.85,null,null,null,null],["Daniel Elfadli",30,75345,4432.059,77565,4562.647,10934,643.176,8095.6,476.212,2885,169.706,675,39.706,33,1.941,8049,473.471,32,1.882,699,41.118,575,33.824,1174.5,69.088,110664.55,1875.67,31.067,26,29.333,2235.243,5434,1869.809,0.903,11846.457,1.195,110664.55,null,null,null,null],["Nicolai Remberg",23,65169,4344.6,76869,5124.6,12783,852.2,9064.7,604.313,3358,223.867,761,50.733,41,2.733,9426,628.4,49,3.267,777,51.8,772,51.467,1705.7,113.713,125296.183,2123.664,17.652,17.783,17.478,2661.514,6148.166666666667,2233.549,0.947,15143.635,1.192,125296.183,"ck",424,1,"U/L"],["Rayan Philippe",22,71371,4460.688,75765,4735.313,12207,762.938,8037.2,502.325,3026,189.125,724,45.25,41,2.563,9185,574.063,30,1.875,799,49.938,621,38.813,1221.1,76.319,108882.617,1845.468,24.273,10.273,22.909,2604.286,6979,1965.866,0.67,8245.02,1.325,108882.617,null,null,null,null],["Warmed Omari",22,69657,4643.8,68796,4586.4,9822,654.8,7383.8,492.253,2446,163.067,329,21.933,17,1.133,7380,492,22,1.467,624,41.6,512,34.133,1590,106,107198.567,1816.925,27.364,24.455,29.682,2081.051,4486.5,1776.297,0.991,12650.611,1.172,107198.567,null,null,null,null],["Jordan Torunarigha",22,68715,4294.688,67013,4188.313,8994,562.125,7124.2,445.263,2092,130.75,597,37.313,28,1.75,6902,431.375,10,0.625,511,31.938,404,25.25,1092.6,68.288,103537.45,1754.872,26.636,24.955,26.682,1853.495,4154.166666666667,1676.06,0.968,10895.969,1.106,103537.45,null,null,null,null],["Fábio Vieira",20,61077,5089.75,60981,5081.75,8094,674.5,4996,416.333,1593,132.75,379,31.583,15,1.25,6502,541.833,11,0.917,499,41.583,383,31.917,804.9,67.075,100814.45,1708.719,28.5,35.15,31.65,2179.066,4985,1755.884,0.955,12397.81,1.241,100814.45,"ck",71,1,"U/L"]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3","title":"ACWR Distribution — Squad Overview","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Acwr Ewma","type":"bar","encode":{"x":"Player","y":"Acwr Ewma"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":0.861,"name":"Mean","label":{"formatter":"Mean 0.86","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"barMaxWidth":42,"barCategoryGap":"28%"}],"animation":false,"dataset":{"source":[["Player","N","Total time (sum)","Total time (mean)","Distance total (sum)","Distance total (mean)","HMLD (sum)","HMLD (mean)","Energy expenditure (sum)","Energy expenditure (mean)","High speed running (absolute) (sum)","High speed running (absolute) (mean)","Sprint distance (sum)","Sprint distance (mean)","Sprints (sum)","Sprints (mean)","Explosive distance (absolute) (sum)","Explosive distance (absolute) (mean)","HIBS number (sum)","HIBS number (mean)","Accelerations (relative) (sum)","Accelerations (relative) (mean)","Decelerations (relative) (sum)","Decelerations (relative) (mean)","DSL (sum)","DSL (mean)","Srpe Daily Sum","Srpe Daily Mean","Body Soreness Rating","Mood Rating","Quality Rating","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7","Biomarker","Value","Samples (n)","Unit"],["Bakery Jatta",25,60617,3565.706,78840,4637.647,9080,534.118,7455.4,465.963,2973,174.882,678,39.882,21,1.235,6106,359.176,8,0.5,538,31.647,342,20.118,1048.2,65.512,138440.85,2346.455,38.08,34.92,33.16,1939.842,2700,2021.528,1.413,18462.611,0.96,138440.85,null,null,null,null],["Nicolai Remberg",23,65169,4344.6,76869,5124.6,12783,852.2,9064.7,604.313,3358,223.867,761,50.733,41,2.733,9426,628.4,49,3.267,777,51.8,772,51.467,1705.7,113.713,125296.183,2123.664,17.652,17.783,17.478,2661.514,6148.166666666667,2233.549,0.947,15143.635,1.192,125296.183,"ck",424,1,"U/L"],["Noah Katterbach",29,89218,4248.476,100491,4785.286,15451,735.762,10179,484.714,4892,232.952,1206,57.429,54,2.571,10556,502.667,39,1.857,788,37.524,696,33.143,1448.9,68.995,98799.617,1674.57,26.31,32.828,25.034,1990.669,4486.5,1674.513,0.971,11846.686,1.189,98799.617,null,null,null,null],["Robert Glatzel",29,76984,4276.889,84853,4714.056,11190,621.667,9358.8,519.933,3046,169.222,775,43.056,30,1.667,8144,452.444,13,0.722,625,34.722,450,25,1043.9,57.994,115966.267,1965.53,28.448,27.172,28.31,2402.379,6480.5,1907.725,0.851,11976.548,1.259,115966.267,null,null,null,null],["Daniel Elfadli",30,75345,4432.059,77565,4562.647,10934,643.176,8095.6,476.212,2885,169.706,675,39.706,33,1.941,8049,473.471,32,1.882,699,41.118,575,33.824,1174.5,69.088,110664.55,1875.67,31.067,26,29.333,2235.243,5434,1869.809,0.903,11846.457,1.195,110664.55,null,null,null,null],["Rayan Philippe",22,71371,4460.688,75765,4735.313,12207,762.938,8037.2,502.325,3026,189.125,724,45.25,41,2.563,9185,574.063,30,1.875,799,49.938,621,38.813,1221.1,76.319,108882.617,1845.468,24.273,10.273,22.909,2604.286,6979,1965.866,0.67,8245.02,1.325,108882.617,null,null,null,null],["Warmed Omari",22,69657,4643.8,68796,4586.4,9822,654.8,7383.8,492.253,2446,163.067,329,21.933,17,1.133,7380,492,22,1.467,624,41.6,512,34.133,1590,106,107198.567,1816.925,27.364,24.455,29.682,2081.051,4486.5,1776.297,0.991,12650.611,1.172,107198.567,null,null,null,null],["Otto Stange",18,61291,4714.692,57893,4453.308,8715,670.385,6161,473.923,2262,174,803,61.769,40,3.077,6451,496.231,27,2.077,530,40.769,469,36.077,624.3,48.023,120865.033,2048.56,19.222,17.111,17.056,166.337,0,1241.822,null,null,0.134,120865.033,null,null,null,null],["William Mikelbrencis",27,60566,4326.143,58368,4169.143,10184,727.429,5135.2,366.8,3322,237.286,890,63.571,40,2.857,6859,489.929,33,2.357,698,49.857,521,37.214,1223.2,87.371,101827.983,1725.898,20.778,20.222,19.852,2063.145,4652.666666666667,1736.702,0.965,12069.898,1.188,101827.983,"ck",296,1,"U/L"],["Fábio Vieira",20,61077,5089.75,60981,5081.75,8094,674.5,4996,416.333,1593,132.75,379,31.583,15,1.25,6502,541.833,11,0.917,499,41.583,383,31.917,804.9,67.075,100814.45,1708.719,28.5,35.15,31.65,2179.066,4985,1755.884,0.955,12397.81,1.241,100814.45,"ck",71,1,"U/L"]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_4","title":"Soreness vs Distance — Squad Scatter","option":{"legend":{"show":false},"grid":{"left":64,"right":72,"top":48,"containLabel":true,"bottom":28},"xAxis":{"type":"value","name":"N","scale":true,"nameLocation":"middle","nameGap":28},"yAxis":{"type":"value","name":"Total time (sum)","scale":true,"nameLocation":"middle","nameGap":40},"tooltip":{"trigger":"item"},"series":[{"type":"scatter","symbolSize":14,"encode":{"x":"N","y":"Total time (sum)","tooltip":["Player","N","Total time (sum)"]}}],"animation":false,"dataset":{"source":[["Player","N","Total time (sum)","Total time (mean)","Distance total (sum)","Distance total (mean)","HMLD (sum)","HMLD (mean)","Energy expenditure (sum)","Energy expenditure (mean)","High speed running (absolute) (sum)","High speed running (absolute) (mean)","Sprint distance (sum)","Sprint distance (mean)","Sprints (sum)","Sprints (mean)","Explosive distance (absolute) (sum)","Explosive distance (absolute) (mean)","HIBS number (sum)","HIBS number (mean)","Accelerations (relative) (sum)","Accelerations (relative) (mean)","Decelerations (relative) (sum)","Decelerations (relative) (mean)","DSL (sum)","DSL (mean)","Srpe Daily Sum","Srpe Daily Mean","Body Soreness Rating","Mood Rating","Quality Rating","Ewma 7","Srpe Daily","Ewma 28","monotony","strain","Acwr Ewma","Cumulative 7","Biomarker","Value","Samples (n)","Unit"],["Fabio Baldé",27,56087,4006.214,57742,4124.429,9346,667.571,5923.7,423.121,3188,227.714,1137,81.214,53,3.786,6159,439.929,43,3.071,677,48.357,421,30.071,980.1,70.007,83784.533,1420.077,35.111,30.963,33.741,158.915,0,1088.831,null,null,0.146,83784.533,null,null,null,null],["Albert Grønbæk",22,68745,4296.563,80263,5016.438,13862,866.375,8703.9,543.994,3623,226.438,612,38.25,30,1.875,10239,639.938,56,3.5,885,55.313,742,46.375,2425.4,151.588,73889.967,1319.464,14.182,11.727,14.409,2306.728,5317.333333333333,1662.166,0.956,13286.807,1.388,73889.967,null,null,null,null],["Bakery Jatta",25,60617,3565.706,78840,4637.647,9080,534.118,7455.4,465.963,2973,174.882,678,39.882,21,1.235,6106,359.176,8,0.5,538,31.647,342,20.118,1048.2,65.512,138440.85,2346.455,38.08,34.92,33.16,1939.842,2700,2021.528,1.413,18462.611,0.96,138440.85,null,null,null,null],["Noah Katterbach",29,89218,4248.476,100491,4785.286,15451,735.762,10179,484.714,4892,232.952,1206,57.429,54,2.571,10556,502.667,39,1.857,788,37.524,696,33.143,1448.9,68.995,98799.617,1674.57,26.31,32.828,25.034,1990.669,4486.5,1674.513,0.971,11846.686,1.189,98799.617,null,null,null,null],["Daniel Elfadli",30,75345,4432.059,77565,4562.647,10934,643.176,8095.6,476.212,2885,169.706,675,39.706,33,1.941,8049,473.471,32,1.882,699,41.118,575,33.824,1174.5,69.088,110664.55,1875.67,31.067,26,29.333,2235.243,5434,1869.809,0.903,11846.457,1.195,110664.55,null,null,null,null],["Rayan Philippe",22,71371,4460.688,75765,4735.313,12207,762.938,8037.2,502.325,3026,189.125,724,45.25,41,2.563,9185,574.063,30,1.875,799,49.938,621,38.813,1221.1,76.319,108882.617,1845.468,24.273,10.273,22.909,2604.286,6979,1965.866,0.67,8245.02,1.325,108882.617,null,null,null,null],["Omar Megeed",13,39290,3929,43469,4346.9,6901,690.1,4678.1,467.81,1462,146.2,335,33.5,16,1.6,5438,543.8,15,1.5,425,42.5,374,37.4,789.1,78.91,0,0,30.923,41,31.462,0,0,0,null,null,null,0,null,null,null,null],["Giorgi Gocholeishvili",25,61588,4399.143,60831,4345.071,10825,773.214,6359.1,454.221,3666,261.857,1062,75.857,47,3.357,7158,511.286,39,2.786,671,47.929,637,45.5,990.5,70.75,90343.817,1531.251,14.44,14.24,13.36,2182.03,7643.666666666667,1544.62,0.424,3588.171,1.413,90343.817,null,null,null,null],["Otto Stange",18,61291,4714.692,57893,4453.308,8715,670.385,6161,473.923,2262,174,803,61.769,40,3.077,6451,496.231,27,2.077,530,40.769,469,36.077,624.3,48.023,120865.033,2048.56,19.222,17.111,17.056,166.337,0,1241.822,null,null,0.134,120865.033,null,null,null,null],["Robert Glatzel",29,76984,4276.889,84853,4714.056,11190,621.667,9358.8,519.933,3046,169.222,775,43.056,30,1.667,8144,452.444,13,0.722,625,34.722,450,25,1043.9,57.994,115966.267,1965.53,28.448,27.172,28.31,2402.379,6480.5,1907.725,0.851,11976.548,1.259,115966.267,null,null,null,null],["Jean-Luc Dompé",24,55397,3956.929,47803,3414.5,5734,409.571,4126.1,294.721,1519,108.5,286,20.429,14,1,4216,301.143,11,0.786,381,27.214,233,16.643,880.2,62.871,102785.317,1742.124,30.375,20.417,26.417,374.965,0,1364.984,0.378,963.144,0.275,102785.317,null,null,null,null],["Albert Sambi Lokonga",22,58643,3909.533,59847,3989.8,8796,586.4,6206.3,413.753,2108,140.533,426,28.4,14,0.933,6691,446.067,16,1.067,541,36.067,335,22.333,1242,82.8,75145.633,1273.655,20.5,17.773,21.136,2246.163,5815.833333333333,1646.418,0.859,10867.066,1.364,75145.633,"ck",322,1,"U/L"],["Warmed Omari",22,69657,4643.8,68796,4586.4,9822,654.8,7383.8,492.253,2446,163.067,329,21.933,17,1.133,7380,492,22,1.467,624,41.6,512,34.133,1590,106,107198.567,1816.925,27.364,24.455,29.682,2081.051,4486.5,1776.297,0.991,12650.611,1.172,107198.567,null,null,null,null],["Nicolai Remberg",23,65169,4344.6,76869,5124.6,12783,852.2,9064.7,604.313,3358,223.867,761,50.733,41,2.733,9426,628.4,49,3.267,777,51.8,772,51.467,1705.7,113.713,125296.183,2123.664,17.652,17.783,17.478,2661.514,6148.166666666667,2233.549,0.947,15143.635,1.192,125296.183,"ck",424,1,"U/L"],["Ransford Königsdörffer",25,31115,3889.375,30850,3856.25,4632,579,3186.6,398.325,1688,211,500,62.5,24,3,2947,368.375,11,1.375,275,34.375,173,21.625,735.1,91.888,111028.267,1881.835,35.36,34.8,34.84,165.635,0,1101.11,null,null,0.15,111028.267,"ck",214,1,"U/L"],["Fábio Vieira",20,61077,5089.75,60981,5081.75,8094,674.5,4996,416.333,1593,132.75,379,31.583,15,1.25,6502,541.833,11,0.917,499,41.583,383,31.917,804.9,67.075,100814.45,1708.719,28.5,35.15,31.65,2179.066,4985,1755.884,0.955,12397.81,1.241,100814.45,"ck",71,1,"U/L"],["William Mikelbrencis",27,60566,4326.143,58368,4169.143,10184,727.429,5135.2,366.8,3322,237.286,890,63.571,40,2.857,6859,489.929,33,2.357,698,49.857,521,37.214,1223.2,87.371,101827.983,1725.898,20.778,20.222,19.852,2063.145,4652.666666666667,1736.702,0.965,12069.898,1.188,101827.983,"ck",296,1,"U/L"],["Philip Otele",28,42731,3884.636,38845,3531.364,5752,522.909,4157.2,377.927,2049,186.273,726,66,29,2.636,3703,336.636,20,1.818,410,37.273,248,22.545,808.1,73.464,89155.2,1621.004,19.071,15.607,19.536,183.855,0,1080.941,null,null,0.17,89155.2,"ck",348,1,"U/L"],["Luka Vušković",26,32933,4116.625,35725,4465.625,4798,599.75,3943.4,492.925,1316,164.5,387,48.375,13,1.625,3481,435.125,10,1.25,230,28.75,197,24.625,673.3,84.163,97250.433,1648.312,13.538,10.577,11.231,155.958,0,1083.561,null,null,0.144,97250.433,"ck",234,1,"U/L"],["Yussuf Poulsen",8,18512,3085.333,17734,2955.667,2486,414.333,2020.3,336.717,675,112.5,238,39.667,9,1.5,1813,302.167,11,1.833,232,38.667,151,25.167,245.1,40.85,57268.85,1331.834,22.5,20.375,21.875,469.644,0,1013.611,null,null,0.463,57268.85,null,null,null,null],["Jordan Torunarigha",22,68715,4294.688,67013,4188.313,8994,562.125,7124.2,445.263,2092,130.75,597,37.313,28,1.75,6902,431.375,10,0.625,511,31.938,404,25.25,1092.6,68.288,103537.45,1754.872,26.636,24.955,26.682,1853.495,4154.166666666667,1676.06,0.968,10895.969,1.106,103537.45,null,null,null,null],["Miro Muheim",16,43243,3931.182,43157,3923.364,6353,577.545,4439.9,403.627,2096,190.545,679,61.727,27,2.455,4258,387.091,7,0.636,398,36.182,285,25.909,856.4,77.855,76593.583,1472.954,27.188,21.063,24.125,1007.082,0,1405.482,null,null,0.717,76593.583,"ck",295,1,"U/L"],["Damion Downs",15,37972,4219.111,36125,4013.889,5490,610,3926,436.222,1691,187.889,505,56.111,23,2.556,3800,422.222,17,1.889,451,50.111,265,29.444,607.7,67.522,101340.1,1717.629,35.067,32.267,37.067,161.719,0,1082.054,null,null,0.149,101340.1,null,null,null,null],["Nicolás Capaldo",16,27616,2761.6,35712,3571.2,2512,251.2,2827,314.111,617,61.7,0,0,0,0,1895,189.5,0,0,30,3,44,4.4,861.1,95.678,67186.433,1138.753,24.063,24.188,21.5,389.075,0,681.552,0.584,1314,0.571,67186.433,null,null,null,null],["Bilal Yalçınkaya",31,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,32.419,28,33.355,0,0,0,null,null,null,0,null,null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

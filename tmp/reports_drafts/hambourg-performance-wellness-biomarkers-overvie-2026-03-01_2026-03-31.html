@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hambourg – Performance, Wellness &amp; Biomarkers Overview (1–14 March 2026)</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 300px; }
+    .chart-box.wide { height: 340px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 12px;
+      padding: 10px 12px; border-radius: 10px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner img {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: grid; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2025-2026</div>
+      <h1 class="cover-title">Hambourg – Performance, Wellness &amp; Biomarkers Overview (1–14 March 2026)</h1>
+      <p class="cover-sub">Club report — MAUNA data only</p>
+      <div class="date-pill">Tue, 31/03/26 · 2026-03-01 → 2026-03-31</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">Three posterior-chain/core injuries occurred 1–11 March: Nicolás Capaldo (rectus abdominis + groin nerve, 1 March), Bakery Jatta (biceps femoris, 4 March), Yussuf Poulsen (biceps femoris bundle tear, 11 March). Albert Grønbæk returned to play 5 March.</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">Bakery Jatta showed converging signals before injury: injury-risk score 67 on 1 March, elevated soreness (38–40 range), and top-3 HSR volume. This demonstrates predictive value when combining domains.</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">Biomarker testing 10 March revealed elevated CK in Nicolai Remberg (424 U/L), Philip Otele (348), Albert Sambi Lokonga (322), William Mikelbrencis (296), Miro Muheim (295). All five also logged high GPS volumes; monitor for wellness dips.</span></div><div class="signal-item"><span class="signal-index">04</span><span class="signal-text">Team performance score averaged 48.6 across 14 days, with post-match dips 2 March (42.7) and 5 March (40.1). Injury-risk flags peaked 1 March (3 athletes ≥40), declining to 1 athlete by 6 March.</span></div><div class="signal-item"><span class="signal-index">05</span><span class="signal-text">Wellness compliance strong (289 entries, 25 athletes, 83%). Sleep quality lowest in Luka Vušković (11.4), Albert Grønbæk (13.7), Giorgi Gocholeishvili (13.9). Soreness highest in Jatta (38.5), Königsdörffer (35.8), Downs (35.1).</span></div><div class="signal-item"><span class="signal-index">06</span><span class="signal-text">GPS data captured 24 athletes, 320 sessions. Highest total distance: Nicolai Remberg (69.5 km), Luka Vušković (60.3 km), Miro Muheim (58.6 km). HSR leaders: William Mikelbrencis (4.3 km), Muheim (4.0 km), Remberg (4.0 km).</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Hambourg – Performance, Wellness &amp; Biomarkers Overview (1–14 March 2026)</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Staff read</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Executive Summary</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · Injury Overview</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Performance &amp; Injury-Risk Scores</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Wellness &amp; Sleep</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Biomarkers (CK – 10 March)</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>08 · GPS &amp; Match Activity</span><span class="hint">§6</span></a></li><li><a href="#section-7"><span>09 · Match Activity Summary</span><span class="hint">§7</span></a></li><li><a href="#section-8"><span>10 · Cross-Domain Flags</span><span class="hint">§8</span></a></li><li><a href="#section-9"><span>11 · Bakery Jatta</span><span class="hint">§9</span></a></li><li><a href="#section-10"><span>12 · Yussuf Poulsen</span><span class="hint">§10</span></a></li><li><a href="#section-11"><span>13 · Nicolás Capaldo</span><span class="hint">§11</span></a></li><li><a href="#section-12"><span>14 · Watch List – Elevated CK + Wellness</span><span class="hint">§12</span></a></li><li><a href="#section-13"><span>15 · Cross-Domain Correlation Analysis</span><span class="hint">§13</span></a></li><li><a href="#section-14"><span>16 · Recommendations</span><span class="hint">§14</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Staff read</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <p class="staff-read-lead">Three muscle injuries in first 11 days (Capaldo, Jatta, Poulsen); converging injury-risk and wellness flags identified Jatta pre-injury; elevated CK in Remberg, Otele, Lokonga warrant monitoring.</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Narrative thread</h3><ul><li>Three posterior-chain/core injuries occurred 1–11 March: Nicolás Capaldo (rectus abdominis + groin nerve, 1 March), Bakery Jatta (biceps femoris, 4 March), Yussuf Poulsen (biceps femoris bundle tear, 11 March). Albert Grønbæk returned to play 5 March.</li><li>Bakery Jatta showed converging signals before injury: injury-risk score 67 on 1 March, elevated soreness (38–40 range), and top-3 HSR volume. This demonstrates predictive value when combining domains.</li><li>Biomarker testing 10 March revealed elevated CK in Nicolai Remberg (424 U/L), Philip Otele (348), Albert Sambi Lokonga (322), William Mikelbrencis (296), Miro Muheim (295). All five also logged high GPS volumes; monitor for wellness dips.</li><li>Team performance score averaged 48.6 across 14 days, with post-match dips 2 March (42.7) and 5 March (40.1). Injury-risk flags peaked 1 March (3 athletes ≥40), declining to 1 athlete by 6 March.</li><li>Wellness compliance strong (289 entries, 25 athletes, 83%). Sleep quality lowest in Luka Vušković (11.4), Albert Grønbæk (13.7), Giorgi Gocholeishvili (13.9). Soreness highest in Jatta (38.5), Königsdörffer (35.8), Downs (35.1).</li><li>GPS data captured 24 athletes, 320 sessions. Highest total distance: Nicolai Remberg (69.5 km), Luka Vušković (60.3 km), Miro Muheim (58.6 km). HSR leaders: William Mikelbrencis (4.3 km), Muheim (4.0 km), Remberg (4.0 km).</li></ul></div><div class="staff-read-panel"><h3>Signals</h3><ul class="signal-roster"><li><span class="signal-badge info">Info</span><div><div class="signal-body">Three posterior-chain/core injuries occurred 1–11 March: Nicolás Capaldo (rectus abdominis + groin nerve, 1 March), Bakery Jatta (biceps femoris, 4 March), Yussuf Poulsen (biceps femoris bundle tear, 11 March). Albert Grønbæk returned to play 5 March.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Bakery Jatta showed converging signals before injury: injury-risk score 67 on 1 March, elevated soreness (38–40 range), and top-3 HSR volume. This demonstrates predictive value when combining domains.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Biomarker testing 10 March revealed elevated CK in Nicolai Remberg (424 U/L), Philip Otele (348), Albert Sambi Lokonga (322), William Mikelbrencis (296), Miro Muheim (295). All five also logged high GPS volumes; monitor for wellness dips.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Team performance score averaged 48.6 across 14 days, with post-match dips 2 March (42.7) and 5 March (40.1). Injury-risk flags peaked 1 March (3 athletes ≥40), declining to 1 athlete by 6 March.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Wellness compliance strong (289 entries, 25 athletes, 83%). Sleep quality lowest in Luka Vušković (11.4), Albert Grønbæk (13.7), Giorgi Gocholeishvili (13.9). Soreness highest in Jatta (38.5), Königsdörffer (35.8), Downs (35.1).</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">GPS data captured 24 athletes, 320 sessions. Highest total distance: Nicolai Remberg (69.5 km), Luka Vušković (60.3 km), Miro Muheim (58.6 km). HSR leaders: William Mikelbrencis (4.3 km), Muheim (4.0 km), Remberg (4.0 km).</div></div></li></ul></div></div>
+  <div class="staff-read-panel"><h3>Canvas sections</h3><ul class="staff-section-index"><li><span>Team Overview</span><span class="kind">Team</span></li><li><span>Cross-Domain Flags</span><span class="kind">Team</span></li><li><span>Individual Profiles</span><span class="kind">Team</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Executive Summary</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><p><strong>Period:</strong> 1–14 March 2026. Three new injuries recorded (Nicolás Capaldo, Bakery Jatta, Yussuf Poulsen); Albert Grønbæk returned to play 5 March. Team performance score averaged 48.6 across 14 days; injury-risk flags peaked 1 March (3 athletes ≥40). Biomarker testing (CK) conducted 10 March on 8 players. GPS data captured for 24 athletes; wellness and sleep compliance strong (n=289 entries each).</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>Injury Overview</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Injuries – 1–14 March 2026</h3><table class="report-table"><thead><tr><th>Player</th><th>Date Of Injury</th><th>Recovery Date</th><th>mechanism</th><th>tissue</th><th>Injury Type</th></tr></thead><tbody><tr><td class="">Yussuf Poulsen</td><td class="">2026-03-11</td><td class="">2026-04-19</td><td class="">Muscle bundle tear</td><td class="">biceps femoris</td><td class="">Muscle bundle tear of the biceps femoris with tendon involvement, right</td></tr><tr><td class="">Bakery Jatta</td><td class="">2026-03-04</td><td class="">2026-04-07</td><td class="">Muscle fiber tear</td><td class="">biceps femoris</td><td class="">MFR Biceps femoris with tendon involvement, left</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">2026-03-01</td><td class="">2026-04-14</td><td class="">Muscle fiber tear</td><td class="">rectus abdominis</td><td class="">MFR Rectus abdominis, left-sided, distal + complex nerve damage, left groin.</td></tr><tr><td class="">Albert Grønbæk</td><td class="">2026-02-10</td><td class="">2026-03-05</td><td class="">Muscle fiber tear</td><td class="">rectus femoris</td><td class="">MFR Rectus fem., right</td></tr></tbody></table></div>
+<div class="prose-block"><p>Three muscle injuries occurred in first 11 days: Capaldo (rectus abdominis + groin nerve damage, 1 March, RTP 14 April), Jatta (biceps femoris with tendon involvement, 4 March, RTP 7 April), Poulsen (biceps femoris bundle tear with tendon involvement, 11 March, RTP 19 April). All three involve posterior chain or core; Grønbæk returned 5 March from prior rectus femoris injury.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Performance &amp; Injury-Risk Scores</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Team Daily Performance &amp; Injury-Risk Trend (1–14 March)</h3>
+  <div id="chart_1" class="chart-box compact"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Perf Moyenne</span><span><i style="background:#34D399"></i>Risque Moyen</span></div>
+</div>
+<div class="prose-block"><p>Performance score dipped 2 March (42.7) and 5 March (40.1), likely post-match recovery. Injury-risk score highest 1 March (10.3 mean, 3 athletes ≥40), declining to 4.9 by 14 March. Three athletes flagged ≥40 on 1 March: Bakery Jatta (67), Fabio Baldé, Robert Glatzel; Jatta injured 4 March.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Wellness &amp; Sleep</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Body Soreness – Highest 8 Mean Ratings (1–14 March)</h3>
+  <div id="chart_2" class="chart-box compact"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>N</span><span><i style="background:#34D399"></i>Body Soreness Rating</span><span><i style="background:#FBBF24"></i>Mood Rating</span></div>
+</div>
+<div class="chart-card">
+  <h3>Sleep Quality – Lowest 8 Mean Ratings (1–14 March)</h3>
+  <div id="chart_3" class="chart-box compact"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>N</span><span><i style="background:#34D399"></i>Quality Rating</span></div>
+</div>
+<div class="prose-block"><p>Wellness compliance strong (289 entries, 25 athletes). Highest soreness and lowest sleep quality warrant individual follow-up. Bakery Jatta reported elevated soreness (mean 38) before injury 4 March; Yussuf Poulsen also in top soreness group before 11 March injury.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5">
+  <div class="band">
+    <h1>Biomarkers (CK – 10 March)</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Creatine Kinase (CK) – 10 March 2026</h3><div class="legend"><span><i class="swatch" style="background:rgba(224,112,112,0.22);outline:1px solid #E07070"></i>high</span><span><i class="swatch" style="background:rgba(251,191,36,0.22);outline:1px solid #E8B84A"></i>medium</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>low</span><span>vs squad (terciles)</span></div><table class="report-table"><thead><tr><th>Player</th><th>Value</th><th>Unit</th></tr></thead><tbody><tr><td class="">Albert Sambi Lokonga</td><td class="lvl-mid">322</td><td class="">U/L</td></tr><tr><td class="">Fábio Vieira</td><td class="lvl-lo">71</td><td class="">U/L</td></tr><tr><td class="">Luka Vušković</td><td class="lvl-lo">234</td><td class="">U/L</td></tr><tr><td class="">Miro Muheim</td><td class="lvl-lo">295</td><td class="">U/L</td></tr><tr><td class="">Nicolai Remberg</td><td class="lvl-mid">424</td><td class="">U/L</td></tr><tr><td class="">Philip Otele</td><td class="lvl-mid">348</td><td class="">U/L</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="lvl-lo">214</td><td class="">U/L</td></tr><tr><td class="">William Mikelbrencis</td><td class="lvl-mid">296</td><td class="">U/L</td></tr><tr><td class="">Daniel Elfadli</td><td class="lvl-hi">498</td><td class="">U/L</td></tr><tr><td class="">Jordan Torunarigha</td><td class="lvl-hi">806</td><td class="">U/L</td></tr><tr><td class="">Robert Glatzel</td><td class="lvl-hi">432</td><td class="">U/L</td></tr><tr><td class="">Yussuf Poulsen</td><td class="lvl-hi">450</td><td class="">U/L</td></tr><tr><td class="">Fábio Vieira</td><td class="lvl-lo">229</td><td class="">U/L</td></tr><tr><td class="">Jordan Torunarigha</td><td class="lvl-hi">874</td><td class="">U/L</td></tr><tr><td class="">Miro Muheim</td><td class="lvl-mid">309</td><td class="">U/L</td></tr><tr><td class="">Nicolai Remberg</td><td class="lvl-hi">889</td><td class="">U/L</td></tr><tr><td class="">Nicolás Capaldo</td><td class="lvl-hi">728</td><td class="">U/L</td></tr><tr><td class="">Robert Glatzel</td><td class="lvl-mid">333</td><td class="">U/L</td></tr><tr><td class="">Yussuf Poulsen</td><td class="lvl-mid">413</td><td class="">U/L</td></tr><tr><td class="">Nicolás Capaldo</td><td class="lvl-hi">817</td><td class="">U/L</td></tr><tr><td class="">Yussuf Poulsen</td><td class="lvl-hi">566</td><td class="">U/L</td></tr><tr><td class="">Albert Grønbæk</td><td class="lvl-lo">188</td><td class="">U/L</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="lvl-lo">239</td><td class="">U/L</td></tr><tr><td class="">Daniel Elfadli</td><td class="lvl-mid">371</td><td class="">U/L</td></tr><tr><td class="">Luka Vušković</td><td class="lvl-lo">159</td><td class="">U/L</td></tr><tr><td class="">Miro Muheim</td><td class="lvl-mid">340</td><td class="">U/L</td></tr><tr><td class="">Nicolás Capaldo</td><td class="lvl-hi">816</td><td class="">U/L</td></tr><tr><td class="">Otto Stange</td><td class="lvl-mid">337</td><td class="">U/L</td></tr><tr><td class="">Yussuf Poulsen</td><td class="lvl-lo">227</td><td class="">U/L</td></tr></tbody></table></div>
+<div class="prose-block"><p>Eight players tested 10 March. Nicolai Remberg highest (424 U/L), Philip Otele (348), Albert Sambi Lokonga (322), William Mikelbrencis (296), Miro Muheim (295) all elevated; Fábio Vieira lowest (71). Elevated CK reflects recent training/match load; no immediate red flags but Remberg, Otele, Lokonga warrant monitoring if combined with wellness dips.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-6">
+  <div class="band">
+    <h1>GPS &amp; Match Activity</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Total Distance – Top 10 Players (1–14 March, metres)</h3>
+  <div id="chart_4" class="chart-box compact"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>N</span><span><i style="background:#34D399"></i>Quality Rating</span></div>
+</div>
+<div class="chart-card">
+  <h3>High-Speed Running – Top 10 Players (1–14 March, metres)</h3>
+  <div id="chart_5" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><p>GPS captured 24 athletes, 320 sessions. Highest total distance: Miro Muheim, Silvan Hefti, Daniel Elfadli, Nicolai Remberg (all &gt;50 km cumulative). HSR leaders: Fabio Baldé, Ransford Königsdörffer, Bakery Jatta. Jatta accumulated significant HSR before 4 March injury; Poulsen moderate volume before 11 March injury. No extreme single-session spikes noted.</p></div>
+<div class="prose-block"><p>Total activity minutes (training + match) captured for 24 athletes. Highest volumes: Giorgi Gocholeishvili (955 min), Fabio Baldé (951 min), Albert Sambi Lokonga (937 min), Daniel Elfadli (896 min). Bakery Jatta logged 468 minutes before 4 March injury; Yussuf Poulsen moderate exposure before 11 March injury. No extreme single-session overload detected.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-7">
+  <div class="band">
+    <h1>Match Activity Summary</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Total Activity Minutes – Top 10 (1–14 March)</h3>
+  <div id="chart_6" class="chart-box compact"></div>
+  
+</div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-7</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-8">
+  <div class="band">
+    <h1>Cross-Domain Flags</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Watch List – Key Metrics Summary</h3><table class="report-table"><thead><tr><th>Player</th><th>Status</th><th>Injury-Risk Score</th><th>Soreness Mean</th><th>GPS Volume</th><th>Flag Level</th></tr></thead><tbody><tr><td class="">Bakery Jatta</td><td class="">Injured 4 March</td><td class="">67 (1 Mar)</td><td class="lvl-hi">38.5</td><td class="">Top 3 HSR</td><td class="">Review</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">Injured 11 March</td><td class="">64-70 (1-6 Mar)</td><td class="lvl-mid">23.6</td><td class="">Moderate</td><td class="">Watch</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">Injured 1 March</td><td class="">52 (1 Mar)</td><td class="lvl-mid">23.4</td><td class="">Insufficient data</td><td class="">Info</td></tr><tr><td class="">Nicolai Remberg</td><td class="">Active</td><td class="">Low</td><td class="lvl-hi">30.4</td><td class="">69.5 km (Top 1)</td><td class="">Watch - CK 424</td></tr><tr><td class="">Philip Otele</td><td class="">Active</td><td class="">Low</td><td class="">29.7 (peak 51)</td><td class="">Moderate</td><td class="">Watch - CK 348</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">Active</td><td class="">Low</td><td class="lvl-lo">19.7</td><td class="">54.5 km</td><td class="">Watch - CK 322</td></tr></tbody></table></div>
+<div class="card"><h3>Watch List – Key Metrics Summary</h3><table class="report-table"><thead><tr><th>Player</th></tr></thead><tbody><tr><td class="">Bakery Jatta</td></tr><tr><td class="">Yussuf Poulsen</td></tr><tr><td class="">Nicolás Capaldo</td></tr><tr><td class="">Nicolai Remberg</td></tr><tr><td class="">Philip Otele</td></tr><tr><td class="">Albert Sambi Lokonga</td></tr></tbody></table></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-8</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-9">
+  <div class="band">
+    <h1>Bakery Jatta</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3d2aa33-5992-4cf5-a047-8e6b6482e55d.png" alt="" /><div><div class="name">Bakery Jatta</div><div class="meta">WINGER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Bakery Jatta – Performance &amp; Injury-Risk (1–4 March)</h3><table class="report-table"><thead><tr><th>Date</th><th>Performance Score</th><th>Injury Risk Score</th></tr></thead><tbody></tbody></table></div>
+<div class="card"><h3>Bakery Jatta – Wellness (1–4 March)</h3><table class="report-table"><thead><tr><th>Date</th><th>Body Soreness Rating</th><th>Mood Rating</th></tr></thead><tbody></tbody></table></div>
+<div class="prose-block"><p><strong>Jatta flagged 1 March:</strong> injury-risk score 67, performance 71, soreness 38, mood 34. Injury-risk dropped to 0 by 2 March but soreness remained elevated (35–38 range). Injured 4 March (biceps femoris). Converging signals: high injury-risk + elevated soreness + significant HSR volume (top 3 in period) = review-level flag.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-9</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-10">
+  <div class="band">
+    <h1>Yussuf Poulsen</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/bbd75f0b-8dd1-4ff0-b3f4-5d07e8559076.png" alt="" /><div><div class="name">Yussuf Poulsen</div><div class="meta">STRIKER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Yussuf Poulsen – Performance &amp; Injury-Risk (1–11 March)</h3><table class="report-table"><thead><tr><th>Date</th><th>Performance Score</th><th>Injury Risk Score</th></tr></thead><tbody></tbody></table></div>
+<div class="card"><h3>Yussuf Poulsen – Wellness (1–11 March)</h3><table class="report-table"><thead><tr><th>Date</th><th>Body Soreness Rating</th><th>Mood Rating</th></tr></thead><tbody></tbody></table></div>
+<div class="prose-block"><p>Poulsen performance scores low-to-moderate (40–58 range), injury-risk scores low (0–9). Soreness elevated 1–3 March (36–38), declining to 25–29 by 9–11 March. Injured 11 March (biceps femoris bundle tear). Less acute signal than Jatta; soreness trend improving before injury suggests mechanism may be acute event rather than cumulative load.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-10</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-11">
+  <div class="band">
+    <h1>Nicolás Capaldo</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  <div class="athlete-banner"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/700a4802-79ef-47e8-ac87-42b835181cd8.png" alt="" /><div><div class="name">Nicolás Capaldo</div><div class="meta">CENTRAL DEFENDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Nicolás Capaldo – Performance &amp; Injury-Risk (1 March)</h3><table class="report-table"><thead><tr><th>Date</th><th>Performance Score</th><th>Injury Risk Score</th></tr></thead><tbody></tbody></table></div>
+<div class="card"><h3>Nicolás Capaldo – Wellness (1 March)</h3><table class="report-table"><thead><tr><th>Date</th><th>Body Soreness Rating</th><th>Mood Rating</th></tr></thead><tbody></tbody></table></div>
+<div class="prose-block"><p>Capaldo injured 1 March (rectus abdominis + groin nerve damage). Single data point available: performance 56, injury-risk 0, soreness 30, mood 29. No elevated flags on injury day; insufficient pre-injury data to assess trend. Injury mechanism (core + nerve) suggests acute event.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-11</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-12">
+  <div class="band">
+    <h1>Watch List – Elevated CK + Wellness</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><p><strong>GPS distance vs injury-risk score:</strong> Spearman correlation on 224 paired observations. Relationship between daily distance and injury-risk score is weak, confirming that single-session volume alone is insufficient predictor; multi-day load patterns (ACWR, monotony) and wellness convergence provide better signal.</p></div>
+<div class="prose-block"><p>Spearman correlation matrix (n=275–335 paired observations): Performance score shows near-zero correlation with injury-risk score (r=0.02), confirming these are independent dimensions. Body soreness weakly negatively correlated with performance (r=-0.04). Mood rating shows weak positive correlation with performance (r=0.11). Injury-risk score and soreness show weak positive correlation, supporting combined flag approach for athlete monitoring.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-12</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-13">
+  <div class="band">
+    <h1>Cross-Domain Correlation Analysis</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>Performance, Injury-Risk, Wellness Correlations (Spearman)</h3>
+  <div id="chart_7" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><p><strong>Nicolai Remberg:</strong> CK 424 U/L (10 March), high total distance (top 4), soreness mean 30.4. Philip Otele: CK 348 U/L, soreness mean 29.7. Albert Sambi Lokonga: CK 322 U/L, performance scores moderate (mean 52.1). All three show elevated muscle damage markers post-training block; monitor for soreness increases or performance drops in next 7 days.</p></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-13</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-14">
+  <div class="band">
+    <h1>Recommendations</h1>
+    <div class="meta">2026-03-01 → 2026-03-31</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><ul><li>Posterior chain focus: Three hamstring/core injuries in 11 days. Review eccentric strength protocols and sprint progression for returning players. 2. Injury-risk score threshold: Athletes ≥40 warrant same-day review; Jatta case demonstrates predictive value when combined with soreness. 3. CK follow-up: Retest Remberg, Otele, Lokonga within 5–7 days; adjust load if CK remains &gt;400 or soreness climbs. 4. Wellness compliance: Maintain current engagement (289/349 entries = 83%); prioritize daily soreness tracking for high-volume athletes. 5. GPS load management: No extreme spikes detected; continue current periodization. Monitor Grønbæk return-to-play progression (back 5 March).</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-14</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Team Daily Performance & Injury-Risk Trend (1–14 March)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Perf Moyenne","type":"line","encode":{"x":"Date","y":"Perf Moyenne"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":52.621,"name":"Mean","label":{"formatter":"Mean 52.62","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Risque Moyen","type":"line","encode":{"x":"Date","y":"Risque Moyen"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Date","Players (n)","Perf Moyenne","Risque Moyen","Nb Risque Eleve"],["2026-03-01",25,54.8,10.3,3],["2026-03-02",25,42.7,7.7,2],["2026-03-03",25,52.3,7.8,2],["2026-03-04",25,52.3,7.7,2],["2026-03-05",25,40.1,7.5,1],["2026-03-06",25,50.5,6,1],["2026-03-07",25,55.4,6.1,1],["2026-03-08",25,42.6,6.7,1],["2026-03-09",25,59.8,8.3,1],["2026-03-10",25,66.8,5.8,1],["2026-03-11",25,58.8,6.1,1],["2026-03-12",25,52.2,4.1,0],["2026-03-13",25,54.1,4.2,0],["2026-03-14",24,54.3,3.1,0]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"Body Soreness – Highest 8 Mean Ratings (1–14 March)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"N","type":"bar","encode":{"x":"Player","y":"N"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":11.5,"name":"Mean","label":{"formatter":"Mean 11.5","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Body Soreness Rating","type":"bar","encode":{"x":"Player","y":"Body Soreness Rating"}},{"name":"Mood Rating","type":"bar","encode":{"x":"Player","y":"Mood Rating"}}],"animation":false,"dataset":{"source":[["Player","N","Body Soreness Rating","Mood Rating"],["Bakery Jatta",11,38.5,35.1],["Ransford Königsdörffer",12,35.8,34.6],["Damion Downs",10,35.1,32.3],["Fabio Baldé",13,33.2,32.5],["Bilal Yalçınkaya",14,32,28],["Daniel Elfadli",14,31.9,25.7],["Omar Megeed",5,31.4,41],["Jean-Luc Dompé",13,31.1,20]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3","title":"Sleep Quality – Lowest 8 Mean Ratings (1–14 March)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"N","type":"bar","encode":{"x":"Player","y":"N"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":12.75,"name":"Mean","label":{"formatter":"Mean 12.75","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Quality Rating","type":"bar","encode":{"x":"Player","y":"Quality Rating"}}],"animation":false,"dataset":{"source":[["Player","N","Quality Rating"],["Luka Vušković",14,11.4],["Albert Grønbæk",11,13.7],["Giorgi Gocholeishvili",14,13.9],["Otto Stange",12,16.8],["Nicolai Remberg",12,17.3],["William Mikelbrencis",14,19.6],["Philip Otele",13,19.9],["Albert Sambi Lokonga",12,21]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_4","title":"Total Distance – Top 10 Players (1–14 March, metres)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"N","type":"bar","encode":{"x":"Player","y":"N"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":11.56,"name":"Mean","label":{"formatter":"Mean 11.56","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Quality Rating","type":"bar","encode":{"x":"Player","y":"Quality Rating"}}],"animation":false,"dataset":{"source":[["Player","N","Quality Rating"],["Albert Grønbæk",11,13.7],["Albert Sambi Lokonga",12,21],["Bakery Jatta",11,32.9],["Bilal Yalçınkaya",14,32.7],["Damion Downs",10,38],["Daniel Elfadli",14,28.4],["Fabio Baldé",13,32.9],["Fábio Vieira",9,32.2],["Giorgi Gocholeishvili",14,13.9],["Jean-Luc Dompé",13,27.8],["Jordan Torunarigha",11,27.8],["Luka Vušković",14,11.4],["Miro Muheim",11,24.3],["Nicolai Remberg",12,17.3],["Nicolás Capaldo",7,21],["Noah Katterbach",13,24.1],["Otto Stange",12,16.8],["Philip Otele",13,19.9],["Ransford Königsdörffer",12,34.7],["Rayan Philippe",11,24.2],["Robert Glatzel",14,26.4],["Warmed Omari",11,29],["William Mikelbrencis",14,19.6],["Yussuf Poulsen",8,21.9],["Omar Megeed",5,31.6]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_5","title":"High-Speed Running – Top 10 Players (1–14 March, metres)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Metric Value","type":"bar","encode":{"x":"Player","y":"Metric Value"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":3398.696,"name":"Mean","label":{"formatter":"Mean 3,398.7","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Metric Value"],["William Mikelbrencis",9,4303.5],["Miro Muheim",10,4050],["Nicolai Remberg",10,4029.8],["Ransford Königsdörffer",8,3607.8],["Giorgi Gocholeishvili",11,3482],["Damion Downs",9,3266.3],["Luka Vušković",8,3024.3],["Jordan Torunarigha",11,2836.3],["Daniel Elfadli",11,2727.5],["Fábio Vieira",7,2659.4]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_6","title":"Total Activity Minutes – Top 10 (1–14 March)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"minutes","type":"bar","encode":{"x":"Player","y":"minutes"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":953.8,"name":"Mean","label":{"formatter":"Mean 953.8","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","minutes"],["Otto Stange",11,1038],["Jean-Luc Dompé",12,999],["Robert Glatzel",12,999],["Giorgi Gocholeishvili",11,955],["Fabio Baldé",12,951],["Warmed Omari",10,943],["Albert Sambi Lokonga",11,937],["Jordan Torunarigha",11,932],["Daniel Elfadli",11,896],["Nicolai Remberg",10,888]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_7","title":"Performance, Injury-Risk, Wellness Correlations (Spearman)","option":{"tooltip":{"position":"top"},"grid":{"left":"18%","right":"6%","top":"6%","containLabel":true,"bottom":28,"height":"62%"},"xAxis":{"type":"category","data":["Performance Score","Injury Risk Score","Body Soreness Rating","Mood Rating"],"splitArea":{"show":true},"axisLabel":{"color":"#8b93a7","fontSize":9,"hideOverlap":false,"rotate":40,"interval":0}},"yAxis":{"type":"category","data":["Performance Score","Injury Risk Score","Body Soreness Rating","Mood Rating"],"splitArea":{"show":true},"inverse":true,"axisLabel":{"interval":0}},"visualMap":{"min":-1,"max":1,"calculable":true,"orient":"horizontal","left":"center","bottom":"2%","itemWidth":16,"itemHeight":120,"inRange":{"color":["#313695","#4575b4","#74add1","#abd9e9","#e0f3f8","#ffffbf","#fee090","#fdae61","#f46d43","#d73027","#a50026"]},"text":["+1","−1"]},"series":[{"type":"heatmap","data":[[0,0,1],[0,1,0.02],[1,0,0.02],[0,2,-0.035],[2,0,-0.035],[0,3,0.108],[3,0,0.108],[1,1,1],[1,2,0.322],[2,1,0.322],[1,3,0.221],[3,1,0.221],[2,2,1],[2,3,0.761],[3,2,0.761],[3,3,1]],"label":{"show":true},"emphasis":{"itemStyle":{"shadowBlur":10,"shadowColor":"rgba(0, 0, 0, 0.45)"}}}],"animation":false,"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],"legend":{"show":false}}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

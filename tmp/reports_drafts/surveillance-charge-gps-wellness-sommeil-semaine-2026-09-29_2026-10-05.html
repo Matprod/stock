@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Surveillance Charge GPS × Wellness/Sommeil – Semaine 29 sept.–5 oct.</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 300px; }
+    .chart-box.wide { height: 340px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 12px;
+      padding: 10px 12px; border-radius: 10px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner .avatar-wrap {
+      position: relative; width: 52px; height: 52px; flex: 0 0 52px;
+    }
+    .athlete-banner img {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: none; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner.no-photo img { display: none; }
+    .athlete-banner.no-photo .avatar-fallback { display: grid; }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2026-2027</div>
+      <h1 class="cover-title">Surveillance Charge GPS × Wellness/Sommeil – Semaine 29 sept.–5 oct.</h1>
+      <p class="cover-sub">Rapport club — données MAUNA uniquement</p>
+      <div class="date-pill">lun. 05/10/26 · 2026-09-29 → 2026-10-05</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">Surveillance Charge GPS × Wellness/Sommeil</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Sommaire</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Surveillance Charge GPS × Wellness/Sommeil – Semaine 29 sept.–5 oct.</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Couverture</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Lecture staff</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Surveillance Charge GPS × Wellness/Sommeil</span><span class="hint">§1</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Lecture staff</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <p class="staff-read-lead">Synthesized from canvas (analyst did not commit InsightIR)</p>
+  
+  <div class="staff-read-panel"><h3>Sections canvas</h3><ul class="staff-section-index"><li><span>Surveillance Charge GPS × Wellness/Sommeil</span><span class="kind">Équipe</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Surveillance Charge GPS × Wellness/Sommeil</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Top 5 – Charge GPS haute + Wellness/Sommeil en baisse</h3><div class="legend"><span><i class="swatch" style="background:rgba(224,112,112,0.22);outline:1px solid #E07070"></i>élevé</span><span><i class="swatch" style="background:rgba(251,191,36,0.22);outline:1px solid #E8B84A"></i>moyen</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>bas</span><span>vs le groupe (terciles)</span></div><table class="report-table"><thead><tr><th>Joueur</th><th>Distance Km</th><th>HMLD (m)</th><th>High speed running (absolute)</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>Quality Rating</th><th>N</th></tr></thead><tbody><tr><td class="">Alexander Røssing-Lelesiit</td><td class="lvl-hi">7,49</td><td class="lvl-hi">1 480,5</td><td class="lvl-hi">436</td><td class="lvl-hi">30</td><td class="lvl-hi">20</td><td class="lvl-mid">20</td><td class="">3</td></tr><tr><td class="">Miro Muheim</td><td class="lvl-hi">7,27</td><td class="lvl-hi">1 314,17</td><td class="lvl-hi">449,67</td><td class="lvl-mid">20</td><td class="lvl-hi">20</td><td class="lvl-mid">20</td><td class="">2</td></tr><tr><td class="">Nicolai Remberg</td><td class="lvl-hi">8,48</td><td class="lvl-hi">1 432,33</td><td class="lvl-hi">299,17</td><td class="lvl-lo">10</td><td class="lvl-lo">10</td><td class="lvl-lo">13,33</td><td class="">3</td></tr><tr><td class="">Kofi Amoako</td><td class="lvl-mid">6,02</td><td class="lvl-mid">968,8</td><td class="lvl-mid">294,2</td><td class="lvl-hi">31,5</td><td class="lvl-hi">28,5</td><td class="lvl-hi">28</td><td class="">4</td></tr><tr><td class="">Mario Vušković</td><td class="lvl-hi">7,32</td><td class="lvl-mid">1 042</td><td class="lvl-lo">188,2</td><td class="lvl-lo">16,67</td><td class="lvl-lo">10</td><td class="lvl-lo">10</td><td class="">3</td></tr><tr><td class="">Bilal Nadir</td><td class="lvl-mid">5,44</td><td class="lvl-lo">758</td><td class="lvl-lo">173,5</td><td class="lvl-mid">24,25</td><td class="lvl-hi">22</td><td class="lvl-hi">25,25</td><td class="">4</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="lvl-mid">7,1</td><td class="lvl-hi">1 172,17</td><td class="lvl-hi">317,83</td><td class="lvl-mid">20</td><td class="lvl-lo">10</td><td class="lvl-mid">20</td><td class="">3</td></tr><tr><td class="">Yussuf Poulsen</td><td class="lvl-lo">5,31</td><td class="lvl-mid">918</td><td class="lvl-mid">237,17</td><td class="lvl-lo">13,33</td><td class="lvl-lo">10</td><td class="lvl-mid">23,33</td><td class="">3</td></tr><tr><td class="">Martin Adeline</td><td class="lvl-hi">9,51</td><td class="lvl-hi">1 985,2</td><td class="lvl-hi">571,2</td><td class="lvl-lo">16,25</td><td class="lvl-mid">13,75</td><td class="lvl-mid">20,25</td><td class="">4</td></tr><tr><td class="">Jordan Torunarigha</td><td class="lvl-lo">5,42</td><td class="lvl-lo">647,5</td><td class="lvl-lo">166</td><td class="lvl-hi">30</td><td class="lvl-hi">30</td><td class="lvl-hi">30</td><td class="">2</td></tr><tr><td class="">Sebastiaan Bornauw</td><td class="lvl-mid">6,9</td><td class="lvl-mid">1 027,67</td><td class="lvl-mid">218,33</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">6</td></tr><tr><td class="">Fábio Vieira</td><td class="lvl-mid">6,98</td><td class="lvl-mid">983,5</td><td class="lvl-mid">229,75</td><td class="lvl-mid">23,33</td><td class="lvl-hi">20</td><td class="lvl-mid">20</td><td class="">3</td></tr><tr><td class="">Nicolás Capaldo</td><td class="lvl-lo">4,95</td><td class="lvl-lo">716,33</td><td class="lvl-mid">208</td><td class="lvl-lo">14,67</td><td class="lvl-mid">16</td><td class="lvl-lo">15,67</td><td class="">3</td></tr><tr><td class="">Terem Moffi</td><td class="lvl-lo">2,98</td><td class="lvl-lo">324,2</td><td class="lvl-lo">156,2</td><td class="lvl-mid">20</td><td class="lvl-mid">13,33</td><td class="lvl-mid">20</td><td class="">3</td></tr><tr><td class="">Shafiq Nandja</td><td class="lvl-hi">7,79</td><td class="lvl-hi">1 383,4</td><td class="lvl-hi">446,2</td><td class="lvl-hi">27,25</td><td class="lvl-hi">21,25</td><td class="lvl-hi">33</td><td class="">4</td></tr><tr><td class="">Bakery Jatta</td><td class="lvl-mid">6,32</td><td class="lvl-mid">1 018</td><td class="lvl-mid">292</td><td class="lvl-hi">40</td><td class="lvl-hi">40</td><td class="lvl-hi">40</td><td class="">1</td></tr><tr><td class="">Albert Grønbæk</td><td class="lvl-lo">3,23</td><td class="lvl-lo">164</td><td class="lvl-lo">12</td><td class="lvl-mid">23,33</td><td class="lvl-mid">13,33</td><td class="lvl-mid">20</td><td class="">3</td></tr><tr><td class="">Otto Stange</td><td class="lvl-hi">7,8</td><td class="lvl-hi">1 555</td><td class="lvl-hi">701</td><td class="lvl-hi">26,67</td><td class="lvl-hi">23,33</td><td class="lvl-hi">30</td><td class="">3</td></tr><tr><td class="">David Möller Wolfe</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">25</td><td class="lvl-mid">15</td><td class="lvl-hi">25</td><td class="">2</td></tr><tr><td class="">Patson Daka</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">10</td><td class="lvl-mid">16,67</td><td class="lvl-lo">10</td><td class="">3</td></tr><tr><td class="">Sebastiaan  Bornauw</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-mid">21</td><td class="lvl-hi">22</td><td class="lvl-mid">20,25</td><td class="">4</td></tr><tr><td class="">Warmed Omari</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">30</td><td class="lvl-lo">10</td><td class="lvl-hi">40</td><td class="">1</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Distance totale moyenne (km) – Semaine</h3>
+  <div id="chart_1" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>HMLD moyenne (m) – Semaine</h3>
+  <div id="chart_2" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Courbatures (body soreness) – Moyenne semaine</h3>
+  <div id="chart_3" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Qualité sommeil – Moyenne semaine</h3>
+  <div id="chart_4" class="chart-box compact"></div>
+  
+</div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Distance totale moyenne (km) – Semaine","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Distance Km","type":"bar","encode":{"x":"Joueur","y":"Distance Km"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":6.461,"name":"Moyenne","label":{"formatter":"Moyenne 6,46","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Joueur","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Quality Rating","Distance Km"],["Alexander Røssing-Lelesiit",3,7167.25,7486.25,1480.5,694.875,436,67,4.5,1044.5,11.75,111.5,90,193.15,30,20,20,7.486],["Miro Muheim",2,7012.5,7271.333,1314.167,765.883,449.667,160.167,7.167,864.5,8.333,79,72,202.233,20,20,20,7.271],["Nicolai Remberg",3,7419.667,8477.167,1432.333,1005.733,299.167,55.167,2.667,1133.5,9.333,70,99.333,351.983,10,10,13.333,8.477],["Kofi Amoako",4,7566.4,6018.8,968.8,645,294.2,72.6,3.6,674.8,6.4,61.2,46.2,221.68,31.5,28.5,28,6.019],["Mario Vušković",3,7245.6,7323,1042,841.54,188.2,54.2,2,853.6,5.6,71.4,65.8,180.2,16.667,10,10,7.323],["Bilal Nadir",4,6565.667,5443,758,566.4,173.5,50.833,2.833,584.5,3.333,51.167,40.167,151.4,24.25,22,25.25,5.443],["Albert Sambi Lokonga",3,7223.333,7099.5,1172.167,747.95,317.833,54.333,2.5,854,3.833,59,37.167,221.717,20,10,20,7.1],["Yussuf Poulsen",3,6222.167,5306.833,918,606.833,237.167,59.833,2,681,2.333,61.667,46.167,83.85,13.333,10,23.333,5.307],["Martin Adeline",4,7590.8,9508.6,1985.2,992.14,571.2,152.4,8.2,1414,9.6,73.6,93.4,386.36,16.25,13.75,20.25,9.509],["Jordan Torunarigha",2,6938.25,5423.25,647.5,572.125,166,48.75,2.25,481.5,2.25,40.75,34,164.325,30,30,30,5.423],["Sebastiaan Bornauw",6,7480.833,6903.167,1027.667,804.25,218.333,61.333,2.667,809.5,2.667,66.5,56.5,195.117,null,null,null,6.903],["Fábio Vieira",3,7328.5,6976.25,983.5,646.775,229.75,81,2,754,3,62.5,44.25,185.15,23.333,20,20,6.976],["Nicolás Capaldo",3,6193.5,4950.833,716.333,480.183,208,35.5,2.333,508.167,4.667,41,41.167,189.75,14.667,16,15.667,4.951],["Terem Moffi",3,2597,2981.8,324.2,295.16,156.2,36.6,1.2,168.2,0.2,12.2,7.8,79.94,20,13.333,20,2.982],["Shafiq Nandja",4,7775.2,7784.6,1383.4,854.16,446.2,130.2,5.6,937.4,4.6,85.2,72.2,168.14,27.25,21.25,33,7.785],["Bakery Jatta",1,7053,6320.333,1018,679.333,292,69.333,4,726,5.667,74.667,47,130.067,40,40,40,6.32],["Albert Grønbæk",3,2340,3229.333,164,307.233,12,0,0,152,0,9,8.667,139.3,23.333,13.333,20,3.229],["Otto Stange",3,8478,7800,1555,827.8,701,274,10,854,4,48,60,108,26.667,23.333,30,7.8],["David Möller Wolfe",2,null,null,null,null,null,null,null,null,null,null,null,null,25,15,25,null],["Patson Daka",3,null,null,null,null,null,null,null,null,null,null,null,null,10,16.667,10,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"HMLD moyenne (m) – Semaine","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"HMLD (m)","type":"bar","encode":{"x":"Joueur","y":"HMLD (m)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1049.487,"name":"Moyenne","label":{"formatter":"Moyenne 1 049,49","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Joueur","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Quality Rating","Distance Km"],["Alexander Røssing-Lelesiit",3,7167.25,7486.25,1480.5,694.875,436,67,4.5,1044.5,11.75,111.5,90,193.15,30,20,20,7.486],["Miro Muheim",2,7012.5,7271.333,1314.167,765.883,449.667,160.167,7.167,864.5,8.333,79,72,202.233,20,20,20,7.271],["Nicolai Remberg",3,7419.667,8477.167,1432.333,1005.733,299.167,55.167,2.667,1133.5,9.333,70,99.333,351.983,10,10,13.333,8.477],["Kofi Amoako",4,7566.4,6018.8,968.8,645,294.2,72.6,3.6,674.8,6.4,61.2,46.2,221.68,31.5,28.5,28,6.019],["Mario Vušković",3,7245.6,7323,1042,841.54,188.2,54.2,2,853.6,5.6,71.4,65.8,180.2,16.667,10,10,7.323],["Bilal Nadir",4,6565.667,5443,758,566.4,173.5,50.833,2.833,584.5,3.333,51.167,40.167,151.4,24.25,22,25.25,5.443],["Albert Sambi Lokonga",3,7223.333,7099.5,1172.167,747.95,317.833,54.333,2.5,854,3.833,59,37.167,221.717,20,10,20,7.1],["Yussuf Poulsen",3,6222.167,5306.833,918,606.833,237.167,59.833,2,681,2.333,61.667,46.167,83.85,13.333,10,23.333,5.307],["Martin Adeline",4,7590.8,9508.6,1985.2,992.14,571.2,152.4,8.2,1414,9.6,73.6,93.4,386.36,16.25,13.75,20.25,9.509],["Jordan Torunarigha",2,6938.25,5423.25,647.5,572.125,166,48.75,2.25,481.5,2.25,40.75,34,164.325,30,30,30,5.423],["Sebastiaan Bornauw",6,7480.833,6903.167,1027.667,804.25,218.333,61.333,2.667,809.5,2.667,66.5,56.5,195.117,null,null,null,6.903],["Fábio Vieira",3,7328.5,6976.25,983.5,646.775,229.75,81,2,754,3,62.5,44.25,185.15,23.333,20,20,6.976],["Nicolás Capaldo",3,6193.5,4950.833,716.333,480.183,208,35.5,2.333,508.167,4.667,41,41.167,189.75,14.667,16,15.667,4.951],["Terem Moffi",3,2597,2981.8,324.2,295.16,156.2,36.6,1.2,168.2,0.2,12.2,7.8,79.94,20,13.333,20,2.982],["Shafiq Nandja",4,7775.2,7784.6,1383.4,854.16,446.2,130.2,5.6,937.4,4.6,85.2,72.2,168.14,27.25,21.25,33,7.785],["Bakery Jatta",1,7053,6320.333,1018,679.333,292,69.333,4,726,5.667,74.667,47,130.067,40,40,40,6.32],["Albert Grønbæk",3,2340,3229.333,164,307.233,12,0,0,152,0,9,8.667,139.3,23.333,13.333,20,3.229],["Otto Stange",3,8478,7800,1555,827.8,701,274,10,854,4,48,60,108,26.667,23.333,30,7.8],["David Möller Wolfe",2,null,null,null,null,null,null,null,null,null,null,null,null,25,15,25,null],["Patson Daka",3,null,null,null,null,null,null,null,null,null,null,null,null,10,16.667,10,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3","title":"Courbatures (body soreness) – Moyenne semaine","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"bar","encode":{"x":"Joueur","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":22.224,"name":"Moyenne","label":{"formatter":"Moyenne 22,22","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Joueur","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Quality Rating","Distance Km"],["Alexander Røssing-Lelesiit",3,7167.25,7486.25,1480.5,694.875,436,67,4.5,1044.5,11.75,111.5,90,193.15,30,20,20,7.486],["Miro Muheim",2,7012.5,7271.333,1314.167,765.883,449.667,160.167,7.167,864.5,8.333,79,72,202.233,20,20,20,7.271],["Nicolai Remberg",3,7419.667,8477.167,1432.333,1005.733,299.167,55.167,2.667,1133.5,9.333,70,99.333,351.983,10,10,13.333,8.477],["Kofi Amoako",4,7566.4,6018.8,968.8,645,294.2,72.6,3.6,674.8,6.4,61.2,46.2,221.68,31.5,28.5,28,6.019],["Mario Vušković",3,7245.6,7323,1042,841.54,188.2,54.2,2,853.6,5.6,71.4,65.8,180.2,16.667,10,10,7.323],["Bilal Nadir",4,6565.667,5443,758,566.4,173.5,50.833,2.833,584.5,3.333,51.167,40.167,151.4,24.25,22,25.25,5.443],["Albert Sambi Lokonga",3,7223.333,7099.5,1172.167,747.95,317.833,54.333,2.5,854,3.833,59,37.167,221.717,20,10,20,7.1],["Yussuf Poulsen",3,6222.167,5306.833,918,606.833,237.167,59.833,2,681,2.333,61.667,46.167,83.85,13.333,10,23.333,5.307],["Martin Adeline",4,7590.8,9508.6,1985.2,992.14,571.2,152.4,8.2,1414,9.6,73.6,93.4,386.36,16.25,13.75,20.25,9.509],["Jordan Torunarigha",2,6938.25,5423.25,647.5,572.125,166,48.75,2.25,481.5,2.25,40.75,34,164.325,30,30,30,5.423],["Sebastiaan Bornauw",6,7480.833,6903.167,1027.667,804.25,218.333,61.333,2.667,809.5,2.667,66.5,56.5,195.117,null,null,null,6.903],["Fábio Vieira",3,7328.5,6976.25,983.5,646.775,229.75,81,2,754,3,62.5,44.25,185.15,23.333,20,20,6.976],["Nicolás Capaldo",3,6193.5,4950.833,716.333,480.183,208,35.5,2.333,508.167,4.667,41,41.167,189.75,14.667,16,15.667,4.951],["Terem Moffi",3,2597,2981.8,324.2,295.16,156.2,36.6,1.2,168.2,0.2,12.2,7.8,79.94,20,13.333,20,2.982],["Shafiq Nandja",4,7775.2,7784.6,1383.4,854.16,446.2,130.2,5.6,937.4,4.6,85.2,72.2,168.14,27.25,21.25,33,7.785],["Bakery Jatta",1,7053,6320.333,1018,679.333,292,69.333,4,726,5.667,74.667,47,130.067,40,40,40,6.32],["Albert Grønbæk",3,2340,3229.333,164,307.233,12,0,0,152,0,9,8.667,139.3,23.333,13.333,20,3.229],["Otto Stange",3,8478,7800,1555,827.8,701,274,10,854,4,48,60,108,26.667,23.333,30,7.8],["David Möller Wolfe",2,null,null,null,null,null,null,null,null,null,null,null,null,25,15,25,null],["Patson Daka",3,null,null,null,null,null,null,null,null,null,null,null,null,10,16.667,10,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_4","title":"Qualité sommeil – Moyenne semaine","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Quality Rating","type":"bar","encode":{"x":"Joueur","y":"Quality Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":22.307,"name":"Moyenne","label":{"formatter":"Moyenne 22,31","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Joueur","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Body Soreness Rating","Mood Rating","Quality Rating","Distance Km"],["Alexander Røssing-Lelesiit",3,7167.25,7486.25,1480.5,694.875,436,67,4.5,1044.5,11.75,111.5,90,193.15,30,20,20,7.486],["Miro Muheim",2,7012.5,7271.333,1314.167,765.883,449.667,160.167,7.167,864.5,8.333,79,72,202.233,20,20,20,7.271],["Nicolai Remberg",3,7419.667,8477.167,1432.333,1005.733,299.167,55.167,2.667,1133.5,9.333,70,99.333,351.983,10,10,13.333,8.477],["Kofi Amoako",4,7566.4,6018.8,968.8,645,294.2,72.6,3.6,674.8,6.4,61.2,46.2,221.68,31.5,28.5,28,6.019],["Mario Vušković",3,7245.6,7323,1042,841.54,188.2,54.2,2,853.6,5.6,71.4,65.8,180.2,16.667,10,10,7.323],["Bilal Nadir",4,6565.667,5443,758,566.4,173.5,50.833,2.833,584.5,3.333,51.167,40.167,151.4,24.25,22,25.25,5.443],["Albert Sambi Lokonga",3,7223.333,7099.5,1172.167,747.95,317.833,54.333,2.5,854,3.833,59,37.167,221.717,20,10,20,7.1],["Yussuf Poulsen",3,6222.167,5306.833,918,606.833,237.167,59.833,2,681,2.333,61.667,46.167,83.85,13.333,10,23.333,5.307],["Martin Adeline",4,7590.8,9508.6,1985.2,992.14,571.2,152.4,8.2,1414,9.6,73.6,93.4,386.36,16.25,13.75,20.25,9.509],["Jordan Torunarigha",2,6938.25,5423.25,647.5,572.125,166,48.75,2.25,481.5,2.25,40.75,34,164.325,30,30,30,5.423],["Sebastiaan Bornauw",6,7480.833,6903.167,1027.667,804.25,218.333,61.333,2.667,809.5,2.667,66.5,56.5,195.117,null,null,null,6.903],["Fábio Vieira",3,7328.5,6976.25,983.5,646.775,229.75,81,2,754,3,62.5,44.25,185.15,23.333,20,20,6.976],["Nicolás Capaldo",3,6193.5,4950.833,716.333,480.183,208,35.5,2.333,508.167,4.667,41,41.167,189.75,14.667,16,15.667,4.951],["Terem Moffi",3,2597,2981.8,324.2,295.16,156.2,36.6,1.2,168.2,0.2,12.2,7.8,79.94,20,13.333,20,2.982],["Shafiq Nandja",4,7775.2,7784.6,1383.4,854.16,446.2,130.2,5.6,937.4,4.6,85.2,72.2,168.14,27.25,21.25,33,7.785],["Bakery Jatta",1,7053,6320.333,1018,679.333,292,69.333,4,726,5.667,74.667,47,130.067,40,40,40,6.32],["Albert Grønbæk",3,2340,3229.333,164,307.233,12,0,0,152,0,9,8.667,139.3,23.333,13.333,20,3.229],["Otto Stange",3,8478,7800,1555,827.8,701,274,10,854,4,48,60,108,26.667,23.333,30,7.8],["David Möller Wolfe",2,null,null,null,null,null,null,null,null,null,null,null,null,25,15,25,null],["Patson Daka",3,null,null,null,null,null,null,null,null,null,null,null,null,10,16.667,10,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

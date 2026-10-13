@@ -1,0 +1,64 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { DateTime } from 'luxon';
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm';
+import Club from '#models_pg/club';
+import User from '#models_pg/user';
+export default class Report extends BaseModel {
+    static table = 'reports';
+}
+__decorate([
+    column({ isPrimary: true }),
+    __metadata("design:type", String)
+], Report.prototype, "id", void 0);
+__decorate([
+    column(),
+    __metadata("design:type", String)
+], Report.prototype, "clubId", void 0);
+__decorate([
+    column(),
+    __metadata("design:type", Object)
+], Report.prototype, "createdBy", void 0);
+__decorate([
+    column(),
+    __metadata("design:type", String)
+], Report.prototype, "title", void 0);
+__decorate([
+    column.date(),
+    __metadata("design:type", DateTime)
+], Report.prototype, "dateFrom", void 0);
+__decorate([
+    column.date(),
+    __metadata("design:type", DateTime)
+], Report.prototype, "dateTo", void 0);
+__decorate([
+    column({
+        consume: (value) => typeof value === 'string' ? JSON.parse(value) : value,
+        prepare: (value) => JSON.stringify(value),
+    }),
+    __metadata("design:type", Array)
+], Report.prototype, "blocs", void 0);
+__decorate([
+    column.dateTime({ autoCreate: true }),
+    __metadata("design:type", DateTime)
+], Report.prototype, "createdAt", void 0);
+__decorate([
+    column.dateTime({ autoCreate: true, autoUpdate: true }),
+    __metadata("design:type", DateTime)
+], Report.prototype, "updatedAt", void 0);
+__decorate([
+    belongsTo(() => Club),
+    __metadata("design:type", Object)
+], Report.prototype, "club", void 0);
+__decorate([
+    belongsTo(() => User, { foreignKey: 'createdBy' }),
+    __metadata("design:type", Object)
+], Report.prototype, "author", void 0);
+//# sourceMappingURL=report.js.map

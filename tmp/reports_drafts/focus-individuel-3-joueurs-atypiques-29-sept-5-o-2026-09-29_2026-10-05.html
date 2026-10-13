@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Focus individuel – 3 joueurs atypiques (29 sept.–5 oct.)</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 300px; }
+    .chart-box.wide { height: 340px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 12px;
+      padding: 10px 12px; border-radius: 10px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner .avatar-wrap {
+      position: relative; width: 52px; height: 52px; flex: 0 0 52px;
+    }
+    .athlete-banner img {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: none; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner.no-photo img { display: none; }
+    .athlete-banner.no-photo .avatar-fallback { display: grid; }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2026-2027</div>
+      <h1 class="cover-title">Focus individuel – 3 joueurs atypiques (29 sept.–5 oct.)</h1>
+      <p class="cover-sub">Rapport club — données MAUNA uniquement</p>
+      <div class="date-pill">lun. 05/10/26 · 2026-09-29 → 2026-10-05</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">Cumul 7j le plus élevé (80 383 AU), wellness dégradée (courbatures 40, humeur 40), données lacunaires (n=1)</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">Volume GPS élevé (1907 m HSR, 326 m sprint), courbatures en hausse (10→30), humeur basse constante (10)</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">Monotonie élevée (1.12), variabilité GPS forte (HSR 433 m → 8 m), wellness stable</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Sommaire</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">Focus individuel – 3 joueurs atypiques (29 sept.–5 oct.)</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Couverture</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Lecture staff</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Vue d'ensemble – Signaux atypiques</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · Bakery Jatta</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Bilal Nadir</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Albert Sambi Lokonga</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Synthèse et recommandations</span><span class="hint">§5</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Lecture staff</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <p class="staff-read-lead">Identification des trois joueurs les plus atypiques sur la semaine écoulée, avec analyse croisée charge, GPS et wellness pour évaluer l'état avant le prochain match.</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Fil narratif</h3><ul><li>Bakery Jatta présente le cumul 7j le plus élevé du groupe (80 383 AU) avec une wellness très dégradée (courbatures et humeur à 40), mais seulement 1 entrée wellness enregistrée, rendant impossible la confirmation de la tendance.</li><li>Albert Sambi Lokonga affiche un volume GPS soutenu (1907 m HSR, 326 m sprint sur 6 sessions) avec des courbatures en hausse progressive (10→30) et une humeur basse constante (10/100).</li><li>Bilal Nadir montre la monotonie la plus élevée (1.12) et une forte variabilité GPS (HSR de 433 m à 8 m), mais sa wellness reste stable sans signal d'alerte immédiat.</li></ul></div><div class="staff-read-panel"><h3>Signaux</h3><ul class="signal-roster"><li><span class="signal-badge review">Revoir</span><div><div class="signal-body">Cumul 7j le plus élevé (80 383 AU), wellness dégradée (courbatures 40, humeur 40), données lacunaires (n=1)</div><div class="signal-meta">Bakery Jatta · load · wellness</div></div></li><li><span class="signal-badge watch">Surveiller</span><div><div class="signal-body">Volume GPS élevé (1907 m HSR, 326 m sprint), courbatures en hausse (10→30), humeur basse constante (10)</div><div class="signal-meta">Albert Sambi Lokonga · gps · wellness</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Monotonie élevée (1.12), variabilité GPS forte (HSR 433 m → 8 m), wellness stable</div><div class="signal-meta">Bilal Nadir · load · gps</div></div></li></ul></div></div>
+  <div class="staff-read-panel"><h3>Sections canvas</h3><ul class="staff-section-index"><li><span>Vue d'ensemble – Signaux atypiques</span><span class="kind">Équipe</span></li><li><span>Synthèse et recommandations</span><span class="kind">Équipe</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Vue d'ensemble – Signaux atypiques</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Top 3 joueurs atypiques – Charge × GPS × Wellness (29 sept.–5 oct.)</h3><div class="legend"><span><i class="swatch" style="background:rgba(224,112,112,0.22);outline:1px solid #E07070"></i>élevé</span><span><i class="swatch" style="background:rgba(251,191,36,0.22);outline:1px solid #E8B84A"></i>moyen</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>bas</span><span>vs le groupe (terciles)</span></div><table class="report-table"><thead><tr><th>Joueur</th><th>Cumulative 7</th><th>monotony</th><th>strain</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>High speed running (absolute)</th><th>Sprint distance (m)</th><th>N</th></tr></thead><tbody><tr><td class="">Albert Grønbæk</td><td class="lvl-mid">43 180</td><td class="lvl-hi">1</td><td class="lvl-lo">1 455</td><td class="lvl-lo">23</td><td class="lvl-lo">13</td><td class="">—</td><td class="">—</td><td class="">3</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="lvl-hi">56 144</td><td class="lvl-hi">1</td><td class="lvl-hi">8 395</td><td class="">—</td><td class="">—</td><td class="lvl-hi">1 907</td><td class="lvl-lo">326</td><td class="">6</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="lvl-hi">49 265</td><td class="lvl-hi">1</td><td class="lvl-mid">5 309</td><td class="lvl-hi">30</td><td class="lvl-mid">20</td><td class="lvl-mid">1 744</td><td class="lvl-lo">268</td><td class="">4</td></tr><tr><td class="">Bakery Jatta</td><td class="lvl-hi">80 383</td><td class="">—</td><td class="">—</td><td class="lvl-hi">40</td><td class="lvl-hi">40</td><td class="">—</td><td class="">—</td><td class="">1</td></tr><tr><td class="">Bilal Nadir</td><td class="lvl-hi">57 372</td><td class="lvl-hi">1</td><td class="lvl-hi">17 550</td><td class="lvl-lo">24</td><td class="lvl-mid">22</td><td class="">—</td><td class="">—</td><td class="">4</td></tr><tr><td class="">Damion Downs</td><td class="lvl-lo">0</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Daniel Elfadli</td><td class="lvl-mid">3 209</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">David Möller Wolfe</td><td class="lvl-mid">34 228</td><td class="">—</td><td class="">—</td><td class="lvl-lo">25</td><td class="lvl-lo">15</td><td class="">—</td><td class="">—</td><td class="">2</td></tr><tr><td class="">Emir Sahiti</td><td class="lvl-lo">0</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Fabio Baldé</td><td class="lvl-lo">0</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Kofi Amoako</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">32</td><td class="lvl-hi">29</td><td class="lvl-mid">1 471</td><td class="lvl-mid">363</td><td class="">5</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">30</td><td class="lvl-hi">30</td><td class="">—</td><td class="">—</td><td class="">2</td></tr><tr><td class="">Warmed Omari</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">30</td><td class="lvl-lo">10</td><td class="">—</td><td class="">—</td><td class="">1</td></tr><tr><td class="">Shafiq Nandja</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-mid">27</td><td class="lvl-mid">21</td><td class="lvl-hi">2 231</td><td class="lvl-hi">651</td><td class="">5</td></tr><tr><td class="">Otto Stange</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-mid">27</td><td class="lvl-hi">23</td><td class="">—</td><td class="">—</td><td class="">3</td></tr><tr><td class="">Martin Adeline</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">2 856</td><td class="lvl-hi">762</td><td class="">5</td></tr><tr><td class="">Miro Muheim</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">2 698</td><td class="lvl-hi">961</td><td class="">6</td></tr><tr><td class="">Nicolai Remberg</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-mid">1 795</td><td class="lvl-mid">331</td><td class="">6</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">1 423</td><td class="lvl-mid">359</td><td class="">6</td></tr><tr><td class="">Sebastiaan Bornauw</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">1 310</td><td class="lvl-hi">368</td><td class="">6</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-lo">1 248</td><td class="lvl-lo">213</td><td class="">6</td></tr></tbody></table></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>Bakery Jatta</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3d2aa33-5992-4cf5-a047-8e6b6482e55d.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T002938Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=46c2d01749426e48c04c4b7f1ad6d60e5dcf2289ef0dcd72bf0f88950bbe0026&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">BJ</div></div><div><div class="name">Bakery Jatta</div><div class="meta">WINGER</div></div></div>
+  <div class="section-body"><div class="split-row split-chart-table"><div class="chart-card">
+  <h3>Bakery Jatta – Évolution charge aiguë (EWMA 7j)</h3>
+  <div id="chart_1" class="chart-box compact"></div>
+  
+</div><div class="card"><h3>Bakery Jatta – Synthèse semaine</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Cumulative 7</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>N</th></tr></thead><tbody><tr><td class="">Bakery Jatta</td><td class="">80 383</td><td class="">40</td><td class="">40</td><td class="">1</td></tr></tbody></table></div></div>
+<div class="chart-card">
+  <h3>Bakery Jatta – GPS intensité (HSR, sprint) par session</h3>
+  <div id="chart_2" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Bakery Jatta – Wellness (courbatures, humeur)</h3>
+  <div id="chart_3" class="chart-box compact"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Body Soreness Rating</span><span><i style="background:#34D399"></i>Mood Rating</span></div>
+</div>
+<div class="prose-block"><ul><li>Cumul 7j le plus élevé du groupe (80 383 AU). EWMA 7j en baisse depuis pic 5586 AU (1er sept.) jusqu'à 3121 AU (8 sept.), puis données manquantes. Wellness : 1 seule entrée (2 oct.) avec courbatures et humeur à 40 (échelle inversée = forte dégradation). GPS : 3 sessions enregistrées (30 sept., 1er oct., 3 oct.) avec…</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Bilal Nadir</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b6fba227-3a1b-4cf6-b47b-eed7be07db90.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T002938Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=bf9cb120bde9ba177c1d2169ba5b73f5de0cd8a3de3f6cbee4a28b1ad6433325&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">BN</div></div><div><div class="name">Bilal Nadir</div><div class="meta">MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Bilal Nadir – Synthèse semaine</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Cumulative 7</th><th>monotony</th><th>strain</th><th>Body Soreness Rating</th><th>Mood Rating</th><th>N</th></tr></thead><tbody><tr><td class="">Bilal Nadir</td><td class="">57 372</td><td class="">1</td><td class="">17 550</td><td class="">24</td><td class="">22</td><td class="">4</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Bilal Nadir – Évolution charge aiguë (EWMA 7j)</h3>
+  <div id="chart_4" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Bilal Nadir – GPS intensité (HSR) par session</h3>
+  <div id="chart_5" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Bilal Nadir – Wellness (courbatures, humeur)</h3>
+  <div id="chart_6" class="chart-box compact"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Body Soreness Rating</span><span><i style="background:#34D399"></i>Mood Rating</span></div>
+</div>
+<div class="prose-block"><ul><li>Monotonie la plus élevée du groupe (1.12), strain 17 550. Cumul 7j : 57 372 AU. EWMA 7j : démarrage nul (1–2 sept.), montée rapide à 1565 AU (7 sept.). GPS : 6 sessions, HSR variable (19–433 m), pic 433 m le 1er oct., puis chute à 8 m le 3 oct. et 79 m le 4 oct. Wellness : 4 entrées, courbatures 20–30, humeur 20–28,…</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Albert Sambi Lokonga</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3bc9009-f865-4563-a61d-a97a8771ef04.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T002938Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=d105530b1249a1bb50233109facd7caf7ea477a08ae7f0a974a49f472166ef39&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">AS</div></div><div><div class="name">Albert Sambi Lokonga</div><div class="meta">CENTRAL MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Albert Sambi Lokonga – Synthèse semaine</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Cumulative 7</th><th>monotony</th><th>strain</th><th>High speed running (absolute)</th><th>Sprint distance (m)</th><th>N</th></tr></thead><tbody><tr><td class="">Albert Sambi Lokonga</td><td class="">56 144</td><td class="">1</td><td class="">8 395</td><td class="">1 907</td><td class="">326</td><td class="">6</td></tr></tbody></table></div>
+<div class="chart-card">
+  <h3>Albert Sambi Lokonga – Évolution charge aiguë (EWMA 7j)</h3>
+  <div id="chart_7" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Albert Sambi Lokonga – GPS intensité (HSR) par session</h3>
+  <div id="chart_8" class="chart-box compact"></div>
+  
+</div>
+<div class="chart-card">
+  <h3>Albert Sambi Lokonga – Wellness (courbatures, humeur)</h3>
+  <div id="chart_9" class="chart-box compact"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Body Soreness Rating</span><span><i style="background:#34D399"></i>Mood Rating</span></div>
+</div>
+<div class="prose-block"><ul><li>Volume GPS le plus élevé du trio : 1907 m HSR, 326 m sprint sur 6 sessions (29 sept.–4 oct.). EWMA 7j : pic 5700 AU (1er sept.), descente à 1289 AU (8 sept.), puis données manquantes. GPS : HSR 110–652 m par session, pic 652 m le 4 oct. Wellness : 3 entrées, courbatures en hausse progressive (10→20→30), humeur stabl…</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5">
+  <div class="band">
+    <h1>Synthèse et recommandations</h1>
+    <div class="meta">2026-09-29 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Watchlist – Signaux convergents</h3><table class="report-table"><thead><tr><th>Joueur</th><th>Niveau</th><th>Domaines</th><th>Signaux</th></tr></thead><tbody><tr><td class="">Bakery Jatta</td><td class="">Review</td><td class="">Load + Wellness</td><td class="">Cumul 7j le plus élevé (80 383 AU), wellness dégradée (courbatures 40, humeur 40), données lacunaires (n=1)</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">Watch</td><td class="">GPS + Wellness</td><td class="">Volume GPS élevé (1907 m HSR, 326 m sprint), courbatures en hausse (10→30), humeur basse constante (10)</td></tr><tr><td class="">Bilal Nadir</td><td class="">Info</td><td class="">Load + GPS</td><td class="">Monotonie élevée (1.12), variabilité GPS forte (HSR 433 m → 8 m), wellness stable</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Bakery Jatta : priorité avant le prochain match. Cumul élevé + wellness très dégradée, mais 1 seule entrée wellness (impossible de confirmer la tendance). Recommandation : vérifier l'état perçu en direct, envisager allègement si confirmation. Albert Sambi Lokonga : volume GPS soutenu + courbatures en montée progress…</li></ul></div>
+<div class="prose-block"><ul><li>Bakery Jatta : cumul 7j le plus élevé (80 383 AU), wellness dégradée (courbatures 40, humeur 40), 1 seule entrée wellness. Bilal Nadir : monotonie élevée (1.12), strain 17 550, wellness stable. Albert Sambi Lokonga : volume GPS élevé (1907 m HSR, 326 m sprint sur 6 sessions), wellness en baisse progressive (courbatu…</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"Bakery Jatta – Évolution charge aiguë (EWMA 7j)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Ewma 7","type":"line","encode":{"x":"Date","y":"Ewma 7"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":2932.232,"name":"Moyenne","label":{"formatter":"Moyenne 2 932,23","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Joueur","Date","Srpe Daily","Unité","Ewma 7"],["Bakery Jatta","2026-09-01",5586,null,5586],["Bakery Jatta","2026-09-02",4140,null,5225],["Bakery Jatta","2026-09-03",4320,null,4998],["Bakery Jatta","2026-09-04",2736,null,4433],["Bakery Jatta","2026-09-05",2560,null,3965],["Bakery Jatta","2026-09-06",5857,null,4438],["Bakery Jatta","2026-09-07",3334,null,4162],["Bakery Jatta","2026-09-08",0,null,3121],["Bakery Jatta","2026-09-09",3150,null,3129],["Bakery Jatta","2026-09-10",4560,null,3486],["Bakery Jatta","2026-09-11",2914,null,3343],["Bakery Jatta","2026-09-12",5121,null,3788],["Bakery Jatta","2026-09-13",5726,null,4272],["Bakery Jatta","2026-09-14",0,null,3204],["Bakery Jatta","2026-09-15",6828,null,4110],["Bakery Jatta","2026-09-16",7908,null,5060],["Bakery Jatta","2026-09-17",2679,null,4464],["Bakery Jatta","2026-09-18",2720,null,4028],["Bakery Jatta","2026-09-19",5924,null,4502],["Bakery Jatta","2026-09-20",0,null,3377],["Bakery Jatta","2026-09-21",0,null,2533],["Bakery Jatta","2026-09-22",4320,null,2979],["Bakery Jatta","2026-09-23",0,null,2235],["Bakery Jatta","2026-09-24",0,null,1676],["Bakery Jatta","2026-09-25",0,null,1257],["Bakery Jatta","2026-09-26",0,null,943],["Bakery Jatta","2026-09-27",0,null,707],["Bakery Jatta","2026-09-28",0,null,530],["Bakery Jatta","2026-09-29",0,null,398],["Bakery Jatta","2026-09-30",0,null,298],["Bakery Jatta","2026-10-01",0,null,224],["Bakery Jatta","2026-10-02",0,null,168],["Bakery Jatta","2026-10-03",0,null,126],["Bakery Jatta","2026-10-04",null,null,null],["Bakery Jatta","2026-10-05",null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"Bakery Jatta – GPS intensité (HSR, sprint) par session","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"High speed running (absolute)","type":"bar","encode":{"x":"Date","y":"High speed running (absolute)"}}],"animation":false,"dataset":{"source":[["Joueur","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)"],["Bakery Jatta","2026-09-30",6240,6014,1016,665,176,20,3,840,8,94,55,121,31,5,28,58,10,286,6,8,6,6,8,5,804,1504,3525,6485,2889,5428,629,1356,1664,2909,121],["Bakery Jatta","2026-10-01",9425,9373,1591,1005,504,104,5,1087,7,104,71,192,40,6,46,60,10,449,6,9,6,8,8,5,1826,1756,8050,7391,6688,6319,1966,1935,3364,2840,192],["Bakery Jatta","2026-10-03",5494,3574,447,368,196,84,4,251,2,26,15,77,14,3,24,39,5,165,4,9,6,6,1,4,866,692,3689,3053,3097,2531,841,688,1551,1366,77]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3","title":"Bakery Jatta – Wellness (courbatures, humeur)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"line","encode":{"x":"Date","y":"Body Soreness Rating"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Mood Rating","type":"line","encode":{"x":"Date","y":"Mood Rating"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Joueur","Date","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating"],["Bakery Jatta","2026-10-02",40,null,40,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_4","title":"Bilal Nadir – Évolution charge aiguë (EWMA 7j)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Ewma 7","type":"line","encode":{"x":"Date","y":"Ewma 7"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1898.953,"name":"Moyenne","label":{"formatter":"Moyenne 1 898,95","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Joueur","Date","Srpe Daily","Unité","Ewma 7"],["Bilal Nadir","2026-09-01",0,null,0],["Bilal Nadir","2026-09-02",0,null,0],["Bilal Nadir","2026-09-03",3240,null,810],["Bilal Nadir","2026-09-04",2280,null,1178],["Bilal Nadir","2026-09-05",1920,null,1363],["Bilal Nadir","2026-09-06",924,null,1253],["Bilal Nadir","2026-09-07",2501,null,1565],["Bilal Nadir","2026-09-08",null,null,null],["Bilal Nadir","2026-09-09",1260,null,1489],["Bilal Nadir","2026-09-10",2280,null,1687],["Bilal Nadir","2026-09-11",1860,null,1730],["Bilal Nadir","2026-09-12",3269,null,2115],["Bilal Nadir","2026-09-13",4002,null,2586],["Bilal Nadir","2026-09-14",737,null,2124],["Bilal Nadir","2026-09-15",2787,null,2290],["Bilal Nadir","2026-09-16",3954,null,2706],["Bilal Nadir","2026-09-17",2280,null,2599],["Bilal Nadir","2026-09-18",1360,null,2290],["Bilal Nadir","2026-09-19",1120,null,1997],["Bilal Nadir","2026-09-20",0,null,1498],["Bilal Nadir","2026-09-21",null,null,null],["Bilal Nadir","2026-09-22",1800,null,1573],["Bilal Nadir","2026-09-23",4129,null,2212],["Bilal Nadir","2026-09-24",null,null,null],["Bilal Nadir","2026-09-25",null,null,null],["Bilal Nadir","2026-09-26",null,null,null],["Bilal Nadir","2026-09-27",null,null,null],["Bilal Nadir","2026-09-28",null,null,null],["Bilal Nadir","2026-09-29",3214,null,2463],["Bilal Nadir","2026-09-30",2184,null,2393],["Bilal Nadir","2026-10-01",4786,null,2991],["Bilal Nadir","2026-10-02",5485,null,3615],["Bilal Nadir","2026-10-03",0,null,2711],["Bilal Nadir","2026-10-04",0,null,2033],["Bilal Nadir","2026-10-05",null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_5","title":"Bilal Nadir – GPS intensité (HSR) par session","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"High speed running (absolute)","type":"bar","encode":{"x":"Date","y":"High speed running (absolute)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":173.5,"name":"Moyenne","label":{"formatter":"Moyenne 173,5","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Joueur","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)"],["Bilal Nadir","2026-09-29",7864,7539,909,789,19,0,0,889,2,94,60,193,33,2,20,116,14,345,5,6,5,5,2,2,2258,2536,9528,10410,8241,9063,1959,2284,3848,4003,193],["Bilal Nadir","2026-09-30",4474,4480,678,487,175,10,1,503,4,57,39,152,38,7,51,60,9,210,6,8,6,7,5,9,1049,1409,4633,6238,3968,5348,993,1792,1744,2211,152],["Bilal Nadir","2026-10-01",7380,8995,1441,938,433,119,8,1008,6,69,77,246,33,10,76,73,12,432,7,9,6,6,4,10,2410,1986,10704,8711,8982,7352,2727,1882,4497,3780,246],["Bilal Nadir","2026-10-02",7083,6614,934,685,327,160,6,607,6,62,42,176,35,3,72,113,16,311,5,9,5,6,4,4,1023,1790,4534,8047,3861,6787,752,2330,2029,3101,176],["Bilal Nadir","2026-10-03",4564,2966,214,288,8,0,0,206,0,15,10,56,7,0,13,39,3,131,3,6,6,5,2,0,408,709,1717,3105,1508,2629,264,867,666,1195,56],["Bilal Nadir","2026-10-04",8029,2064,372,212,79,16,2,294,2,10,13,84,6,1,24,15,3,100,1,8,6,7,3,5,616,626,2774,2871,2433,2440,582,560,981,1259,84]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_6","title":"Bilal Nadir – Wellness (courbatures, humeur)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"line","encode":{"x":"Date","y":"Body Soreness Rating"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Mood Rating","type":"line","encode":{"x":"Date","y":"Mood Rating"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Joueur","Date","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating"],["Bilal Nadir","2026-09-29",20,null,20,null],["Bilal Nadir","2026-09-30",27,null,28,null],["Bilal Nadir","2026-10-01",20,null,20,null],["Bilal Nadir","2026-10-02",30,null,20,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_7","title":"Albert Sambi Lokonga – Évolution charge aiguë (EWMA 7j)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":28},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Ewma 7","type":"line","encode":{"x":"Date","y":"Ewma 7"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":2045.272,"name":"Moyenne","label":{"formatter":"Moyenne 2 045,27","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Joueur","Date","Srpe Daily","Unité","Ewma 7"],["Albert Sambi Lokonga","2026-09-01",5700,null,5700],["Albert Sambi Lokonga","2026-09-02",1035,null,4534],["Albert Sambi Lokonga","2026-09-03",3564,null,4291],["Albert Sambi Lokonga","2026-09-04",1710,null,3646],["Albert Sambi Lokonga","2026-09-05",1280,null,3054],["Albert Sambi Lokonga","2026-09-06",0,null,2291],["Albert Sambi Lokonga","2026-09-07",0,null,1718],["Albert Sambi Lokonga","2026-09-08",0,null,1289],["Albert Sambi Lokonga","2026-09-09",1260,null,1281],["Albert Sambi Lokonga","2026-09-10",2280,null,1531],["Albert Sambi Lokonga","2026-09-11",1860,null,1613],["Albert Sambi Lokonga","2026-09-12",2179,null,1755],["Albert Sambi Lokonga","2026-09-13",6087,null,2838],["Albert Sambi Lokonga","2026-09-14",0,null,2128],["Albert Sambi Lokonga","2026-09-15",5574,null,2990],["Albert Sambi Lokonga","2026-09-16",1977,null,2737],["Albert Sambi Lokonga","2026-09-17",2280,null,2622],["Albert Sambi Lokonga","2026-09-18",1360,null,2307],["Albert Sambi Lokonga","2026-09-19",5691,null,3153],["Albert Sambi Lokonga","2026-09-20",0,null,2365],["Albert Sambi Lokonga","2026-09-21",0,null,1774],["Albert Sambi Lokonga","2026-09-22",1800,null,1780],["Albert Sambi Lokonga","2026-09-23",0,null,1335],["Albert Sambi Lokonga","2026-09-24",0,null,1001],["Albert Sambi Lokonga","2026-09-25",0,null,751],["Albert Sambi Lokonga","2026-09-26",0,null,563],["Albert Sambi Lokonga","2026-09-27",0,null,422],["Albert Sambi Lokonga","2026-09-28",0,null,317],["Albert Sambi Lokonga","2026-09-29",1607,null,639],["Albert Sambi Lokonga","2026-09-30",0,null,480],["Albert Sambi Lokonga","2026-10-01",4786,null,1556],["Albert Sambi Lokonga","2026-10-02",4114,null,2196],["Albert Sambi Lokonga","2026-10-03",0,null,1647],["Albert Sambi Lokonga","2026-10-04",0,null,1235],["Albert Sambi Lokonga","2026-10-05",null,null,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_8","title":"Albert Sambi Lokonga – GPS intensité (HSR) par session","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"High speed running (absolute)","type":"bar","encode":{"x":"Date","y":"High speed running (absolute)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":317.833,"name":"Moyenne","label":{"formatter":"Moyenne 317,83","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Joueur","Date","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Total acceleration loading","Total decel loading","Impacts (relative)","Distance per minute (m/min)","HMLD per minute (m/min)","Speed intensity","Average metabolic power (W/kg)","Max speed (km/h)","Max acceleration (m/s2)","Max deceleration (m/s2)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Total left steps (count)","Total right steps (count)","Left magnitude impact","Right magnitude impact","Left vertical impact","Right vertical impact","Left lateral impact","Right lateral impact","Left anterior post impact","Right anterior post impact","DSL (2)"],["Albert Sambi Lokonga","2026-09-29",9103,7382,941,790,110,35,3,831,4,88,48,229,29,5,55,101,13,344,5,8,9,5,5,2,2068,2388,8858,10277,7414,8738,1802,1922,3830,4490,229],["Albert Sambi Lokonga","2026-09-30",6240,6505,1313,712,380,25,2,932,6,66,48,246,29,6,116,63,13,317,6,8,5,6,2,1,1930,1664,8926,7417,7470,6376,2146,1225,3600,3134,246],["Albert Sambi Lokonga","2026-10-01",7380,7787,1448,817,478,23,1,969,4,55,31,274,27,5,99,63,12,381,6,8,5,6,1,6,1765,3015,7644,13294,6673,11468,1231,2760,2940,5268,274],["Albert Sambi Lokonga","2026-10-02",7441,6881,954,731,213,129,4,741,6,71,37,171,26,2,50,113,16,322,5,8,5,5,0,0,1034,2408,4384,10341,3606,8742,918,2623,1952,4165,171],["Albert Sambi Lokonga","2026-10-03",5449,4032,456,411,74,0,0,382,0,25,15,100,11,3,38,44,5,184,4,7,6,6,2,1,976,727,4269,3259,3553,2762,889,505,1896,1480,100],["Albert Sambi Lokonga","2026-10-04",7727,10010,1921,1027,652,114,5,1269,3,49,44,310,19,3,98,78,15,508,7,8,6,7,4,2,2573,3830,10861,16566,9369,14383,1741,2987,4556,6843,310]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_9","title":"Albert Sambi Lokonga – Wellness (courbatures, humeur)","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":12},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"line","encode":{"x":"Date","y":"Body Soreness Rating"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}},{"name":"Mood Rating","type":"line","encode":{"x":"Date","y":"Mood Rating"},"showSymbol":false,"symbol":"none","symbolSize":0,"smooth":true,"lineStyle":{"width":2.4}}],"animation":false,"dataset":{"source":[["Joueur","Date","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating"],["Albert Sambi Lokonga","2026-09-29",10,null,10,null],["Albert Sambi Lokonga","2026-10-01",20,null,10,null],["Albert Sambi Lokonga","2026-10-02",30,null,10,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

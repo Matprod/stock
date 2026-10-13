@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html data-artifact="free" lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rapport Hambourg — 1–14 mars 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #1a1d2b;
+  --primary: #4f6ef7;
+  --lightPrimary: #74c0fc;
+  --ink: #0f1220;
+  --inkSoft: #334155;
+  --paper: #f4f6fb;
+  --line: #d7dce8;
+  --muted: #8b93a7;
+  --cherry: #E07070;
+  --cherrySoft: rgba(224,112,112,0.22);
+  --saffron: #E8B84A;
+  --saffronSoft: rgba(251,191,36,0.22);
+  --commentBg: rgba(244,246,251,.98);
+  --commentBorder: rgba(165,180,252,.35);
+  --season: #a5b4fc;
+  --clubMark: #c7d2fe;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.cover {
+  background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), 
+              radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), 
+              linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+  color: white;
+  padding: 64px 32px;
+  text-align: center;
+  page-break-after: always;
+}
+
+.cover h1 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.cover .meta {
+  font-size: 1.1rem;
+  color: var(--lightPrimary);
+  margin-bottom: 8px;
+}
+
+.cover .period {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.sommaire {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 40px;
+  page-break-inside: avoid;
+}
+
+.sommaire h2 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 1.75rem;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.sommaire nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.sommaire nav a {
+  display: block;
+  padding: 12px 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.sommaire nav a:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.sommaire blockquote {
+  background: var(--commentBg);
+  border-left: 4px solid var(--primary);
+  padding: 16px 20px;
+  margin-top: 20px;
+  font-style: italic;
+  color: var(--inkSoft);
+  border-radius: 4px;
+}
+
+.section {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+  page-break-inside: avoid;
+}
+
+.section h2 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 1.65rem;
+  margin-bottom: 8px;
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 8px;
+}
+
+.section h3 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 1.3rem;
+  margin-top: 28px;
+  margin-bottom: 12px;
+  color: var(--inkSoft);
+}
+
+.section p {
+  margin-bottom: 12px;
+  color: var(--inkSoft);
+}
+
+.section ul {
+  margin: 16px 0 16px 24px;
+  color: var(--inkSoft);
+}
+
+.section ul li {
+  margin-bottom: 8px;
+}
+
+.chart-box {
+  width: 100%;
+  height: 340px;
+  margin: 24px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin: 24px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 0.9rem;
+}
+
+thead {
+  background: linear-gradient(145deg, #1a1d2b, #4f6ef7);
+  color: white;
+}
+
+thead th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--line);
+}
+
+tbody tr:hover {
+  background: var(--paper);
+}
+
+tbody td {
+  padding: 10px 16px;
+  color: var(--inkSoft);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.kpi-card {
+  background: linear-gradient(145deg, #1e3a4a, #38BDF8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.kpi-card .label {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.kpi-card .value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+}
+
+.insight-box {
+  background: var(--saffronSoft);
+  border-left: 4px solid var(--saffron);
+  padding: 16px 20px;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+.insight-box.watch {
+  background: var(--cherrySoft);
+  border-left-color: var(--cherry);
+}
+
+.insight-box.info {
+  background: rgba(116,192,252,0.15);
+  border-left-color: var(--lightPrimary);
+}
+
+.insight-box strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.player-focus {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin: 24px 0;
+}
+
+.player-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.player-card h4 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
+.player-card p {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+@media print {
+  body {
+    background: white;
+  }
+  .cover {
+    page-break-after: always;
+  }
+  .section {
+    page-break-inside: avoid;
+    margin-bottom: 24px;
+  }
+  .chart-box {
+    height: 280px;
+    page-break-inside: avoid;
+  }
+  .sommaire nav a {
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .cover h1 {
+    font-size: 1.8rem;
+  }
+  .container {
+    padding: 16px;
+  }
+  .section {
+    padding: 20px;
+  }
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  .chart-box {
+    height: 280px;
+  }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" onload="window.__maunaEchartsLoaded=1;window.__maunaOnEchartsLoad&&window.__maunaOnEchartsLoad()"></script>
+<style id="mauna-print-css">@page { size: A4; margin: 8mm; }
+@media print {
+  .no-print, .artifact-nav, .artifact-toolbar, .table-toolbar { display: none !important; }
+  html, body { background: #fff !important; }
+  body {
+    font-size: 10.5pt !important;
+    line-height: 1.35 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  h1 { font-size: 1.35rem !important; margin: 0 0 0.35em !important; }
+  h2 { font-size: 1.1rem !important; margin: 0.55em 0 0.3em !important; }
+  h3 { font-size: 0.98rem !important; margin: 0.4em 0 0.25em !important; }
+  p, li { margin: 0.25em 0 !important; }
+  section, .section, .chart-card, article {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 8px !important;
+  }
+  .chart-box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    height: 260px !important;
+    max-height: 280px !important;
+    width: 100% !important;
+  }
+  .chart-box.line-chart,
+  .chart-box[data-chart-kind="line"] {
+    height: 340px !important;
+    max-height: 360px !important;
+  }
+  .chart-card { padding: 6px 8px !important; }
+  table { break-inside: auto; font-size: 9pt !important; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  /* Prefer two charts per A4 page over sparse half-empty pages */
+  .chart-card + .chart-card { margin-top: 4px !important; }
+}</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="meta">Hambourg</div>
+  <h1>Rapport Performance & Risque</h1>
+  <div class="period">1–14 mars 2026</div>
+</div>
+
+<div class="container">
+
+  <section class="sommaire">
+    <h2>Sommaire</h2>
+<aside class="coach-brief" id="coach-brief" data-mauna-coach-brief="1" style="border:1px solid #e2e8f0;border-left:3px solid #4f6ef7;border-radius:8px;padding:10px 12px;margin:0 0 12px;background:#f8fafc">
+  <p style="margin:0 0 6px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#64748b">Coach brief</p>
+  <blockquote style="margin:0;font-size:12px;line-height:1.45;white-space:pre-wrap;font-style:normal;color:#334155">Fait moi un rapport du 1 er au 14 mars, 
+Fait moi un bilan global de certaines données pour presenter le contexte, puis un focus sur la performance de l’équipe avec leurs scores et les données qui influence ce score , et flag moi trois joueurs, deux joueurs avec une baisse la performance sur la trend de la période et un avec une hausse et trouve la correlation d’ou ca vient. Fait ensuite la meme chose avec les risques de blessures . Fait ensuite une analyse general de la wellness, et des biomarkers</blockquote>
+</aside>
+    <nav>
+      <a href="#brief">Demande du coach</a>
+      <a href="#context">Contexte général</a>
+      <a href="#performance-team">Performance équipe</a>
+      <a href="#performance-focus">Focus joueurs — Performance</a>
+      <a href="#injury-team">Risque de blessures équipe</a>
+      <a href="#injury-focus">Focus joueurs — Risque</a>
+      <a href="#wellness">Wellness générale</a>
+      <a href="#biomarkers">Biomarqueurs</a>
+    </nav>
+    <blockquote id="brief">
+      Fait moi un rapport du 1 er au 14 mars, 
+      Fait moi un bilan global de certaines données pour presenter le contexte, puis un focus sur la performance de l'équipe avec leurs scores et les données qui influence ce score , et flag moi trois joueurs, deux joueurs avec une baisse la performance sur la trend de la période et un avec une hausse et trouve la correlation d'ou ca vient. Fait ensuite la meme chose avec les risques de blessures . Fait ensuite une analyse general de la wellness, et des biomarkers
+    </blockquote>
+  </section>
+
+  <section id="context" class="section">
+    <h2>Contexte général — Bilan de la période</h2>
+    <p>Vue d'ensemble des données collectées du 1er au 14 mars 2026 pour l'équipe de Hambourg.</p>
+    
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="label">Joueurs suivis</div>
+        <div class="value">24</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Performance moy.</div>
+        <div class="value">52.4</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Injury risk moy.</div>
+        <div class="value">8.2</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Jours de suivi</div>
+        <div class="value">14</div>
+      </div>
+    </div>
+
+    <h3>Scores moyens par joueur</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Joueur</th>
+            <th>Performance score (0-100)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Bakery Jatta</td><td>65.86</td></tr>
+          <tr><td>Nicolás Capaldo</td><td>65.29</td></tr>
+          <tr><td>Ransford Königsdörffer</td><td>60.57</td></tr>
+          <tr><td>Noah Katterbach</td><td>57.43</td></tr>
+          <tr><td>Fábio Vieira</td><td>55.00</td></tr>
+          <tr><td>Luka Vušković</td><td>54.93</td></tr>
+          <tr><td>Rayan Philippe</td><td>54.50</td></tr>
+          <tr><td>William Mikelbrencis</td><td>53.07</td></tr>
+          <tr><td>Giorgi Gocholeishvili</td><td>52.57</td></tr>
+          <tr><td>Jordan Torunarigha</td><td>52.50</td></tr>
+          <tr><td>Nicolai Remberg</td><td>51.43</td></tr>
+          <tr><td>Yussuf Poulsen</td><td>51.39</td></tr>
+          <tr><td>Albert Sambi Lokonga</td><td>51.14</td></tr>
+          <tr><td>Miro Muheim</td><td>50.93</td></tr>
+          <tr><td>Omar Megeed</td><td>50.43</td></tr>
+          <tr><td>Robert Glatzel</td><td>50.43</td></tr>
+          <tr><td>Fabio Baldé</td><td>50.29</td></tr>
+          <tr><td>Albert Grønbæk</td><td>49.79</td></tr>
+          <tr><td>Daniel Elfadli</td><td>49.43</td></tr>
+          <tr><td>Otto Stange</td><td>48.57</td></tr>
+          <tr><td>Jean-Luc Dompé</td><td>48.43</td></tr>
+          <tr><td>Warmed Omari</td><td>48.36</td></tr>
+          <tr><td>Damion Downs</td><td>45.29</td></tr>
+          <tr><td>Philip Otele</td><td>44.93</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Charge interne totale (sRPE)</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Joueur</th>
+            <th>sRPE total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Fabio Baldé</td><td>29,311</td></tr>
+          <tr><td>Damion Downs</td><td>28,625</td></tr>
+          <tr><td>Albert Sambi Lokonga</td><td>28,375</td></tr>
+          <tr><td>Robert Glatzel</td><td>29,265</td></tr>
+          <tr><td>Nicolai Remberg</td><td>29,567</td></tr>
+          <tr><td>Philip Otele</td><td>28,494</td></tr>
+          <tr><td>Giorgi Gocholeishvili</td><td>26,527</td></tr>
+          <tr><td>Rayan Philippe</td><td>25,431</td></tr>
+          <tr><td>Jordan Torunarigha</td><td>24,014</td></tr>
+          <tr><td>Warmed Omari</td><td>23,334</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Volumes GPS cumulés</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Joueur</th>
+            <th>Distance (km)</th>
+            <th>HMLD (m)</th>
+            <th>Sprint distance (m)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Noah Katterbach</td><td>39.49</td><td>6,105</td><td>841</td></tr>
+          <tr><td>Fabio Baldé</td><td>35.74</td><td>5,480</td><td>692</td></tr>
+          <tr><td>Albert Grønbæk</td><td>35.31</td><td>6,081</td><td>302</td></tr>
+          <tr><td>Otto Stange</td><td>35.24</td><td>5,090</td><td>450</td></tr>
+          <tr><td>Robert Glatzel</td><td>32.89</td><td>4,400</td><td>419</td></tr>
+          <tr><td>Rayan Philippe</td><td>28.49</td><td>4,280</td><td>411</td></tr>
+          <tr><td>Giorgi Gocholeishvili</td><td>28.34</td><td>4,950</td><td>548</td></tr>
+          <tr><td>Philip Otele</td><td>26.47</td><td>3,810</td><td>513</td></tr>
+          <tr><td>Albert Sambi Lokonga</td><td>26.47</td><td>3,860</td><td>256</td></tr>
+          <tr><td>Miro Muheim</td><td>25.87</td><td>3,820</td><td>429</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="performance-team" class="section">
+    <h2>Performance de l'équipe — Scores et facteurs d'influence</h2>
+    <p>Évolution du performance score pour l'ensemble de l'équipe sur la période. Les trois meilleurs performers sont <strong>Bakery Jatta (65.9)</strong>, <strong>Nicolás Capaldo (65.3)</strong> et <strong>Ransford Königsdörffer (60.6)</strong>. Les scores les plus bas sont observés chez <strong>Philip Otele (44.9)</strong>, <strong>Damion Downs (45.3)</strong> et <strong>Warmed Omari (48.4)</strong>.</p>
+
+    <div class="chart-box" id="chart_1"></div>
+    <div class="chart-box" id="chart_2"></div>
+    <div class="chart-box" id="chart_15"></div>
+
+    <div class="insight-box info">
+      <strong>Insight :</strong> La majorité des joueurs maintiennent un score entre 48 et 57. Les variations journalières sont importantes, suggérant une sensibilité aux charges d'entraînement et aux jours de récupération.
+    </div>
+  </section>
+
+  <section id="performance-focus" class="section">
+    <h2>Focus joueurs — Performance</h2>
+    <p>Analyse détaillée de trois joueurs : deux avec une baisse de performance et un avec une hausse significative.</p>
+
+    <div class="player-focus">
+      <div class="player-card">
+        <h4>Philip Otele — Baisse</h4>
+        <p><strong>Tendance :</strong> Baisse progressive de 51 (1er mars) à 26 (8 mars), puis remontée partielle.</p>
+        <p><strong>Corrélation :</strong> Pic de charge le 1er mars (6,844 sRPE) suivi de jours irréguliers. Soreness élevée le 2 mars (51) coïncide avec score bas (37). GPS montre volume élevé le 11 mars (6,918 m, 1,075 HMLD) mais performance reste basse.</p>
+      </div>
+      <div class="player-card">
+        <h4>Damion Downs — Baisse</h4>
+        <p><strong>Tendance :</strong> Oscillations 34–49, avec baisses marquées le 5 mars (34) et le 8 mars (38).</p>
+        <p><strong>Corrélation :</strong> Charge interne irrégulière avec plusieurs jours à 0 sRPE. Wellness stable (soreness 31–40, mood 31–33). GPS montre montée en volume le 11 mars (7,092 m, 1,161 HMLD) mais performance ne suit pas.</p>
+      </div>
+      <div class="player-card">
+        <h4>Bakery Jatta — Hausse</h4>
+        <p><strong>Tendance :</strong> Hausse nette de 39 (5 mars) à 73 (8 mars), moyenne 65.9.</p>
+        <p><strong>Corrélation :</strong> Charge concentrée 1–4 mars (3,080–5,310 sRPE) puis repos complet 5–8 mars. GPS élevé 1–3 mars (640–659 HMLD) puis arrêt. La hausse de performance coïncide avec la phase de récupération post-charge élevée.</p>
+      </div>
+    </div>
+
+    <h3>Philip Otele — Détails</h3>
+    <div class="insight-box watch">
+      <strong>Alerte :</strong> Performance score en baisse progressive. Pic de charge le 1er mars suivi de soreness élevée. À surveiller pour éviter surcharge.
+    </div>
+    <div class="chart-box" id="chart_13"></div>
+    <div class="chart-box" id="chart_14"></div>
+
+    <h3>Damion Downs — Détails</h3>
+    <div class="insight-box watch">
+      <strong>Alerte :</strong> Performance oscillante avec charge irrégulière. Wellness stable mais performance ne répond pas aux pics de volume GPS.
+    </div>
+    <div class="chart-box" id="chart_11"></div>
+    <div class="chart-box" id="chart_12"></div>
+
+    <h3>Bakery Jatta — Détails</h3>
+    <div class="insight-box info">
+      <strong>Positif :</strong> Hausse nette de performance pendant phase de récupération. Modèle de charge-récupération efficace.
+    </div>
+    <div class="chart-box" id="chart_3"></div>
+    <div class="chart-box" id="chart_10"></div>
+  </section>
+
+  <section id="injury-team" class="section">
+    <h2>Risques de blessures — Scores et facteurs d'influence</h2>
+    <p>Évolution du injury risk score pour l'équipe. <strong>Yussuf Poulsen (57.0)</strong> présente un risque nettement supérieur au reste du groupe, suivi de <strong>Bakery Jatta (25.1)</strong> et <strong>Robert Glatzel (19.4)</strong>. La majorité du groupe reste sous 10.</p>
+
+    <div class="insight-box watch">
+      <strong>Attention :</strong> Yussuf Poulsen présente un risque élevé persistant (49–70) qui ne corrèle pas directement avec charge ou wellness. Surveillance renforcée recommandée.
+    </div>
+  </section>
+
+  <section id="injury-focus" class="section">
+    <h2>Focus joueurs — Risque de blessures</h2>
+    <p>Analyse de trois joueurs : deux avec une hausse du risque et un avec une baisse.</p>
+
+    <div class="player-focus">
+      <div class="player-card">
+        <h4>Yussuf Poulsen — Risque élevé</h4>
+        <p><strong>Tendance :</strong> Risque élevé persistant (49–70, moyenne 57), le plus haut de l'équipe.</p>
+        <p><strong>Corrélation :</strong> Charge modérée et régulière (1,100–2,714 sRPE). GPS élevé le 10 mars (4,131 m, 627 HMLD). Wellness stable (soreness 20–25, mood 20–22). Le risque ne corrèle pas avec charge ou wellness — facteurs non-load à investiguer.</p>
+      </div>
+      <div class="player-card">
+        <h4>Robert Glatzel — Hausse</h4>
+        <p><strong>Tendance :</strong> Risque en hausse progressive de 16 (2 mars) à 21 (8 mars), puis maintien 17–21.</p>
+        <p><strong>Corrélation :</strong> Charge régulière (1,672–3,068 sRPE). GPS pic le 11 mars (7,761 m, 1,299 HMLD, 96.6 DSL) — volume le plus élevé de la période. La hausse du risque coïncide avec accumulation GPS, notamment HMLD et distance explosive.</p>
+      </div>
+      <div class="player-card">
+        <h4>Bakery Jatta — Baisse</h4>
+        <p><strong>Tendance :</strong> Risque élevé (25.1) mais en baisse après phase de récupération.</p>
+        <p><strong>Corrélation :</strong> Repos complet 5–8 mars après charge élevée. Le risque diminue avec la récupération, confirmant l'efficacité de la gestion de charge.</p>
+      </div>
+    </div>
+
+    <h3>Yussuf Poulsen — Détails</h3>
+    <div class="insight-box watch">
+      <strong>Surveillance renforcée :</strong> Risque élevé sans corrélation claire avec charge ou wellness. Évaluation médicale recommandée.
+    </div>
+    <div class="chart-box" id="chart_8"></div>
+    <div class="chart-box" id="chart_9"></div>
+
+    <h3>Robert Glatzel — Détails</h3>
+    <div class="insight-box watch">
+      <strong>Attention :</strong> Hausse du risque corrélée avec accumulation GPS. Modulation de charge recommandée.
+    </div>
+    <div class="chart-box" id="chart_6"></div>
+    <div class="chart-box" id="chart_7"></div>
+  </section>
+
+  <section id="wellness" class="section">
+    <h2>Analyse générale — Wellness</h2>
+    <p>Vue d'ensemble des indicateurs de wellness (body soreness et mood) pour l'équipe sur la période.</p>
+
+    <div class="insight-box info">
+      <strong>Constat :</strong> Body soreness moyen 13–51, mood 10–35. <strong>Bakery Jatta (38.5)</strong>, <strong>Damion Downs (35.1)</strong> et <strong>Fabio Baldé (33.2)</strong> au-dessus de 30 en soreness. Pas de pic collectif de dégradation. Les joueurs avec soreness élevée ne montrent pas systématiquement de baisse de performance.
+    </div>
+
+    <div class="chart-box" id="chart_5"></div>
+    <div class="chart-box" id="chart_4"></div>
+
+    <h3>Wellness moyen par joueur</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Joueur</th>
+            <th>Body Soreness (moy.)</th>
+            <th>Mood (moy.)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Bakery Jatta</td><td>38.55</td><td>35.09</td></tr>
+          <tr><td>Damion Downs</td><td>35.10</td><td>32.30</td></tr>
+          <tr><td>Ransford Königsdörffer</td><td>35.83</td><td>34.58</td></tr>
+          <tr><td>Fabio Baldé</td><td>33.23</td><td>32.46</td></tr>
+          <tr><td>Bilal Yalçınkaya</td><td>32.00</td><td>28.00</td></tr>
+          <tr><td>Daniel Elfadli</td><td>31.86</td><td>25.71</td></tr>
+          <tr><td>Jean-Luc Dompé</td><td>31.08</td><td>20.00</td></tr>
+          <tr><td>Omar Megeed</td><td>31.40</td><td>41.00</td></tr>
+          <tr><td>Fábio Vieira</td><td>29.00</td><td>34.78</td></tr>
+          <tr><td>Miro Muheim</td><td>27.46</td><td>21.46</td></tr>
+          <tr><td>Warmed Omari</td><td>26.73</td><td>24.27</td></tr>
+          <tr><td>Robert Glatzel</td><td>26.21</td><td>25.64</td></tr>
+          <tr><td>Jordan Torunarigha</td><td>26.64</td><td>25.91</td></tr>
+          <tr><td>Rayan Philippe</td><td>24.46</td><td>10.00</td></tr>
+          <tr><td>Nicolás Capaldo</td><td>23.57</td><td>22.71</td></tr>
+          <tr><td>Yussuf Poulsen</td><td>22.50</td><td>20.38</td></tr>
+          <tr><td>Noah Katterbach</td><td>22.23</td><td>32.15</td></tr>
+          <tr><td>William Mikelbrencis</td><td>21.29</td><td>20.71</td></tr>
+          <tr><td>Philip Otele</td><td>20.08</td><td>15.85</td></tr>
+          <tr><td>Albert Sambi Lokonga</td><td>19.67</td><td>17.08</td></tr>
+          <tr><td>Otto Stange</td><td>19.50</td><td>16.83</td></tr>
+          <tr><td>Nicolai Remberg</td><td>17.33</td><td>17.58</td></tr>
+          <tr><td>Giorgi Gocholeishvili</td><td>15.57</td><td>14.43</td></tr>
+          <tr><td>Luka Vušković</td><td>14.86</td><td>11.07</td></tr>
+          <tr><td>Albert Grønbæk</td><td>13.09</td><td>10.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="biomarkers" class="section">
+    <h2>Analyse générale — Biomarqueurs</h2>
+    <p>Collecte de biomarqueurs (CK) sur la période. Volume de données limité : 8 mesures sur 4 joueurs.</p>
+
+    <div class="insight-box info">
+      <strong>Limitation :</strong> Volume de données insuffisant pour établir une tendance groupe ou une corrélation robuste avec performance ou risque. Collecte plus systématique recommandée pour analyse longitudinale.
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Joueur</th>
+            <th>Date</th>
+            <th>Biomarqueur</th>
+            <th>Valeur</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Nicolai Remberg</td><td>2026-03-10</td><td>CK</td><td>424</td></tr>
+          <tr><td>Philip Otele</td><td>2026-03-10</td><td>CK</td><td>348</td></tr>
+          <tr><td>Albert Sambi Lokonga</td><td>2026-03-10</td><td>CK</td><td>322</td></tr>
+          <tr><td>William Mikelbrencis</td><td>2026-03-10</td><td>CK</td><td>296</td></tr>
+          <tr><td>Miro Muheim</td><td>2026-03-10</td><td>CK</td><td>295</td></tr>
+          <tr><td>Luka Vušković</td><td>2026-03-10</td><td>CK</td><td>234</td></tr>
+          <tr><td>Ransford Königsdörffer</td><td>2026-03-10</td><td>CK</td><td>214</td></tr>
+          <tr><td>Fábio Vieira</td><td>2026-03-10</td><td>CK</td><td>71</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top: 24px; color: var(--muted); font-size: 0.9rem;">
+      <strong>Recommandation :</strong> Augmenter la fréquence de collecte des biomarqueurs pour permettre une analyse plus fine des corrélations avec charge, performance et risque de blessures.
+    </p>
+  </section>
+
+</div>
+
+<script id="mauna-artifact-boot">
+(function () {
+  const charts = [{"id":"chart_1","title":"Évolution du performance score — Équipe","option":{"legend":{"top":4,"type":"plain","left":"center","width":"92%","itemWidth":10,"itemHeight":8,"textStyle":{"fontSize":10},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Albert Grønbæk","Albert Sambi Lokonga","Bakery Jatta","Damion Downs","Daniel Elfadli","Fabio Baldé","Fábio Vieira","Giorgi Gocholeishvili"]},"grid":{"containLabel":true,"left":56,"right":48,"top":56,"bottom":72},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Albert Grønbæk","type":"line","data":[49,47,48,47,49,47,52,50,50,49,49,52,54,54],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":52.42,"name":"Mean","label":{"formatter":"Mean 52.42","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Albert Sambi Lokonga","type":"line","data":[59,46,56,55,45,45,61,34,57,69,56,41,44,48],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Bakery Jatta","type":"line","data":[71,57,49,55,39,64,72,73,73,76,79,79,68,67],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Damion Downs","type":"line","data":[49,36,46,45,34,45,47,38,48,49,49,49,51,48],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Daniel Elfadli","type":"line","data":[53,51,42,45,25,50,52,29,55,69,58,53,53,57],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Fabio Baldé","type":"line","data":[52,52,44,51,50,46,50,43,59,66,48,45,49,49],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Fábio Vieira","type":"line","data":[52,32,57,51,31,52,68,45,64,70,71,52,64,61],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Giorgi Gocholeishvili","type":"line","data":[59,49,45,46,30,58,56,43,66,72,62,44,52,54],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_2","title":"Évolution du performance score — Reste de l'équipe (suite)","option":{"legend":{"top":4,"type":"plain","left":"center","width":"92%","itemWidth":10,"itemHeight":8,"textStyle":{"fontSize":10},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Otto Stange","Philip Otele","Ransford Königsdörffer","Rayan Philippe","Robert Glatzel","Warmed Omari","William Mikelbrencis","Yussuf Poulsen"]},"grid":{"containLabel":true,"left":56,"right":48,"top":56,"bottom":72},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Otto Stange","type":"line","data":[50,53,49,51,41,46,54,42,47,47,48,49,52,51],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":51.477,"name":"Mean","label":{"formatter":"Mean 51.48","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Philip Otele","type":"line","data":[51,37,47,47,47,46,50,26,42,55,48,41,41,51],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Ransford Königsdörffer","type":"line","data":[56,45,68,59,32,64,66,36,67,75,76,75,69,60],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Rayan Philippe","type":"line","data":[53,38,46,46,26,57,54,69,75,77,55,57,53,57],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Robert Glatzel","type":"line","data":[51,50,46,52,44,41,43,43,68,74,63,43,45,43],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Warmed Omari","type":"line","data":[52,38,51,47,31,46,53,35,57,64,52,48,52,51],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"William Mikelbrencis","type":"line","data":[58,28,54,52,28,58,56,31,62,73,74,57,58,54],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Yussuf Poulsen","type":"line","data":[50,44,62,49,44,39,48,35,58,68,54,52,65,null],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_3","title":"Bakery Jatta — Wellness (soreness & mood)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Body Soreness Rating","Mood Rating"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"line","encode":{"x":"Date","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":38.545,"name":"Mean","label":{"formatter":"Mean 38.55","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Mood Rating","type":"line","encode":{"x":"Date","y":"Mood Rating"}}],"animation":false,"dataset":{"source":[["Player","Date","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating"],["Bakery Jatta","2026-03-01",38,null,34,null],["Bakery Jatta","2026-03-02",39,null,34,null],["Bakery Jatta","2026-03-03",36,null,35,null],["Bakery Jatta","2026-03-04",37,null,34,null],["Bakery Jatta","2026-03-08",40,null,34,null],["Bakery Jatta","2026-03-09",40,null,34,null],["Bakery Jatta","2026-03-10",36,null,34,null],["Bakery Jatta","2026-03-11",40,null,34,null],["Bakery Jatta","2026-03-12",39,null,40,null],["Bakery Jatta","2026-03-13",40,null,38,null],["Bakery Jatta","2026-03-14",39,null,35,null]]}}},{"id":"chart_4","title":"Évolution du mood — Équipe","option":{"legend":{"top":4,"type":"plain","left":"center","width":"92%","itemWidth":10,"itemHeight":8,"textStyle":{"fontSize":10},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Albert Grønbæk","Albert Sambi Lokonga","Bakery Jatta","Bilal Yalçınkaya","Damion Downs","Daniel Elfadli","Fabio Baldé","Fábio Vieira"]},"grid":{"containLabel":true,"left":56,"right":48,"top":56,"bottom":72},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Albert Grønbæk","type":"line","data":[10,10,10,10,10,10,null,null,null,10,10,10,10,10],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":26.713,"name":"Mean","label":{"formatter":"Mean 26.71","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Albert Sambi Lokonga","type":"line","data":[17,15,14,16,18,17,21,null,null,16,19,18,17,17],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Bakery Jatta","type":"line","data":[34,34,35,34,null,null,null,34,34,34,34,40,38,35],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Bilal Yalçınkaya","type":"line","data":[28,28,28,28,28,28,28,28,28,28,28,28,28,28],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Damion Downs","type":"line","data":[31,null,33,33,null,33,32,null,null,32,32,32,33,32],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Daniel Elfadli","type":"line","data":[22,26,26,26,36,24,27,20,25,26,26,26,24,26],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Fabio Baldé","type":"line","data":[30,34,30,31,31,34,30,39,null,34,32,33,33,31],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Fábio Vieira","type":"line","data":[32,null,39,33,34,null,38,null,null,null,37,31,35,34],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_5","title":"Évolution du body soreness — Équipe","option":{"legend":{"top":4,"type":"plain","left":"center","width":"92%","itemWidth":10,"itemHeight":8,"textStyle":{"fontSize":10},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Albert Grønbæk","Albert Sambi Lokonga","Bakery Jatta","Bilal Yalçınkaya","Damion Downs","Daniel Elfadli","Fabio Baldé","Fábio Vieira"]},"grid":{"containLabel":true,"left":56,"right":48,"top":56,"bottom":72},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Albert Grønbæk","type":"line","data":[16,14,14,14,10,10,null,null,null,12,12,16,16,10],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":29.17,"name":"Mean","label":{"formatter":"Mean 29.17","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Albert Sambi Lokonga","type":"line","data":[19,19,18,18,18,21,22,null,null,21,25,22,16,17],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Bakery Jatta","type":"line","data":[38,39,36,37,null,null,null,40,40,36,40,39,40,39],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Bilal Yalçınkaya","type":"line","data":[32,31,31,32,32,33,31,31,30,34,33,33,33,32],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Damion Downs","type":"line","data":[33,null,40,36,null,37,34,null,null,31,33,38,35,34],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Daniel Elfadli","type":"line","data":[28,39,37,27,50,41,31,27,29,26,28,32,26,25],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Fabio Baldé","type":"line","data":[33,34,34,33,33,33,32,34,null,34,32,35,33,32],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Fábio Vieira","type":"line","data":[25,null,30,26,38,null,29,null,null,null,28,30,29,26],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_6","title":"Robert Glatzel — Wellness (soreness & mood)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Body Soreness Rating","Mood Rating"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"line","encode":{"x":"Date","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":26.214,"name":"Mean","label":{"formatter":"Mean 26.21","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Mood Rating","type":"line","encode":{"x":"Date","y":"Mood Rating"}}],"animation":false,"dataset":{"source":[["Player","Date","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating"],["Robert Glatzel","2026-03-01",25,null,23,null],["Robert Glatzel","2026-03-02",27,null,24,null],["Robert Glatzel","2026-03-03",26,null,24,null],["Robert Glatzel","2026-03-04",27,null,24,null],["Robert Glatzel","2026-03-05",26,null,25,null],["Robert Glatzel","2026-03-06",25,null,26,null],["Robert Glatzel","2026-03-07",28,null,25,null],["Robert Glatzel","2026-03-08",26,null,28,null],["Robert Glatzel","2026-03-09",26,null,26,null],["Robert Glatzel","2026-03-10",23,null,26,null],["Robert Glatzel","2026-03-11",28,null,27,null],["Robert Glatzel","2026-03-12",28,null,29,null],["Robert Glatzel","2026-03-13",26,null,25,null],["Robert Glatzel","2026-03-14",26,null,27,null]]}}},{"id":"chart_7","title":"Robert Glatzel — Charge interne (sRPE)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Srpe Daily"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Srpe Daily","type":"line","encode":{"x":"Date","y":"Srpe Daily"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":2090.321,"name":"Mean","label":{"formatter":"Mean 2,090.32","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit"],["Robert Glatzel","2026-03-01",2360,"score"],["Robert Glatzel","2026-03-02",2412,"score"],["Robert Glatzel","2026-03-03",2088,"score"],["Robert Glatzel","2026-03-04",3068,null],["Robert Glatzel","2026-03-05",1672,"score"],["Robert Glatzel","2026-03-06",2356,"score"],["Robert Glatzel","2026-03-07",2904,null],["Robert Glatzel","2026-03-08",0,null],["Robert Glatzel","2026-03-09",0,null],["Robert Glatzel","2026-03-10",1512,"score"],["Robert Glatzel","2026-03-11",4208.5,"score"],["Robert Glatzel","2026-03-12",1536,"score"],["Robert Glatzel","2026-03-13",2080,"score"],["Robert Glatzel","2026-03-14",3068,null]]}}},{"id":"chart_8","title":"Yussuf Poulsen — Wellness (soreness & mood)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Body Soreness Rating","Mood Rating"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"line","encode":{"x":"Date","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":22.5,"name":"Mean","label":{"formatter":"Mean 22.5","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Mood Rating","type":"line","encode":{"x":"Date","y":"Mood Rating"}}],"animation":false,"dataset":{"source":[["Player","Date","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating"],["Yussuf Poulsen","2026-03-01",23,null,20,null],["Yussuf Poulsen","2026-03-03",25,null,20,null],["Yussuf Poulsen","2026-03-04",25,null,20,null],["Yussuf Poulsen","2026-03-05",20,null,20,null],["Yussuf Poulsen","2026-03-06",24,null,22,null],["Yussuf Poulsen","2026-03-07",23,null,21,null],["Yussuf Poulsen","2026-03-10",20,null,20,null],["Yussuf Poulsen","2026-03-11",20,null,20,null]]}}},{"id":"chart_9","title":"Yussuf Poulsen — Charge interne (sRPE)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Srpe Daily"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Srpe Daily","type":"line","encode":{"x":"Date","y":"Srpe Daily"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1156.615,"name":"Mean","label":{"formatter":"Mean 1,156.62","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit"],["Yussuf Poulsen","2026-03-01",2714,null],["Yussuf Poulsen","2026-03-02",0,null],["Yussuf Poulsen","2026-03-03",1740,null],["Yussuf Poulsen","2026-03-04",1100,null],["Yussuf Poulsen","2026-03-05",1100,null],["Yussuf Poulsen","2026-03-06",1550,null],["Yussuf Poulsen","2026-03-07",2662,null],["Yussuf Poulsen","2026-03-08",0,null],["Yussuf Poulsen","2026-03-09",0,null],["Yussuf Poulsen","2026-03-10",1512,null],["Yussuf Poulsen","2026-03-11",2658,null],["Yussuf Poulsen","2026-03-12",0,null],["Yussuf Poulsen","2026-03-13",0,null]]}}},{"id":"chart_10","title":"Bakery Jatta — Charge interne (sRPE)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Srpe Daily"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Srpe Daily","type":"line","encode":{"x":"Date","y":"Srpe Daily"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1489.643,"name":"Mean","label":{"formatter":"Mean 1,489.64","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit"],["Bakery Jatta","2026-03-01",3080,"score"],["Bakery Jatta","2026-03-02",3015,"score"],["Bakery Jatta","2026-03-03",2610,null],["Bakery Jatta","2026-03-04",5310,null],["Bakery Jatta","2026-03-05",0,null],["Bakery Jatta","2026-03-06",0,null],["Bakery Jatta","2026-03-07",0,null],["Bakery Jatta","2026-03-08",0,"score"],["Bakery Jatta","2026-03-09",0,null],["Bakery Jatta","2026-03-10",0,"score"],["Bakery Jatta","2026-03-11",0,"score"],["Bakery Jatta","2026-03-12",1680,"score"],["Bakery Jatta","2026-03-13",3440,"score"],["Bakery Jatta","2026-03-14",1720,null]]}}},{"id":"chart_11","title":"Damion Downs — Wellness (soreness & mood)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Body Soreness Rating","Mood Rating"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"line","encode":{"x":"Date","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":35.1,"name":"Mean","label":{"formatter":"Mean 35.1","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Mood Rating","type":"line","encode":{"x":"Date","y":"Mood Rating"}}],"animation":false,"dataset":{"source":[["Player","Date","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating"],["Damion Downs","2026-03-01",33,null,31,null],["Damion Downs","2026-03-03",40,null,33,null],["Damion Downs","2026-03-04",36,null,33,null],["Damion Downs","2026-03-06",37,null,33,null],["Damion Downs","2026-03-07",34,null,32,null],["Damion Downs","2026-03-10",31,null,32,null],["Damion Downs","2026-03-11",33,null,32,null],["Damion Downs","2026-03-12",38,null,32,null],["Damion Downs","2026-03-13",35,null,33,null],["Damion Downs","2026-03-14",34,null,32,null]]}}},{"id":"chart_12","title":"Damion Downs — Charge interne (sRPE)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Srpe Daily"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Srpe Daily","type":"line","encode":{"x":"Date","y":"Srpe Daily"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":2044.607,"name":"Mean","label":{"formatter":"Mean 2,044.61","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit"],["Damion Downs","2026-03-01",4012,null],["Damion Downs","2026-03-02",0,null],["Damion Downs","2026-03-03",0,null],["Damion Downs","2026-03-04",4248,null],["Damion Downs","2026-03-05",0,null],["Damion Downs","2026-03-06",2294,null],["Damion Downs","2026-03-07",3751,null],["Damion Downs","2026-03-08",0,null],["Damion Downs","2026-03-09",0,null],["Damion Downs","2026-03-10",1998,null],["Damion Downs","2026-03-11",3765.5,null],["Damion Downs","2026-03-12",1824,null],["Damion Downs","2026-03-13",2720,null],["Damion Downs","2026-03-14",4012,null]]}}},{"id":"chart_13","title":"Philip Otele — Wellness (soreness & mood)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Body Soreness Rating","Mood Rating"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"line","encode":{"x":"Date","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":20.077,"name":"Mean","label":{"formatter":"Mean 20.08","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Mood Rating","type":"line","encode":{"x":"Date","y":"Mood Rating"}}],"animation":false,"dataset":{"source":[["Player","Date","Body Soreness Rating","Energy Rating","Mood Rating","Stress Rating"],["Philip Otele","2026-03-01",16,null,15,null],["Philip Otele","2026-03-02",51,null,19,null],["Philip Otele","2026-03-03",22,null,10,null],["Philip Otele","2026-03-04",17,null,15,null],["Philip Otele","2026-03-05",14,null,15,null],["Philip Otele","2026-03-06",20,null,18,null],["Philip Otele","2026-03-07",12,null,12,null],["Philip Otele","2026-03-08",25,null,35,null],["Philip Otele","2026-03-10",18,null,16,null],["Philip Otele","2026-03-11",12,null,10,null],["Philip Otele","2026-03-12",17,null,15,null],["Philip Otele","2026-03-13",20,null,12,null],["Philip Otele","2026-03-14",17,null,14,null]]}}},{"id":"chart_14","title":"Philip Otele — Charge interne (sRPE)","option":{"legend":{"top":8,"type":"plain","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Srpe Daily"],"textStyle":{"fontSize":10}},"grid":{"containLabel":true,"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Srpe Daily","type":"line","encode":{"x":"Date","y":"Srpe Daily"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":2035.304,"name":"Mean","label":{"formatter":"Mean 2,035.3","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit"],["Philip Otele","2026-03-01",6844,"score"],["Philip Otele","2026-03-02",0,"score"],["Philip Otele","2026-03-03",1914,"score"],["Philip Otele","2026-03-04",1045,null],["Philip Otele","2026-03-05",968,"score"],["Philip Otele","2026-03-06",1364,"score"],["Philip Otele","2026-03-07",2420,null],["Philip Otele","2026-03-08",0,"score"],["Philip Otele","2026-03-09",0,null],["Philip Otele","2026-03-10",1998,"score"],["Philip Otele","2026-03-11",6091.25,"score"],["Philip Otele","2026-03-12",2640,"score"],["Philip Otele","2026-03-13",1440,"score"],["Philip Otele","2026-03-14",1770,null]]}}},{"id":"chart_15","title":"Évolution du performance score — Reste de l'équipe","option":{"legend":{"top":4,"type":"plain","left":"center","width":"92%","itemWidth":10,"itemHeight":8,"textStyle":{"fontSize":10},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Jean-Luc Dompé","Jordan Torunarigha","Luka Vušković","Miro Muheim","Nicolai Remberg","Nicolás Capaldo","Noah Katterbach","Omar Megeed"]},"grid":{"containLabel":true,"left":56,"right":48,"top":56,"bottom":72},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Jean-Luc Dompé","type":"line","data":[60,42,54,56,36,40,47,29,53,63,50,46,50,52],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":53.92,"name":"Mean","label":{"formatter":"Mean 53.92","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Jordan Torunarigha","type":"line","data":[58,33,60,56,42,48,53,31,62,75,62,46,54,55],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Luka Vušković","type":"line","data":[61,40,59,54,33,56,67,39,62,70,56,49,55,68],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Miro Muheim","type":"line","data":[57,32,56,66,52,42,51,27,55,70,55,49,49,52],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Nicolai Remberg","type":"line","data":[54,30,58,53,26,53,58,35,65,77,60,50,50,51],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Nicolás Capaldo","type":"line","data":[53,47,61,67,68,68,70,72,72,72,72,72,60,60],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Noah Katterbach","type":"line","data":[57,47,45,53,59,52,50,68,70,73,65,52,59,54],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Omar Megeed","type":"line","data":[51,51,51,52,51,48,52,49,49,49,50,51,51,51],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}}];
+  const palette = ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"];
+  const fontFamily = "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif";
+  const ink = "#0f1220";
+  const injectMissingHosts = true;
+  const stripLineSymbols = false;
+  const instances = [];
+  const isPrint = () => window.matchMedia('print').matches;
+
+  const whenEchartsReady = (cb) => {
+    if (window.echarts) {
+      cb();
+      return;
+    }
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      if (!window.echarts) return;
+      done = true;
+      cb();
+    };
+    window.__maunaOnEchartsLoad = finish;
+    const tag = document.querySelector('script[src*="echarts"]');
+    if (tag) tag.addEventListener('load', finish);
+    let n = 0;
+    const t = setInterval(() => {
+      n += 1;
+      if (window.echarts) {
+        clearInterval(t);
+        finish();
+        return;
+      }
+      if (n > 50) {
+        clearInterval(t);
+        if (!done) {
+          done = true;
+          cb();
+        }
+      }
+    }, 100);
+  };
+
+  const ensureHost = (chart) => {
+    let el = document.getElementById(chart.id);
+    if (el || !injectMissingHosts) return el;
+    const host = document.getElementById('mauna-charts-fallback') || (() => {
+      const d = document.createElement('section');
+      d.id = 'mauna-charts-fallback';
+      d.setAttribute('data-injected', '1');
+      document.body.appendChild(d);
+      return d;
+    })();
+    const card = document.createElement('div');
+    card.className = 'chart-card';
+    card.innerHTML = '<h3></h3><div class="chart-box" id="' + chart.id + '"></div>';
+    card.querySelector('h3').textContent = chart.title || chart.id;
+    host.appendChild(card);
+    return document.getElementById(chart.id);
+  };
+
+  const boot = () => {
+    for (const chart of charts) {
+      const el = ensureHost(chart);
+      if (!el || !window.echarts) continue;
+      el.classList.add('chart-box');
+      const series = Array.isArray(chart.option && chart.option.series) ? chart.option.series : [];
+      const isLine = series.some((s) => s && (s.type === 'line' || s.type == null));
+      if (isLine) {
+        el.classList.add('line-chart');
+        el.dataset.chartKind = 'line';
+      }
+      const defaultH = isLine ? (isPrint() ? 340 : 360) : (isPrint() ? 260 : 300);
+      el.style.height = defaultH + 'px';
+      const w = el.clientWidth || 700;
+      const h = el.clientHeight || defaultH;
+      const instance = window.echarts.init(el, null, {
+        renderer: 'canvas',
+        width: w,
+        height: h,
+      });
+      const baseLegend =
+        chart.option && chart.option.legend && typeof chart.option.legend === 'object'
+          ? chart.option.legend
+          : {};
+      let option = {
+        animation: !isPrint(),
+        backgroundColor: '#ffffff',
+        textStyle: { fontFamily: fontFamily, color: ink },
+        color: palette,
+        ...chart.option,
+        legend: { ...baseLegend, type: 'plain' },
+      };
+      if (stripLineSymbols && Array.isArray(option.series)) {
+        option.series = option.series.map((s) => {
+          if (!s || typeof s !== 'object') return s;
+          if (s.type === 'line' || s.type == null) {
+            return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+          }
+          return s;
+        });
+      }
+      instance.setOption(option, true);
+      el.dataset.ready = '1';
+      instances.push(instance);
+    }
+    document.documentElement.dataset.chartsReady = '1';
+    const resizeAll = () => {
+      instances.forEach((i) => {
+        const dom = i.getDom && i.getDom();
+        if (dom) {
+          i.resize({ width: dom.clientWidth || 700, height: dom.clientHeight || 220 });
+        } else {
+          i.resize();
+        }
+      });
+    };
+    window.__maunaResizeCharts = resizeAll;
+    window.addEventListener('resize', resizeAll);
+    window.addEventListener('beforeprint', () => {
+      instances.forEach((i) => i.setOption({ animation: false }));
+      resizeAll();
+    });
+  };
+
+  whenEchartsReady(boot);
+})();
+</script>
+</body>
+</html>

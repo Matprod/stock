@@ -1,0 +1,1 @@
+{"version":3,"file":"zone.js","sourceRoot":"","sources":["../../../app/models/zone.ts"],"names":[],"mappings":";;;;;;;;;AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,EAAE,MAAM,qBAAqB,CAAA;AAEvD,MAAM,CAAC,OAAO,OAAO,IAAK,SAAQ,SAAS;IAClC,MAAM,CAAC,KAAK,GAAG,WAAW,CAAA;;AAGzB;IADP,MAAM,CAAC,EAAE,SAAS,EAAE,IAAI,EAAE,CAAC;;gCACV;AAGV;IADP,MAAM,EAAE;;kCACkB;AAGnB;IADP,MAAM,EAAE;;kCACkB"}

@@ -1,0 +1,257 @@
+{
+  "clubId": "019f5371-fdc5-74eb-905b-680aac4205ca",
+  "clubName": "Sunderland",
+  "seasonFrom": "2025-06-01",
+  "date": "2026-05-31",
+  "prompt": "Pour toutes les blessures et tous les scores de risque de blessure de la saison, pour chaque blessure, regarde les 14 jours précédents la date de blessure et trouve les cas où le score de risque était ≥ 35% au moins une fois. Pour chaque cas trouvé, affiche :\nNom du joueur — Date de blessure\nScore de risque : XX% (date, X jours avant)\nBlessure : type\nAbsence : X jours (début – fin)\nFais-le pour tous les joueurs et toutes les blessures de toute la saison.",
+  "samples": [
+    {
+      "source": "screenshot_answer",
+      "agentMeta": null,
+      "answer": "Voici les cas où le score de risque était ≥ 35% dans les 14 jours précédant une blessure (saison juin 2025 – mai 2026) :\n\nAhmed Abdullahi — 2025-10-17\nScore de risque : 66% (2025-10-15, 2 jours avant)\nBlessure : Soleus Muscle Strain\nAbsence : 50 jours (2025-10-17 – 2025-12-06)\n\nChris Mepham — 2025-09-12\nScore de risque : 65% (2025-09-03, 9 jours avant)\nBlessure : Ankle Joint Sprain\nAbsence : 14 jours (2025-09-12 – 2025-09-26)",
+      "sqlQueryCount": 2,
+      "jev": {
+        "overall": "hallucinated",
+        "confidence": 0.71,
+        "inventsPlayer": 0.93,
+        "inventsDate": 0.94,
+        "inventsMetric": 0.93,
+        "inventsLogic": 0.79,
+        "latencyMs": 868,
+        "reason": "jev overall=hallucinated",
+        "probabilities": {
+          "hallucinated": 0.81,
+          "partial": 0.14,
+          "grounded": 0.05
+        }
+      }
+    },
+    {
+      "source": "db_history_1",
+      "agentMeta": null,
+      "answer": "**Aucun score de risque de blessure disponible pour aujourd'hui (16 septembre 2026).**\n\nLes données de risque de blessure ne sont pas renseignées pour votre équipe à cette date. Le score de risque de blessure est calculé à partir d'un ensemble d'indicateurs quotidiens (charge d'entraînement, sommeil, bien-être, etc.).\n\nPour obtenir ces scores, assurez-vous que vos joueurs complètent régulièrement leurs questionnaires de bien-être et que les données d'entraînement sont synchronisées.",
+      "sqlQueryCount": 2,
+      "jev": {
+        "overall": "hallucinated",
+        "confidence": 0.97,
+        "inventsPlayer": 0.03,
+        "inventsDate": 0.33,
+        "inventsMetric": 0.18,
+        "inventsLogic": 0.04,
+        "latencyMs": 827,
+        "reason": "jev overall=hallucinated",
+        "probabilities": {
+          "grounded": 0.01,
+          "partial": 0.01,
+          "hallucinated": 0.98
+        }
+      }
+    },
+    {
+      "source": "db_history_2",
+      "agentMeta": null,
+      "answer": "# Analyse Approfondie : Monotonie Charge liée au Volume (7jours)\n\n## Statut Actuel\n\nLa **Monotonie Charge liée au Volume (7jours)** est actuellement à **1.22**, significativement en dessous de la valeur optimale de **1.95**, avec un écart absolu de **0.73**. Cette **sous-monotonie** indique une variabilité excessive du volume d'activité sur les 7 derniers jours, créant un profil de charge instable. Cette instabilité est prioritaire pour le risque de blessure car elle empêche l'adaptation physiologique progressive et expose l'athlète à des fluctuations brutales de stress mécanique.\n\n## Analyse des Variables Contributrices\n\nLes **Distance à intensité modérée**, **Temps de jeu sur le terrain**, **Charge mécanique verticale**, **Charge mécanique latérale** et **Charge neuromusculaire globale** sont les composantes clés qui ont impacté la **Charge liée au Volume** utilisée pour calculer la **Monotonie Charge liée au Volume (7jours)** analysée.\n\n### Analyse Hebdomadaire des Tendances\n\n**Distance à intensité modérée :**\n\n• 29 août : 408.48 m\n\n• 30 août : 1467.44 m (+1058.96 vs prev)\n\n• 31 août : 0 m (-1467.44 vs prev)\n\n• 1er sept : 0 m (±0)\n\n• 2 sept : 271.98 m (+271.98 vs prev)\n\n• 3 sept : 412.02 m (+140.04 vs prev)\n\n• 4 sept : 0 m (-412.02 vs prev)\n\nUne fluctuation extrême est observée, avec un pic massif le 30 août coïncidant avec le match contre Fulham, suivi de deux jours de repos complets. Les valeurs d'entraînement (29 août, 2-3 sept) restent stables autour de 270-410 m, mais l'alternance brutale entre match, repos et entraînement crée une instabilité marquée.\n\n**Temps de jeu sur le terrain :**\n\n• 29 août : 656.11 s\n\n• 30 août : 1961.55 s (+1305.44 vs prev)\n\n• 31 août : 0 s (-1961.55 vs prev)\n\n• 1er sept : 0 s (±0)\n\n• 2 sept : 437.38 s (+437.38 vs prev)\n\n• 3 sept : 803.64 s (+366.26 vs prev)\n\n• 4 sept : 0 s (-803.64 vs prev)\n\nLe pattern suit strictement celui de la distance modérée, avec un temps de jeu triplé lors du match (1961 s), suivi de deux jours sans activité. Les séances d'entraînement montrent une progression modérée (437 → 803 s) avant un nouveau jour de repos, créant un profil en dents de scie.\n\n**Charge mécanique verticale :**\n\n• 29 août : 45.27\n\n• 30 août : 0 (+0 vs prev)\n\n• 31 août : 0 (±0)\n\n• 1er sept : 0 (±0)\n\n• 2 sept : 40.66 (+40.66 vs prev)\n\n• 3 sept : 46.04 (+5.38 vs prev)\n\n• 4 sept : 0 (-46.04 vs prev)\n\nLes valeurs sont absentes lors du match du 30 août et des jours de repos. Les séances d'entraînement (29 août, 2-3 sept) maintiennent des charges verticales cohérentes (40-46), mais l'absence totale lors du match crée une discontinuité majeure dans l'exposition mécanique verticale.\n\n**Charge mécanique latérale :**\n\n• 29 août : 30.92\n\n• 30 août : 0 (+0 vs prev)\n\n• 31 août : 0 (±0)\n\n• 1er sept : 0 (±0)\n\n• 2 sept : 27.14 (+27.14 vs prev)\n\n• 3 sept : 32.56 (+5.42 vs prev)\n\n• 4 sept : 0 (-32.56 vs prev)\n\nLe profil est identique à la charge verticale, avec des valeurs stables en entraînement (27-33) mais une absence complète lors du match et des repos. Cette discontinuité dans l'exposition latérale contribue directement à l'instabilité globale du volume.\n\n**Charge neuromusculaire globale :**\n\n• 29 août : 71.64\n\n• 30 août : 0 (+0 vs prev)\n\n• 31 août : 0 (±0)\n\n• 1er sept : 0 (±0)\n\n• 2 sept : 63.06 (+63.06 vs prev)\n\n• 3 sept : 72.97 (+9.91 vs prev)\n\n• 4 sept : 0 (-72.97 vs prev)\n\nLa charge neuromusculaire globale suit le même pattern d'instabilité, avec des valeurs d'entraînement cohérentes (63-73) mais une absence totale lors du match et des repos, créant une variabilité excessive qui empêche toute adaptation progressive.\n\n## Relation entre Variables Contributrices et Métrique Composite\n\nLa **Distance à intensité modérée** et le **Temps de jeu sur le terrain** augmentent directement la **Charge liée au Volume**, leur élévation lors du match (30 août) ayant créé un pic massif. Les **Charges mécaniques verticale et latérale** ainsi que la **Charge neuromusculaire globale** contribuent également à l'augmentation du volume, mais leur absence totale lors du match a créé une discontinuité majeure. L'alternance brutale entre des valeurs élevées (match + entraînements) et des valeurs nulles (repos) a généré une variabilité excessive, abaissant la monotonie à 1.22 et créant un profil de charge instable sur les 7 derniers jours.\n\n## Impact sur le Risque de Blessure\n\nLa sous-monotonie du volume crée une instabilité mécanique qui empêche l'adaptation progressive des structures musculo-tendineuses. Les fluctuations brutales entre charge élevée (match) et absence totale (repos) génèrent des cycles de stress-récupération inadaptés, où les tissus n'ont pas le temps de s'adapter avant d'être à nouveau sollicités. Cette variabilité excessive augmente la susceptibilité aux blessures de surcharge aiguë lors des pics d'activité et aux blessures de déconditionnement lors des périodes de repos prolongé. Le score de risque actuel de 29 reflète directement cette instabilité chronique du volume, amplifiée par l'accumulation de stress de coordination répétitif (EWMA 28j à 43) et l'exposition soutenue à haute vitesse (EWMA 28j à 29.58), créant un profil où chaque facteur limite la capacité de récupération des autres.",
+      "sqlQueryCount": 2,
+      "jev": {
+        "overall": "hallucinated",
+        "confidence": 1,
+        "inventsPlayer": 0.09,
+        "inventsDate": 0.32,
+        "inventsMetric": 0.9,
+        "inventsLogic": 0.12,
+        "latencyMs": 294,
+        "reason": "jev overall=hallucinated",
+        "probabilities": {
+          "grounded": 0,
+          "partial": 0,
+          "hallucinated": 1
+        }
+      }
+    },
+    {
+      "source": "db_history_3",
+      "agentMeta": null,
+      "answer": "## Injury Prediction Analysis: High-Risk Scores (≥35%) Before Incidents\n\n**Full Season Review (May 2025 – May 2026)**\n\nI've analyzed all 86 injuries across the season. **19 injuries** from **13 players** showed injury risk scores ≥35% in the 14 days prior to the incident.\n\n### May – August 2025\n\n**Romaine Mundle** — Injured Jul 17, 2025\nRisk score: 70% (Jul 16, 6 days before)\nAbsence: 112 days (Jul 17 – Nov 6)\n\n**Wilson Isidor** — Injured Jul 19, 2025\nRisk score: 70% (Jul 18, 11 days before)\nAbsence: 16 days (Jul 19 – Aug 4)\n\n**Daniel Ballard** — Injured Aug 23, 2025\nRisk score: 67% (Aug 22, 5 days before)\nAbsence: 13 days (Aug 23 – Sep 5)\n\n**Omar Alderete** — Injured Aug 26, 2025\nRisk score: 70% (Aug 25, 13 days before)\nAbsence: 2 days (Aug 26 – Aug 28)\n\n### September – December 2025\n\n**Brian Brobbey** — Injured Sep 10, 2025\nRisk score: 69% (Sep 9, 6 days before)\nAbsence: 2 days (Sep 10 – Sep 12)\n\n**Aji Alese** — Injured Sep 10, 2025\nRisk score: 68% (Sep 9, 6 days before)\nAbsence: 90 days (Sep 10 – Dec 9)\n\n**Enzo Le Fee** — Injured Sep 12, 2025\nRisk score: 65% (Sep 11, 13 days before)\nAbsence: 8 days (Sep 12 – Sep 20)\n\n**Wilson Isidor** — Injured Oct 4, 2025\nRisk score: 61% (Oct 3, 6 days before)\nAbsence: 6 days (Oct 4 – Oct 10)\n\n**Ahmed Abdullahi** — Injured Oct 17, 2025\nRisk score: 66% (Oct 16, 2 days before)\nAbsence: 50 days (Oct 17 – Dec 6)\n\n**Simon Adingra** — Injured Oct 22, 2025\nRisk score: 70% (Oct 20, 5 days before)\nAbsence: 2 days (Oct 22 – Oct 24)\n\n**Simon Adingra** — Injured Nov 2, 2025\nRisk score: 70% (Oct 20, 14 days before)\nAbsence: 2 days (Nov 2 – Nov 4)\n\n**Enzo Le Fee** — Injured Nov 6, 2025\nRisk score: 66% (Nov 5, 4 days before)\nAbsence: 1 day (Nov 6 – Nov 7)\n\n**Enzo Le Fee** — Injured Nov 8, 2025\nRisk score: 66% (Nov 5, 6 days before)\nAbsence: 3 days (Nov 8 – Nov 11)\n\n**Reinildo Mandava** — Injured Dec 3, 2025\nRisk score: 62% (Dec 2, 6 days before)\nAbsence: 8 days (Dec 3 – Dec 11)\n\n**Granit Xhaka** — Injured Dec 20, 2025\nRisk score: 62% (Dec 19, 13 days before)\nAbsence: 3 days (Dec 20 – Dec 23)\n\n**Dan Neil** — Injured Dec 28, 2025\nRisk score: 64% (Dec 27, 4 days before)\nAbsence: 1 day (Dec 28 – Dec 29)\n\n### January – May 2026\n\n**Brian Brobbey** — Injured Feb 18, 2026\nRisk score: 42% (Feb 17, 4 days before)\nAbsence: 23 days (Feb 18 – Mar 13)\n\n**Jocelin Ta Bi** — Injured Feb 22, 2026\nRisk score: 45% (Feb 9, 13 days before)\nAbsence: 65 days (Feb 22 – Apr 28)\n\n**Daniel Ballard** — Injured Mar 14, 2026\nRisk score: 60% (Mar 12, 13 days before)\nAbsence: 31 days (Mar 14 – Apr 14)\n\n### Key Insights\n\n**Most Frequent High-Risk Players:**\n- Enzo Le Fee: 3 incidents\n- Simon Adingra: 2 incidents\n- Wilson Isidor: 2 incidents\n- Brian Brobbey: 2 incidents\n- Daniel Ballard: 2 incidents\n\n**Highest Risk Scores:**\n- 70%: Mundle, Isidor, Alderete, Adingra (×2)\n- 69%: Brobbey\n- 68%: Alese\n- 67%: Ballard\n\n**Longest Absences:**\n- Leo Hjelde: 158 days (injured Jun 1 — no high risk score detected)\n- Luke O'Nien: 123 days (injured May 24 — no high risk score detected)\n- Romaine Mundle: 112 days (70% risk detected)\n- Aji Alese: 90 days (68% risk detected)\n- Jocelin Ta Bi: 65 days (45% risk detected)\n\nThe injury risk model successfully flagged elevated risk (≥35%) before 19 of the 86 total injuries (22% capture rate).",
+      "sqlQueryCount": 2,
+      "jev": {
+        "overall": "hallucinated",
+        "confidence": 0.55,
+        "inventsPlayer": 0.83,
+        "inventsDate": 0.94,
+        "inventsMetric": 0.94,
+        "inventsLogic": 0.79,
+        "latencyMs": 302,
+        "reason": "jev overall=hallucinated",
+        "probabilities": {
+          "grounded": 0.03,
+          "partial": 0.27,
+          "hallucinated": 0.7
+        }
+      }
+    },
+    {
+      "source": "db_history_4",
+      "agentMeta": null,
+      "answer": "**Season 2024-25 Injury Risk Score Review (January–May 2025)**\n\nI analyzed all 32 injuries from January 1 to May 30, 2025, checking the 14-day window before each injury for elevated risk scores (≥35%).\n\n**Injuries Preceded by Elevated Risk Scores:**\n\n**Patrick Roberts**\n- **May 15** — Risk score: 61% (May 8, 7 days before)\n  Injury: Ankle Sprains\n  Absence: 6 days (May 15 - May 21)\n\n- **May 9** — Risk score: 61% (May 8, 1 day before)\n  Injury: Soleus Muscle Strain\n  Absence: 3 days (May 9 - May 12)\n\n- **April 29** — Risk score: 59% (April 27, 2 days before)\n  Injury: Rectus Femoris Strain\n  Absence: 3 days (April 29 - May 2)\n\n**Jobe Bellingham**\n- **April 5** — Risk score: 57% (April 3, 2 days before)\n  Injury: Ankle Joint Synovitis\n  Absence: 12 days (April 5 - April 17)\n\n**Romaine Mundle**\n- **April 5** — Risk score: 57% (April 4, 1 day before)\n  Injury: Ankle Contusion/haematoma\n  Absence: 19 days (April 5 - April 24)\n\n**Injuries with NO Elevated Risk Scores in the 14 Days Before:**\n\n- **Luke O'Nien** — May 24: Ankle Sprains (123 days)\n- **Jenson Seelt** — May 21: Ankle Multiple Ligaments Sprain (2 days)\n- **Enzo Le Fee** — May 17: Ankle Synovitis/impingement/bursitis (3 days)\n- **Enzo Le Fee** — May 15: Lumbar Spine Joint Injury (1 day)\n- **Chris Mepham** — May 12: Hamstring Tendon Injury (4 days)\n- **Aji Alese** — May 11: Knee Joint Synovitis (9 days)\n- **Ahmed Abdullahi** — May 11: Concussion (8 days)\n- **Daniel Ballard** — May 10: Acromioclavicular (a/c) Joint Sprain (2 days)\n- **Wilson Isidor** — May 6: Ankle Joint Synovitis (1 day)\n- **Eliezer Mayenda** — April 21: Concussion (8 days)\n- **Dennis Cirkin** — April 11: Glenohumeral Joint Sprain With Chondral/labral Damage (incl Slap Tear) (2 days)\n- **Alan Browne** — April 10: Ankle Synovitis/impingement/bursitis (1 day)\n- **Romaine Mundle** — March 24: Ankle Contusion/haematoma (0 days)\n- **Jenson Seelt** — March 16: Adductor Magnus Tendon Injury (35 days)\n- **Dennis Cirkin** — March 15: Semimembranosis/tendinosis Strain (grade 1 2) (29 days)\n- **Leo Hjelde** — March 10: Grade 1 Mcl Tear Knee (24 days)\n- **Trai Hume** — March 5: Femoroacetabulat Impingement (2 days)\n- **Dan Neil** — March 5: Grade 1 Mcl Tear Knee (2 days)\n- **Jobe Bellingham** — March 4: Ankle Synovitis/impingement/bursitis (1 day)\n- **Romaine Mundle** — February 25: Knee Effusion (1 day)\n- **Daniel Ballard** — February 22: Hamstring Strain/tear (50 days)\n- **Enzo Le Fee** — February 22: Hamstring Strain/tear (38 days)\n- **Jenson Seelt** — February 16: Ankle Sprains (9 days)\n- **Wilson Isidor** — February 12: Hoffa's Fat Pad Impingement (4 days)\n- **Jobe Bellingham** — February 4: Sprain Medial Collateral (deltoid) Ligament Ankle (6 days)\n- **Ahmed Abdullahi** — January 22: Unspecified Or Multiple Adductor Tendon Injury (11 days)\n- **Aji Alese** — January 11: Ankle Sprains (115 days)\n\n**Key Findings:**\n\n5 of 32 injuries (16%) were preceded by at least one day with injury risk score ≥35% in the 14-day window. Patrick Roberts accounted for 3 of these 5 flagged injuries, with peak risk scores ranging from 56-61% in the week before each incident. The majority of injuries (84%) occurred without prior elevated risk flags in the available data.",
+      "sqlQueryCount": 2,
+      "jev": {
+        "overall": "hallucinated",
+        "confidence": 0.99,
+        "inventsPlayer": 0.95,
+        "inventsDate": 0.97,
+        "inventsMetric": 0.98,
+        "inventsLogic": 0.92,
+        "latencyMs": 303,
+        "reason": "jev overall=hallucinated",
+        "probabilities": {
+          "partial": 0,
+          "grounded": 0,
+          "hallucinated": 1
+        }
+      }
+    },
+    {
+      "source": "db_history_5",
+      "agentMeta": null,
+      "answer": "**Season 2025-2026: Injuries Preceded by Elevated Risk Scores (≥35%)**\n\nI reviewed all injuries across the full season (July 2025 - May 2026) and identified 19 cases where the injury risk score reached ≥35% within the 14 days before the injury occurred.\n\n**1. Romaine Mundle — 17 July 2025**\nRisk score: 70% (15 July, 2 days before)\nInjury: Muscle/tendon — Muscle injury\nAbsence: 112 days (17 July - 06 November 2025)\n\n**2. Wilson Isidor — 19 July 2025**\nRisk score: 70% (16 July, 3 days before)\nInjury: Muscle/tendon — Muscle injury\nAbsence: 16 days (19 July - 04 August 2025)\n\n**3. Daniel Ballard — 23 August 2025**\nRisk score: 67% (21 August, 2 days before)\nInjury: Muscle/tendon — Muscle injury\nAbsence: 13 days (23 August - 05 September 2025)\n\n**4. Omar Alderete — 26 August 2025**\nRisk score: 70% (22 August, 4 days before)\nInjury: Muscle/tendon — Muscle injury\nAbsence: 2 days (26 August - 28 August 2025)\n\n**5. Brian Brobbey — 10 September 2025**\nRisk score: 69% (04 September, 6 days before)\nInjury: Ligament/joint capsule — Ligament\nAbsence: 2 days (10 September - 12 September 2025)\n\n**6. Aji Alese — 10 September 2025**\nRisk score: 68% (09 September, 1 day before)\nInjury: Muscle/tendon — Muscle injury\nAbsence: 90 days (10 September - 09 December 2025)\n\n**7. Enzo Le Fee — 12 September 2025**\nRisk score: 65% (03 September, 9 days before)\nInjury: Other — Other\nAbsence: 8 days (12 September - 20 September 2025)\n\n**8. Wilson Isidor — 04 October 2025**\nRisk score: 61% (02 October, 2 days before)\nInjury: Muscle/tendon — Muscle injury\nAbsence: 6 days (04 October - 10 October 2025)\n\n**9. Ahmed Abdullahi — 17 October 2025**\nRisk score: 66% (15 October, 2 days before)\nInjury: Muscle/tendon — Muscle injury\nAbsence: 50 days (17 October - 06 December 2025)\n\n**10. Simon Adingra — 22 October 2025**\nRisk score: 70% (19 October, 3 days before)\nInjury: Other — Other\nAbsence: 2 days (22 October - 24 October 2025)\n\n**11. Simon Adingra — 02 November 2025**\nRisk score: 70% (19 October, 14 days before)\nInjury: Other — Other\nAbsence: 2 days (02 November - 04 November 2025)\n\n**12. Enzo Le Fee — 06 November 2025**\nRisk score: 66% (05 November, 1 day before)\nInjury: Ligament/joint capsule — Ligament\nAbsence: 1 day (06 November - 07 November 2025)\n\n**13. Enzo Le Fee — 08 November 2025**\nRisk score: 66% (05 November, 3 days before)\nInjury: Other — Other\nAbsence: 3 days (08 November - 11 November 2025)\n\n**14. Reinildo Mandava — 03 December 2025**\nRisk score: 62% (02 December, 1 day before)\nInjury: Muscle/tendon — Muscle injury\nAbsence: 8 days (03 December - 11 December 2025)\n\n**15. Granit Xhaka — 20 December 2025**\nRisk score: 62% (11 December, 9 days before)\nInjury: Ligament/joint capsule — Ligament\nAbsence: 3 days (20 December - 23 December 2025)\n\n**16. Dan Neil — 28 December 2025**\nRisk score: 64% (24 December, 4 days before)\nInjury: Muscle/tendon — Muscle injury\nAbsence: 1 day (28 December - 29 December 2025)\n\n**17. Brian Brobbey — 18 February 2026**\nRisk score: 42% (15 February, 3 days before)\nInjury: Other — Other\nAbsence: 23 days (18 February - 13 March 2026)\n\n**18. Jocelin Ta Bi — 22 February 2026**\nRisk score: 45% (09 February, 13 days before)\nInjury: Other — Other\nAbsence: 65 days (22 February - 28 April 2026)\n\n**19. Daniel Ballard — 14 March 2026**\nRisk score: 60% (03 March, 11 days before)\nInjury: Muscle/tendon — Muscle injury\nAbsence: 31 days (14 March - 14 April 2026)\n\n**Key findings:**\n\n19 out of 83 total season injuries (23%) showed elevated risk scores (≥35%) in the 14 days before injury. Risk scores ranged from 42% to 70%, with most injuries occurring within 1-4 days of peak risk. Several players experienced multiple injuries: Wilson Isidor (2), Enzo Le Fee (3), Simon Adingra (2), Brian Brobbey (2), Daniel Ballard (2). Muscle/tendon injuries were the most common type preceded by elevated risk scores.",
+      "sqlQueryCount": 2,
+      "jev": {
+        "overall": "partial",
+        "confidence": 0.3,
+        "inventsPlayer": 0.76,
+        "inventsDate": 0.89,
+        "inventsMetric": 0.93,
+        "inventsLogic": 0.67,
+        "latencyMs": 298,
+        "reason": "jev overall=partial",
+        "probabilities": {
+          "partial": 0.54,
+          "hallucinated": 0.43,
+          "grounded": 0.03
+        }
+      }
+    },
+    {
+      "source": "control_hallucinated",
+      "agentMeta": null,
+      "answer": "Voici les cas (saison juin 2025 – mai 2026) :\n\nJean Dupont — 2025-11-01\nScore de risque : 92% (2025-10-28, 4 jours avant)\nBlessure : Fracture du tibia magique\nAbsence : 120 jours (2025-11-01 – 2026-03-01)\n\nFake Player — 2026-01-15\nScore de risque : 88% (2026-01-01, 14 jours avant)\nBlessure : Contusion inventée\nAbsence : 7 jours (2026-01-15 – 2026-01-22)",
+      "sqlQueryCount": 2,
+      "jev": {
+        "overall": "hallucinated",
+        "confidence": 1,
+        "inventsPlayer": 0.99,
+        "inventsDate": 0.99,
+        "inventsMetric": 0.99,
+        "inventsLogic": 0.98,
+        "latencyMs": 295,
+        "reason": "jev overall=hallucinated",
+        "probabilities": {
+          "hallucinated": 1,
+          "grounded": 0,
+          "partial": 0
+        }
+      }
+    },
+    {
+      "source": "control_faithful_from_sql",
+      "agentMeta": null,
+      "answer": "Voici les cas où le score de risque était ≥ 35% dans les 14 jours précédant une blessure (saison juin 2025 – mai 2026) :\n\nLeo Hjelde — 2025-06-01\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Plantaris Removal Operation\nAbsence : 158 jours (2025-06-01 – 2025-11-06)\n\nChris Rigg — 2025-06-13\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Sprain Medial Collateral (deltoid) Ligament Ankle\nAbsence : 26 jours (2025-06-13 – 2025-07-09)\n\nDennis Cirkin — 2025-07-02\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Fractured Scaphoid\nAbsence : 36 jours (2025-07-02 – 2025-08-07)\n\nChris Rigg — 2025-07-17\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Grade 1 Mcl Tear Knee\nAbsence : 13 jours (2025-07-17 – 2025-07-30)\n\nRomaine Mundle — 2025-07-17\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Grade 3 Hamstring Strain\nAbsence : 112 jours (2025-07-17 – 2025-11-06)\n\nWilson Isidor — 2025-07-19\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Adductor Magnus Tendon Injury\nAbsence : 16 jours (2025-07-19 – 2025-08-04)\n\nZak Johnson — 2025-07-24\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Rectus Femoris Strain\nAbsence : 14 jours (2025-07-24 – 2025-08-07)\n\nJenson Seelt — 2025-08-01\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Hoffa's Fat Pad Impingement\nAbsence : 6 jours (2025-08-01 – 2025-08-07)\n\nAhmed Abdullahi — 2025-08-03\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Acute Shoulder Subluxation\nAbsence : 4 jours (2025-08-03 – 2025-08-07)\n\nDaniel Ballard — 2025-08-16\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Hip Joint Inflammation/synovitis/other Biomechanical Lesion\nAbsence : 1 jours (2025-08-16 – 2025-08-17)\n\nJenson Seelt — 2025-08-16\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Sacroiliac Joint Injury/pain\nAbsence : 3 jours (2025-08-16 – 2025-08-19)\n\nHabib Diarra — 2025-08-20\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Ankle Synovitis/impingement/bursitis\nAbsence : 1 jours (2025-08-20 – 2025-08-21)\n\nAlan Browne — 2025-08-22\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Degenerative Disc Disease Multiple Levels Lumbar Spine\nAbsence : 2 jours (2025-08-22 – 2025-08-24)\n\nDaniel Ballard — 2025-08-23\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Adductor Magnus Tendon Strain\nAbsence : 13 jours (2025-08-23 – 2025-09-05)\n\nGranit Xhaka — 2025-08-26\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Achilles Tendinopathy\nAbsence : 1 jours (2025-08-26 – 2025-08-27)\n\nOmar Alderete — 2025-08-26\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Posterolateral Corner And Lcl Ligament Injuries Knee\nAbsence : 2 jours (2025-08-26 – 2025-08-28)\n\nJenson Seelt — 2025-08-28\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Sesamoid Stress Injury\nAbsence : 1 jours (2025-08-28 – 2025-08-29)\n\nAji Alese — 2025-09-10\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Hamstring Strain/tear\nAbsence : 90 jours (2025-09-10 – 2025-12-09)\n\nBrian Brobbey — 2025-09-10\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Ruptured Baker's Cyst\nAbsence : 2 jours (2025-09-10 – 2025-09-12)\n\nEnzo Le Fee — 2025-09-12\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Sprained Superior Tibiofibular Joint\nAbsence : 8 jours (2025-09-12 – 2025-09-20)\n\nZak Johnson — 2025-09-16\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Rectus Femoris Strain\nAbsence : 13 jours (2025-09-16 – 2025-09-29)\n\nDaniel Ballard — 2025-09-17\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Hamstring Cramping During Exercise\nAbsence : 1 jours (2025-09-17 – 2025-09-18)\n\nDaniel Ballard — 2025-09-26\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Unspecified Or Multiple Adductor Tendon Injury\nAbsence : 1 jours (2025-09-26 – 2025-09-27)\n\nNordi Mukiele — 2025-09-27\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Hamstring Tendinopathy With Ischial Bursitis\nAbsence : 1 jours (2025-09-27 – 2025-09-28)\n\nWilson Isidor — 2025-10-04\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Hamstring Strain/tear\nAbsence : 6 jours (2025-10-04 – 2025-10-10)\n\nNoah Sadiki — 2025-10-08\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Sprain Lateral Collateral Ligament Ankle\nAbsence : 8 jours (2025-10-08 – 2025-10-16)\n\nAhmed Abdullahi — 2025-10-17\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Soleus Muscle Strain\nAbsence : 50 jours (2025-10-17 – 2025-12-06)\n\nOmar Alderete — 2025-10-18\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Concussion\nAbsence : 8 jours (2025-10-18 – 2025-10-26)\n\nSimon Adingra — 2025-10-22\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Grade 0 Hamstring\nAbsence : 2 jours (2025-10-22 – 2025-10-24)\n\nAbdoullah Ba — 2025-10-22\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Knee Joint Synovitis\nAbsence : 9 jours (2025-10-22 – 2025-10-31)\n\nChris Rigg — 2025-10-22\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Elbow Medial Collateral Ligament Strain Or Tear\nAbsence : 1 jours (2025-10-22 – 2025-10-23)\n\nReinildo Mandava — 2025-10-26\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Ankle Multiple Ligaments Sprain\nAbsence : 0 jours (2025-10-26 – 2025-10-26)\n\nDan Neil — 2025-10-27\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Acute Concussion With Visual Symptoms\nAbsence : 6 jours (2025-10-27 – 2025-11-02)\n\nSimon Adingra — 2025-11-02\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Lumbar Pain With Hamstring Referral\nAbsence : 2 jours (2025-11-02 – 2025-11-04)\n\nGranit Xhaka — 2025-11-02\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Knee Effusion\nAbsence : 1 jours (2025-11-02 – 2025-11-03)\n\nZak Johnson — 2025-11-03\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Concussion\nAbsence : 16 jours (2025-11-03 – 2025-11-19)\n\nEnzo Le Fee — 2025-11-06\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Patellofemoral Joint Chondral Pain\nAbsence : 1 jours (2025-11-06 – 2025-11-07)\n\nWilson Isidor — 2025-11-08\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Foot Contusion/haematoma\nAbsence : 4 jours (2025-11-08 – 2025-11-12)\n\nEnzo Le Fee — 2025-11-08\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Grade 0 Hamstring\nAbsence : 3 jours (2025-11-08 – 2025-11-11)\n\nNordi Mukiele — 2025-11-21\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Soleus Muscle Strain\nAbsence : 1 jours (2025-11-21 – 2025-11-22)\n\nNoah Sadiki — 2025-11-29\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Mouth Abrasion\nAbsence : 0 jours (2025-11-29 – 2025-11-29)\n\nNordi Mukiele — 2025-11-29\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Pip Joint Dislocation Little Finger\nAbsence : 2 jours (2025-11-29 – 2025-12-01)\n\nReinildo Mandava — 2025-12-03\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Adductor Longus Strain\nAbsence : 8 jours (2025-12-03 – 2025-12-11)\n\nRomaine Mundle — 2025-12-10\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Foot Bone Bruise\nAbsence : 1 jours (2025-12-10 – 2025-12-11)\n\nDennis Cirkin — 2025-12-11\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Patellofemoral Osteochondral Injury\nAbsence : 5 jours (2025-12-11 – 2025-12-16)\n\nWilson Isidor — 2025-12-16\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Peroneal Tendinopathy\nAbsence : 0 jours (2025-12-16 – 2025-12-16)\n\nGranit Xhaka — 2025-12-20\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Achilles Tendinopathy\nAbsence : 3 jours (2025-12-20 – 2025-12-23)\n\nJenson Seelt — 2025-12-24\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Knee Effusion\nAbsence : 190 jours (2025-12-24 – 2026-07-02)\n\nArthur Masuaku — 2025-12-28\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Syndesmosis Injury\nAbsence : 31 jours (2025-12-28 – 2026-01-28)\n\nDan Neil — 2025-12-28\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Rectus Femoris Strain\nAbsence : 1 jours (2025-12-28 – 2025-12-29)\n\nWilson Isidor — 2026-01-01\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Abdominal Oblique Muscle Strain\nAbsence : 10 jours (2026-01-01 – 2026-01-11)\n\nJocelin Ta Bi — 2026-01-16\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Syndesmosis Injury\nAbsence : 20 jours (2026-01-16 – 2026-02-05)\n\nBertrand Traore — 2026-01-16\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Knee Pain Undiagnosed\nAbsence : 41 jours (2026-01-16 – 2026-02-26)\n\nGranit Xhaka — 2026-01-17\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Achilles Tendinopathy\nAbsence : 33 jours (2026-01-17 – 2026-02-19)\n\nHarrison Jones — 2026-01-21\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Ankle Multiple Ligaments Sprain\nAbsence : 33 jours (2026-01-21 – 2026-02-23)\n\nOmar Alderete — 2026-02-02\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Peroneal Tendinopathy\nAbsence : 22 jours (2026-02-02 – 2026-02-24)\n\nDennis Cirkin — 2026-02-03\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Back Referred Hamstring Tightness\nAbsence : 2 jours (2026-02-03 – 2026-02-05)\n\nMilan Aleksic — 2026-02-03\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Sprain Lateral Collateral Ligament Ankle\nAbsence : 16 jours (2026-02-03 – 2026-02-19)\n\nRomaine Mundle — 2026-02-03\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Ankle Synovitis/impingement/bursitis\nAbsence : 2 jours (2026-02-03 – 2026-02-05)\n\nReinildo Mandava — 2026-02-03\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Knee Effusion\nAbsence : 2 jours (2026-02-03 – 2026-02-05)\n\nReinildo Mandava — 2026-02-11\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Medial Meniscal Tear\nAbsence : 38 jours (2026-02-11 – 2026-03-21)\n\nWilson Isidor — 2026-02-13\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Plantar Heel Pain (fasciitis/strain/calcaneal Spur)\nAbsence : 1 jours (2026-02-13 – 2026-02-14)\n\nAhmed Abdullahi — 2026-02-13\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Foot Contusion/haematoma\nAbsence : 4 jours (2026-02-13 – 2026-02-17)\n\nEnzo Le Fee — 2026-02-15\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Back Referred Hamstring Tightness\nAbsence : 5 jours (2026-02-15 – 2026-02-20)\n\nBrian Brobbey — 2026-02-18\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Lateral Hamstring Insertion Tendonitis\nAbsence : 23 jours (2026-02-18 – 2026-03-13)\n\nNordi Mukiele — 2026-02-18\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Gastrocnemius Muscle Injury/strain\nAbsence : 2 jours (2026-02-18 – 2026-02-20)\n\nDennis Cirkin — 2026-02-19\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Semimembranosis/tendinosis Strain (grade 1 2)\nAbsence : 25 jours (2026-02-19 – 2026-03-16)\n\nJocelin Ta Bi — 2026-02-22\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Syndesmosis Injury\nAbsence : 65 jours (2026-02-22 – 2026-04-28)\n\nNordi Mukiele — 2026-02-22\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Gastrocnemius Muscle Injury/strain\nAbsence : 44 jours (2026-02-22 – 2026-04-07)\n\nRomaine Mundle — 2026-02-22\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Grade 3 Hamstring Strain\nAbsence : 134 jours (2026-02-22 – 2026-07-06)\n\nEnzo Le Fee — 2026-03-03\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Knee Pain Undiagnosed\nAbsence : 5 jours (2026-03-03 – 2026-03-08)\n\nBertrand Traore — 2026-03-03\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Lcl Strain/rupture\nAbsence : 56 jours (2026-03-03 – 2026-04-28)\n\nEnzo Le Fee — 2026-03-11\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Semimembranosis/tendinosis Strain (grade 1 2)\nAbsence : 11 jours (2026-03-11 – 2026-03-22)\n\nNilson Angulo — 2026-03-11\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Biceps Femoris Strain Grade 1 2\nAbsence : 48 jours (2026-03-11 – 2026-04-28)\n\nWilson Isidor — 2026-03-14\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Knee Effusion\nAbsence : 5 jours (2026-03-14 – 2026-03-19)\n\nDaniel Ballard — 2026-03-14\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Hamstring Strain/tear\nAbsence : 31 jours (2026-03-14 – 2026-04-14)\n\nChris Rigg — 2026-03-19\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Ankle Sprains\nAbsence : 4 jours (2026-03-19 – 2026-03-23)\n\nHarrison Jones — 2026-04-29\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Ankle Joint Synovitis\nAbsence : 4 jours (2026-04-29 – 2026-05-03)\n\nDaniel Ballard — 2026-05-11\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Plantaris Removal Operation\nAbsence : 70 jours (2026-05-11 – 2026-07-20)\n\nNordi Mukiele — 2026-05-17\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Grade 1 Mcl Tear Knee\nAbsence : 46 jours (2026-05-17 – 2026-07-02)\n\nOmar Alderete — 2026-05-17\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Abdominal Oblique Muscle Strain\nAbsence : 93 jours (2026-05-17 – 2026-08-18)\n\nChemsdine Talbi — 2026-05-20\nScore de risque : undefined% (undefined, undefined jours avant)\nBlessure : Rectus Femoris Strain\nAbsence : 43 jours (2026-05-20 – 2026-07-02)",
+      "sqlQueryCount": 2,
+      "jev": {
+        "overall": "hallucinated",
+        "confidence": 0.81,
+        "inventsPlayer": 0.57,
+        "inventsDate": 0.84,
+        "inventsMetric": 0.83,
+        "inventsLogic": 0.83,
+        "latencyMs": 342,
+        "reason": "jev overall=hallucinated",
+        "probabilities": {
+          "hallucinated": 0.87,
+          "grounded": 0.01,
+          "partial": 0.12
+        }
+      }
+    }
+  ],
+  "summary": {
+    "samples": 8,
+    "grounded": 0,
+    "partial": 1,
+    "hallucinated": 7,
+    "bySource": [
+      {
+        "source": "screenshot_answer",
+        "overall": "hallucinated",
+        "confidence": 0.71,
+        "inventsPlayer": 0.93,
+        "inventsDate": 0.94,
+        "inventsMetric": 0.93,
+        "inventsLogic": 0.79
+      },
+      {
+        "source": "db_history_1",
+        "overall": "hallucinated",
+        "confidence": 0.97,
+        "inventsPlayer": 0.03,
+        "inventsDate": 0.33,
+        "inventsMetric": 0.18,
+        "inventsLogic": 0.04
+      },
+      {
+        "source": "db_history_2",
+        "overall": "hallucinated",
+        "confidence": 1,
+        "inventsPlayer": 0.09,
+        "inventsDate": 0.32,
+        "inventsMetric": 0.9,
+        "inventsLogic": 0.12
+      },
+      {
+        "source": "db_history_3",
+        "overall": "hallucinated",
+        "confidence": 0.55,
+        "inventsPlayer": 0.83,
+        "inventsDate": 0.94,
+        "inventsMetric": 0.94,
+        "inventsLogic": 0.79
+      },
+      {
+        "source": "db_history_4",
+        "overall": "hallucinated",
+        "confidence": 0.99,
+        "inventsPlayer": 0.95,
+        "inventsDate": 0.97,
+        "inventsMetric": 0.98,
+        "inventsLogic": 0.92
+      },
+      {
+        "source": "db_history_5",
+        "overall": "partial",
+        "confidence": 0.3,
+        "inventsPlayer": 0.76,
+        "inventsDate": 0.89,
+        "inventsMetric": 0.93,
+        "inventsLogic": 0.67
+      },
+      {
+        "source": "control_hallucinated",
+        "overall": "hallucinated",
+        "confidence": 1,
+        "inventsPlayer": 0.99,
+        "inventsDate": 0.99,
+        "inventsMetric": 0.99,
+        "inventsLogic": 0.98
+      },
+      {
+        "source": "control_faithful_from_sql",
+        "overall": "hallucinated",
+        "confidence": 0.81,
+        "inventsPlayer": 0.57,
+        "inventsDate": 0.84,
+        "inventsMetric": 0.83,
+        "inventsLogic": 0.83
+      }
+    ]
+  }
+}

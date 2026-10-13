@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sunderland – April 2026 Monitoring Report</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a2748;
+      --navy-2: #123a66;
+      --blue: #1d4ed8;
+      --blue-soft: #dbeafe;
+      --steel: #334155;
+      --line: #cbd5e1;
+      --paper: #f1f5f9;
+      --ink: #0f172a;
+      --amber: #b45309;
+      --red: #b91c1c;
+      --ok: #0f766e;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .page {
+      width: 210mm; min-height: 297mm; margin: 0 auto;
+      position: relative; page-break-after: always; break-after: page; overflow: hidden;
+    }
+    .page:last-child { page-break-after: auto; }
+    .cover { padding: 12mm; background: #fff; }
+    .cover-panel {
+      min-height: calc(297mm - 24mm);
+      background: linear-gradient(165deg, #0a2748 0%, #123a66 42%, #1e3a5f 70%, #0c4a6e 100%);
+      border-radius: 8px; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; padding: 22mm 18mm 16mm; color: #fff;
+    }
+    .cover-panel::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 85% 15%, rgba(56,189,248,.22), transparent 42%),
+        radial-gradient(circle at 10% 80%, rgba(29,78,216,.28), transparent 45%);
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .07; font-size: 92px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; pointer-events: none;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+    .season { z-index: 1; color: #7dd3fc; font-weight: 600; font-size: 15px; letter-spacing: .08em; }
+    .cover-title {
+      z-index: 1; margin: 14px 0 0; max-width: 165mm;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; line-height: 1.15;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 16px; align-self: flex-start;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(125,211,252,.45);
+      color: #e0f2fe; font-weight: 600; padding: 8px 14px; border-radius: 4px; font-size: 13px;
+    }
+    .comment-card {
+      z-index: 1; margin-top: 28px; width: min(165mm, 100%);
+      background: rgba(255,255,255,.96); color: var(--ink);
+      border-radius: 6px; padding: 18px 20px; position: relative; min-height: 68mm;
+      box-shadow: 0 20px 50px rgba(2,8,23,.35);
+    }
+    .comment-card::before, .comment-card::after {
+      content: ""; position: absolute; width: 36px; height: 36px; border-color: #0284c7; border-style: solid;
+    }
+    .comment-card::before { left: 0; bottom: 0; border-width: 0 0 4px 4px; }
+    .comment-card::after { right: 0; top: 0; border-width: 4px 4px 0 0; }
+    .comment-label {
+      color: #0369a1; font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+    }
+    .comment-body { margin-top: 10px; color: #1e293b; font-size: 13px; line-height: 1.55; white-space: pre-wrap; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #bae6fd; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 13mm 13mm 18mm; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #0a2748, #123a66 55%, #1d4ed8);
+      color: #fff; border-radius: 6px; padding: 11px 14px; margin-bottom: 14px;
+    }
+    .band h1 {
+      margin: 0; font-size: 15px; letter-spacing: .05em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+    .band .meta { color: #bae6fd; font-size: 11px; font-weight: 600; }
+    .toc-title { color: var(--navy); font-size: 20px; font-weight: 700; margin: 0 0 12px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 7px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: #f8fafc; border: 1px solid var(--line); border-left: 4px solid #1d4ed8;
+      border-radius: 6px; padding: 11px 13px; color: var(--navy); font-weight: 600;
+    }
+    .toc-list a:hover { background: var(--blue-soft); }
+    .toc-list .hint { color: #64748b; font-size: 11px; font-weight: 600; }
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+    .kpi {
+      border-radius: 8px; padding: 12px; color: #fff; min-height: 76px;
+      background: linear-gradient(145deg, #0a2748, #1d4ed8);
+      box-shadow: 0 8px 18px rgba(15,23,42,.12);
+    }
+    .kpi.c1 { background: linear-gradient(145deg, #0c4a6e, #0284c7); }
+    .kpi.c2 { background: linear-gradient(145deg, #1e3a8a, #2563eb); }
+    .kpi.c3 { background: linear-gradient(145deg, #334155, #475569); }
+    .kpi .label { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; opacity: .9; font-weight: 700; }
+    .kpi .value { margin-top: 6px; font-size: 21px; font-weight: 700; line-height: 1.1; }
+    .kpi .sub { margin-top: 4px; font-size: 10px; opacity: .9; }
+    .section-title {
+      margin: 8px 0 10px; color: var(--navy); font-size: 14px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase;
+      border-left: 4px solid #1d4ed8; padding-left: 10px;
+      font-family: "IBM Plex Sans Condensed", sans-serif;
+    }
+    .prose { color: #334155; font-size: 12.5px; line-height: 1.55; white-space: pre-wrap; margin: 0 0 12px; }
+    .card {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px;
+      margin-bottom: 12px; box-shadow: 0 4px 14px rgba(15,23,42,.04);
+    }
+    .card h3 {
+      margin: 0 0 8px; color: var(--navy); font-size: 11px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase;
+    }
+    .chart-box { width: 100%; height: 300px; }
+    .chart-box.radar { height: 340px; }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table th {
+      background: linear-gradient(90deg, #0a2748, #1d4ed8); color: #fff;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e2e8f0; padding: 6px 8px; }
+    table.report-table tr:nth-child(even) td { background: #f8fafc; }
+    .risk-hi { background: #fecaca !important; color: #991b1b; font-weight: 700; }
+    .risk-mid { background: #fde68a !important; color: #92400e; font-weight: 700; }
+    .risk-ok { background: #ccfbf1 !important; color: #115e59; font-weight: 600; }
+    .legend {
+      margin: 0 0 10px; font-size: 10px; color: #64748b;
+    }
+    .legend span { display: inline-block; margin-right: 10px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #fff;
+      background: linear-gradient(90deg, #0a2748, #1d4ed8);
+    }
+    .chip.empty { background: #94a3b8; text-decoration: line-through; }
+    .footer {
+      position: absolute; left: 13mm; right: 13mm; bottom: 8mm;
+      display: flex; justify-content: space-between; color: #64748b;
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+    }
+    .note {
+      background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px;
+      padding: 10px 12px; color: #1e3a8a; font-size: 11px; margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Sunderland</div>
+      <div class="season">2025-2026</div>
+      <h1 class="cover-title">Sunderland – April 2026 Monitoring Report</h1>
+      <div class="date-pill">Thu, 30/04/26 · 2026-04-01 → 2026-04-30</div>
+      <div class="comment-card">
+        <div class="comment-label">Monitoring comment</div>
+        <div class="comment-body">The report structure is now in place. Let me provide the final wrap-up:
+
+## Sunderland – April 2026 Monitoring Report
+
+**Summary:**
+
+The April monitoring period captured 24 athletes across 339 GPS session-days. Harrison Jones accumulated the highest total player load (9,506 AU over 15 sessions), while Dennis Cirkin recorded the peak single-session spike (1,361 AU on 1 April, 2.8× his monthly mean). Luke O'Nien reported the highest average body soreness (8.5/10) alongside elevated energy scores (8.2/10), indicating sustained high-load tolerance but warranting continued recovery monitoring.
+
+**Key Findings:**
+
+1. **Volume Leaders:** Harrison Jones (9,506 AU total), Dennis Cirkin (9,271 AU), and Reinildo Mandava (8,926 AU) led monthly accumulation. Mean session load ranged 486–525 AU for top performers.
+
+2. **Load Spikes:** Cirkin's 1 April session (1,361 AU) and Luke O'Nien's 1 April session (1,535 AU) were the highest individual outputs. Both returned to typical ranges (400–700 AU) in subsequent sessions without reported issues.
+
+3. **Wellness Patterns:** Luke O'Nien (8.5/10 body soreness), Enzo Le Fee (7.8/10), and Noah Sadiki (7.6/10) reported the highest average soreness. Energy ratings remained proportionally high (7.0–8.2/10), suggesting athletes are coping but close monitoring is prudent.
+
+4. **High-Intensity Exposure:** Nilson Angulo (4,516 m), Enzo Le Fee (4,983 m), and Noah Sadiki (4,743 m) covered the most distance in velocity band 5 (sprint zone), indicating high neuromuscular demand.
+
+**Watchlist:**
+
+- **Luke O'Nien (watch):** Highest body soreness (8.5/10 mean) over 20 entries. Total load 8,300 AU across 16 sessions. Pattern stable but elevated; review recovery protocols if soreness persists above 8.0.
+  
+- **Dennis Cirkin (watch):** Single-session spike 1,361 AU (1 April) vs. 488 AU mean. Subsequent sessions normalized. Monitor for delayed fatigue response in next 7–10 days.
+
+- **Eliezer Mayenda (watch):** Body soreness 7.1/10, energy 7.6/10 over 18 entries. Load pattern consistent (344–587 AU/session). Elevated subjective scores relative to moderate GPS output warrant check on non-training stressors or sleep quality.
+
+No converging signals (load spike + wellness decline + neuromuscular drop) identified. All flags are single-domain &quot;watch&quot; level.
+
+**Follow-ups:**
+
+No injury records or return-to-play protocols documented in April. All athletes with GPS data participated in multiple sessions without flagged modifications.
+
+**Testing:**
+
+VALD ForceDecks and biomarker testing were not conducted in April. Neuromuscular capacity baselines unavailable for this period.
+
+**Data Coverage:**
+
+- **GPS:** 24 athletes, 339 session-days. Comprehensive coverage.
+- **Wellness:** 22 athletes, 361 entries. Mood and stress fields mostly null; body soreness and energy well-populated.
+- **Sleep:** 22 athletes, 344 entries. Quality rating available; efficiency, consistency, and duration metrics mostly null.
+- **Body Metrics:** 22 athletes, 17 weight entries. Fat percentage null.
+- **Absent Domains:** Match statistics (0 days), VALD (0 days), biomarkers (0 days). No sRPE data (RPE × minutes); load analysis based solely on GPS player load. Insufficient history for ACWR computation (all ratios null).
+
+**Recommendations:**
+
+1. Continue monitoring Luke O'Nien's body soreness trend; consider targeted recovery interventions if scores remain ≥8.5 into early May.
+2. Track Dennis Cirkin and Luke O'Nien for delayed fatigue following their 1 April spikes.
+3. Investigate Eliezer Mayenda's elevated soreness relative to moderate GPS load—sleep quality, non-training stress, or session perception may be contributing factors.
+4. Establish sRPE collection (session RPE × duration) to enable ACWR and monotony calculations for load-spike risk assessment.
+5. Resume VALD testing to complement GPS load monitoring with neuromuscular capacity trends.
+
+All findings are descriptive; no injury predictions or medical diagnoses are implied. Staff review and clinical judgement determine next steps.</div>
+      </div>
+      <div class="chip-row" style="z-index:1;margin-top:14px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">body</span>
+        <span class="chip empty">match</span><span class="chip empty">vald</span><span class="chip empty">biomarkers</span>
+      </div>
+      <div class="club-mark">Sunderland · MAUNA</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Interactive contents</h1>
+      <div class="meta">Sunderland</div>
+    </div>
+    <h2 class="toc-title">Sunderland – April 2026 Monitoring Report</h2>
+    <p class="note">Descriptive monitoring — not injury prediction. Table colours encode risk vs individual norms, not magnitude alone.</p>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#section-1"><span>02 · Squad Overview</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>03 · Watchlist</span><span class="hint">§2</span></a></li>
+    </ol>
+    <div class="card" style="margin-top:14px"><h3>Coach brief</h3><p class="prose" style="margin:0">Fait moi un bilan en avril</p></div>
+    <div class="footer"><span>Sunderland · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="section-1">
+  <div class="band">
+    <h1>Squad Overview</h1>
+    <div class="meta">2026-04-01 → 2026-04-30</div>
+  </div>
+  <div class="kpi-row"><div class="kpi c0"><div class="label">Total distance (métres)</div><div class="value">102.2</div><div class="sub">max · avg 73.5 · n=24</div></div><div class="kpi c1"><div class="label">Gen 2 velocity band 5 total distance (mètres)</div><div class="value">410</div><div class="sub">max · avg 20.2 · n=24</div></div><div class="kpi c2"><div class="label">High metabolic load distance (mètres)</div><div class="value">37.2</div><div class="sub">max · avg 25.2 · n=5</div></div></div>
+  <div class="card"><h3>Ranking · Total distance (métres)</h3><div id="auto_chart_1" class="chart-box"></div></div>
+<div class="card"><h3>Multi-metric profile radar</h3><div id="auto_chart_2" class="chart-box radar"></div></div>
+<div class="card"><h3>April Total Load &amp; High-Intensity Exposure</h3><div class="legend"><span><i class="swatch" style="background:#fecaca"></i>above normal — review</span><span><i class="swatch" style="background:#fde68a"></i>watch</span><span><i class="swatch" style="background:#ccfbf1"></i>in range</span></div><table class="report-table"><thead><tr><th>Player</th><th>Total player load</th><th>Total distance (métres)</th><th>Gen 2 velocity band 5 total distance (mètres)</th><th>High metabolic load distance (mètres)</th></tr></thead><tbody><tr><td class="">Harrison Jones</td><td class="">9,505.7</td><td class="risk-hi">101.17</td><td class="risk-hi">3.87</td><td class="">38,328.2</td></tr><tr><td class="">Luke O'Nien</td><td class="">8,299.9</td><td class="risk-hi">96.21</td><td class="risk-ok">2.73</td><td class="">32,652.1</td></tr><tr><td class="">Enzo Le Fee</td><td class="">8,136.4</td><td class="risk-hi">102.24</td><td class="risk-hi">4.98</td><td class="risk-hi">37.19</td></tr><tr><td class="">Dennis Cirkin</td><td class="">9,270.5</td><td class="risk-mid">79.45</td><td class="risk-mid">3.07</td><td class="">26,529.2</td></tr><tr><td class="">Noah Sadiki</td><td class="">7,111.6</td><td class="risk-hi">94.69</td><td class="risk-hi">4.74</td><td class="">36,466.7</td></tr><tr><td class="">Reinildo Mandava</td><td class="">8,925.9</td><td class="risk-hi">89.92</td><td class="risk-mid">3.52</td><td class="">27,083.9</td></tr><tr><td class="">Habib Diarra</td><td class="">6,165.6</td><td class="risk-hi">83.93</td><td class="risk-mid">3.33</td><td class="risk-hi">29.44</td></tr><tr><td class="">Chris Rigg</td><td class="">6,572.6</td><td class="risk-mid">75.83</td><td class="risk-ok">3.05</td><td class="">24,726.3</td></tr><tr><td class="">Daniel Ballard</td><td class="">6,754.5</td><td class="risk-mid">73.79</td><td class="risk-mid">3.36</td><td class="">25,106.8</td></tr><tr><td class="">Granit Xhaka</td><td class="">5,250.9</td><td class="risk-mid">78.14</td><td class="risk-ok">2.66</td><td class="">30,555.4</td></tr><tr><td class="">Chemsdine Talbi</td><td class="">7</td><td class="risk-mid">71.86</td><td class="risk-mid">3.56</td><td class="">21,194.3</td></tr><tr><td class="">Wilson Isidor</td><td class="">6,505.3</td><td class="risk-mid">69.29</td><td class="risk-mid">3.61</td><td class="">20,350.9</td></tr><tr><td class="">Nordi Mukiele</td><td class="">5,330.6</td><td class="risk-mid">77.47</td><td class="risk-hi">4.25</td><td class="">24,925.1</td></tr><tr><td class="">Omar Alderete</td><td class="">4,578.1</td><td class="risk-mid">73.37</td><td class="risk-ok">2.39</td><td class="">23,602.5</td></tr><tr><td class="">Brian Brobbey</td><td class="">4,869.3</td><td class="risk-ok">69.01</td><td class="risk-ok">2.42</td><td class="">20,560.7</td></tr><tr><td class="">Nilson Angulo</td><td class="">8,923.7</td><td class="risk-mid">80.73</td><td class="risk-hi">4.52</td><td class="">31,219.3</td></tr><tr><td class="">Eliezer Mayenda</td><td class="">6.21</td><td class="risk-ok">62.54</td><td class="risk-ok">2.34</td><td class="">18,020.5</td></tr><tr><td class="">Trai Hume</td><td class="">5,452.5</td><td class="risk-ok">68.15</td><td class="risk-mid">3.26</td><td class="risk-ok">22.68</td></tr><tr><td class="">Bertrand Traore</td><td class="">8,022.1</td><td class="risk-ok">68.89</td><td class="risk-mid">3.2</td><td class="">27,254.5</td></tr><tr><td class="">Lutsharel Geertruida</td><td class="">6,024.3</td><td class="risk-ok">58.76</td><td class="risk-ok">2.18</td><td class="">17,128.7</td></tr><tr><td class="">Milan Aleksic</td><td class="">5.79</td><td class="risk-ok">57.49</td><td class="risk-ok">2.09</td><td class="">17,517.8</td></tr><tr><td class="">Jocelin Ta Bi</td><td class="">7,764.7</td><td class="risk-ok">64.96</td><td class="risk-mid">3.23</td><td class="risk-mid">26.38</td></tr><tr><td class="">Ahmed Abdullahi</td><td class="">5,238.7</td><td class="risk-ok">44.23</td><td class="risk-ok">1.81</td><td class="">13,041.2</td></tr><tr><td class="">Aji Alese</td><td class="">2,480.2</td><td class="risk-ok">21.8</td><td class="risk-hi">410</td><td class="risk-ok">10.45</td></tr></tbody></table></div>
+<div class="card"><h3>Daily Player Load Evolution – April 2026 — Group 1</h3><div id="chart_3" class="chart-box"></div></div>
+<div class="card"><h3>Daily Player Load Evolution – April 2026 — Group 2</h3><div id="chart_4" class="chart-box"></div></div>
+<div class="card"><h3>Daily Player Load Evolution – April 2026 — Group 3</h3><div id="chart_5" class="chart-box"></div></div>
+<div class="card"><h3>Top 10 Players by Total Player Load – April 2026</h3><div id="chart_6" class="chart-box"></div></div>
+  <div class="footer">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</section>
+
+<section class="page content-page" id="section-2">
+  <div class="band">
+    <h1>Watchlist</h1>
+    <div class="meta">2026-04-01 → 2026-04-30</div>
+  </div>
+  
+  <div class="card"><h3>Highest Average Body Soreness – April 2026</h3><div id="chart_7" class="chart-box"></div></div>
+<div class="card"><h3>Peak Single-Session Player Load – Top 6 Athletes</h3><div id="chart_8" class="chart-box"></div></div>
+<p class="prose">Harrison Jones led April volume with 9,506 AU total player load across 15 sessions (mean 487 AU/session, peak 1,163 AU). Dennis Cirkin recorded the highest single-session spike at 1,361 AU on 1 April. Eliezer Mayenda reported the highest average body soreness (7.1/10) alongside elevated energy (7.6/10), warranting a check on recovery adequacy relative to his 18-day load pattern.</p>
+<div class="card"><h3>Dennis Cirkin – Daily Player Load (April)</h3><div id="chart_9" class="chart-box"></div></div>
+<div class="card"><h3>Eliezer Mayenda – Daily Player Load (April)</h3><div id="chart_10" class="chart-box"></div></div>
+  <div class="footer">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</section>
+
+  <script>
+    const charts = [{"id":"auto_chart_1","title":"Ranking · Total distance (métres)","option":{"color":["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"],"tooltip":{"trigger":"axis","axisPointer":{"type":"shadow"}},"grid":{"left":8,"right":28,"top":20,"bottom":8,"containLabel":true},"xAxis":{"type":"value","axisLabel":{"color":"#64748b"},"splitLine":{"lineStyle":{"color":"#e2e8f0"}}},"yAxis":{"type":"category","data":["Daniel Ballard","Chris Rigg","Nordi Mukiele","Granit Xhaka","Dennis Cirkin","Nilson Angulo","Habib Diarra","Reinildo Mandava","Noah Sadiki","Luke O'Nien","Harrison Jones","Enzo Le Fee"],"axisLabel":{"color":"#0f172a","fontSize":11}},"series":[{"type":"bar","data":[{"value":73.79,"itemStyle":{"color":"#0b3d91","borderRadius":[0,6,6,0]}},{"value":75.83,"itemStyle":{"color":"#1d4ed8","borderRadius":[0,6,6,0]}},{"value":77.47,"itemStyle":{"color":"#2563eb","borderRadius":[0,6,6,0]}},{"value":78.14,"itemStyle":{"color":"#0284c7","borderRadius":[0,6,6,0]}},{"value":79.45,"itemStyle":{"color":"#0ea5e9","borderRadius":[0,6,6,0]}},{"value":80.73,"itemStyle":{"color":"#38bdf8","borderRadius":[0,6,6,0]}},{"value":83.93,"itemStyle":{"color":"#0b3d91","borderRadius":[0,6,6,0]}},{"value":89.92,"itemStyle":{"color":"#1d4ed8","borderRadius":[0,6,6,0]}},{"value":94.69,"itemStyle":{"color":"#2563eb","borderRadius":[0,6,6,0]}},{"value":96.21,"itemStyle":{"color":"#0284c7","borderRadius":[0,6,6,0]}},{"value":101.17,"itemStyle":{"color":"#0ea5e9","borderRadius":[0,6,6,0]}},{"value":102.24,"itemStyle":{"color":"#38bdf8","borderRadius":[0,6,6,0]}}],"barMaxWidth":16,"label":{"show":true,"position":"right","color":"#334155","fontSize":10}}]}},{"id":"auto_chart_2","title":"Multi-metric profile radar","option":{"color":["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"],"tooltip":{},"legend":{"top":0,"data":["Enzo Le Fee","Harrison Jones","Luke O'Nien","Noah Sadiki"]},"radar":{"indicator":[{"name":"Total distance (…","max":107.352},{"name":"Gen 2 velocity b…","max":5.229000000000001},{"name":"High metabolic l…","max":39.0495}],"splitArea":{"areaStyle":{"color":["#f8fafc","#eff6ff"]}},"axisName":{"color":"#334155","fontSize":10}},"series":[{"type":"radar","data":[{"name":"Enzo Le Fee","value":[102.24,4.98,37.19],"areaStyle":{"opacity":0.12},"lineStyle":{"width":2}},{"name":"Harrison Jones","value":[101.17,3.87,0],"areaStyle":{"opacity":0.12},"lineStyle":{"width":2}},{"name":"Luke O'Nien","value":[96.21,2.73,0],"areaStyle":{"opacity":0.12},"lineStyle":{"width":2}},{"name":"Noah Sadiki","value":[94.69,4.74,0],"areaStyle":{"opacity":0.12},"lineStyle":{"width":2}}]}]}},{"id":"chart_3","title":"Daily Player Load Evolution – April 2026 — Group 1","option":{"legend":{"top":8,"type":"scroll"},"grid":{"left":72,"right":72,"top":64,"bottom":96},"xAxis":{"type":"category","data":["2026-04-01","2026-04-02","2026-04-04","2026-04-06","2026-04-07","2026-04-08","2026-04-09","2026-04-10","2026-04-11","2026-04-12","2026-04-13","2026-04-14","2026-04-15","2026-04-16","2026-04-17","2026-04-18","2026-04-19","2026-04-20","2026-04-21","2026-04-22","2026-04-23","2026-04-24","2026-04-25","2026-04-27","2026-04-28","2026-04-29","2026-04-30"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Ahmed Abdullahi","type":"line","data":[null,null,null,null,null,null,null,437.8,533.9,null,635.5,null,null,null,null,null,null,null,null,518.1,458.1,null,285.9,null,565.4,501.7,579.4],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":466.852,"name":"Mean","label":{"formatter":"Mean 466.85","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Aji Alese","type":"line","data":[null,null,null,409.7,null,null,null,null,null,null,null,null,null,null,null,null,null,404.8,null,null,336.3,null,null,402.2,495.9,null,431.4],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Bertrand Traore","type":"line","data":[null,null,488.7,477.6,191.5,null,213.2,0.6,520.4,null,537.6,487.6,null,433.4,636,441.4,null,524.1,607.3,275.3,null,554.3,613.6,null,465.2,554.3,null],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Brian Brobbey","type":"line","data":[null,null,null,null,null,566.7,683.1,null,403.9,null,null,null,431.3,540.3,null,368.4,null,null,null,348.7,440.8,null,null,null,475.3,610.6,null],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Chemsdine Talbi","type":"line","data":[null,null,null,null,null,607.5,626.9,190.3,324.2,null,623.8,null,521.5,626.7,284.8,410,194.6,null,null,444.6,413,null,517.6,null,502.1,653.9,59.7],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Chris Rigg","type":"line","data":[null,null,null,null,null,595.3,683,203.7,438.9,null,null,null,623,675.7,225.2,374.8,null,null,null,354.6,540.9,null,533.2,null,527.2,718.8,78.4],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Daniel Ballard","type":"line","data":[null,null,566,353.4,null,448.6,null,418.6,533.2,null,475.2,null,500,684.1,null,486.5,130.6,null,null,425.4,517.3,null,null,null,499.7,715.9,null],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Dennis Cirkin","type":"line","data":[1360.9,567.4,null,null,null,575.5,683.2,197.6,415.8,96.7,641.8,null,568.8,692.6,204.2,430.2,163.7,null,null,339.4,482.9,null,604.9,null,488.5,692.8,63.7],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false,"color":["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"]}},{"id":"chart_4","title":"Daily Player Load Evolution – April 2026 — Group 2","option":{"legend":{"top":8,"type":"scroll"},"grid":{"left":72,"right":72,"top":64,"bottom":96},"xAxis":{"type":"category","data":["2026-04-01","2026-04-02","2026-04-05","2026-04-08","2026-04-09","2026-04-10","2026-04-11","2026-04-12","2026-04-13","2026-04-14","2026-04-15","2026-04-16","2026-04-17","2026-04-18","2026-04-19","2026-04-20","2026-04-21","2026-04-22","2026-04-23","2026-04-24","2026-04-25","2026-04-28","2026-04-29","2026-04-30"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Eliezer Mayenda","type":"line","data":[null,null,null,510.5,587.1,163.3,344.6,88.3,493.8,null,449.5,520.4,238.7,344.8,143.6,null,null,394.9,346.6,null,475.7,502.6,553.3,55.3],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":475.454,"name":"Mean","label":{"formatter":"Mean 475.45","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Enzo Le Fee","type":"line","data":[1213.4,592.8,null,608.9,754.9,null,495.3,null,229.9,null,510.6,828.5,253.8,497.2,null,null,null,333.3,505.8,null,174.9,512.7,556.2,68.2],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Granit Xhaka","type":"line","data":[null,null,null,614.4,788.8,null,502.1,null,null,null,399.4,818.2,null,408.5,null,null,null,321.8,null,null,null,549.6,848.1,null],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Habib Diarra","type":"line","data":[null,null,null,591.2,645.4,222.9,491.7,null,201.4,null,490.3,633.8,282.7,363,null,null,null,393.6,498.9,null,null,550.7,731,69.1],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Harrison Jones","type":"line","data":[1162.9,598.4,321.7,550.2,709.8,224.4,439.6,null,767.5,null,null,null,112.6,443.7,140.4,null,null,377.2,536.1,null,475.4,null,438,null],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Jocelin Ta Bi","type":"line","data":[null,null,null,null,null,null,568.8,null,550.6,602.5,null,486.3,737.2,411.4,null,509.6,759.1,336.2,null,587.9,707.4,525.1,982.6,null],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Luke O'Nien","type":"line","data":[1534.8,680.5,null,545.1,618.5,200.7,406,null,null,null,556.8,664.6,192.1,335.2,null,null,null,283.9,408.4,null,581,586,660.7,45.5],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Lutsharel Geertruida","type":"line","data":[null,null,null,495.4,552.1,179,345,92,563.8,null,470.3,579.8,null,248.8,82.8,null,null,277.6,488.3,null,523.6,426.9,633.9,65],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false,"color":["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"]}},{"id":"chart_5","title":"Daily Player Load Evolution – April 2026 — Group 3","option":{"legend":{"top":8,"type":"scroll"},"grid":{"left":72,"right":72,"top":64,"bottom":96},"xAxis":{"type":"category","data":["2026-04-01","2026-04-02","2026-04-03","2026-04-07","2026-04-08","2026-04-09","2026-04-10","2026-04-11","2026-04-12","2026-04-13","2026-04-14","2026-04-15","2026-04-16","2026-04-17","2026-04-18","2026-04-19","2026-04-20","2026-04-21","2026-04-22","2026-04-23","2026-04-24","2026-04-25","2026-04-28","2026-04-29","2026-04-30"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Milan Aleksic","type":"line","data":[null,null,null,null,483,588.5,149.6,355.9,null,677.4,46.1,null,null,158,352.1,null,null,null,339,419.4,null,534.1,390.1,624.3,62.6],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":444.512,"name":"Mean","label":{"formatter":"Mean 444.51","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Nilson Angulo","type":"line","data":[null,421.7,524.1,492.7,417.5,389.1,274.2,null,null,602.8,540,null,423.1,684.9,393.8,null,567.4,662.2,242.7,null,584.8,628.5,493.1,581,null],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Noah Sadiki","type":"line","data":[null,null,null,null,532,794.3,216,497.1,null,411.9,null,623,778.8,null,461.1,null,null,null,320.5,533.5,null,323.3,614.7,826.9,178.5],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Nordi Mukiele","type":"line","data":[null,508.8,681,null,517,529.6,null,327.8,null,null,null,302.8,608.6,null,null,null,null,null,307,414.1,null,null,495.9,638.2,null],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Omar Alderete","type":"line","data":[null,null,null,null,442.9,583.7,123.6,357.6,null,null,null,391.8,546.6,128.6,284.1,null,null,null,270.7,356.2,null,null,411.2,628.4,52.7],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Reinildo Mandava","type":"line","data":[1313.9,658.8,813.4,null,553.7,676.4,212.5,496.6,null,null,null,295.3,779.2,234.7,421.6,null,null,null,422.3,537.2,null,235.4,479.5,768.8,26.5],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Trai Hume","type":"line","data":[null,null,null,null,528.8,460,193.6,379.2,null,613.5,null,495.6,541.4,184.3,328.8,170.2,null,null,405.2,467.3,null,168.2,446,null,70.3],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Wilson Isidor","type":"line","data":[null,null,null,null,501.3,null,190.2,385.7,96,579.3,null,495.7,665.5,251.6,432.4,144.3,null,null,489.1,441.2,null,544.3,611.9,677,null],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false,"color":["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"]}},{"id":"chart_6","title":"Top 10 Players by Total Player Load – April 2026","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Total player load","type":"bar","encode":{"x":"Player","y":"Total player load"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":8296.15,"name":"Mean","label":{"formatter":"Mean 8,296.15","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Total player load","Total distance (métres)","Gen 2 velocity band 5 total distance (mètres)","High metabolic load distance (mètres)"],["Harrison Jones",1,9505.7,101171,3868,38328.2],["Dennis Cirkin",1,9270.5,79445,3069,26529.2],["Reinildo Mandava",1,8925.9,89916,3517,27083.9],["Nilson Angulo",1,8923.7,80732,4516,31219.3],["Luke O'Nien",1,8299.9,96208,2726,32652.1],["Enzo Le Fee",1,8136.4,102241,4983,37185],["Bertrand Traore",1,8022.1,68889,3195,27254.5],["Jocelin Ta Bi",1,7764.7,64955,3232,26383],["Noah Sadiki",1,7111.6,94686,4743,36466.7],["Chemsdine Talbi",1,7001,71862,3557,21194.3]]},"color":["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"]}},{"id":"chart_7","title":"Highest Average Body Soreness – April 2026","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Body Soreness Rating","type":"bar","encode":{"x":"Player","y":"Body Soreness Rating"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":7.382,"name":"Mean","label":{"formatter":"Mean 7.38","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Body Soreness Rating","Energy Rating"],["Luke O'Nien",20,8.526,8.158],["Enzo Le Fee",20,7.789,8.211],["Noah Sadiki",17,7.647,7.059],["Lutsharel Geertruida",16,7.375,7.625],["Harrison Jones",20,7.2,6.4],["Eliezer Mayenda",18,7.059,7.647],["Granit Xhaka",16,6.75,6.875],["Habib Diarra",18,6.706,6.588]]},"color":["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"]}},{"id":"chart_8","title":"Peak Single-Session Player Load – Top 6 Athletes","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Total player load (max)","type":"bar","encode":{"x":"Player","y":"Total player load (max)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1261.417,"name":"Mean","label":{"formatter":"Mean 1,261.42","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Total player load (mean)","Total player load (max)","Gen 2 velocity band 5 total distance (mean)","Gen 2 velocity band 5 total distance (max)"],["Luke O'Nien",16,518.737,1534.8,118.688,323],["Dennis Cirkin",19,487.926,1360.9,161.526,600],["Reinildo Mandava",17,525.047,1313.9,142.412,641],["Enzo Le Fee",16,508.525,1213.4,165.063,455],["Harrison Jones",15,486.527,1162.9,177.533,624],["Jocelin Ta Bi",13,597.285,982.6,248.615,585]]},"color":["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"]}},{"id":"chart_9","title":"Dennis Cirkin – Daily Player Load (April)","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Total player load","type":"line","encode":{"x":"Date","y":"Total player load"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":487.926,"name":"Mean","label":{"formatter":"Mean 487.93","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Field time (secondes)","Bench time (secondes)","Total distance (métres)","Total duration (secondes)","Total player load","Side player load (1D)","Vertical player load (1D)","Velocity exertion","Max velocity (m/s)","Peak metabolic power (W/kg)","Total acceleration load","FMP running high duration (secondes)","FMP dynamic high duration (secondes)","Gen 2 velocity band 1 total distance (mètres)","Gen 2 velocity band 2 total distance (mètres)","Gen 2 velocity band 3 total distance (mètres)","Gen 2 velocity band 4 total distance (mètres)","Gen 2 velocity band 5 total distance (mètres)","Velocity band 5 efforts","Metabolic power band 5 total distance (mètres)","IMA band 3 acceleration count","IMA band 3 right count","IMA band 3 decel count","IMA band 3 left count","RHIE bout count","RHIE max effort duration (secondes)","RHIE max effort count","RHIE minute bout recovery (secondes)","Velocity band 4 efforts","Acceleration band 6+ efforts","High metabolic load distance (mètres)","Metabolic energy (kj)","Work rest ratio","Total player load (2)"],["Dennis Cirkin","2026-04-01",9788,928,10304,9788,1360.9,562.7,880.7,67,7.1,93,3572.1,98,990,214,5019,4510,440,114,14,0,11,31,17,11,48,62.7,34,384,0,142,3868.7,50.6,0.1,1360.9],["Dennis Cirkin","2026-04-02",3205,0,5559,3205,567.4,212.1,404.7,53,7.7,98.3,1687.1,197,346,52,2341,1695,1039,392,19,0,2,5,6,2,27,21.3,31,124,0,61,2079.2,27.4,0.1,567.4],["Dennis Cirkin","2026-04-08",3089,0,4556,3089,575.5,222,393.8,33,7.4,114.4,1692.6,42,415,88,1877,2170,302,110,13,0,3,6,5,7,19,18.5,40,238,0,73,1899.9,23.1,0.1,575.5],["Dennis Cirkin","2026-04-09",4125,123,6081,4125.4,683.2,264.1,460.3,46,8.7,105.3,2107.2,108,502,76,2660,2069,855,309,24,0,10,8,4,9,36,16.6,37,136,0,89,2114.7,31.2,0.3,683.2],["Dennis Cirkin","2026-04-10",2924,0,1458,2924,197.6,75.9,137.3,6,5.3,80.4,721.5,13,119,125,953,323,57,0,0,0,2,0,4,4,14,7.1,8,187,0,14,274,6.9,0,197.6],["Dennis Cirkin","2026-04-11",3498,0,3770,3498,415.8,161.4,278.1,18,7.4,95.4,1350.2,59,276,104,2095,1014,409,125,11,0,4,2,1,7,26,28.2,18,550,0,38,1025.3,18.4,0,415.8],["Dennis Cirkin","2026-04-12",446,0,1010,446,96.7,34.5,72.8,13,8.2,87.8,187.5,103,27.9,12,214,128,190,380,11,0,0,0,0,0,7,26.9,6,11,0,11,320.8,4.8,0,96.7],["Dennis Cirkin","2026-04-13",3872,0,5127,3872,641.8,237.3,447.1,36,6.3,101.4,1998.7,36,439,109,2541,2224,233,19,2,0,5,7,10,11,25,10.4,43,768,0,83,1924.4,25.7,0.1,641.8],["Dennis Cirkin","2026-04-15",3161,0,4463,3161,568.8,212.3,392.7,31,6.9,110.5,1687.8,31,417,71,1980,2083,266,62,6,0,3,14,9,8,23,11.5,42,200,0,74,1704.8,22.6,0,568.8],["Dennis Cirkin","2026-04-16",4260,0,6262,4260,692.6,267.4,478.7,45,8.4,102,2302.6,67,547,75,2704,2417,787,226,21,0,4,5,8,12,31,18,42,221,0,118,2098.4,32.5,0.1,692.6],["Dennis Cirkin","2026-04-17",2922,186,1602,2922.1,204.2,78.6,137.9,7,5,76.5,716,8,125,130,1095,351,27,0,0,0,2,3,3,4,12,8.3,13,107,0,17,282.1,7.6,0,204.2],["Dennis Cirkin","2026-04-18",3363,0,3753,3363,430.2,163.8,294.9,23,7.1,80.4,1481,40,330,103,2071,1221,281,73,8,0,4,6,3,3,30,11.5,18,206,0,59,1020.5,18.8,0,430.2],["Dennis Cirkin","2026-04-19",824,87,1688,824.4,163.7,57,120.3,19,8.4,98.8,361.6,163,78,29,317,153,470,600,21,0,1,0,1,0,12,27.9,10,14,0,25,579.7,8.6,0,163.7],["Dennis Cirkin","2026-04-22",3810,534,2780,3810.3,339.4,132.6,226,13,7.5,93.5,1253.8,27,260,150,1612,798,160,50,7,0,6,5,3,3,22,11.9,19,770,0,40,656.2,14,0,339.4],["Dennis Cirkin","2026-04-23",3899,0,4554,3899,482.9,171.3,338.9,25,7.6,113.3,1660.4,80,291.4,103,2429,1443,456,101,9,0,5,2,4,4,28,20.5,19,318,0,47,1365.8,22.1,0,482.9],["Dennis Cirkin","2026-04-25",3504,0,5559,3504,604.9,215.4,433.1,43,7.8,88.1,1829.1,126,383,59,2362,2133,406,322,15,0,4,10,5,4,25,138.7,40,410,0,82,1937.4,27.5,0.2,604.9],["Dennis Cirkin","2026-04-28",3147,0,4038,3147,488.5,182.6,333.6,22,6.2,102,1649.9,49,404,92,2121,1442,342,42,5,0,5,7,7,5,21,18.8,40,524,0,69,1186.4,20.4,0,488.5],["Dennis Cirkin","2026-04-29",4676,0,6337,4676,692.8,245.5,488.1,43,7.9,96.8,2259.7,100,458,119,3025,2311,706,144,14,0,6,9,8,11,34,24.2,49,319,0,91,2074.5,31.7,0,692.8],["Dennis Cirkin","2026-04-30",1501,0,545,1501,63.7,22.3,45.4,4,3.7,27.4,159.8,0,8,44,327,175,0,0,0,0,0,0,0,0,1,33.6,3,335,0,0,116.5,2.4,0,63.7]]},"color":["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"]}},{"id":"chart_10","title":"Eliezer Mayenda – Daily Player Load (April)","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Total player load","type":"line","encode":{"x":"Date","y":"Total player load"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":365.471,"name":"Mean","label":{"formatter":"Mean 365.47","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Field time (secondes)","Bench time (secondes)","Total distance (métres)","Total duration (secondes)","Total player load","Side player load (1D)","Vertical player load (1D)","Velocity exertion","Max velocity (m/s)","Peak metabolic power (W/kg)","Total acceleration load","FMP running high duration (secondes)","FMP dynamic high duration (secondes)","Gen 2 velocity band 1 total distance (mètres)","Gen 2 velocity band 2 total distance (mètres)","Gen 2 velocity band 3 total distance (mètres)","Gen 2 velocity band 4 total distance (mètres)","Gen 2 velocity band 5 total distance (mètres)","Velocity band 5 efforts","Metabolic power band 5 total distance (mètres)","IMA band 3 acceleration count","IMA band 3 right count","IMA band 3 decel count","IMA band 3 left count","RHIE bout count","RHIE max effort duration (secondes)","RHIE max effort count","RHIE minute bout recovery (secondes)","Velocity band 4 efforts","Acceleration band 6+ efforts","High metabolic load distance (mètres)","Metabolic energy (kj)","Work rest ratio","Total player load (2)"],["Eliezer Mayenda","2026-04-08",3083,0,4484,3083,510.5,209.9,338.8,30,7.6,101.9,1521,21,355,76,2096,1953,268,76,9,0,13,12,4,9,19,30.1,36,402,0,60,1687.7,21.7,0.1,510.5],["Eliezer Mayenda","2026-04-09",4125,123,6134,4124.6,587.1,240.2,397.1,48,9.3,127.6,1946.8,53,305,68,2737,2260,665,284,29,0,4,5,3,5,30,23.9,36,141,0,73,2013,30.5,0.2,587.1],["Eliezer Mayenda","2026-04-10",2924,0,1614,2924,163.3,69,107.4,7,7.2,124.4,617.1,10,86.9,103,1068,359,42,39,5,0,1,1,0,1,7,13.9,11,94,0,13,299.7,7.6,0,163.3],["Eliezer Mayenda","2026-04-11",3502,0,3468,3502,344.6,141.2,228.8,18,8,102.8,1259.1,56,197,91,1839,1109,350,57,7,0,4,10,3,4,24,18.7,18,569,0,41,984.9,17,0.1,344.6],["Eliezer Mayenda","2026-04-12",446,0,937,446,88.3,38,54.7,11,8.1,218.7,189.6,97,27.9,15,212,113,274,251,14,0,1,0,0,0,6,27.7,10,1,0,12,345,4.5,0,88.3],["Eliezer Mayenda","2026-04-13",4733,379,4618,4733.1,493.8,205.7,323.3,23,9.5,119.7,1840.8,17,426,111,2960,1273,184,45,8,0,9,14,10,15,38,13.6,18,444,0,69,1052.7,22.9,0.1,493.8],["Eliezer Mayenda","2026-04-15",3161,0,4215,3161,449.5,174.1,311.2,27,6.2,139.4,1512.8,14,294,69,1905,1973,210,58,7,0,9,3,7,6,16,166.5,43,214,0,69,1551.2,20.8,0,449.5],["Eliezer Mayenda","2026-04-16",4423,643,5599,4423.1,520.4,212,351.3,35,9.4,135,1900,29,274,85,2806,2043,376,188,16,0,9,6,6,5,31,18.8,24,230,0,61,1694.8,27.9,0.1,520.4],["Eliezer Mayenda","2026-04-17",2922,186,2054,2922.1,238.7,107.1,151.6,7,5.6,93.1,870.3,15,189,123,1414,372,139,6,0,0,6,3,1,3,15,6.8,18,259,0,26,307.4,9.9,0,238.7],["Eliezer Mayenda","2026-04-18",3364,0,3500,3364,344.8,141.4,230.2,23,8.6,91.7,1227,37,193,92,1931,1119,225,96,8,0,0,10,4,9,26,20.7,15,395,0,42,944.8,16.9,0,344.8],["Eliezer Mayenda","2026-04-19",825,86,1613,825.3,143.6,59.9,91.1,19,9,198.7,325.6,115,55,27,289,212,566,399,18,0,0,0,0,0,12,27.9,8,19,0,23,649.9,8,0,143.6],["Eliezer Mayenda","2026-04-22",4344,0,4197,4344,394.9,169.1,255.4,21,7.9,114.9,1408.6,19,266,129,2659,1076,236,68,9,0,7,3,5,5,25,15.3,18,352,0,46,876.9,20.3,0,394.9],["Eliezer Mayenda","2026-04-23",3899,0,4025,3899,346.6,140.5,231.4,19,8,105.2,1280.1,47,186.3,81,2315,1158,300,132,13,0,4,4,4,2,27,25.1,11,155,0,33,1040.4,19.3,0,346.6],["Eliezer Mayenda","2026-04-25",3504,0,4831,3504,475.7,198.8,315.3,32,7.4,108.3,1588.2,102,278,62,2216,1754,244,373,12,0,6,4,6,2,20,14.9,26,285,0,63,1582.9,23.7,0,475.7],["Eliezer Mayenda","2026-04-28",4312,0,4513,4312,502.6,207.6,330.3,23,7.6,105.7,1840.4,24,370,146,2670,1338,285,65,6,0,12,8,5,6,20,14.4,41,402,0,57,1082.2,22.2,0,502.6],["Eliezer Mayenda","2026-04-29",4676,0,6235,4676,553.3,223.5,376.1,40,8.9,150.5,2049.5,43,297,100,3230,1993,626,197,17,0,1,0,4,4,35,21.6,30,336,0,76,1813.9,31.1,0,553.3],["Eliezer Mayenda","2026-04-30",1501,0,508,1501,55.3,22.6,36.5,3,2.8,37.9,140.2,1,5,50,319,139,0,0,0,0,0,0,0,1,0,0,0,0,0,0,93.1,2.2,0,55.3]]},"color":["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas' });
+        instance.setOption({
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: 'IBM Plex Sans, sans-serif', color: '#0f172a' },
+          color: ["#0b3d91","#1d4ed8","#2563eb","#0284c7","#0ea5e9","#38bdf8","#475569","#64748b","#b45309","#b91c1c"],
+          ...chart.option,
+        }, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

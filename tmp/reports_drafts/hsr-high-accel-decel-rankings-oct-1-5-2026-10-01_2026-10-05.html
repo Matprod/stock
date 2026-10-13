@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HSR &amp; High Accel/Decel Rankings — Oct 1–5</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 10mm; }
+    :root {
+      --bg: #1a1d2b;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f1220;
+      --ink-soft: #334155;
+      --paper: #f4f6fb;
+      --line: #d7dce8;
+      --muted: #8b93a7;
+      --cherry: #E07070;
+      --cherry-soft: rgba(224,112,112,0.22);
+      --saffron: #E8B84A;
+      --saffron-soft: rgba(251,191,36,0.22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12px;
+    }
+    .page.cover, .page.toc-page {
+      width: 190mm;
+      min-height: 277mm;
+      margin: 0 auto;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 190mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 8mm;
+    }
+    .report-flow { padding-bottom: 6mm; }
+    .section-block {
+      margin: 0 0 14px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 34%) 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      margin: 0 0 12px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 200px; }
+    .cover-panel {
+      min-height: 277mm;
+      background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 18mm 15mm 14mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+      background: linear-gradient(180deg, var(--light), var(--primary) 55%, #34d399);
+    }
+    .cover-panel::after {
+      content: '';
+      position: absolute; right: -40px; top: -40px; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(116,192,252,.22), transparent 70%);
+      pointer-events: none;
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .05; font-size: 96px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 12px; font-weight: 700; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 14px; color: #a5b4fc; font-weight: 600; font-size: 13px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 22px 0 0; max-width: 162mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .02em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .cover-sub {
+      z-index: 1; margin-top: 10px; max-width: 150mm;
+      color: #94a3b8; font-size: 13px; line-height: 1.45; font-weight: 500;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 18px; align-self: flex-start;
+      background: rgba(116,192,252,.14); border: 1px solid rgba(116,192,252,.4);
+      color: #dbeafe; font-weight: 600; padding: 9px 16px; border-radius: 999px; font-size: 12px;
+    }
+    .signal-stack {
+      z-index: 1; margin-top: 28px; display: grid; gap: 8px; width: min(162mm, 100%);
+    }
+    .signal-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: rgba(15,18,32,.42); border: 1px solid rgba(165,180,252,.22);
+      border-radius: 10px; padding: 10px 12px;
+    }
+    .signal-index {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: rgba(79,110,247,.55); color: #eef2ff;
+      font-size: 10px; font-weight: 700;
+    }
+    .signal-text { color: #e2e8f0; font-size: 12px; line-height: 1.4; font-weight: 500; }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 20px;
+      color: #c7d2fe; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: 11px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(90deg, #1a1d2b, #2a2e40 55%, #4f6ef7);
+      color: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(26,29,43,.12);
+      break-after: avoid; page-break-after: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .07em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 11px; font-weight: 600; letter-spacing: .04em; }
+    .toc-title { color: var(--ink); font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; color: var(--ink); font-weight: 600;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12.5px; line-height: 1.55; margin: 0 0 12px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 8px; }
+    .prose-block ul { margin: 0 0 8px; padding-left: 18px; }
+    .card, .chart-card {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+      margin: 0 0 12px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .chart-card.chart-wide {
+      break-before: page;
+      page-break-before: always;
+      margin-top: 4mm;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 8px; color: var(--ink); font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 260px; }
+    .chart-box.radar { height: 320px; }
+    .chart-box.tall { height: 300px; }
+    .chart-box.wide { height: 340px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 8px;
+      font-size: 10px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: var(--bg); color: #e8eaf2;
+      text-align: left; padding: 7px 8px; font-weight: 700;
+    }
+    table.report-table td { border-bottom: 1px solid #e8ebf2; padding: 6px 8px; color: #1e293b; }
+    table.report-table tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo) { background: #f8f9fc; }
+    .lvl-hi { background: var(--cherry-soft) !important; color: #9f1239; font-weight: 700; }
+    .lvl-mid { background: var(--saffron-soft) !important; color: #92400e; font-weight: 600; }
+    .lvl-lo { background: rgba(52,211,153,.16) !important; color: #065f46; font-weight: 600; }
+    .legend { margin: 0 0 10px; font-size: 10px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 12px; }
+    .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .chip {
+      border-radius: 999px; padding: 4px 9px; font-size: 10px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; color: #e8eaf2;
+      background: rgba(79,110,247,.55); border: 1px solid rgba(165,180,252,.35);
+    }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 12px;
+      padding: 10px 12px; border-radius: 10px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner .avatar-wrap {
+      position: relative; width: 52px; height: 52px; flex: 0 0 52px;
+    }
+    .athlete-banner img {
+      width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: none; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner.no-photo img { display: none; }
+    .athlete-banner.no-photo .avatar-fallback { display: grid; }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line);
+    }
+    .note {
+      background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 8px;
+      padding: 10px 12px; color: #312e81; font-size: 11px; margin-bottom: 12px;
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12.5px; line-height: 1.5; margin: 0 0 12px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 12px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 12px; line-height: 1.45; }
+    .staff-read-panel li { margin: 0 0 6px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+      padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      border-radius: 999px; padding: 4px 8px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
+    .signal-meta { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .staff-section-index li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 8px 10px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+    }
+    @media print {
+      .section-block, .section-body { break-inside: auto; page-break-inside: auto; }
+      .card, .chart-card, table.report-table, .split-row > * { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: page; page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Hambourg</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2026-2027</div>
+      <h1 class="cover-title">HSR &amp; High Accel/Decel Rankings — Oct 1–5</h1>
+      <p class="cover-sub">Club report — MAUNA data only</p>
+      <div class="date-pill">Mon, 05/10/26 · 2026-10-01 → 2026-10-05</div>
+      <div class="signal-stack"><div class="signal-item"><span class="signal-index">01</span><span class="signal-text">Top 5: Adeline 2,227 m (3 sessions), Muheim 2,044 m (4), Nandja 1,540 m (4), Sambi Lokonga 1,417 m (4), Remberg 1,343 m (4). Squad mean ~1,100 m; Adeline +102% above mean.</span></div><div class="signal-item"><span class="signal-index">02</span><span class="signal-text">Top 5: Nandja 22 efforts, Muheim 13, Remberg 13, Nadir 13, Bornauw 11. Squad mean ~9 efforts; Nandja +144% above mean.</span></div><div class="signal-item"><span class="signal-index">03</span><span class="signal-text">Top 5: Adeline 39 efforts (3 sessions), Røssing-Lelesiit 27 (2), Remberg 26 (4), Muheim 20 (4), Capaldo 19 (4). Squad mean ~14 efforts; Adeline +179% above mean.</span></div><div class="signal-item"><span class="signal-index">04</span><span class="signal-text">Martin Adeline: extreme HSR (2,227 m) + extreme decel load (39) in only 3 sessions — worth a look for recovery status. Miro Muheim: high HSR (2,044 m) across 4 sessions, moderate accel/decel. Shafiq Nandja: highest accel count (22) with solid HSR (1,540 m).</span></div><div class="signal-item"><span class="signal-index">05</span><span class="signal-text">Adeline logged highest HSR (2,227 m) and decel load (39) in 3 sessions. Body soreness dropped from 27 to 10 (Oct 1→2), mood stable at 15–20. 7-day cumulative load 34,705 AU, monotony 1.29, strain 15,229 — elevated monotony + extreme GPS exposure. Watch for rebound soreness if load continues.</span></div></div>
+      <div class="chip-row" style="z-index:1;margin-top:16px">
+        <span class="chip">load</span><span class="chip">gps</span><span class="chip">wellness</span><span class="chip">sleep</span><span class="chip">biomarkers</span>
+      </div>
+      <div class="club-mark">Hambourg · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Hambourg</div>
+    </div>
+    <h2 class="toc-title">HSR &amp; High Accel/Decel Rankings — Oct 1–5</h2>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Staff read</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · High-Speed Running (Oct 1–5)</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · High Accelerations Z6 (Oct 1–5)</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · High Decelerations Z6 (Oct 1–5)</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Cross-Domain Summary — GPS + Load</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Martin Adeline — High GPS + Wellness</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>08 · Shafiq Nandja — High Accel + Wellness</span><span class="hint">§6</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Hambourg · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Staff read</h1>
+    <div class="meta">2026-10-01 → 2026-10-05</div>
+  </div>
+  <p class="staff-read-lead">Synthesized from canvas (analyst did not commit InsightIR)</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Narrative thread</h3><ul><li>Top 5: Adeline 2,227 m (3 sessions), Muheim 2,044 m (4), Nandja 1,540 m (4), Sambi Lokonga 1,417 m (4), Remberg 1,343 m (4). Squad mean ~1,100 m; Adeline +102% above mean.</li><li>Top 5: Nandja 22 efforts, Muheim 13, Remberg 13, Nadir 13, Bornauw 11. Squad mean ~9 efforts; Nandja +144% above mean.</li><li>Top 5: Adeline 39 efforts (3 sessions), Røssing-Lelesiit 27 (2), Remberg 26 (4), Muheim 20 (4), Capaldo 19 (4). Squad mean ~14 efforts; Adeline +179% above mean.</li></ul></div><div class="staff-read-panel"><h3>Signals</h3><ul class="signal-roster"><li><span class="signal-badge info">Info</span><div><div class="signal-body">Top 5: Adeline 2,227 m (3 sessions), Muheim 2,044 m (4), Nandja 1,540 m (4), Sambi Lokonga 1,417 m (4), Remberg 1,343 m (4). Squad mean ~1,100 m; Adeline +102% above mean.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Top 5: Nandja 22 efforts, Muheim 13, Remberg 13, Nadir 13, Bornauw 11. Squad mean ~9 efforts; Nandja +144% above mean.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Top 5: Adeline 39 efforts (3 sessions), Røssing-Lelesiit 27 (2), Remberg 26 (4), Muheim 20 (4), Capaldo 19 (4). Squad mean ~14 efforts; Adeline +179% above mean.</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Martin Adeline: extreme HSR (2,227 m) + extreme decel load (39) in only 3 sessions — worth a look for recovery status. Miro Muheim: high HSR (2,044 m) across 4 sessions, moderate accel/decel. Shafiq Nandja: highest accel count (22) with solid HSR (1,540 m).</div></div></li><li><span class="signal-badge info">Info</span><div><div class="signal-body">Adeline logged highest HSR (2,227 m) and decel load (39) in 3 sessions. Body soreness dropped from 27 to 10 (Oct 1→2), mood stable at 15–20. 7-day cumulative load 34,705 AU, monotony 1.29, strain 15,229 — elevated monotony + extreme GPS exposure. Watch for rebound soreness if load continues.</div></div></li></ul></div></div>
+  <div class="staff-read-panel"><h3>Canvas sections</h3><ul class="staff-section-index"><li><span>High-Speed Running (Oct 1–5)</span><span class="kind">Team</span></li><li><span>High Accelerations Z6 (Oct 1–5)</span><span class="kind">Team</span></li><li><span>High Decelerations Z6 (Oct 1–5)</span><span class="kind">Team</span></li><li><span>Outlier Watch — High Intensity Exposure</span><span class="kind">Team</span></li><li><span>Cross-Domain Summary — GPS + Load</span><span class="kind">Team</span></li><li><span>Martin Adeline — High GPS + Wellness</span><span class="kind">Team</span></li><li><span>Shafiq Nandja — High Accel + Wellness</span><span class="kind">Team</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>High-Speed Running (Oct 1–5)</h1>
+    <div class="meta">2026-10-01 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>High-Speed Running (m) — 5-day total</h3>
+  <div id="chart_1" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Top 5: Adeline 2,227 m (3 sessions), Muheim 2,044 m (4), Nandja 1,540 m (4), Sambi Lokonga 1,417 m (4), Remberg 1,343 m (4). Squad mean ~1,100 m; Adeline +102% above mean.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2">
+  <div class="band">
+    <h1>High Accelerations Z6 (Oct 1–5)</h1>
+    <div class="meta">2026-10-01 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>High Accelerations Z6 (count) — 5-day total</h3>
+  <div id="chart_2" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Top 5: Nandja 22 efforts, Muheim 13, Remberg 13, Nadir 13, Bornauw 11. Squad mean ~9 efforts; Nandja +144% above mean.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>High Decelerations Z6 (Oct 1–5)</h1>
+    <div class="meta">2026-10-01 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card">
+  <h3>High Decelerations Z6 (count) — 5-day total</h3>
+  <div id="chart_3" class="chart-box compact"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Top 5: Adeline 39 efforts (3 sessions), Røssing-Lelesiit 27 (2), Remberg 26 (4), Muheim 20 (4), Capaldo 19 (4). Squad mean ~14 efforts; Adeline +179% above mean.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4">
+  <div class="band">
+    <h1>Cross-Domain Summary — GPS + Load</h1>
+    <div class="meta">2026-10-01 → 2026-10-05</div>
+  </div>
+  
+  <div class="section-body"><div class="card"><h3>Top 5 HSR performers (Oct 1–5)</h3><div class="legend"><span><i class="swatch" style="background:rgba(224,112,112,0.22);outline:1px solid #E07070"></i>high</span><span><i class="swatch" style="background:rgba(251,191,36,0.22);outline:1px solid #E8B84A"></i>medium</span><span><i class="swatch" style="background:rgba(52,211,153,.16);outline:1px solid #34d399"></i>low</span><span>vs squad (terciles)</span></div><table class="report-table"><thead><tr><th>Player</th><th>N</th><th>High speed running (absolute)</th><th>Accelerations zone 6 (relative)</th><th>Decelerations zone 6 (relative)</th></tr></thead><tbody><tr><td class="">Martin Adeline</td><td class="">3</td><td class="lvl-hi">2.23</td><td class="lvl-lo">5</td><td class="lvl-hi">39</td></tr><tr><td class="">Miro Muheim</td><td class="">4</td><td class="lvl-hi">2.04</td><td class="lvl-hi">13</td><td class="lvl-mid">20</td></tr><tr><td class="">Shafiq Nandja</td><td class="">4</td><td class="lvl-mid">1.54</td><td class="lvl-hi">22</td><td class="lvl-mid">19</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="">4</td><td class="lvl-mid">1.42</td><td class="lvl-mid">7</td><td class="lvl-lo">9</td></tr><tr><td class="">Nicolai Remberg</td><td class="">4</td><td class="lvl-lo">1.34</td><td class="lvl-hi">13</td><td class="lvl-hi">26</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Martin Adeline: extreme HSR (2,227 m) + extreme decel load (39) in only 3 sessions — worth a look for recovery status. Miro Muheim: high HSR (2,044 m) across 4 sessions, moderate accel/decel. Shafiq Nandja: highest accel count (22) with solid HSR (1,540 m).</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5">
+  <div class="band">
+    <h1>Martin Adeline — High GPS + Wellness</h1>
+    <div class="meta">2026-10-01 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/9188fca4-ad94-4954-abfc-8e0c3c2abcad.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T010337Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=4f7463d5d7957df49efc94f4b98522f739f700b5188f41549fb705d855951ca3&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">MA</div></div><div><div class="name">Martin Adeline</div><div class="meta">MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Adeline — Wellness (Oct 1–2)</h3><table class="report-table"><thead><tr><th>Date</th><th>Body Soreness Rating</th><th>Mood Rating</th></tr></thead><tbody><tr><td class="">2026-10-01</td><td class="">27</td><td class="">15</td></tr><tr><td class="">2026-10-02</td><td class="">10</td><td class="">20</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Adeline logged highest HSR (2,227 m) and decel load (39) in 3 sessions. Body soreness dropped from 27 to 10 (Oct 1→2), mood stable at 15–20. 7-day cumulative load 34,705 AU, monotony 1.29, strain 15,229 — elevated monotony + extreme GPS exposure. Watch for rebound soreness if load continues.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-6">
+  <div class="band">
+    <h1>Shafiq Nandja — High Accel + Wellness</h1>
+    <div class="meta">2026-10-01 → 2026-10-05</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/c053a060-d5ab-43dc-bec0-6fe24b81cb1a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261005%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261005T010337Z&amp;X-Amz-Expires=7200&amp;X-Amz-Signature=02c47756b285e0a066ea9524af123eb3ce8bc20e4b07368e578002a250ff73ec&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">SN</div></div><div><div class="name">Shafiq Nandja</div><div class="meta">MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="card"><h3>Nandja — Wellness (Oct 1–2)</h3><table class="report-table"><thead><tr><th>Date</th><th>Body Soreness Rating</th><th>Mood Rating</th></tr></thead><tbody><tr><td class="">2026-10-01</td><td class="">30</td><td class="">20</td></tr><tr><td class="">2026-10-02</td><td class="">30</td><td class="">20</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Nandja led accel count (22) with solid HSR (1,540 m). Body soreness stable at 30 (Oct 1–2), mood 20. 7-day cumulative load 92,816 AU (highest in squad), monotony 0.85, strain 14,013 — high volume + elevated soreness + high accel load. Vigilance for lower-limb strain.</li></ul></div>
+<div class="card"><h3>Top HSR performers — GPS + Load metrics</h3><table class="report-table"><thead><tr><th>Player</th><th>High speed running (absolute)</th><th>Accelerations zone 6 (relative)</th><th>Decelerations zone 6 (relative)</th><th>Cumulative 7</th><th>monotony</th><th>strain</th></tr></thead><tbody><tr><td class="">Martin Adeline</td><td class="lvl-hi">2.23</td><td class="lvl-lo">5</td><td class="lvl-hi">39</td><td class="">34,704.8</td><td class="lvl-hi">1.29</td><td class="">15,229.37</td></tr><tr><td class="">Miro Muheim</td><td class="lvl-hi">2.04</td><td class="lvl-hi">13</td><td class="lvl-mid">20</td><td class="">42,675.57</td><td class="lvl-lo">0.54</td><td class="">3,801.58</td></tr><tr><td class="">Shafiq Nandja</td><td class="lvl-mid">1.54</td><td class="lvl-hi">22</td><td class="lvl-mid">19</td><td class="">92,815.67</td><td class="lvl-hi">0.85</td><td class="">14,012.77</td></tr><tr><td class="">Albert Sambi Lokonga</td><td class="lvl-mid">1.42</td><td class="lvl-mid">7</td><td class="lvl-lo">9</td><td class="">49,409.37</td><td class="lvl-mid">0.8</td><td class="">8,395.23</td></tr><tr><td class="">Nicolai Remberg</td><td class="lvl-lo">1.34</td><td class="lvl-hi">13</td><td class="lvl-hi">26</td><td class="">27,817.67</td><td class="lvl-mid">0.75</td><td class="">5,502.01</td></tr><tr><td class="">Albert Grønbæk</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">41,004.83</td><td class="lvl-lo">0.72</td><td class="">1,455.24</td></tr><tr><td class="">Alexander Røssing-Lelesiit</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">45,514.62</td><td class="lvl-lo">0.55</td><td class="">5,309.44</td></tr><tr><td class="">Bakery Jatta</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">70,657.17</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Bilal Nadir</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">57,371.7</td><td class="lvl-hi">1.12</td><td class="">17,550.03</td></tr><tr><td class="">Damion Downs</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Daniel Elfadli</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">David Möller Wolfe</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">34,227.83</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Emir Sahiti</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Fabio Baldé</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Fábio Vieira</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">54,721.65</td><td class="lvl-hi">1.23</td><td class="">10,970.47</td></tr><tr><td class="">Giorgi Gocholeishvili</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Immanuël Pherai</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">29,343.58</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Jean-Luc Dompé</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Jordan Torunarigha</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">62,511.48</td><td class="lvl-lo">0.61</td><td class="">4,629.27</td></tr><tr><td class="">Kofi Amoako</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">44,875.17</td><td class="lvl-hi">0.85</td><td class="">4,719.41</td></tr><tr><td class="">Luka Vušković</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Mario Vušković</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">21,752.17</td><td class="lvl-hi">0.89</td><td class="">11,924.34</td></tr><tr><td class="">Nicolás Capaldo</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">62,017.83</td><td class="lvl-lo">0.69</td><td class="">5,444.99</td></tr><tr><td class="">Noah Katterbach</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Omar Megeed</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Otto Stange</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">51,170.55</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Patson Daka</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">23,208.83</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Philip Otele</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Ransford Königsdörffer</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Rayan Philippe</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Robert Glatzel</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Sebastiaan Bornauw</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">13,230.5</td><td class="lvl-hi">0.93</td><td class="">12,277.9</td></tr><tr><td class="">Terem Moffi</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">22,275.67</td><td class="lvl-mid">0.82</td><td class="">1,680.96</td></tr><tr><td class="">Warmed Omari</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">24,300.83</td><td class="">—</td><td class="">—</td></tr><tr><td class="">William Mikelbrencis</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="lvl-hi">0</td><td class="">—</td><td class="">—</td></tr><tr><td class="">Yussuf Poulsen</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">31,900.23</td><td class="lvl-mid">0.82</td><td class="">7,298.79</td></tr><tr><td class="">Zakaria El Ouahdi</td><td class="">—</td><td class="">—</td><td class="">—</td><td class="">28,101.02</td><td class="">—</td><td class="">—</td></tr></tbody></table></div>
+<div class="prose-block"><ul><li>Converging signals: Adeline (extreme HSR + decel + elevated monotony 1.29), Nandja (highest 7-day load 92,816 AU + highest accel 22 + soreness 30). Muheim high HSR but low monotony 0.54 — well-distributed load.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Hambourg · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</article>
+  </main>
+
+  <script>
+    const charts = [{"id":"chart_1","title":"High-Speed Running (m) — 5-day total","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value","name":"m","nameTextStyle":{"color":"#64748b","fontSize":10}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"High speed running (absolute)","type":"bar","encode":{"x":"Player","y":"High speed running (absolute)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1034.333,"name":"Mean","label":{"formatter":"Mean 1,034.33","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","High speed running (absolute)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Hsr Zscore"],["Alexander Røssing-Lelesiit",2,980,9,27,null],["Bakery Jatta",2,700,9,9,null],["Nicolás Capaldo",4,778,10,19,null],["Miro Muheim",4,2044,13,20,null],["Nicolai Remberg",4,1343,13,26,null],["Shafiq Nandja",4,1540,22,19,null],["Martin Adeline",3,2227,5,39,null],["Sebastiaan Bornauw",4,1077,11,14,null],["Mario Vušković",3,704,3,7,null],["Bilal Nadir",4,847,13,19,null],["Fábio Vieira",2,691,6,7,null],["Yussuf Poulsen",4,1021,7,14,null],["Albert Sambi Lokonga",4,1417,7,9,null],["Terem Moffi",4,781,3,2,null],["Albert Grønbæk",3,36,0,0,null],["Kofi Amoako",3,1110,3,6,null],["Jordan Torunarigha",3,621,0,4,null],["Otto Stange",1,701,5,10,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_2","title":"High Accelerations Z6 (count) — 5-day total","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Accelerations zone 6 (relative)","type":"bar","encode":{"x":"Player","y":"Accelerations zone 6 (relative)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":7.722,"name":"Mean","label":{"formatter":"Mean 7.72","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","High speed running (absolute)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Accel Zscore"],["Alexander Røssing-Lelesiit",2,980,9,27,null],["Bakery Jatta",2,700,9,9,null],["Nicolás Capaldo",4,778,10,19,null],["Miro Muheim",4,2044,13,20,null],["Nicolai Remberg",4,1343,13,26,null],["Shafiq Nandja",4,1540,22,19,null],["Martin Adeline",3,2227,5,39,null],["Sebastiaan Bornauw",4,1077,11,14,null],["Mario Vušković",3,704,3,7,null],["Bilal Nadir",4,847,13,19,null],["Fábio Vieira",2,691,6,7,null],["Yussuf Poulsen",4,1021,7,14,null],["Albert Sambi Lokonga",4,1417,7,9,null],["Terem Moffi",4,781,3,2,null],["Albert Grønbæk",3,36,0,0,null],["Kofi Amoako",3,1110,3,6,null],["Jordan Torunarigha",3,621,0,4,null],["Otto Stange",1,701,5,10,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3","title":"High Decelerations Z6 (count) — 5-day total","option":{"legend":{"show":false},"grid":{"left":72,"right":72,"top":44,"containLabel":true,"bottom":56},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Decelerations zone 6 (relative)","type":"bar","encode":{"x":"Player","y":"Decelerations zone 6 (relative)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":13.944,"name":"Mean","label":{"formatter":"Mean 13.94","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","High speed running (absolute)","Accelerations zone 6 (relative)","Decelerations zone 6 (relative)","Decel Zscore"],["Alexander Røssing-Lelesiit",2,980,9,27,null],["Bakery Jatta",2,700,9,9,null],["Nicolás Capaldo",4,778,10,19,null],["Miro Muheim",4,2044,13,20,null],["Nicolai Remberg",4,1343,13,26,null],["Shafiq Nandja",4,1540,22,19,null],["Martin Adeline",3,2227,5,39,null],["Sebastiaan Bornauw",4,1077,11,14,null],["Mario Vušković",3,704,3,7,null],["Bilal Nadir",4,847,13,19,null],["Fábio Vieira",2,691,6,7,null],["Yussuf Poulsen",4,1021,7,14,null],["Albert Sambi Lokonga",4,1417,7,9,null],["Terem Moffi",4,781,3,2,null],["Albert Grønbæk",3,36,0,0,null],["Kofi Amoako",3,1110,3,6,null],["Jordan Torunarigha",3,621,0,4,null],["Otto Stange",1,701,5,10,null]]},"color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+    const boot = async () => {
+      const waitEcharts = () => new Promise((resolve) => {
+        if (window.echarts) return resolve(true);
+        let n = 0;
+        const t = setInterval(() => {
+          n += 1;
+          if (window.echarts || n > 60) { clearInterval(t); resolve(!!window.echarts); }
+        }, 100);
+      });
+      await waitEcharts();
+      for (const chart of charts) {
+        const el = document.getElementById(chart.id);
+        if (!el || !window.echarts) continue;
+        const instance = window.echarts.init(el, null, { renderer: 'canvas', width: el.clientWidth, height: el.clientHeight });
+        const option = {
+          animation: false,
+          backgroundColor: '#ffffff',
+          textStyle: { fontFamily: "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif", color: "#0f1220" },
+          color: ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"],
+          ...chart.option,
+        };
+        if (Array.isArray(option.series)) {
+          option.series = option.series.map((s) => {
+            if (!s || typeof s !== 'object') return s;
+            if (s.type === 'line' || s.type == null) {
+              return { ...s, showSymbol: false, symbol: 'none', symbolSize: 0 };
+            }
+            return s;
+          });
+        }
+        instance.setOption(option, true);
+        el.dataset.ready = '1';
+      }
+      document.documentElement.dataset.chartsReady = '1';
+    };
+    boot();
+  </script>
+</body>
+</html>

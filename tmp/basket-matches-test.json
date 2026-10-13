@@ -1,0 +1,4402 @@
+[
+  {
+    "id": 15935080,
+    "date": "2026-05-24T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBA",
+    "home": "Cleveland Cavaliers",
+    "away": "New York Knicks",
+    "homeScore": 108,
+    "awayScore": 121
+  },
+  {
+    "id": 15935074,
+    "date": "2026-05-25T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBA",
+    "home": "San Antonio Spurs",
+    "away": "Oklahoma City Thunder",
+    "homeScore": 103,
+    "awayScore": 82
+  },
+  {
+    "id": 15916338,
+    "date": "2026-05-24T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Euroleague",
+    "home": "Olympiacos BC",
+    "away": "Real Madrid",
+    "homeScore": 92,
+    "awayScore": 85
+  },
+  {
+    "id": 16206248,
+    "date": "2026-05-23T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Lega A Basket",
+    "home": "Pallacanestro Trieste",
+    "away": "Leonessa Brescia",
+    "homeScore": 83,
+    "awayScore": 77
+  },
+  {
+    "id": 16215231,
+    "date": "2026-05-24T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Lega A Basket",
+    "home": "Dolomiti Energia Trento",
+    "away": "Virtus Bologna",
+    "homeScore": 81,
+    "awayScore": 90
+  },
+  {
+    "id": 16221820,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Lega A Basket",
+    "home": "Bertram Derthona Tortona",
+    "away": "Umana Reyer Venezia",
+    "homeScore": 89,
+    "awayScore": 71
+  },
+  {
+    "id": 14491688,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga ACB",
+    "home": "Unicaja",
+    "away": "Río Breogán",
+    "homeScore": 101,
+    "awayScore": 83
+  },
+  {
+    "id": 14491679,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Postponed",
+    "tournament": "Liga ACB",
+    "home": "Barça Basket",
+    "away": "Valencia Basket",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 14491682,
+    "date": "2026-05-23T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga ACB",
+    "home": "Dreamland Gran Canaria",
+    "away": "Kids&Us Manresa",
+    "homeScore": 80,
+    "awayScore": 87
+  },
+  {
+    "id": 14491681,
+    "date": "2026-05-23T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga ACB",
+    "home": "Fundación CB Granada",
+    "away": "La Laguna Tenerife",
+    "homeScore": 96,
+    "awayScore": 109
+  },
+  {
+    "id": 14491686,
+    "date": "2026-05-24T10:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga ACB",
+    "home": "Surne Bilbao Basket",
+    "away": "Bàsquet Girona",
+    "homeScore": 86,
+    "awayScore": 80
+  },
+  {
+    "id": 14491680,
+    "date": "2026-05-24T10:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga ACB",
+    "home": "Casademont Zaragoza",
+    "away": "UCAM Murcia",
+    "homeScore": 90,
+    "awayScore": 100
+  },
+  {
+    "id": 14491683,
+    "date": "2026-05-24T10:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga ACB",
+    "home": "Força Lleida CE",
+    "away": "MoraBanc Andorra",
+    "homeScore": 88,
+    "awayScore": 116
+  },
+  {
+    "id": 14491684,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga ACB",
+    "home": "Joventut Badalona",
+    "away": "Hereda San Pablo Burgos",
+    "homeScore": 86,
+    "awayScore": 79
+  },
+  {
+    "id": 14491685,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Postponed",
+    "tournament": "Liga ACB",
+    "home": "Real Madrid",
+    "away": "Kosner Baskonia",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16182982,
+    "date": "2026-05-23T12:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Germany BBL",
+    "home": "Gladiators Trier",
+    "away": "Bayern München",
+    "homeScore": 62,
+    "awayScore": 99
+  },
+  {
+    "id": 16169594,
+    "date": "2026-05-23T14:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Germany BBL",
+    "home": "Ratiopharm Ulm",
+    "away": "Bamberg Baskets",
+    "homeScore": 87,
+    "awayScore": 96
+  },
+  {
+    "id": 16202304,
+    "date": "2026-05-24T14:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Germany BBL",
+    "home": "Fitness First Würzburg Baskets",
+    "away": "Telekom Baskets Bonn",
+    "homeScore": 82,
+    "awayScore": 70
+  },
+  {
+    "id": 16209222,
+    "date": "2026-05-24T16:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Germany BBL",
+    "home": "Rasta Vechta",
+    "away": "ALBA Berlin",
+    "homeScore": 79,
+    "awayScore": 85
+  },
+  {
+    "id": 16182500,
+    "date": "2026-05-23T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "VTB United League",
+    "home": "CSKA Moscow",
+    "away": "PBC Lokomotiv-Kuban",
+    "homeScore": 103,
+    "awayScore": 92
+  },
+  {
+    "id": 15415684,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "WNBA",
+    "home": "Chicago Sky",
+    "away": "Minnesota Lynx",
+    "homeScore": 75,
+    "awayScore": 85
+  },
+  {
+    "id": 15415685,
+    "date": "2026-05-23T22:00:00.000Z",
+    "status": "Ended",
+    "tournament": "WNBA",
+    "home": "Toronto Tempo",
+    "away": "Portland Fire",
+    "homeScore": 80,
+    "awayScore": 99
+  },
+  {
+    "id": 15415686,
+    "date": "2026-05-24T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "WNBA",
+    "home": "Las Vegas Aces",
+    "away": "Los Angeles Sparks",
+    "homeScore": 95,
+    "awayScore": 101
+  },
+  {
+    "id": 15415687,
+    "date": "2026-05-24T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "WNBA",
+    "home": "Atlanta Dream",
+    "away": "Phoenix Mercury",
+    "homeScore": 82,
+    "awayScore": 80
+  },
+  {
+    "id": 15415688,
+    "date": "2026-05-24T19:30:00.000Z",
+    "status": "Ended",
+    "tournament": "WNBA",
+    "home": "New York Liberty",
+    "away": "Dallas Wings",
+    "homeScore": 76,
+    "awayScore": 91
+  },
+  {
+    "id": 15415689,
+    "date": "2026-05-24T22:00:00.000Z",
+    "status": "Ended",
+    "tournament": "WNBA",
+    "home": "Seattle Storm",
+    "away": "Washington Mystics",
+    "homeScore": 97,
+    "awayScore": 85
+  },
+  {
+    "id": 14605524,
+    "date": "2026-05-23T17:45:00.000Z",
+    "status": "Ended",
+    "tournament": "Israeli Basketball Super League",
+    "home": "Maccabi Rishon",
+    "away": "Maccabi Raanana",
+    "homeScore": 93,
+    "awayScore": 78
+  },
+  {
+    "id": 16211627,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNB Élite",
+    "home": "SIG Strasbourg",
+    "away": "Élan Chalon",
+    "homeScore": 102,
+    "awayScore": 81
+  },
+  {
+    "id": 16415063,
+    "date": "2026-05-24T13:00:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 World Tour Shanghai",
+    "home": "Ulaanbaatar MMC Energy 3x3",
+    "away": "Hangzhou Jingwei 3x3",
+    "homeScore": 16,
+    "awayScore": 19
+  },
+  {
+    "id": 16415056,
+    "date": "2026-05-23T12:15:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 World Tour Shanghai",
+    "home": "Liman 3x3",
+    "away": "DeQing 3x3",
+    "homeScore": 18,
+    "awayScore": 21
+  },
+  {
+    "id": 16415057,
+    "date": "2026-05-24T09:00:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 World Tour Shanghai",
+    "home": "Liman 3x3",
+    "away": "Ulaanbaatar MMC Energy 3x3",
+    "homeScore": 13,
+    "awayScore": 16
+  },
+  {
+    "id": 16415058,
+    "date": "2026-05-24T09:30:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 World Tour Shanghai",
+    "home": "Shanghai 3x3",
+    "away": "Sansar M Bank 3x3",
+    "homeScore": 21,
+    "awayScore": 8
+  },
+  {
+    "id": 16415059,
+    "date": "2026-05-24T10:00:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 World Tour Shanghai",
+    "home": "Hangzhou Jingwei 3x3",
+    "away": "Baskets Bonn 3x3",
+    "homeScore": 16,
+    "awayScore": 15
+  },
+  {
+    "id": 16415060,
+    "date": "2026-05-24T10:30:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 World Tour Shanghai",
+    "home": "Antwerp 3x3",
+    "away": "Crvena Zvezda 3x3",
+    "homeScore": 15,
+    "awayScore": 22
+  },
+  {
+    "id": 16415061,
+    "date": "2026-05-24T11:30:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 World Tour Shanghai",
+    "home": "Ulaanbaatar MMC Energy 3x3",
+    "away": "Shanghai 3x3",
+    "homeScore": 14,
+    "awayScore": 12
+  },
+  {
+    "id": 16415062,
+    "date": "2026-05-24T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 World Tour Shanghai",
+    "home": "Hangzhou Jingwei 3x3",
+    "away": "Crvena Zvezda 3x3",
+    "homeScore": 21,
+    "awayScore": 12
+  },
+  {
+    "id": 16415097,
+    "date": "2026-05-23T19:15:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 Challenger Hamburg",
+    "home": "Amsterdam RABOBANK 3x3",
+    "away": "Toulouse 3x3",
+    "homeScore": 21,
+    "awayScore": 16
+  },
+  {
+    "id": 16415091,
+    "date": "2026-05-23T14:45:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 Challenger Hamburg",
+    "home": "Amsterdam RABOBANK 3x3",
+    "away": "Toronto 3x3",
+    "homeScore": 21,
+    "awayScore": 17
+  },
+  {
+    "id": 16415092,
+    "date": "2026-05-23T15:15:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 Challenger Hamburg",
+    "home": "Fuengirola 3x3",
+    "away": "Bochum SPARKASSE 3x3",
+    "homeScore": 21,
+    "awayScore": 19
+  },
+  {
+    "id": 16415093,
+    "date": "2026-05-23T16:15:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 Challenger Hamburg",
+    "home": "Toulouse 3x3",
+    "away": "Barcelona 3x3",
+    "homeScore": 21,
+    "awayScore": 13
+  },
+  {
+    "id": 16415094,
+    "date": "2026-05-23T16:45:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 Challenger Hamburg",
+    "home": "Aachen DER STAMM 3x3",
+    "away": "Los Angeles 3x3",
+    "homeScore": 20,
+    "awayScore": 14
+  },
+  {
+    "id": 16415095,
+    "date": "2026-05-23T17:45:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 Challenger Hamburg",
+    "home": "Amsterdam RABOBANK 3x3",
+    "away": "Fuengirola 3x3",
+    "homeScore": 21,
+    "awayScore": 14
+  },
+  {
+    "id": 16415096,
+    "date": "2026-05-23T18:15:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA 3x3 Challenger Hamburg",
+    "home": "Toulouse 3x3",
+    "away": "Aachen DER STAMM 3x3",
+    "homeScore": 21,
+    "awayScore": 17
+  },
+  {
+    "id": 16209957,
+    "date": "2026-05-23T14:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Argentina Liga Nacional",
+    "home": "Quimsa Santiago del Estero",
+    "away": "Boca Juniors",
+    "homeScore": 88,
+    "awayScore": 76
+  },
+  {
+    "id": 16209959,
+    "date": "2026-05-23T23:05:00.000Z",
+    "status": "Ended",
+    "tournament": "Argentina Liga Nacional",
+    "home": "Gimnasia Comodoro Rivadavia",
+    "away": "Ferro Carril Oeste",
+    "homeScore": 81,
+    "awayScore": 77
+  },
+  {
+    "id": 16217700,
+    "date": "2026-05-23T20:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga Femenina",
+    "home": "Obras Sanitarias",
+    "away": "Ferro Carril Oeste",
+    "homeScore": 69,
+    "awayScore": 75
+  },
+  {
+    "id": 15656766,
+    "date": "2026-05-24T04:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Big V",
+    "home": "Bellarine",
+    "away": "Hume City Broncos",
+    "homeScore": 91,
+    "awayScore": 95
+  },
+  {
+    "id": 15656765,
+    "date": "2026-05-24T04:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Big V",
+    "home": "Camberwell Dragons",
+    "away": "Sunbury Jets",
+    "homeScore": 74,
+    "awayScore": 86
+  },
+  {
+    "id": 15656764,
+    "date": "2026-05-24T04:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Big V",
+    "home": "Mckinnon Cougars",
+    "away": "Pakenham",
+    "homeScore": 75,
+    "awayScore": 93
+  },
+  {
+    "id": 15656898,
+    "date": "2026-05-24T02:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Big V, Women",
+    "home": "Mckinnon Cougars",
+    "away": "Pakenham",
+    "homeScore": 95,
+    "awayScore": 69
+  },
+  {
+    "id": 15656899,
+    "date": "2026-05-24T03:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Big V, Women",
+    "home": "Bulleen Boomers",
+    "away": "Sunbury Jets",
+    "homeScore": 81,
+    "awayScore": 77
+  },
+  {
+    "id": 15347438,
+    "date": "2026-05-24T04:30:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, North",
+    "home": "North Gold Coast Seahawks",
+    "away": "Rockhampton Rockets",
+    "homeScore": 78,
+    "awayScore": 104
+  },
+  {
+    "id": 15347439,
+    "date": "2026-05-24T06:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, North",
+    "home": "Sunshine Coast Phoenix",
+    "away": "Ipswich Force",
+    "homeScore": 123,
+    "awayScore": 88
+  },
+  {
+    "id": 15347937,
+    "date": "2026-05-24T05:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, East",
+    "home": "Basketball Australia CoE",
+    "away": "Hornsby Spiders",
+    "homeScore": 70,
+    "awayScore": 60
+  },
+  {
+    "id": 15347938,
+    "date": "2026-05-24T05:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, East",
+    "home": "Maitland Mustangs",
+    "away": "Manly Warringah Sea Eagles",
+    "homeScore": 85,
+    "awayScore": 61
+  },
+  {
+    "id": 15347939,
+    "date": "2026-05-24T05:30:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, East",
+    "home": "Inner West Bulls",
+    "away": "Albury Wodonga Bandits",
+    "homeScore": 80,
+    "awayScore": 98
+  },
+  {
+    "id": 15347940,
+    "date": "2026-05-24T06:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, East",
+    "home": "Central Coast Crusaders",
+    "away": "Penrith Panthers",
+    "homeScore": 89,
+    "awayScore": 83
+  },
+  {
+    "id": 15346705,
+    "date": "2026-05-23T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, West",
+    "home": "Goldfields Giants",
+    "away": "Eastern Suns",
+    "homeScore": 79,
+    "awayScore": 76
+  },
+  {
+    "id": 15346706,
+    "date": "2026-05-23T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, West",
+    "home": "Rockingham Flames",
+    "away": "Warwick Senators",
+    "homeScore": 100,
+    "awayScore": 68
+  },
+  {
+    "id": 15346707,
+    "date": "2026-05-24T06:00:00.000Z",
+    "status": "AET",
+    "tournament": "NBL1, West",
+    "home": "Lakeside Lightning",
+    "away": "Geraldton Buccaneers",
+    "homeScore": 100,
+    "awayScore": 102
+  },
+  {
+    "id": 15347287,
+    "date": "2026-05-24T04:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, South",
+    "home": "Ballarat Miners",
+    "away": "Hobart Chargers",
+    "homeScore": 110,
+    "awayScore": 114
+  },
+  {
+    "id": 15347288,
+    "date": "2026-05-24T04:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, South",
+    "home": "Diamond Valley Eagles",
+    "away": "Bendigo Braves",
+    "homeScore": 90,
+    "awayScore": 75
+  },
+  {
+    "id": 15347289,
+    "date": "2026-05-24T04:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, South",
+    "home": "Keilor Thunder",
+    "away": "Dandenong Rangers",
+    "homeScore": 94,
+    "awayScore": 79
+  },
+  {
+    "id": 15347290,
+    "date": "2026-05-24T04:30:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, South",
+    "home": "Frankston Blues",
+    "away": "Northern Force",
+    "homeScore": 96,
+    "awayScore": 85
+  },
+  {
+    "id": 15347291,
+    "date": "2026-05-24T04:30:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, South",
+    "home": "Sandringham Sabres",
+    "away": "Kilsyth Cobras",
+    "homeScore": 110,
+    "awayScore": 64
+  },
+  {
+    "id": 15347292,
+    "date": "2026-05-24T05:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1, South",
+    "home": "Waverley Falcons",
+    "away": "Geelong Supercats",
+    "homeScore": 88,
+    "awayScore": 99
+  },
+  {
+    "id": 15347551,
+    "date": "2026-05-24T02:30:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1 Women, North",
+    "home": "North Gold Coast Seahawks",
+    "away": "Rockhampton Cyclones",
+    "homeScore": 95,
+    "awayScore": 78
+  },
+  {
+    "id": 15347552,
+    "date": "2026-05-24T04:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1 Women, North",
+    "home": "Sunshine Coast Phoenix",
+    "away": "Ipswich Force",
+    "homeScore": 78,
+    "awayScore": 74
+  },
+  {
+    "id": 15348102,
+    "date": "2026-05-24T03:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1 Women, East",
+    "home": "Basketball Australia CoE",
+    "away": "Hornsby Spiders",
+    "homeScore": 79,
+    "awayScore": 90
+  },
+  {
+    "id": 15348103,
+    "date": "2026-05-24T03:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1 Women, East",
+    "home": "Maitland Mustangs",
+    "away": "Manly Warringah Sea Eagles",
+    "homeScore": 61,
+    "awayScore": 71
+  },
+  {
+    "id": 15348104,
+    "date": "2026-05-24T03:30:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1 Women, East",
+    "home": "Inner West Bulls",
+    "away": "Albury Wodonga Bandits",
+    "homeScore": 62,
+    "awayScore": 79
+  },
+  {
+    "id": 15348105,
+    "date": "2026-05-24T04:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1 Women, East",
+    "home": "Central Coast Crusaders",
+    "away": "Penrith Panthers",
+    "homeScore": 71,
+    "awayScore": 59
+  },
+  {
+    "id": 15347748,
+    "date": "2026-05-24T01:55:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1 Women, South",
+    "home": "Ballarat Miners",
+    "away": "Hobart Chargers",
+    "homeScore": 94,
+    "awayScore": 98
+  },
+  {
+    "id": 15347749,
+    "date": "2026-05-24T02:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1 Women, South",
+    "home": "Diamond Valley Eagles",
+    "away": "Bendigo Braves",
+    "homeScore": 109,
+    "awayScore": 93
+  },
+  {
+    "id": 15347750,
+    "date": "2026-05-24T02:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1 Women, South",
+    "home": "Keilor Thunder",
+    "away": "Dandenong Rangers",
+    "homeScore": 90,
+    "awayScore": 95
+  },
+  {
+    "id": 15347751,
+    "date": "2026-05-24T02:30:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1 Women, South",
+    "home": "Frankston Blues",
+    "away": "Northern Force",
+    "homeScore": 68,
+    "awayScore": 72
+  },
+  {
+    "id": 15347752,
+    "date": "2026-05-24T02:30:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1 Women, South",
+    "home": "Sandringham Sabres",
+    "away": "Kilsyth Cobras",
+    "homeScore": 79,
+    "awayScore": 73
+  },
+  {
+    "id": 15347753,
+    "date": "2026-05-24T03:00:00.000Z",
+    "status": "Ended",
+    "tournament": "NBL1 Women, South",
+    "home": "Waverley Falcons",
+    "away": "Geelong United",
+    "homeScore": 72,
+    "awayScore": 67
+  },
+  {
+    "id": 16206663,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Austrian Basketball Superliga",
+    "home": "Kapfenberg Bulls",
+    "away": "Oberwart Gunners",
+    "homeScore": 72,
+    "awayScore": 77
+  },
+  {
+    "id": 16207182,
+    "date": "2026-05-24T13:00:00.000Z",
+    "status": "Ended",
+    "tournament": "BNXT National Playoffs, Belgium",
+    "home": "Hubo Limburg United",
+    "away": "Windrose Giants Antwerp",
+    "homeScore": 87,
+    "awayScore": 74
+  },
+  {
+    "id": 16207186,
+    "date": "2026-05-24T18:30:00.000Z",
+    "status": "Ended",
+    "tournament": "BNXT National Playoffs, Belgium",
+    "home": "Partena Professional Okapi Aalst",
+    "away": "BC Oostende",
+    "homeScore": 101,
+    "awayScore": 97
+  },
+  {
+    "id": 16061994,
+    "date": "2026-05-24T03:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Belize Elite Basketball League",
+    "home": "Belmopan Trojans",
+    "away": "EZ Investments Griga Dream Ballers",
+    "homeScore": 79,
+    "awayScore": 88
+  },
+  {
+    "id": 16217425,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "1st Division",
+    "home": "OKK Sloboda Tuzla",
+    "away": "KK Bosna",
+    "homeScore": 66,
+    "awayScore": 73
+  },
+  {
+    "id": 16219387,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "1st Division",
+    "home": "HKK Široki",
+    "away": "Igokea m:tel",
+    "homeScore": 87,
+    "awayScore": 107
+  },
+  {
+    "id": 16189444,
+    "date": "2026-05-23T21:10:00.000Z",
+    "status": "AET",
+    "tournament": "Brazil NBB",
+    "home": "Corinthians",
+    "away": "EC Pinheiros",
+    "homeScore": 81,
+    "awayScore": 82
+  },
+  {
+    "id": 16214762,
+    "date": "2026-05-23T22:45:00.000Z",
+    "status": "Ended",
+    "tournament": "Brazil NBB",
+    "home": "Caixa Brasilia Basquete",
+    "away": "Sesi Franca Basquete",
+    "homeScore": 74,
+    "awayScore": 91
+  },
+  {
+    "id": 16650042,
+    "date": "2026-05-24T21:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Copa São Paulo",
+    "home": "BT/Tatuí",
+    "away": "Liga Sorocabana",
+    "homeScore": 37,
+    "awayScore": 67
+  },
+  {
+    "id": 16650040,
+    "date": "2026-05-24T22:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Copa São Paulo",
+    "home": "Basquete Assis",
+    "away": "Corinthians U22",
+    "homeScore": 81,
+    "awayScore": 63
+  },
+  {
+    "id": 16650056,
+    "date": "2026-05-23T21:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Copa São Paulo",
+    "home": "FR Avaré",
+    "away": "AA São Caetano",
+    "homeScore": 61,
+    "awayScore": 83
+  },
+  {
+    "id": 16193085,
+    "date": "2026-05-23T17:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Copa LBF",
+    "home": "Unimed Campinas Basquete",
+    "away": "SESI Araraquara",
+    "homeScore": 62,
+    "awayScore": 66
+  },
+  {
+    "id": 16193086,
+    "date": "2026-05-23T20:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Copa LBF",
+    "home": "Santo André/APABA",
+    "away": "Sampaio Corrêa",
+    "homeScore": 45,
+    "awayScore": 73
+  },
+  {
+    "id": 16260061,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Copa LBF",
+    "home": "Santo André/APABA",
+    "away": "Unimed Campinas Basquete",
+    "homeScore": 53,
+    "awayScore": 71
+  },
+  {
+    "id": 16260060,
+    "date": "2026-05-24T20:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Copa LBF",
+    "home": "Sampaio Corrêa",
+    "away": "SESI Araraquara",
+    "homeScore": 56,
+    "awayScore": 42
+  },
+  {
+    "id": 16065664,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LSB - Liga B",
+    "home": "Cestou Basquete B",
+    "away": "Abasca",
+    "homeScore": 67,
+    "awayScore": 57
+  },
+  {
+    "id": 16060919,
+    "date": "2026-05-24T17:30:00.000Z",
+    "status": "Ended",
+    "tournament": "LSB - Liga B",
+    "home": "Garra Basketball B",
+    "away": "The Tigers",
+    "homeScore": 36,
+    "awayScore": 27
+  },
+  {
+    "id": 16067323,
+    "date": "2026-05-24T19:30:00.000Z",
+    "status": "Ended",
+    "tournament": "LSB - Liga B",
+    "home": "KEsportes",
+    "away": "NBC",
+    "homeScore": 61,
+    "awayScore": 79
+  },
+  {
+    "id": 16059220,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LSB - Estadual Amador",
+    "home": "Jacarepagua Tenis Clube",
+    "away": "SC Anchieta Fears",
+    "homeScore": 40,
+    "awayScore": 67
+  },
+  {
+    "id": 16064660,
+    "date": "2026-05-24T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LSB - Estadual Amador",
+    "home": "Eagles Gold",
+    "away": "3 Rios",
+    "homeScore": 62,
+    "awayScore": 50
+  },
+  {
+    "id": 16201301,
+    "date": "2026-05-24T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LSB - Estadual Amador",
+    "home": "Cestou Basquete",
+    "away": "RJ Sharks",
+    "homeScore": 59,
+    "awayScore": 53
+  },
+  {
+    "id": 16222351,
+    "date": "2026-05-23T13:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Caxangá Golf U17",
+    "away": "Nosso Clube U17",
+    "homeScore": 42,
+    "awayScore": 60
+  },
+  {
+    "id": 16222348,
+    "date": "2026-05-23T13:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Mackenzie EC U17",
+    "away": "Desportivo U17",
+    "homeScore": 62,
+    "awayScore": 77
+  },
+  {
+    "id": 16222347,
+    "date": "2026-05-23T13:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "SR Mampituba U17",
+    "away": "Basket Joaçaba U17",
+    "homeScore": 46,
+    "awayScore": 33
+  },
+  {
+    "id": 16222349,
+    "date": "2026-05-23T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "LDPG Ponta Grossa U17",
+    "away": "Pato Basquete U17",
+    "homeScore": 51,
+    "awayScore": 63
+  },
+  {
+    "id": 16222418,
+    "date": "2026-05-23T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Palmeiras U17",
+    "away": "EC Ginástico U17",
+    "homeScore": 69,
+    "awayScore": 42
+  },
+  {
+    "id": 16222419,
+    "date": "2026-05-23T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Unifacisa U17",
+    "away": "Sojão Basquete U17",
+    "homeScore": 58,
+    "awayScore": 47
+  },
+  {
+    "id": 16222421,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Apagebask U17",
+    "away": "Centro Olímpico U17",
+    "homeScore": 69,
+    "awayScore": 86
+  },
+  {
+    "id": 16222420,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Clube Círculo Militar U17",
+    "away": "Contagem Towers U17",
+    "homeScore": 53,
+    "awayScore": 46
+  },
+  {
+    "id": 16222422,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Xaxim U17",
+    "away": "Sport Recife U17",
+    "homeScore": 65,
+    "awayScore": 53
+  },
+  {
+    "id": 16222423,
+    "date": "2026-05-23T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Aeroclube U17",
+    "away": "ASSEJUF U17",
+    "homeScore": 55,
+    "awayScore": 45
+  },
+  {
+    "id": 16222424,
+    "date": "2026-05-23T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Sociedade Hípica de Campinas U17",
+    "away": "AJAB U17",
+    "homeScore": 56,
+    "awayScore": 65
+  },
+  {
+    "id": 16222425,
+    "date": "2026-05-23T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Sociedade Thalia U17",
+    "away": "Foz Basquete U17",
+    "homeScore": 53,
+    "awayScore": 63
+  },
+  {
+    "id": 16222426,
+    "date": "2026-05-23T21:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Mogi Basquete U17",
+    "away": "Olympico Club U17",
+    "homeScore": 54,
+    "awayScore": 50
+  },
+  {
+    "id": 16222803,
+    "date": "2026-05-23T12:30:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "BNB Fortaleza U17",
+    "away": "Clube Vizinhança U17",
+    "homeScore": 88,
+    "awayScore": 56
+  },
+  {
+    "id": 16222798,
+    "date": "2026-05-23T12:30:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Filadélfia Basquete U17",
+    "away": "Moveon Basket U17",
+    "homeScore": 72,
+    "awayScore": 58
+  },
+  {
+    "id": 16222802,
+    "date": "2026-05-23T14:15:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Clube de Engenharia U17",
+    "away": "BC Basketball U17",
+    "homeScore": 50,
+    "awayScore": 55
+  },
+  {
+    "id": 16222800,
+    "date": "2026-05-23T14:15:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Saldanha da Gama U17",
+    "away": "Niterói BC U17",
+    "homeScore": 49,
+    "awayScore": 55
+  },
+  {
+    "id": 16222799,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "AEJC U17",
+    "away": "Cerrado Basquete U17",
+    "homeScore": 67,
+    "awayScore": 43
+  },
+  {
+    "id": 16222801,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Sorriso Hornets U17",
+    "away": "APVE Londrina U17",
+    "homeScore": 68,
+    "awayScore": 72
+  },
+  {
+    "id": 16222791,
+    "date": "2026-05-23T17:45:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Clube Álvares Cabral U17",
+    "away": "Remo U17",
+    "homeScore": 69,
+    "awayScore": 61
+  },
+  {
+    "id": 16222794,
+    "date": "2026-05-23T17:45:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Recreio da Juventude U17",
+    "away": "Brasília Basquete U17",
+    "homeScore": 72,
+    "awayScore": 70
+  },
+  {
+    "id": 16222792,
+    "date": "2026-05-23T19:30:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Instituto Viva Vida U17",
+    "away": "Grêmio Náutico União U17",
+    "homeScore": 59,
+    "awayScore": 48
+  },
+  {
+    "id": 16222793,
+    "date": "2026-05-23T19:30:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "União Corinthians U17",
+    "away": "SOGIPA U17",
+    "homeScore": 72,
+    "awayScore": 58
+  },
+  {
+    "id": 16222795,
+    "date": "2026-05-23T21:15:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "São Bernardo U17",
+    "away": "Assembleia Paraense U17",
+    "homeScore": 80,
+    "awayScore": 74
+  },
+  {
+    "id": 16222797,
+    "date": "2026-05-23T21:15:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Tijuca TC U17",
+    "away": "Clube Hebraica U17",
+    "homeScore": 72,
+    "awayScore": 66
+  },
+  {
+    "id": 16222804,
+    "date": "2026-05-23T23:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Campo Grande U17",
+    "away": "CEAT U17",
+    "homeScore": 45,
+    "awayScore": 76
+  },
+  {
+    "id": 16222790,
+    "date": "2026-05-23T23:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CBI U17",
+    "home": "Fluminense U17",
+    "away": "Botafogo U17",
+    "homeScore": 48,
+    "awayScore": 62
+  },
+  {
+    "id": 15686996,
+    "date": "2026-05-23T20:00:00.000Z",
+    "status": "Ended",
+    "tournament": "U20 Paulista",
+    "home": "FR Marília U20",
+    "away": "Mogi das Cruzes U20",
+    "homeScore": 61,
+    "awayScore": 73
+  },
+  {
+    "id": 16659694,
+    "date": "2026-05-23T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "U18 Paulista",
+    "home": "Sesi Franca Basquete U18",
+    "away": "Monte Líbano Rio Preto U18",
+    "homeScore": 101,
+    "awayScore": 38
+  },
+  {
+    "id": 16659691,
+    "date": "2026-05-23T20:00:00.000Z",
+    "status": "Ended",
+    "tournament": "U18 Paulista",
+    "home": "AJABASK U18",
+    "away": "Semelp Pindamonhangaba U18",
+    "homeScore": 38,
+    "awayScore": 67
+  },
+  {
+    "id": 16659738,
+    "date": "2026-05-24T23:00:00.000Z",
+    "status": "Ended",
+    "tournament": "U18 Paulista",
+    "home": "FR Jandira U18",
+    "away": "Mogi das Cruzes U18",
+    "homeScore": 38,
+    "awayScore": 99
+  },
+  {
+    "id": 17194416,
+    "date": "2026-05-23T13:30:00.000Z",
+    "status": "Ended",
+    "tournament": "U15 Catarinense",
+    "home": "CBC U15",
+    "away": "ACAMB U15",
+    "homeScore": 69,
+    "awayScore": 20
+  },
+  {
+    "id": 17195222,
+    "date": "2026-05-23T13:30:00.000Z",
+    "status": "Ended",
+    "tournament": "U15 Catarinense",
+    "home": "NBI U15",
+    "away": "IBBC U15",
+    "homeScore": 73,
+    "awayScore": 35
+  },
+  {
+    "id": 17197649,
+    "date": "2026-05-23T18:30:00.000Z",
+    "status": "Ended",
+    "tournament": "U17 Catarinense",
+    "home": "ADIEE U17",
+    "away": "Gaspar U17",
+    "homeScore": 140,
+    "awayScore": 27
+  },
+  {
+    "id": 17198320,
+    "date": "2026-05-23T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "U13 Catarinense",
+    "home": "CBC U13",
+    "away": "ABASMO U13",
+    "homeScore": 16,
+    "awayScore": 102
+  },
+  {
+    "id": 17198149,
+    "date": "2026-05-23T16:30:00.000Z",
+    "status": "Ended",
+    "tournament": "U13 Catarinense",
+    "home": "ABASMO U13",
+    "away": "ACAMB U13",
+    "homeScore": 83,
+    "awayScore": 41
+  },
+  {
+    "id": 17198150,
+    "date": "2026-05-23T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "U13 Catarinense",
+    "home": "CBC U13",
+    "away": "ACAMB U13",
+    "homeScore": 34,
+    "awayScore": 65
+  },
+  {
+    "id": 17198165,
+    "date": "2026-05-23T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "U13 Catarinense",
+    "home": "APABLA U13",
+    "away": "ABAVI U13",
+    "homeScore": 31,
+    "awayScore": 71
+  },
+  {
+    "id": 17198166,
+    "date": "2026-05-23T16:30:00.000Z",
+    "status": "Ended",
+    "tournament": "U13 Catarinense",
+    "home": "ABAVI U13",
+    "away": "APAB Porto União U13",
+    "homeScore": 43,
+    "awayScore": 96
+  },
+  {
+    "id": 17198167,
+    "date": "2026-05-23T19:30:00.000Z",
+    "status": "Ended",
+    "tournament": "U13 Catarinense",
+    "home": "APABLA U13",
+    "away": "APAB Porto União U13",
+    "homeScore": 29,
+    "awayScore": 90
+  },
+  {
+    "id": 17198286,
+    "date": "2026-05-23T22:00:00.000Z",
+    "status": "Ended",
+    "tournament": "U13 Catarinense",
+    "home": "Instituto MF U13",
+    "away": "IBBC U13",
+    "homeScore": 64,
+    "awayScore": 45
+  },
+  {
+    "id": 17198287,
+    "date": "2026-05-24T13:00:00.000Z",
+    "status": "Ended",
+    "tournament": "U13 Catarinense",
+    "home": "Dinâmica U13",
+    "away": "OMDA U13",
+    "homeScore": 37,
+    "awayScore": 65
+  },
+  {
+    "id": 17273660,
+    "date": "2026-05-23T16:30:00.000Z",
+    "status": "Ended",
+    "tournament": "U20 Catarinense",
+    "home": "AD Brusque U20",
+    "away": "Joinville U20",
+    "homeScore": 57,
+    "awayScore": 56
+  },
+  {
+    "id": 16217699,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Bulgaria NBL",
+    "home": "BC Rilski Sportist",
+    "away": "Cherno More Ticha",
+    "homeScore": 108,
+    "awayScore": 99
+  },
+  {
+    "id": 15395154,
+    "date": "2026-05-23T23:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CEBL",
+    "home": "Ottawa Blackjacks",
+    "away": "Montreal Alliance",
+    "homeScore": 87,
+    "awayScore": 96
+  },
+  {
+    "id": 15395155,
+    "date": "2026-05-24T22:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CEBL",
+    "home": "Edmonton Stingers",
+    "away": "Niagara River Lions",
+    "homeScore": 99,
+    "awayScore": 101
+  },
+  {
+    "id": 15395156,
+    "date": "2026-05-25T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "CEBL",
+    "home": "Vancouver Bandits",
+    "away": "Calgary Surge",
+    "homeScore": 111,
+    "awayScore": 101
+  },
+  {
+    "id": 16194307,
+    "date": "2026-05-23T23:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Chile LNB",
+    "home": "Leones de Quilpué",
+    "away": "CD Puente Alto",
+    "homeScore": 89,
+    "awayScore": 81
+  },
+  {
+    "id": 16194308,
+    "date": "2026-05-24T00:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Chile LNB",
+    "home": "Puerto Varas Basket",
+    "away": "CD Las Ánimas",
+    "homeScore": 79,
+    "awayScore": 72
+  },
+  {
+    "id": 16639536,
+    "date": "2026-05-23T21:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNB 2",
+    "home": "CD Hrvatski Sokol Antofagasta",
+    "away": "CD Arturo Prat San Felipe",
+    "homeScore": 85,
+    "awayScore": 76
+  },
+  {
+    "id": 16639535,
+    "date": "2026-05-23T21:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNB 2",
+    "home": "Quilpué Básquetbol",
+    "away": "Sportiva Italiana",
+    "homeScore": 59,
+    "awayScore": 73
+  },
+  {
+    "id": 16639539,
+    "date": "2026-05-23T22:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNB 2",
+    "home": "CD Municipal Chillán",
+    "away": "CD Alemán de Concepción",
+    "homeScore": 65,
+    "awayScore": 109
+  },
+  {
+    "id": 16639538,
+    "date": "2026-05-23T22:00:00.000Z",
+    "status": "AET",
+    "tournament": "LNB 2",
+    "home": "San Luis Basquet",
+    "away": "CD Sergio Ceppi",
+    "homeScore": 91,
+    "awayScore": 90
+  },
+  {
+    "id": 16639540,
+    "date": "2026-05-23T23:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNB 2",
+    "home": "CD Huachipato",
+    "away": "CD Escolar Aleman PV",
+    "homeScore": 65,
+    "awayScore": 56
+  },
+  {
+    "id": 16639543,
+    "date": "2026-05-23T23:00:00.000Z",
+    "status": "AET",
+    "tournament": "LNB 2",
+    "home": "Liceo de Curicó",
+    "away": "Villa Alemana Basquet",
+    "homeScore": 99,
+    "awayScore": 92
+  },
+  {
+    "id": 16639541,
+    "date": "2026-05-24T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNB 2",
+    "home": "CD Arabe de Valparaiso",
+    "away": "CD Illapel Basquetbol",
+    "homeScore": 64,
+    "awayScore": 71
+  },
+  {
+    "id": 16639545,
+    "date": "2026-05-24T20:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNB 2",
+    "home": "CD Humboldt",
+    "away": "The Sharks",
+    "homeScore": 79,
+    "awayScore": 65
+  },
+  {
+    "id": 16639546,
+    "date": "2026-05-24T21:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNB 2",
+    "home": "Villa Alemana Basquet",
+    "away": "Liceo de Curicó",
+    "homeScore": 84,
+    "awayScore": 73
+  },
+  {
+    "id": 16639585,
+    "date": "2026-05-24T23:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNB 2",
+    "home": "Truenos de Talca",
+    "away": "CDS Básquetbol Constitución",
+    "homeScore": 60,
+    "awayScore": 53
+  },
+  {
+    "id": 16639587,
+    "date": "2026-05-25T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNB 2",
+    "home": "Cdb La Union",
+    "away": "CD Omega",
+    "homeScore": 60,
+    "awayScore": 68
+  },
+  {
+    "id": 16215841,
+    "date": "2026-05-23T20:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga Nacional Femenina Chile",
+    "home": "Azul y Rojo",
+    "away": "CD Gimnástico",
+    "homeScore": 62,
+    "awayScore": 73
+  },
+  {
+    "id": 16215840,
+    "date": "2026-05-24T00:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga Nacional Femenina Chile",
+    "home": "CD Sergio Ceppi",
+    "away": "Colegio Los Leones Quilpe",
+    "homeScore": 38,
+    "awayScore": 70
+  },
+  {
+    "id": 16215842,
+    "date": "2026-05-24T20:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga Nacional Femenina Chile",
+    "home": "CD Universitario Concepcion",
+    "away": "Sportiva Italiana",
+    "homeScore": 66,
+    "awayScore": 71
+  },
+  {
+    "id": 16215843,
+    "date": "2026-05-24T23:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga Nacional Femenina Chile",
+    "home": "Colegio Los Leones Quilpe",
+    "away": "Azul y Rojo",
+    "homeScore": 89,
+    "awayScore": 46
+  },
+  {
+    "id": 16215845,
+    "date": "2026-05-25T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga Nacional Femenina Chile",
+    "home": "CD Gimnástico",
+    "away": "CD Sergio Ceppi",
+    "homeScore": 79,
+    "awayScore": 42
+  },
+  {
+    "id": 16215844,
+    "date": "2026-05-25T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga Nacional Femenina Chile",
+    "home": "Santiago Morning Quilicura",
+    "away": "Municipal Puente Alto",
+    "homeScore": 47,
+    "awayScore": 80
+  },
+  {
+    "id": 16195830,
+    "date": "2026-05-24T09:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Chinese Taipei TPBL",
+    "home": "Formosa Dreamers",
+    "away": "New Taipei Kings",
+    "homeScore": 90,
+    "awayScore": 91
+  },
+  {
+    "id": 16216549,
+    "date": "2026-05-23T22:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Colombia LPB",
+    "home": "Toros Del Valle",
+    "away": "Piratas de Bogotá",
+    "homeScore": 102,
+    "awayScore": 72
+  },
+  {
+    "id": 16216547,
+    "date": "2026-05-24T20:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Colombia LPB",
+    "home": "Toros Del Valle",
+    "away": "Piratas de Bogotá",
+    "homeScore": 90,
+    "awayScore": 81
+  },
+  {
+    "id": 16200463,
+    "date": "2026-05-24T13:30:00.000Z",
+    "status": "Ended",
+    "tournament": "3. Juniorska Liga U18 KSZ (M)",
+    "home": "KK Dugo Selo U18",
+    "away": "KK Podsused U18",
+    "homeScore": 70,
+    "awayScore": 96
+  },
+  {
+    "id": 16200465,
+    "date": "2026-05-24T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "3. Juniorska Liga U18 KSZ (M)",
+    "home": "KK Fortuna Zaprešić U18",
+    "away": "KK Roling U18",
+    "homeScore": 64,
+    "awayScore": 76
+  },
+  {
+    "id": 16200470,
+    "date": "2026-05-24T10:45:00.000Z",
+    "status": "Ended",
+    "tournament": "4.  Juniorska Liga U18 KSZ (M)",
+    "home": "KK Duga Resa U18",
+    "away": "KK Petrinja U18",
+    "homeScore": 78,
+    "awayScore": 68
+  },
+  {
+    "id": 16200471,
+    "date": "2026-05-24T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "4.  Juniorska Liga U18 KSZ (M)",
+    "home": "KK Pešća U18",
+    "away": "KK Dinamo Zagreb II U18",
+    "homeScore": 49,
+    "awayScore": 79
+  },
+  {
+    "id": 16200472,
+    "date": "2026-05-24T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "4.  Juniorska Liga U18 KSZ (M)",
+    "home": "KK Glina U18",
+    "away": "KK Zrinjevac Zagreb 1937 U18",
+    "homeScore": 35,
+    "awayScore": 104
+  },
+  {
+    "id": 16200928,
+    "date": "2026-05-24T08:30:00.000Z",
+    "status": "Ended",
+    "tournament": "3. Pretkadetska Liga U14 KSZ (M)",
+    "home": "KK Dubrava II U14",
+    "away": "KK Sisak U14",
+    "homeScore": 64,
+    "awayScore": 32
+  },
+  {
+    "id": 16200931,
+    "date": "2026-05-24T10:00:00.000Z",
+    "status": "Ended",
+    "tournament": "3. Pretkadetska Liga U14 KSZ (M)",
+    "home": "KK Rolling U14",
+    "away": "KK Dinamo Zagreb II U14",
+    "homeScore": 98,
+    "awayScore": 72
+  },
+  {
+    "id": 16200841,
+    "date": "2026-05-23T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "4. Pretkadetska Liga U14 KSZ (M)",
+    "home": "KK Zrinjevac Zagreb 1937 U14",
+    "away": "KK Rudeš Bulldogs U14",
+    "homeScore": 132,
+    "awayScore": 14
+  },
+  {
+    "id": 16200844,
+    "date": "2026-05-24T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "4. Pretkadetska Liga U14 KSZ (M)",
+    "home": "KK Pešća U14",
+    "away": "KK Zapad Zagreb II U14",
+    "homeScore": 45,
+    "awayScore": 36
+  },
+  {
+    "id": 16200875,
+    "date": "2026-05-24T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "5. Pretkadetska Liga U14 KSZ (M)",
+    "home": "SKK Šibenik U14",
+    "away": "KK Maksimir Zagreb U14",
+    "homeScore": 15,
+    "awayScore": 68
+  },
+  {
+    "id": 16234435,
+    "date": "2026-05-24T06:30:00.000Z",
+    "status": "Ended",
+    "tournament": "2. Liga U12 KSZ (M)",
+    "home": "KK Medveščak Zagreb U12",
+    "away": "KK Vučići U12",
+    "homeScore": 8,
+    "awayScore": 37
+  },
+  {
+    "id": 16234148,
+    "date": "2026-05-24T06:30:00.000Z",
+    "status": "Ended",
+    "tournament": "3. Liga U12 KSZ (M)",
+    "home": "KK Sesvete U12",
+    "away": "KK Podsused U12",
+    "homeScore": 30,
+    "awayScore": 24
+  },
+  {
+    "id": 16205558,
+    "date": "2026-05-24T06:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Mini Liga U9 KSZ (M)",
+    "home": "KK Bosco Zagreb U9",
+    "away": "ŽKK Trešnjevka U9",
+    "homeScore": 6,
+    "awayScore": 47
+  },
+  {
+    "id": 16227622,
+    "date": "2026-05-24T06:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Mini Liga U9 KSZ (M)",
+    "home": "KK Dinamo Zagreb U9",
+    "away": "KK Dubrava U9",
+    "homeScore": 20,
+    "awayScore": 0
+  },
+  {
+    "id": 16227624,
+    "date": "2026-05-24T06:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Mini Liga U9 KSZ (M)",
+    "home": "KK Dubrava U9",
+    "away": "KK Bosco Zagreb U9",
+    "homeScore": 0,
+    "awayScore": 20
+  },
+  {
+    "id": 16205559,
+    "date": "2026-05-24T06:45:00.000Z",
+    "status": "Ended",
+    "tournament": "Mini Liga U9 KSZ (M)",
+    "home": "KK Sisak U9",
+    "away": "KK Pešća U9",
+    "homeScore": 9,
+    "awayScore": 22
+  },
+  {
+    "id": 16205564,
+    "date": "2026-05-24T07:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Mini Liga U9 KSZ (M)",
+    "home": "KK Larus U9",
+    "away": "KK Sisak U9",
+    "homeScore": 54,
+    "awayScore": 6
+  },
+  {
+    "id": 16205565,
+    "date": "2026-05-24T08:15:00.000Z",
+    "status": "Ended",
+    "tournament": "Mini Liga U9 KSZ (M)",
+    "home": "KK Larus U9",
+    "away": "KK Sesvete U9",
+    "homeScore": 50,
+    "awayScore": 5
+  },
+  {
+    "id": 16205567,
+    "date": "2026-05-24T09:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Mini Liga U9 KSZ (M)",
+    "home": "KK Virtus Zagreb U9",
+    "away": "KK Sveta Nedelja U9",
+    "homeScore": 42,
+    "awayScore": 1
+  },
+  {
+    "id": 16205569,
+    "date": "2026-05-24T09:45:00.000Z",
+    "status": "Ended",
+    "tournament": "Mini Liga U9 KSZ (M)",
+    "home": "KK Sesvete U9",
+    "away": "KK Sveta Nedelja U9",
+    "homeScore": 20,
+    "awayScore": 13
+  },
+  {
+    "id": 16205570,
+    "date": "2026-05-24T10:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Mini Liga U9 KSZ (M)",
+    "home": "KK Vučići U9",
+    "away": "KK Virtus Zagreb U9",
+    "homeScore": 14,
+    "awayScore": 34
+  },
+  {
+    "id": 16205571,
+    "date": "2026-05-24T10:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Mini Liga U9 KSZ (M)",
+    "home": "MKK Novi Zagreb U9",
+    "away": "KK Zagreb U9",
+    "homeScore": 33,
+    "awayScore": 5
+  },
+  {
+    "id": 16201083,
+    "date": "2026-05-24T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "2. Liga - Sjever (Ž)",
+    "home": "KK Bjelovar",
+    "away": "Podravac 2",
+    "homeScore": 29,
+    "awayScore": 69
+  },
+  {
+    "id": 16237145,
+    "date": "2026-05-24T09:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga U15 KKZ (Ž)",
+    "home": "Koprivnica U15",
+    "away": "Radost U15",
+    "homeScore": 42,
+    "awayScore": 39
+  },
+  {
+    "id": 16213568,
+    "date": "2026-05-23T14:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Karlovačka ljetna liga",
+    "home": "KaSailing",
+    "away": "Rakovac",
+    "homeScore": 46,
+    "awayScore": 54
+  },
+  {
+    "id": 16213569,
+    "date": "2026-05-23T15:45:00.000Z",
+    "status": "Ended",
+    "tournament": "Karlovačka ljetna liga",
+    "home": "Frak",
+    "away": "Lenovo",
+    "homeScore": 60,
+    "awayScore": 67
+  },
+  {
+    "id": 16213570,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Karlovačka ljetna liga",
+    "home": "Green Bar Warriors",
+    "away": "Hollywood Café",
+    "homeScore": 60,
+    "awayScore": 51
+  },
+  {
+    "id": 16213571,
+    "date": "2026-05-23T18:15:00.000Z",
+    "status": "Ended",
+    "tournament": "Karlovačka ljetna liga",
+    "home": "Lavići",
+    "away": "Škanjci",
+    "homeScore": 52,
+    "awayScore": 44
+  },
+  {
+    "id": 16213324,
+    "date": "2026-05-23T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Šibenska Rekreativna Košarkaška Liga",
+    "home": "Karika",
+    "away": "KK 1990",
+    "homeScore": 91,
+    "awayScore": 87
+  },
+  {
+    "id": 16205197,
+    "date": "2026-05-23T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Starci...na školskom sam!!! (OŠ)",
+    "home": "Husari 7 E M",
+    "away": "Kaštelanci 7 B M",
+    "homeScore": 11,
+    "awayScore": 4
+  },
+  {
+    "id": 16205203,
+    "date": "2026-05-23T12:00:00.000Z",
+    "status": "Not started",
+    "tournament": "Starci...na školskom sam!!! (OŠ)",
+    "home": "Tulipanske koze 7 D M",
+    "away": "Tulipanske koze 7 D2 M",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16205218,
+    "date": "2026-05-24T07:00:00.000Z",
+    "status": "Canceled",
+    "tournament": "Starci...na školskom sam!!! (OŠ)",
+    "home": "8 CD M",
+    "away": "Kaštelanci 8A M",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16205217,
+    "date": "2026-05-24T07:30:00.000Z",
+    "status": "Canceled",
+    "tournament": "Starci...na školskom sam!!! (OŠ)",
+    "home": "Kaštelanci 8A M",
+    "away": "Patkice 8 B M",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16205216,
+    "date": "2026-05-24T07:30:00.000Z",
+    "status": "Canceled",
+    "tournament": "Starci...na školskom sam!!! (OŠ)",
+    "home": "Patkice 8 B M",
+    "away": "8 CD M",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16205186,
+    "date": "2026-05-24T07:00:00.000Z",
+    "status": "Canceled",
+    "tournament": "Starci...na školskom sam!!! (OŠ)",
+    "home": "Patkice 8 B Ž",
+    "away": "8 ? Ž",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16213958,
+    "date": "2026-05-23T17:30:00.000Z",
+    "status": "Not started",
+    "tournament": "U18 Starci...na školskom sam!!! (Srednja 2026) ",
+    "home": "Filčine U18",
+    "away": "K.I.T.A. U18",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16213952,
+    "date": "2026-05-23T17:30:00.000Z",
+    "status": "Not started",
+    "tournament": "U18 Starci...na školskom sam!!! (Srednja 2026) ",
+    "home": "Kings U18",
+    "away": "Panjevi U18",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16213959,
+    "date": "2026-05-23T18:10:00.000Z",
+    "status": "Not started",
+    "tournament": "U18 Starci...na školskom sam!!! (Srednja 2026) ",
+    "home": "Joškovci Jellyfish U18",
+    "away": "Filčine U18",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16213954,
+    "date": "2026-05-23T18:10:00.000Z",
+    "status": "Not started",
+    "tournament": "U18 Starci...na školskom sam!!! (Srednja 2026) ",
+    "home": "K.I.T.A. U18",
+    "away": "Kings U18",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16213960,
+    "date": "2026-05-23T18:50:00.000Z",
+    "status": "Not started",
+    "tournament": "U18 Starci...na školskom sam!!! (Srednja 2026) ",
+    "home": "Filčine U18",
+    "away": "Kings U18",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16213951,
+    "date": "2026-05-23T18:50:00.000Z",
+    "status": "Not started",
+    "tournament": "U18 Starci...na školskom sam!!! (Srednja 2026) ",
+    "home": "Panjevi U18",
+    "away": "Joškovci Jellyfish U18",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16213955,
+    "date": "2026-05-23T19:30:00.000Z",
+    "status": "Not started",
+    "tournament": "U18 Starci...na školskom sam!!! (Srednja 2026) ",
+    "home": "K.I.T.A. U18",
+    "away": "Panjevi U18",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16213953,
+    "date": "2026-05-23T19:30:00.000Z",
+    "status": "Not started",
+    "tournament": "U18 Starci...na školskom sam!!! (Srednja 2026) ",
+    "home": "Kings U18",
+    "away": "Joškovci Jellyfish U18",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16213957,
+    "date": "2026-05-23T20:10:00.000Z",
+    "status": "Not started",
+    "tournament": "U18 Starci...na školskom sam!!! (Srednja 2026) ",
+    "home": "Filčine U18",
+    "away": "Panjevi U18",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16213956,
+    "date": "2026-05-23T20:10:00.000Z",
+    "status": "Not started",
+    "tournament": "U18 Starci...na školskom sam!!! (Srednja 2026) ",
+    "home": "K.I.T.A. U18",
+    "away": "Joškovci Jellyfish U18",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 15911136,
+    "date": "2026-05-23T23:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Dominican Republic LNB",
+    "home": "Heroes de Moca",
+    "away": "Metros de Santiago",
+    "homeScore": 89,
+    "awayScore": 81
+  },
+  {
+    "id": 15911140,
+    "date": "2026-05-23T23:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Dominican Republic LNB",
+    "home": "Reales De La Vega",
+    "away": "Soles de Santo Domingo Este",
+    "homeScore": 90,
+    "awayScore": 63
+  },
+  {
+    "id": 15911143,
+    "date": "2026-05-24T21:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Dominican Republic LNB",
+    "home": "Indios de San Francisco",
+    "away": "Cañeros del Este",
+    "homeScore": 100,
+    "awayScore": 105
+  },
+  {
+    "id": 15911146,
+    "date": "2026-05-24T21:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Dominican Republic LNB",
+    "home": "Marineros De Puerto Plata",
+    "away": "Titanes del Distrito Nacional",
+    "homeScore": 74,
+    "awayScore": 76
+  },
+  {
+    "id": 16116841,
+    "date": "2026-05-24T01:00:00.000Z",
+    "status": "Ended",
+    "tournament": "El Salvador LMB",
+    "home": "A.Lobos BKB",
+    "away": "Santiagueño BC",
+    "homeScore": 128,
+    "awayScore": 90
+  },
+  {
+    "id": 16116838,
+    "date": "2026-05-24T01:00:00.000Z",
+    "status": "Ended",
+    "tournament": "El Salvador LMB",
+    "home": "Cojute",
+    "away": "Metapán BC",
+    "homeScore": 64,
+    "awayScore": 82
+  },
+  {
+    "id": 16116844,
+    "date": "2026-05-25T00:00:00.000Z",
+    "status": "AET",
+    "tournament": "El Salvador LMB",
+    "home": "Salvadoreños BC",
+    "away": "Ahuachapan",
+    "homeScore": 77,
+    "awayScore": 75
+  },
+  {
+    "id": 16116837,
+    "date": "2026-05-25T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "El Salvador LMB",
+    "home": "Santiagueño BC",
+    "away": "Brujos de Izalco",
+    "homeScore": 53,
+    "awayScore": 61
+  },
+  {
+    "id": 16155298,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Estonia KML",
+    "home": "Tartu Ülikool Maks & Moorits",
+    "away": "BC Kalev/Cramo",
+    "homeScore": 77,
+    "awayScore": 83
+  },
+  {
+    "id": 16217796,
+    "date": "2026-05-24T15:00:00.000Z",
+    "status": "AET",
+    "tournament": "LNB Élite 2",
+    "home": "Poitiers Basket 86",
+    "away": "Saint-Quentin",
+    "homeScore": 100,
+    "awayScore": 96
+  },
+  {
+    "id": 16217798,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNB Élite 2",
+    "home": "ADA Blois Basket",
+    "away": "Hermine de Nantes Atlantique",
+    "homeScore": 73,
+    "awayScore": 83
+  },
+  {
+    "id": 16217799,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNB Élite 2",
+    "home": "Orléans Loiret Basket",
+    "away": "Jeanne d'Arc Vichy",
+    "homeScore": 71,
+    "awayScore": 56
+  },
+  {
+    "id": 16184905,
+    "date": "2026-05-23T15:15:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 2",
+    "home": "US Laval Basket",
+    "away": "Garonne Avenir Basket",
+    "homeScore": 77,
+    "awayScore": 82
+  },
+  {
+    "id": 16184907,
+    "date": "2026-05-23T18:00:00.000Z",
+    "status": "AET",
+    "tournament": "Nationale 2",
+    "home": "ASA Souffelweyersheim",
+    "away": "Pontoise Ulr Basket St Just St Rambert",
+    "homeScore": 84,
+    "awayScore": 81
+  },
+  {
+    "id": 16225836,
+    "date": "2026-05-24T11:15:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 2",
+    "home": "US Laval Basket",
+    "away": "Pontoise Ulr Basket St Just St Rambert",
+    "homeScore": 61,
+    "awayScore": 69
+  },
+  {
+    "id": 16225837,
+    "date": "2026-05-24T13:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 2",
+    "home": "Garonne Avenir Basket",
+    "away": "ASA Souffelweyersheim",
+    "homeScore": 63,
+    "awayScore": 78
+  },
+  {
+    "id": 16176901,
+    "date": "2026-05-23T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 3",
+    "home": "Phénix Basket Auxerre Monéteau Héry",
+    "away": "Basket Club Dionysien",
+    "homeScore": 82,
+    "awayScore": 67
+  },
+  {
+    "id": 16176902,
+    "date": "2026-05-23T16:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 3",
+    "home": "Saint-Médard Basket",
+    "away": "Golden Star Basketball",
+    "homeScore": 106,
+    "awayScore": 78
+  },
+  {
+    "id": 16201238,
+    "date": "2026-05-23T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 3",
+    "home": "Agde Basket",
+    "away": "AS Dumbéa Basket",
+    "homeScore": 75,
+    "awayScore": 45
+  },
+  {
+    "id": 16225925,
+    "date": "2026-05-24T16:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 3",
+    "home": "Basket Club Dionysien",
+    "away": "Saint-Médard Basket",
+    "homeScore": 74,
+    "awayScore": 86
+  },
+  {
+    "id": 16225930,
+    "date": "2026-05-24T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 3",
+    "home": "Phénix Basket Auxerre Monéteau Héry",
+    "away": "Agde Basket",
+    "homeScore": 68,
+    "awayScore": 70
+  },
+  {
+    "id": 16230175,
+    "date": "2026-05-25T09:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 3",
+    "home": "Basket Club Dionysien",
+    "away": "Phénix Basket Auxerre Monéteau Héry",
+    "homeScore": 65,
+    "awayScore": 54
+  },
+  {
+    "id": 16230176,
+    "date": "2026-05-25T13:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 3",
+    "home": "Saint-Médard Basket",
+    "away": "Agde Basket",
+    "homeScore": 74,
+    "awayScore": 85
+  },
+  {
+    "id": 16225940,
+    "date": "2026-05-24T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 3",
+    "home": "Golden Star Basketball",
+    "away": "AS Dumbéa Basket",
+    "homeScore": 63,
+    "awayScore": 68
+  },
+  {
+    "id": 16221578,
+    "date": "2026-05-24T13:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 1",
+    "home": "Fos Provence Basket",
+    "away": "BC Orchies",
+    "homeScore": 77,
+    "awayScore": 61
+  },
+  {
+    "id": 16222341,
+    "date": "2026-05-24T13:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Nationale 1",
+    "home": "Union Tarbes Lourdes Pyrenees Basket",
+    "away": "Levallois Metropolitans Basketball",
+    "homeScore": 70,
+    "awayScore": 77
+  },
+  {
+    "id": 16203958,
+    "date": "2026-05-24T13:30:00.000Z",
+    "status": "Ended",
+    "tournament": "France LF2, Women",
+    "home": "BC La Tronche Meylan",
+    "away": "Montbrison Basket",
+    "homeScore": 52,
+    "awayScore": 41
+  },
+  {
+    "id": 16194326,
+    "date": "2026-05-23T15:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Superleague",
+    "home": "BC TSU",
+    "away": "BC Batumi 2010",
+    "homeScore": 63,
+    "awayScore": 91
+  },
+  {
+    "id": 16177183,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Germany Pro A",
+    "home": "Eisbären Bremerhaven",
+    "away": "Phoenix Hagen",
+    "homeScore": 87,
+    "awayScore": 80
+  },
+  {
+    "id": 16188149,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Germany Pro A",
+    "home": "Gießen 46ers",
+    "away": "VFL Kirchheim Knights",
+    "homeScore": 75,
+    "awayScore": 91
+  },
+  {
+    "id": 16211042,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "National League 1",
+    "home": "GAS Komotini",
+    "away": "XANTH BC",
+    "homeScore": 76,
+    "awayScore": 57
+  },
+  {
+    "id": 16211038,
+    "date": "2026-05-23T14:30:00.000Z",
+    "status": "Ended",
+    "tournament": "National League 1",
+    "home": "Amintas",
+    "away": "Holargos BC",
+    "homeScore": 61,
+    "awayScore": 69
+  },
+  {
+    "id": 16211039,
+    "date": "2026-05-23T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "National League 1",
+    "home": "GS Kronos Agiou Dimitriou",
+    "away": "AE Glafkou-Esperou Aopa",
+    "homeScore": 66,
+    "awayScore": 63
+  },
+  {
+    "id": 16208871,
+    "date": "2026-05-23T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "A1 ESKAVDE",
+    "home": "SK Nikopoli Prevezas",
+    "away": "Ioannina SK",
+    "homeScore": 67,
+    "awayScore": 59
+  },
+  {
+    "id": 16199161,
+    "date": "2026-05-23T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "A1 ESKATH",
+    "home": "Olympiakos Volou",
+    "away": "Agria BC",
+    "homeScore": 77,
+    "awayScore": 70
+  },
+  {
+    "id": 15941329,
+    "date": "2026-05-23T13:00:00.000Z",
+    "status": "Ended",
+    "tournament": "B ESKAVDE",
+    "home": "AO Pargas",
+    "away": "AMS Aiolos Astakou",
+    "homeScore": 73,
+    "awayScore": 61
+  },
+  {
+    "id": 15941328,
+    "date": "2026-05-24T13:00:00.000Z",
+    "status": "Ended",
+    "tournament": "B ESKAVDE",
+    "home": "PAS Ionikos Agrinou '80",
+    "away": "AK Pyrros Artaion",
+    "homeScore": 91,
+    "awayScore": 73
+  },
+  {
+    "id": 15941332,
+    "date": "2026-05-24T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "B ESKAVDE",
+    "home": "AMS Apollon Mesologgiou",
+    "away": "AGO Louriotikos",
+    "homeScore": 0,
+    "awayScore": 20
+  },
+  {
+    "id": 15941335,
+    "date": "2026-05-24T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "B ESKAVDE",
+    "home": "GO Amfilochia",
+    "away": "AS Leon Mesologgiou B",
+    "homeScore": 89,
+    "awayScore": 48
+  },
+  {
+    "id": 15879184,
+    "date": "2026-05-23T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "B ESKAH",
+    "home": "A.S Pelekanos Patron",
+    "away": "ES Iteon",
+    "homeScore": 37,
+    "awayScore": 54
+  },
+  {
+    "id": 15879181,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "B ESKAH",
+    "home": "A.P.S. Patreas",
+    "away": "Ethnikos-Polyteknos Patron A.O.",
+    "homeScore": 48,
+    "awayScore": 73
+  },
+  {
+    "id": 15879180,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "B ESKAH",
+    "home": "A.S AEK Kato Panagias Kyllinis",
+    "away": "A.E. Proasteiou",
+    "homeScore": 20,
+    "awayScore": 0
+  },
+  {
+    "id": 15879179,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "B ESKAH",
+    "home": "GS Achaikos",
+    "away": "E.F. Aigiou",
+    "homeScore": 73,
+    "awayScore": 71
+  },
+  {
+    "id": 15879182,
+    "date": "2026-05-24T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "B ESKAH",
+    "home": "Panoleneiakos Karatoula",
+    "away": "G.E. Skilountos",
+    "homeScore": 0,
+    "awayScore": 20
+  },
+  {
+    "id": 16211074,
+    "date": "2026-05-24T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "A1 EKASKENOP",
+    "home": "Dion Kyparissias",
+    "away": "Kalamata 1980",
+    "homeScore": 58,
+    "awayScore": 73
+  },
+  {
+    "id": 16209897,
+    "date": "2026-05-23T13:00:00.000Z",
+    "status": "Ended",
+    "tournament": "A1 EKASKENOP",
+    "home": "GS Gargalianon U21",
+    "away": "Athleon Spartis",
+    "homeScore": 20,
+    "awayScore": 0
+  },
+  {
+    "id": 15943935,
+    "date": "2026-05-23T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "A EKASAMATH",
+    "home": "Dimokritio Komotinis",
+    "away": "Asteras Kavalas",
+    "homeScore": 66,
+    "awayScore": 70
+  },
+  {
+    "id": 15943938,
+    "date": "2026-05-24T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "A EKASAMATH",
+    "home": "Arion Xanthis",
+    "away": "Atlas Komotinis",
+    "homeScore": 63,
+    "awayScore": 66
+  },
+  {
+    "id": 16214723,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "A ESKASE",
+    "home": "Asteras Aliveriou",
+    "away": "Proteas Schimatariou",
+    "homeScore": 86,
+    "awayScore": 59
+  },
+  {
+    "id": 16014755,
+    "date": "2026-05-24T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "C ESKASE",
+    "home": "G.A. Synergasia Amfissas",
+    "away": "GS Styra",
+    "homeScore": 55,
+    "awayScore": 62
+  },
+  {
+    "id": 16014757,
+    "date": "2026-05-24T15:00:56.000Z",
+    "status": "Ended",
+    "tournament": "C ESKASE",
+    "home": "Atlantas Karpenisiou",
+    "away": "Boucali Scholls",
+    "homeScore": 20,
+    "awayScore": 0
+  },
+  {
+    "id": 16235742,
+    "date": "2026-05-24T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "A ASETH",
+    "home": "Elpen",
+    "away": "Legal Basketball",
+    "homeScore": 60,
+    "awayScore": 52
+  },
+  {
+    "id": 16218734,
+    "date": "2026-05-23T14:00:49.000Z",
+    "status": "Ended",
+    "tournament": "A TE EOK Samou",
+    "home": "AS Anagennisi Samou",
+    "away": "PAS Ikaros BC",
+    "homeScore": 52,
+    "awayScore": 48
+  },
+  {
+    "id": 16079523,
+    "date": "2026-05-24T09:00:00.000Z",
+    "status": "Ended",
+    "tournament": "A TE EOK Samou",
+    "home": "AE Karlovasou BC",
+    "away": "PAS Ikaros BC",
+    "homeScore": 70,
+    "awayScore": 53
+  },
+  {
+    "id": 16227427,
+    "date": "2026-05-24T10:00:00.000Z",
+    "status": "Ended",
+    "tournament": "A TE EOK Samou",
+    "home": "AO Pramnos",
+    "away": "AO Polykratis BC",
+    "homeScore": 65,
+    "awayScore": 44
+  },
+  {
+    "id": 16197332,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Hungary NB 1.A",
+    "home": "Atomerőmű SE",
+    "away": "Kaposvári KK",
+    "homeScore": 77,
+    "awayScore": 71
+  },
+  {
+    "id": 16072829,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Hungary NB 1.A",
+    "home": "Egis Körmend",
+    "away": "NKA Universitas Pécs",
+    "homeScore": 118,
+    "awayScore": 98
+  },
+  {
+    "id": 16012441,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Hungary NB 1.A",
+    "home": "OSE Lions",
+    "away": "KTE Duna Aszfalt",
+    "homeScore": 96,
+    "awayScore": 86
+  },
+  {
+    "id": 16012440,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Hungary NB 1.A",
+    "home": "SZTE-Szedeák",
+    "away": "Zalakerámia-ZTE KK",
+    "homeScore": 78,
+    "awayScore": 66
+  },
+  {
+    "id": 16203956,
+    "date": "2026-05-23T12:00:00.000Z",
+    "status": "Canceled",
+    "tournament": "Indonesian Basketball League",
+    "home": "Kesatria Bengawan Solo",
+    "away": "Rans Simba Bogor",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16204325,
+    "date": "2026-05-23T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Indonesian Basketball League",
+    "home": "Kesatria Bengawan Solo",
+    "away": "Borneo Hornbills",
+    "homeScore": 82,
+    "awayScore": 81
+  },
+  {
+    "id": 16203957,
+    "date": "2026-05-24T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Indonesian Basketball League",
+    "home": "Rans Simba Bogor",
+    "away": "Pelita Jaya Bakrie Jakarta",
+    "homeScore": 82,
+    "awayScore": 84
+  },
+  {
+    "id": 16183495,
+    "date": "2026-05-23T13:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Basketball Africa League",
+    "home": "Al Ahly Benghazi",
+    "away": "Club Africain",
+    "homeScore": 88,
+    "awayScore": 87
+  },
+  {
+    "id": 16183496,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Basketball Africa League",
+    "home": "Dar City Basketball Team",
+    "away": "Atlético Petróleos de Luanda",
+    "homeScore": 88,
+    "awayScore": 82
+  },
+  {
+    "id": 16183497,
+    "date": "2026-05-24T13:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Basketball Africa League",
+    "home": "Al Ahly SC",
+    "away": "Ville De Dakar",
+    "homeScore": 87,
+    "awayScore": 76
+  },
+  {
+    "id": 16183498,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Basketball Africa League",
+    "home": "Tigers BBC",
+    "away": "FUS Rabat",
+    "homeScore": 98,
+    "awayScore": 99
+  },
+  {
+    "id": 16199692,
+    "date": "2026-05-23T13:45:00.000Z",
+    "status": "Ended",
+    "tournament": "U18 Next Generation Tournament",
+    "home": "Next Generation Team 3Ssb U18",
+    "away": "FC Barcelona U18",
+    "homeScore": 84,
+    "awayScore": 101
+  },
+  {
+    "id": 16224598,
+    "date": "2026-05-24T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "U18 Next Generation Tournament",
+    "home": "Real Madrid U18",
+    "away": "FC Barcelona U18",
+    "homeScore": 77,
+    "awayScore": 85
+  },
+  {
+    "id": 16214763,
+    "date": "2026-05-23T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Champions League Asia East",
+    "home": "Dewa United Basketball Surabaya",
+    "away": "Taoyuan Pilots",
+    "homeScore": 86,
+    "awayScore": 100
+  },
+  {
+    "id": 16224109,
+    "date": "2026-05-24T09:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Champions League Asia East",
+    "home": "Dewa United Basketball Surabaya",
+    "away": "Khasin Khuleguud",
+    "homeScore": 66,
+    "awayScore": 84
+  },
+  {
+    "id": 16224108,
+    "date": "2026-05-24T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Champions League Asia East",
+    "home": "Taoyuan Pilots",
+    "away": "South China",
+    "homeScore": 103,
+    "awayScore": 113
+  },
+  {
+    "id": 16208703,
+    "date": "2026-05-23T15:15:00.000Z",
+    "status": "Ended",
+    "tournament": "EYBL U13",
+    "home": "Vienna Kings U13",
+    "away": "Vienna United U13",
+    "homeScore": 30,
+    "awayScore": 79
+  },
+  {
+    "id": 16208697,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "EYBL U13",
+    "home": "NGS U13",
+    "away": "TEAM 23 U13",
+    "homeScore": 68,
+    "awayScore": 67
+  },
+  {
+    "id": 16205102,
+    "date": "2026-05-24T08:00:00.000Z",
+    "status": "Ended",
+    "tournament": "EYBL U13",
+    "home": "NGS U13",
+    "away": "Vienna United U13",
+    "homeScore": 66,
+    "awayScore": 48
+  },
+  {
+    "id": 16208702,
+    "date": "2026-05-24T10:00:00.000Z",
+    "status": "Ended",
+    "tournament": "EYBL U13",
+    "home": "TEAM 23 U13",
+    "away": "Vienna Kings U13",
+    "homeScore": 66,
+    "awayScore": 34
+  },
+  {
+    "id": 16141814,
+    "date": "2026-05-25T09:00:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA U18 Asia Cup SABA Qualifiers",
+    "home": "India U18",
+    "away": "Maldives U18",
+    "homeScore": 130,
+    "awayScore": 57
+  },
+  {
+    "id": 16141815,
+    "date": "2026-05-25T13:30:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA U18 Asia Cup SABA Qualifiers",
+    "home": "Sri Lanka U18",
+    "away": "Bangladesh U18",
+    "homeScore": 132,
+    "awayScore": 38
+  },
+  {
+    "id": 16141825,
+    "date": "2026-05-25T11:00:00.000Z",
+    "status": "Ended",
+    "tournament": "FIBA U18 Women's Asia Cup SABA Qualifiers",
+    "home": "Sri Lanka U18",
+    "away": "Maldives U18",
+    "homeScore": 74,
+    "awayScore": 44
+  },
+  {
+    "id": 16177178,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Israeli National League Basketball",
+    "home": "Maccabi Ashdod",
+    "away": "Otef Darom BC",
+    "homeScore": 110,
+    "awayScore": 84
+  },
+  {
+    "id": 16106594,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Israeli National League Basketball",
+    "home": "Hapoel Migdal Haemek",
+    "away": "Maccabi Maale Adumim",
+    "homeScore": 96,
+    "awayScore": 73
+  },
+  {
+    "id": 16106601,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Israeli National League Basketball",
+    "home": "Maccabi Kiryat Gat/Ashkelon",
+    "away": "Elitzur Yavne",
+    "homeScore": 70,
+    "awayScore": 80
+  },
+  {
+    "id": 16106603,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Israeli National League Basketball",
+    "home": "Maccabi Petah Tikva Elitzur",
+    "away": "Maccabi Haifa BC",
+    "homeScore": 68,
+    "awayScore": 80
+  },
+  {
+    "id": 16221821,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie A2",
+    "home": "Pallacanestro Roseto",
+    "away": "Talos Ruvo di Puglia",
+    "homeScore": 105,
+    "awayScore": 76
+  },
+  {
+    "id": 16209962,
+    "date": "2026-05-23T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie A2",
+    "home": "UEB Cividale",
+    "away": "Rinascita Basket Rimini",
+    "homeScore": 85,
+    "awayScore": 69
+  },
+  {
+    "id": 16208566,
+    "date": "2026-05-23T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B",
+    "home": "La T Tecnica Gema Montecatini",
+    "away": "Treviglio Brianza Basket",
+    "homeScore": 83,
+    "awayScore": 60
+  },
+  {
+    "id": 16209356,
+    "date": "2026-05-23T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B",
+    "home": "Virtus GVM Roma 1960",
+    "away": "Rucker Sanve San Vendemiano",
+    "homeScore": 87,
+    "awayScore": 74
+  },
+  {
+    "id": 16208567,
+    "date": "2026-05-23T18:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B",
+    "home": "SC Juvecaserta 2021",
+    "away": "Orzi Basket",
+    "homeScore": 85,
+    "awayScore": 93
+  },
+  {
+    "id": 16208565,
+    "date": "2026-05-23T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B",
+    "home": "Elachem Vigevano 1955",
+    "away": "Pielle Livorno",
+    "homeScore": 81,
+    "awayScore": 72
+  },
+  {
+    "id": 16204173,
+    "date": "2026-05-23T18:00:00.000Z",
+    "status": "AET",
+    "tournament": "Serie B",
+    "home": "Novipiù Monferrato Basket",
+    "away": "Dany Basket Quarrata",
+    "homeScore": 96,
+    "awayScore": 90
+  },
+  {
+    "id": 16204169,
+    "date": "2026-05-23T18:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B",
+    "home": "Orasi Ravenna",
+    "away": "Fulgor Fidenza",
+    "homeScore": 84,
+    "awayScore": 72
+  },
+  {
+    "id": 16203008,
+    "date": "2026-05-23T17:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B Interregionale",
+    "home": "Montebelluna Basket",
+    "away": "Derthona Basketball Lab",
+    "homeScore": 88,
+    "awayScore": 95
+  },
+  {
+    "id": 16191724,
+    "date": "2026-05-23T19:00:00.000Z",
+    "status": "AET",
+    "tournament": "Serie B Interregionale",
+    "home": "Robur Saronno",
+    "away": "Blu Orobica Bergamo",
+    "homeScore": 69,
+    "awayScore": 76
+  },
+  {
+    "id": 16213176,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B Interregionale",
+    "home": "Mens Sana Siena",
+    "away": "USE Basket Empoli",
+    "homeScore": 86,
+    "awayScore": 71
+  },
+  {
+    "id": 16213172,
+    "date": "2026-05-24T16:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B Interregionale",
+    "home": "Basketball Club Lucca",
+    "away": "Costone",
+    "homeScore": 91,
+    "awayScore": 85
+  },
+  {
+    "id": 16213181,
+    "date": "2026-05-23T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B Interregionale",
+    "home": "New Flying Balls Ozzano",
+    "away": "Basket Team 95 Pizzighettone",
+    "homeScore": 75,
+    "awayScore": 72
+  },
+  {
+    "id": 16213184,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "AET",
+    "tournament": "Serie B Interregionale",
+    "home": "Sangiorgese Basket",
+    "away": "S.C. Oderzo Basket",
+    "homeScore": 89,
+    "awayScore": 91
+  },
+  {
+    "id": 16218572,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B Interregionale",
+    "home": "PallacanestroViola Reggio Calabria",
+    "away": "Angri Pallacanestro",
+    "homeScore": 91,
+    "awayScore": 85
+  },
+  {
+    "id": 16213189,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B Interregionale",
+    "home": "Virtus Matera",
+    "away": "Scandone Avellino",
+    "homeScore": 66,
+    "awayScore": 69
+  },
+  {
+    "id": 16200386,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B Interregionale",
+    "home": "Don Bosco Crocetta",
+    "away": "Amatori Pescara 1976",
+    "homeScore": 79,
+    "awayScore": 62
+  },
+  {
+    "id": 16200379,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B Interregionale",
+    "home": "Vasto Basket",
+    "away": "Olimpia Legnaia Firenze",
+    "homeScore": 60,
+    "awayScore": 76
+  },
+  {
+    "id": 16200702,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B Interregionale",
+    "home": "San Paolo Ostiense",
+    "away": "Step Back Caiazzo",
+    "homeScore": 83,
+    "awayScore": 56
+  },
+  {
+    "id": 16200699,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie B Interregionale",
+    "home": "Pallacanestro Sennori",
+    "away": "Pallacanestro Antoniana",
+    "homeScore": 87,
+    "awayScore": 80
+  },
+  {
+    "id": 16173005,
+    "date": "2026-05-24T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 2 Toscana",
+    "home": "Basket Reggello",
+    "away": "Fides Montevarchi",
+    "homeScore": 74,
+    "awayScore": 48
+  },
+  {
+    "id": 16173015,
+    "date": "2026-05-23T16:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 2 Toscana",
+    "home": "Pallacanestro Endas Pistoia",
+    "away": "BCL Lab Lucca",
+    "homeScore": 63,
+    "awayScore": 73
+  },
+  {
+    "id": 16173021,
+    "date": "2026-05-23T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 2 Toscana",
+    "home": "Fortezza Basket Livorno",
+    "away": "Volterra",
+    "homeScore": 72,
+    "awayScore": 45
+  },
+  {
+    "id": 16173035,
+    "date": "2026-05-24T18:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 2 Toscana",
+    "home": "Scuola Basket Prato",
+    "away": "Polisportiva Pontremolese",
+    "homeScore": 59,
+    "awayScore": 51
+  },
+  {
+    "id": 15602914,
+    "date": "2026-05-24T09:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 2 - Lazio",
+    "home": "Basket Cassino",
+    "away": "Blue Master Group",
+    "homeScore": 62,
+    "awayScore": 43
+  },
+  {
+    "id": 15602916,
+    "date": "2026-05-24T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 2 - Lazio",
+    "home": "Samurai Basket Aprilia",
+    "away": "Academy Terracina",
+    "homeScore": 79,
+    "awayScore": 70
+  },
+  {
+    "id": 16228386,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 2 - Lazio",
+    "home": "Basket Palestrina 1962",
+    "away": "Rome City",
+    "homeScore": 105,
+    "awayScore": 81
+  },
+  {
+    "id": 16203672,
+    "date": "2026-05-24T16:45:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 3 Toscana",
+    "home": "Pallacanestro Massa",
+    "away": "Audax Carrara",
+    "homeScore": 64,
+    "awayScore": 70
+  },
+  {
+    "id": 16203698,
+    "date": "2026-05-24T17:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 3 Toscana",
+    "home": "Lastra a Signa Teamnova",
+    "away": "Valdelsa Basket B",
+    "homeScore": 38,
+    "awayScore": 48
+  },
+  {
+    "id": 16207193,
+    "date": "2026-05-23T18:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 3 Toscana",
+    "home": "GMV Basket B",
+    "away": "Lions Montemurlo B",
+    "homeScore": 63,
+    "awayScore": 66
+  },
+  {
+    "id": 16207192,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 3 Toscana",
+    "home": "Basket Donoratico B",
+    "away": "Pallacanestro Grosseto Team 90 B",
+    "homeScore": 68,
+    "awayScore": 51
+  },
+  {
+    "id": 16200760,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie C Toscana",
+    "home": "ABC Castelfiorentino",
+    "away": "San Vincenzo Basket",
+    "homeScore": 74,
+    "awayScore": 58
+  },
+  {
+    "id": 16200768,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie C Toscana",
+    "home": "Union Basket Prato",
+    "away": "US Livorno Basket",
+    "homeScore": 72,
+    "awayScore": 55
+  },
+  {
+    "id": 16126475,
+    "date": "2026-05-24T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie C Toscana",
+    "home": "Folgore Fucecchio",
+    "away": "Virtus Certaldo",
+    "homeScore": 67,
+    "awayScore": 53
+  },
+  {
+    "id": 16208510,
+    "date": "2026-05-24T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie C Unica Lazio",
+    "home": "LG Castelnovo Monti",
+    "away": "Pallacanestro Sora",
+    "homeScore": 71,
+    "awayScore": 67
+  },
+  {
+    "id": 16208508,
+    "date": "2026-05-24T16:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie C Unica Lazio",
+    "home": "Basket Roma",
+    "away": "N.B. Fossombrone",
+    "homeScore": 79,
+    "awayScore": 52
+  },
+  {
+    "id": 16200661,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 1 Toscana",
+    "home": "Gea Basketball Grosseto",
+    "away": "Poggibonsi Basket",
+    "homeScore": 88,
+    "awayScore": 82
+  },
+  {
+    "id": 16200670,
+    "date": "2026-05-24T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 1 Toscana",
+    "home": "Valdicornia",
+    "away": "Valdelsa Basket",
+    "homeScore": 57,
+    "awayScore": 56
+  },
+  {
+    "id": 16185029,
+    "date": "2026-05-24T17:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 1 - Lazio",
+    "home": "Algarve Roma Torrino",
+    "away": "Stelle Marine Basket",
+    "homeScore": 54,
+    "awayScore": 52
+  },
+  {
+    "id": 16185038,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 1 - Lazio",
+    "home": "Supernova Fiumicino",
+    "away": "Basket Serapo 85",
+    "homeScore": 66,
+    "awayScore": 63
+  },
+  {
+    "id": 16122708,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 3 - Lazio",
+    "home": "Elite Basket Roma",
+    "away": "Salgen",
+    "homeScore": 66,
+    "awayScore": 59
+  },
+  {
+    "id": 16122775,
+    "date": "2026-05-24T18:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 3 - Lazio",
+    "home": "Basket Cinecittà Roma",
+    "away": "Polyssportiva",
+    "homeScore": 62,
+    "awayScore": 61
+  },
+  {
+    "id": 16238399,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Divisione Regionale 3 - Lazio",
+    "home": "Basket Fondi 2025",
+    "away": "New Basket Time",
+    "homeScore": 68,
+    "awayScore": 56
+  },
+  {
+    "id": 16248331,
+    "date": "2026-05-23T15:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie C Unica Lombardia",
+    "home": "Virtus Cermenate",
+    "away": "BVO Basket Caorle",
+    "homeScore": 108,
+    "awayScore": 73
+  },
+  {
+    "id": 16249849,
+    "date": "2026-05-23T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Serie C Unica Lombardia",
+    "home": "JBR Basket Rovereto",
+    "away": "Bottanuco Basket",
+    "homeScore": 59,
+    "awayScore": 82
+  },
+  {
+    "id": 16193635,
+    "date": "2026-05-24T04:05:00.000Z",
+    "status": "Ended",
+    "tournament": "B.League",
+    "home": "Nagasaki Velca",
+    "away": "Ryukyu Golden Kings",
+    "homeScore": 66,
+    "awayScore": 60
+  },
+  {
+    "id": 16178019,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Lebanese Basketball League",
+    "home": "Club Jeunesse Sportif Batroun",
+    "away": "Champville",
+    "homeScore": 92,
+    "awayScore": 80
+  },
+  {
+    "id": 16176895,
+    "date": "2026-05-23T17:45:00.000Z",
+    "status": "Ended",
+    "tournament": "Lebanese Basketball League",
+    "home": "Sagesse SC",
+    "away": "Central",
+    "homeScore": 99,
+    "awayScore": 73
+  },
+  {
+    "id": 16176892,
+    "date": "2026-05-24T13:45:00.000Z",
+    "status": "AET",
+    "tournament": "Lebanese Basketball League",
+    "home": "Homenetmen",
+    "away": "Al Riyadi Beirut",
+    "homeScore": 126,
+    "awayScore": 125
+  },
+  {
+    "id": 16176894,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Lebanese Basketball League",
+    "home": "NSA",
+    "away": "Hoops",
+    "homeScore": 82,
+    "awayScore": 85
+  },
+  {
+    "id": 15554533,
+    "date": "2026-05-23T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Women First Division",
+    "home": "NSA",
+    "away": "Azour",
+    "homeScore": 58,
+    "awayScore": 91
+  },
+  {
+    "id": 15554535,
+    "date": "2026-05-23T17:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Women First Division",
+    "home": "Homenetmen Antelias",
+    "away": "AL Mtayleb",
+    "homeScore": 105,
+    "awayScore": 61
+  },
+  {
+    "id": 15554536,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Women First Division",
+    "home": "Club Inmaa el Damour",
+    "away": "Antranik Beirut",
+    "homeScore": 63,
+    "awayScore": 58
+  },
+  {
+    "id": 15554534,
+    "date": "2026-05-24T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Women First Division",
+    "home": "Sporting Bkennaya",
+    "away": "Sporting Al-Riyadi Beirut",
+    "homeScore": 68,
+    "awayScore": 100
+  },
+  {
+    "id": 16181325,
+    "date": "2026-05-23T13:50:00.000Z",
+    "status": "Ended",
+    "tournament": "Betsson-LKL",
+    "home": "Rytas Vilnius",
+    "away": "Utenos Juventus",
+    "homeScore": 95,
+    "awayScore": 101
+  },
+  {
+    "id": 16198431,
+    "date": "2026-05-23T16:10:00.000Z",
+    "status": "Ended",
+    "tournament": "Betsson-LKL",
+    "home": "Gargždų Gargždai",
+    "away": "Klaipėdos Neptūnas",
+    "homeScore": 74,
+    "awayScore": 84
+  },
+  {
+    "id": 16208374,
+    "date": "2026-05-24T02:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Mexico LNBP Women",
+    "home": "Panteras Aguascalientes",
+    "away": "Adelitas De Chihuahua",
+    "homeScore": 75,
+    "awayScore": 70
+  },
+  {
+    "id": 16208408,
+    "date": "2026-05-24T01:15:00.000Z",
+    "status": "Ended",
+    "tournament": "CIBACOPA ",
+    "home": "Astros de Jalisco",
+    "away": "Caballeros de Culiacán",
+    "homeScore": 112,
+    "awayScore": 84
+  },
+  {
+    "id": 16208409,
+    "date": "2026-05-24T02:45:00.000Z",
+    "status": "Ended",
+    "tournament": "CIBACOPA ",
+    "home": "Frayles De Guasave",
+    "away": "Pioneros de Los Mochis",
+    "homeScore": 88,
+    "awayScore": 90
+  },
+  {
+    "id": 16208410,
+    "date": "2026-05-24T03:15:00.000Z",
+    "status": "Ended",
+    "tournament": "CIBACOPA ",
+    "home": "Halcones de Ciudad Obregón",
+    "away": "Toros Laguna",
+    "homeScore": 87,
+    "awayScore": 90
+  },
+  {
+    "id": 16209241,
+    "date": "2026-05-24T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "BNXT National Playoffs, Dutch",
+    "home": "Landstede Hammers",
+    "away": "Heroes Den Bosch",
+    "homeScore": 70,
+    "awayScore": 63
+  },
+  {
+    "id": 16209237,
+    "date": "2026-05-24T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "BNXT National Playoffs, Dutch",
+    "home": "Zorg en Zekerheid Leiden",
+    "away": "Donar Groningen",
+    "homeScore": 90,
+    "awayScore": 78
+  },
+  {
+    "id": 15217654,
+    "date": "2026-05-24T03:00:00.000Z",
+    "status": "Ended",
+    "tournament": "New Zealand NBL",
+    "home": "Nelson Giants",
+    "away": "Otago Nuggets",
+    "homeScore": 63,
+    "awayScore": 88
+  },
+  {
+    "id": 15217655,
+    "date": "2026-05-24T06:00:00.000Z",
+    "status": "Ended",
+    "tournament": "New Zealand NBL",
+    "home": "Taranaki Airs",
+    "away": "Canterbury Rams",
+    "homeScore": 86,
+    "awayScore": 113
+  },
+  {
+    "id": 15217656,
+    "date": "2026-05-25T07:00:00.000Z",
+    "status": "Ended",
+    "tournament": "New Zealand NBL",
+    "home": "Wellington Saints",
+    "away": "Bay Hawks",
+    "homeScore": 107,
+    "awayScore": 79
+  },
+  {
+    "id": 16061996,
+    "date": "2026-05-24T02:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Rapid League",
+    "home": "Nelson Giants",
+    "away": "Otago Nuggets",
+    "homeScore": 40,
+    "awayScore": 29
+  },
+  {
+    "id": 16062928,
+    "date": "2026-05-24T05:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Rapid League",
+    "home": "Taranaki Airs",
+    "away": "Canterbury Rams",
+    "homeScore": 49,
+    "awayScore": 40
+  },
+  {
+    "id": 16068782,
+    "date": "2026-05-25T06:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Rapid League",
+    "home": "Wellington Saints",
+    "away": "Bay Hawks",
+    "homeScore": 47,
+    "awayScore": 40
+  },
+  {
+    "id": 16193684,
+    "date": "2026-05-24T09:15:00.000Z",
+    "status": "Ended",
+    "tournament": "PBA Commissioner's Cup",
+    "home": "Meralco Bolts",
+    "away": "TNT Tropang 5G",
+    "homeScore": 75,
+    "awayScore": 77
+  },
+  {
+    "id": 16193681,
+    "date": "2026-05-24T11:30:00.000Z",
+    "status": "Ended",
+    "tournament": "PBA Commissioner's Cup",
+    "home": "Barangay Ginebra San Miguel",
+    "away": "Rain Or Shine Elasto Painters",
+    "homeScore": 103,
+    "awayScore": 98
+  },
+  {
+    "id": 16200095,
+    "date": "2026-05-23T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "MPBL",
+    "home": "Valenzuela Classics",
+    "away": "Quezon Huskers",
+    "homeScore": 84,
+    "awayScore": 95
+  },
+  {
+    "id": 16200099,
+    "date": "2026-05-25T08:00:00.000Z",
+    "status": "Ended",
+    "tournament": "MPBL",
+    "home": "Manila Batang Sampaloc",
+    "away": "Cebu Classic",
+    "homeScore": 93,
+    "awayScore": 128
+  },
+  {
+    "id": 16200100,
+    "date": "2026-05-25T10:00:00.000Z",
+    "status": "Ended",
+    "tournament": "MPBL",
+    "home": "South Cotabato Warriors",
+    "away": "Pasay Voyagers",
+    "homeScore": 98,
+    "awayScore": 93
+  },
+  {
+    "id": 16200101,
+    "date": "2026-05-25T12:00:00.000Z",
+    "status": "Ended",
+    "tournament": "MPBL",
+    "home": "Quezon City Capitals",
+    "away": "Bulacan Kuyas",
+    "homeScore": 92,
+    "awayScore": 83
+  },
+  {
+    "id": 16211437,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "PGE Basket Liga",
+    "home": "Śląsk Wrocław",
+    "away": "Arka Gdynia",
+    "homeScore": 54,
+    "awayScore": 71
+  },
+  {
+    "id": 16167629,
+    "date": "2026-05-23T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Bank Pekao S.A. 1 Liga Mężczyzn",
+    "home": "KS Spójnia Stargard",
+    "away": "SKS Starogard Gdański",
+    "homeScore": 78,
+    "awayScore": 79
+  },
+  {
+    "id": 16163804,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Bank Pekao S.A. 1 Liga Mężczyzn",
+    "home": "LKS Lodz",
+    "away": "Enea Abramczyk Astoria Bydgoszcz",
+    "homeScore": 74,
+    "awayScore": 81
+  },
+  {
+    "id": 16196766,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Bank Pekao S.A. 1 Liga Mężczyzn",
+    "home": "LKS Lodz",
+    "away": "Enea Abramczyk Astoria Bydgoszcz",
+    "homeScore": 88,
+    "awayScore": 69
+  },
+  {
+    "id": 16209184,
+    "date": "2026-05-23T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Poland 2nd Basketball League",
+    "home": "PGE Turów Zgorzelec",
+    "away": "KK Polonia Bytom",
+    "homeScore": 74,
+    "awayScore": 82
+  },
+  {
+    "id": 16211832,
+    "date": "2026-05-24T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Poland 2nd Basketball League",
+    "home": "PGE Turów Zgorzelec",
+    "away": "KK Polonia Bytom",
+    "homeScore": 88,
+    "awayScore": 90
+  },
+  {
+    "id": 16209183,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Poland 2nd Basketball League",
+    "home": "GMS Polaris KKS Tarnowskie Góry",
+    "away": "RJ House Legion Legionowo",
+    "homeScore": 88,
+    "awayScore": 92
+  },
+  {
+    "id": 16198937,
+    "date": "2026-05-23T14:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Portugal LBP",
+    "home": "SL Benfica",
+    "away": "UD Oliveirense",
+    "homeScore": 86,
+    "awayScore": 61
+  },
+  {
+    "id": 16198935,
+    "date": "2026-05-23T20:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Portugal LBP",
+    "home": "Sporting CP",
+    "away": "Porto",
+    "homeScore": 70,
+    "awayScore": 81
+  },
+  {
+    "id": 16200096,
+    "date": "2026-05-24T14:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Portugal Proliga",
+    "home": "CAB Madeira",
+    "away": "CD Póvoa",
+    "homeScore": 90,
+    "awayScore": 72
+  },
+  {
+    "id": 16173708,
+    "date": "2026-05-23T19:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Campeonato Nacional da 1ª Divisao Feminina",
+    "home": "CP Natação",
+    "away": "GDRAR REMAX Évora",
+    "homeScore": 43,
+    "awayScore": 52
+  },
+  {
+    "id": 16173709,
+    "date": "2026-05-24T14:00:00.000Z",
+    "status": "Canceled",
+    "tournament": "Campeonato Nacional da 1ª Divisao Feminina",
+    "home": "CP Natação",
+    "away": "GDRAR REMAX Évora",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16173712,
+    "date": "2026-05-23T17:30:00.000Z",
+    "status": "Ended",
+    "tournament": "CN1 Basquetebol",
+    "home": "Clube Galitos",
+    "away": "Barreirense Basket",
+    "homeScore": 64,
+    "awayScore": 65
+  },
+  {
+    "id": 16077978,
+    "date": "2026-05-24T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Puerto Rico BSN",
+    "home": "Capitanes de Arecibo",
+    "away": "Indios de Mayagüez",
+    "homeScore": 95,
+    "awayScore": 85
+  },
+  {
+    "id": 16077979,
+    "date": "2026-05-24T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Puerto Rico BSN",
+    "home": "Piratas de Quebradillas",
+    "away": "Osos de Manatí",
+    "homeScore": 87,
+    "awayScore": 85
+  },
+  {
+    "id": 16077980,
+    "date": "2026-05-24T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Puerto Rico BSN",
+    "home": "Santeros de Aguada",
+    "away": "Cangrejeros De Santurce",
+    "homeScore": 93,
+    "awayScore": 108
+  },
+  {
+    "id": 16077981,
+    "date": "2026-05-25T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Puerto Rico BSN",
+    "home": "Gigantes de Carolina",
+    "away": "Leones de Ponce",
+    "homeScore": 85,
+    "awayScore": 80
+  },
+  {
+    "id": 16194558,
+    "date": "2026-05-23T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNBM BCR",
+    "home": "CS Rapid București",
+    "away": "CSO Voluntari",
+    "homeScore": 89,
+    "awayScore": 82
+  },
+  {
+    "id": 16194559,
+    "date": "2026-05-24T15:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNBM BCR",
+    "home": "BC CSU Sibiu",
+    "away": "FC Argeș Basketball",
+    "homeScore": 100,
+    "awayScore": 93
+  },
+  {
+    "id": 16208428,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "LNBM BCR",
+    "home": "CSM Târgu Jiu",
+    "away": "CSM Galați",
+    "homeScore": 92,
+    "awayScore": 70
+  },
+  {
+    "id": 16208431,
+    "date": "2026-05-23T17:30:00.000Z",
+    "status": "Ended",
+    "tournament": "LNBM BCR",
+    "home": "CSM Corona Brașov",
+    "away": "CSM Târgu Mureș",
+    "homeScore": 81,
+    "awayScore": 96
+  },
+  {
+    "id": 16199055,
+    "date": "2026-05-23T17:15:00.000Z",
+    "status": "Ended",
+    "tournament": "LNBM BCR",
+    "home": "Clubul Sportiv Vâlcea 1924",
+    "away": "CS SCM Politehnica Timișoara",
+    "homeScore": 92,
+    "awayScore": 85
+  },
+  {
+    "id": 16162673,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Super League",
+    "home": "Dynamo Grozny",
+    "away": "BC Novosibirsk",
+    "homeScore": 66,
+    "awayScore": 62
+  },
+  {
+    "id": 16210439,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Super League",
+    "home": "Khimki Moscow Oblast",
+    "away": "Chelbasket Chelyabinsk",
+    "homeScore": 61,
+    "awayScore": 79
+  },
+  {
+    "id": 16166923,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Tipos SBL",
+    "home": "BC Slovan Bratislava",
+    "away": "Patrioti Levice",
+    "homeScore": 65,
+    "awayScore": 69
+  },
+  {
+    "id": 16222726,
+    "date": "2026-05-23T15:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga OTP banka",
+    "home": "KK Cedevita Olimpija",
+    "away": "GGD Šenčur",
+    "homeScore": 94,
+    "awayScore": 65
+  },
+  {
+    "id": 16215537,
+    "date": "2026-05-23T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Liga OTP banka",
+    "home": "KK Krka Novo Mesto",
+    "away": "Perspektiva Ilirija",
+    "homeScore": 97,
+    "awayScore": 74
+  },
+  {
+    "id": 16222342,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Primera FEB",
+    "home": "Menorca Bàsquet",
+    "away": "Leyma Basquet Coruña",
+    "homeScore": 76,
+    "awayScore": 87
+  },
+  {
+    "id": 16222343,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Primera FEB",
+    "home": "Partizan Fuenlabrada",
+    "away": "Palencia Baloncesto",
+    "homeScore": 78,
+    "awayScore": 72
+  },
+  {
+    "id": 16199921,
+    "date": "2026-05-23T18:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Segunda FEB",
+    "home": "Caja 87 Baloncesto",
+    "away": "Basquet Sant Antoni",
+    "homeScore": 91,
+    "awayScore": 72
+  },
+  {
+    "id": 16200015,
+    "date": "2026-05-24T10:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Segunda FEB",
+    "home": "Bueno Arenas/Albacete Basket",
+    "away": "Amics Castelló",
+    "homeScore": 70,
+    "awayScore": 64
+  },
+  {
+    "id": 16221195,
+    "date": "2026-05-24T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Swedish Basketball Superettan",
+    "home": "Huddinge Basketklubb",
+    "away": "Eskilstuna Basket",
+    "homeScore": 73,
+    "awayScore": 64
+  },
+  {
+    "id": 16174752,
+    "date": "2026-05-23T15:30:00.000Z",
+    "status": "Ended",
+    "tournament": "Switzerland LNA",
+    "home": "Lions de Genève pwd by Grand-Saconnex",
+    "away": "Fribourg Olympic Basket",
+    "homeScore": 84,
+    "awayScore": 87
+  },
+  {
+    "id": 16189747,
+    "date": "2026-05-24T15:30:00.000Z",
+    "status": "Ended",
+    "tournament": "NLB",
+    "home": "Bernex Basket",
+    "away": "GC Zürich",
+    "homeScore": 61,
+    "awayScore": 59
+  },
+  {
+    "id": 16194304,
+    "date": "2026-05-24T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "1. Lig",
+    "home": "Gaziantep Basketbol",
+    "away": "Bordo BK",
+    "homeScore": 65,
+    "awayScore": 79
+  },
+  {
+    "id": 16168204,
+    "date": "2026-05-23T16:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Erkekler Bölgesel Basketbol Ligi",
+    "home": "West Bursa",
+    "away": "Çorum Belediyesi",
+    "homeScore": 87,
+    "awayScore": 82
+  },
+  {
+    "id": 16168206,
+    "date": "2026-05-23T17:00:00.000Z",
+    "status": "Ended",
+    "tournament": "Erkekler Bölgesel Basketbol Ligi",
+    "home": "Demir Amiraller",
+    "away": "Suadiye Basketbol",
+    "homeScore": 86,
+    "awayScore": 68
+  },
+  {
+    "id": 16220297,
+    "date": "2026-05-23T12:30:00.000Z",
+    "status": "Ended",
+    "tournament": "U16 Kızlar Türkiye Şampiyonası Finalleri",
+    "home": "Botaş U16",
+    "away": "Fenerbahçe U16",
+    "homeScore": 60,
+    "awayScore": 68
+  },
+  {
+    "id": 16220299,
+    "date": "2026-05-23T14:45:00.000Z",
+    "status": "AET",
+    "tournament": "U16 Kızlar Türkiye Şampiyonası Finalleri",
+    "home": "Eskişehir Çağdaş Kolejliler U16",
+    "away": "Çankaya Üniversitesi U16",
+    "homeScore": 65,
+    "awayScore": 64
+  },
+  {
+    "id": 16224922,
+    "date": "2026-05-24T11:30:00.000Z",
+    "status": "Ended",
+    "tournament": "U16 Kızlar Türkiye Şampiyonası Finalleri",
+    "home": "Botaş U16",
+    "away": "Çankaya Üniversitesi U16",
+    "homeScore": 51,
+    "awayScore": 56
+  },
+  {
+    "id": 16224921,
+    "date": "2026-05-24T13:45:00.000Z",
+    "status": "Ended",
+    "tournament": "U16 Kızlar Türkiye Şampiyonası Finalleri",
+    "home": "Fenerbahçe U16",
+    "away": "Eskişehir Çağdaş Kolejliler U16",
+    "homeScore": 69,
+    "awayScore": 45
+  },
+  {
+    "id": 16224314,
+    "date": "2026-05-24T07:00:00.000Z",
+    "status": "Ended",
+    "tournament": "U16 Kızlar Türkiye Şampiyonası Finalleri",
+    "home": "Gallardo U16",
+    "away": "Nesibe Aydın U16",
+    "homeScore": 66,
+    "awayScore": 39
+  },
+  {
+    "id": 16224313,
+    "date": "2026-05-24T09:15:00.000Z",
+    "status": "Ended",
+    "tournament": "U16 Kızlar Türkiye Şampiyonası Finalleri",
+    "home": "Canik Belediyespor U16",
+    "away": "ÇBK Mersin U16",
+    "homeScore": 63,
+    "awayScore": 50
+  },
+  {
+    "id": 16224309,
+    "date": "2026-05-24T07:00:00.000Z",
+    "status": "Ended",
+    "tournament": "U16 Erkekler Türkiye Şampiyonası Finalleri",
+    "home": "Darüşşafaka U16",
+    "away": "Ankara Genç Magic Hands U16",
+    "homeScore": 68,
+    "awayScore": 59
+  },
+  {
+    "id": 16224307,
+    "date": "2026-05-24T09:15:00.000Z",
+    "status": "Ended",
+    "tournament": "U16 Erkekler Türkiye Şampiyonası Finalleri",
+    "home": "Antalya Gelişim U16",
+    "away": "Tofaş U16",
+    "homeScore": 47,
+    "awayScore": 88
+  },
+  {
+    "id": 16220292,
+    "date": "2026-05-23T12:30:00.000Z",
+    "status": "Ended",
+    "tournament": "U16 Erkekler Türkiye Şampiyonası Finalleri",
+    "home": "Fenerbahçe U16",
+    "away": "Konya Büyükşehir B. U16",
+    "homeScore": 72,
+    "awayScore": 58
+  },
+  {
+    "id": 16220293,
+    "date": "2026-05-23T14:45:00.000Z",
+    "status": "Ended",
+    "tournament": "U16 Erkekler Türkiye Şampiyonası Finalleri",
+    "home": "Anadolu Efes-B U16",
+    "away": "Bahcesehir U16",
+    "homeScore": 72,
+    "awayScore": 51
+  },
+  {
+    "id": 16224321,
+    "date": "2026-05-24T11:30:00.000Z",
+    "status": "AET",
+    "tournament": "U16 Erkekler Türkiye Şampiyonası Finalleri",
+    "home": "Konya Büyükşehir B. U16",
+    "away": "Bahcesehir U16",
+    "homeScore": 72,
+    "awayScore": 62
+  },
+  {
+    "id": 16224317,
+    "date": "2026-05-24T13:45:00.000Z",
+    "status": "Ended",
+    "tournament": "U16 Erkekler Türkiye Şampiyonası Finalleri",
+    "home": "Fenerbahçe U16",
+    "away": "Anadolu Efes-B U16",
+    "homeScore": 60,
+    "awayScore": 67
+  },
+  {
+    "id": 16060598,
+    "date": "2026-05-23T20:00:00.000Z",
+    "status": "Canceled",
+    "tournament": "The Basketball League",
+    "home": "Dallas Stampede",
+    "away": "Creating Young Minds",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16206586,
+    "date": "2026-05-23T20:00:00.000Z",
+    "status": "Ended",
+    "tournament": "The Basketball League",
+    "home": "Dallas Stampede",
+    "away": "Potawatomi Fire",
+    "homeScore": 106,
+    "awayScore": 135
+  },
+  {
+    "id": 16060914,
+    "date": "2026-05-23T21:00:00.000Z",
+    "status": "Not started",
+    "tournament": "The Basketball League",
+    "home": "Lake County Legacy",
+    "away": "Grove City Whitetails",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16060917,
+    "date": "2026-05-23T21:30:00.000Z",
+    "status": "Ended",
+    "tournament": "The Basketball League",
+    "home": "Kissimmee Lambs",
+    "away": "Tampa Bay Titans",
+    "homeScore": 116,
+    "awayScore": 109
+  },
+  {
+    "id": 16060918,
+    "date": "2026-05-23T21:30:00.000Z",
+    "status": "Ended",
+    "tournament": "The Basketball League",
+    "home": "Newfoundland Rogues",
+    "away": "Tri-State Admirals",
+    "homeScore": 105,
+    "awayScore": 75
+  },
+  {
+    "id": 16060916,
+    "date": "2026-05-23T22:00:00.000Z",
+    "status": "Ended",
+    "tournament": "The Basketball League",
+    "home": "Fayetteville Liberty",
+    "away": "Raleigh Firebirds",
+    "homeScore": 118,
+    "awayScore": 119
+  },
+  {
+    "id": 16060915,
+    "date": "2026-05-23T22:00:00.000Z",
+    "status": "Not started",
+    "tournament": "The Basketball League",
+    "home": "Halifax Hoopers",
+    "away": "Port City Power",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16061679,
+    "date": "2026-05-23T23:00:00.000Z",
+    "status": "Not started",
+    "tournament": "The Basketball League",
+    "home": "Enid Outlaws",
+    "away": "Little Rock Lightning",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16203669,
+    "date": "2026-05-24T00:00:00.000Z",
+    "status": "Ended",
+    "tournament": "The Basketball League",
+    "home": "ADS Sentinels",
+    "away": "Creating Young Minds",
+    "homeScore": 136,
+    "awayScore": 105
+  },
+  {
+    "id": 16061995,
+    "date": "2026-05-24T02:00:00.000Z",
+    "status": "Ended",
+    "tournament": "The Basketball League",
+    "home": "Grant County RedTails",
+    "away": "4 Bears Roar",
+    "homeScore": 107,
+    "awayScore": 138
+  },
+  {
+    "id": 16066334,
+    "date": "2026-05-24T18:00:00.000Z",
+    "status": "Not started",
+    "tournament": "The Basketball League",
+    "home": "Halifax Hoopers",
+    "away": "Tri-City Tide",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16067320,
+    "date": "2026-05-24T18:30:00.000Z",
+    "status": "Ended",
+    "tournament": "The Basketball League",
+    "home": "Newfoundland Rogues",
+    "away": "Tri-State Admirals",
+    "homeScore": 123,
+    "awayScore": 107
+  },
+  {
+    "id": 16067315,
+    "date": "2026-05-24T19:00:00.000Z",
+    "status": "Not started",
+    "tournament": "The Basketball League",
+    "home": "Creating Young Minds",
+    "away": "Potawatomi Fire",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16067317,
+    "date": "2026-05-24T19:00:00.000Z",
+    "status": "Not started",
+    "tournament": "The Basketball League",
+    "home": "DC Heat",
+    "away": "Lehigh Valley Flight",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16067321,
+    "date": "2026-05-24T19:00:00.000Z",
+    "status": "Not started",
+    "tournament": "The Basketball League",
+    "home": "Tampa Bay Titans",
+    "away": "Jacksonville 95ers",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16067316,
+    "date": "2026-05-24T20:00:00.000Z",
+    "status": "Not started",
+    "tournament": "The Basketball League",
+    "home": "Dallas Stampede",
+    "away": "ADS Sentinels",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16067318,
+    "date": "2026-05-24T20:00:00.000Z",
+    "status": "Not started",
+    "tournament": "The Basketball League",
+    "home": "Lake County Legacy",
+    "away": "Hamilton County Huskers",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": 16067319,
+    "date": "2026-05-24T20:00:00.000Z",
+    "status": "Ended",
+    "tournament": "The Basketball League",
+    "home": "St. Louis Griffins",
+    "away": "Lebanon Leprechauns",
+    "homeScore": 136,
+    "awayScore": 124
+  },
+  {
+    "id": 16067847,
+    "date": "2026-05-24T22:00:00.000Z",
+    "status": "Ended",
+    "tournament": "The Basketball League",
+    "home": "Willamette Valley Jaguars",
+    "away": "Tri-Cities Sun Devils",
+    "homeScore": 113,
+    "awayScore": 98
+  },
+  {
+    "id": 16060599,
+    "date": "2026-05-23T19:00:00.000Z",
+    "status": "Ended",
+    "tournament": "The Basketball League",
+    "home": "DC Heat",
+    "away": "DMV Soldiers",
+    "homeScore": 101,
+    "awayScore": 86
+  },
+  {
+    "id": 16217561,
+    "date": "2026-05-24T22:00:00.000Z",
+    "status": "Ended",
+    "tournament": "SuperLiga",
+    "home": "Gaiteros del Zulia",
+    "away": "Brillantes del Zulia",
+    "homeScore": 100,
+    "awayScore": 76
+  },
+  {
+    "id": 16217560,
+    "date": "2026-05-24T22:00:00.000Z",
+    "status": "Ended",
+    "tournament": "SuperLiga",
+    "home": "Guaiqueríes de Margarita",
+    "away": "Trotamundos de Carabobo",
+    "homeScore": 87,
+    "awayScore": 83
+  }
+]

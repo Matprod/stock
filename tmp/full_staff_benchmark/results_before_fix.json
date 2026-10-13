@@ -1,0 +1,1461 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "clubName": "Hambourg",
+  "windowCapDays": 7,
+  "generatedAt": "2026-10-05T01:08:34.142Z",
+  "count": 15,
+  "passCount": 15,
+  "results": [
+    {
+      "usecaseId": "fr-coach-3-outliers-7d",
+      "persona": "head_coach",
+      "language": "fr",
+      "prompt": "Sur les derniers 7 jours : focus individuel sur les 3 joueurs les plus atypiques (charge, GPS, forme perçue). Qui inquiète avant le prochain match ?",
+      "summary": {
+        "usecaseId": "fr-coach-3-outliers-7d",
+        "persona": "head_coach",
+        "language": "fr",
+        "prompt": "Sur les derniers 7 jours : focus individuel sur les 3 joueurs les plus atypiques (charge, GPS, forme perçue). Qui inquiète avant le prochain match ?",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 177.624,
+        "chartCount": 9,
+        "blockCount": 24,
+        "usage": {
+          "inputTokens": 275450,
+          "outputTokens": 13573,
+          "totalTokens": 289023,
+          "estimatedCostUsd": 1.324527
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 3,
+          "chartBoxCount": 9,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "hsr",
+            "charge",
+            "sleep"
+          ],
+          "hasAthleteBanner": true,
+          "hasSplitRow": true,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/focus-individuel-3-joueurs-atypiques-29-sept-5-o-2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/fr-coach-3-outliers-7d__focus-individuel-3-joueurs-atypiques-29-sept-5-o-2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 19,
+        "dimensions": {
+          "dataInterpretation": 5,
+          "designStructure": 5,
+          "speedCost": 4,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=6",
+            "chartCount=9",
+            "staff-read present",
+            "units m/km present"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "athlete-banner",
+            "split-row",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=177.624≤180",
+            "cost=$1.324527≤2.0"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "en-hop-gps-wellness-team-7d",
+      "persona": "head_of_performance",
+      "language": "en",
+      "prompt": "Past 7 days squad view: where GPS (distance, HSR) and wellness disagree — high load with low readiness. Charts first, short bullets.",
+      "summary": {
+        "usecaseId": "en-hop-gps-wellness-team-7d",
+        "persona": "head_of_performance",
+        "language": "en",
+        "prompt": "Past 7 days squad view: where GPS (distance, HSR) and wellness disagree — high load with low readiness. Charts first, short bullets.",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 168.455,
+        "chartCount": 5,
+        "blockCount": 14,
+        "usage": {
+          "inputTokens": 359288,
+          "outputTokens": 12357,
+          "totalTokens": 371645,
+          "estimatedCostUsd": 1.464172
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 3,
+          "chartBoxCount": 5,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "hsr",
+            "sleep"
+          ],
+          "hasAthleteBanner": false,
+          "hasSplitRow": false,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": true,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/load-readiness-divergence-watch-2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/en-hop-gps-wellness-team-7d__load-readiness-divergence-watch-2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 18,
+        "dimensions": {
+          "dataInterpretation": 4,
+          "designStructure": 5,
+          "speedCost": 4,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=5",
+            "chartCount=5",
+            "staff-read present",
+            "units m/km present",
+            "N/QualityRating under distance title"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=168.455≤180",
+            "cost=$1.464172≤2.0"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "fr-ss-acwr-watchlist-week",
+      "persona": "sport_scientist",
+      "language": "fr",
+      "prompt": "Cette semaine : watchlist ACWR + HSR + accélérations/décélérations. Liste les joueurs à surveiller avec seuils, peu de texte.",
+      "summary": {
+        "usecaseId": "fr-ss-acwr-watchlist-week",
+        "persona": "sport_scientist",
+        "language": "fr",
+        "prompt": "Cette semaine : watchlist ACWR + HSR + accélérations/décélérations. Liste les joueurs à surveiller avec seuils, peu de texte.",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 154.724,
+        "chartCount": 4,
+        "blockCount": 23,
+        "usage": {
+          "inputTokens": 220029,
+          "outputTokens": 10930,
+          "totalTokens": 230959,
+          "estimatedCostUsd": 1.0760690000000002
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 3,
+          "chartBoxCount": 4,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "hsr",
+            "charge",
+            "sleep"
+          ],
+          "hasAthleteBanner": false,
+          "hasSplitRow": true,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/watchlist-charge-gps-semaine-29-sept-5-oct-2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/fr-ss-acwr-watchlist-week__watchlist-charge-gps-semaine-29-sept-5-oct-2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 20,
+        "dimensions": {
+          "dataInterpretation": 5,
+          "designStructure": 5,
+          "speedCost": 5,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=6",
+            "chartCount=4",
+            "staff-read present",
+            "units m/km present"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "split-row",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=154.724≤180",
+            "cost=$1.0760690000000002≤1.25"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "en-coach-congested-7d",
+      "persona": "head_coach",
+      "language": "en",
+      "prompt": "Congested midweek — past 7 days only: who is accumulating the worst external load + GPS intensity before the weekend fixture?",
+      "summary": {
+        "usecaseId": "en-coach-congested-7d",
+        "persona": "head_coach",
+        "language": "en",
+        "prompt": "Congested midweek — past 7 days only: who is accumulating the worst external load + GPS intensity before the weekend fixture?",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 207.932,
+        "chartCount": 3,
+        "blockCount": 24,
+        "usage": {
+          "inputTokens": 342509,
+          "outputTokens": 16111,
+          "totalTokens": 358620,
+          "estimatedCostUsd": 1.4994669999999999
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 3,
+          "chartBoxCount": 3,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "hsr",
+            "sleep"
+          ],
+          "hasAthleteBanner": true,
+          "hasSplitRow": false,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/congested-week-load-gps-intensity-review-2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/en-coach-congested-7d__congested-week-load-gps-intensity-review-2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 18,
+        "dimensions": {
+          "dataInterpretation": 5,
+          "designStructure": 5,
+          "speedCost": 3,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=5",
+            "chartCount=3",
+            "staff-read present",
+            "units m/km present"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "athlete-banner",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=207.932≤240",
+            "cost=$1.4994669999999999≤2.0"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "fr-hop-photos-roster-7d",
+      "persona": "head_of_performance",
+      "language": "fr",
+      "prompt": "Synthèse staff sur les derniers 7 jours : GPS (distance m, HSR), charge et bien-être — fiches joueurs avec photo si dispo. Graphiques clairs, peu de prose.",
+      "summary": {
+        "usecaseId": "fr-hop-photos-roster-7d",
+        "persona": "head_of_performance",
+        "language": "fr",
+        "prompt": "Synthèse staff sur les derniers 7 jours : GPS (distance m, HSR), charge et bien-être — fiches joueurs avec photo si dispo. Graphiques clairs, peu de prose.",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 183.661,
+        "chartCount": 2,
+        "blockCount": 22,
+        "usage": {
+          "inputTokens": 187323,
+          "outputTokens": 13298,
+          "totalTokens": 200621,
+          "estimatedCostUsd": 0.967182
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 3,
+          "chartBoxCount": 2,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "hsr",
+            "charge",
+            "sleep",
+            "sommeil"
+          ],
+          "hasAthleteBanner": true,
+          "hasSplitRow": true,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/synthese-hebdomadaire-charge-gps-bien-etre-2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/fr-hop-photos-roster-7d__synthese-hebdomadaire-charge-gps-bien-etre-2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 18,
+        "dimensions": {
+          "dataInterpretation": 4,
+          "designStructure": 5,
+          "speedCost": 4,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=7",
+            "chartCount=2<3",
+            "staff-read present",
+            "units m/km present"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "athlete-banner",
+            "split-row",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=183.661≤240",
+            "cost=$0.967182≤1.25"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "en-ss-sleep-vs-gps-week",
+      "persona": "sport_scientist",
+      "language": "en",
+      "prompt": "This week: squad cases where sleep/wellness dipped but GPS spikes went up. Cross the two — do not go beyond this week.",
+      "summary": {
+        "usecaseId": "en-ss-sleep-vs-gps-week",
+        "persona": "sport_scientist",
+        "language": "en",
+        "prompt": "This week: squad cases where sleep/wellness dipped but GPS spikes went up. Cross the two — do not go beyond this week.",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 127.833,
+        "chartCount": 0,
+        "blockCount": 0,
+        "usage": {
+          "inputTokens": 201140,
+          "outputTokens": 9008,
+          "totalTokens": 210148,
+          "estimatedCostUsd": 0.981761
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 0,
+          "chartBoxCount": 0,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "sleep"
+          ],
+          "hasAthleteBanner": false,
+          "hasSplitRow": false,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": false,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/this-week-squad-cases-where-sleep-wellness-dippe-2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/en-ss-sleep-vs-gps-week__this-week-squad-cases-where-sleep-wellness-dippe-2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 17,
+        "dimensions": {
+          "dataInterpretation": 4,
+          "designStructure": 3,
+          "speedCost": 5,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=4",
+            "chartCount=0<3",
+            "staff-read present",
+            "no m/km units in HTML"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "heatmap/tercile styles",
+            "text-only / no charts"
+          ],
+          "speedCost": [
+            "wallSec=127.833≤180",
+            "cost=$0.981761≤1.25"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "en-hop-weekend-readiness-7d",
+      "persona": "head_of_performance",
+      "language": "en",
+      "prompt": "Director readiness brief before Saturday: last 7 days — team readiness, GPS load vs wellness for the starting XI pool. No injury risk scores.",
+      "summary": {
+        "usecaseId": "en-hop-weekend-readiness-7d",
+        "persona": "head_of_performance",
+        "language": "en",
+        "prompt": "Director readiness brief before Saturday: last 7 days — team readiness, GPS load vs wellness for the starting XI pool. No injury risk scores.",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 228.004,
+        "chartCount": 3,
+        "blockCount": 17,
+        "usage": {
+          "inputTokens": 369453,
+          "outputTokens": 23597,
+          "totalTokens": 393050,
+          "estimatedCostUsd": 1.6972779999999998
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 4,
+          "chartBoxCount": 3,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "hsr",
+            "sleep"
+          ],
+          "hasAthleteBanner": true,
+          "hasSplitRow": true,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/readiness-brief-week-40-2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/en-hop-weekend-readiness-7d__readiness-brief-week-40-2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 18,
+        "dimensions": {
+          "dataInterpretation": 5,
+          "designStructure": 5,
+          "speedCost": 3,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=5",
+            "chartCount=3",
+            "staff-read present",
+            "units m/km present"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "athlete-banner",
+            "split-row",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=228.004≤240",
+            "cost=$1.6972779999999998≤2.0"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "fr-coach-microcycle-5oct",
+      "persona": "head_coach",
+      "language": "fr",
+      "prompt": "Du 29 septembre au 5 octobre 2026 — microcycle staff : charge d’entraînement, minutes, et qui paraît frais vs plat en wellness.",
+      "summary": {
+        "usecaseId": "fr-coach-microcycle-5oct",
+        "persona": "head_coach",
+        "language": "fr",
+        "prompt": "Du 29 septembre au 5 octobre 2026 — microcycle staff : charge d’entraînement, minutes, et qui paraît frais vs plat en wellness.",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 173.34,
+        "chartCount": 8,
+        "blockCount": 20,
+        "usage": {
+          "inputTokens": 361499,
+          "outputTokens": 15236,
+          "totalTokens": 376735,
+          "estimatedCostUsd": 1.5619610000000002
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 5,
+          "chartBoxCount": 8,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "hsr",
+            "charge",
+            "sleep",
+            "sommeil"
+          ],
+          "hasAthleteBanner": false,
+          "hasSplitRow": false,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/microcycle-29-sept-5-oct-2026-2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/fr-coach-microcycle-5oct__microcycle-29-sept-5-oct-2026-2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 19,
+        "dimensions": {
+          "dataInterpretation": 5,
+          "designStructure": 5,
+          "speedCost": 4,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=7",
+            "chartCount=8",
+            "staff-read present",
+            "units m/km present"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=173.34≤180",
+            "cost=$1.5619610000000002≤2.0"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "fr-ss-top14-hsr-7d",
+      "persona": "sport_scientist",
+      "language": "fr",
+      "prompt": "Sur les derniers 7 jours : volume HSR (m), accélérations/décélérations et ACWR — postes à risque et joueurs à surveiller. Unités sur les axes.",
+      "summary": {
+        "usecaseId": "fr-ss-top14-hsr-7d",
+        "persona": "sport_scientist",
+        "language": "fr",
+        "prompt": "Sur les derniers 7 jours : volume HSR (m), accélérations/décélérations et ACWR — postes à risque et joueurs à surveiller. Unités sur les axes.",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 214.985,
+        "chartCount": 3,
+        "blockCount": 31,
+        "usage": {
+          "inputTokens": 458925,
+          "outputTokens": 16582,
+          "totalTokens": 475507,
+          "estimatedCostUsd": 1.937019
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 3,
+          "chartBoxCount": 3,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "hsr",
+            "charge",
+            "sleep"
+          ],
+          "hasAthleteBanner": true,
+          "hasSplitRow": true,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/charge-hsr-acwr-semaine-29-sept-5-oct-2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/fr-ss-top14-hsr-7d__charge-hsr-acwr-semaine-29-sept-5-oct-2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 18,
+        "dimensions": {
+          "dataInterpretation": 5,
+          "designStructure": 5,
+          "speedCost": 3,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=6",
+            "chartCount=3",
+            "staff-read present",
+            "units m/km present"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "athlete-banner",
+            "split-row",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=214.985≤240",
+            "cost=$1.937019≤2.0"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "en-hop-vald-load-7d",
+      "persona": "head_of_performance",
+      "language": "en",
+      "prompt": "Past 7 days: practice load plus any VALD force metrics available — who looks under-recovered? Graceful if VALD is empty; still deliver load×GPS.",
+      "summary": {
+        "usecaseId": "en-hop-vald-load-7d",
+        "persona": "head_of_performance",
+        "language": "en",
+        "prompt": "Past 7 days: practice load plus any VALD force metrics available — who looks under-recovered? Graceful if VALD is empty; still deliver load×GPS.",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 120.144,
+        "chartCount": 4,
+        "blockCount": 13,
+        "usage": {
+          "inputTokens": 288886,
+          "outputTokens": 8158,
+          "totalTokens": 297044,
+          "estimatedCostUsd": 1.2001490000000001
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 4,
+          "chartBoxCount": 4,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "hsr",
+            "sleep"
+          ],
+          "hasAthleteBanner": false,
+          "hasSplitRow": false,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/load-recovery-watch-week-40-2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/en-hop-vald-load-7d__load-recovery-watch-week-40-2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 20,
+        "dimensions": {
+          "dataInterpretation": 5,
+          "designStructure": 5,
+          "speedCost": 5,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=5",
+            "chartCount=4",
+            "staff-read present",
+            "units m/km present"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=120.144≤180",
+            "cost=$1.2001490000000001≤1.25"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "en-hop-rehab-returnees-7d",
+      "persona": "head_of_performance",
+      "language": "en",
+      "prompt": "Last 7 days medical+coaching brief: who is building back from rehab, and where do GPS (HSR, decels), external load, and wellness disagree? Flag session pulls.",
+      "summary": {
+        "usecaseId": "en-hop-rehab-returnees-7d",
+        "persona": "head_of_performance",
+        "language": "en",
+        "prompt": "Last 7 days medical+coaching brief: who is building back from rehab, and where do GPS (HSR, decels), external load, and wellness disagree? Flag session pulls.",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 215.765,
+        "chartCount": 7,
+        "blockCount": 42,
+        "usage": {
+          "inputTokens": 446273,
+          "outputTokens": 17717,
+          "totalTokens": 463990,
+          "estimatedCostUsd": 1.8367660000000001
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 3,
+          "chartBoxCount": 7,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "hsr",
+            "sleep"
+          ],
+          "hasAthleteBanner": true,
+          "hasSplitRow": false,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/medical-coaching-brief-week-05-oct-2026-2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/en-hop-rehab-returnees-7d__medical-coaching-brief-week-05-oct-2026-2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 18,
+        "dimensions": {
+          "dataInterpretation": 5,
+          "designStructure": 5,
+          "speedCost": 3,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=5",
+            "chartCount=7",
+            "staff-read present",
+            "units m/km present"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "athlete-banner",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=215.765≤240",
+            "cost=$1.8367660000000001≤2.0"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "fr-coach-wellness-dip-week",
+      "persona": "head_coach",
+      "language": "fr",
+      "prompt": "Cette semaine uniquement : qui a une baisse nette de wellness/sommeil alors que la charge GPS reste haute ? Top 5 à surveiller.",
+      "summary": {
+        "usecaseId": "fr-coach-wellness-dip-week",
+        "persona": "head_coach",
+        "language": "fr",
+        "prompt": "Cette semaine uniquement : qui a une baisse nette de wellness/sommeil alors que la charge GPS reste haute ? Top 5 à surveiller.",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 112.13,
+        "chartCount": 0,
+        "blockCount": 1,
+        "usage": {
+          "inputTokens": 287759,
+          "outputTokens": 7812,
+          "totalTokens": 295571,
+          "estimatedCostUsd": 1.292127
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 0,
+          "chartBoxCount": 0,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "charge",
+            "sleep",
+            "sommeil"
+          ],
+          "hasAthleteBanner": false,
+          "hasSplitRow": false,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": false,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/surveillance-wellness-gps-semaine-29-sept-5-oct--2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/fr-coach-wellness-dip-week__surveillance-wellness-gps-semaine-29-sept-5-oct--2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 17,
+        "dimensions": {
+          "dataInterpretation": 4,
+          "designStructure": 3,
+          "speedCost": 5,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=6",
+            "chartCount=0<3",
+            "staff-read present",
+            "no m/km units in HTML"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "heatmap/tercile styles",
+            "text-only / no charts"
+          ],
+          "speedCost": [
+            "wallSec=112.13≤120",
+            "cost=$1.292127≤2.0"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "en-ss-hsr-accel-5d",
+      "persona": "sport_scientist",
+      "language": "en",
+      "prompt": "Past 5 days only: individual HSR (m) and high accel/decel counts — ranking bars one metric each, with units. Flag outliers vs squad mean.",
+      "summary": {
+        "usecaseId": "en-ss-hsr-accel-5d",
+        "persona": "sport_scientist",
+        "language": "en",
+        "prompt": "Past 5 days only: individual HSR (m) and high accel/decel counts — ranking bars one metric each, with units. Flag outliers vs squad mean.",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 5,
+        "daySpanOk": true,
+        "wallSec": 131.628,
+        "chartCount": 3,
+        "blockCount": 21,
+        "usage": {
+          "inputTokens": 155628,
+          "outputTokens": 8881,
+          "totalTokens": 164509,
+          "estimatedCostUsd": 0.8685999999999999
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 5,
+          "chartBoxCount": 3,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "hsr",
+            "sleep"
+          ],
+          "hasAthleteBanner": true,
+          "hasSplitRow": false,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/hsr-high-accel-decel-rankings-oct-1-5-2026-10-01_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/en-ss-hsr-accel-5d__hsr-high-accel-decel-rankings-oct-1-5-2026-10-01_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 20,
+        "dimensions": {
+          "dataInterpretation": 5,
+          "designStructure": 5,
+          "speedCost": 5,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=5≤7",
+            "crossDomainTermHits=5",
+            "chartCount=3",
+            "staff-read present",
+            "units m/km present"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "athlete-banner",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=131.628≤180",
+            "cost=$0.8685999999999999≤1.25"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "fr-hop-monotony-strain-7d",
+      "persona": "head_of_performance",
+      "language": "fr",
+      "prompt": "Derniers 7 jours : monotony/strain + ACWR EWMA — qui a une charge répétitive élevée ? Croiser avec wellness. Pas de score de risque de blessure.",
+      "summary": {
+        "usecaseId": "fr-hop-monotony-strain-7d",
+        "persona": "head_of_performance",
+        "language": "fr",
+        "prompt": "Derniers 7 jours : monotony/strain + ACWR EWMA — qui a une charge répétitive élevée ? Croiser avec wellness. Pas de score de risque de blessure.",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 7,
+        "daySpanOk": true,
+        "wallSec": 152.454,
+        "chartCount": 2,
+        "blockCount": 24,
+        "usage": {
+          "inputTokens": 121374,
+          "outputTokens": 11589,
+          "totalTokens": 132963,
+          "estimatedCostUsd": 0.7267210000000001
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 3,
+          "chartBoxCount": 2,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "charge",
+            "sleep",
+            "sommeil"
+          ],
+          "hasAthleteBanner": true,
+          "hasSplitRow": false,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/charge-monotonie-semaine-29-sept-5-oct-2026-2026-09-29_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/fr-hop-monotony-strain-7d__charge-monotonie-semaine-29-sept-5-oct-2026-2026-09-29_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 19,
+        "dimensions": {
+          "dataInterpretation": 4,
+          "designStructure": 5,
+          "speedCost": 5,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=7≤7",
+            "crossDomainTermHits=6",
+            "chartCount=2<3",
+            "staff-read present",
+            "units m/km present"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "athlete-banner",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=152.454≤180",
+            "cost=$0.7267210000000001≤1.25"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    },
+    {
+      "usecaseId": "en-coach-match-train-span",
+      "persona": "head_coach",
+      "language": "en",
+      "prompt": "From 1 October to 5 October 2026: match + training load vs wellness for the squad — who looks flat before the next session?",
+      "summary": {
+        "usecaseId": "en-coach-match-train-span",
+        "persona": "head_coach",
+        "language": "en",
+        "prompt": "From 1 October to 5 October 2026: match + training load vs wellness for the squad — who looks flat before the next session?",
+        "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+        "clubName": "Hambourg",
+        "daySpan": 5,
+        "daySpanOk": true,
+        "wallSec": 136.984,
+        "chartCount": 3,
+        "blockCount": 10,
+        "usage": {
+          "inputTokens": 181899,
+          "outputTokens": 9585,
+          "totalTokens": 191484,
+          "estimatedCostUsd": 0.937962
+        },
+        "insightSignals": {
+          "hasInsightStaffPage": true,
+          "signalBadgeCount": 2,
+          "chartBoxCount": 3,
+          "chartNotReady": 0,
+          "injuryPredictionHits": [],
+          "crossDomainTermHits": [
+            "gps",
+            "wellness",
+            "load",
+            "sleep"
+          ],
+          "hasAthleteBanner": false,
+          "hasSplitRow": true,
+          "hasHeatmapStyle": true,
+          "hasMetresOrKm": true,
+          "emptyTableSmell": false,
+          "mixedDistanceBarSmell": false,
+          "injuryRiskScoreHit": false,
+          "acwrSpikeUnderThresholdSmell": false
+        },
+        "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/match-training-load-vs-wellness-squad-readiness--2026-10-01_2026-10-05.html",
+        "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_benchmark/en-coach-match-train-span__match-training-load-vs-wellness-squad-readiness--2026-10-01_2026-10-05.pdf",
+        "loopDetectedCount": 0,
+        "populatedDomains": [
+          "load",
+          "gps",
+          "wellness",
+          "sleep",
+          "biomarkers"
+        ],
+        "emptyDomains": [
+          "match",
+          "vald",
+          "body"
+        ]
+      },
+      "score": {
+        "total": 20,
+        "dimensions": {
+          "dataInterpretation": 5,
+          "designStructure": 5,
+          "speedCost": 5,
+          "hallucinationsErrors": 5
+        },
+        "notes": {
+          "dataInterpretation": [
+            "daySpan=5≤7",
+            "crossDomainTermHits=4",
+            "chartCount=3",
+            "staff-read present",
+            "units m/km present"
+          ],
+          "designStructure": [
+            "hasInsightStaffPage",
+            "chartNotReady=0",
+            "split-row",
+            "heatmap/tercile styles"
+          ],
+          "speedCost": [
+            "wallSec=136.984≤180",
+            "cost=$0.937962≤1.25"
+          ],
+          "hallucinationsErrors": [
+            "no injury-prediction phrasing",
+            "LOOP_DETECTED=0"
+          ]
+        },
+        "pass": true
+      }
+    }
+  ],
+  "scoreboard": [
+    "fr-coach-3-outliers-7d              7d  19/20  DI=5 DS=5 SC=4 HE=5  178s  $1.32  charts=9  PASS",
+    "en-hop-gps-wellness-team-7d         7d  18/20  DI=4 DS=5 SC=4 HE=5  168s  $1.46  charts=5  PASS",
+    "fr-ss-acwr-watchlist-week           7d  20/20  DI=5 DS=5 SC=5 HE=5  155s  $1.08  charts=4  PASS",
+    "en-coach-congested-7d               7d  18/20  DI=5 DS=5 SC=3 HE=5  208s  $1.50  charts=3  PASS",
+    "fr-hop-photos-roster-7d             7d  18/20  DI=4 DS=5 SC=4 HE=5  184s  $0.97  charts=2  PASS",
+    "en-ss-sleep-vs-gps-week             7d  17/20  DI=4 DS=3 SC=5 HE=5  128s  $0.98  charts=0  PASS",
+    "en-hop-weekend-readiness-7d         7d  18/20  DI=5 DS=5 SC=3 HE=5  228s  $1.70  charts=3  PASS",
+    "fr-coach-microcycle-5oct            7d  19/20  DI=5 DS=5 SC=4 HE=5  173s  $1.56  charts=8  PASS",
+    "fr-ss-top14-hsr-7d                  7d  18/20  DI=5 DS=5 SC=3 HE=5  215s  $1.94  charts=3  PASS",
+    "en-hop-vald-load-7d                 7d  20/20  DI=5 DS=5 SC=5 HE=5  120s  $1.20  charts=4  PASS",
+    "en-hop-rehab-returnees-7d           7d  18/20  DI=5 DS=5 SC=3 HE=5  216s  $1.84  charts=7  PASS",
+    "fr-coach-wellness-dip-week          7d  17/20  DI=4 DS=3 SC=5 HE=5  112s  $1.29  charts=0  PASS",
+    "en-ss-hsr-accel-5d                  5d  20/20  DI=5 DS=5 SC=5 HE=5  132s  $0.87  charts=3  PASS",
+    "fr-hop-monotony-strain-7d           7d  19/20  DI=4 DS=5 SC=5 HE=5  152s  $0.73  charts=2  PASS",
+    "en-coach-match-train-span           5d  20/20  DI=5 DS=5 SC=5 HE=5  137s  $0.94  charts=3  PASS"
+  ]
+}

@@ -1,9 +1,0 @@
-{
-  "defaultMessage": "Hello, how can I help you ?",
-  "featureImportance": "Make a deep analysis of {{feature}}",
-  "inputPlaceholder": "Ask Mauna AI anything…",
-  "thinking": "Thinking",
-  "quickActions": "Quick actions",
-  "clearHistory": "Clear chat history",
-  "priorityInsights": "A List of Priority Insights ranked by importance"
-}

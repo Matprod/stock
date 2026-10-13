@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html data-artifact="free" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Training Load & GPS Intensity — Reading FC</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" onload="window.__maunaEchartsLoaded=1;window.__maunaOnEchartsLoad&&window.__maunaOnEchartsLoad()"></script>
+<style id="mauna-pack-css">:root {
+  --ink: #0f172a; --ink-soft: #334155; --muted: #64748b;
+  --line: #cbd5e1; --primary: #4f6ef7; --light: #74c0fc;
+  --paper: #f8fafc; --bg: #ffffff; --navy: #0b1f3a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; color: var(--ink); background: #eef1f7;
+  font-family: "DM Sans", system-ui, sans-serif; font-size: 12px; line-height: 1.4;
+}
+.page.cover {
+  min-height: 279mm; padding: 0; background: #fff;
+  page-break-after: always; break-after: page;
+}
+.cover-panel {
+  min-height: 279mm; padding: 18mm 14mm 14mm;
+  background: #0b1f3a;
+  color: #e8eaf2; position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.cover-panel::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--primary);
+}
+.brand {
+  font-size: 11px; font-weight: 700; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--light);
+}
+.season {
+  margin-top: 12px; color: #93c5fd; font-weight: 600;
+  font-size: 12px; letter-spacing: .1em;
+}
+.cover-title {
+  margin: 28px 0 0; max-width: 168mm;
+  font-size: 32px; font-weight: 700; letter-spacing: .01em;
+  text-transform: uppercase; line-height: 1.12; color: #f8fafc;
+}
+.cover-sub {
+  margin-top: 10px; max-width: 150mm; color: #94a3b8;
+  font-size: 12.5px; line-height: 1.45; font-weight: 500;
+}
+.date-pill {
+  margin-top: 18px; align-self: flex-start;
+  background: rgba(116,192,252,.12); border: 1px solid rgba(116,192,252,.35);
+  color: #dbeafe; font-weight: 600; padding: 8px 14px; border-radius: 999px; font-size: 11px;
+}
+.club-mark {
+  margin-top: auto; padding-top: 20px;
+  color: #64748b; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; font-size: 10px;
+}
+.report-flow { padding: 12px 14px 28px; max-width: 192mm; margin: 0 auto; background: #fff; }
+.section-block { margin: 0 0 16px; }
+.band {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  background: #0b1f3a;
+  color: #fff; border-radius: 8px; padding: 11px 14px; margin-bottom: 10px;
+}
+.band h1, .band h2 {
+  margin: 0; font-size: 13px; letter-spacing: .05em; text-transform: uppercase;
+}
+.band .meta { color: #c7d2fe; font-size: 10px; font-weight: 600; }
+.coach-brief {
+  background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+  border-radius: 8px; padding: 12px 14px; margin: 0 0 12px;
+}
+.coach-brief .label {
+  margin: 0 0 6px; font-size: 10px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--muted);
+}
+.coach-brief blockquote {
+  margin: 0; color: var(--ink-soft); font-size: 12.5px; line-height: 1.45; font-style: normal;
+}
+.toc-list { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 5px; }
+.toc-list a {
+  display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+  background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+  border-radius: 6px; padding: 8px 10px; color: var(--ink); font-weight: 600; font-size: 12px;
+}
+.toc-list .hint { color: var(--muted); font-size: 10px; font-weight: 600; }
+.kpi-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 0 12px;
+}
+.kpi {
+  background: #fff; border: 1.5px solid #94a3b8; border-radius: 8px; padding: 10px 12px;
+}
+.kpi .label {
+  font-size: 9.5px; font-weight: 700; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--muted); margin: 0 0 4px;
+}
+.kpi .value {
+  margin: 0; font-size: 18px; font-weight: 700; color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.kpi .hint { margin: 3px 0 0; font-size: 10px; color: var(--muted); }
+.section-intro {
+  display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start;
+  margin: 0 0 12px;
+}
+.athlete-banner {
+  display: flex; gap: 10px; align-items: center; min-width: 160px;
+  background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px;
+}
+.athlete-banner .avatar-fallback {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center; background: #1e3a5f; color: #e2e8f0;
+  font-weight: 700; font-size: 12px;
+}
+.athlete-banner .name { font-weight: 700; font-size: 13px; color: var(--ink); }
+.athlete-banner .meta { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+.intro-prose { color: var(--ink-soft); font-size: 12.5px; line-height: 1.45; }
+.card, .chart-card {
+  background: #fff; border: 1.75px solid #94a3b8; border-radius: 8px; padding: 10px 12px;
+  margin: 0 0 10px; overflow: visible;
+}
+.card h3, .chart-card h3 {
+  margin: 0 0 4px; font-size: 11px; font-weight: 700; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--ink);
+}
+.chart-caption {
+  margin: 0 0 8px; font-size: 10.5px; color: var(--muted); line-height: 1.35;
+}
+.prose { color: var(--ink-soft); font-size: 12px; line-height: 1.45; margin: 0 0 8px; }
+.callout {
+  border: 1px solid #bfdbfe; background: #eff6ff; border-radius: 8px;
+  padding: 10px 12px; margin: 0 0 10px; color: #1e3a5f; font-size: 12px; line-height: 1.4;
+}
+.split-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 10px;
+}
+.split-row.split-chart-table { grid-template-columns: minmax(120px, 55%) 1fr; }
+.chart-box { width: 100%; height: 270px; max-height: 270px; }
+.chart-box.line-chart { height: 340px; max-height: 340px; }
+.chart-box.bar-rank { height: 310px; max-height: 310px; }
+.chart-box.compact { height: 170px; max-height: 170px; }
+table.report-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 10.5px;
+}
+table.report-table thead th {
+  background: #dce8f6; color: #0b1f3a; font-weight: 700; letter-spacing: .03em;
+  text-transform: uppercase; font-size: 9.5px;
+  border-bottom: 2px solid #5b7fa6; padding: 7px 10px; text-align: left;
+}
+table.report-table thead th.num,
+table.report-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.report-table td {
+  border-bottom: 1px solid #c5d4e8; padding: 6px 10px; color: #1e3a5f;
+  background: transparent;
+}
+table.report-table td.lvl-hi,
+table.report-table td.lvl-mid,
+table.report-table td.lvl-lo {
+  color: #1e3a5f !important;
+  font-weight: 500 !important;
+}
+table.report-table td.lvl-hi { background: rgba(224,112,112,.22) !important; }
+table.report-table td.lvl-mid { background: rgba(251,191,36,.22) !important; }
+table.report-table td.lvl-lo { background: rgba(47,158,111,.18) !important; }
+table.report-table tbody tr:last-child td { border-bottom: 1.5px solid #5b7fa6; }
+.report-footer {
+  margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; gap: 12px;
+  color: var(--muted); font-size: 10px; letter-spacing: .04em; text-transform: uppercase;
+}
+@media print {
+  body { background: #fff; }
+  .page.cover { page-break-after: always; }
+}</style>
+<style id="mauna-print-css">@page { size: A4; margin: 8mm; }
+html, body { position: relative; }
+body {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.card, .chart-card, .frame, .coach-brief, .section-block > .card,
+article.card, article.chart-card {
+  border: 1.75px solid #94a3b8 !important;
+  border-radius: 8px;
+}
+.toc-list a {
+  border: 1.5px solid #94a3b8 !important;
+  border-left: 3px solid #4f6ef7 !important;
+}
+table.report-table {
+  border-collapse: collapse !important;
+}
+table.report-table thead th,
+table thead th {
+  background: #dce8f6 !important;
+  color: #0b1f3a !important;
+  border-bottom: 2px solid #5b7fa6 !important;
+  text-transform: uppercase;
+  font-size: 9.5px !important;
+}
+table.report-table th.num,
+table.report-table td.num {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+}
+table.report-table th,
+table.report-table td,
+table th, table td {
+  border-bottom: 1px solid #c5d4e8 !important;
+}
+table.report-table tbody tr:nth-child(even) td:not(.lvl-hi):not(.lvl-mid):not(.lvl-lo):not([data-mauna-heat]) {
+  background: transparent !important;
+}
+table td[data-mauna-heat],
+table.report-table td.lvl-hi,
+table.report-table td.lvl-mid,
+table.report-table td.lvl-lo {
+  color: #1e3a5f !important;
+  font-weight: 500 !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+table.report-table tbody tr:last-child td {
+  border-bottom: 1.5px solid #5b7fa6 !important;
+}
+.report-flow [style*="gradient"],
+.content-page [style*="gradient"] {
+  background-image: none !important;
+}
+.kpi, .kpi-row > * {
+  background: #fff !important;
+  color: #0f172a !important;
+  border: 1.5px solid #94a3b8 !important;
+}
+@media print {
+  .no-print, .artifact-nav, .artifact-toolbar, .table-toolbar { display: none !important; }
+  html, body { background: #fff !important; }
+  body {
+    font-size: 10.5pt !important;
+    line-height: 1.35 !important;
+  }
+  h1 { font-size: 1.35rem !important; margin: 0 0 0.35em !important; }
+  h2 { font-size: 1.1rem !important; margin: 0.55em 0 0.3em !important; }
+  h3 { font-size: 0.98rem !important; margin: 0.4em 0 0.25em !important; }
+  p, li { margin: 0.25em 0 !important; }
+  section, .section, .chart-card, article {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 8px !important;
+  }
+  .chart-box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    height: 260px !important;
+    max-height: 280px !important;
+    width: 100% !important;
+  }
+  .chart-box.line-chart,
+  .chart-box[data-chart-kind="line"] {
+    height: 340px !important;
+    max-height: 360px !important;
+  }
+  .chart-card { padding: 6px 8px !important; }
+  table { break-inside: auto; font-size: 9pt !important; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  .chart-card + .chart-card { margin-top: 4px !important; }
+}</style>
+<style id="mauna-watermark-css">
+.mauna-page-watermark {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 0;
+}
+.page, .report-flow, .artifact-shell {
+  position: relative;
+  z-index: 1;
+}
+@media print {
+  .mauna-page-watermark { display: none !important; }
+}
+</style>
+</head>
+<body>
+<img class="mauna-page-watermark" src="data:image/png;base64,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" alt="" aria-hidden="true" />
+  <section class="page cover">
+    <div class="cover-panel">
+      <div class="brand">MAUNA</div>
+      <div class="season">Reading FC · Staff monitoring</div>
+      <h1 class="cover-title">Training Load & GPS Intensity — 29 June → 7 October 2026</h1>
+      <div class="date-pill">29 June 2026 → 7 October 2026</div>
+      <p class="cover-note">Open-ended timeline: start from 2026-06-29 with no end date — display through today (2026-10-07).</p>
+      <div class="club-mark">Confidential · Staff only</div>
+    </div>
+  </section>
+
+  <main class="report-flow">
+    <section id="contents" class="section-block">
+      <div class="band"><h2>Contents</h2><span class="meta">Navigation</span></div>
+      <ul class="toc-list">
+        <li><a href="#brief">Coach brief <span class="hint">request</span></a></li>
+        <li><a href="#acwr">ACWR EWMA <span class="hint">acute:chronic ratio</span></a></li>
+        <li><a href="#total-distance">Total Distance <span class="hint">GPS volume</span></a></li>
+        <li><a href="#meaningful-distance">Meaningful Distance <span class="hint">metabolic power</span></a></li>
+        <li><a href="#z5-hsr">Z5 HSR <span class="hint">high-speed running</span></a></li>
+        <li><a href="#explosive-distance">Explosive Distance <span class="hint">intensity</span></a></li>
+        <li><a href="#gps-summary">GPS Summary <span class="hint">cross-reference</span></a></li>
+      </ul>
+      <aside class="coach-brief" id="brief" data-mauna-coach-brief="1">
+        <p class="label">Coach brief</p>
+        <blockquote>Provide a training load report looking at Total Distance, Meaningful Distance, Z5 HSR, Z6 HSR & Explosive Distance. Report daily Acute chronic ratio using EWMA. Start this from 29th June 2026</blockquote>
+      </aside>
+    </section>
+
+    <section id="acwr" class="section-block">
+      <div class="band"><h2>ACWR EWMA — Daily Evolution</h2><span class="meta">29 June → 7 October 2026</span></div>
+      <p class="prose">Open-ended timeline: started 29 June 2026 with no defined end date; this report covers through 7 October 2026 (101 days). ACWR EWMA values are zero throughout the period — this reflects the calculation state for the window, not an absence of sRPE data collection.</p>
+      
+      <div class="split-row">
+        <article class="chart-card">
+          <h3>ACWR EWMA — Group 1</h3>
+          <p class="chart-caption">Andy Rinomhota — daily acute:chronic workload ratio</p>
+          <div class="chart-box line-chart" id="chart_1" style="width:100%;height:340px"></div>
+        </article>
+        <article class="chart-card">
+          <h3>ACWR EWMA — Group 2</h3>
+          <p class="chart-caption">Daniel Kyerewaa — daily acute:chronic workload ratio</p>
+          <div class="chart-box line-chart" id="chart_2" style="width:100%;height:340px"></div>
+        </article>
+      </div>
+
+      <div class="split-row">
+        <article class="chart-card">
+          <h3>ACWR EWMA — Group 3</h3>
+          <p class="chart-caption">Jeriel Dorsett — daily acute:chronic workload ratio</p>
+          <div class="chart-box line-chart" id="chart_3" style="width:100%;height:340px"></div>
+        </article>
+        <article class="chart-card">
+          <h3>ACWR EWMA — Group 4</h3>
+          <p class="chart-caption">Liam Fraser — daily acute:chronic workload ratio</p>
+          <div class="chart-box line-chart" id="chart_4" style="width:100%;height:340px"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="total-distance" class="section-block">
+      <div class="band"><h2>GPS Intensity — Total Distance</h2><span class="meta">cumulative volume</span></div>
+      <p class="prose">Daily evolution charts (Group 1–4) show individual Total Distance trends across the 101-day window. Top 10 cumulative Total Distance ranking identifies the highest-volume athletes over the period.</p>
+
+      <div class="split-row">
+        <article class="chart-card">
+          <h3>Total Distance — Group 1</h3>
+          <p class="chart-caption">Andy Rinomhota — daily GPS volume (metres)</p>
+          <div class="chart-box line-chart" id="chart_5" style="width:100%;height:340px"></div>
+        </article>
+        <article class="chart-card">
+          <h3>Total Distance — Group 2</h3>
+          <p class="chart-caption">Daniel Kyerewaa — daily GPS volume (metres)</p>
+          <div class="chart-box line-chart" id="chart_6" style="width:100%;height:340px"></div>
+        </article>
+      </div>
+
+      <div class="split-row">
+        <article class="chart-card">
+          <h3>Total Distance — Group 3</h3>
+          <p class="chart-caption">Jeriel Dorsett — daily GPS volume (metres)</p>
+          <div class="chart-box line-chart" id="chart_7" style="width:100%;height:340px"></div>
+        </article>
+        <article class="chart-card">
+          <h3>Total Distance — Group 4</h3>
+          <p class="chart-caption">Liam Fraser — daily GPS volume (metres)</p>
+          <div class="chart-box line-chart" id="chart_8" style="width:100%;height:340px"></div>
+        </article>
+      </div>
+
+      <article class="chart-card chart-wide">
+        <h3>Top 10 — Total Distance (Cumulative)</h3>
+        <p class="chart-caption">Highest-volume athletes over the period — cumulative metres</p>
+        <div class="chart-box bar-rank" id="chart_9" style="width:100%;height:340px"></div>
+      </article>
+    </section>
+
+    <section id="meaningful-distance" class="section-block">
+      <div class="band"><h2>GPS Intensity — Meaningful Distance</h2><span class="meta">average metabolic power</span></div>
+      <p class="prose">Daily evolution charts (Group 1–4) show individual Meaningful Distance (average metabolic power) trends. Top 10 period-mean ranking highlights athletes with the highest average metabolic power.</p>
+
+      <div class="split-row">
+        <article class="chart-card">
+          <h3>Meaningful Distance — Group 1</h3>
+          <p class="chart-caption">Andy Rinomhota — average metabolic power (W/kg)</p>
+          <div class="chart-box line-chart" id="chart_10" style="width:100%;height:340px"></div>
+        </article>
+        <article class="chart-card">
+          <h3>Meaningful Distance — Group 2</h3>
+          <p class="chart-caption">Daniel Kyerewaa — average metabolic power (W/kg)</p>
+          <div class="chart-box line-chart" id="chart_11" style="width:100%;height:340px"></div>
+        </article>
+      </div>
+
+      <div class="split-row">
+        <article class="chart-card">
+          <h3>Meaningful Distance — Group 3</h3>
+          <p class="chart-caption">Jeriel Dorsett — average metabolic power (W/kg)</p>
+          <div class="chart-box line-chart" id="chart_12" style="width:100%;height:340px"></div>
+        </article>
+        <article class="chart-card">
+          <h3>Meaningful Distance — Group 4</h3>
+          <p class="chart-caption">Liam Fraser — average metabolic power (W/kg)</p>
+          <div class="chart-box line-chart" id="chart_13" style="width:100%;height:340px"></div>
+        </article>
+      </div>
+
+      <article class="chart-card chart-wide">
+        <h3>Top 10 — Meaningful Distance (Period Mean)</h3>
+        <p class="chart-caption">Highest average metabolic power — W/kg</p>
+        <div class="chart-box bar-rank" id="chart_14" style="width:100%;height:340px"></div>
+      </article>
+    </section>
+
+    <section id="z5-hsr" class="section-block">
+      <div class="band"><h2>GPS Intensity — Z5 HSR</h2><span class="meta">high-speed running</span></div>
+      <p class="prose">Top 10 period-mean Z5 HSR ranking identifies athletes with the highest high-speed running per minute. Daily evolution charts (Group 1–4) show individual Z5 HSR trends over the period.</p>
+
+      <article class="chart-card chart-wide">
+        <h3>Top 10 — Z5 HSR (Period Mean)</h3>
+        <p class="chart-caption">Highest high-speed running per minute — m/min</p>
+        <div class="chart-box bar-rank" id="chart_15" style="width:100%;height:340px"></div>
+      </article>
+
+      <div class="split-row">
+        <article class="chart-card">
+          <h3>Z5 HSR — Group 1</h3>
+          <p class="chart-caption">Andy Rinomhota — high-speed running (m/min)</p>
+          <div class="chart-box line-chart" id="chart_16" style="width:100%;height:340px"></div>
+        </article>
+        <article class="chart-card">
+          <h3>Z5 HSR — Group 2</h3>
+          <p class="chart-caption">Daniel Kyerewaa — high-speed running (m/min)</p>
+          <div class="chart-box line-chart" id="chart_17" style="width:100%;height:340px"></div>
+        </article>
+      </div>
+
+      <div class="split-row">
+        <article class="chart-card">
+          <h3>Z5 HSR — Group 3</h3>
+          <p class="chart-caption">Jeriel Dorsett — high-speed running (m/min)</p>
+          <div class="chart-box line-chart" id="chart_18" style="width:100%;height:340px"></div>
+        </article>
+        <article class="chart-card">
+          <h3>Z5 HSR — Group 4</h3>
+          <p class="chart-caption">Liam Fraser — high-speed running (m/min)</p>
+          <div class="chart-box line-chart" id="chart_19" style="width:100%;height:340px"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="explosive-distance" class="section-block">
+      <div class="band"><h2>GPS Intensity — Explosive Distance</h2><span class="meta">explosive efforts</span></div>
+      <p class="prose">Top 10 period-mean Explosive Distance ranking highlights athletes with the highest explosive efforts. Daily evolution charts (Group 1–4) show individual Explosive Distance trends across the window.</p>
+
+      <article class="chart-card chart-wide">
+        <h3>Top 10 — Explosive Distance (Period Mean)</h3>
+        <p class="chart-caption">Highest explosive efforts — relative distance</p>
+        <div class="chart-box bar-rank" id="chart_20" style="width:100%;height:340px"></div>
+      </article>
+
+      <div class="split-row">
+        <article class="chart-card">
+          <h3>Explosive Distance — Group 1</h3>
+          <p class="chart-caption">Andy Rinomhota — explosive efforts (relative)</p>
+          <div class="chart-box line-chart" id="chart_21" style="width:100%;height:340px"></div>
+        </article>
+        <article class="chart-card">
+          <h3>Explosive Distance — Group 2</h3>
+          <p class="chart-caption">Daniel Kyerewaa — explosive efforts (relative)</p>
+          <div class="chart-box line-chart" id="chart_22" style="width:100%;height:340px"></div>
+        </article>
+      </div>
+
+      <div class="split-row">
+        <article class="chart-card">
+          <h3>Explosive Distance — Group 3</h3>
+          <p class="chart-caption">Jeriel Dorsett — explosive efforts (relative)</p>
+          <div class="chart-box line-chart" id="chart_23" style="width:100%;height:340px"></div>
+        </article>
+        <article class="chart-card">
+          <h3>Explosive Distance — Group 4</h3>
+          <p class="chart-caption">Liam Fraser — explosive efforts (relative)</p>
+          <div class="chart-box line-chart" id="chart_24" style="width:100%;height:340px"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="gps-summary" class="section-block">
+      <div class="band"><h2>Load × GPS Cross-Reference</h2><span class="meta">period means</span></div>
+      <p class="prose">GPS Intensity Summary table provides period-mean values for Meaningful Distance, Z5 HSR, and Explosive Distance across all 24 athletes.</p>
+
+      <article class="card">
+        <h3>GPS Intensity Summary — Period Means</h3>
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th class="num">Avg Metabolic Power (W/kg)</th>
+              <th class="num">Z5 HSR (m/min)</th>
+              <th class="num">Explosive Distance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Andy Rinomhota</td><td class="num">4.84</td><td class="num">6.89</td><td class="num">1,700.12</td></tr>
+            <tr><td>Ashqar Ahmed</td><td class="num">4.18</td><td class="num">6.13</td><td class="num">937.5</td></tr>
+            <tr><td>Benn Ward</td><td class="num">4.93</td><td class="num">5.88</td><td class="num">1,114.65</td></tr>
+            <tr><td>Boyd Beacroft</td><td class="num">3.11</td><td class="num">4.29</td><td class="num">683.71</td></tr>
+            <tr><td>Charlie Savage</td><td class="num">5.58</td><td class="num">7.64</td><td class="num">1,669.68</td></tr>
+            <tr><td>Conor Masterson</td><td class="num">4.39</td><td class="num">4.54</td><td class="num">849.74</td></tr>
+            <tr><td>Daniel Kyerewaa</td><td class="num">4.9</td><td class="num">8.13</td><td class="num">1,296.12</td></tr>
+            <tr><td>George Earthy</td><td class="num">4.93</td><td class="num">6.9</td><td class="num">977.16</td></tr>
+            <tr><td>Haydon Roberts</td><td class="num">4.91</td><td class="num">6.37</td><td class="num">1,120.98</td></tr>
+            <tr><td>Jack Marriott</td><td class="num">4.3</td><td class="num">6.27</td><td class="num">1,172.64</td></tr>
+            <tr><td>Jacob Brown</td><td class="num">4.62</td><td class="num">6.34</td><td class="num">1,197.55</td></tr>
+            <tr><td>Jamie Reid</td><td class="num">4.74</td><td class="num">5.52</td><td class="num">1,146.14</td></tr>
+            <tr><td>Jeriel Dorsett</td><td class="num">4.41</td><td class="num">5.22</td><td class="num">1,082.33</td></tr>
+            <tr><td>Josh Knight</td><td class="num">4.59</td><td class="num">4.76</td><td class="num">744.1</td></tr>
+            <tr><td>Josh Stokes</td><td class="num">4.98</td><td class="num">7.44</td><td class="num">1,244.53</td></tr>
+            <tr><td>Kelvin Abrefa</td><td class="num">4.52</td><td class="num">8.29</td><td class="num">1,097.29</td></tr>
+            <tr><td>Kyreece Lisbie</td><td class="num">4.67</td><td class="num">7.81</td><td class="num">1,179.9</td></tr>
+            <tr><td>Lewis Wing</td><td class="num">4.7</td><td class="num">7.57</td><td class="num">1,206.69</td></tr>
+            <tr><td>Liam Fraser</td><td class="num">4.84</td><td class="num">8.7</td><td class="num">1,497.67</td></tr>
+            <tr><td>Paddy Lane</td><td class="num">4.84</td><td class="num">7.12</td><td class="num">1,379.84</td></tr>
+            <tr><td>Paudie O'Connor</td><td class="num">4.26</td><td class="num">4.02</td><td class="num">1,158.52</td></tr>
+            <tr><td>Randell Williams</td><td class="num">5.09</td><td class="num">7.9</td><td class="num">1,261.78</td></tr>
+            <tr><td>Sean Patton</td><td class="num">4.81</td><td class="num">7.66</td><td class="num">1,038.37</td></tr>
+            <tr><td>Udoka Malife</td><td class="num">4.87</td><td class="num">5.46</td><td class="num">1,342.52</td></tr>
+          </tbody>
+        </table>
+      </article>
+    </section>
+
+    <footer class="report-footer">
+      <span>MAUNA · Staff report</span>
+      <span>Reading FC</span>
+    </footer>
+  </main>
+<script id="mauna-artifact-boot">
+(function () {
+  const charts = [{"id":"chart_1","title":"ACWR EWMA — Daily Evolution (29 June → 7 October 2026) — Group 1","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Andy Rinomhota"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["07/08","08/08","09/08","10/08","11/08","12/08","13/08","14/08","15/08","16/08","17/08","18/08","19/08","20/08","21/08","22/08","23/08","24/08","25/08","26/08","27/08","28/08","29/08","30/08","31/08","01/09","02/09","03/09","04/09","05/09","06/09","07/09","08/09","09/09","10/09","11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Andy Rinomhota","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Andy Rinomhota","type":"line","data":[0,0,null,0,0,null,0,0,0,null,0,0,null,0,0,0,null,0,0,null,0,0,null,null,0,0,0,0,0,0,null,null,0,null,0,0,0,null,0,null,null,0,0,0,null,null,null,null,null,null,null,null,null,null,null,0,0,0,null,0,0,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_2","title":"ACWR EWMA — Daily Evolution (29 June → 7 October 2026) — Group 2","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Daniel Kyerewaa"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["07/08","08/08","09/08","10/08","11/08","12/08","13/08","14/08","15/08","16/08","17/08","18/08","19/08","20/08","21/08","22/08","23/08","24/08","25/08","26/08","27/08","28/08","29/08","30/08","31/08","01/09","02/09","03/09","04/09","05/09","06/09","07/09","08/09","09/09","10/09","11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Daniel Kyerewaa","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Daniel Kyerewaa","type":"line","data":[0,0,null,0,0,null,0,0,0,null,0,0,null,0,0,0,null,0,0,null,0,0,null,null,0,0,0,0,0,0,null,0,0,null,0,0,0,null,0,0,null,0,0,null,null,0,0,null,0,0,0,null,0,0,null,0,0,0,null,0,0,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_3","title":"ACWR EWMA — Daily Evolution (29 June → 7 October 2026) — Group 3","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Jeriel Dorsett"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["07/08","08/08","09/08","10/08","11/08","12/08","13/08","14/08","15/08","16/08","17/08","18/08","19/08","20/08","21/08","22/08","23/08","24/08","25/08","26/08","27/08","28/08","29/08","30/08","31/08","01/09","02/09","03/09","04/09","05/09","06/09","07/09","08/09","09/09","10/09","11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Jeriel Dorsett","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Jeriel Dorsett","type":"line","data":[0,0,null,0,0,null,0,0,0,null,0,0,null,0,0,0,null,null,0,null,0,0,null,null,0,0,0,0,null,null,null,null,null,null,0,0,0,null,0,0,null,0,0,0,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_4","title":"ACWR EWMA — Daily Evolution (29 June → 7 October 2026) — Group 4","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Liam Fraser"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["07/08","08/08","09/08","10/08","11/08","12/08","13/08","14/08","15/08","16/08","17/08","18/08","19/08","20/08","21/08","22/08","23/08","24/08","25/08","26/08","27/08","28/08","29/08","30/08","31/08","01/09","02/09","03/09","04/09","05/09","06/09","07/09","08/09","09/09","10/09","11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Liam Fraser","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Liam Fraser","type":"line","data":[0,0,null,0,0,null,0,0,0,null,0,0,null,0,0,0,null,0,0,null,0,0,null,null,0,0,null,0,0,0,null,0,0,null,0,0,0,null,0,0,null,0,0,0,null,0,0,null,0,0,0,null,0,0,null,0,0,0,null,0,0,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_5","title":"Total Distance — Daily Evolution — Group 1","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Andy Rinomhota"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["07/07","09/07","10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","17/08","18/08","20/08","21/08","23/08","24/08","25/08","27/08","28/08","31/08","01/09","03/09","04/09","05/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","21/09","22/09","24/09","25/09","26/09","28/09","29/09","01/10","02/10","03/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Andy Rinomhota","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Andy Rinomhota","type":"line","data":[21244,16093,9967,7601,13221,13767,8463,16868,14221,22274,13274,8929,4555,9438,10231,11201,11098,17793,6619,21722,11776,8984,12034,8518,16008,11492,9222,12893,14628,13393,10604,null,9529,5759,11241,17549,10681,11197,null,6613,null,null,14313,17552,8229,null,9330,null,16326,9963,null,null,null,null,null,null,null,13388,6706,null,3800,19194],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_6","title":"Total Distance — Daily Evolution — Group 2","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Daniel Kyerewaa"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["06/07","07/07","09/07","10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","15/08","17/08","18/08","20/08","21/08","24/08","25/08","27/08","28/08","31/08","01/09","02/09","03/09","04/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","19/09","21/09","22/09","24/09","25/09","28/09","29/09","01/10","02/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Daniel Kyerewaa","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Daniel Kyerewaa","type":"line","data":[11591,21566,10361,6090,6820,13204,13578,8340,10499,14496,20206,18047,8925,10198,11742,null,11202,10124,14700,7723,22820,13314,9785,12545,8506,14469,12725,10847,null,10951,11706,17067,11536,12014,6432,10473,17102,12656,12636,null,12670,5775,16001,14184,4582,9513,8432,10067,11334,10166,10854,null,12209,15070,15194,8363,8935,17444,13855,8524,9912,18190],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_7","title":"Total Distance — Daily Evolution — Group 3","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Jeriel Dorsett"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","17/08","18/08","20/08","21/08","22/08","23/08","24/08","25/08","27/08","28/08","29/08","31/08","01/09","03/09","04/09","05/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","19/09","21/09","22/09","24/09","25/09","26/09","28/09","29/09","01/10","02/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Jeriel Dorsett","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Jeriel Dorsett","type":"line","data":[null,null,595,5079,7856,8077,476,2376,null,9353,null,11444,20912,3976,10128,16750,7461,20675,12068,8589,8953,9304,14859,11466,9619,12930,21810,8326,9918,2078,null,null,15893,3967,15777,null,12086,11426,null,null,null,null,null,10875,4521,4872,6023,6332,13880,9470,2291,null,null,null,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_8","title":"Total Distance — Daily Evolution — Group 4","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Liam Fraser"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["09/07","10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","17/08","18/08","20/08","21/08","22/08","24/08","25/08","27/08","28/08","31/08","01/09","03/09","04/09","05/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","19/09","21/09","22/09","24/09","25/09","26/09","28/09","29/09","01/10","02/10","03/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Liam Fraser","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Liam Fraser","type":"line","data":[16679,10412,7932,13900,14234,8726,17527,15768,22562,15068,8545,11258,15181,null,11944,31198,null,6435,17593,12612,8419,6129,12622,16112,11888,9157,14528,29133,13289,10945,4064,13025,17748,9716,18101,14384,11254,13526,8402,8457,14664,14993,2065,9987,6727,11568,14669,13193,10518,4102,13049,16992,14508,9131,null,4279,16990,13631,6555,null,11265,19737],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_9","title":"Top 10 — Total Distance (Cumulative)","option":{"legend":{"top":2,"type":"plain","left":"center","textStyle":{"fontSize":10,"color":"#475569"},"width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Distance total (m)"]},"grid":{"containLabel":true,"left":8,"right":36,"top":36,"bottom":16},"xAxis":{"type":"value","axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"splitLine":{"lineStyle":{"color":"#e2e8f0","width":1,"type":"solid"},"show":true},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}}},"yAxis":{"type":"category","axisLabel":{"color":"#0f172a","fontSize":11,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#cbd5e1","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;","axisPointer":{"type":"shadow"}},"series":[{"name":"Distance total (m)","type":"bar","encode":{"y":"Player","x":"Distance total (m)"},"barMaxWidth":18,"itemStyle":{"borderRadius":[0,4,4,0]}}],"animation":false,"dataset":{"source":[["Player","N","Explosive distance (relative)","Distance total (m)","HSR (absolute) per minute (m/min)","Average metabolic power (W/kg)","Acceleration distance zone 1 (relative)","Acceleration distance zone 2 (relative)","Acceleration distance zone 3 (relative)","Acceleration distance zone 4 (relative)","Acceleration distance zone 5 (relative)","Acceleration distance zone 6 (relative)","Accelerations (relative)","Accelerations zone 1 (relative)"],["Paddy Lane",57,1379.842,13496.263,7.123,4.842,149.846,510.251,433.984,244.781,90.235,26.33,55.763,213.102],["Liam Fraser",63,1497.667,13022.159,8.698,4.835,147.478,565.367,436.527,223.344,114.613,43.944,63.47,207.741],["Randell Williams",58,1261.776,12802.397,7.897,5.09,137.705,416.643,408.236,266.686,128.002,61.636,72.016,194.447],["Benn Ward",51,1114.647,12795.529,5.882,4.931,147.445,458.369,430.127,264.4,104.902,32.933,70.329,242.763],["Andy Rinomhota",52,1700.115,12217.288,6.885,4.837,124.59,471.004,419.954,234.071,99.537,30.423,65.1,182.527],["Daniel Kyerewaa",61,1296.115,12198.246,8.131,4.895,139.97,430.923,427.344,284.867,132.616,39.298,73.375,240.193],["Lewis Wing",54,1206.685,12323.778,7.574,4.698,156.689,481.161,369.459,175.987,71.739,22.628,47.15,246.3],["Haydon Roberts",57,1120.982,12343.579,6.368,4.905,132.486,447.582,399.954,220.774,76.412,15.532,52.291,227.818],["Kyreece Lisbie",58,1179.897,12110.621,7.81,4.667,123.657,393.122,378.947,253.743,126.595,48.422,64.047,215.302],["Jacob Brown",53,1197.547,11281.321,6.34,4.617,131.477,425.298,427.238,263.834,121.36,38.832,66.353,207.049]]},"maunaLayout":"auto"}},{"id":"chart_10","title":"Meaningful Distance (Avg Metabolic Power) — Daily Evolution — Group 1","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Andy Rinomhota"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["07/07","09/07","10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","17/08","18/08","20/08","21/08","23/08","24/08","25/08","27/08","28/08","31/08","01/09","03/09","04/09","05/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","21/09","22/09","24/09","25/09","26/09","28/09","29/09","01/10","02/10","03/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Andy Rinomhota","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Andy Rinomhota","type":"line","data":[5.4,4.6,5.9,5.4,3.5,6,4,4.3,4.2,6.7,3.5,4.1,4,4.7,6.9,4.8,4.7,8.1,3.5,4.9,5.2,4.1,5.3,1.9,6.5,5.1,4.7,5,6,3.6,5,null,3.5,2.5,4.8,7.5,6.3,4.6,null,3.4,null,null,5.5,6,4.1,null,3.6,null,5.8,3.9,null,null,null,null,null,null,null,5.2,3.8,null,1.8,8.3],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":4.838,"name":"Mean","label":{"formatter":"Mean 4.84","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_11","title":"Meaningful Distance (Avg Metabolic Power) — Daily Evolution — Group 2","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Daniel Kyerewaa"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["06/07","07/07","09/07","10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","15/08","17/08","18/08","20/08","21/08","24/08","25/08","27/08","28/08","31/08","01/09","02/09","03/09","04/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","19/09","21/09","22/09","24/09","25/09","28/09","29/09","01/10","02/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Daniel Kyerewaa","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Daniel Kyerewaa","type":"line","data":[5.2,5.6,5.2,4.7,5.2,3.6,4.8,4.1,2.8,4.5,6.3,3.5,4.3,5.6,4.9,null,5,4.5,8.4,4.5,5.1,6,4.6,5.6,2.9,6.2,4.9,5.4,null,4,3.3,4.4,5.2,4.1,3.1,5.2,7.3,5,5.3,null,4.4,3.8,6.5,5.6,6,4.7,2.3,3.9,5.5,3.9,4,null,5,5.7,5.7,4.7,5,6,5.3,4.1,4.7,7.2],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":4.902,"name":"Mean","label":{"formatter":"Mean 4.9","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_12","title":"Meaningful Distance (Avg Metabolic Power) — Daily Evolution — Group 3","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Jeriel Dorsett"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","17/08","18/08","20/08","21/08","22/08","23/08","24/08","25/08","27/08","28/08","29/08","31/08","01/09","03/09","04/09","05/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","19/09","21/09","22/09","24/09","25/09","26/09","28/09","29/09","01/10","02/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Jeriel Dorsett","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Jeriel Dorsett","type":"line","data":[null,null,0.5,4.9,3.8,2,3.9,1.3,null,4.5,null,4.5,6.1,5.8,4.3,7.5,4.1,5.3,5.4,4.1,4,2.2,6.1,5.1,4.8,4.8,6.6,2.1,4.6,7.1,null,null,6.6,2,6.6,null,4.8,4.3,null,null,null,null,null,4.1,3.8,5.6,2.2,3.1,4.8,4.9,0.9,null,null,null,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":4.336,"name":"Mean","label":{"formatter":"Mean 4.34","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_13","title":"Meaningful Distance (Avg Metabolic Power) — Daily Evolution — Group 4","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Liam Fraser"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["09/07","10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","17/08","18/08","20/08","21/08","22/08","24/08","25/08","27/08","28/08","31/08","01/09","03/09","04/09","05/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","19/09","21/09","22/09","24/09","25/09","26/09","28/09","29/09","01/10","02/10","03/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Liam Fraser","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Liam Fraser","type":"line","data":[4.5,5.9,6.2,3.7,4.8,4.1,4.5,4,6.4,3.7,3.8,5.8,5.7,null,4.6,9.1,null,3.3,4.9,5.4,3.6,2.7,2.8,6.3,4.5,4.3,5.2,8.1,3.4,4.8,1.8,4.5,7.3,4,7.3,5.6,4.4,4.6,3.7,3.4,6.1,5.7,2.4,4.8,1.6,4.2,6.8,4.4,3.6,1.7,5.2,6,5.1,4.8,null,5.2,5.6,4.9,3,null,4.8,7.2],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":4.755,"name":"Mean","label":{"formatter":"Mean 4.76","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_14","title":"Top 10 — Meaningful Distance (Period Mean)","option":{"legend":{"top":2,"type":"plain","left":"center","textStyle":{"fontSize":10,"color":"#475569"},"width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Average metabolic power (W/kg)"]},"grid":{"containLabel":true,"left":8,"right":36,"top":36,"bottom":16},"xAxis":{"type":"value","axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"splitLine":{"lineStyle":{"color":"#e2e8f0","width":1,"type":"solid"},"show":true},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}}},"yAxis":{"type":"category","axisLabel":{"color":"#0f172a","fontSize":11,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#cbd5e1","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;","axisPointer":{"type":"shadow"}},"series":[{"name":"Average metabolic power (W/kg)","type":"bar","encode":{"y":"Player","x":"Average metabolic power (W/kg)"},"barMaxWidth":18,"itemStyle":{"borderRadius":[0,4,4,0]},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"xAxis":4.667,"name":"Mean","label":{"formatter":"Mean 4.67","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Explosive distance (relative)","Distance total (m)","HSR (absolute) per minute (m/min)","Average metabolic power (W/kg)","Acceleration distance zone 1 (relative)","Acceleration distance zone 2 (relative)","Acceleration distance zone 3 (relative)","Acceleration distance zone 4 (relative)","Acceleration distance zone 5 (relative)","Acceleration distance zone 6 (relative)","Accelerations (relative)","Accelerations zone 1 (relative)"],["Paddy Lane",57,1379.842,13496.263,7.123,4.842,149.846,510.251,433.984,244.781,90.235,26.33,55.763,213.102],["Liam Fraser",63,1497.667,13022.159,8.698,4.835,147.478,565.367,436.527,223.344,114.613,43.944,63.47,207.741],["Randell Williams",58,1261.776,12802.397,7.897,5.09,137.705,416.643,408.236,266.686,128.002,61.636,72.016,194.447],["Benn Ward",51,1114.647,12795.529,5.882,4.931,147.445,458.369,430.127,264.4,104.902,32.933,70.329,242.763],["Andy Rinomhota",52,1700.115,12217.288,6.885,4.837,124.59,471.004,419.954,234.071,99.537,30.423,65.1,182.527],["Daniel Kyerewaa",61,1296.115,12198.246,8.131,4.895,139.97,430.923,427.344,284.867,132.616,39.298,73.375,240.193],["Lewis Wing",54,1206.685,12323.778,7.574,4.698,156.689,481.161,369.459,175.987,71.739,22.628,47.15,246.3],["Haydon Roberts",57,1120.982,12343.579,6.368,4.905,132.486,447.582,399.954,220.774,76.412,15.532,52.291,227.818],["Kyreece Lisbie",58,1179.897,12110.621,7.81,4.667,123.657,393.122,378.947,253.743,126.595,48.422,64.047,215.302],["Jacob Brown",53,1197.547,11281.321,6.34,4.617,131.477,425.298,427.238,263.834,121.36,38.832,66.353,207.049]]},"maunaLayout":"team_mean"}},{"id":"chart_15","title":"Top 10 — Z5 HSR (Period Mean)","option":{"legend":{"top":2,"type":"plain","left":"center","textStyle":{"fontSize":10,"color":"#475569"},"width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["HSR (absolute) per minute (m/min)"]},"grid":{"containLabel":true,"left":8,"right":36,"top":36,"bottom":16},"xAxis":{"type":"value","axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"splitLine":{"lineStyle":{"color":"#e2e8f0","width":1,"type":"solid"},"show":true},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}}},"yAxis":{"type":"category","axisLabel":{"color":"#0f172a","fontSize":11,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#cbd5e1","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;","axisPointer":{"type":"shadow"}},"series":[{"name":"HSR (absolute) per minute (m/min)","type":"bar","encode":{"y":"Player","x":"HSR (absolute) per minute (m/min)"},"barMaxWidth":18,"itemStyle":{"borderRadius":[0,4,4,0]},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"xAxis":7.826,"name":"Mean","label":{"formatter":"Mean 7.83","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Explosive distance (relative)","Distance total (m)","HSR (absolute) per minute (m/min)","Average metabolic power (W/kg)","Acceleration distance zone 1 (relative)","Acceleration distance zone 2 (relative)","Acceleration distance zone 3 (relative)","Acceleration distance zone 4 (relative)","Acceleration distance zone 5 (relative)","Acceleration distance zone 6 (relative)","Accelerations (relative)","Accelerations zone 1 (relative)"],["Liam Fraser",63,1497.667,13022.159,8.698,4.835,147.478,565.367,436.527,223.344,114.613,43.944,63.47,207.741],["Kelvin Abrefa",31,1097.29,10883.613,8.29,4.523,104.065,357.548,343.474,212.432,94.906,26.677,51.8,183.619],["Daniel Kyerewaa",61,1296.115,12198.246,8.131,4.895,139.97,430.923,427.344,284.867,132.616,39.298,73.375,240.193],["Randell Williams",58,1261.776,12802.397,7.897,5.09,137.705,416.643,408.236,266.686,128.002,61.636,72.016,194.447],["Kyreece Lisbie",58,1179.897,12110.621,7.81,4.667,123.657,393.122,378.947,253.743,126.595,48.422,64.047,215.302],["Sean Patton",41,1038.366,10821.756,7.659,4.805,104.415,312.783,334.893,232.634,103.417,36.715,62.702,173.029],["Charlie Savage",47,1669.681,14375.043,7.638,5.583,141.06,513.332,481.387,284.045,115.917,35.517,74.189,220.185],["Lewis Wing",54,1206.685,12323.778,7.574,4.698,156.689,481.161,369.459,175.987,71.739,22.628,47.15,246.3],["Josh Stokes",55,1244.527,11149.582,7.436,4.975,126.607,416.385,378.753,259.767,97.778,29.605,60.518,202.624],["Paddy Lane",57,1379.842,13496.263,7.123,4.842,149.846,510.251,433.984,244.781,90.235,26.33,55.763,213.102]]},"maunaLayout":"team_mean"}},{"id":"chart_16","title":"Z5 HSR — Daily Evolution — Group 1","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Andy Rinomhota"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["07/07","09/07","10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","17/08","18/08","20/08","21/08","23/08","24/08","25/08","27/08","28/08","31/08","01/09","03/09","04/09","05/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","21/09","22/09","24/09","25/09","26/09","28/09","29/09","01/10","02/10","03/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Andy Rinomhota","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Andy Rinomhota","type":"line","data":[38,22,5,5,4,15,1,10,7,12,5,2,3,3,3,2,3,19,0,14,5,3,3,2,13,5,7,6,12,3,4,null,1,7,2,17,7,6,null,1,null,null,6,7,2,null,0,null,8,2,null,null,null,null,null,null,null,8,1,null,0,14],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_17","title":"Z5 HSR — Daily Evolution — Group 2","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Daniel Kyerewaa"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["06/07","07/07","09/07","10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","15/08","17/08","18/08","20/08","21/08","24/08","25/08","27/08","28/08","31/08","01/09","02/09","03/09","04/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","19/09","21/09","22/09","24/09","25/09","28/09","29/09","01/10","02/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Daniel Kyerewaa","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Daniel Kyerewaa","type":"line","data":[4,35,16,7,8,6,11,3,9,13,17,8,4,4,6,null,7,5,26,2,18,7,5,5,1,12,3,9,null,2,6,4,5,3,11,2,17,8,9,null,14,0,11,5,4,2,9,4,4,4,2,null,4,13,16,4,4,15,6,3,3,16],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_18","title":"Z5 HSR — Daily Evolution — Group 3","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Jeriel Dorsett"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","17/08","18/08","20/08","21/08","22/08","23/08","24/08","25/08","27/08","28/08","29/08","31/08","01/09","03/09","04/09","05/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","19/09","21/09","22/09","24/09","25/09","26/09","28/09","29/09","01/10","02/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Jeriel Dorsett","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Jeriel Dorsett","type":"line","data":[null,null,0,1,1,7,0,1,null,3,null,1,6,2,1,20,2,13,4,3,2,1,15,6,3,2,7,2,2,24,null,null,9,0,10,null,7,4,null,null,null,null,null,7,5,1,0,4,4,6,4,null,null,null,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_19","title":"Z5 HSR — Daily Evolution — Group 4","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Liam Fraser"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["09/07","10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","17/08","18/08","20/08","21/08","22/08","24/08","25/08","27/08","28/08","31/08","01/09","03/09","04/09","05/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","19/09","21/09","22/09","24/09","25/09","26/09","28/09","29/09","01/10","02/10","03/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Liam Fraser","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Liam Fraser","type":"line","data":[24,5,7,6,11,2,11,9,13,6,2,3,9,null,4,16,null,0,10,9,2,4,2,15,7,6,3,9,1,4,7,6,9,1,15,10,6,16,1,19,9,6,4,5,10,4,4,1,2,5,3,9,13,6,null,3,14,6,1,null,2,11],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_20","title":"Top 10 — Explosive Distance (Period Mean)","option":{"legend":{"top":2,"type":"plain","left":"center","textStyle":{"fontSize":10,"color":"#475569"},"width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Explosive distance (relative)"]},"grid":{"containLabel":true,"left":8,"right":36,"top":36,"bottom":16},"xAxis":{"type":"value","axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"splitLine":{"lineStyle":{"color":"#e2e8f0","width":1,"type":"solid"},"show":true},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}}},"yAxis":{"type":"category","axisLabel":{"color":"#0f172a","fontSize":11,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#cbd5e1","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;","axisPointer":{"type":"shadow"}},"series":[{"name":"Explosive distance (relative)","type":"bar","encode":{"y":"Player","x":"Explosive distance (relative)"},"barMaxWidth":18,"itemStyle":{"borderRadius":[0,4,4,0]},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"xAxis":1379.648,"name":"Mean","label":{"formatter":"Mean 1,379.65","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Explosive distance (relative)","Distance total (m)","HSR (absolute) per minute (m/min)","Average metabolic power (W/kg)","Acceleration distance zone 1 (relative)","Acceleration distance zone 2 (relative)","Acceleration distance zone 3 (relative)","Acceleration distance zone 4 (relative)","Acceleration distance zone 5 (relative)","Acceleration distance zone 6 (relative)","Accelerations (relative)","Accelerations zone 1 (relative)"],["Andy Rinomhota",52,1700.115,12217.288,6.885,4.837,124.59,471.004,419.954,234.071,99.537,30.423,65.1,182.527],["Charlie Savage",47,1669.681,14375.043,7.638,5.583,141.06,513.332,481.387,284.045,115.917,35.517,74.189,220.185],["Liam Fraser",63,1497.667,13022.159,8.698,4.835,147.478,565.367,436.527,223.344,114.613,43.944,63.47,207.741],["Paddy Lane",57,1379.842,13496.263,7.123,4.842,149.846,510.251,433.984,244.781,90.235,26.33,55.763,213.102],["Udoka Malife",50,1342.52,12009.14,5.46,4.866,123.198,439.724,389.124,245.716,137.886,60.878,75.888,228.958],["Daniel Kyerewaa",61,1296.115,12198.246,8.131,4.895,139.97,430.923,427.344,284.867,132.616,39.298,73.375,240.193],["Randell Williams",58,1261.776,12802.397,7.897,5.09,137.705,416.643,408.236,266.686,128.002,61.636,72.016,194.447],["Josh Stokes",55,1244.527,11149.582,7.436,4.975,126.607,416.385,378.753,259.767,97.778,29.605,60.518,202.624],["Lewis Wing",54,1206.685,12323.778,7.574,4.698,156.689,481.161,369.459,175.987,71.739,22.628,47.15,246.3],["Jacob Brown",53,1197.547,11281.321,6.34,4.617,131.477,425.298,427.238,263.834,121.36,38.832,66.353,207.049]]},"maunaLayout":"team_mean"}},{"id":"chart_21","title":"Explosive Distance — Daily Evolution — Group 1","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Andy Rinomhota"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["07/07","09/07","10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","17/08","18/08","20/08","21/08","23/08","24/08","25/08","27/08","28/08","31/08","01/09","03/09","04/09","05/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","21/09","22/09","24/09","25/09","26/09","28/09","29/09","01/10","02/10","03/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Andy Rinomhota","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Andy Rinomhota","type":"line","data":[3717,2419,1797,1191,1759,1808,980,2198,1942,3611,1923,1076,608,1166,1535,1469,1098,1859,559,2724,1709,1028,1590,557,2511,1800,1054,1308,1887,1619,1603,null,1041,584,1284,2582,1761,1784,null,838,null,null,2075,2974,1011,null,880,null,2646,1400,null,null,null,null,null,null,null,2176,806,null,380,2873],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_22","title":"Explosive Distance — Daily Evolution — Group 2","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Daniel Kyerewaa"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["06/07","07/07","09/07","10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","15/08","17/08","18/08","20/08","21/08","24/08","25/08","27/08","28/08","31/08","01/09","02/09","03/09","04/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","19/09","21/09","22/09","24/09","25/09","28/09","29/09","01/10","02/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Daniel Kyerewaa","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Daniel Kyerewaa","type":"line","data":[1954,1812,1219,685,576,1349,1201,844,906,1645,2065,1718,1006,1082,1249,null,1316,820,1267,1003,1897,1579,1048,1380,732,1612,1263,983,null,945,1021,1521,1477,879,216,1193,1760,1327,1580,null,722,586,1308,1994,552,1102,534,1048,1614,1428,1429,null,1725,1640,1520,998,1192,1638,1886,1146,1330,2105],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_23","title":"Explosive Distance — Daily Evolution — Group 3","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Jeriel Dorsett"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","17/08","18/08","20/08","21/08","22/08","23/08","24/08","25/08","27/08","28/08","29/08","31/08","01/09","03/09","04/09","05/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","19/09","21/09","22/09","24/09","25/09","26/09","28/09","29/09","01/10","02/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Jeriel Dorsett","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Jeriel Dorsett","type":"line","data":[null,null,1,353,806,277,0,274,null,1169,null,1219,2601,478,848,1351,689,1956,1566,1019,1077,1013,1482,1216,1077,1485,2982,401,1069,15,null,null,1690,499,1660,null,1180,1464,null,null,null,null,null,763,339,530,310,571,1863,894,78,null,null,null,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}},{"id":"chart_24","title":"Explosive Distance — Daily Evolution — Group 4","option":{"legend":{"top":2,"type":"plain","left":"center","width":"94%","itemWidth":12,"itemHeight":8,"itemGap":12,"icon":"roundRect","textStyle":{"fontSize":10,"color":"#475569"},"pageButtonItemGap":0,"pageIconSize":0,"pageTextStyle":{"color":"transparent"},"data":["Liam Fraser"]},"grid":{"containLabel":true,"left":48,"right":56,"top":52,"bottom":64},"xAxis":{"type":"category","data":["09/07","10/07","11/07","14/07","15/07","16/07","17/07","20/07","21/07","23/07","24/07","25/07","27/07","28/07","30/07","31/07","01/08","03/08","04/08","06/08","07/08","08/08","10/08","11/08","13/08","14/08","17/08","18/08","20/08","21/08","22/08","24/08","25/08","27/08","28/08","31/08","01/09","03/09","04/09","05/09","07/09","08/09","10/09","11/09","12/09","14/09","15/09","17/09","18/09","19/09","21/09","22/09","24/09","25/09","26/09","28/09","29/09","01/10","02/10","03/10","05/10","06/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Liam Fraser","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Liam Fraser","type":"line","data":[1760,1634,871,1729,1199,919,1818,1771,2834,1847,865,1535,1603,null,1195,4033,null,589,1449,1442,838,524,1463,1845,1170,752,2099,4497,1158,1464,198,1210,2390,989,2129,1747,1363,874,963,501,1317,2068,97,1022,417,1162,2238,1650,1067,230,1834,2029,1074,958,null,497,1611,1927,757,null,1562,2824],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"team_mean"}}];
+  const palette = ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"];
+  const fontFamily = "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif";
+  const ink = "#0f1220";
+  const injectMissingHosts = true;
+  const stripLineSymbols = true;
+  const instances = [];
+  const isPrint = () => window.matchMedia('print').matches;
+
+  const whenEchartsReady = (cb) => {
+    if (window.echarts) {
+      cb();
+      return;
+    }
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      if (!window.echarts) return;
+      done = true;
+      cb();
+    };
+    window.__maunaOnEchartsLoad = finish;
+    const tag = document.querySelector('script[src*="echarts"]');
+    if (tag) tag.addEventListener('load', finish);
+    let n = 0;
+    const t = setInterval(() => {
+      n += 1;
+      if (window.echarts) {
+        clearInterval(t);
+        finish();
+        return;
+      }
+      if (n > 50) {
+        clearInterval(t);
+        if (!done) {
+          done = true;
+          cb();
+        }
+      }
+    }, 100);
+  };
+
+  const ensureHost = (chart) => {
+    let el = document.getElementById(chart.id);
+    if (el || !injectMissingHosts) return el;
+    const host = document.getElementById('mauna-charts-fallback') || (() => {
+      const d = document.createElement('section');
+      d.id = 'mauna-charts-fallback';
+      d.setAttribute('data-injected', '1');
+      document.body.appendChild(d);
+      return d;
+    })();
+    const card = document.createElement('div');
+    card.className = 'chart-card';
+    card.innerHTML = '<h3></h3><div class="chart-box" id="' + chart.id + '"></div>';
+    card.querySelector('h3').textContent = chart.title || chart.id;
+    host.appendChild(card);
+    return document.getElementById(chart.id);
+  };
+
+  const boot = () => {
+    for (const chart of charts) {
+      const el = ensureHost(chart);
+      if (!el || !window.echarts) continue;
+      el.classList.add('chart-box');
+      const series = Array.isArray(chart.option && chart.option.series) ? chart.option.series : [];
+      const isRadar = Boolean(chart.option && chart.option.radar);
+      const isLine = !isRadar && series.some((s) => s && s.type === 'line');
+      const isBar = !isRadar && series.some((s) => s && s.type === 'bar');
+      el.classList.remove('line-chart', 'bar-rank', 'radar');
+      if (isRadar) {
+        el.classList.add('radar');
+        el.dataset.chartKind = 'radar';
+      } else if (isLine) {
+        el.classList.add('line-chart');
+        el.dataset.chartKind = 'line';
+      } else if (isBar) {
+        el.classList.add('bar-rank');
+        el.dataset.chartKind = 'bar';
+      } else {
+        el.dataset.chartKind = '';
+      }
+      const defaultH = isRadar
+        ? (isPrint() ? 280 : 300)
+        : isLine
+          ? (isPrint() ? 340 : 360)
+          : (isPrint() ? 260 : 300);
+      el.style.height = defaultH + 'px';
+      el.style.width = '100%';
+      // Never freeze a 0-width canvas (iframe srcDoc often lays out after first paint).
+      const instance = window.echarts.init(el, null, { renderer: 'canvas' });
+      const baseLegend =
+        chart.option && chart.option.legend && typeof chart.option.legend === 'object'
+          ? chart.option.legend
+          : {};
+      let option = {
+        animation: !isPrint(),
+        backgroundColor: '#ffffff',
+        textStyle: { fontFamily: fontFamily, color: ink },
+        ...chart.option,
+        color: palette,
+        legend: {
+          icon: 'roundRect',
+          itemWidth: 12,
+          itemHeight: 8,
+          itemGap: 10,
+          textStyle: { fontSize: 10, color: '#475569', fontFamily: fontFamily },
+          ...baseLegend,
+          type: 'plain',
+        },
+      };
+      if (option.maunaLayout != null) delete option.maunaLayout;
+      if (Array.isArray(option.series)) {
+        option.series = option.series.map((s, index) => {
+          if (!s || typeof s !== 'object') return s;
+          const tint = palette[index % Math.max(palette.length, 1)];
+          if (s.type === 'line' || s.type == null) {
+            const lineStyle = s.lineStyle && typeof s.lineStyle === 'object' ? s.lineStyle : {};
+            const itemStyle = s.itemStyle && typeof s.itemStyle === 'object' ? s.itemStyle : {};
+            return {
+              ...s,
+              smooth: s.smooth == null ? 0.18 : s.smooth,
+              showSymbol: stripLineSymbols ? false : s.showSymbol,
+              symbol: stripLineSymbols ? 'none' : s.symbol,
+              symbolSize: stripLineSymbols ? 0 : s.symbolSize,
+              itemStyle: { ...itemStyle, color: itemStyle.color || tint },
+              lineStyle: { width: 2.35, ...lineStyle, color: lineStyle.color || tint },
+              emphasis: { focus: 'series', ...(s.emphasis || {}), lineStyle: { width: 3.1 } },
+            };
+          }
+          if (s.type === 'bar') {
+            const itemStyle = s.itemStyle && typeof s.itemStyle === 'object' ? s.itemStyle : {};
+            const yCat =
+              option.yAxis &&
+              typeof option.yAxis === 'object' &&
+              !Array.isArray(option.yAxis) &&
+              option.yAxis.type === 'category';
+            return {
+              ...s,
+              barMaxWidth: s.barMaxWidth == null ? 18 : s.barMaxWidth,
+              itemStyle: {
+                borderRadius: yCat ? [0, 4, 4, 0] : [3, 3, 0, 0],
+                ...itemStyle,
+                color: itemStyle.color || tint,
+              },
+            };
+          }
+          if (s.type === 'scatter') {
+            const itemStyle = s.itemStyle && typeof s.itemStyle === 'object' ? s.itemStyle : {};
+            return {
+              ...s,
+              symbolSize: Math.min(Number(s.symbolSize) || 7, 8),
+              itemStyle: { opacity: 0.88, ...itemStyle, color: itemStyle.color || tint },
+            };
+          }
+          if (s.type === 'radar') {
+            const areaStyle = s.areaStyle && typeof s.areaStyle === 'object' ? s.areaStyle : {};
+            const lineStyle = s.lineStyle && typeof s.lineStyle === 'object' ? s.lineStyle : {};
+            const data = Array.isArray(s.data)
+              ? s.data.map((item) => {
+                  if (!item || typeof item !== 'object') return item;
+                  const itemArea = item.areaStyle && typeof item.areaStyle === 'object' ? item.areaStyle : {};
+                  return {
+                    ...item,
+                    areaStyle: { opacity: 0.22, ...itemArea, color: itemArea.color || tint },
+                    lineStyle: { width: 2.2, ...(item.lineStyle || {}), color: (item.lineStyle && item.lineStyle.color) || tint },
+                    itemStyle: { color: tint, ...(item.itemStyle || {}) },
+                  };
+                })
+              : s.data;
+            return {
+              ...s,
+              symbol: s.symbol || 'circle',
+              symbolSize: s.symbolSize == null ? 5 : s.symbolSize,
+              areaStyle: { opacity: 0.18, ...areaStyle, color: areaStyle.color || tint },
+              lineStyle: { width: 2.2, ...lineStyle, color: lineStyle.color || tint },
+              data,
+            };
+          }
+          return s;
+        });
+      }
+      instance.setOption(option, true);
+      el.dataset.ready = '1';
+      instances.push(instance);
+      if (typeof ResizeObserver !== 'undefined') {
+        const ro = new ResizeObserver(() => {
+          const w = el.clientWidth;
+          const h = el.clientHeight || defaultH;
+          if (w > 0) instance.resize({ width: w, height: h });
+        });
+        ro.observe(el);
+      }
+    }
+    document.documentElement.dataset.chartsReady = '1';
+    const resizeAll = () => {
+      instances.forEach((i) => {
+        const dom = i.getDom && i.getDom();
+        if (dom) {
+          const w = dom.clientWidth;
+          const h = dom.clientHeight || 220;
+          if (w > 0) i.resize({ width: w, height: h });
+          else i.resize();
+        } else {
+          i.resize();
+        }
+      });
+    };
+    window.__maunaResizeCharts = resizeAll;
+    window.addEventListener('resize', resizeAll);
+    window.addEventListener('beforeprint', () => {
+      instances.forEach((i) => i.setOption({ animation: false }));
+      resizeAll();
+    });
+    requestAnimationFrame(() => {
+      resizeAll();
+      requestAnimationFrame(resizeAll);
+    });
+    setTimeout(resizeAll, 120);
+    setTimeout(resizeAll, 400);
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!target || typeof target.closest !== 'function') return;
+      const link = target.closest('a[href^="#"]');
+      if (!link) return;
+      const href = link.getAttribute('href') || '';
+      const id = href.slice(1);
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      event.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
+
+  whenEchartsReady(boot);
+})();
+</script>
+</body>
+</html>

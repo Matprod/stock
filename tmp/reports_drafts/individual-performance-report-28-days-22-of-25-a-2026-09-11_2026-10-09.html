@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Individual Performance Report — 28 Days (22 of 25 Athletes)</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" onload="window.__maunaEchartsLoaded=1;window.__maunaOnEchartsLoad&&window.__maunaOnEchartsLoad()"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page { size: A4; margin: 9mm; }
+    :root {
+      --bg: #0b1f3a;
+      --primary: #4f6ef7;
+      --light: #74c0fc;
+      --ink: #0f172a;
+      --ink-soft: #334155;
+      --paper: #f8fafc;
+      --line: #cbd5e1;
+      --muted: #64748b;
+      --cherry: #E07070;
+      --cherry-soft: #f3d4d4;
+      --saffron: #E8B84A;
+      --saffron-soft: #f5e6c8;
+      --ok-soft: rgba(52,211,153,.16);
+      --ok: #065f46;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background: #eef1f7;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 12.5px;
+      position: relative;
+    }
+    
+.mauna-page-watermark {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 0;
+}
+.page, .report-flow, .artifact-shell {
+  position: relative;
+  z-index: 1;
+}
+@media print {
+  .mauna-page-watermark { display: none !important; }
+}
+
+    .artifact-shell { min-height: 100vh; position: relative; z-index: 1; }
+    .artifact-main {
+      max-width: 980px; margin: 0 auto; padding: 16px 16px 40px;
+    }
+    .page.cover, .page.toc-page {
+      width: 100%;
+      max-width: 192mm;
+      min-height: auto;
+      margin: 0 auto 16px;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page.content-page, .report-flow {
+      width: 100%;
+      max-width: 192mm;
+      margin: 0 auto;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .signal-roster a, .staff-section-index a {
+      color: inherit; text-decoration: none;
+    }
+    .signal-roster a:hover .signal-body, .staff-section-index a:hover {
+      color: var(--primary);
+    }
+    #staff-read {
+      page-break-after: always;
+      break-after: page;
+      margin-bottom: 4mm;
+    }
+    .report-flow { padding-bottom: 4mm; }
+    .section-block {
+      margin: 0 0 8px;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-body {
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(120px, 30%) 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 0 0 10px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-intro .athlete-banner { margin: 0; }
+    .section-intro .intro-prose { min-width: 0; }
+    .section-intro .intro-prose .prose-block { margin-bottom: 0; }
+    .split-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 0 0 10px;
+    }
+    .split-row > * {
+      min-width: 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .split-row.split-chart-table .chart-card { margin-bottom: 0; }
+    .split-row.split-chart-table .card { margin-bottom: 0; }
+    .split-row .chart-box.compact { height: 170px; }
+    .cover-panel {
+      min-height: min(72vh, 279mm);
+      background: #0b1f3a;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 16mm 14mm 12mm;
+      color: #e8eaf2;
+    }
+    .cover-panel::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--primary);
+    }
+    .wm {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      opacity: .04; font-size: 88px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; pointer-events: none;
+    }
+    .brand {
+      z-index: 1; font-size: 11px; font-weight: 700; letter-spacing: .28em;
+      text-transform: uppercase; color: var(--light);
+    }
+    .season { z-index: 1; margin-top: 12px; color: #93c5fd; font-weight: 600; font-size: 12px; letter-spacing: .1em; }
+    .cover-title {
+      z-index: 1; margin: 24px 0 0; max-width: 168mm;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+      font-size: 34px; font-weight: 700; letter-spacing: .01em; text-transform: uppercase;
+      line-height: 1.12; color: #f8fafc;
+    }
+    .date-pill {
+      z-index: 1; margin-top: 16px; align-self: flex-start;
+      background: rgba(116,192,252,.12); border: 1px solid rgba(116,192,252,.35);
+      color: #dbeafe; font-weight: 600; padding: 8px 14px; border-radius: 999px; font-size: 11px;
+    }
+    .club-mark {
+      z-index: 1; margin-top: auto; padding-top: 16px;
+      color: #94a3b8; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; font-size: 10px;
+    }
+    .toc-page, .content-page { padding: 0; background: #fff; }
+    .band {
+      display: flex; justify-content: space-between; align-items: center;
+      background: #0b1f3a;
+      color: #fff; border-radius: 8px; padding: 11px 14px; margin-bottom: 10px;
+      break-after: avoid; page-break-after: avoid;
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .section-block > .band + .section-intro,
+    .section-block > .band + .section-body {
+      break-before: avoid;
+      page-break-before: avoid;
+    }
+    .band h1 {
+      margin: 0; font-size: 13px; letter-spacing: .05em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .band .meta { color: #c7d2fe; font-size: 10px; font-weight: 600; letter-spacing: .03em; }
+    .toc-title { color: var(--ink); font-size: 16px; font-weight: 700; margin: 0 0 8px; }
+    .coach-brief {
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 8px; padding: 10px 12px; margin: 0 0 12px;
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .coach-brief .label {
+      margin: 0 0 6px; font-size: 10px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .coach-brief blockquote {
+      margin: 0; color: var(--ink-soft); font-size: 12px; line-height: 1.45;
+      white-space: pre-wrap; font-style: normal;
+    }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 5px; }
+    .toc-list a {
+      display: flex; justify-content: space-between; gap: 12px; text-decoration: none;
+      background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--primary);
+      border-radius: 6px; padding: 8px 10px; color: var(--ink); font-weight: 600; font-size: 12px;
+    }
+    .toc-list .hint { color: var(--muted); font-size: 10px; font-weight: 600; }
+    .prose, .prose-block { color: var(--ink-soft); font-size: 12px; line-height: 1.45; margin: 0 0 8px; }
+    .prose { white-space: pre-wrap; }
+    .prose-block p { margin: 0 0 6px; }
+    .prose-block ul { margin: 0 0 6px; padding-left: 16px; }
+    .card, .chart-card {
+      background: #fff; border: 1.75px solid #94a3b8; border-radius: 8px; padding: 10px 12px;
+      margin: 0 0 10px;
+      overflow: visible;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .card:has(table.report-table) {
+      break-inside: auto;
+      page-break-inside: auto;
+      overflow: visible;
+    }
+    .chart-card.chart-wide {
+      break-before: auto;
+      page-break-before: auto;
+    }
+    .card h3, .chart-card h3 {
+      margin: 0 0 6px; color: var(--ink); font-size: 10.5px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase;
+      font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .chart-box { width: 100%; height: 270px; max-height: 270px; }
+    .chart-box.radar { height: 300px; max-height: 300px; }
+    .chart-box.tall { height: 340px; max-height: 340px; }
+    .chart-box.wide { height: 320px; max-height: 320px; }
+    .chart-box.bar-rank { height: 310px; max-height: 310px; }
+    .chart-box.line-chart { height: 340px; max-height: 340px; }
+    .chart-box.compact { height: 170px; max-height: 170px; }
+    .split-row .chart-box.bar-rank { height: 230px; max-height: 230px; }
+    .chart-legend-html {
+      display: flex; flex-wrap: wrap; gap: 5px 10px; margin-top: 6px;
+      font-size: 9.5px; color: var(--ink-soft);
+    }
+    .chart-legend-html i {
+      display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+      margin-right: 4px; vertical-align: middle;
+    }
+    table.report-table {
+      width: 100%; border-collapse: collapse; font-size: 10.5px;
+    }
+    table.report-table thead { display: table-header-group; }
+    table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+    table.report-table th {
+      background: #dce8f6; color: #0b1f3a;
+      text-align: left; padding: 7px 10px; font-weight: 700;
+      letter-spacing: .03em; text-transform: uppercase; font-size: 9.5px;
+      border-bottom: 2px solid #5b7fa6;
+    }
+    table.report-table th.num,
+    table.report-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    table.report-table td {
+      border-bottom: 1px solid #c5d4e8; padding: 6px 10px; color: #1e3a5f;
+      background: transparent;
+    }
+    table.report-table tbody tr:last-child td { border-bottom: 1.5px solid #5b7fa6; }
+    .lvl-hi, .lvl-mid, .lvl-lo,
+    table.report-table td.lvl-hi,
+    table.report-table td.lvl-mid,
+    table.report-table td.lvl-lo {
+      color: #1e3a5f !important;
+      font-weight: 500 !important;
+    }
+    .lvl-hi { background: var(--cherry-soft) !important; }
+    .lvl-mid { background: var(--saffron-soft) !important; }
+    .lvl-lo { background: var(--ok-soft) !important; }
+    .legend { margin: 0 0 8px; font-size: 9.5px; color: var(--muted); }
+    .legend span { display: inline-block; margin-right: 10px; }
+    .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 3px; vertical-align: middle; }
+    .athlete-banner {
+      display: flex; gap: 12px; align-items: center; margin: 0 0 10px;
+      padding: 10px 12px; border-radius: 8px; background: var(--paper);
+      border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .athlete-banner .avatar-wrap {
+      position: relative; width: 56px; height: 56px; flex: 0 0 56px;
+    }
+    .athlete-banner img {
+      width: 56px; height: 56px; border-radius: 50%; object-fit: cover; background: #e2e8f0;
+    }
+    .athlete-banner .avatar-fallback {
+      width: 56px; height: 56px; border-radius: 50%;
+      display: none; place-items: center; font-weight: 700; color: #fff;
+      background: var(--primary); font-size: 14px;
+    }
+    .athlete-banner.no-photo img { display: none; }
+    .athlete-banner.no-photo .avatar-fallback { display: grid; }
+    .athlete-banner .meta {
+      color: var(--muted); font-size: 10px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .athlete-banner .name { font-weight: 700; color: var(--ink); font-size: 15px; }
+    .footer-inline {
+      display: flex; justify-content: space-between; color: var(--muted);
+      font-size: 9px; letter-spacing: .04em; text-transform: uppercase;
+      margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--line);
+    }
+    .staff-read-lead {
+      color: var(--ink-soft); font-size: 12px; line-height: 1.45; margin: 0 0 10px;
+    }
+    .staff-read-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 10px;
+    }
+    .staff-read-panel {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 8px;
+      padding: 10px; break-inside: avoid; page-break-inside: avoid;
+    }
+    .staff-read-panel h3 {
+      margin: 0 0 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .05em;
+      text-transform: uppercase; color: var(--ink); font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+    }
+    .staff-read-panel ul { margin: 0; padding-left: 16px; color: var(--ink-soft); font-size: 11.5px; line-height: 1.4; }
+    .staff-read-panel li { margin: 0 0 5px; }
+    .signal-roster { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .signal-roster li {
+      display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: start;
+      padding: 7px 8px; border-radius: 6px; border: 1px solid var(--line); background: #fff;
+    }
+    .signal-badge {
+      font-size: 8.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      border-radius: 999px; padding: 3px 7px; white-space: nowrap;
+    }
+    .signal-badge.watch { background: var(--cherry-soft); color: #9f1239; border: 1px solid var(--cherry); }
+    .signal-badge.review { background: var(--saffron-soft); color: #92400e; border: 1px solid var(--saffron); }
+    .signal-badge.info { background: rgba(79,110,247,.12); color: #3730a3; border: 1px solid rgba(79,110,247,.35); }
+    .signal-body { font-size: 11px; line-height: 1.35; color: var(--ink-soft); }
+    .signal-meta { font-size: 9.5px; color: var(--muted); margin-top: 3px; font-weight: 600; }
+    .staff-section-index { list-style: none; padding: 0; margin: 0; display: grid; gap: 5px; }
+    .staff-section-index li,
+    .staff-section-index a {
+      display: flex; justify-content: space-between; gap: 10px; align-items: center;
+      padding: 7px 8px; border-radius: 6px; background: #fff; border: 1px solid var(--line);
+      font-size: 11px; font-weight: 600; color: var(--ink);
+    }
+    .staff-section-index a { width: 100%; box-sizing: border-box; }
+    .staff-section-index li:has(a) { padding: 0; border: 0; background: transparent; }
+    .staff-section-index .kind {
+      color: var(--muted); font-size: 9.5px; text-transform: uppercase; letter-spacing: .04em;
+    }
+    @media print {
+      body { background: #fff; }
+      .artifact-main { max-width: none; margin: 0; padding: 0; }
+      .page.cover, .page.toc-page {
+        width: 210mm; max-width: 210mm;
+        min-height: 297mm; height: 297mm; max-height: 297mm;
+        margin: 0; padding: 0; overflow: hidden;
+        page-break-after: always; break-after: page;
+      }
+      .cover-panel {
+        width: 210mm; max-width: 210mm;
+        min-height: 297mm; height: 297mm; max-height: 297mm;
+        margin: 0; box-sizing: border-box; overflow: hidden; border-radius: 0;
+      }
+      .page.content-page, .report-flow {
+        width: 210mm; max-width: 210mm; margin: 0;
+        padding: 10mm 12mm 12mm; box-sizing: border-box;
+      }
+      .section-block, .section-body, .report-flow { break-inside: auto; page-break-inside: auto; }
+      .chart-card, .split-row > *, .athlete-banner, .band {
+        break-inside: avoid; page-break-inside: avoid;
+      }
+      .card:not(:has(table.report-table)) {
+        break-inside: avoid; page-break-inside: avoid;
+      }
+      .card:has(table.report-table) {
+        break-inside: auto; page-break-inside: auto;
+      }
+      table.report-table { break-inside: auto; page-break-inside: auto; }
+      table.report-table thead { display: table-header-group; }
+      table.report-table tr { break-inside: avoid; page-break-inside: avoid; }
+      .chart-card.chart-wide { break-before: auto; page-break-before: auto; }
+      .section-block > .band + .section-body,
+      .section-block > .band + .section-intro {
+        break-before: avoid; page-break-before: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+<img class="mauna-page-watermark" src="data:image/png;base64,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" alt="" aria-hidden="true" />
+<div class="artifact-shell">
+  <div class="artifact-main">
+  <section class="page cover" id="cover">
+    <div class="cover-panel">
+      <div class="wm">Sunderland</div>
+      <div class="brand">MAUNA</div>
+      <div class="season">2026-2027</div>
+      <h1 class="cover-title">Individual Performance Report — 28 Days (22 of 25 Athletes)</h1>
+      <div class="date-pill">Fri, 09/10/26 · 2026-09-11 → 2026-10-09</div>
+      <div class="club-mark">Sunderland · physical data</div>
+    </div>
+  </section>
+
+  <section class="page toc-page" id="sommaire">
+    <div class="band">
+      <h1>Contents</h1>
+      <div class="meta">Sunderland</div>
+    </div>
+    <h2 class="toc-title">Individual Performance Report — 28 Days (22 of 25 Athletes)</h2>
+    <aside class="coach-brief" id="coach-brief" data-mauna-coach-brief="1">
+      <p class="label">Coach brief</p>
+      <blockquote>Build an individual performance report for all players over the last 28 days. Include ACWR EWMA (sRPE) for each athlete as individual sheets or line chunks.</blockquote>
+    </aside>
+    <ol class="toc-list">
+      <li><a href="#cover"><span>01 · Cover</span><span class="hint">cover</span></a></li>
+      <li><a href="#staff-read"><span>02 · Staff read</span><span class="hint">brief</span></a></li>
+      <li><a href="#section-1"><span>03 · Performance &amp; Injury Risk Scores</span><span class="hint">§1</span></a></li><li><a href="#section-2"><span>04 · Abdoullah Ba</span><span class="hint">§2</span></a></li><li><a href="#section-3"><span>05 · Load Management — ACWR EWMA (sRPE)</span><span class="hint">§3</span></a></li><li><a href="#section-4"><span>06 · Brian Brobbey</span><span class="hint">§4</span></a></li><li><a href="#section-5"><span>07 · Chemsdine Talbi</span><span class="hint">§5</span></a></li><li><a href="#section-6"><span>08 · Chris Rigg</span><span class="hint">§6</span></a></li><li><a href="#section-7"><span>09 · Daniel Ballard</span><span class="hint">§7</span></a></li><li><a href="#section-8"><span>10 · Dayann Méthalie</span><span class="hint">§8</span></a></li><li><a href="#section-9"><span>11 · Enzo Le Fee</span><span class="hint">§9</span></a></li>
+    </ol>
+    <div class="footer-inline"><span>Sunderland · confidential</span><span>toc</span></div>
+  </section>
+
+  
+<section class="page content-page" id="staff-read">
+  <div class="band">
+    <h1>Staff read</h1>
+    <div class="meta">2026-09-11 → 2026-10-09</div>
+  </div>
+  <p class="staff-read-lead">Individual performance and injury risk score evolution with dedicated athlete sheets. 22 of 25 athletes covered; 3 missing from dataset. ACWR EWMA (sRPE) unavailable for all players. (incomplete roster coverage)</p>
+  <div class="staff-read-grid"><div class="staff-read-panel"><h3>Narrative thread</h3><ul><li>Individual athlete sheets created for 22 of 25 squad members, each with dedicated performance and injury risk score evolution charts.</li><li>MISSING DATA: Alan Browne, Habib Diarra, and Romaine Mundle have zero rows in ds_1 and cannot be charted.</li><li>Performance scores tracked across 19-29 days per athlete depending on data availability.</li></ul></div><div class="staff-read-panel"><h3>Signals</h3><ul class="signal-roster"><li><span class="signal-badge review">Review</span><div><div class="signal-body">INCOMPLETE ROSTER COVERAGE: 3 of 25 athletes (Alan Browne, Habib Diarra, Romaine Mundle) have no score data in ds_1. Individual sheets cannot be generated for players with zero rows.</div><div class="signal-meta">scores</div></div></li><li><span class="signal-badge review">Review</span><div><div class="signal-body">ACWR EWMA (sRPE) unavailable for all 25 athletes. No build_load_summary dataset with daily sRPE exists. Individual load sheets cannot be completed.</div><div class="signal-meta">load</div></div></li></ul></div></div>
+  <div class="staff-read-panel"><h3>Canvas sections</h3><ul class="staff-section-index"><li><span>Team Overview — Performance &amp; Injury Risk</span><span class="kind">Team</span></li><li><a href="#section-2"><span>Abdoullah Ba</span><span class="kind">Athlete</span></a></li><li><a href="#section-4"><span>Brian Brobbey</span><span class="kind">Athlete</span></a></li><li><a href="#section-5"><span>Chemsdine Talbi</span><span class="kind">Athlete</span></a></li><li><a href="#section-6"><span>Chris Rigg</span><span class="kind">Athlete</span></a></li><li><a href="#section-7"><span>Daniel Ballard</span><span class="kind">Athlete</span></a></li><li><a href="#section-8"><span>Dayann Méthalie</span><span class="kind">Athlete</span></a></li><li><a href="#section-9"><span>Enzo Le Fee</span><span class="kind">Athlete</span></a></li><li><span>Granit Xhaka</span><span class="kind">Athlete</span></li><li><span>Jocelin Ta Bi</span><span class="kind">Athlete</span></li><li><span>Jules Ahoka</span><span class="kind">Athlete</span></li><li><span>Kevin Danso</span><span class="kind">Athlete</span></li><li><span>Luke O'Nien</span><span class="kind">Athlete</span></li><li><span>Malick Fofana</span><span class="kind">Athlete</span></li><li><span>Nilson Angulo</span><span class="kind">Athlete</span></li><li><span>Noah Sadiki</span><span class="kind">Athlete</span></li><li><span>Nordi Mukiele</span><span class="kind">Athlete</span></li><li><span>Omar Alderete</span><span class="kind">Athlete</span></li><li><span>Reinildo Mandava</span><span class="kind">Athlete</span></li><li><span>Thomas Meunier</span><span class="kind">Athlete</span></li><li><span>Timur Tutierov</span><span class="kind">Athlete</span></li><li><span>Trai Hume</span><span class="kind">Athlete</span></li><li><span>Wilson Isidor</span><span class="kind">Athlete</span></li><li><span>Missing Athletes</span><span class="kind">Coverage</span></li></ul></div>
+  <div class="footer-inline">
+    <span>Sunderland · confidential · staff brief</span>
+    <span>staff-read</span>
+  </div>
+</section>
+
+  <main class="report-flow">
+  
+<article class="section-block" id="section-1">
+  <div class="band">
+    <h1>Performance &amp; Injury Risk Scores</h1>
+    <div class="meta">2026-09-11 → 2026-10-09</div>
+  </div>
+  
+  <div class="section-body"><div class="chart-card chart-wide">
+  <h3>Performance score (1/5)</h3>
+  <div id="chart_a35b1ec0ceaf4c8d8e90e8e7dd8054b0" class="chart-box line-chart" data-chart-kind="line"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Abdoullah Ba</span><span><i style="background:#34D399"></i>Brian Brobbey</span><span><i style="background:#FBBF24"></i>Chemsdine Talbi</span><span><i style="background:#A78BFA"></i>Chris Rigg</span><span><i style="background:#F87171"></i>Daniel Ballard</span></div>
+</div>
+<div class="chart-card chart-wide">
+  <h3>Performance score (2/5)</h3>
+  <div id="chart_76fa8c3dbb914d57b3af3a6ad2de2f95" class="chart-box line-chart" data-chart-kind="line"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Dayann Méthalie</span><span><i style="background:#34D399"></i>Enzo Le Fee</span><span><i style="background:#FBBF24"></i>Granit Xhaka</span><span><i style="background:#A78BFA"></i>Jocelin Ta Bi</span><span><i style="background:#F87171"></i>Jules Ahoka</span></div>
+</div>
+<div class="chart-card chart-wide">
+  <h3>Performance score (3/5)</h3>
+  <div id="chart_dd7e90372c18409a9555ea45c9243cfb" class="chart-box line-chart" data-chart-kind="line"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Kevin Danso</span><span><i style="background:#34D399"></i>Luke O'Nien</span><span><i style="background:#FBBF24"></i>Malick Fofana</span><span><i style="background:#A78BFA"></i>Nilson Angulo</span><span><i style="background:#F87171"></i>Noah Sadiki</span></div>
+</div>
+<div class="chart-card chart-wide">
+  <h3>Performance score (4/5)</h3>
+  <div id="chart_9c4ad7a208c84416825d85801f55f7aa" class="chart-box line-chart" data-chart-kind="line"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Nordi Mukiele</span><span><i style="background:#34D399"></i>Omar Alderete</span><span><i style="background:#FBBF24"></i>Reinildo Mandava</span><span><i style="background:#A78BFA"></i>Thomas Meunier</span><span><i style="background:#F87171"></i>Timur Tutierov</span></div>
+</div>
+<div class="chart-card chart-wide">
+  <h3>Performance score (5/5)</h3>
+  <div id="chart_d9288d2f58374ce8b1b4c94d6072a832" class="chart-box line-chart" data-chart-kind="line"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Trai Hume</span><span><i style="background:#34D399"></i>Wilson Isidor</span></div>
+</div>
+<div class="prose-block"><ul><li>COVERAGE SHORTFALL: 22 of 25 athletes have score data in ds_1. Individual evolution charts above cover Abdoullah Ba, Brian Brobbey, Chemsdine Talbi, Chris Rigg, Daniel Ballard, Dayann Méthalie, Enzo Le Fee, Granit Xhaka, Jocelin Ta Bi, Jules Ahoka, Kevin Danso, Luke O'Nien, Malick Fofana, Nilson Angulo, Noah Sadiki, Nordi Mukiele, Omar Alderete, Reinildo Mandava, Thomas Meunier, Timur Tutierov, Trai Hume, and Wils…</li></ul></div>
+<div class="chart-card chart-wide">
+  <h3>Performance score</h3>
+  <div id="chart_a580fee5f04647d1ba926c0c46ad4307" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score (1/5)</h3>
+  <div id="chart_d25881ea389d4ae6b63dc5ad45e4006e" class="chart-box line-chart" data-chart-kind="line"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Abdoullah Ba</span><span><i style="background:#34D399"></i>Brian Brobbey</span><span><i style="background:#FBBF24"></i>Chemsdine Talbi</span><span><i style="background:#A78BFA"></i>Chris Rigg</span><span><i style="background:#F87171"></i>Daniel Ballard</span></div>
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score (2/5)</h3>
+  <div id="chart_1716f31986dd4f63a9de74ec331dd4b7" class="chart-box line-chart" data-chart-kind="line"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Dayann Méthalie</span><span><i style="background:#34D399"></i>Enzo Le Fee</span><span><i style="background:#FBBF24"></i>Granit Xhaka</span><span><i style="background:#A78BFA"></i>Jocelin Ta Bi</span><span><i style="background:#F87171"></i>Jules Ahoka</span></div>
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score (3/5)</h3>
+  <div id="chart_5e2a77cc7b394e0e8bb7b3f7ca0649a9" class="chart-box line-chart" data-chart-kind="line"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Kevin Danso</span><span><i style="background:#34D399"></i>Luke O'Nien</span><span><i style="background:#FBBF24"></i>Malick Fofana</span><span><i style="background:#A78BFA"></i>Nilson Angulo</span><span><i style="background:#F87171"></i>Noah Sadiki</span></div>
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score (4/5)</h3>
+  <div id="chart_50cb68400ef54b09b301fd84c42ccd53" class="chart-box line-chart" data-chart-kind="line"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Nordi Mukiele</span><span><i style="background:#34D399"></i>Omar Alderete</span><span><i style="background:#FBBF24"></i>Reinildo Mandava</span><span><i style="background:#A78BFA"></i>Thomas Meunier</span><span><i style="background:#F87171"></i>Timur Tutierov</span></div>
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score (5/5)</h3>
+  <div id="chart_58bc44e7aca543febca9d51cddf58f99" class="chart-box line-chart" data-chart-kind="line"></div>
+  <div class="chart-legend-html"><span><i style="background:#38BDF8"></i>Trai Hume</span><span><i style="background:#34D399"></i>Wilson Isidor</span></div>
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score</h3>
+  <div id="chart_eb09b5d087054440953064c25006eb6f" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="prose-block"><ul><li>Team envelopes show squad-level context for the 22 athletes with data: mean performance score 52-55, injury risk score 13-16 over the period. Latest scores table captures current status as of 2026-10-09.</li></ul></div>
+<div class="card"><h3>Latest scores by athlete</h3><table class="report-table"><thead><tr><th>Player</th><th>Date</th><th class="num">Performance score (0-100)</th><th class="num">Injury risk score (0-100)</th></tr></thead><tbody><tr data-athlete="Abdoullah Ba"><td>Abdoullah Ba</td><td>2026-10-09</td><td class="num">47</td><td class="num">11</td></tr><tr data-athlete="Brian Brobbey"><td>Brian Brobbey</td><td>2026-09-29</td><td class="num">54</td><td class="num">—</td></tr><tr data-athlete="Chemsdine Talbi"><td>Chemsdine Talbi</td><td>2026-10-09</td><td class="num">55</td><td class="num">5</td></tr><tr data-athlete="Chris Rigg"><td>Chris Rigg</td><td>2026-10-09</td><td class="num">58</td><td class="num">5</td></tr><tr data-athlete="Daniel Ballard"><td>Daniel Ballard</td><td>2026-09-29</td><td class="num">49</td><td class="num">—</td></tr><tr data-athlete="Dayann Méthalie"><td>Dayann Méthalie</td><td>2026-10-09</td><td class="num">48</td><td class="num">27</td></tr><tr data-athlete="Enzo Le Fee"><td>Enzo Le Fee</td><td>2026-10-09</td><td class="num">58</td><td class="num">16</td></tr><tr data-athlete="Granit Xhaka"><td>Granit Xhaka</td><td>2026-10-09</td><td class="num">46</td><td class="num">11</td></tr><tr data-athlete="Jocelin Ta Bi"><td>Jocelin Ta Bi</td><td>2026-10-09</td><td class="num">57</td><td class="num">15</td></tr><tr data-athlete="Jules Ahoka"><td>Jules Ahoka</td><td>2026-10-01</td><td class="num">49</td><td class="num">—</td></tr><tr data-athlete="Kevin Danso"><td>Kevin Danso</td><td>2026-10-09</td><td class="num">45</td><td class="num">68</td></tr><tr data-athlete="Luke O'Nien"><td>Luke O'Nien</td><td>2026-10-09</td><td class="num">65</td><td class="num">1</td></tr><tr data-athlete="Malick Fofana"><td>Malick Fofana</td><td>2026-10-09</td><td class="num">42</td><td class="num">4</td></tr><tr data-athlete="Nilson Angulo"><td>Nilson Angulo</td><td>2026-10-09</td><td class="num">45</td><td class="num">8</td></tr><tr data-athlete="Noah Sadiki"><td>Noah Sadiki</td><td>2026-10-09</td><td class="num">45</td><td class="num">7</td></tr><tr data-athlete="Nordi Mukiele"><td>Nordi Mukiele</td><td>2026-10-09</td><td class="num">49</td><td class="num">16</td></tr><tr data-athlete="Omar Alderete"><td>Omar Alderete</td><td>2026-10-09</td><td class="num">50</td><td class="num">24</td></tr><tr data-athlete="Reinildo Mandava"><td>Reinildo Mandava</td><td>2026-10-09</td><td class="num">47</td><td class="num">15</td></tr><tr data-athlete="Thomas Meunier"><td>Thomas Meunier</td><td>2026-10-09</td><td class="num">62</td><td class="num">29</td></tr><tr data-athlete="Timur Tutierov"><td>Timur Tutierov</td><td>2026-09-30</td><td class="num">53</td><td class="num">—</td></tr><tr data-athlete="Trai Hume"><td>Trai Hume</td><td>2026-10-09</td><td class="num">49</td><td class="num">0</td></tr><tr data-athlete="Wilson Isidor"><td>Wilson Isidor</td><td>2026-10-09</td><td class="num">48</td><td class="num">29</td></tr></tbody></table></div></div>
+  <div class="footer-inline">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-1</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-2" data-athlete-name="Abdoullah Ba">
+  <div class="band">
+    <h1>Abdoullah Ba</h1>
+    <div class="meta">2026-09-11 → 2026-10-09</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/9e6dd294-45f0-404b-86c7-245050ced905.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261009%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20261009T113647Z&X-Amz-Expires=3600&X-Amz-Signature=e0162c59e01d21cb5127bf3859dd721495115bdaddeb0aa4edbfae3500ead1a1&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261009%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261009T113639Z&amp;X-Amz-Expires=3600&amp;X-Amz-Signature=fc01cd08d799a07589a89038d21b3bb87c1c96e28263a80daa29885f74de43d7&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">AB</div></div><div><div class="name">Abdoullah Ba</div><div class="meta">CENTRE ATTACKING MIDFIELDER</div></div></div>
+  <div class="section-body"><div class="chart-card chart-wide">
+  <h3>Performance score</h3>
+  <div id="chart_aeb7bbb9bd2e4875ae8ca4edf12d4144" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score</h3>
+  <div id="chart_3f812bbac63a4349b903f3fb5b9eda16" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="prose-block"><ul><li>29 days tracked. Performance score range 42-51. Injury risk score range 6-27. ACWR EWMA (sRPE) unavailable.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-2</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-3">
+  <div class="band">
+    <h1>Load Management — ACWR EWMA (sRPE)</h1>
+    <div class="meta">2026-09-11 → 2026-10-09</div>
+  </div>
+  
+  <div class="section-body"><div class="prose-block"><ul><li>ACWR EWMA (sRPE) UNAVAILABLE FOR ALL 25 ATHLETES. No build_load_summary dataset with daily sRPE exists in the catalog. Individual load sheets cannot be generated without foundational sRPE records. The load domain is completely absent from this report due to missing data pipeline output.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-3</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-4" data-athlete-name="Brian Brobbey">
+  <div class="band">
+    <h1>Brian Brobbey</h1>
+    <div class="meta">2026-09-11 → 2026-10-09</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/1b744009-7930-4bed-a95e-bdd3d54def6a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261009%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20261009T113647Z&X-Amz-Expires=3600&X-Amz-Signature=9f1071f58391b72101957ae6baced413f8a11e5ec240b4694a61377b88b0f089&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261009%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261009T113639Z&amp;X-Amz-Expires=3600&amp;X-Amz-Signature=2e1712a8007692d78f4a165fd272c9e6896c23c1bf7e56af7268c2700f270d10&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">BB</div></div><div><div class="name">Brian Brobbey</div><div class="meta">ATTACKER</div></div></div>
+  <div class="section-body"><div class="chart-card chart-wide">
+  <h3>Performance score</h3>
+  <div id="chart_e7c54ed43ea84fb38244a51f73034f40" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score</h3>
+  <div id="chart_8f82ac09fef8403c9c2f2c57c7c95b08" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="prose-block"><ul><li>19 days tracked. Performance score range 56-62. Injury risk score range 11-31. ACWR EWMA (sRPE) unavailable.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-4</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-5" data-athlete-name="Chemsdine Talbi">
+  <div class="band">
+    <h1>Chemsdine Talbi</h1>
+    <div class="meta">2026-09-11 → 2026-10-09</div>
+  </div>
+  <div class="athlete-banner no-photo"><div class="avatar-wrap"><div class="avatar-fallback">CT</div></div><div><div class="name">Chemsdine Talbi</div><div class="meta">WIDE MIDFIELD</div></div></div>
+  <div class="section-body"><div class="chart-card chart-wide">
+  <h3>Performance score</h3>
+  <div id="chart_ad9d734097464b65b0e5751c5be679e0" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score</h3>
+  <div id="chart_a58ed17c1635489a9b46d978ee4f4907" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="prose-block"><ul><li>29 days tracked. Performance score range 50-60. Injury risk score range 3-10. ACWR EWMA (sRPE) unavailable.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-5</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-6" data-athlete-name="Chris Rigg">
+  <div class="band">
+    <h1>Chris Rigg</h1>
+    <div class="meta">2026-09-11 → 2026-10-09</div>
+  </div>
+  <div class="athlete-banner no-photo"><div class="avatar-wrap"><div class="avatar-fallback">CR</div></div><div><div class="name">Chris Rigg</div><div class="meta">CENTRE MIDFIELD</div></div></div>
+  <div class="section-body"><div class="chart-card chart-wide">
+  <h3>Performance score</h3>
+  <div id="chart_3f3192380c4a47ef85119b4689790003" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score</h3>
+  <div id="chart_0de445f50cca47ff9d5b66068ed2f357" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="prose-block"><ul><li>29 days tracked. Performance score range 48-58. Injury risk score range 9-21. ACWR EWMA (sRPE) unavailable.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-6</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-7" data-athlete-name="Daniel Ballard">
+  <div class="band">
+    <h1>Daniel Ballard</h1>
+    <div class="meta">2026-09-11 → 2026-10-09</div>
+  </div>
+  <div class="athlete-banner"><div class="avatar-wrap"><img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/8a47b76f-93e1-4440-925d-a20b37cdc421.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261009%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20261009T113647Z&X-Amz-Expires=3600&X-Amz-Signature=268f0f354753dd60caa7ec0a26fe2f42ebc2cc521e04729150a59f00aa38d305&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=AKIAQPYR62N6T4ZI6GEN%2F20261009%2Feu-west-3%2Fs3%2Faws4_request&amp;X-Amz-Date=20261009T113639Z&amp;X-Amz-Expires=3600&amp;X-Amz-Signature=fa8a4a79363b0ff377e85daad21419f6a0b7d66274e9dd0774427a8f07f71fea&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" /><div class="avatar-fallback">DB</div></div><div><div class="name">Daniel Ballard</div><div class="meta">CENTRE BACK</div></div></div>
+  <div class="section-body"><div class="chart-card chart-wide">
+  <h3>Performance score</h3>
+  <div id="chart_29fe10f7d5ab4b4093f9e88e65f86ff6" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score</h3>
+  <div id="chart_318deb4b358442df9ebc286c3bbb09ec" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="prose-block"><ul><li>19 days tracked. Performance score range 54-59. Injury risk score range 6-13. ACWR EWMA (sRPE) unavailable.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-7</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-8" data-athlete-name="Dayann Méthalie">
+  <div class="band">
+    <h1>Dayann Méthalie</h1>
+    <div class="meta">2026-09-11 → 2026-10-09</div>
+  </div>
+  <div class="athlete-banner no-photo"><div class="avatar-wrap"><div class="avatar-fallback">DM</div></div><div><div class="name">Dayann Méthalie</div><div class="meta">DEFENDER</div></div></div>
+  <div class="section-body"><div class="chart-card chart-wide">
+  <h3>Performance score</h3>
+  <div id="chart_9d0cecbcb2b947899f58da3f6b1a6de4" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score</h3>
+  <div id="chart_0caffd125dda46078835b48b9041ace8" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="prose-block"><ul><li>29 days tracked. Performance score range 42-50. Injury risk score range 2-13. ACWR EWMA (sRPE) unavailable.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-8</span>
+  </div>
+</article>
+
+<article class="section-block" id="section-9" data-athlete-name="Enzo Le Fee">
+  <div class="band">
+    <h1>Enzo Le Fee</h1>
+    <div class="meta">2026-09-11 → 2026-10-09</div>
+  </div>
+  <div class="athlete-banner no-photo"><div class="avatar-wrap"><div class="avatar-fallback">EL</div></div><div><div class="name">Enzo Le Fee</div><div class="meta">CENTRE MIDFIELD</div></div></div>
+  <div class="section-body"><div class="chart-card chart-wide">
+  <h3>Performance score</h3>
+  <div id="chart_79d13fe6519343d3b0e41c1865d49cf0" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="chart-card chart-wide">
+  <h3>Injury risk score</h3>
+  <div id="chart_8db3b02092c544db8623e8c9ade58d63" class="chart-box line-chart" data-chart-kind="line"></div>
+  
+</div>
+<div class="prose-block"><ul><li>29 days tracked. Performance score range 58-64. Injury risk score range 14-26. ACWR EWMA (sRPE) unavailable.</li></ul></div></div>
+  <div class="footer-inline">
+    <span>Sunderland · confidential · staff</span>
+    <span>section-9</span>
+  </div>
+</article>
+  </main>
+  </div>
+</div>
+  <script id="mauna-artifact-boot">
+(function () {
+  const charts = [{"id":"chart_a35b1ec0ceaf4c8d8e90e8e7dd8054b0","title":"Performance score (1/5)","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Abdoullah Ba","type":"line","data":[45,46,45,44,43,45,44,45,44,46,44,45,44,45,45,46,46,46,46,46,46,46,46,46,46,46,46,46,47],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Brian Brobbey","type":"line","data":[60,62,55,59,61,56,52,57,53,65,53,50,54,54,54,57,52,54,54,null,null,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Chemsdine Talbi","type":"line","data":[55,60,55,60,52,47,51,51,47,50,52,53,47,46,47,48,48,51,52,50,51,57,54,54,54,51,49,50,55],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Chris Rigg","type":"line","data":[55,54,60,67,56,59,56,46,56,56,56,51,50,53,59,58,50,49,49,49,48,48,47,48,47,45,55,49,58],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Daniel Ballard","type":"line","data":[57,59,51,54,55,54,53,53,53,55,60,55,55,54,53,54,51,49,49,null,null,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"individual","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_76fa8c3dbb914d57b3af3a6ad2de2f95","title":"Performance score (2/5)","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Dayann Méthalie","type":"line","data":[49,42,44,43,43,44,44,46,44,44,43,43,42,42,41,41,40,49,49,49,49,49,49,49,49,49,48,48,48],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Enzo Le Fee","type":"line","data":[62,63,54,56,59,63,60,52,49,54,60,49,52,55,56,56,51,52,54,55,48,58,53,54,55,45,42,47,58],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Granit Xhaka","type":"line","data":[64,63,48,49,50,55,51,51,47,49,55,47,48,53,53,47,49,49,50,54,48,50,48,48,46,50,49,49,46],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Jocelin Ta Bi","type":"line","data":[57,56,58,58,54,53,51,48,51,50,49,53,63,55,52,49,51,54,58,52,54,60,55,56,56,48,48,48,57],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Jules Ahoka","type":"line","data":[45,47,46,49,49,47,46,46,47,47,47,47,46,47,49,49,49,49,49,49,49,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"individual","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_dd7e90372c18409a9555ea45c9243cfb","title":"Performance score (3/5)","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Kevin Danso","type":"line","data":[44,44,43,43,44,45,45,44,42,46,44,46,42,42,42,42,41,49,49,49,49,49,49,49,49,49,50,50,45],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Luke O'Nien","type":"line","data":[62,62,64,66,64,62,60,56,55,61,56,60,58,53,56,56,58,59,58,54,58,64,57,59,61,52,55,51,65],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Malick Fofana","type":"line","data":[43,43,42,43,44,43,43,42,42,47,46,45,42,42,42,42,40,49,49,49,49,49,49,49,49,49,50,50,42],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Nilson Angulo","type":"line","data":[59,57,55,54,57,48,46,49,50,53,55,50,52,55,56,54,46,47,48,48,48,48,47,47,47,47,46,46,45],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Noah Sadiki","type":"line","data":[61,61,56,51,54,60,60,55,50,56,59,56,53,53,52,54,44,44,44,44,44,44,44,45,44,44,43,43,45],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"individual","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_9c4ad7a208c84416825d85801f55f7aa","title":"Performance score (4/5)","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Nordi Mukiele","type":"line","data":[52,53,50,49,50,54,53,48,47,54,57,49,49,49,54,51,45,50,53,52,49,47,50,51,50,53,53,52,49],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Omar Alderete","type":"line","data":[47,51,56,56,55,51,49,54,54,54,62,57,53,55,57,52,49,48,49,48,48,49,48,49,48,48,51,50,50],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Reinildo Mandava","type":"line","data":[56,55,56,55,57,59,62,59,57,60,55,58,58,57,null,null,null,null,46,47,46,46,46,47,47,48,50,50,47],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Thomas Meunier","type":"line","data":[61,53,54,52,55,61,58,65,55,64,65,60,65,58,49,49,56,59,61,68,62,63,59,58,60,61,53,50,62],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Timur Tutierov","type":"line","data":[53,51,54,55,53,54,50,55,53,52,52,47,49,47,53,50,49,51,47,53,null,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"individual","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_d9288d2f58374ce8b1b4c94d6072a832","title":"Performance score (5/5)","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Trai Hume","type":"line","data":[58,57,53,57,55,50,46,48,null,54,55,52,51,50,50,51,45,47,47,47,47,47,47,47,47,47,49,49,49],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Wilson Isidor","type":"line","data":[57,62,60,58,57,58,55,56,55,53,65,56,55,55,56,58,51,52,52,52,51,51,50,47,47,47,46,46,48],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"individual","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_a580fee5f04647d1ba926c0c46ad4307","title":"Performance score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (mean)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Performance score (mean)","type":"line","data":[54.636,54.591,52.682,53.545,53.045,53.091,51.591,51.182,50.048,53.182,54.091,51.318,51.273,50.909,51.238,50.667,48.143,50.333,50.591,50.75,49.684,51.389,49.889,50.167,50.111,48.833,49.056,48.556,50.889],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":3.1},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":51.223,"name":"Mean","label":{"formatter":"Mean 51.22","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"symbolSize":0}],"animation":false,"maunaLayout":"squad_envelope","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_d25881ea389d4ae6b63dc5ad45e4006e","title":"Injury risk score (1/5)","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Abdoullah Ba","type":"line","data":[12,16,19,15,19,13,13,11,13,10,17,15,16,17,16,20,20,16,16,15,15,15,15,11,11,11,11,11,11],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Brian Brobbey","type":"line","data":[31,28,30,28,28,null,28,25,29,35,39,37,32,32,31,36,37,38,null,null,null,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Chemsdine Talbi","type":"line","data":[3,4,2,3,2,6,7,5,7,7,10,9,8,5,7,8,8,6,15,15,11,8,13,15,11,8,6,16,5],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Chris Rigg","type":"line","data":[17,15,9,16,18,29,2,4,3,8,4,8,8,4,7,19,7,16,16,15,15,16,13,14,12,14,17,24,5],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Daniel Ballard","type":"line","data":[10,6,7,8,10,7,7,8,10,12,9,6,8,15,11,7,4,13,null,null,null,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"individual","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_1716f31986dd4f63a9de74ec331dd4b7","title":"Injury risk score (2/5)","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Dayann Méthalie","type":"line","data":[null,7,7,7,8,8,10,10,14,11,7,7,7,4,6,4,4,5,10,10,10,10,10,10,10,10,27,27,27],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Enzo Le Fee","type":"line","data":[23,21,17,16,9,12,18,19,11,14,15,15,16,18,15,23,12,16,13,19,24,21,23,19,17,23,23,34,16],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Granit Xhaka","type":"line","data":[1,10,9,10,11,3,14,11,6,7,19,10,5,7,4,13,14,11,8,12,19,13,11,17,20,5,9,16,11],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Jocelin Ta Bi","type":"line","data":[8,9,7,2,4,2,2,2,8,0,5,6,4,13,8,5,2,11,11,8,14,6,12,11,11,9,12,22,15],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Jules Ahoka","type":"line","data":[37,39,43,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"individual","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_5e2a77cc7b394e0e8bb7b3f7ca0649a9","title":"Injury risk score (3/5)","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Kevin Danso","type":"line","data":[21,33,21,23,23,27,30,30,25,28,28,31,31,26,26,26,25,24,21,21,21,21,21,21,21,21,70,70,68],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Luke O'Nien","type":"line","data":[12,13,6,7,9,11,11,5,4,2,8,10,3,6,11,13,10,13,14,10,13,10,16,18,16,8,13,13,1],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Malick Fofana","type":"line","data":[5,5,2,0,3,null,7,7,7,9,10,4,4,3,3,3,3,5,3,3,3,3,3,3,3,3,5,5,4],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Nilson Angulo","type":"line","data":[9,11,14,16,9,7,10,9,13,8,8,4,6,4,6,6,13,4,7,7,7,7,7,7,7,7,6,6,8],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Noah Sadiki","type":"line","data":[23,30,23,15,15,8,15,14,16,10,18,18,17,21,18,21,20,18,18,19,20,18,19,15,18,19,15,16,7],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"individual","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_50cb68400ef54b09b301fd84c42ccd53","title":"Injury risk score (4/5)","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Nordi Mukiele","type":"line","data":[5,5,6,8,10,8,8,10,6,8,9,6,10,16,16,9,11,14,14,15,20,9,14,14,12,20,19,21,16],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Omar Alderete","type":"line","data":[26,20,16,26,46,34,30,28,22,34,56,36,36,40,22,20,19,28,44,39,46,42,41,41,40,40,41,45,24],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Reinildo Mandava","type":"line","data":[10,15,18,22,17,11,15,20,20,11,16,10,11,null,null,null,null,null,25,25,24,26,26,26,25,26,25,76,15],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Thomas Meunier","type":"line","data":[17,10,19,20,24,19,9,17,11,24,24,35,33,12,14,18,29,43,40,37,23,21,34,45,44,45,17,19,29],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Timur Tutierov","type":"line","data":[7,14,8,8,9,6,25,8,19,15,16,12,18,27,17,18,11,13,13,null,null,null,null,null,null,null,null,null,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"individual","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_58bc44e7aca543febca9d51cddf58f99","title":"Injury risk score (5/5)","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Trai Hume","type":"line","data":[8,10,10,8,16,11,6,null,null,19,24,21,19,20,15,25,22,20,15,1,0,1,1,1,1,1,2,1,0],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0},{"name":"Wilson Isidor","type":"line","data":[29,30,30,35,34,37,23,27,29,33,29,21,23,27,27,30,32,29,31,24,25,23,27,27,26,27,29,28,29],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"individual","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_eb09b5d087054440953064c25006eb6f","title":"Injury risk score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (mean)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury risk score (mean)","type":"line","data":[14.952,15.955,14.682,13.952,15.429,13.632,13.81,13.5,13.65,14.524,17.667,15.286,15,15.85,14,16.2,15.15,17.15,17.579,16.389,17.222,15,17,17.5,16.944,16.5,19.278,25,16.167],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":3.1},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":16.033,"name":"Mean","label":{"formatter":"Mean 16.03","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]},"symbolSize":0}],"animation":false,"maunaLayout":"squad_envelope","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_aeb7bbb9bd2e4875ae8ca4edf12d4144","title":"Performance score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Performance score (0-100)","type":"line","data":[45,46,45,44,43,45,44,45,44,46,44,45,44,45,45,46,46,46,46,46,46,46,46,46,46,46,46,46,47],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Abdoullah Ba","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3f812bbac63a4349b903f3fb5b9eda16","title":"Injury risk score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury risk score (0-100)","type":"line","data":[12,16,19,15,19,13,13,11,13,10,17,15,16,17,16,20,20,16,16,15,15,15,15,11,11,11,11,11,11],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Abdoullah Ba","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_e7c54ed43ea84fb38244a51f73034f40","title":"Performance score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Performance score (0-100)","type":"line","data":[60,62,55,59,61,56,52,57,53,65,53,50,54,54,54,57,52,54,54],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Brian Brobbey","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_8f82ac09fef8403c9c2f2c57c7c95b08","title":"Injury risk score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury risk score (0-100)","type":"line","data":[31,28,30,28,28,null,28,25,29,35,39,37,32,32,31,36,37,38,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Brian Brobbey","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_ad9d734097464b65b0e5751c5be679e0","title":"Performance score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Performance score (0-100)","type":"line","data":[55,60,55,60,52,47,51,51,47,50,52,53,47,46,47,48,48,51,52,50,51,57,54,54,54,51,49,50,55],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Chemsdine Talbi","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_a58ed17c1635489a9b46d978ee4f4907","title":"Injury risk score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury risk score (0-100)","type":"line","data":[3,4,2,3,2,6,7,5,7,7,10,9,8,5,7,8,8,6,15,15,11,8,13,15,11,8,6,16,5],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Chemsdine Talbi","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_3f3192380c4a47ef85119b4689790003","title":"Performance score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Performance score (0-100)","type":"line","data":[55,54,60,67,56,59,56,46,56,56,56,51,50,53,59,58,50,49,49,49,48,48,47,48,47,45,55,49,58],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Chris Rigg","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_0de445f50cca47ff9d5b66068ed2f357","title":"Injury risk score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury risk score (0-100)","type":"line","data":[17,15,9,16,18,29,2,4,3,8,4,8,8,4,7,19,7,16,16,15,15,16,13,14,12,14,17,24,5],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Chris Rigg","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_29fe10f7d5ab4b4093f9e88e65f86ff6","title":"Performance score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Performance score (0-100)","type":"line","data":[57,59,51,54,55,54,53,53,53,55,60,55,55,54,53,54,51,49,49],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Daniel Ballard","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_318deb4b358442df9ebc286c3bbb09ec","title":"Injury risk score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury risk score (0-100)","type":"line","data":[10,6,7,8,10,7,7,8,10,12,9,6,8,15,11,7,4,13,null],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Daniel Ballard","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_9d0cecbcb2b947899f58da3f6b1a6de4","title":"Performance score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Performance score (0-100)","type":"line","data":[49,42,44,43,43,44,44,46,44,44,43,43,42,42,41,41,40,49,49,49,49,49,49,49,49,49,48,48,48],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Dayann Méthalie","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_0caffd125dda46078835b48b9041ace8","title":"Injury risk score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury risk score (0-100)","type":"line","data":[null,7,7,7,8,8,10,10,14,11,7,7,7,4,6,4,4,5,10,10,10,10,10,10,10,10,27,27,27],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Dayann Méthalie","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_79d13fe6519343d3b0e41c1865d49cf0","title":"Performance score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Performance score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Performance score (0-100)","type":"line","data":[62,63,54,56,59,63,60,52,49,54,60,49,52,55,56,56,51,52,54,55,48,58,53,54,55,45,42,47,58],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Enzo Le Fee","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}},{"id":"chart_8db3b02092c544db8623e8c9ade58d63","title":"Injury risk score","option":{"legend":{"show":false},"grid":{"left":48,"right":56,"top":52,"containLabel":true,"bottom":56},"xAxis":{"type":"category","data":["11/09","12/09","13/09","14/09","15/09","16/09","17/09","18/09","19/09","20/09","21/09","22/09","23/09","24/09","25/09","26/09","27/09","28/09","29/09","30/09","01/10","02/10","03/10","04/10","05/10","06/10","07/10","08/10","09/10"],"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true,"rotate":35},"axisTick":{"show":false},"axisLine":{"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"show":false,"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"}}},"yAxis":{"type":"value","name":"Injury risk score (0-100)","nameLocation":"middle","nameGap":44,"nameTextStyle":{"fontSize":10,"color":"#64748b"},"scale":true,"axisLabel":{"color":"#64748b","fontSize":10,"hideOverlap":true},"axisTick":{"show":false},"axisLine":{"show":false,"lineStyle":{"color":"#e2e8f0","width":1}},"splitLine":{"lineStyle":{"color":"#f1f5f9","width":1,"type":"solid"},"show":true}},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Injury risk score (0-100)","type":"line","data":[23,21,17,16,9,12,18,19,11,14,15,15,16,18,15,23,12,16,13,19,24,21,23,19,17,23,23,34,16],"connectNulls":false,"smooth":0.18,"showSymbol":false,"symbol":"none","lineStyle":{"width":2.35},"emphasis":{"focus":"series","lineStyle":{"width":3.1}},"symbolSize":0}],"animation":false,"maunaLayout":"auto","athleteId":"","athleteName":"Enzo Le Fee","color":["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"]}}];
+  const palette = ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"];
+  const fontFamily = "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif";
+  const ink = "#0f172a";
+  const injectMissingHosts = false;
+  const stripLineSymbols = true;
+  const instances = [];
+  const isPrint = () => window.matchMedia('print').matches;
+
+  const whenEchartsReady = (cb) => {
+    if (window.echarts) {
+      cb();
+      return;
+    }
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      if (!window.echarts) return;
+      done = true;
+      cb();
+    };
+    window.__maunaOnEchartsLoad = finish;
+    const tag = document.querySelector('script[src*="echarts"]');
+    if (tag) tag.addEventListener('load', finish);
+    let n = 0;
+    const t = setInterval(() => {
+      n += 1;
+      if (window.echarts) {
+        clearInterval(t);
+        finish();
+        return;
+      }
+      if (n > 50) {
+        clearInterval(t);
+        if (!done) {
+          done = true;
+          cb();
+        }
+      }
+    }, 100);
+  };
+
+  const ensureHost = (chart) => {
+    let el = document.getElementById(chart.id);
+    if (el || !injectMissingHosts) return el;
+    const host = document.getElementById('mauna-charts-fallback') || (() => {
+      const d = document.createElement('section');
+      d.id = 'mauna-charts-fallback';
+      d.setAttribute('data-injected', '1');
+      document.body.appendChild(d);
+      return d;
+    })();
+    const card = document.createElement('div');
+    card.className = 'chart-card';
+    card.innerHTML = '<h3></h3>';
+    card.querySelector('h3').textContent = chart.title || chart.id;
+    host.appendChild(card);
+    return document.getElementById(chart.id);
+  };
+
+  const boot = () => {
+    for (const chart of charts) {
+      const el = ensureHost(chart);
+      if (!el || !window.echarts) continue;
+      el.classList.add('chart-box');
+      const series = Array.isArray(chart.option && chart.option.series) ? chart.option.series : [];
+      const isRadar = Boolean(chart.option && chart.option.radar);
+      const isLine = !isRadar && series.some((s) => s && s.type === 'line');
+      const isBar = !isRadar && series.some((s) => s && s.type === 'bar');
+      el.classList.remove('line-chart', 'bar-rank', 'radar');
+      if (isRadar) {
+        el.classList.add('radar');
+        el.dataset.chartKind = 'radar';
+      } else if (isLine) {
+        el.classList.add('line-chart');
+        el.dataset.chartKind = 'line';
+      } else if (isBar) {
+        el.classList.add('bar-rank');
+        el.dataset.chartKind = 'bar';
+      } else {
+        el.dataset.chartKind = '';
+      }
+      const defaultH = isRadar
+        ? (isPrint() ? 280 : 300)
+        : isLine
+          ? (isPrint() ? 340 : 360)
+          : (isPrint() ? 260 : 300);
+      el.style.height = defaultH + 'px';
+      el.style.width = '100%';
+      // Never freeze a 0-width canvas (iframe srcDoc often lays out after first paint).
+      const instance = window.echarts.init(el, null, { renderer: 'canvas' });
+      const baseLegend =
+        chart.option && chart.option.legend && typeof chart.option.legend === 'object'
+          ? chart.option.legend
+          : {};
+      const hasVisualMap = Boolean(chart.option && chart.option.visualMap);
+      let option = {
+        animation: !isPrint(),
+        backgroundColor: '#ffffff',
+        textStyle: { fontFamily: fontFamily, color: ink },
+        ...chart.option,
+        color: palette,
+        legend: hasVisualMap
+          ? {
+              show: false,
+              ...(baseLegend && baseLegend.show === true ? baseLegend : {}),
+            }
+          : {
+              icon: 'roundRect',
+              itemWidth: 12,
+              itemHeight: 8,
+              itemGap: 10,
+              textStyle: { fontSize: 10, color: '#475569', fontFamily: fontFamily },
+              ...baseLegend,
+              type: 'plain',
+            },
+      };
+      if (option.maunaLayout != null) delete option.maunaLayout;
+      if (hasVisualMap && option.visualMap && typeof option.visualMap === 'object' && !Array.isArray(option.visualMap)) {
+        option.visualMap = {
+          ...option.visualMap,
+          show: option.visualMap.show !== false,
+          top: option.visualMap.top != null ? option.visualMap.top : 2,
+          left: option.visualMap.left != null ? option.visualMap.left : 'center',
+          orient: option.visualMap.orient || 'horizontal',
+          textStyle: {
+            fontSize: 10,
+            color: '#475569',
+            fontFamily: fontFamily,
+            ...(option.visualMap.textStyle && typeof option.visualMap.textStyle === 'object'
+              ? option.visualMap.textStyle
+              : {}),
+          },
+        };
+      }
+      const yCat =
+        option.yAxis &&
+        typeof option.yAxis === 'object' &&
+        !Array.isArray(option.yAxis) &&
+        option.yAxis.type === 'category';
+      const xVal =
+        option.xAxis &&
+        typeof option.xAxis === 'object' &&
+        !Array.isArray(option.xAxis) &&
+        option.xAxis.type === 'value';
+      if (isPrint() && yCat && xVal) {
+        const prevGrid =
+          option.grid && typeof option.grid === 'object' && !Array.isArray(option.grid)
+            ? option.grid
+            : {};
+        const right = Math.max(72, Number(prevGrid.right) || 0);
+        const top = Math.max(hasVisualMap ? 44 : 36, Number(prevGrid.top) || 0);
+        option.grid = { containLabel: true, left: 8, bottom: 20, ...prevGrid, right, top };
+      }
+      if (Array.isArray(option.series)) {
+        option.series = option.series.map((s, index) => {
+          if (!s || typeof s !== 'object') return s;
+          const tint = palette[index % Math.max(palette.length, 1)];
+          if (s.type === 'line' || s.type == null) {
+            const lineStyle = s.lineStyle && typeof s.lineStyle === 'object' ? s.lineStyle : {};
+            const itemStyle = s.itemStyle && typeof s.itemStyle === 'object' ? s.itemStyle : {};
+            return {
+              ...s,
+              smooth: s.smooth == null ? 0.18 : s.smooth,
+              showSymbol: stripLineSymbols ? false : s.showSymbol,
+              symbol: stripLineSymbols ? 'none' : s.symbol,
+              symbolSize: stripLineSymbols ? 0 : s.symbolSize,
+              itemStyle: { ...itemStyle, color: itemStyle.color || tint },
+              lineStyle: { width: 2.35, ...lineStyle, color: lineStyle.color || tint },
+              emphasis: { focus: 'series', ...(s.emphasis || {}), lineStyle: { width: 3.1 } },
+            };
+          }
+          if (s.type === 'bar') {
+            const itemStyle = s.itemStyle && typeof s.itemStyle === 'object' ? s.itemStyle : {};
+            const barYCat =
+              option.yAxis &&
+              typeof option.yAxis === 'object' &&
+              !Array.isArray(option.yAxis) &&
+              option.yAxis.type === 'category';
+            const nextItem = {
+              borderRadius: barYCat ? [0, 4, 4, 0] : [4, 4, 0, 0],
+              ...itemStyle,
+            };
+            if (!hasVisualMap) nextItem.color = itemStyle.color || tint;
+            else if ('color' in nextItem) delete nextItem.color;
+            return {
+              ...s,
+              barMaxWidth: s.barMaxWidth == null ? (barYCat ? 18 : 28) : s.barMaxWidth,
+              itemStyle: nextItem,
+            };
+          }
+          if (s.type === 'scatter') {
+            const itemStyle = s.itemStyle && typeof s.itemStyle === 'object' ? s.itemStyle : {};
+            return {
+              ...s,
+              symbolSize: Math.min(Number(s.symbolSize) || 7, 8),
+              itemStyle: { opacity: 0.88, ...itemStyle, color: itemStyle.color || tint },
+            };
+          }
+          if (s.type === 'radar') {
+            const areaStyle = s.areaStyle && typeof s.areaStyle === 'object' ? s.areaStyle : {};
+            const lineStyle = s.lineStyle && typeof s.lineStyle === 'object' ? s.lineStyle : {};
+            const data = Array.isArray(s.data)
+              ? s.data.map((item) => {
+                  if (!item || typeof item !== 'object') return item;
+                  const itemArea = item.areaStyle && typeof item.areaStyle === 'object' ? item.areaStyle : {};
+                  return {
+                    ...item,
+                    areaStyle: { opacity: 0.22, ...itemArea, color: itemArea.color || tint },
+                    lineStyle: { width: 2.2, ...(item.lineStyle || {}), color: (item.lineStyle && item.lineStyle.color) || tint },
+                    itemStyle: { color: tint, ...(item.itemStyle || {}) },
+                  };
+                })
+              : s.data;
+            return {
+              ...s,
+              symbol: s.symbol || 'circle',
+              symbolSize: s.symbolSize == null ? 5 : s.symbolSize,
+              areaStyle: { opacity: 0.18, ...areaStyle, color: areaStyle.color || tint },
+              lineStyle: { width: 2.2, ...lineStyle, color: lineStyle.color || tint },
+              data,
+            };
+          }
+          return s;
+        });
+      }
+      instance.setOption(option, true);
+      el.dataset.ready = '1';
+      instances.push(instance);
+      if (typeof ResizeObserver !== 'undefined') {
+        const ro = new ResizeObserver(() => {
+          const w = el.clientWidth;
+          const h = el.clientHeight || defaultH;
+          if (w > 0) instance.resize({ width: w, height: h });
+        });
+        ro.observe(el);
+      }
+    }
+    document.documentElement.dataset.chartsReady = '1';
+    const resizeAll = () => {
+      instances.forEach((i) => {
+        const dom = i.getDom && i.getDom();
+        if (dom) {
+          const w = dom.clientWidth;
+          const h = dom.clientHeight || 220;
+          if (w > 0) i.resize({ width: w, height: h });
+          else i.resize();
+        } else {
+          i.resize();
+        }
+      });
+    };
+    window.__maunaResizeCharts = resizeAll;
+    window.addEventListener('resize', resizeAll);
+    window.addEventListener('beforeprint', () => {
+      instances.forEach((i) => i.setOption({ animation: false }));
+      resizeAll();
+    });
+    requestAnimationFrame(() => {
+      resizeAll();
+      requestAnimationFrame(resizeAll);
+    });
+    setTimeout(resizeAll, 120);
+    setTimeout(resizeAll, 400);
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!target || typeof target.closest !== 'function') return;
+      const link = target.closest('a[href^="#"]');
+      if (!link) return;
+      const href = link.getAttribute('href') || '';
+      const id = href.slice(1);
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      event.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
+
+  whenEchartsReady(boot);
+})();
+</script>
+</body>
+</html>

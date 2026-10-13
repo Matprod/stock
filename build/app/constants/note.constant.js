@@ -1,0 +1,2 @@
+export const NOTES_CURSOR_PAGE_SIZE = 50;
+//# sourceMappingURL=note.constant.js.map

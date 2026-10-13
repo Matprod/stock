@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html data-artifact="free" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitoring Report – Hambourg</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #1a1d2b;
+  --primary: #4f6ef7;
+  --lightPrimary: #74c0fc;
+  --ink: #0f1220;
+  --inkSoft: #334155;
+  --paper: #f4f6fb;
+  --line: #d7dce8;
+  --muted: #8b93a7;
+  --cherry: #E07070;
+  --cherrySoft: rgba(224,112,112,0.22);
+  --saffron: #E8B84A;
+  --saffronSoft: rgba(251,191,36,0.22);
+  --season: #a5b4fc;
+  --clubMark: #c7d2fe;
+}
+
+body {
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.cover {
+  min-height: 100vh;
+  background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), 
+              radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), 
+              linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  color: white;
+  text-align: center;
+}
+
+.cover h1 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.cover .period {
+  font-size: 1.25rem;
+  color: var(--lightPrimary);
+  margin-bottom: 2rem;
+}
+
+.cover .club {
+  font-size: 1.5rem;
+  color: var(--clubMark);
+  font-weight: 600;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  background: white;
+  border-bottom: 2px solid var(--line);
+  padding: 1rem 2rem;
+  z-index: 100;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+nav a {
+  color: var(--inkSoft);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: var(--primary);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+section {
+  margin-bottom: 4rem;
+  scroll-margin-top: 80px;
+}
+
+h1 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--ink);
+  border-bottom: 3px solid var(--primary);
+  padding-bottom: 0.5rem;
+}
+
+h2 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+  color: var(--inkSoft);
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+  color: var(--inkSoft);
+}
+
+.signal-box {
+  background: linear-gradient(135deg, rgba(79,110,247,0.08), rgba(116,192,252,0.08));
+  border-left: 4px solid var(--primary);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.signal-box p {
+  margin: 0;
+  color: var(--inkSoft);
+}
+
+.athlete-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.athlete-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary);
+}
+
+.athlete-info h3 {
+  margin: 0 0 0.25rem;
+  color: var(--ink);
+}
+
+.athlete-info .position {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+table caption {
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem;
+  background: var(--paper);
+  color: var(--inkSoft);
+}
+
+thead {
+  background: var(--bg);
+  color: white;
+}
+
+th {
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+tbody tr:hover {
+  background: rgba(79,110,247,0.03);
+}
+
+.chart-box {
+  width: 100%;
+  height: 320px;
+  margin: 1.5rem 0;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.chart-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--inkSoft);
+  margin-bottom: 0.5rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.metric-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.badge-elevated {
+  background: var(--cherrySoft);
+  color: var(--cherry);
+}
+
+.badge-normal {
+  background: rgba(52,211,153,0.15);
+  color: #059669;
+}
+
+.badge-underload {
+  background: var(--saffronSoft);
+  color: #d97706;
+}
+
+.text-content {
+  line-height: 1.8;
+  color: var(--inkSoft);
+  margin: 1rem 0;
+}
+
+.highlight-stat {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+@media print {
+  nav {
+    display: none;
+  }
+  
+  .cover {
+    page-break-after: always;
+  }
+  
+  section {
+    page-break-inside: avoid;
+  }
+  
+  .chart-box {
+    page-break-inside: avoid;
+  }
+}
+
+@media (max-width: 768px) {
+  .cover h1 {
+    font-size: 2rem;
+  }
+  
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  nav {
+    font-size: 0.8rem;
+    gap: 1rem;
+  }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<style id="mauna-print-css">@page { size: A4; margin: 9mm; }
+@media print {
+  .no-print, .artifact-nav, .artifact-toolbar, .table-toolbar { display: none !important; }
+  body { background: #fff !important; }
+  .chart-box { break-inside: avoid; page-break-inside: avoid; }
+  table { break-inside: auto; }
+  thead { display: table-header-group; }
+}</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="club">Hambourg</div>
+  <h1>Monitoring Report</h1>
+  <div class="period">19 September – 5 October 2026</div>
+</div>
+
+<nav>
+  <a href="#headline">Headline</a>
+  <a href="#squad">Squad Overview</a>
+  <a href="#watchlist">Watchlist</a>
+  <a href="#cod-analysis">COD Analysis</a>
+  <a href="#coverage">Data Coverage</a>
+</nav>
+
+<div class="container">
+
+<section id="headline">
+  <h1>Headline</h1>
+  <div class="signal-box">
+    <p><strong>Three athletes flagged with elevated ACWR (≥1.30):</strong> Mario Vušković 1.99, Sebastiaan Bornauw 1.99, Martin Adeline 1.38 — review load progression before next session.</p>
+  </div>
+  <div class="signal-box">
+    <p><strong>16 athletes with ACWR ≤0.80,</strong> indicating underload or return-to-play phase; largest group includes Bakery Jatta 0.08, Daniel Elfadli 0.002, Emir Sahiti 0.001.</p>
+  </div>
+  <div class="signal-box">
+    <p><strong>GPS volume leaders (period total):</strong> Miro Muheim 57,083 m, Mario Vušković 57,773 m; HSR leaders: Miro Muheim 3,660 m, Alexander Røssing-Lelesiit 2,387 m.</p>
+  </div>
+  <div class="signal-box">
+    <p><strong>Monotony flag:</strong> Bilal Nadir 1.12 (7-day window), suggesting low day-to-day load variation.</p>
+  </div>
+  <div class="signal-box">
+    <p><strong>18 athletes with GPS data in period;</strong> 26 with load monitoring; no match data in window.</p>
+  </div>
+</section>
+
+<section id="squad">
+  <h1>Squad Overview</h1>
+  
+  <p class="text-content">Squad mean ACWR <span class="highlight-stat">0.82</span> (18 athletes with GPS data). No match data in window; all metrics reflect training sessions only.</p>
+
+  <h3>Period Summary – Load & GPS</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>N</th>
+        <th>ACWR</th>
+        <th>Distance (m)</th>
+        <th>HSR (m)</th>
+        <th>Sprint Dist (m)</th>
+        <th>Sprints</th>
+        <th>Accel</th>
+        <th>Decel</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Albert Grønbæk</td><td>3</td><td>0.4</td><td>9,690</td><td>36</td><td>0</td><td>0</td><td>27</td><td>26</td></tr>
+      <tr><td>Albert Sambi Lokonga</td><td>7</td><td>0.88</td><td>47,563</td><td>2,308</td><td>383</td><td>17</td><td>426</td><td>258</td></tr>
+      <tr><td>Alexander Røssing-Lelesiit</td><td>6</td><td>0.99</td><td>39,049</td><td>2,387</td><td>286</td><td>19</td><td>587</td><td>471</td></tr>
+      <tr><td>Bakery Jatta</td><td>4</td><td>0.08</td><td>24,421</td><td>1,166</td><td>387</td><td>18</td><td>306</td><td>179</td></tr>
+      <tr><td>Bilal Nadir</td><td>8</td><td>1.11</td><td>40,609</td><td>1,588</td><td>460</td><td>24</td><td>424</td><td>329</td></tr>
+      <tr><td>Daniel Elfadli</td><td>—</td><td>0.00</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>David Möller Wolfe</td><td>—</td><td>0.09</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>Emir Sahiti</td><td>—</td><td>0.00</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>Fábio Vieira</td><td>6</td><td>1.28</td><td>37,798</td><td>1,839</td><td>732</td><td>18</td><td>360</td><td>252</td></tr>
+      <tr><td>Immanuël Pherai</td><td>—</td><td>0.10</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>Jordan Torunarigha</td><td>6</td><td>0.49</td><td>30,450</td><td>1,270</td><td>540</td><td>18</td><td>298</td><td>246</td></tr>
+      <tr><td>Kofi Amoako</td><td>7</td><td>0.48</td><td>40,532</td><td>2,361</td><td>775</td><td>28</td><td>435</td><td>324</td></tr>
+      <tr><td>Mario Vušković</td><td>9</td><td style="background:#F5D0A9;font-weight:600;">1.99</td><td>57,773</td><td>1,451</td><td>289</td><td>11</td><td>536</td><td>486</td></tr>
+      <tr><td>Martin Adeline</td><td>5</td><td style="background:#F5D0A9;font-weight:600;">1.38</td><td>47,543</td><td>2,856</td><td>762</td><td>41</td><td>368</td><td>467</td></tr>
+      <tr><td>Miro Muheim</td><td>9</td><td>0.75</td><td>57,083</td><td>3,660</td><td>1,408</td><td>55</td><td>643</td><td>590</td></tr>
+      <tr><td>Nicolai Remberg</td><td>6</td><td>0.99</td><td>50,863</td><td>1,795</td><td>331</td><td>16</td><td>420</td><td>596</td></tr>
+      <tr><td>Nicolás Capaldo</td><td>9</td><td>0.54</td><td>43,009</td><td>2,041</td><td>297</td><td>16</td><td>306</td><td>297</td></tr>
+      <tr><td>Otto Stange</td><td>1</td><td>0.05</td><td>7,800</td><td>701</td><td>274</td><td>10</td><td>48</td><td>60</td></tr>
+      <tr><td>Patson Daka</td><td>—</td><td>0.06</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>Rayan Philippe</td><td>—</td><td>0.00</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>Sebastiaan Bornauw</td><td>6</td><td style="background:#F5D0A9;font-weight:600;">1.99</td><td>41,419</td><td>1,310</td><td>368</td><td>16</td><td>399</td><td>339</td></tr>
+      <tr><td>Shafiq Nandja</td><td>5</td><td>0.81</td><td>38,923</td><td>2,231</td><td>651</td><td>28</td><td>426</td><td>361</td></tr>
+      <tr><td>Terem Moffi</td><td>5</td><td>0.59</td><td>14,910</td><td>781</td><td>183</td><td>6</td><td>61</td><td>39</td></tr>
+      <tr><td>Warmed Omari</td><td>—</td><td>0.07</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>Yussuf Poulsen</td><td>8</td><td>0.99</td><td>40,995</td><td>2,055</td><td>836</td><td>21</td><td>500</td><td>360</td></tr>
+      <tr><td>Zakaria El Ouahdi</td><td>—</td><td>0.13</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2">
+    <div>
+      <div class="chart-title">Total Distance – Top 10</div>
+      <div class="chart-box" id="chart_1"></div>
+    </div>
+    <div>
+      <div class="chart-title">High-Speed Running – Top 10</div>
+      <div class="chart-box" id="chart_2"></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <div class="chart-title">ACWR Distribution – Bottom 10 Underload</div>
+      <div class="chart-box" id="chart_4"></div>
+    </div>
+    <div>
+      <div class="chart-title">ACWR Distribution – Top 10 Elevated</div>
+      <div class="chart-box" id="chart_5"></div>
+    </div>
+  </div>
+</section>
+
+<section id="watchlist">
+  <h1>Watchlist</h1>
+
+  <h2>Mario Vušković</h2>
+  <p class="text-content">
+    <span class="metric-badge badge-elevated">ACWR 1.99</span>
+    ACWR 1.99 (latest 2026-10-03) — elevated acute load relative to chronic baseline. Peak was 3.63 on 2026-09-18. Period total: 57,773 m distance, 1,451 m HSR, 289 m sprint distance (11 sprints). Review load progression before next high-intensity session.
+  </p>
+  
+  <table>
+    <caption>Mario Vušković – Load & GPS Summary</caption>
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>ACWR</th>
+        <th>N</th>
+        <th>Distance (m)</th>
+        <th>HSR (m)</th>
+        <th>Sprint Dist (m)</th>
+        <th>Sprints</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Mario Vušković</td>
+        <td>1.99</td>
+        <td>9</td>
+        <td>57,773</td>
+        <td>1,451</td>
+        <td>289</td>
+        <td>11</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="chart-title">Mario Vušković – ACWR Evolution</div>
+  <div class="chart-box" id="chart_3"></div>
+
+  <h2>Sebastiaan Bornauw</h2>
+  <p class="text-content">
+    <span class="metric-badge badge-elevated">ACWR 1.99</span>
+    ACWR 1.99 (latest 2026-10-04) — elevated acute load relative to chronic baseline. Period total: 41,419 m distance, 1,310 m HSR, 368 m sprint distance (16 sprints). Monitor closely for fatigue markers.
+  </p>
+
+  <div class="chart-title">Sebastiaan Bornauw – ACWR Evolution</div>
+  <div class="chart-box" id="chart_7"></div>
+
+  <h2>Martin Adeline</h2>
+  <p class="text-content">
+    <span class="metric-badge badge-elevated">ACWR 1.38</span>
+    ACWR 1.38 (latest 2026-10-04) — watch threshold. Period total: 47,543 m distance, 2,856 m HSR, 762 m sprint distance (41 sprints). Highest sprint count in squad during period.
+  </p>
+
+  <table>
+    <caption>Martin Adeline – Load & GPS Summary</caption>
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>ACWR</th>
+        <th>N</th>
+        <th>Distance (m)</th>
+        <th>HSR (m)</th>
+        <th>Sprint Dist (m)</th>
+        <th>Sprints</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Martin Adeline</td>
+        <td>1.38</td>
+        <td>5</td>
+        <td>47,543</td>
+        <td>2,856</td>
+        <td>762</td>
+        <td>41</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="chart-title">Martin Adeline – ACWR Evolution</div>
+  <div class="chart-box" id="chart_6"></div>
+</section>
+
+<section id="cod-analysis">
+  <h1>Change-of-Direction Exposure – One-Month Analysis</h1>
+  
+  <p class="text-content">
+    <strong>Analysis window:</strong> 2026-09-05 → 2026-10-05 (31 days). Change-of-direction metrics include accelerations, decelerations (all zones), high-intensity COD (zone 6), acceleration/deceleration loading, and impacts. This extended window provides context for mechanical load distribution and identifies athletes with elevated exposure to directional changes.
+  </p>
+
+  <h3>Squad Summary – COD Exposure & Load (One Month)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>N</th>
+        <th>Accel Total</th>
+        <th>Decel Total</th>
+        <th>Accel Z6</th>
+        <th>Decel Z6</th>
+        <th>Accel Load</th>
+        <th>Decel Load</th>
+        <th>Impacts</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Albert Sambi Lokonga</td><td>18</td><td>739</td><td>516</td><td>40</td><td>38</td><td>357.8</td><td>64.3</td><td>1,200</td></tr>
+      <tr><td>Bilal Nadir</td><td>21</td><td>789</td><td>665</td><td>45</td><td>70</td><td>379.4</td><td>71.5</td><td>706</td></tr>
+      <tr><td>Jordan Torunarigha</td><td>17</td><td>625</td><td>528</td><td>22</td><td>47</td><td>263.1</td><td>76.9</td><td>427</td></tr>
+      <tr><td>Kofi Amoako</td><td>17</td><td>745</td><td>557</td><td>46</td><td>37</td><td>465.9</td><td>88.5</td><td>925</td></tr>
+      <tr><td>Martin Adeline</td><td>18</td><td style="background:#C8E6D5;">781</td><td style="background:#C8E6D5;">879</td><td>22</td><td style="background:#2F9E6F;font-weight:600;">114</td><td>422.7</td><td style="background:#C8E6D5;">120.7</td><td>1,135</td></tr>
+      <tr><td>Miro Muheim</td><td>20</td><td style="background:#2F9E6F;font-weight:600;">1,117</td><td style="background:#C8E6D5;">963</td><td>62</td><td>80</td><td>457.0</td><td>95.7</td><td>779</td></tr>
+      <tr><td>Nicolai Remberg</td><td>18</td><td style="background:#2F9E6F;font-weight:600;">1,023</td><td style="background:#2F9E6F;font-weight:600;">1,263</td><td>34</td><td style="background:#C8E6D5;">105</td><td style="background:#2F9E6F;font-weight:600;">690.8</td><td style="background:#2F9E6F;font-weight:600;">135.6</td><td style="background:#2F9E6F;font-weight:600;">2,112</td></tr>
+      <tr><td>Nicolás Capaldo</td><td>20</td><td>837</td><td>890</td><td>52</td><td style="background:#2F9E6F;font-weight:600;">128</td><td style="background:#2F9E6F;font-weight:600;">766.4</td><td style="background:#2F9E6F;font-weight:600;">188.5</td><td style="background:#2F9E6F;font-weight:600;">1,588</td></tr>
+      <tr><td>Otto Stange</td><td>13</td><td>514</td><td>516</td><td>32</td><td>80</td><td>140.5</td><td>36.4</td><td>199</td></tr>
+      <tr><td>Sebastiaan Bornauw</td><td>6</td><td>336</td><td>295</td><td>17</td><td>22</td><td>142.6</td><td>23.5</td><td>140</td></tr>
+      <tr><td>Shafiq Nandja</td><td>19</td><td style="background:#2F9E6F;font-weight:600;">1,154</td><td style="background:#C8E6D5;">948</td><td>60</td><td>73</td><td>356.9</td><td>84.1</td><td>394</td></tr>
+      <tr><td>Terem Moffi</td><td>16</td><td>664</td><td>475</td><td>34</td><td>25</td><td>286.0</td><td>72.3</td><td>511</td></tr>
+      <tr><td>Yussuf Poulsen</td><td>21</td><td style="background:#2F9E6F;font-weight:600;">1,143</td><td>825</td><td>71</td><td>79</td><td>274.8</td><td>56.2</td><td>259</td></tr>
+      <tr><td>Albert Grønbæk</td><td>13</td><td>597</td><td>499</td><td>21</td><td>43</td><td>393.7</td><td>94.8</td><td>912</td></tr>
+      <tr><td>Alexander Røssing-Lelesiit</td><td>15</td><td>871</td><td>666</td><td>63</td><td>81</td><td>317.7</td><td>61.8</td><td>368</td></tr>
+      <tr><td>Bakery Jatta</td><td>17</td><td>813</td><td>554</td><td>43</td><td>51</td><td>380.4</td><td>77.6</td><td>580</td></tr>
+      <tr><td>Mario Vušković</td><td>14</td><td>700</td><td>637</td><td>30</td><td>52</td><td>291.7</td><td>63.7</td><td>587</td></tr>
+      <tr><td>Fábio Vieira</td><td>18</td><td>824</td><td>595</td><td>41</td><td>60</td><td>358.3</td><td>56.0</td><td>523</td></tr>
+      <tr><td>Patson Daka</td><td>12</td><td>674</td><td>558</td><td>68</td><td>64</td><td>450.0</td><td>103.5</td><td>723</td></tr>
+      <tr><td>Warmed Omari</td><td>11</td><td>447</td><td>419</td><td>50</td><td>41</td><td>324.0</td><td>65.2</td><td>589</td></tr>
+      <tr><td>Zakaria El Ouahdi</td><td>12</td><td>821</td><td>780</td><td>49</td><td>96</td><td>259.2</td><td>76.3</td><td>298</td></tr>
+      <tr><td>David Möller Wolfe</td><td>11</td><td>722</td><td>648</td><td>80</td><td style="background:#C8E6D5;">101</td><td>179.6</td><td>49.1</td><td>124</td></tr>
+      <tr><td>Immanuël Pherai</td><td>9</td><td>399</td><td>338</td><td>34</td><td>35</td><td>332.6</td><td>59.4</td><td>668</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2">
+    <div>
+      <div class="chart-title">Total Accelerations – Top 10</div>
+      <div class="chart-box" id="chart_8"></div>
+    </div>
+    <div>
+      <div class="chart-title">Total Decelerations – Top 10</div>
+      <div class="chart-box" id="chart_9"></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <div class="chart-title">High-Intensity Decelerations (Zone 6) – Top 10</div>
+      <div class="chart-box" id="chart_10"></div>
+    </div>
+    <div>
+      <div class="chart-title">Acceleration Loading – Top 10</div>
+      <div class="chart-box" id="chart_11"></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="chart-title">Deceleration Loading – Top 10</div>
+    <div class="chart-box" id="chart_12"></div>
+  </div>
+
+  <h2>High-Exposure Athletes – COD Detail</h2>
+  
+  <p class="text-content">
+    Three athletes with highest high-intensity deceleration exposure (zone 6): <strong>Nicolás Capaldo 128 count</strong>, <strong>Martin Adeline 114 count</strong>, <strong>Nicolai Remberg 105 count</strong>. These athletes show elevated mechanical stress from directional changes and warrant monitoring for lower-limb fatigue and eccentric load tolerance.
+  </p>
+
+  <p class="text-content">
+    <strong>Nicolás Capaldo</strong> shows highest cumulative deceleration loading (188.5) and acceleration loading (766.4) over the month. Peak single-session deceleration loading: 43.5 (2026-09-06). Consider recovery strategies targeting eccentric muscle damage and neuromuscular fatigue.
+  </p>
+
+  <div class="grid-2">
+    <div>
+      <div class="chart-title">High-Intensity Decelerations (Z6) – Daily Evolution</div>
+      <div class="chart-box" id="chart_13"></div>
+    </div>
+    <div>
+      <div class="chart-title">Total Decelerations – Daily Evolution</div>
+      <div class="chart-box" id="chart_14"></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="chart-title">Deceleration Loading – Daily Evolution</div>
+    <div class="chart-box" id="chart_15"></div>
+  </div>
+
+  <h2>Session Averages – High-Intensity COD</h2>
+  
+  <p class="text-content">
+    Athletes with ≥10 sessions in analysis window. <strong>David Möller Wolfe</strong> (9.3 avg Z6 decelerations/session) and <strong>Zakaria El Ouahdi</strong> (8.8) show highest per-session intensity despite lower total volume, suggesting concentrated exposure patterns. <strong>Nicolás Capaldo</strong> (6.7) and <strong>Martin Adeline</strong> (6.2) combine high session averages with elevated total volume.
+  </p>
+
+  <table>
+    <caption>Average COD Per Session – Athletes with ≥10 Sessions</caption>
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Sessions</th>
+        <th>Avg Accel</th>
+        <th>Avg Decel</th>
+        <th>Avg Acc Z6</th>
+        <th>Avg Dec Z6</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>David Möller Wolfe</td><td>11</td><td>67.1</td><td>61.3</td><td>7.3</td><td style="background:#2F9E6F;font-weight:600;">9.3</td></tr>
+      <tr><td>Zakaria El Ouahdi</td><td>12</td><td>71.1</td><td>69.0</td><td>4.7</td><td style="background:#2F9E6F;font-weight:600;">8.8</td></tr>
+      <tr><td>Nicolás Capaldo</td><td>20</td><td>40.9</td><td>44.5</td><td>2.7</td><td style="background:#C8E6D5;">6.7</td></tr>
+      <tr><td>Otto Stange</td><td>13</td><td>39.5</td><td>39.7</td><td>2.5</td><td>6.2</td></tr>
+      <tr><td>Martin Adeline</td><td>18</td><td>42.5</td><td>48.6</td><td>1.1</td><td style="background:#C8E6D5;">6.2</td></tr>
+      <tr><td>Nicolai Remberg</td><td>18</td><td>56.4</td><td>70.2</td><td>1.9</td><td>5.8</td></tr>
+      <tr><td>Patson Daka</td><td>12</td><td>56.2</td><td>46.5</td><td>5.7</td><td>5.3</td></tr>
+      <tr><td>Alexander Røssing-Lelesiit</td><td>15</td><td>60.2</td><td>45.0</td><td>4.4</td><td>5.3</td></tr>
+      <tr><td>Miro Muheim</td><td>20</td><td>55.5</td><td>47.3</td><td>2.9</td><td>3.9</td></tr>
+      <tr><td>Mario Vušković</td><td>14</td><td>49.0</td><td>44.0</td><td>1.9</td><td>3.8</td></tr>
+      <tr><td>Warmed Omari</td><td>11</td><td>40.6</td><td>38.1</td><td>4.5</td><td>3.7</td></tr>
+      <tr><td>Albert Grønbæk</td><td>13</td><td>48.4</td><td>40.7</td><td>1.6</td><td>3.7</td></tr>
+      <tr><td>Yussuf Poulsen</td><td>21</td><td>52.8</td><td>38.4</td><td>3.1</td><td>3.5</td></tr>
+      <tr><td>Shafiq Nandja</td><td>19</td><td>61.0</td><td>48.8</td><td>2.8</td><td>3.4</td></tr>
+      <tr><td>Bilal Nadir</td><td>21</td><td>37.7</td><td>31.1</td><td>2.1</td><td>3.2</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="coverage">
+  <h1>Data Coverage Note</h1>
+  
+  <p class="text-content">
+    26 athletes with load data in display window. 18 athletes with GPS data. 8 athletes load-only (no GPS): Daniel Elfadli, David Möller Wolfe, Emir Sahiti, Immanuël Pherai, Otto Stange, Patson Daka, Rayan Philippe, Warmed Omari, Zakaria El Ouahdi.
+  </p>
+
+  <h2>Testing Summary</h2>
+  <p class="text-content">
+    No VALD, NordBord, or ForceDecks tests recorded in window. No rehab or RTP cases recorded in window.
+  </p>
+</section>
+
+</div>
+
+<script id="mauna-artifact-boot">
+(function () {
+  const charts = [{"id":"chart_1","title":"Total Distance – Top 10","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Distance total (m)","type":"bar","encode":{"x":"Player","y":"Distance total (m)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":46738.9,"name":"Mean","label":{"formatter":"Mean 46,738.9","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit","Acwr Ewma","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL"],["Mario Vušković","2026-10-03",0,null,1.994,9,52350,57773,7374,6524.9,1451,289,11,5922,43,536,486,1595.6],["Miro Muheim","2026-10-04",0,null,0.748,9,54974,57083,10359,6030.1,3660,1408,55,6699,65,643,590,1606],["Nicolai Remberg","2026-10-04",0,null,0.987,6,44518,50863,8594,6034.4,1795,331,16,6801,56,420,596,2111.9],["Albert Sambi Lokonga","2026-10-04",0,null,0.881,7,48740,47563,7964,5034.8,2308,383,17,5654,30,426,258,1511.1],["Martin Adeline","2026-10-04",0,null,1.382,5,37954,47543,9926,4960.7,2856,762,41,7070,48,368,467,1931.8],["Nicolás Capaldo","2026-10-04",0,null,0.544,9,48779,43009,6042,4089.7,2041,297,16,4000,33,306,297,1604.3],["Sebastiaan Bornauw","2026-10-04",0,null,1.993,6,44885,41419,6166,4825.5,1310,368,16,4857,16,399,339,1170.7],["Yussuf Poulsen","2026-10-04",0,null,0.987,8,50909,40995,7003,4688.3,2055,836,21,4949,22,500,360,607],["Bilal Nadir","2026-10-04",0,null,1.109,8,47456,40609,5894,4256,1588,460,24,4307,32,424,329,1159.7],["Kofi Amoako","2026-10-04",0,null,0.478,7,47412,40532,6861,4372.2,2361,775,28,4501,45,435,324,1537.5]]}}},{"id":"chart_2","title":"High-Speed Running – Top 10","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"High speed running (absolute)","type":"bar","encode":{"x":"Player","y":"High speed running (absolute)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":2353.3,"name":"Mean","label":{"formatter":"Mean 2,353.3","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit","Acwr Ewma","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL"],["Fábio Vieira","2026-10-02",4114,null,1.277,6,38824,37798,5867,3529.3,1839,732,18,4029,24,360,252,1135.4],["Alexander Røssing-Lelesiit","2026-10-03",0,null,0.992,6,37386,39049,7625,3601.9,2387,286,19,5237,60,587,471,994.3],["Miro Muheim","2026-10-04",0,null,0.748,9,54974,57083,10359,6030.1,3660,1408,55,6699,65,643,590,1606],["Martin Adeline","2026-10-04",0,null,1.382,5,37954,47543,9926,4960.7,2856,762,41,7070,48,368,467,1931.8],["Kofi Amoako","2026-10-04",0,null,0.478,7,47412,40532,6861,4372.2,2361,775,28,4501,45,435,324,1537.5],["Albert Sambi Lokonga","2026-10-04",0,null,0.881,7,48740,47563,7964,5034.8,2308,383,17,5654,30,426,258,1511.1],["Shafiq Nandja","2026-10-04",0,null,0.808,5,38876,38923,6917,4270.8,2231,651,28,4687,23,426,361,840.7],["Yussuf Poulsen","2026-10-04",0,null,0.987,8,50909,40995,7003,4688.3,2055,836,21,4949,22,500,360,607],["Nicolás Capaldo","2026-10-04",0,null,0.544,9,48779,43009,6042,4089.7,2041,297,16,4000,33,306,297,1604.3],["Nicolai Remberg","2026-10-04",0,null,0.987,6,44518,50863,8594,6034.4,1795,331,16,6801,56,420,596,2111.9]]}}},{"id":"chart_3","title":"Mario Vušković – ACWR Evolution","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Acwr Ewma","type":"line","encode":{"x":"Date","y":"Acwr Ewma"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":2.22,"name":"Mean","label":{"formatter":"Mean 2.22","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit","Acwr Ewma"],["Mario Vušković","2026-09-18",2040,null,3.625],["Mario Vušković","2026-09-19",0,null,2.92],["Mario Vušković","2026-09-21",0,null,2.352],["Mario Vušković","2026-09-22",2700,null,2.97],["Mario Vušković","2026-09-23",0,null,2.392],["Mario Vušković","2026-09-24",3538.3333333333335,null,2.749],["Mario Vušković","2026-09-25",0,null,2.215],["Mario Vušković","2026-09-26",0,null,1.784],["Mario Vušković","2026-09-27",0,null,1.437],["Mario Vušković","2026-09-28",0,null,1.158],["Mario Vušković","2026-09-29",1607.1666666666667,null,1.577],["Mario Vušković","2026-09-30",0,null,1.27],["Mario Vušković","2026-10-01",6381.333333333333,null,2.384],["Mario Vušković","2026-10-02",5485.333333333333,null,2.475],["Mario Vušković","2026-10-03",0,null,1.994]]}}},{"id":"chart_4","title":"ACWR Distribution – Bottom 10 Underload","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Acwr Ewma","type":"bar","encode":{"x":"Player","y":"Acwr Ewma"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":0.059,"name":"Mean","label":{"formatter":"Mean 0.06","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit","Acwr Ewma","Avg Session Time","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL"],["Emir Sahiti","2026-10-01",0,null,0.001,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["Rayan Philippe","2026-10-01",0,null,0.001,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["Daniel Elfadli","2026-10-01",0,null,0.002,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["Immanuël Pherai","2026-10-01",0,null,0.103,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["Zakaria El Ouahdi","2026-10-01",0,null,0.131,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["Patson Daka","2026-10-02",0,null,0.064,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["Warmed Omari","2026-10-02",0,null,0.066,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["David Möller Wolfe","2026-10-02",0,null,0.089,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["Bakery Jatta","2026-10-03",0,null,0.08,6639.75,4,26559,24421,3928,2626.6,1166,387,18,2762,26,306,179,671.5],["Otto Stange","2026-10-04",0,null,0.048,8478,1,8478,7800,1555,827.8,701,274,10,854,4,48,60,108]]}}},{"id":"chart_5","title":"ACWR Distribution – Top 10 Elevated","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Acwr Ewma","type":"bar","encode":{"x":"Player","y":"Acwr Ewma"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":1.241,"name":"Mean","label":{"formatter":"Mean 1.24","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit","Acwr Ewma","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL","Avg Session Time"],["Fábio Vieira","2026-10-02",4114,null,1.277,6,38824,37798,5867,3529.3,1839,732,18,4029,24,360,252,1135.4,6470.667],["Mario Vušković","2026-10-03",0,null,1.994,9,52350,57773,7374,6524.9,1451,289,11,5922,43,536,486,1595.6,5816.667],["Alexander Røssing-Lelesiit","2026-10-03",0,null,0.992,6,37386,39049,7625,3601.9,2387,286,19,5237,60,587,471,994.3,6231],["Sebastiaan Bornauw","2026-10-04",0,null,1.993,6,44885,41419,6166,4825.5,1310,368,16,4857,16,399,339,1170.7,7480.833],["Martin Adeline","2026-10-04",0,null,1.382,5,37954,47543,9926,4960.7,2856,762,41,7070,48,368,467,1931.8,7590.8],["Bilal Nadir","2026-10-04",0,null,1.109,8,47456,40609,5894,4256,1588,460,24,4307,32,424,329,1159.7,5932],["Nicolai Remberg","2026-10-04",0,null,0.987,6,44518,50863,8594,6034.4,1795,331,16,6801,56,420,596,2111.9,7419.667],["Yussuf Poulsen","2026-10-04",0,null,0.987,8,50909,40995,7003,4688.3,2055,836,21,4949,22,500,360,607,6363.625],["Albert Sambi Lokonga","2026-10-04",0,null,0.881,7,48740,47563,7964,5034.8,2308,383,17,5654,30,426,258,1511.1,6962.857],["Shafiq Nandja","2026-10-04",0,null,0.808,5,38876,38923,6917,4270.8,2231,651,28,4687,23,426,361,840.7,7775.2]]}}},{"id":"chart_6","title":"Martin Adeline – ACWR Evolution","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Acwr Ewma","type":"line","encode":{"x":"Date","y":"Acwr Ewma"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":0.781,"name":"Mean","label":{"formatter":"Mean 0.78","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit","Acwr Ewma"],["Martin Adeline","2026-08-22",2272,null,1],["Martin Adeline","2026-08-23",1157,null,0.908],["Martin Adeline","2026-08-24",1904,null,0.906],["Martin Adeline","2026-08-25",0,null,0.73],["Martin Adeline","2026-08-26",1407,null,0.737],["Martin Adeline","2026-08-27",1429.25,null,0.747],["Martin Adeline","2026-08-28",1922.8,null,0.808],["Martin Adeline","2026-08-29",2238,null,0.885],["Martin Adeline","2026-08-30",0,null,0.713],["Martin Adeline","2026-08-31",0,null,0.574],["Martin Adeline","2026-09-01",2394,null,0.761],["Martin Adeline","2026-09-02",2484,null,0.9],["Martin Adeline","2026-09-03",3240,null,1.066],["Martin Adeline","2026-09-04",1995,null,1.058],["Martin Adeline","2026-09-05",640,null,0.92],["Martin Adeline","2026-09-06",3004,null,1.055],["Martin Adeline","2026-09-07",0,null,0.85],["Martin Adeline","2026-09-08",0,null,0.685],["Martin Adeline","2026-09-09",630,null,0.636],["Martin Adeline","2026-09-10",1140,null,0.671],["Martin Adeline","2026-09-11",1922,null,0.8],["Martin Adeline","2026-09-12",1089.5,null,0.79],["Martin Adeline","2026-09-13",1380,null,0.823],["Martin Adeline","2026-09-14",307.1666666666667,null,0.706],["Martin Adeline","2026-09-15",1393.5,null,0.773],["Martin Adeline","2026-09-16",1977,null,0.899],["Martin Adeline","2026-09-17",1653,null,0.946],["Martin Adeline","2026-09-18",680,null,0.856],["Martin Adeline","2026-09-19",1857.0666666666666,null,0.947],["Martin Adeline","2026-09-20",0,null,0.762],["Martin Adeline","2026-09-21",0,null,0.614],["Martin Adeline","2026-09-22",0,null,0.495],["Martin Adeline","2026-09-23",0,null,0.399],["Martin Adeline","2026-09-24",0,null,0.321],["Martin Adeline","2026-09-25",0,null,0.259],["Martin Adeline","2026-09-26",0,null,0.208],["Martin Adeline","2026-09-27",0,null,0.168],["Martin Adeline","2026-09-28",0,null,0.135],["Martin Adeline","2026-09-29",1607.1666666666667,null,0.58],["Martin Adeline","2026-09-30",1768,null,0.899],["Martin Adeline","2026-10-01",4307.4,null,1.489],["Martin Adeline","2026-10-02",4114,null,1.715],["Martin Adeline","2026-10-04",0,null,1.382]]}}},{"id":"chart_7","title":"Sebastiaan Bornauw – ACWR Evolution","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Acwr Ewma","type":"line","encode":{"x":"Date","y":"Acwr Ewma"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":2.948,"name":"Mean","label":{"formatter":"Mean 2.95","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","Date","Srpe Daily","Unit","Acwr Ewma"],["Sebastiaan Bornauw","2026-09-29",1607.1666666666667,null,3.625],["Sebastiaan Bornauw","2026-09-30",1352,null,3.255],["Sebastiaan Bornauw","2026-10-01",4786,null,3.267],["Sebastiaan Bornauw","2026-10-02",5485.333333333333,null,3.071],["Sebastiaan Bornauw","2026-10-03",0,null,2.474],["Sebastiaan Bornauw","2026-10-04",0,null,1.993]]}}},{"id":"chart_8","title":"Total Accelerations – Top 10","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Accelerations Rel Sum","type":"bar","encode":{"x":"Player","y":"Accelerations Rel Sum"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":939.2,"name":"Mean","label":{"formatter":"Mean 939.2","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Accelerations Rel Sum","Accelerations Rel Mean","Accelerations Rel Max","Decelerations Rel Sum","Decelerations Rel Mean","Decelerations Rel Max","Accelerations Z6 Rel Sum","Accelerations Z6 Rel Mean","Accelerations Z6 Rel Max","Decelerations Z6 Rel Sum","Decelerations Z6 Rel Mean","Decelerations Z6 Rel Max"],["Shafiq Nandja",19,1154,60.737,101,948,49.895,90,60,3.158,7,73,3.842,12],["Yussuf Poulsen",21,1143,54.429,108,825,39.286,67,71,3.381,11,79,3.762,9],["Miro Muheim",20,1117,55.85,87,963,48.15,91,62,3.1,7,80,4,10],["Nicolai Remberg",18,1023,56.833,98,1263,70.167,129,34,1.889,5,105,5.833,11],["Alexander Røssing-Lelesiit",15,871,58.067,122,666,44.4,127,63,4.2,12,81,5.4,21],["Nicolás Capaldo",20,837,41.85,106,890,44.5,123,52,2.6,9,128,6.4,25],["Fábio Vieira",18,824,45.778,77,595,33.056,82,41,2.278,6,60,3.333,10],["Zakaria El Ouahdi",12,821,68.417,111,780,65,117,49,4.083,12,96,8,19],["Bakery Jatta",17,813,47.824,104,554,32.588,73,43,2.529,8,51,3,9],["Bilal Nadir",21,789,37.571,90,665,31.667,80,45,2.143,7,70,3.333,12]]}}},{"id":"chart_9","title":"Total Decelerations – Top 10","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Decelerations Rel Sum","type":"bar","encode":{"x":"Player","y":"Decelerations Rel Sum"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":852.7,"name":"Mean","label":{"formatter":"Mean 852.7","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Accelerations Rel Sum","Accelerations Rel Mean","Accelerations Rel Max","Decelerations Rel Sum","Decelerations Rel Mean","Decelerations Rel Max","Accelerations Z6 Rel Sum","Accelerations Z6 Rel Mean","Accelerations Z6 Rel Max","Decelerations Z6 Rel Sum","Decelerations Z6 Rel Mean","Decelerations Z6 Rel Max"],["Nicolai Remberg",18,1023,56.833,98,1263,70.167,129,34,1.889,5,105,5.833,11],["Miro Muheim",20,1117,55.85,87,963,48.15,91,62,3.1,7,80,4,10],["Shafiq Nandja",19,1154,60.737,101,948,49.895,90,60,3.158,7,73,3.842,12],["Nicolás Capaldo",20,837,41.85,106,890,44.5,123,52,2.6,9,128,6.4,25],["Martin Adeline",18,781,43.389,78,879,48.833,109,22,1.222,4,114,6.333,21],["Yussuf Poulsen",21,1143,54.429,108,825,39.286,67,71,3.381,11,79,3.762,9],["Zakaria El Ouahdi",12,821,68.417,111,780,65,117,49,4.083,12,96,8,19],["Alexander Røssing-Lelesiit",15,871,58.067,122,666,44.4,127,63,4.2,12,81,5.4,21],["Bilal Nadir",21,789,37.571,90,665,31.667,80,45,2.143,7,70,3.333,12],["David Möller Wolfe",11,722,65.636,118,648,58.909,110,80,7.273,15,101,9.182,20]]}}},{"id":"chart_10","title":"High-Intensity Decelerations (Zone 6) – Top 10","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Decelerations Z6 Rel Sum","type":"bar","encode":{"x":"Player","y":"Decelerations Z6 Rel Sum"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":93.7,"name":"Mean","label":{"formatter":"Mean 93.7","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Accelerations Rel Sum","Accelerations Rel Mean","Accelerations Rel Max","Decelerations Rel Sum","Decelerations Rel Mean","Decelerations Rel Max","Accelerations Z6 Rel Sum","Accelerations Z6 Rel Mean","Accelerations Z6 Rel Max","Decelerations Z6 Rel Sum","Decelerations Z6 Rel Mean","Decelerations Z6 Rel Max"],["Nicolás Capaldo",20,837,41.85,106,890,44.5,123,52,2.6,9,128,6.4,25],["Martin Adeline",18,781,43.389,78,879,48.833,109,22,1.222,4,114,6.333,21],["Nicolai Remberg",18,1023,56.833,98,1263,70.167,129,34,1.889,5,105,5.833,11],["David Möller Wolfe",11,722,65.636,118,648,58.909,110,80,7.273,15,101,9.182,20],["Zakaria El Ouahdi",12,821,68.417,111,780,65,117,49,4.083,12,96,8,19],["Alexander Røssing-Lelesiit",15,871,58.067,122,666,44.4,127,63,4.2,12,81,5.4,21],["Miro Muheim",20,1117,55.85,87,963,48.15,91,62,3.1,7,80,4,10],["Otto Stange",13,514,39.538,78,516,39.692,87,32,2.462,6,80,6.154,18],["Yussuf Poulsen",21,1143,54.429,108,825,39.286,67,71,3.381,11,79,3.762,9],["Shafiq Nandja",19,1154,60.737,101,948,49.895,90,60,3.158,7,73,3.842,12]]}}},{"id":"chart_11","title":"Acceleration Loading – Top 10","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Total Accel Loading Sum","type":"bar","encode":{"x":"Player","y":"Total Accel Loading Sum"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":476.455,"name":"Mean","label":{"formatter":"Mean 476.46","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Total Accel Loading Sum","Total Accel Loading Mean","Total Accel Loading Max","Total Decel Loading Sum","Total Decel Loading Mean","Total Decel Loading Max","Impacts Rel Sum","Impacts Rel Mean","Impacts Rel Max"],["Nicolás Capaldo",20,766.357,38.318,118.83,188.504,9.425,43.532,1588,79.4,234],["Nicolai Remberg",18,690.795,38.378,72.249,135.571,7.532,17.838,2112,117.333,309],["Kofi Amoako",17,465.854,27.403,64.363,88.529,5.208,17.091,925,54.412,149],["Miro Muheim",20,456.986,22.849,54.533,95.687,4.784,12.822,779,38.95,91],["Patson Daka",12,450.006,37.501,74.096,103.448,8.621,21.673,723,60.25,115],["Martin Adeline",18,422.728,23.485,51.504,120.646,6.703,18.274,1135,63.056,173],["Albert Grønbæk",13,393.713,30.286,76.886,94.779,7.291,21.435,912,70.154,191],["Bakery Jatta",17,380.386,22.376,59.273,77.587,4.564,13.12,580,34.118,127],["Bilal Nadir",21,379.397,18.067,53.324,71.525,3.406,9.576,706,33.619,76],["Fábio Vieira",18,358.325,19.907,49.687,56.014,3.112,12.717,523,29.056,70]]}}},{"id":"chart_12","title":"Deceleration Loading – Top 10","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Total Decel Loading Sum","type":"bar","encode":{"x":"Player","y":"Total Decel Loading Sum"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":106.577,"name":"Mean","label":{"formatter":"Mean 106.58","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Total Accel Loading Sum","Total Accel Loading Mean","Total Accel Loading Max","Total Decel Loading Sum","Total Decel Loading Mean","Total Decel Loading Max","Impacts Rel Sum","Impacts Rel Mean","Impacts Rel Max"],["Nicolás Capaldo",20,766.357,38.318,118.83,188.504,9.425,43.532,1588,79.4,234],["Nicolai Remberg",18,690.795,38.378,72.249,135.571,7.532,17.838,2112,117.333,309],["Martin Adeline",18,422.728,23.485,51.504,120.646,6.703,18.274,1135,63.056,173],["Patson Daka",12,450.006,37.501,74.096,103.448,8.621,21.673,723,60.25,115],["Miro Muheim",20,456.986,22.849,54.533,95.687,4.784,12.822,779,38.95,91],["Albert Grønbæk",13,393.713,30.286,76.886,94.779,7.291,21.435,912,70.154,191],["Kofi Amoako",17,465.854,27.403,64.363,88.529,5.208,17.091,925,54.412,149],["Shafiq Nandja",19,356.904,18.784,41.811,84.116,4.427,14.105,394,20.737,49],["Bakery Jatta",17,380.386,22.376,59.273,77.587,4.564,13.12,580,34.118,127],["Jordan Torunarigha",17,263.102,15.477,38.225,76.899,4.523,15.805,427,25.118,62]]}}},{"id":"chart_13","title":"High-Intensity Decelerations (Z6) – Daily Evolution","option":{"legend":{"top":8,"type":"scroll"},"grid":{"left":72,"right":72,"top":64,"bottom":96},"xAxis":{"type":"category","data":["2026-09-05","2026-09-06","2026-09-09","2026-09-10","2026-09-11","2026-09-12","2026-09-13","2026-09-14","2026-09-15","2026-09-16","2026-09-17","2026-09-18","2026-09-19","2026-09-22","2026-09-23","2026-09-24","2026-09-29","2026-09-30","2026-10-01","2026-10-02","2026-10-03","2026-10-04"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Martin Adeline","type":"line","data":[7,9,2,11,4,5,0,0,7,11,2,1,1,null,null,null,4,15,9,5,null,21],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":6.196,"name":"Mean","label":{"formatter":"Mean 6.2","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Nicolai Remberg","type":"line","data":[2,9,4,10,2,9,4,null,2,11,3,5,6,null,null,null,9,5,11,2,2,9],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Nicolás Capaldo","type":"line","data":[2,25,2,8,3,1,22,null,1,16,null,0,19,0,1,4,0,5,15,0,0,4],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_14","title":"Total Decelerations – Daily Evolution","option":{"legend":{"top":8,"type":"scroll"},"grid":{"left":72,"right":72,"top":64,"bottom":96},"xAxis":{"type":"category","data":["2026-09-05","2026-09-06","2026-09-09","2026-09-10","2026-09-11","2026-09-12","2026-09-13","2026-09-14","2026-09-15","2026-09-16","2026-09-17","2026-09-18","2026-09-19","2026-09-22","2026-09-23","2026-09-24","2026-09-29","2026-09-30","2026-10-01","2026-10-02","2026-10-03","2026-10-04"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Martin Adeline","type":"line","data":[22,62,40,84,26,26,14,2,45,86,44,19,22,null,null,null,44,95,98,41,null,109],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":54.143,"name":"Mean","label":{"formatter":"Mean 54.14","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Nicolai Remberg","type":"line","data":[22,99,44,107,46,30,99,null,32,99,54,38,110,null,null,null,91,93,129,61,21,88],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Nicolás Capaldo","type":"line","data":[22,123,27,48,26,19,99,null,19,91,null,21,108,2,22,26,13,77,98,11,12,26],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_15","title":"Deceleration Loading – Daily Evolution","option":{"legend":{"top":8,"type":"scroll"},"grid":{"left":72,"right":72,"top":64,"bottom":96},"xAxis":{"type":"category","data":["2026-09-05","2026-09-06","2026-09-09","2026-09-10","2026-09-11","2026-09-12","2026-09-13","2026-09-14","2026-09-15","2026-09-16","2026-09-17","2026-09-18","2026-09-19","2026-09-22","2026-09-23","2026-09-24","2026-09-29","2026-09-30","2026-10-01","2026-10-02","2026-10-03","2026-10-04"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Martin Adeline","type":"line","data":[null,null,null,null,null,null,null,0.35648712652213077,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":6.502,"name":"Mean","label":{"formatter":"Mean 6.5","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Nicolai Remberg","type":"line","data":[3.623877999933827,17.83783117,4.964284915556834,9.616268947128273,5.3689857777545615,1.9598718000000002,15.342465650000003,null,2.349705875419264,9.01921368,3.701399164846771,3.635338284669319,12.814886330000002,null,null,null,6.854041049999998,7.8509366130295435,15.751988579058791,1.50823558,1.0898122375810206,12.282123630000001],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Nicolás Capaldo","type":"line","data":[null,null,null,null,null,null,null,null,null,null,null,null,null,0.7158419426728715,3.5896564957788497,2.80797268,null,null,null,null,null,null],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}}];
+  const palette = ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"];
+  const fontFamily = "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif";
+  const ink = "#0f1220";
+  const instances = [];
+  const isPrint = () => window.matchMedia('print').matches;
+  const waitEcharts = () => new Promise((resolve) => {
+    if (window.echarts) return resolve(true);
+    let n = 0;
+    const t = setInterval(() => {
+      n += 1;
+      if (window.echarts || n > 80) { clearInterval(t); resolve(!!window.echarts); }
+    }, 100);
+  });
+  const boot = async () => {
+    await waitEcharts();
+    for (const chart of charts) {
+      let el = document.getElementById(chart.id);
+      if (!el) {
+        const host = document.getElementById('mauna-charts-fallback') || (() => {
+          const d = document.createElement('section');
+          d.id = 'mauna-charts-fallback';
+          d.setAttribute('data-injected', '1');
+          document.body.appendChild(d);
+          return d;
+        })();
+        const card = document.createElement('div');
+        card.className = 'chart-card';
+        card.innerHTML = '<h3></h3><div class="chart-box" id="' + chart.id + '" style="width:100%;height:280px"></div>';
+        card.querySelector('h3').textContent = chart.title || chart.id;
+        host.appendChild(card);
+        el = document.getElementById(chart.id);
+      }
+      if (!el || !window.echarts) continue;
+      el.classList.add('chart-box');
+      if (!el.style.height) el.style.height = '280px';
+      const instance = window.echarts.init(el, null, {
+        renderer: 'canvas',
+        width: el.clientWidth || 720,
+        height: el.clientHeight || 280,
+      });
+      const option = {
+        animation: !isPrint(),
+        backgroundColor: '#ffffff',
+        textStyle: { fontFamily, color: ink },
+        color: palette,
+        ...chart.option,
+      };
+      instance.setOption(option, true);
+      el.dataset.ready = '1';
+      instances.push(instance);
+    }
+    document.documentElement.dataset.chartsReady = '1';
+    window.addEventListener('resize', () => instances.forEach((i) => i.resize()));
+    window.addEventListener('beforeprint', () => {
+      instances.forEach((i) => { i.setOption({ animation: false }); i.resize(); });
+    });
+  };
+  boot();
+})();
+</script>
+</body>
+</html>

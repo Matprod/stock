@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Squelette rapport staff A4</title>
+<!-- Le pack injecte : <link> polices + :root{tokens}. Ici : valeurs de démonstration. -->
+<style>
+/* ===== 1. TOKENS (fournis par le pack, jamais écrits par le Designer) ===== */
+:root{
+  --paper:#fff; --ink:#0F172A; --ink-2:#334155; --muted:#64748B; --line:#E2E8F0; --card:#F8FAFC;
+  --accent:#0B3C5D; --accent-soft:#E6EEF4; --risk:#C62828; --watch:#B45309; --ok:#15803D;
+  --font-display:"Sora","Helvetica Neue",Arial,sans-serif;
+  --font-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --font-data:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --space:1;           /* levier de l'op soft "set_spacing" ; valeurs permises 0.85, 0.9, 1, 1.1 via html[data-space] */
+}
+html[data-space="0.85"]{--space:.85} html[data-space="0.9"]{--space:.9} html[data-space="1.1"]{--space:1.1}
+/* accent de section (op set_accent) */
+[data-accent="risk"] .eyebrow{color:var(--risk)} [data-accent="watch"] .eyebrow{color:var(--watch)} [data-accent="ok"] .eyebrow{color:var(--ok)}
+/* ===== 2. PAGE : format fixe, jamais de hauteur auto ===== */
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;background:#CBD5E1;color:var(--ink);font:9.5pt/1.45 var(--font-body)}
+.page{width:210mm;height:297mm;margin:0 auto 6mm;background:var(--paper);padding:13mm 15mm 16mm;
+  display:flex;flex-direction:column;gap:calc(5mm*var(--space));position:relative;overflow:hidden;break-after:page}
+@media print{body{background:none}.page{margin:0}}
+.running{display:flex;justify-content:space-between;font:7.5pt var(--font-data);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.foot{position:absolute;left:15mm;right:15mm;bottom:7mm;display:flex;justify-content:space-between;font:7.5pt var(--font-data);color:var(--muted);border-top:.3mm solid var(--line);padding-top:2mm}
+/* ===== 3. VOCABULAIRE DE BLOCS (le Designer assemble, il n'invente pas de CSS) ===== */
+.eyebrow{font:600 7.5pt var(--font-data);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1,h2{font-family:var(--font-display);margin:0;letter-spacing:-.01em;text-wrap:balance}
+h1{font-size:25pt;line-height:1.05}
+h2{font-size:15pt;line-height:1.15}                       /* le titre de section énonce le constat, pas le thème */
+.lede{color:var(--ink-2);max-width:150mm;margin:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm}
+.kpi{background:var(--card);border-top:.8mm solid var(--ink);padding:3mm 3.5mm}
+.kpi.risk{border-top-color:var(--risk)} .kpi.watch{border-top-color:var(--watch)}
+.kpi .v{font:600 22pt/1 var(--font-display);font-variant-numeric:tabular-nums}
+.kpi .l{font-size:8pt;color:var(--muted);margin-top:1.5mm}
+.fig{margin:0;break-inside:avoid;display:flex;flex-direction:column;gap:1.5mm}
+.fig .t{font:600 8.5pt var(--font-body)}                  /* titre de figure = métrique, jamais un nom d'athlète */
+.chart-box{width:100%;height:var(--h,62mm)}
+.h-hero{--h:92mm} .h-wide{--h:62mm} .h-pair{--h:56mm}
+.fig.grow{flex:1;min-height:0}          /* la figure principale absorbe l'espace restant : pas de bas de page vide */
+.fig.grow .chart-box{flex:1;height:auto;min-height:var(--h)}
+.head{display:flex;flex-direction:column;gap:1.5mm}
+.chart-box:empty{border:.3mm dashed var(--line);background:repeating-linear-gradient(135deg,#fff,#fff 3mm,var(--card) 3mm,var(--card) 6mm);
+  display:grid;place-items:center;font:8pt var(--font-data);color:var(--muted)}
+.chart-box:empty::after{content:attr(id)}                  /* aperçu dev uniquement : en prod ECharts remplit le div */
+.cap{font-size:8pt;color:var(--ink-2);border-left:.5mm solid var(--line);padding-left:2.5mm;max-width:165mm}
+.cap b{color:var(--ink)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+table.t{width:100%;border-collapse:collapse;font-size:8.5pt}
+table.t th{font:500 7pt var(--font-data);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:1.2mm 1.5mm;border-bottom:.3mm solid var(--muted)}
+table.t td{padding:1.1mm 1.5mm;border-bottom:.2mm solid var(--line)}
+table.t tr{break-inside:avoid} td.num{font-family:var(--font-data);text-align:right;font-variant-numeric:tabular-nums}
+.callout{border-left:1mm solid var(--accent);background:var(--accent-soft);padding:3mm 4mm}
+.callout.risk{border-left-color:var(--risk);background:#FDF2F2}
+.reliability{display:flex;gap:4mm;font-size:8pt;color:var(--ink-2);border-top:.3mm solid var(--line);padding-top:2.5mm;margin-top:auto} /* limites des données : 3 lignes max, en bas de page 1 */
+.reliability b{font-family:var(--font-data);font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1 : en-tête + synthèse (jamais de page de garde pleine) ============ -->
+<section class="page" data-block="p1">
+  <div class="running"><span>Nom du club · Staff performance</span><span>14 juil. – 12 oct. 2026</span></div>
+  <header class="head" data-block="p1.head">
+    <div class="eyebrow">Bilan staff</div>
+    <h1 data-block="p1.title">Sept blessures, dont trois en cours</h1>   <!-- titre = constat principal de l'Analyst -->
+  </header>
+  <div class="kpis" data-block="p1.kpis">           <!-- 4 KPI max, valeurs = data-fact uniquement -->
+    <div class="kpi risk"><div class="v"><span data-fact="inj.count">7</span></div><div class="l">blessures sur la période</div></div>
+    <div class="kpi risk"><div class="v"><span data-fact="inj.days_lost">135</span></div><div class="l">jours d'indisponibilité</div></div>
+    <div class="kpi watch"><div class="v"><span data-fact="ck.over_1000_count">18</span></div><div class="l">dosages de CK au-dessus de 1 000</div></div>
+    <div class="kpi"><div class="v"><span data-fact="wellness.players_flagged">2</span></div><div class="l">joueurs à surveiller (wellness)</div></div>
+  </div>
+  <div class="callout" data-block="p1.summary">      <!-- synthèse : 3 paragraphes courts, un constat chacun -->
+    <p><b>Constat 1.</b> Phrase courte avec un <span data-fact="inj.count">7</span> cité, jamais écrit en dur.</p>
+  </div>
+  <div class="reliability" data-block="p1.reliability">
+    <b>Fiabilité</b><span>Charge sRPE inexploitable (toujours 0).</span><span>GPS coupé après le 30 juillet.</span><span>31 colonnes optionnelles vides, non utilisées.</span>
+  </div>
+  <div class="foot"><span>Nom du club</span><span data-page>1 / 3</span></div>
+</section>
+
+<!-- ============ PAGE 2 : section « héros » = 1 grande figure + 1 tableau + 1 lecture ============ -->
+<section class="page" data-block="s1" data-section="injuries">
+  <div class="running"><span>Nom du club · Staff performance</span><span>01 Blessures</span></div>
+  <div class="head">
+    <div class="eyebrow">01 · Blessures</div>
+    <h2 data-block="s1.title">Trois lésions aux ischio-jambiers en six semaines</h2>
+    <p class="lede">Une phrase de cadrage : ce que montre la figure, sur quelle fenêtre.</p>
+  </div>
+  <figure class="fig grow" data-block="s1.fig1">
+    <div class="t">Indisponibilités par joueur et matchs d'équipe</div>
+    <div class="chart-box h-hero" id="chart_injury_gantt"></div>
+    <figcaption class="cap" data-block="s1.fig1.cap"><b>Lecture.</b> Une phrase sur ce qu'il faut regarder, une sur la limite éventuelle.</figcaption>
+  </figure>
+  <table class="t" data-block="s1.table1">
+    <thead><tr><th>Date</th><th>Joueur</th><th>Lésion</th><th>Jours</th></tr></thead>
+    <tbody><tr><td>25/09</td><td>Joueur A</td><td>Quadriceps</td><td class="num">17</td></tr>
+           <tr><td>24/09</td><td>Joueur B</td><td>Ischio-jambiers</td><td class="num">18</td></tr></tbody>
+  </table>
+  <div class="foot"><span>Nom du club</span><span data-page>2 / 3</span></div>
+</section>
+
+<!-- ============ PAGE 3 : section « paire » = 2 figures côte à côte + 1 figure large + callout ============ -->
+<section class="page" data-block="s2" data-section="wellness">
+  <div class="running"><span>Nom du club · Staff performance</span><span>02 Wellness</span></div>
+  <div class="head">
+    <div class="eyebrow">02 · Wellness et sommeil</div>
+    <h2 data-block="s2.title">L'état de forme se dégrade depuis mi-septembre</h2>
+    <p class="lede">Échelle du club rappelée ici : 1 = très bien, 6 = très mal.</p>
+  </div>
+  <div class="pair" data-block="s2.pair1">
+    <figure class="fig" data-block="s2.fig1"><div class="t">Courbatures, moyenne 7 jours</div><div class="chart-box h-pair" id="chart_soreness"></div>
+      <figcaption class="cap" data-block="s2.fig1.cap"><b>Lecture.</b> Une phrase.</figcaption></figure>
+    <figure class="fig" data-block="s2.fig1b"><div class="t">Qualité du sommeil, moyenne 7 jours</div><div class="chart-box h-pair" id="chart_sleep"></div>
+      <figcaption class="cap" data-block="s2.fig1b.cap"><b>Lecture.</b> Une phrase.</figcaption></figure>
+  </div>
+  <figure class="fig grow" data-block="s2.fig2">
+    <div class="t">Écart à la référence de chaque joueur</div>
+    <div class="chart-box h-wide" id="chart_wellness_z"></div>
+  </figure>
+  <div class="callout risk" data-block="s2.callout"><b>À surveiller.</b> Deux joueurs, une phrase chacun.</div>
+  <div class="foot"><span>Nom du club</span><span data-page>3 / 3</span></div>
+</section>
+</body>
+</html>

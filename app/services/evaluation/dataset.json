@@ -1,0 +1,168 @@
+{
+  "version": "1.0",
+  "description": "Ground truth dataset for SQL correctness evaluation. Use {{first_name}}, {{last_name}}, {{reference_date}} as placeholders — they are replaced at evaluation time.",
+  "items": [
+
+    {
+      "id": "sleep_001",
+      "domain": "Sleep",
+      "question": "Quel est le score de sommeil de {{first_name}} cette semaine ?",
+      "expected_sql": "SELECT ad.date_of_day, ad.sleep_score FROM base_athleteday ad JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day BETWEEN DATE_SUB('{{reference_date}}', INTERVAL 7 DAY) AND '{{reference_date}}' ORDER BY ad.date_of_day DESC"
+    },
+    {
+      "id": "sleep_002",
+      "domain": "Sleep",
+      "question": "Combien d'heures a dormi {{first_name}} la nuit dernière ?",
+      "expected_sql": "SELECT ad.date_of_day, ROUND(s.total_in_bed_time_milli / 3600000, 1) AS hours_in_bed, s.quality_rating, s.sleep_efficiency_percentage FROM sleep_sleep s JOIN base_athleteday ad ON s.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day = '{{reference_date}}'"
+    },
+    {
+      "id": "sleep_003",
+      "domain": "Sleep",
+      "question": "Montre moi l'évolution du sommeil de {{first_name}} sur le dernier mois",
+      "expected_sql": "SELECT ad.date_of_day, ROUND(s.total_in_bed_time_milli / 3600000, 1) AS hours_in_bed, s.sleep_efficiency_percentage, s.quality_rating FROM sleep_sleep s JOIN base_athleteday ad ON s.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day >= DATE_SUB('{{reference_date}}', INTERVAL 30 DAY) ORDER BY ad.date_of_day ASC"
+    },
+
+    {
+      "id": "scores_001",
+      "domain": "Daily Scores",
+      "question": "Quel est le score de performance de {{first_name}} aujourd'hui ?",
+      "expected_sql": "SELECT ad.date_of_day, ad.performance_score, ad.health_score, ad.sleep_score, ad.activity_score FROM base_athleteday ad JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day = '{{reference_date}}'"
+    },
+    {
+      "id": "scores_002",
+      "domain": "Daily Scores",
+      "question": "Montre moi tous les scores de {{first_name}} sur les 30 derniers jours",
+      "expected_sql": "SELECT ad.date_of_day, ad.performance_score, ad.health_score, ad.sleep_score, ad.activity_score, ad.injury_score FROM base_athleteday ad JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day >= DATE_SUB('{{reference_date}}', INTERVAL 30 DAY) ORDER BY ad.date_of_day ASC"
+    },
+    {
+      "id": "scores_003",
+      "domain": "Daily Scores",
+      "question": "Quel est le score de santé moyen de {{first_name}} ce mois-ci ?",
+      "expected_sql": "SELECT ROUND(AVG(ad.health_score), 1) AS avg_health_score FROM base_athleteday ad JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day >= DATE_SUB('{{reference_date}}', INTERVAL 30 DAY) AND ad.date_of_day <= '{{reference_date}}'"
+    },
+
+    {
+      "id": "wellness_001",
+      "domain": "Health & Wellness",
+      "question": "Comment se sent {{first_name}} aujourd'hui ?",
+      "expected_sql": "SELECT ad.date_of_day, h.energy_rating, h.mood_rating, h.body_soreness_rating, h.stress_rating, h.recovery_score FROM health_health h JOIN base_athleteday ad ON h.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day = '{{reference_date}}'"
+    },
+    {
+      "id": "wellness_002",
+      "domain": "Health & Wellness",
+      "question": "Quel est le niveau de fatigue de {{first_name}} cette semaine ?",
+      "expected_sql": "SELECT ad.date_of_day, h.body_soreness_rating, h.energy_rating, h.recovery_score FROM health_health h JOIN base_athleteday ad ON h.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day BETWEEN DATE_SUB('{{reference_date}}', INTERVAL 7 DAY) AND '{{reference_date}}' ORDER BY ad.date_of_day DESC"
+    },
+    {
+      "id": "wellness_003",
+      "domain": "Health & Wellness",
+      "question": "Montre moi l'évolution du HRV de {{first_name}} sur 2 semaines",
+      "expected_sql": "SELECT ad.date_of_day, h.heart_rate_variability, h.resting_heart_rate FROM health_health h JOIN base_athleteday ad ON h.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day >= DATE_SUB('{{reference_date}}', INTERVAL 14 DAY) ORDER BY ad.date_of_day ASC"
+    },
+
+    {
+      "id": "injury_001",
+      "domain": "Injury & Pain",
+      "question": "Quelles sont les blessures de {{first_name}} cette saison ?",
+      "expected_sql": "SELECT i.date_of_injury, i.recovery_date, i.context, i.level_of_pain_today, i.mechanism, t.name_en AS injury_type, c.name_en AS injury_category FROM base_injuryhistory i JOIN base_athlete a ON i.athlete_id = a.id LEFT JOIN base_typeofinjury t ON i.type_of_injury_id = t.id LEFT JOIN base_typeofinjurycategory c ON t.category_id = c.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND i.date_of_injury >= DATE_SUB('{{reference_date}}', INTERVAL 6 MONTH) ORDER BY i.date_of_injury DESC"
+    },
+    {
+      "id": "injury_002",
+      "domain": "Injury & Pain",
+      "question": "Est-ce que {{first_name}} a des douleurs en ce moment ?",
+      "expected_sql": "SELECT r.date_of_discomfort, r.level_of_pain_today, r.during, r.recovery_date, l.name_en AS location FROM base_registerdiscomfort r JOIN base_athlete a ON r.athlete_id = a.id LEFT JOIN base_paindiscomfortlocation l ON r.location_id = l.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND (r.recovery_date IS NULL OR r.recovery_date >= '{{reference_date}}') ORDER BY r.date_of_discomfort DESC"
+    },
+    {
+      "id": "injury_003",
+      "domain": "Injury & Pain",
+      "question": "Quel est l'historique de blessures de {{first_name}} sur les 3 derniers mois ?",
+      "expected_sql": "SELECT i.date_of_injury, i.recovery_date, i.context, i.level_of_pain_today, t.name_en AS injury_type FROM base_injuryhistory i JOIN base_athlete a ON i.athlete_id = a.id LEFT JOIN base_typeofinjury t ON i.type_of_injury_id = t.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND i.date_of_injury >= DATE_SUB('{{reference_date}}', INTERVAL 3 MONTH) ORDER BY i.date_of_injury DESC"
+    },
+
+    {
+      "id": "activity_001",
+      "domain": "Sport Activities & Training",
+      "question": "Quelle est la charge d'entraînement de {{first_name}} cette semaine ?",
+      "expected_sql": "SELECT ad.date_of_day, sa.training_load, sa.rpe, sa.duration, sa.distance FROM sportactivity_sportactivity sa JOIN base_athleteday ad ON sa.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day BETWEEN DATE_SUB('{{reference_date}}', INTERVAL 7 DAY) AND '{{reference_date}}' ORDER BY ad.date_of_day DESC"
+    },
+    {
+      "id": "activity_002",
+      "domain": "Sport Activities & Training",
+      "question": "Combien de séances a fait {{first_name}} ce mois-ci ?",
+      "expected_sql": "SELECT COUNT(*) AS total_sessions, SUM(sa.training_load) AS total_load, ROUND(AVG(sa.rpe), 1) AS avg_rpe FROM sportactivity_sportactivity sa JOIN base_athleteday ad ON sa.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day >= DATE_SUB('{{reference_date}}', INTERVAL 30 DAY) AND ad.date_of_day <= '{{reference_date}}'"
+    },
+    {
+      "id": "activity_003",
+      "domain": "Sport Activities & Training",
+      "question": "Montre moi les zones de fréquence cardiaque de {{first_name}} sur la dernière séance",
+      "expected_sql": "SELECT ad.date_of_day, sa.zone1_time, sa.zone2_time, sa.zone3_time, sa.zone4_time, sa.zone5_time, sa.averaged_bpm, sa.trimp FROM sportactivity_sportactivity sa JOIN base_athleteday ad ON sa.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day <= '{{reference_date}}' ORDER BY ad.date_of_day DESC LIMIT 1"
+    },
+
+    {
+      "id": "nutrition_001",
+      "domain": "Nutrition",
+      "question": "Quelle est l'hydratation de {{first_name}} cette semaine ?",
+      "expected_sql": "SELECT ad.date_of_day, nh.total_liters FROM nutrition_hydration nh JOIN base_athleteday ad ON nh.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day BETWEEN DATE_SUB('{{reference_date}}', INTERVAL 7 DAY) AND '{{reference_date}}' ORDER BY ad.date_of_day DESC"
+    },
+    {
+      "id": "nutrition_002",
+      "domain": "Nutrition",
+      "question": "Montre moi les moyennes de macros de {{first_name}} sur les 2 dernières semaines",
+      "expected_sql": "SELECT ROUND(AVG(avg.carbohydrates_today), 1) AS avg_carbs, ROUND(AVG(avg.proteins_today), 1) AS avg_proteins, ROUND(AVG(avg.fats_today), 1) AS avg_fats FROM base_athletedayavg avg JOIN base_athleteday ad ON avg.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day >= DATE_SUB('{{reference_date}}', INTERVAL 14 DAY) AND ad.date_of_day <= '{{reference_date}}'"
+    },
+
+    {
+      "id": "garmin_001",
+      "domain": "Garmin Data",
+      "question": "Combien de pas a fait {{first_name}} aujourd'hui ?",
+      "expected_sql": "SELECT ad.date_of_day, g.total_steps, g.step_goal FROM health_garmindaily g JOIN base_athleteday ad ON g.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day = '{{reference_date}}'"
+    },
+    {
+      "id": "garmin_002",
+      "domain": "Garmin Data",
+      "question": "Quel est le niveau de stress Garmin de {{first_name}} cette semaine ?",
+      "expected_sql": "SELECT ad.date_of_day, g.stress_average, g.body_battery_high, g.body_battery_low FROM health_garmindaily g JOIN base_athleteday ad ON g.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day BETWEEN DATE_SUB('{{reference_date}}', INTERVAL 7 DAY) AND '{{reference_date}}' ORDER BY ad.date_of_day DESC"
+    },
+
+    {
+      "id": "body_001",
+      "domain": "Body Metrics",
+      "question": "Quelle est l'évolution du poids de {{first_name}} sur 2 mois ?",
+      "expected_sql": "SELECT bh.date, bh.weight, bh.fat_percentage, bh.muscle_mass FROM bodymetrics_histories bh JOIN base_athlete a ON bh.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND bh.date >= DATE_SUB('{{reference_date}}', INTERVAL 60 DAY) ORDER BY bh.date ASC"
+    },
+
+    {
+      "id": "load_001",
+      "domain": "Detailed Daily Averages",
+      "question": "Quel est l'ACWR de {{first_name}} en ce moment ?",
+      "expected_sql": "SELECT ad.date_of_day, avg.acwr_final_score, avg.acwr_level, avg.training_load FROM base_athletedayavg avg JOIN base_athleteday ad ON avg.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day <= '{{reference_date}}' ORDER BY ad.date_of_day DESC LIMIT 7"
+    },
+    {
+      "id": "load_002",
+      "domain": "Detailed Daily Averages",
+      "question": "Montre moi la charge d'entraînement cumulée de {{first_name}} sur le dernier mois",
+      "expected_sql": "SELECT ad.date_of_day, avg.training_load, avg.acwr_final_score, avg.recovery_final_score FROM base_athletedayavg avg JOIN base_athleteday ad ON avg.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day >= DATE_SUB('{{reference_date}}', INTERVAL 30 DAY) AND ad.date_of_day <= '{{reference_date}}' ORDER BY ad.date_of_day ASC"
+    },
+
+    {
+      "id": "basketball_001",
+      "domain": "Basketball",
+      "question": "Quelles sont les stats de {{first_name}} lors des derniers matchs ?",
+      "expected_sql": "SELECT bg.date, bg.opponent, bg.result, bgsp.minutes_played, bgsp.points, bgsp.assists, bgsp.rebounds_total, bgsp.field_goal_percentage, bgsp.plus_minus FROM basketball_games_stats_players bgsp JOIN basketball_games_stats bgs ON bgsp.game_stats_id = bgs.id JOIN basketball_games bg ON bgs.game_id = bg.id JOIN base_athlete a ON bgsp.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND bg.date <= '{{reference_date}}' ORDER BY bg.date DESC LIMIT 10"
+    },
+    {
+      "id": "basketball_002",
+      "domain": "Basketball",
+      "question": "Quelle est la moyenne de points de {{first_name}} cette saison ?",
+      "expected_sql": "SELECT ROUND(AVG(bgsp.points), 1) AS avg_points, ROUND(AVG(bgsp.assists), 1) AS avg_assists, ROUND(AVG(bgsp.rebounds_total), 1) AS avg_rebounds, ROUND(AVG(bgsp.minutes_played), 1) AS avg_minutes FROM basketball_games_stats_players bgsp JOIN basketball_games_stats bgs ON bgsp.game_stats_id = bgs.id JOIN basketball_games bg ON bgs.game_id = bg.id JOIN base_athlete a ON bgsp.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND bg.date >= DATE_SUB('{{reference_date}}', INTERVAL 6 MONTH) AND bg.date <= '{{reference_date}}'"
+    },
+
+    {
+      "id": "vald_001",
+      "domain": "Strength Testing (VALD)",
+      "question": "Quels sont les derniers résultats de tests de force de {{first_name}} ?",
+      "expected_sql": "SELECT ad.date_of_day, vt.test_type, vt.value FROM vald_tests vt JOIN base_athleteday ad ON vt.athlete_day_id = ad.id JOIN base_athlete a ON ad.athlete_id = a.id WHERE TRIM(a.first_name) = '{{first_name}}' AND TRIM(a.last_name) = '{{last_name}}' AND ad.date_of_day <= '{{reference_date}}' ORDER BY ad.date_of_day DESC LIMIT 20"
+    }
+
+  ]
+}

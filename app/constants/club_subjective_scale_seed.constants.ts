@@ -1,0 +1,479 @@
+import { SUBJECTIVE_VARIABLE_DOMAIN } from '#contracts/subjective_variable'
+import type { SubjectiveVariableDomain } from '#contracts/subjective_variable'
+import string from '@adonisjs/core/helpers/string'
+
+export interface ClubSubjectiveScaleSeedContent {
+  domain: SubjectiveVariableDomain
+  key: string
+  fieldName: string
+  minScale: number
+  maxScale: number
+  isReversed: boolean
+  gap?: number | null
+  labels: { en: string; fr: string }
+  intro?: { en: string; fr: string }
+  levels?: { en: Record<number, string>; fr: Record<number, string> }
+}
+
+export const CLUB_SUBJECTIVE_SCALE_SEED_DOMAINS = Object.values(SUBJECTIVE_VARIABLE_DOMAIN)
+
+export const getClubSubjectiveScaleSeedAliases = (
+  seed: ClubSubjectiveScaleSeedContent
+): string[] => {
+  return Array.from(
+    new Set(
+      [seed.key, seed.fieldName, string.camelCase(seed.fieldName), string.snakeCase(seed.fieldName)]
+        .map((value) => value.trim().toLowerCase())
+        .filter(Boolean)
+    )
+  )
+}
+
+export const CLUB_SUBJECTIVE_SCALE_SEEDS: ClubSubjectiveScaleSeedContent[] = [
+  {
+    key: 'rpe',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.SPORT_ACTIVITY,
+    fieldName: 'rpe',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: false,
+    labels: { en: 'RPE (Perceived Exertion)', fr: 'RPE (Effort Perçu)' },
+    intro: {
+      en: 'Evaluate the overall difficulty of the session.',
+      fr: "Évaluez la difficulté de l'ensemble de la séance.",
+    },
+    levels: {
+      en: {
+        1: 'The effort was minimal',
+        2: 'The effort was very easy',
+        3: 'The effort was easy',
+        4: 'The effort was moderate',
+        5: 'The effort was a bit difficult',
+        6: 'The effort was difficult',
+        7: 'The effort was significantly difficult',
+        8: 'The effort was really very difficult',
+        9: 'The effort was extremely difficult',
+        10: 'The effort was maximal',
+      },
+      fr: {
+        1: "L'effort était minimal",
+        2: "L'effort était très facile",
+        3: "L'effort était facile",
+        4: "L'effort était modéré",
+        5: "L'effort était un peu difficile",
+        6: "L'effort était difficile",
+        7: "L'effort était significativement difficile",
+        8: "L'effort était vraiment très difficile",
+        9: "L'effort était extrêmement difficile",
+        10: "L'effort était maximal",
+      },
+    },
+  },
+  {
+    key: 'muscular_difficulty',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.SPORT_ACTIVITY,
+    fieldName: 'muscular_difficulty',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: false,
+    labels: { en: 'Muscular Difficulty', fr: 'Difficulté Musculaire' },
+    intro: {
+      en: 'Consider the muscles engaged. Do not think about the pains of an injury.',
+      fr: "Pensez aux muscles sollicités. Ne pensez pas aux douleurs d'une blessure.",
+    },
+    levels: {
+      en: {
+        1: 'I barely feel my muscles after the session.',
+        2: 'I feel a tiny bit tired, experiencing a very low level of fatigue.',
+        3: 'I feel my muscles post-session when walking.',
+        4: 'I feel my muscles post-session when sitting.',
+        5: 'I feel slightly heavy muscles post-session when moving.',
+        6: 'I feel very heavy muscles post-session when moving.',
+        7: "I feel muscle pain that doesn't affect my movements.",
+        8: 'I feel muscle pain that affects my movements.',
+        9: 'I feel sharp muscle pains causing uncomfortable walking.',
+        10: 'I feel extremely sharp muscle pains causing very painful walking.',
+      },
+      fr: {
+        1: 'Je ressens à peine mes muscles après avoir effectué ma séance',
+        2: 'Je ressens mes muscles après avoir effectué ma séance',
+        3: 'Je ressens mes muscles post-séance lorsque je marche',
+        4: 'Je ressens mes muscles post-séance lorsque je suis assis',
+        5: 'Je ressens des muscles un peu lourds post séance lorsque je me déplace',
+        6: 'Je ressens des muscles très lourds post séance lorsque je me déplace',
+        7: "Je ressens des douleurs musculaires qui n'affectent pas mes déplacement",
+        8: 'Je ressens des douleurs musculaires qui affectent mes déplacement',
+        9: 'Je ressens des douleurs musculaires vives qui provoquent une marche pénible',
+        10: 'Je ressens des douleurs musculaires extrêmement vives qui provoquent une marche très pénible',
+      },
+    },
+  },
+  {
+    key: 'cardio_respiratory',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.SPORT_ACTIVITY,
+    fieldName: 'cardio_respiratory',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: false,
+    labels: { en: 'Cardiorespiratory', fr: 'Cardio-Respiratoire' },
+    intro: {
+      en: 'Consider your heart rate and respiratory rate.',
+      fr: 'Pensez à la fréquence cardiaque et la fréquence respiratoire.',
+    },
+    levels: {
+      en: {
+        1: 'I felt a minimum of cardio-respiratory difficulty.',
+        2: 'I felt very little cardio-respiratory difficulty.',
+        3: 'I felt little cardio-respiratory difficulty during my outing.',
+        4: 'I moderately felt cardio-respiratory difficulty.',
+        5: 'I felt a little difficulty, but had no problem maintaining effort.',
+        6: 'I felt difficulty, but could sustain effort.',
+        7: 'I felt significant but sustainable difficulty during the effort at my speed.',
+        8: 'I felt significant, unsustainable difficulty during the effort; I slightly limited my speed.',
+        9: 'I felt very great difficulty; I felt limited in my speed.',
+        10: 'I felt maximal difficulty; I had to significantly limit my speed.',
+      },
+      fr: {
+        1: "J'ai ressenti un minimum de difficulté cardio-respiratoire",
+        2: "J'ai ressenti très peu de difficulté cardio-respiratoire",
+        3: "J'ai ressenti peu de difficulté cardio-respiratoire au cours de ma sortie",
+        4: "J'ai modérément ressenti la difficulté cardio-respiratoire",
+        5: "J'ai ressenti une petite difficulté mais aucun problème pour maintenir l'effort",
+        6: "J'ai ressenti une difficulté mais j'ai pu maintenir l'effort",
+        7: "J'ai ressenti une difficulté significative mais soutenable au cours de l'effort au niveau de ma vitesse de déplacement",
+        8: "J'ai ressenti une difficulté significative, insoutenable au cours de l'effort, j'ai un peu limité ma vitesse de déplacement",
+        9: "J'ai ressenti une très grande difficulté, je me sentais limité lors de ma vitesse de déplacement",
+        10: "J'ai ressenti une difficulté maximal, j'ai dû largement limiter ma vitesse de déplacement",
+      },
+    },
+  },
+  {
+    key: 'pleasure_level',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.SPORT_ACTIVITY,
+    fieldName: 'pleasure_level',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: true,
+    labels: { en: 'Mood / Mental State', fr: 'Humeur / État Mental' },
+    intro: {
+      en: 'Think about the positive emotions you may have felt.',
+      fr: 'Pensez aux émotions positives que vous avez pu ressentir.',
+    },
+    levels: {
+      en: {
+        1: 'I took a minimum of pleasure during my outing; I felt a minimum of positive emotions.',
+        2: 'I took very little pleasure during my outing; I felt very few positive emotions.',
+        3: 'I took a bit of pleasure during my outing; I felt a bit of positive emotions.',
+        4: 'I took moderate pleasure during my outing; I felt moderate positive emotions.',
+        5: 'I took pleasure during my outing; I felt positive emotions.',
+        6: 'I really enjoyed my outing; I felt good positive emotions.',
+        7: 'I took a lot of pleasure during my outing; I felt a lot of positive emotions.',
+        8: 'I truly took a lot of pleasure during my outing; I truly felt a lot of positive emotions.',
+        9: 'I took a tremendous amount of pleasure during my outing; I felt a tremendous amount of positive emotions.',
+        10: 'I took the maximum amount of pleasure during my outing; I felt the maximum amount of positive emotions.',
+      },
+      fr: {
+        1: "J'ai pris un minimum de plaisir pendant ma sortie, j'ai ressenti un minimum d'émotions positives",
+        2: "J'ai pris très peu de plaisir pendant ma sortie, j'ai ressenti très peu d'émotions positives",
+        3: "J'ai pris un peu de plaisir pendant ma sortie, j'ai ressenti un peu d'émotions positives",
+        4: "J'ai pris modérément du plaisir pendant ma sortie, j'ai ressenti modérément d'émotions positives",
+        5: "J'ai pris du plaisir pendant ma sortie, j'ai ressenti des émotions positives",
+        6: "J'ai bien pris du plaisir pendant ma sortie, j'ai bien ressenti des émotions positives",
+        7: "J'ai pris beaucoup de plaisir pendant ma sortie, j'ai ressenti beaucoup d'émotions positives",
+        8: "J'ai vraiment pris beaucoup de plaisir pendant ma sortie, j'ai vraiment ressenti beaucoup d'émotions positives",
+        9: "J'ai pris énormément de plaisir pendant ma sortie, j'ai ressenti énormément d'émotions positives",
+        10: "J'ai pris un maximum de plaisir pendant ma sortie, j'ai ressenti un maximum d'émotions positives",
+      },
+    },
+  },
+  {
+    key: 'fatigue_level',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.SPORT_ACTIVITY,
+    fieldName: 'fatigue_level',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: false,
+    labels: { en: 'Fatigue Level', fr: 'Niveau de Fatigue' },
+    intro: {
+      en: 'Rate how tired you feel after your session.',
+      fr: 'Évaluez à quel point vous vous sentez fatigué suite à votre séance.',
+    },
+    levels: {
+      en: {
+        1: "I don't feel tired at all, I experience the lowest level of fatigue.",
+        2: 'I feel a tiny bit tired, I experience a very low level of fatigue.',
+        3: 'I feel a little tired, I experience a low level of fatigue.',
+        4: 'I feel moderately tired, I experience a moderate level of fatigue.',
+        5: 'I feel tired, I have depleted my reserves.',
+        6: 'I feel quite tired, I have significantly depleted my reserves.',
+        7: 'I feel very tired, my reserves are running out.',
+        8: 'I feel really very tired, my reserves are largely emptied.',
+        9: 'I feel extremely tired, I have almost nothing left in reserve.',
+        10: 'I feel completely tired and exhausted, I have no resources left to continue.',
+      },
+      fr: {
+        1: "Je ne me sens pas du tout fatigué(e), j'éprouve le plus bas niveau de fatigue.",
+        2: "Je me sens un tout petit peu fatigué(e), j'éprouve un niveau de fatigue très bas",
+        3: "Je me sens un peu fatigué(e), j'éprouve un niveau de fatigue faible",
+        4: "Je me sens modérément fatigué(e), j'éprouve un niveau de fatigue modéré",
+        5: "Je me sens fatigué(e), j'ai entamé mes réserves.",
+        6: "Je me sens bien fatigué(e), j'ai bien entamé mes réserves.",
+        7: "Je me sens très fatigué(e), mes réserves s'épuisent.",
+        8: 'Je me sens vraiment très fatigué(e), mes réserves sont largement vidées.',
+        9: "Je me sens extrêmement fatigué(e), je n'ai quasiment plus rien en réserve",
+        10: "Je me sens complètement fatigué(e) et épuisé(e), je n'ai plus aucune ressource pour continuer",
+      },
+    },
+  },
+  {
+    key: 'quality_rating',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.SLEEP,
+    fieldName: 'quality_rating',
+    minScale: 1,
+    maxScale: 5,
+    isReversed: true,
+    labels: { en: 'Sleep quality', fr: 'Qualité du sommeil' },
+    intro: {
+      en: 'Rate how well you slept overall.',
+      fr: 'Évaluez la qualité globale de votre sommeil.',
+    },
+    levels: {
+      en: {
+        1: 'Very poor sleep: multiple awakenings, difficulty falling asleep, felt unrested.',
+        2: 'Poor sleep: several disruptions, did not feel well rested.',
+        3: 'Average sleep: some rest, but not fully recovered.',
+        4: 'Good sleep: slept well, felt mostly rested.',
+        5: 'Excellent sleep: deep, uninterrupted sleep, felt fully rested.',
+      },
+      fr: {
+        1: "Très mauvais sommeil : nombreux réveils, difficulté à s'endormir, pas reposé.",
+        2: 'Mauvais sommeil : plusieurs perturbations, pas bien reposé.',
+        3: 'Sommeil moyen : un peu reposé, mais pas pleinement récupéré.',
+        4: 'Bon sommeil : bien dormi, globalement reposé.',
+        5: 'Excellent sommeil : sommeil profond et continu, pleinement reposé.',
+      },
+    },
+  },
+  {
+    key: 'energy_rating',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.HEALTH_RATING,
+    fieldName: 'energy_rating',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: true,
+    labels: { en: 'Energy', fr: 'Énergie' },
+    intro: {
+      en: 'Rate your energy level for the day.',
+      fr: "Évaluez votre niveau d'énergie du jour.",
+    },
+    levels: {
+      en: {
+        1: 'No energy at all.',
+        2: 'Very low energy.',
+        3: 'Low energy.',
+        4: 'Somewhat low energy.',
+        5: 'Moderate energy.',
+        6: 'Fairly good energy.',
+        7: 'Good energy.',
+        8: 'High energy.',
+        9: 'Very high energy.',
+        10: 'Maximum energy.',
+      },
+      fr: {
+        1: 'Aucune énergie.',
+        2: 'Énergie très faible.',
+        3: 'Énergie faible.',
+        4: 'Énergie un peu faible.',
+        5: 'Énergie moyenne.',
+        6: 'Assez bonne énergie.',
+        7: 'Bonne énergie.',
+        8: 'Énergie élevée.',
+        9: 'Énergie très élevée.',
+        10: 'Énergie maximale.',
+      },
+    },
+  },
+  {
+    key: 'stress_rating',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.HEALTH_RATING,
+    fieldName: 'stress_rating',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: false,
+    labels: { en: 'Stress', fr: 'Stress' },
+    intro: {
+      en: 'Rate your stress level for the day.',
+      fr: 'Évaluez votre niveau de stress du jour.',
+    },
+    levels: {
+      en: {
+        1: 'No stress at all.',
+        2: 'Very low stress.',
+        3: 'Low stress.',
+        4: 'Mild stress.',
+        5: 'Moderate stress.',
+        6: 'Noticeable stress.',
+        7: 'High stress.',
+        8: 'Very high stress.',
+        9: 'Severe stress.',
+        10: 'Maximum stress.',
+      },
+      fr: {
+        1: 'Aucun stress.',
+        2: 'Stress très faible.',
+        3: 'Stress faible.',
+        4: 'Stress léger.',
+        5: 'Stress modéré.',
+        6: 'Stress notable.',
+        7: 'Stress élevé.',
+        8: 'Stress très élevé.',
+        9: 'Stress sévère.',
+        10: 'Stress maximal.',
+      },
+    },
+  },
+  {
+    key: 'mood_rating',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.HEALTH_RATING,
+    fieldName: 'mood_rating',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: true,
+    labels: { en: 'Mood', fr: 'Humeur' },
+    intro: {
+      en: 'Rate your mood for the day.',
+      fr: 'Évaluez votre humeur du jour.',
+    },
+    levels: {
+      en: {
+        1: 'Very low mood.',
+        2: 'Low mood.',
+        3: 'Somewhat low mood.',
+        4: 'Slightly low mood.',
+        5: 'Neutral mood.',
+        6: 'Fairly good mood.',
+        7: 'Good mood.',
+        8: 'Very good mood.',
+        9: 'Excellent mood.',
+        10: 'Outstanding mood.',
+      },
+      fr: {
+        1: 'Humeur très basse.',
+        2: 'Humeur basse.',
+        3: 'Humeur un peu basse.',
+        4: 'Humeur légèrement basse.',
+        5: 'Humeur neutre.',
+        6: 'Assez bonne humeur.',
+        7: 'Bonne humeur.',
+        8: 'Très bonne humeur.',
+        9: 'Excellente humeur.',
+        10: 'Humeur exceptionnelle.',
+      },
+    },
+  },
+  {
+    key: 'wellbeing_rating',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.HEALTH_RATING,
+    fieldName: 'wellbeing_rating',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: true,
+    labels: { en: 'Wellbeing', fr: 'Bien-être' },
+    intro: {
+      en: 'Rate your overall wellbeing for the day.',
+      fr: 'Évaluez votre bien-être global du jour.',
+    },
+    levels: {
+      en: {
+        1: 'Very poor wellbeing.',
+        2: 'Poor wellbeing.',
+        3: 'Below average wellbeing.',
+        4: 'Slightly below average wellbeing.',
+        5: 'Average wellbeing.',
+        6: 'Fairly good wellbeing.',
+        7: 'Good wellbeing.',
+        8: 'Very good wellbeing.',
+        9: 'Excellent wellbeing.',
+        10: 'Outstanding wellbeing.',
+      },
+      fr: {
+        1: 'Bien-être très mauvais.',
+        2: 'Bien-être mauvais.',
+        3: 'Bien-être en dessous de la moyenne.',
+        4: 'Bien-être légèrement en dessous de la moyenne.',
+        5: 'Bien-être moyen.',
+        6: 'Assez bon bien-être.',
+        7: 'Bon bien-être.',
+        8: 'Très bon bien-être.',
+        9: 'Excellent bien-être.',
+        10: 'Bien-être exceptionnel.',
+      },
+    },
+  },
+  {
+    key: 'body_soreness_rating',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.HEALTH_RATING,
+    fieldName: 'body_soreness_rating',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: false,
+    labels: { en: 'Body soreness', fr: 'Courbatures' },
+  },
+  {
+    key: 'training_rpe',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.HEALTH_METRIC,
+    fieldName: 'Training RPE',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: false,
+    labels: { en: 'Training RPE', fr: "RPE d'entraînement" },
+  },
+  {
+    key: 'pre_training_rpe',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.HEALTH_METRIC,
+    fieldName: 'PRE training RPE',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: false,
+    labels: { en: 'Pre-training RPE', fr: 'RPE pré-entraînement' },
+  },
+  {
+    key: 'post_training_rpe',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.HEALTH_METRIC,
+    fieldName: 'Post Training RPE',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: false,
+    labels: { en: 'Post-training RPE', fr: 'RPE post-entraînement' },
+  },
+  {
+    key: 'at_it_rt_rpe',
+    domain: SUBJECTIVE_VARIABLE_DOMAIN.HEALTH_METRIC,
+    fieldName: 'AT/IT/RT RPE',
+    minScale: 1,
+    maxScale: 10,
+    isReversed: false,
+    labels: { en: 'At-it RT RPE', fr: 'RPE at-it RT' },
+  },
+]
+
+export const findClubSubjectiveScaleSeed = (input: {
+  fieldName: string
+  minScale: number
+  maxScale: number
+}): ClubSubjectiveScaleSeedContent | null => {
+  const fieldName = input.fieldName.trim().toLowerCase()
+  if (!fieldName) {
+    return null
+  }
+
+  return (
+    CLUB_SUBJECTIVE_SCALE_SEEDS.find((seed) => {
+      if (seed.minScale !== input.minScale || seed.maxScale !== input.maxScale) {
+        return false
+      }
+
+      return getClubSubjectiveScaleSeedAliases(seed).includes(fieldName)
+    }) ?? null
+  )
+}

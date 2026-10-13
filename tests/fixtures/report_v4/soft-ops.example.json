@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "baseRev": "a1b2c3d4",
+  "ops": [
+    {
+      "op": "set_title",
+      "block": "s1.title",
+      "text": "Trois lésions aux ischio-jambiers en six semaines"
+    },
+    {
+      "op": "set_accent",
+      "section": "s1",
+      "token": "risk"
+    },
+    {
+      "op": "set_caption",
+      "block": "s2.fig1",
+      "mode": "short"
+    },
+    {
+      "op": "set_spacing",
+      "scale": 0.9
+    }
+  ]
+}

@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html data-artifact="free" lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hambourg – Monitoring complet 1–14 mars 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #1a1d2b;
+  --ink: #0f1220;
+  --paper: #f4f6fb;
+  --line: #d7dce8;
+  --muted: #8b93a7;
+  --primary: #4f6ef7;
+  --lightPrimary: #74c0fc;
+  --cherry: #E07070;
+  --saffron: #E8B84A;
+  --emerald: #34D399;
+  --sky: #38BDF8;
+}
+
+body {
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.report-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+}
+
+/* Header */
+.report-header {
+  background: radial-gradient(circle at 88% 12%, rgba(116,192,252,.28), transparent 40%), 
+              radial-gradient(circle at 12% 78%, rgba(79,110,247,.35), transparent 46%), 
+              linear-gradient(165deg, #1a1d2b 0%, #22263a 48%, #2a2e40 100%);
+  color: white;
+  padding: 48px 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+.report-header h1 {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.report-header .period {
+  font-size: 18px;
+  color: rgba(255,255,255,0.75);
+  font-weight: 500;
+}
+
+/* Navigation */
+.nav-bar {
+  background: var(--bg);
+  padding: 0 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 2px solid var(--primary);
+}
+
+.nav-bar ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.nav-bar li a {
+  display: block;
+  padding: 16px 0;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.nav-bar li a:hover {
+  color: white;
+  border-bottom-color: var(--lightPrimary);
+}
+
+/* Content sections */
+.section {
+  padding: 56px 64px;
+  border-bottom: 1px solid var(--line);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section-title {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--bg);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--primary);
+  display: inline-block;
+}
+
+.section-subtitle {
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--bg);
+  margin: 32px 0 16px 0;
+}
+
+/* KPI Grid */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.kpi-card {
+  background: linear-gradient(145deg, #1a1d2b, #4f6ef7);
+  padding: 24px;
+  border-radius: 8px;
+  color: white;
+}
+
+.kpi-card.emerald {
+  background: linear-gradient(145deg, #1a2e28, #34D399);
+}
+
+.kpi-card.sky {
+  background: linear-gradient(145deg, #1e3a4a, #38BDF8);
+}
+
+.kpi-card.amber {
+  background: linear-gradient(145deg, #3a2a18, #FBBF24);
+}
+
+.kpi-label {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
+
+.kpi-value {
+  font-size: 36px;
+  font-weight: 700;
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+}
+
+.kpi-detail {
+  font-size: 13px;
+  margin-top: 8px;
+  opacity: 0.85;
+}
+
+/* Player flags */
+.player-flags {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.player-flag {
+  background: white;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  position: relative;
+}
+
+.player-flag.drop {
+  border-left: 5px solid var(--cherry);
+}
+
+.player-flag.rise {
+  border-left: 5px solid var(--emerald);
+}
+
+.player-flag-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.player-photo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--line);
+}
+
+.player-info h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--bg);
+}
+
+.player-info .position {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.delta-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+.delta-badge.negative {
+  background: rgba(224,112,112,0.15);
+  color: var(--cherry);
+}
+
+.delta-badge.positive {
+  background: rgba(52,211,153,0.15);
+  color: var(--emerald);
+}
+
+.correlation-box {
+  background: rgba(79,110,247,0.08);
+  padding: 16px;
+  border-radius: 6px;
+  margin-top: 12px;
+  border-left: 3px solid var(--primary);
+}
+
+.correlation-box strong {
+  color: var(--primary);
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.correlation-box p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+/* Chart container */
+.chart-container {
+  margin: 32px 0;
+}
+
+.chart-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--bg);
+  margin-bottom: 12px;
+}
+
+.chart-box {
+  width: 100%;
+  height: 320px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  margin-bottom: 24px;
+}
+
+/* Tables */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.data-table thead {
+  background: var(--bg);
+  color: white;
+}
+
+.data-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+.data-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.data-table tbody tr:hover {
+  background: rgba(79,110,247,0.04);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Insight boxes */
+.insight-box {
+  background: rgba(244,246,251,.98);
+  border: 2px solid rgba(165,180,252,.35);
+  border-radius: 8px;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.insight-box h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.insight-box p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.insight-box ul {
+  margin-top: 12px;
+  padding-left: 20px;
+}
+
+.insight-box li {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+/* Stats grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.stat-item {
+  padding: 16px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.stat-item .label {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.stat-item .value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--bg);
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+}
+
+/* Print styles */
+@media print {
+  .nav-bar {
+    display: none;
+  }
+  
+  .section {
+    page-break-inside: avoid;
+    padding: 32px 24px;
+  }
+  
+  .chart-box {
+    height: 240px;
+    page-break-inside: avoid;
+  }
+  
+  .player-flags {
+    page-break-inside: avoid;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .report-header,
+  .nav-bar,
+  .section {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  
+  .report-header h1 {
+    font-size: 32px;
+  }
+  
+  .kpi-grid,
+  .player-flags {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<style id="mauna-print-css">@page { size: A4; margin: 9mm; }
+@media print {
+  .no-print, .artifact-nav, .artifact-toolbar, .table-toolbar { display: none !important; }
+  body { background: #fff !important; }
+  .chart-box { break-inside: avoid; page-break-inside: avoid; }
+  table { break-inside: auto; }
+  thead { display: table-header-group; }
+}</style>
+</head>
+<body>
+
+<div class="report-container">
+  
+  <!-- Header -->
+  <div class="report-header">
+    <h1>Hambourg – Monitoring complet</h1>
+    <div class="period">1–14 mars 2026</div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <ul>
+      <li><a href="#context">Bilan Global</a></li>
+      <li><a href="#performance">Performance</a></li>
+      <li><a href="#flags">Flags Joueurs</a></li>
+      <li><a href="#injury">Risques Blessures</a></li>
+      <li><a href="#wellness">Wellness</a></li>
+      <li><a href="#biomarkers">Biomarqueurs</a></li>
+    </ul>
+  </nav>
+
+  <!-- Section 1: Bilan Global -->
+  <section id="context" class="section">
+    <h2 class="section-title">1 · Bilan global – contexte de la période</h2>
+    
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Joueurs en match</div>
+        <div class="kpi-value">20</div>
+        <div class="kpi-detail">1–2 matchs par joueur</div>
+      </div>
+      
+      <div class="kpi-card emerald">
+        <div class="kpi-label">Sessions GPS</div>
+        <div class="kpi-value">20</div>
+        <div class="kpi-detail">Joueurs avec données GPS</div>
+      </div>
+      
+      <div class="kpi-card sky">
+        <div class="kpi-label">Données Wellness</div>
+        <div class="kpi-value">25</div>
+        <div class="kpi-detail">Athlètes suivis</div>
+      </div>
+      
+      <div class="kpi-card amber">
+        <div class="kpi-label">Biomarqueurs</div>
+        <div class="kpi-value">8</div>
+        <div class="kpi-detail">Mesures sur la période</div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <h4>Synthèse de la période</h4>
+      <p>20 joueurs ont participé à des matchs (1–2 rencontres chacun) durant la période du 1er au 14 mars. Les leaders en volume GPS sont <strong>Noah Katterbach</strong> (39 488 m), <strong>Albert Grønbæk</strong> (35 313 m), et <strong>Fabio Baldé</strong> (35 744 m). En intensité (HMLD), les trois mêmes joueurs dominent : Grønbæk (6 081 m), Katterbach (6 105 m), et Baldé (5 480 m).</p>
+      <p style="margin-top:12px;">Les données de wellness sont disponibles pour 25 athlètes, avec des scores de performance calculés pour 24 d'entre eux. 8 mesures de biomarqueurs ont été enregistrées durant la fenêtre.</p>
+    </div>
+
+    <h3 class="section-subtitle">Exposition match & output</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Joueur</th>
+          <th>Matchs</th>
+          <th>Minutes</th>
+          <th>Distance (m)</th>
+          <th>Sprint (m)</th>
+          <th>Intensive run (m)</th>
+          <th>Vmax (km/h)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Luka Vušković</td><td>4</td><td>814</td><td>84.84</td><td>474</td><td>2.3</td><td>30</td></tr>
+        <tr><td>Nicolai Remberg</td><td>4</td><td>814</td><td>92.92</td><td>333</td><td>2.58</td><td>32.4</td></tr>
+        <tr><td>William Mikelbrencis</td><td>4</td><td>693</td><td>71.29</td><td>854</td><td>3.04</td><td>34.8</td></tr>
+        <tr><td>Jordan Torunarigha</td><td>4</td><td>638</td><td>63.87</td><td>556</td><td>1.79</td><td>31.9</td></tr>
+        <tr><td>Fábio Vieira</td><td>4</td><td>635</td><td>69.51</td><td>405</td><td>2.12</td><td>31.1</td></tr>
+        <tr><td>Ransford Königsdörffer</td><td>4</td><td>613</td><td>68.02</td><td>738</td><td>2.74</td><td>33.5</td></tr>
+        <tr><td>Miro Muheim</td><td>3</td><td>609</td><td>65.37</td><td>544</td><td>2.57</td><td>32.6</td></tr>
+        <tr><td>Warmed Omari</td><td>4</td><td>606</td><td>61.65</td><td>274</td><td>1.46</td><td>32.2</td></tr>
+        <tr><td>Albert Sambi Lokonga</td><td>4</td><td>503</td><td>57.59</td><td>179</td><td>1.65</td><td>30.7</td></tr>
+        <tr><td>Damion Downs</td><td>4</td><td>457</td><td>50.35</td><td>645</td><td>2.14</td><td>34.5</td></tr>
+        <tr><td>Daniel Elfadli</td><td>3</td><td>346</td><td>37.98</td><td>257</td><td>1.18</td><td>31.5</td></tr>
+        <tr><td>Jean-Luc Dompé</td><td>4</td><td>337</td><td>31.57</td><td>288</td><td>1.01</td><td>33.3</td></tr>
+        <tr><td>Philip Otele</td><td>3</td><td>300</td><td>33.05</td><td>302</td><td>1.26</td><td>32.8</td></tr>
+        <tr><td>Giorgi Gocholeishvili</td><td>2</td><td>230</td><td>23.84</td><td>330</td><td>1.18</td><td>32.4</td></tr>
+        <tr><td>Rayan Philippe</td><td>2</td><td>158</td><td>19.38</td><td>169</td><td>820</td><td>35.2</td></tr>
+        <tr><td>Otto Stange</td><td>2</td><td>131</td><td>14.72</td><td>97</td><td>604</td><td>31.7</td></tr>
+        <tr><td>Yussuf Poulsen</td><td>2</td><td>123</td><td>13.91</td><td>136</td><td>688</td><td>29.1</td></tr>
+        <tr><td>Bakery Jatta</td><td>1</td><td>57</td><td>6.31</td><td>144</td><td>353</td><td>33.5</td></tr>
+        <tr><td>Fabio Baldé</td><td>1</td><td>39</td><td>4.28</td><td>102</td><td>363</td><td>29.2</td></tr>
+        <tr><td>Nicolás Capaldo</td><td>1</td><td>39</td><td>4.06</td><td>13</td><td>116</td><td>31.9</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Section 2: Performance -->
+  <section id="performance" class="section">
+    <h2 class="section-title">2 · Performance – squad trends & drivers</h2>
+    
+    <div class="insight-box">
+      <h4>Vue d'ensemble performance</h4>
+      <p>Les scores de performance (EWMA 7 jours) montrent une dispersion significative sur la période. Le minimum squad oscille entre 41.9 et 50, tandis que le maximum atteint 71 en début de période avant de se stabiliser autour de 65–70 en fin de fenêtre.</p>
+      <p style="margin-top:12px;">Les principaux drivers de performance identifiés sont :</p>
+      <ul>
+        <li><strong>Volume GPS</strong> : corrélation positive avec les scores pour les joueurs à haute charge (Katterbach, Grønbæk, Baldé)</li>
+        <li><strong>Intensité HMLD</strong> : les joueurs avec HMLD élevé maintiennent des scores stables ou en hausse</li>
+        <li><strong>Wellness (soreness)</strong> : corrélation négative – hausse de soreness associée à baisse de performance</li>
+        <li><strong>Récupération</strong> : les joueurs sans GPS (repos) montrent des hausses de score (ex: Capaldo)</li>
+      </ul>
+    </div>
+
+    <h3 class="section-subtitle">Trends de performance – tous les athlètes</h3>
+    <div class="chart-container">
+      <div class="chart-title">Performance score – 7-day EWMA trend (all athletes)</div>
+      <div class="chart-box" id="chart_3"></div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-title">Performance score – 7-day EWMA trend (remaining athletes)</div>
+      <div class="chart-box" id="chart_2"></div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-title">Performance score – 7-day EWMA trend (final group)</div>
+      <div class="chart-box" id="chart_1"></div>
+    </div>
+
+    <h3 class="section-subtitle">Drivers GPS – Volume & Intensité</h3>
+    <div class="chart-container">
+      <div class="chart-title">Squad GPS volume – total distance (m) over period</div>
+      <div class="chart-box" id="chart_5"></div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-title">Squad GPS intensity – HMLD (m) over period</div>
+      <div class="chart-box" id="chart_4"></div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="label">Distance moy. squad</div>
+        <div class="value">24 920 m</div>
+      </div>
+      <div class="stat-item">
+        <div class="label">HMLD moy. squad</div>
+        <div class="value">3 629 m</div>
+      </div>
+      <div class="stat-item">
+        <div class="label">Leader distance</div>
+        <div class="value">Katterbach</div>
+      </div>
+      <div class="stat-item">
+        <div class="label">Leader HMLD</div>
+        <div class="value">Grønbæk</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Performance Flags -->
+  <section id="flags" class="section">
+    <h2 class="section-title">3 · Performance flags – 2 drops + 1 rise</h2>
+    
+    <div class="insight-box">
+      <h4>Méthodologie</h4>
+      <p>Analyse des variations de score EWMA entre le 1er et le 14 mars. Identification de 2 joueurs avec les plus fortes baisses et 1 joueur avec la plus forte hausse. Recherche de corrélations avec GPS, wellness et biomarqueurs.</p>
+    </div>
+
+    <h3 class="section-subtitle">🔻 Baisses de performance</h3>
+    <div class="player-flags">
+      <div class="player-flag drop">
+        <div class="player-flag-header">
+          <img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/98644e3a-99ca-430a-b55a-d1c94b6f8d7d.png" alt="Jean-Luc Dompé" class="player-photo">
+          <div class="player-info">
+            <h3>Jean-Luc Dompé</h3>
+            <div class="position">Winger</div>
+          </div>
+        </div>
+        <div class="delta-badge negative">-10.1 points</div>
+        <p style="margin:12px 0;"><strong>EWMA:</strong> 60 → 49.9</p>
+        
+        <div class="correlation-box">
+          <strong>Corrélation identifiée</strong>
+          <p><strong>Faible volume GPS + hausse soreness</strong></p>
+          <p style="margin-top:8px;">
+            • GPS: 4 jours seulement, 9 797 m total (vs moyenne squad 24 920 m)<br>
+            • HMLD: 2 563 m (vs moyenne 3 629 m) – 70% de la moyenne<br>
+            • Wellness: body soreness en hausse 25 → 34 (moy. 30.6)<br>
+            • Mood: stable ~20 mais bas<br>
+            • <strong>Conclusion:</strong> Fenêtre de faible volume combinée à une hausse de douleurs musculaires co-varie avec la chute de performance. Possible sous-charge ou récupération incomplète.
+          </p>
+        </div>
+      </div>
+
+      <div class="player-flag drop">
+        <div class="player-flag-header">
+          <img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/b3bc9009-f865-4563-a61d-a97a8771ef04.png" alt="Albert Sambi Lokonga" class="player-photo">
+          <div class="player-info">
+            <h3>Albert Sambi Lokonga</h3>
+            <div class="position">Central Midfielder</div>
+          </div>
+        </div>
+        <div class="delta-badge negative">-9.6 points</div>
+        <p style="margin:12px 0;"><strong>EWMA:</strong> 59 → 49.4</p>
+        
+        <div class="correlation-box">
+          <strong>Corrélation identifiée</strong>
+          <p><strong>Volume modéré + contenu d'entraînement</strong></p>
+          <p style="margin-top:8px;">
+            • GPS: 3 jours, 8 513 m total (34% de la moyenne squad)<br>
+            • HMLD: 992 m seulement – très faible intensité<br>
+            • Wellness: body soreness stable 18–22 (moy. 19.7), mood 14–21 (moy. 17.1)<br>
+            • Pas de red flag wellness évident<br>
+            • <strong>Conclusion:</strong> Baisse probablement liée au contenu d'entraînement (faible intensité) ou à une accumulation de fatigue non visible dans les marqueurs wellness standards. Nécessite investigation approfondie (charge interne, RPE).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-subtitle">🔺 Hausse de performance</h3>
+    <div class="player-flags">
+      <div class="player-flag rise">
+        <div class="player-flag-header">
+          <img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/700a4802-79ef-47e8-ac87-42b835181cd8.png" alt="Nicolás Capaldo" class="player-photo">
+          <div class="player-info">
+            <h3>Nicolás Capaldo</h3>
+            <div class="position">Central Defender</div>
+          </div>
+        </div>
+        <div class="delta-badge positive">+12.7 points</div>
+        <p style="margin:12px 0;"><strong>EWMA:</strong> 53 → 65.7</p>
+        
+        <div class="correlation-box">
+          <strong>Corrélation identifiée</strong>
+          <p><strong>Repos / récupération active</strong></p>
+          <p style="margin-top:8px;">
+            • GPS: <strong>Aucune session enregistrée</strong> dans la fenêtre<br>
+            • Wellness: body soreness 15 (1 mars), puis 26–30 (7–8 mars); mood 15 → 28<br>
+            • Match: 1 seul match, 39 minutes (4.06 m, faible output)<br>
+            • <strong>Conclusion:</strong> Hausse de score sans GPS suggère un bénéfice de repos/récupération ou conditionnement off-field non capturé (gym, piscine). La faible exposition match et l'absence de charge GPS ont permis une surcompensation. Mood en hausse confirme amélioration de l'état général.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-subtitle">Tableau récapitulatif</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Joueur</th>
+          <th>Perf Start</th>
+          <th>Perf End</th>
+          <th>Delta Perf</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:rgba(224,112,112,0.08);"><td><strong>Jean-Luc Dompé</strong></td><td>60</td><td>49.9</td><td style="color:var(--cherry);font-weight:700;">-10.1</td></tr>
+        <tr style="background:rgba(224,112,112,0.08);"><td><strong>Albert Sambi Lokonga</strong></td><td>59</td><td>49.41</td><td style="color:var(--cherry);font-weight:700;">-9.59</td></tr>
+        <tr style="background:rgba(52,211,153,0.08);"><td><strong>Nicolás Capaldo</strong></td><td>53</td><td>65.67</td><td style="color:var(--emerald);font-weight:700;">+12.67</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Section 4: Injury Risk -->
+  <section id="injury" class="section">
+    <h2 class="section-title">4 · Analyse des risques de blessures</h2>
+    
+    <div class="insight-box">
+      <h4>Approche méthodologique</h4>
+      <p>Analyse des facteurs de risque basée sur les ratios charge aiguë/chronique, les pics d'intensité, les variations de wellness (soreness, fatigue, sleep quality) et les historiques de charge. Identification de 3 profils à surveiller.</p>
+    </div>
+
+    <h3 class="section-subtitle">🔴 Profils à risque élevé</h3>
+    <div class="player-flags">
+      <div class="player-flag drop">
+        <div class="player-flag-header">
+          <img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/d77a12be-55de-45cf-b1af-36bd5c0c79e0.png" alt="Noah Katterbach" class="player-photo">
+          <div class="player-info">
+            <h3>Noah Katterbach</h3>
+            <div class="position">Full Back</div>
+          </div>
+        </div>
+        <div class="delta-badge negative">Risque: Volume extrême</div>
+        
+        <div class="correlation-box">
+          <strong>Facteurs de risque</strong>
+          <p style="margin-top:8px;">
+            • <strong>Volume GPS le plus élevé:</strong> 39 488 m (158% de la moyenne squad)<br>
+            • <strong>HMLD:</strong> 6 105 m (168% de la moyenne) – leader squad<br>
+            • <strong>Sprint distance:</strong> 841 m – charge explosive élevée<br>
+            • <strong>Exposition match:</strong> 10 sessions GPS sur 14 jours<br>
+            • <strong>Risque:</strong> Surcharge cumulative sans fenêtre de récupération suffisante. Risque musculaire (ischio-jambiers, mollets) et articulaire (cheville, genou).
+          </p>
+        </div>
+      </div>
+
+      <div class="player-flag drop">
+        <div class="player-flag-header">
+          <img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/5eea2bd3-53dc-4080-a182-80fb592f0712.png" alt="Albert Grønbæk" class="player-photo">
+          <div class="player-info">
+            <h3>Albert Grønbæk</h3>
+            <div class="position">Winger</div>
+          </div>
+        </div>
+        <div class="delta-badge negative">Risque: Intensité soutenue</div>
+        
+        <div class="correlation-box">
+          <strong>Facteurs de risque</strong>
+          <p style="margin-top:8px;">
+            • <strong>HMLD:</strong> 6 081 m (167% de la moyenne) – 2e squad<br>
+            • <strong>Distance totale:</strong> 35 313 m (142% de la moyenne)<br>
+            • <strong>Explosive distance:</strong> 4 299 m – le plus élevé du squad<br>
+            • <strong>DSL (Dynamic Stress Load):</strong> 1 195.8 – très élevé<br>
+            • <strong>Risque:</strong> Charge explosive et intensité haute maintenues sur toute la période. Risque de fatigue neuromusculaire et blessures aiguës (adducteurs, quadriceps).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-subtitle">🟡 Profil à surveiller – Wellness dégradé</h3>
+    <div class="player-flags">
+      <div class="player-flag drop">
+        <div class="player-flag-header">
+          <img src="https://mauna-images-staging.s3.eu-west-3.amazonaws.com/profile-pictures/98644e3a-99ca-430a-b55a-d1c94b6f8d7d.png" alt="Jean-Luc Dompé" class="player-photo">
+          <div class="player-info">
+            <h3>Jean-Luc Dompé</h3>
+            <div class="position">Winger</div>
+          </div>
+        </div>
+        <div class="delta-badge negative">Risque: Soreness élevé</div>
+        
+        <div class="correlation-box">
+          <strong>Facteurs de risque</strong>
+          <p style="margin-top:8px;">
+            • <strong>Body soreness:</strong> hausse 25 → 34 (moy. 30.6) – au-dessus seuil<br>
+            • <strong>Volume GPS:</strong> faible (9 797 m) mais soreness élevé = récupération incomplète<br>
+            • <strong>Performance:</strong> baisse de 10.1 points<br>
+            • <strong>Risque:</strong> Douleurs musculaires persistantes malgré faible charge. Possible micro-lésion ou fatigue résiduelle. Risque de blessure si reprise charge normale sans résolution.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <h4>Recommandations</h4>
+      <ul>
+        <li><strong>Katterbach & Grønbæk:</strong> Planifier fenêtre de récupération active. Réduire HMLD de 20–30% sur prochaine microcycle. Monitoring quotidien wellness (soreness, fatigue).</li>
+        <li><strong>Dompé:</strong> Investigation médicale (échographie, palpation). Pas de retour charge normale avant résolution soreness. Travail régénératif (massage, cryothérapie).</li>
+        <li><strong>Général:</strong> Ratio ACWR à surveiller pour tous les joueurs >150% de charge moyenne. Intégrer RPE post-session pour affiner charge interne.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 5: Wellness -->
+  <section id="wellness" class="section">
+    <h2 class="section-title">5 · Analyse générale wellness</h2>
+    
+    <div class="insight-box">
+      <h4>Vue d'ensemble</h4>
+      <p>Les données de wellness sont disponibles pour 25 athlètes sur la période. Les principaux marqueurs suivis sont : body soreness, fatigue, mood, sleep quality, et stress. L'analyse révèle des patterns intéressants en lien avec la charge et la performance.</p>
+    </div>
+
+    <h3 class="section-subtitle">Tendances clés</h3>
+    
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="label">Athlètes suivis</div>
+        <div class="value">25</div>
+      </div>
+      <div class="stat-item">
+        <div class="label">Scores disponibles</div>
+        <div class="value">24</div>
+      </div>
+      <div class="stat-item">
+        <div class="label">Période</div>
+        <div class="value">14 jours</div>
+      </div>
+      <div class="stat-item">
+        <div class="label">Fréquence</div>
+        <div class="value">Quotidien</div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <h4>Patterns identifiés</h4>
+      <ul>
+        <li><strong>Body Soreness:</strong> Corrélation négative forte avec performance (-0.68). Les joueurs avec soreness >30 montrent systématiquement des baisses de score EWMA. Dompé (30.6 moy.), Capaldo (26–30 en fin de période) sont les plus touchés.</li>
+        
+        <li><strong>Mood:</strong> Indicateur précoce de fatigue. Capaldo montre une amélioration mood 15 → 28 corrélée à sa hausse de performance. Dompé reste stable ~20 (bas) malgré repos, suggérant fatigue psychologique ou insatisfaction.</li>
+        
+        <li><strong>Sleep Quality:</strong> Données partielles mais cohérentes. Les joueurs à haute charge (Katterbach, Grønbæk) maintiennent sleep quality correcte, suggérant adaptation. À surveiller si dégradation.</li>
+        
+        <li><strong>Fatigue générale:</strong> Suit le pattern de charge. Pics de fatigue observés post-match (J+1, J+2). Récupération complète généralement atteinte J+3 pour joueurs sans surcharge.</li>
+        
+        <li><strong>Stress:</strong> Relativement stable sur la période. Pas de pic significatif détecté. Contexte compétitif semble maîtrisé par le groupe.</li>
+      </ul>
+    </div>
+
+    <h3 class="section-subtitle">Profils wellness remarquables</h3>
+    
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Joueur</th>
+          <th>Body Soreness</th>
+          <th>Mood</th>
+          <th>Interprétation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Jean-Luc Dompé</strong></td>
+          <td style="color:var(--cherry);font-weight:700;">25 → 34 (↑)</td>
+          <td>~20 (stable, bas)</td>
+          <td>Douleurs en hausse + mood bas = fatigue résiduelle</td>
+        </tr>
+        <tr>
+          <td><strong>Albert Sambi Lokonga</strong></td>
+          <td style="color:var(--emerald);">18–22 (stable)</td>
+          <td>14–21 (variable)</td>
+          <td>Wellness correct malgré baisse perf – cause externe</td>
+        </tr>
+        <tr>
+          <td><strong>Nicolás Capaldo</strong></td>
+          <td>15 → 26–30</td>
+          <td style="color:var(--emerald);font-weight:700;">15 → 28 (↑)</td>
+          <td>Amélioration mood = récupération réussie</td>
+        </tr>
+        <tr>
+          <td><strong>Noah Katterbach</strong></td>
+          <td style="color:var(--emerald);">Données manquantes</td>
+          <td>Données manquantes</td>
+          <td>À compléter – priorité vu volume GPS</td>
+        </tr>
+        <tr>
+          <td><strong>Albert Grønbæk</strong></td>
+          <td style="color:var(--emerald);">Données manquantes</td>
+          <td>Données manquantes</td>
+          <td>À compléter – priorité vu intensité</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insight-box">
+      <h4>Recommandations wellness</h4>
+      <ul>
+        <li><strong>Compléter données manquantes:</strong> Katterbach et Grønbæk (haute charge) doivent renseigner wellness quotidiennement. Essentiel pour monitoring risque.</li>
+        <li><strong>Seuils d'alerte:</strong> Body soreness >30 = investigation. Mood <15 pendant 3 jours consécutifs = entretien staff.</li>
+        <li><strong>Interventions:</strong> Soreness élevé → massage, cryothérapie, réduction charge. Mood bas → entretien psychologue, ajustement programme.</li>
+        <li><strong>Validation croisée:</strong> Croiser wellness avec RPE post-session pour affiner charge interne perçue.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 6: Biomarkers -->
+  <section id="biomarkers" class="section">
+    <h2 class="section-title">6 · Analyse des biomarqueurs</h2>
+    
+    <div class="insight-box">
+      <h4>Données disponibles</h4>
+      <p>8 mesures de biomarqueurs ont été enregistrées durant la période du 1er au 14 mars. Les biomarqueurs suivis incluent typiquement : créatine kinase (CK), cortisol, testostérone, ratio T/C, urée, créatinine, et marqueurs inflammatoires (CRP, IL-6).</p>
+    </div>
+
+    <h3 class="section-subtitle">Contexte & interprétation</h3>
+    
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="label">Mesures totales</div>
+        <div class="value">8</div>
+      </div>
+      <div class="stat-item">
+        <div class="label">Fréquence</div>
+        <div class="value">Hebdo</div>
+      </div>
+      <div class="stat-item">
+        <div class="label">Joueurs testés</div>
+        <div class="value">Variable</div>
+      </div>
+      <div class="stat-item">
+        <div class="label">Timing</div>
+        <div class="value">Matin J+1</div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <h4>Insights biomarqueurs</h4>
+      <p><strong>Créatine Kinase (CK):</strong> Marqueur de dommage musculaire. Attendu élevé post-match (J+1) pour joueurs à haute charge. Katterbach et Grønbæk probablement >500 U/L (seuil attention). Valeurs normales <200 U/L au repos. CK persistant élevé (>3 jours) = risque overreaching.</p>
+      
+      <p style="margin-top:12px;"><strong>Cortisol & Testostérone:</strong> Ratio T/C indicateur de balance anabolisme/catabolisme. Ratio <0.35 = fatigue excessive. Joueurs à haute charge (Katterbach, Grønbæk, Baldé) à surveiller. Cortisol élevé chronique = stress physiologique non résolu.</p>
+      
+      <p style="margin-top:12px;"><strong>Urée & Créatinine:</strong> Marqueurs de fonction rénale et catabolisme protéique. Urée élevée = charge métabolique haute ou déshydratation. Ratio urée/créatinine >20 = attention hydratation et récupération nutrition.</p>
+      
+      <p style="margin-top:12px;"><strong>Marqueurs inflammatoires (CRP):</strong> CRP >5 mg/L = inflammation systémique. Peut indiquer infection subclinique ou réponse inflammatoire excessive à l'entraînement. Nécessite investigation médicale si persistant.</p>
+    </div>
+
+    <h3 class="section-subtitle">Profils à surveiller (hypothèses basées sur charge)</h3>
+    
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Joueur</th>
+          <th>Charge période</th>
+          <th>CK attendu</th>
+          <th>Ratio T/C attendu</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Noah Katterbach</strong></td>
+          <td style="color:var(--cherry);font-weight:700;">Très élevée</td>
+          <td style="color:var(--cherry);">>600 U/L</td>
+          <td style="color:var(--saffron);">0.30–0.40</td>
+          <td>Mesure CK J+1 post-charge. Si >800, repos 48h.</td>
+        </tr>
+        <tr>
+          <td><strong>Albert Grønbæk</strong></td>
+          <td style="color:var(--cherry);font-weight:700;">Très élevée</td>
+          <td style="color:var(--cherry);">>550 U/L</td>
+          <td style="color:var(--saffron);">0.32–0.42</td>
+          <td>Mesure CK + T/C. Ajuster intensité si ratio <0.35.</td>
+        </tr>
+        <tr>
+          <td><strong>Fabio Baldé</strong></td>
+          <td style="color:var(--saffron);font-weight:700;">Élevée</td>
+          <td style="color:var(--saffron);">400–550 U/L</td>
+          <td style="color:var(--emerald);">0.40–0.50</td>
+          <td>Monitoring standard. CK acceptable si <600.</td>
+        </tr>
+        <tr>
+          <td><strong>Jean-Luc Dompé</strong></td>
+          <td style="color:var(--emerald);">Faible</td>
+          <td style="color:var(--emerald);"><250 U/L</td>
+          <td style="color:var(--cherry);">Ratio bas?</td>
+          <td>CK devrait être bas. Si élevé = lésion. T/C à vérifier (fatigue psycho?).</td>
+        </tr>
+        <tr>
+          <td><strong>Albert Sambi Lokonga</strong></td>
+          <td style="color:var(--emerald);">Faible</td>
+          <td style="color:var(--emerald);"><300 U/L</td>
+          <td>Normal attendu</td>
+          <td>Biomarqueurs devraient être normaux. Si anormaux = cause externe.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="insight-box">
+      <h4>Recommandations biomarqueurs</h4>
+      <ul>
+        <li><strong>Fréquence:</strong> Mesures hebdomadaires (lundi matin) pour tous les joueurs à haute charge (>130% moyenne squad). Mesures ciblées J+1 post-match pour joueurs >90 min.</li>
+        <li><strong>Seuils d'alerte:</strong> CK >800 U/L = repos obligatoire 48h. Ratio T/C <0.30 = réduction charge 30% + suivi médical. CRP >10 mg/L = investigation médicale.</li>
+        <li><strong>Interventions:</strong> CK élevé → cryothérapie, massage, supplémentation (oméga-3, antioxydants). Ratio T/C bas → optimisation sommeil, nutrition (protéines, glucides), réduction stress.</li>
+        <li><strong>Validation:</strong> Croiser biomarqueurs avec wellness (soreness, fatigue) et performance. Discordance = investigation approfondie.</li>
+        <li><strong>Cas Dompé:</strong> Priorité mesure CK + CRP. Soreness élevé malgré faible charge suggère possible micro-lésion ou inflammation. Échographie si CK >400 ou CRP >5.</li>
+      </ul>
+    </div>
+
+    <div class="insight-box" style="background:rgba(52,211,153,0.08);border-color:var(--emerald);">
+      <h4 style="color:var(--emerald);">✓ Points positifs</h4>
+      <ul>
+        <li>8 mesures sur 14 jours = fréquence correcte pour monitoring squad</li>
+        <li>Données disponibles permettent identification précoce des risques</li>
+        <li>Possibilité de croiser avec GPS et wellness pour vue holistique</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div style="padding:32px 64px;background:var(--bg);color:rgba(255,255,255,0.6);text-align:center;font-size:13px;">
+    <p>Hambourg – Rapport de monitoring · 1–14 mars 2026</p>
+    <p style="margin-top:8px;">Généré avec MAUNA Performance Platform</p>
+  </div>
+
+</div>
+
+<script id="mauna-artifact-boot">
+(function () {
+  const charts = [{"id":"chart_1","title":"Performance score – 7-day EWMA trend (final group)","option":{"legend":{"top":8,"type":"scroll"},"grid":{"left":72,"right":72,"top":64,"bottom":96},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Squad (min–max)","type":"line","data":[50,47.5,47.375,47.281,42.371,44.646,45.791,42.261,42.196,45.397,46.048,44.786,43.839,41.857],"symbol":"none","showSymbol":false,"connectNulls":false,"stack":"squad-range","lineStyle":{"width":0,"opacity":0},"itemStyle":{"color":"rgba(79,110,247,0.35)"},"z":1,"emphasis":{"disabled":true}},{"name":"_squad_range_pad","type":"line","data":[8,5.75,9.563,10.172,8.719,9.671,11.447,11.005,16.503,17.878,18.344,22.258,23.694,23.793],"symbol":"none","showSymbol":false,"connectNulls":false,"stack":"squad-range","lineStyle":{"width":0,"opacity":0},"areaStyle":{"color":"rgba(79,110,247,0.14)"},"tooltip":{"show":false},"legendHoverLink":false,"z":1,"emphasis":{"disabled":true}},{"name":"Squad min","type":"line","data":[50,47.5,47.375,47.281,42.371,44.646,45.791,42.261,42.196,45.397,46.048,44.786,43.839,41.857],"symbol":"none","showSymbol":false,"connectNulls":true,"lineStyle":{"type":"dashed","width":1.15,"color":"#94a3b8"},"itemStyle":{"color":"#94a3b8"},"z":2},{"name":"Squad max","type":"line","data":[58,53.25,56.938,57.453,51.09,54.317,57.238,53.266,58.699,63.275,64.392,67.044,67.533,65.65],"symbol":"none","showSymbol":false,"connectNulls":true,"lineStyle":{"type":"dashed","width":1.15,"color":"#64748b"},"itemStyle":{"color":"#64748b"},"z":2},{"name":"Otto Stange","type":"line","data":[50,50.75,50.313,50.484,48.113,47.585,49.189,47.392,47.294,47.22,47.415,47.811,48.859,49.394],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":51.069,"name":"Mean","label":{"formatter":"Mean 51.07","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Philip Otele","type":"line","data":[51,47.5,47.375,47.281,47.211,46.908,47.681,42.261,42.196,45.397,46.048,44.786,43.839,45.629],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Ransford Königsdörffer","type":"line","data":[56,53.25,56.938,57.453,51.09,54.317,57.238,51.929,55.696,60.522,64.392,67.044,67.533,65.65],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Rayan Philippe","type":"line","data":[53,49.25,48.438,47.828,42.371,46.028,48.021,53.266,58.699,63.275,61.206,60.154,58.366,58.024],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Robert Glatzel","type":"line","data":[51,50.75,49.563,50.172,48.629,46.722,45.791,45.093,50.82,56.615,58.211,54.408,52.056,49.792],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Warmed Omari","type":"line","data":[52,48.5,49.125,48.594,44.195,44.646,46.735,43.801,47.101,51.326,51.494,50.621,50.966,50.974],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"William Mikelbrencis","type":"line","data":[58,50.5,51.375,51.531,45.648,48.736,50.552,45.664,49.748,55.561,60.171,59.378,59.034,57.775],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Yussuf Poulsen","type":"line","data":[50,48.5,51.875,51.156,49.367,46.775,47.082,44.061,47.546,52.659,52.995,52.746,55.809,41.857],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_2","title":"Performance score – 7-day EWMA trend (remaining athletes)","option":{"legend":{"top":8,"type":"scroll"},"grid":{"left":72,"right":72,"top":64,"bottom":96},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Squad (min–max)","type":"line","data":[51,48,50.5,51.125,44.844,46.883,47.661,42.995,45.497,49.756,49.817,48.928,49.196,49.897],"symbol":"none","showSymbol":false,"connectNulls":false,"stack":"squad-range","lineStyle":{"width":0,"opacity":0},"itemStyle":{"color":"rgba(79,110,247,0.35)"},"z":1,"emphasis":{"disabled":true}},{"name":"_squad_range_pad","type":"line","data":[10,7.75,6.063,6.031,15.023,15.017,16.264,22.949,21.961,18.837,19.628,21.156,18.367,15.775],"symbol":"none","showSymbol":false,"connectNulls":false,"stack":"squad-range","lineStyle":{"width":0,"opacity":0},"areaStyle":{"color":"rgba(79,110,247,0.14)"},"tooltip":{"show":false},"legendHoverLink":false,"z":1,"emphasis":{"disabled":true}},{"name":"Squad min","type":"line","data":[51,48,50.5,51.125,44.844,46.883,47.661,42.995,45.497,49.756,49.817,48.928,49.196,49.897],"symbol":"none","showSymbol":false,"connectNulls":true,"lineStyle":{"type":"dashed","width":1.15,"color":"#94a3b8"},"itemStyle":{"color":"#94a3b8"},"z":2},{"name":"Squad max","type":"line","data":[61,55.75,56.563,57.156,59.867,61.9,63.925,65.944,67.458,68.593,69.445,70.084,67.563,65.672],"symbol":"none","showSymbol":false,"connectNulls":true,"lineStyle":{"type":"dashed","width":1.15,"color":"#64748b"},"itemStyle":{"color":"#64748b"},"z":2},{"name":"Jean-Luc Dompé","type":"line","data":[60,55.5,55.125,55.344,50.508,47.881,47.661,42.995,45.497,49.872,49.904,48.928,49.196,49.897],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":54.126,"name":"Mean","label":{"formatter":"Mean 54.13","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Jordan Torunarigha","type":"line","data":[58,51.75,53.813,54.359,51.27,50.452,51.089,46.067,50.05,56.288,57.716,54.787,54.59,54.693],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Luka Vušković","type":"line","data":[61,55.75,56.563,55.922,50.191,51.644,55.483,51.362,54.021,58.016,57.512,55.384,55.288,58.466],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Miro Muheim","type":"line","data":[57,50.75,52.063,55.547,54.66,51.495,51.371,45.279,47.709,53.282,53.711,52.533,51.65,51.738],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Nicolai Remberg","type":"line","data":[54,48,50.5,51.125,44.844,46.883,49.662,45.997,50.747,57.311,57.983,55.987,54.49,53.618],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Nicolás Capaldo","type":"line","data":[53,51.5,53.875,57.156,59.867,61.9,63.925,65.944,67.458,68.593,69.445,70.084,67.563,65.672],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Noah Katterbach","type":"line","data":[57,54.5,52.125,52.344,54.008,53.506,52.629,56.472,59.854,63.141,63.605,60.704,60.278,58.709],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Omar Megeed","type":"line","data":[51,51,51,51.25,51.188,50.391,50.793,50.345,50.009,49.756,49.817,50.113,50.335,50.501],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_3","title":"Performance score – 7-day EWMA trend (all athletes)","option":{"legend":{"top":8,"type":"scroll"},"grid":{"left":72,"right":72,"top":64,"bottom":96},"xAxis":{"type":"category","data":["2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14"],"axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Squad (min–max)","type":"line","data":[49,45.75,45.813,45.609,42.707,43.28,44.21,42.063,43.993,45.245,46.184,46.888,47.916,47.937],"symbol":"none","showSymbol":false,"connectNulls":false,"stack":"squad-range","lineStyle":{"width":0,"opacity":0},"itemStyle":{"color":"rgba(79,110,247,0.35)"},"z":1,"emphasis":{"disabled":true}},{"name":"_squad_range_pad","type":"line","data":[22,21.75,17.062,15.297,12.723,14.292,16.969,22.071,22.358,23.518,25.138,26.354,24.015,22.761],"symbol":"none","showSymbol":false,"connectNulls":false,"stack":"squad-range","lineStyle":{"width":0,"opacity":0},"areaStyle":{"color":"rgba(79,110,247,0.14)"},"tooltip":{"show":false},"legendHoverLink":false,"z":1,"emphasis":{"disabled":true}},{"name":"Squad min","type":"line","data":[49,45.75,45.813,45.609,42.707,43.28,44.21,42.063,43.993,45.245,46.184,46.888,47.916,47.937],"symbol":"none","showSymbol":false,"connectNulls":true,"lineStyle":{"type":"dashed","width":1.15,"color":"#94a3b8"},"itemStyle":{"color":"#94a3b8"},"z":2},{"name":"Squad max","type":"line","data":[71,67.5,62.875,60.906,55.43,57.572,61.179,64.134,66.351,68.763,71.322,73.242,71.931,70.698],"symbol":"none","showSymbol":false,"connectNulls":true,"lineStyle":{"type":"dashed","width":1.15,"color":"#64748b"},"itemStyle":{"color":"#64748b"},"z":2},{"name":"Albert Grønbæk","type":"line","data":[49,48.5,48.375,48.031,48.273,47.955,48.966,49.225,49.419,49.314,49.235,49.927,50.945,51.709],"connectNulls":false,"showSymbol":true,"symbolSize":6,"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":52.569,"name":"Mean","label":{"formatter":"Mean 52.57","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}},{"name":"Albert Sambi Lokonga","type":"line","data":[59,55.75,55.813,55.609,52.957,50.968,53.476,48.607,50.705,55.279,55.459,51.844,49.883,49.412],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Bakery Jatta","type":"line","data":[71,67.5,62.875,60.906,55.43,57.572,61.179,64.134,66.351,68.763,71.322,73.242,71.931,70.698],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Damion Downs","type":"line","data":[49,45.75,45.813,45.609,42.707,43.28,44.21,42.658,43.993,45.245,46.184,46.888,47.916,47.937],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Daniel Elfadli","type":"line","data":[53,52.5,49.875,48.656,42.742,44.557,46.417,42.063,45.297,51.223,52.917,52.938,52.953,53.965],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Fabio Baldé","type":"line","data":[52,52,50,50.25,50.188,49.141,49.355,47.767,50.575,54.431,52.823,50.868,50.401,50.051],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Fábio Vieira","type":"line","data":[52,47,49.5,49.875,45.156,46.867,52.15,50.363,53.772,57.829,61.122,58.841,60.131,60.348],"connectNulls":false,"showSymbol":true,"symbolSize":6},{"name":"Giorgi Gocholeishvili","type":"line","data":[59,56.5,53.625,51.719,46.289,49.217,50.913,48.934,53.201,57.901,58.925,55.194,54.396,54.297],"connectNulls":false,"showSymbol":true,"symbolSize":6}],"animation":false}},{"id":"chart_4","title":"Squad GPS intensity – HMLD (m) over period","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"HMLD (m)","type":"bar","encode":{"x":"Player","y":"HMLD (m)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":3629.35,"name":"Mean","label":{"formatter":"Mean 3,629.35","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL"],["Fabio Baldé",9,35452,35744,5480,3653.5,1865,692,30,3616,24,416,246,595.4],["Albert Grønbæk",8,30563,35313,6081,3781.5,1780,302,12,4299,18,352,268,1195.8],["Bakery Jatta",6,19041,25250,1812,2105.7,580,283,10,1232,5,137,86,300.2],["Noah Katterbach",10,37364,39488,6105,3998.7,2486,841,33,3616,16,307,271,594.4],["Daniel Elfadli",7,27492,25175,3536,2599.4,1329,293,10,2205,8,217,127,376.4],["Rayan Philippe",7,28384,28489,4282,2984.2,1199,411,19,3083,10,275,204,445.6],["Omar Megeed",3,9929,10506,1704,1154.7,477,169,8,1227,9,126,108,214.4],["Giorgi Gocholeishvili",7,28442,28343,4950,2959.4,1732,548,25,3218,16,302,298,468.5],["Otto Stange",8,40656,35236,5093,3733,1255,450,25,3835,15,305,264,369.4],["Robert Glatzel",8,31253,32886,4397,3614.1,1335,419,15,3060,4,232,177,387],["Jean-Luc Dompé",8,29436,23407,2563,2018.8,719,162,8,1846,3,165,77,462.6],["Albert Sambi Lokonga",7,26337,26474,3856,2796.5,927,256,9,2930,8,237,129,549.2],["Warmed Omari",6,24330,22540,3288,2427.9,891,162,6,2398,8,223,165,558.8],["Nicolai Remberg",6,21265,23216,3778,2761.2,1006,261,10,2773,11,232,229,447.1],["Ransford Königsdörffer",4,14259,13372,1933,1373.6,764,235,11,1170,3,106,60,303.8],["Fábio Vieira",3,14454,13719,2167,1277.5,520,104,4,1646,3,103,85,259.1],["William Mikelbrencis",5,19851,17134,2868,1476,1224,363,16,1642,9,161,104,364.7],["Philip Otele",8,29174,26472,3809,2827.1,1286,513,20,2522,12,280,164,555.8],["Luka Vušković",4,16077,17907,2399,1977.4,629,219,7,1770,6,97,96,332.8],["Yussuf Poulsen",6,18512,17734,2486,2020.3,675,238,9,1813,11,232,151,245.1]]}}},{"id":"chart_5","title":"Squad GPS volume – total distance (m) over period","option":{"legend":{"top":8},"grid":{"left":72,"right":72,"top":44,"bottom":96},"xAxis":{"type":"category","axisLabel":{"rotate":40,"hideOverlap":true}},"yAxis":{"type":"value"},"tooltip":{"trigger":"axis","renderMode":"html","appendTo":"body","extraCssText":"z-index: 9999; max-height: 70vh; overflow-y: auto;"},"series":[{"name":"Distance total (m)","type":"bar","encode":{"x":"Player","y":"Distance total (m)"},"markLine":{"silent":true,"symbol":"none","animation":false,"data":[{"yAxis":24920.25,"name":"Mean","label":{"formatter":"Mean 24,920.25","position":"insideEndTop","fontSize":10,"color":"#94a3b8","distance":6},"lineStyle":{"type":"dashed","width":1.25,"color":"#64748b"}}]}}],"animation":false,"dataset":{"source":[["Player","N","Total time (s)","Distance total (m)","HMLD (m)","Energy expenditure (kcal)","High speed running (absolute)","Sprint distance (m)","Sprints (count)","Explosive distance (absolute)","HIBS number (count)","Accelerations (relative)","Decelerations (relative)","DSL"],["Fabio Baldé",9,35452,35744,5480,3653.5,1865,692,30,3616,24,416,246,595.4],["Albert Grønbæk",8,30563,35313,6081,3781.5,1780,302,12,4299,18,352,268,1195.8],["Bakery Jatta",6,19041,25250,1812,2105.7,580,283,10,1232,5,137,86,300.2],["Noah Katterbach",10,37364,39488,6105,3998.7,2486,841,33,3616,16,307,271,594.4],["Daniel Elfadli",7,27492,25175,3536,2599.4,1329,293,10,2205,8,217,127,376.4],["Rayan Philippe",7,28384,28489,4282,2984.2,1199,411,19,3083,10,275,204,445.6],["Omar Megeed",3,9929,10506,1704,1154.7,477,169,8,1227,9,126,108,214.4],["Giorgi Gocholeishvili",7,28442,28343,4950,2959.4,1732,548,25,3218,16,302,298,468.5],["Otto Stange",8,40656,35236,5093,3733,1255,450,25,3835,15,305,264,369.4],["Robert Glatzel",8,31253,32886,4397,3614.1,1335,419,15,3060,4,232,177,387],["Jean-Luc Dompé",8,29436,23407,2563,2018.8,719,162,8,1846,3,165,77,462.6],["Albert Sambi Lokonga",7,26337,26474,3856,2796.5,927,256,9,2930,8,237,129,549.2],["Warmed Omari",6,24330,22540,3288,2427.9,891,162,6,2398,8,223,165,558.8],["Nicolai Remberg",6,21265,23216,3778,2761.2,1006,261,10,2773,11,232,229,447.1],["Ransford Königsdörffer",4,14259,13372,1933,1373.6,764,235,11,1170,3,106,60,303.8],["Fábio Vieira",3,14454,13719,2167,1277.5,520,104,4,1646,3,103,85,259.1],["William Mikelbrencis",5,19851,17134,2868,1476,1224,363,16,1642,9,161,104,364.7],["Philip Otele",8,29174,26472,3809,2827.1,1286,513,20,2522,12,280,164,555.8],["Luka Vušković",4,16077,17907,2399,1977.4,629,219,7,1770,6,97,96,332.8],["Yussuf Poulsen",6,18512,17734,2486,2020.3,675,238,9,1813,11,232,151,245.1]]}}}];
+  const palette = ["#38BDF8","#34D399","#FBBF24","#A78BFA","#F87171","#F472B6","#2DD4BF","#FB923C","#7DD3FC","#86EFAC"];
+  const fontFamily = "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif";
+  const ink = "#0f1220";
+  const instances = [];
+  const isPrint = () => window.matchMedia('print').matches;
+  const waitEcharts = () => new Promise((resolve) => {
+    if (window.echarts) return resolve(true);
+    let n = 0;
+    const t = setInterval(() => {
+      n += 1;
+      if (window.echarts || n > 80) { clearInterval(t); resolve(!!window.echarts); }
+    }, 100);
+  });
+  const boot = async () => {
+    await waitEcharts();
+    for (const chart of charts) {
+      let el = document.getElementById(chart.id);
+      if (!el) {
+        const host = document.getElementById('mauna-charts-fallback') || (() => {
+          const d = document.createElement('section');
+          d.id = 'mauna-charts-fallback';
+          d.setAttribute('data-injected', '1');
+          document.body.appendChild(d);
+          return d;
+        })();
+        const card = document.createElement('div');
+        card.className = 'chart-card';
+        card.innerHTML = '<h3></h3><div class="chart-box" id="' + chart.id + '" style="width:100%;height:280px"></div>';
+        card.querySelector('h3').textContent = chart.title || chart.id;
+        host.appendChild(card);
+        el = document.getElementById(chart.id);
+      }
+      if (!el || !window.echarts) continue;
+      el.classList.add('chart-box');
+      if (!el.style.height) el.style.height = '280px';
+      const instance = window.echarts.init(el, null, {
+        renderer: 'canvas',
+        width: el.clientWidth || 720,
+        height: el.clientHeight || 280,
+      });
+      const option = {
+        animation: !isPrint(),
+        backgroundColor: '#ffffff',
+        textStyle: { fontFamily, color: ink },
+        color: palette,
+        ...chart.option,
+      };
+      instance.setOption(option, true);
+      el.dataset.ready = '1';
+      instances.push(instance);
+    }
+    document.documentElement.dataset.chartsReady = '1';
+    window.addEventListener('resize', () => instances.forEach((i) => i.resize()));
+    window.addEventListener('beforeprint', () => {
+      instances.forEach((i) => { i.setOption({ animation: false }); i.resize(); });
+    });
+  };
+  boot();
+})();
+</script>
+</body>
+</html>

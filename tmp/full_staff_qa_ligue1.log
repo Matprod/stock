@@ -1,0 +1,515 @@
+
+════════════════════════════════════════════════════════════
+full-staff  START  │  Hambourg  │  2026-09-21 → 2026-10-04
+full-staff  domains  │  load, gps, wellness, sleep, biomarkers
+full-staff  prompt  │  Après une semaine très chargée (match + déplacement), je veux un focus individuel sur les 3 joueurs les plus atypiques sur les derniers 14 jours : charge, GPS et forme perçue. Dis-
+────────────────────────────────────────────────────────────
+premium  dump    │  full_staff.route
+premium         {
+premium           grain: 'individual',
+premium           depth: 'deep',
+premium           pack: 'mauna',
+premium           domains: [
+premium             'load',
+premium             'gps',
+premium             'wellness',
+premium             'sleep',
+premium             'biomarkers'
+premium           ],
+premium           photos: true,
+premium           daySpan: 14,
+premium           analystMinIterations: 7
+premium         }
+[23:58:46.620] INFO (88213): full_staff.router
+    grain: "individual"
+    depth: "deep"
+    pack: "mauna"
+    durationSec: 0.28
+premium  iter 01  │  tool_use  │  5.038s  │  6 tool(s)  │  in=19 out=391 cacheW=20k  │  $0.080  │  cum $0.080
+premium  sql     │  ok  │  0.118s  │  template=daily_srpe  │  rows=1374
+premium  tool    │  ok  │  0.139s  │  build_load_summary  │  summary=ds_8 rows=37
+premium  tool    │  ok  │  0.14s  │  build_load_summary  │  2026-08-24 → 2026-10-04
+premium  tool    │  ok  │  0s  │  fetch_club_roster  │  n=76
+premium  tool    │  ok  │  0s  │  fetch_club_roster  │  ? → ?
+premium  sql     │  ok  │  0.11s  │  template=gps_intensity_daily  │  rows=107
+premium  tool    │  ok  │  0.132s  │  fetch_gps_intensity_daily  │  2026-09-21 → 2026-10-04
+premium  sql     │  ok  │  0.013s  │  template=fetch_wellness_daily  │  rows=143
+premium  tool    │  ok  │  0.023s  │  fetch_wellness_daily  │  datasetId=ds_11
+premium  tool    │  ok  │  0.023s  │  fetch_wellness_daily  │  2026-09-21 → 2026-10-04
+premium  sql     │  ok  │  0.025s  │  template=fetch_sleep_daily  │  rows=142
+premium  tool    │  ok  │  0.034s  │  fetch_sleep_daily  │  datasetId=ds_12
+premium  tool    │  ok  │  0.034s  │  fetch_sleep_daily  │  2026-09-21 → 2026-10-04
+premium  sql     │  ok  │  0.012s  │  template=biomarkers  │  rows=4
+premium  tool    │  ok  │  0.02s  │  fetch_biomarkers  │  2026-09-21 → 2026-10-04
+full-staff  iter 01  │  tool_use  │  5.388s  │  $0.080  │  tok in=19 out=391  │  cum $0.080
+full-staff  action  │  tools: build_load_summary, fetch_club_roster, fetch_gps_intensity_daily, fetch_wellness_daily, fetch_sleep_daily, fetch_biomarkers
+full-staff    └ tool  │  ok  │  build_load_summary  │  0.140s  │  2026-08-24 → 2026-10-04
+full-staff    └ tool  │  ok  │  fetch_club_roster  │  0.000s  │  ? → ?
+full-staff    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.132s  │  2026-09-21 → 2026-10-04
+full-staff    └ tool  │  ok  │  fetch_wellness_daily  │  0.023s  │  2026-09-21 → 2026-10-04
+full-staff    └ tool  │  ok  │  fetch_sleep_daily  │  0.034s  │  2026-09-21 → 2026-10-04
+full-staff    └ tool  │  ok  │  fetch_biomarkers  │  0.020s  │  2026-09-21 → 2026-10-04
+full-staff    └ cost  │  this prompt $0.080  │  total so far $0.080  │  iter time 5.388s
+premium  iter 02  │  tool_use  │  5.78s  │  4 tool(s)  │  in=7.4k out=410 cacheW=19k  │  $0.098  │  cum $0.178
+premium  tool    │  ERR  │  0.002s  │  filter_dataset  │  no rows for date_of_day gte "2026-09-21"
+premium  tool    │  ok  │  0.002s  │  aggregate_dataset
+premium  tool    │  ok  │  0s  │  aggregate_dataset
+premium  tool    │  ok  │  0.001s  │  aggregate_dataset
+full-staff  iter 02  │  tool_use  │  5.786s  │  $0.098  │  tok in=7.4k out=410  │  cum $0.178
+full-staff  action  │  tools: filter_dataset, aggregate_dataset, aggregate_dataset, aggregate_dataset
+full-staff    └ tool  │  ERR  │  filter_dataset  │  0.002s  │  no rows for date_of_day gte "2026-09-21"
+full-staff    └ tool  │  ok  │  aggregate_dataset  │  0.002s
+full-staff    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+full-staff    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+full-staff    └ cost  │  this prompt $0.098  │  total so far $0.178  │  iter time 5.786s
+premium  iter 03  │  tool_use  │  2.956s  │  1 tool(s)  │  in=14k out=117 cacheR=19k  │  $0.049  │  cum $0.226
+premium  tool    │  ok  │  0.002s  │  join_datasets
+full-staff  iter 03  │  tool_use  │  2.958s  │  $0.049  │  tok in=14k out=117 cacheR=19k  │  cum $0.226
+full-staff  action  │  tools: join_datasets
+full-staff    └ tool  │  ok  │  join_datasets  │  0.002s
+full-staff    └ cost  │  this prompt $0.049  │  total so far $0.226  │  iter time 2.958s
+premium  iter 04  │  tool_use  │  5.414s  │  4 tool(s)  │  in=19k out=440 cacheR=19k  │  $0.068  │  cum $0.294
+premium  tool    │  ok  │  0.002s  │  apply_formula  │  zscore
+premium  tool    │  ok  │  0s  │  apply_formula  │  zscore
+premium  tool    │  ok  │  0s  │  apply_formula  │  zscore
+premium  tool    │  ok  │  0s  │  apply_formula  │  zscore
+full-staff  iter 04  │  tool_use  │  5.416s  │  $0.068  │  tok in=19k out=440 cacheR=19k  │  cum $0.294
+full-staff  action  │  tools: apply_formula, apply_formula, apply_formula, apply_formula
+full-staff    └ tool  │  ok  │  apply_formula  │  0.002s  │  zscore
+full-staff    └ tool  │  ok  │  apply_formula  │  0.000s  │  zscore
+full-staff    └ tool  │  ok  │  apply_formula  │  0.000s  │  zscore
+full-staff    └ tool  │  ok  │  apply_formula  │  0.000s  │  zscore
+full-staff    └ cost  │  this prompt $0.068  │  total so far $0.294  │  iter time 5.416s
+premium  iter 05  │  tool_use  │  11.098s  │  1 tool(s)  │  in=38k out=658 cacheR=19k  │  $0.130  │  cum $0.424
+premium  tool    │  ERR  │  0s  │  query_database  │  LOOP_DETECTED
+full-staff  iter 05  │  tool_use  │  11.098s  │  $0.130  │  tok in=38k out=658 cacheR=19k  │  cum $0.424
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ERR  │  query_database  │  0.000s  │  LOOP_DETECTED
+full-staff    └ cost  │  this prompt $0.130  │  total so far $0.424  │  iter time 11.098s
+premium  iter 06  │  tool_use  │  4.678s  │  1 tool(s)  │  in=39k out=364 cacheR=19k  │  $0.127  │  cum $0.551
+premium  sql     │  ok  │  0.027s  │  query_database  │  rows=15
+premium  tool    │  ok  │  0.037s  │  query_database
+full-staff  iter 06  │  tool_use  │  4.716s  │  $0.127  │  tok in=39k out=364 cacheR=19k  │  cum $0.551
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ok  │  query_database  │  0.037s
+full-staff    └ cost  │  this prompt $0.127  │  total so far $0.551  │  iter time 4.716s
+premium  iter 07  │  tool_use  │  5.198s  │  1 tool(s)  │  in=40k out=317 cacheR=19k  │  $0.129  │  cum $0.680
+premium  sql     │  ok  │  0.01s  │  query_database  │  rows=4
+premium  tool    │  ok  │  0.019s  │  query_database
+full-staff  iter 07  │  tool_use  │  5.217s  │  $0.129  │  tok in=40k out=317 cacheR=19k  │  cum $0.680
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ok  │  query_database  │  0.019s
+full-staff    └ cost  │  this prompt $0.129  │  total so far $0.680  │  iter time 5.217s
+premium  iter 08  │  tool_use  │  6.387s  │  6 tool(s)  │  in=40k out=578 cacheR=19k  │  $0.135  │  cum $0.815
+premium  sql     │  ok  │  0.066s  │  template=gps_intensity_daily  │  rows=107
+premium  tool    │  ok  │  0.082s  │  fetch_gps_intensity_daily  │  2026-09-21 → 2026-10-04
+premium  sql     │  ok  │  0.011s  │  template=fetch_wellness_daily  │  rows=143
+premium  tool    │  ok  │  0.021s  │  fetch_wellness_daily  │  datasetId=ds_27
+premium  tool    │  ok  │  0.022s  │  fetch_wellness_daily  │  2026-09-21 → 2026-10-04
+premium  sql     │  ok  │  0.054s  │  template=gps_intensity_daily  │  rows=107
+premium  tool    │  ok  │  0.066s  │  fetch_gps_intensity_daily  │  2026-09-21 → 2026-10-04
+premium  sql     │  ok  │  0.014s  │  template=fetch_wellness_daily  │  rows=143
+premium  tool    │  ok  │  0.026s  │  fetch_wellness_daily  │  datasetId=ds_31
+premium  tool    │  ok  │  0.026s  │  fetch_wellness_daily  │  2026-09-21 → 2026-10-04
+premium  sql     │  ok  │  0.06s  │  template=gps_intensity_daily  │  rows=107
+premium  tool    │  ok  │  0.073s  │  fetch_gps_intensity_daily  │  2026-09-21 → 2026-10-04
+premium  sql     │  ok  │  0.013s  │  template=fetch_wellness_daily  │  rows=143
+premium  tool    │  ok  │  0.023s  │  fetch_wellness_daily  │  datasetId=ds_35
+premium  tool    │  ok  │  0.023s  │  fetch_wellness_daily  │  2026-09-21 → 2026-10-04
+full-staff  iter 08  │  tool_use  │  6.679s  │  $0.135  │  tok in=40k out=578 cacheR=19k  │  cum $0.815
+full-staff  action  │  tools: fetch_gps_intensity_daily, fetch_wellness_daily, fetch_gps_intensity_daily, fetch_wellness_daily, fetch_gps_intensity_daily, fetch_wellness_daily
+full-staff    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.082s  │  2026-09-21 → 2026-10-04
+full-staff    └ tool  │  ok  │  fetch_wellness_daily  │  0.022s  │  2026-09-21 → 2026-10-04
+full-staff    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.066s  │  2026-09-21 → 2026-10-04
+full-staff    └ tool  │  ok  │  fetch_wellness_daily  │  0.026s  │  2026-09-21 → 2026-10-04
+full-staff    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.073s  │  2026-09-21 → 2026-10-04
+full-staff    └ tool  │  ok  │  fetch_wellness_daily  │  0.023s  │  2026-09-21 → 2026-10-04
+full-staff    └ cost  │  this prompt $0.135  │  total so far $0.815  │  iter time 6.679s
+premium  iter 09  │  end_turn  │  32.648s  │  in=55k out=1.7k cacheR=19k  │  $0.196  │  cum $1.010
+full-staff  iter 09  │  end_turn  │  32.648s  │  $0.196  │  tok in=55k out=1.7k cacheR=19k  │  cum $1.010
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.196  │  total so far $1.010  │  iter time 32.648s
+premium  iter 10  │  end_turn  │  3.471s  │  in=57k out=8 cacheW=3.9k  │  $0.185  │  cum $1.195
+full-staff  iter 10  │  end_turn  │  3.471s  │  $0.185  │  tok in=57k out=8  │  cum $1.195
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.185  │  total so far $1.195  │  iter time 3.471s
+[00:00:10.488] INFO (88213): full_staff.linker_done
+    datasets: 35
+    iterations: 10
+premium  iter 01  │  tool_use  │  5.015s  │  4 tool(s)  │  in=19 out=388 cacheR=17k cacheW=11k  │  $0.051  │  cum $0.051
+premium  tool    │  ok  │  0.001s  │  filter_dataset
+premium  tool    │  ok  │  0s  │  filter_dataset
+premium  tool    │  ok  │  0.001s  │  filter_dataset
+premium  tool    │  ok  │  0s  │  set_report_meta
+full-staff  iter 01  │  tool_use  │  5.018s  │  $0.051  │  tok in=19 out=388 cacheR=17k  │  cum $0.051
+full-staff  action  │  tools: filter_dataset, filter_dataset, filter_dataset, set_report_meta
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.001s
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.001s
+full-staff    └ tool  │  ok  │  set_report_meta  │  0.000s
+full-staff    └ cost  │  this prompt $0.051  │  total so far $0.051  │  iter time 5.018s
+premium  iter 02  │  tool_use  │  15.698s  │  1 tool(s)  │  in=14k out=1.4k cacheR=17k cacheW=10k  │  $0.106  │  cum $0.158
+premium  sql     │  ERR  │  0s  │  query_database  │  rows=0
+premium  sql     │  Blocked: team queries must filter club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3' (JOIN athletes a … WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'). A JOIN on athlete_id = a.id is not a club filter.
+premium  sql    │ WITH team_stats AS (
+premium  sql    │   SELECT 
+premium  sql    │     AVG(acwr_ewma) AS avg_acwr,
+premium  sql    │     STDDEV(acwr_ewma) AS sd_acwr,
+premium  sql    │     AVG(monotony) AS avg_monotony,
+premium  sql    │     STDDEV(monotony) AS sd_monotony,
+premium  sql    │     AVG(body_soreness_rating_mean) AS avg_soreness,
+premium  sql    │     STDDEV(body_soreness_rating_mean) AS sd_soreness,
+premium  sql    │     AVG(kpi_hmld_mean) AS avg_hmld,
+premium  sql    │     STDDEV(kpi_hmld_mean) AS sd_hmld,
+premium  sql    │     AVG(kpi_highspeedrunningabs_mean) AS avg_hsr,
+premium  sql    │     STDDEV(kpi_highspeedrunningabs_mean) AS sd_hsr
+premium  sql    │   FROM (
+premium  sql    │     SELECT 
+premium  sql    │       joueur,
+premium  sql    │       acwr_ewma,
+premium  sql    │       monotony,
+premium  sql    │       body_soreness_rating_mean,
+premium  sql    │       kpi_hmld_mean,
+premium  sql    │       kpi_highspeedrunningabs_mean
+premium  sql    │     FROM (VALUES
+premium  sql    │       ('Albert Sambi Lokonga', 0.842, 0.712, 18.0, 1137.714, 329.714),
+premium  sql    │       ('Bilal Nadir', 1.061, 1.12, 22.833, 736.75, 198.5),
+premium  sql    │       ('Alexander Røssing-Lelesiit', NULL, 0.501, 25.0, 1394.8, 393.4),
+premium  sql    │       ('Bakery Jatta', NULL, NULL, 39.0, 982.0, 291.5),
+premium  sql    │       ('Albert Grønbæk', NULL, 0.64, 23.0, 164.0, 12.0)
+premium  sql    │     ) AS t(joueur, acwr_ewma, monotony, body_soreness_rating_mean, kpi_hmld_mean, kpi_highspeedrunningabs_mean)
+premium  sql    │   ) sub
+premium  sql    │ )
+premium  sql    │ SELECT 
+premium  sql    │   p.joueur,
+premium  sql    │   p.acwr_ewma,
+premium  sql    │   CASE WHEN ts.sd_acwr > 0 THEN (p.acwr_ewma - ts.avg_acwr) / ts.sd_acwr ELSE NULL END AS z_acwr,
+premium  sql    │   p.monotony,
+premium  sql    │   CASE WHEN ts.sd_monotony > 0 THEN (p.monotony - ts.avg_monotony) / ts.sd_monotony ELSE NULL END AS z_monotony,
+premium  sql    │   p.body_soreness_rating_mean,
+premium  sql    │   CASE WHEN ts.sd_soreness > 0 THEN (p.body_soreness_rating_mean - ts.avg_soreness) / ts.sd_soreness ELSE NULL END AS z_soreness,
+premium  sql    │   p.kpi_hmld_mean,
+premium  sql    │   CASE WHEN ts.sd_hmld > 0 THEN (p.kpi_hmld_mean - ts.avg_hmld) / ts.sd_hmld ELSE NULL END AS z_hmld,
+premium  sql    │   p.kpi_highspeedrunningabs_mean,
+premium  sql    │   CASE WHEN ts.sd_hsr > 0 THEN (p.kpi_highspeedrunningabs_mean - ts.avg_hsr) / ts.sd_hsr ELSE NULL END AS z_hsr,
+premium  sql    │   ABS(COALESCE((p.acwr_ewma - ts.avg_acwr) / NULLIF(ts.sd_acwr, 0), 0)) +
+premium  sql    │   ABS(COALESCE((p.monotony - ts.avg_monotony) / NULLIF(ts.sd_monotony, 0), 0)) +
+premium  sql    │   ABS(COALESCE((p.body_soreness_rating_mean - ts.avg_soreness) / NULLIF(ts.sd_soreness, 0), 0)) 
+premium  sql    │ … (706 more chars)
+premium  tool    │  ERR  │  0.002s  │  query_database  │  Blocked: team queries must filter club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3' (JOIN athletes a … WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3').
+full-staff  iter 02  │  tool_use  │  15.701s  │  $0.106  │  tok in=14k out=1.4k cacheR=17k  │  cum $0.158
+full-staff  action  │  tools: query_database
+full-staff    └ tool  │  ERR  │  query_database  │  0.002s  │  Blocked: team queries must filter club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3' (JOIN athletes a … WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3').
+full-staff    └ cost  │  this prompt $0.106  │  total so far $0.158  │  iter time 15.701s
+premium  iter 03  │  tool_use  │  8.062s  │  4 tool(s)  │  in=15k out=552 cacheR=16k cacheW=11k  │  $0.100  │  cum $0.257
+premium  tool    │  ok  │  0.002s  │  apply_formula  │  zscore
+premium  tool    │  ok  │  0s  │  apply_formula  │  zscore
+premium  tool    │  ok  │  0.001s  │  apply_formula  │  zscore
+premium  tool    │  ok  │  0s  │  apply_formula  │  zscore
+full-staff  iter 03  │  tool_use  │  8.065s  │  $0.100  │  tok in=15k out=552 cacheR=16k  │  cum $0.257
+full-staff  action  │  tools: apply_formula, apply_formula, apply_formula, apply_formula
+full-staff    └ tool  │  ok  │  apply_formula  │  0.002s  │  zscore
+full-staff    └ tool  │  ok  │  apply_formula  │  0.000s  │  zscore
+full-staff    └ tool  │  ok  │  apply_formula  │  0.001s  │  zscore
+full-staff    └ tool  │  ok  │  apply_formula  │  0.000s  │  zscore
+full-staff    └ cost  │  this prompt $0.100  │  total so far $0.257  │  iter time 8.065s
+premium  iter 04  │  tool_use  │  11.344s  │  6 tool(s)  │  in=35k out=839 cacheR=26k  │  $0.126  │  cum $0.383
+premium  tool    │  ERR  │  0s  │  filter_dataset  │  LOOP_DETECTED
+premium  tool    │  ERR  │  0s  │  filter_dataset  │  LOOP_DETECTED
+premium  tool    │  ERR  │  0s  │  filter_dataset  │  LOOP_DETECTED
+premium  tool    │  ERR  │  0s  │  filter_dataset  │  LOOP_DETECTED
+premium  tool    │  ERR  │  0s  │  filter_dataset  │  LOOP_DETECTED
+premium  tool    │  ERR  │  0s  │  filter_dataset  │  LOOP_DETECTED
+full-staff  iter 04  │  tool_use  │  11.345s  │  $0.126  │  tok in=35k out=839 cacheR=26k  │  cum $0.383
+full-staff  action  │  tools: filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset
+full-staff    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  LOOP_DETECTED
+full-staff    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  LOOP_DETECTED
+full-staff    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  LOOP_DETECTED
+full-staff    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  LOOP_DETECTED
+full-staff    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  LOOP_DETECTED
+full-staff    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  LOOP_DETECTED
+full-staff    └ cost  │  this prompt $0.126  │  total so far $0.383  │  iter time 11.345s
+premium  iter 05  │  tool_use  │  6.864s  │  3 tool(s)  │  in=36k out=353 cacheR=26k  │  $0.122  │  cum $0.505
+premium  tool    │  ok  │  0.002s  │  add_heading
+premium  jev     │  text_caption  │  BLOCK  │  0.253s  │  via=jev  │  score=0.33  │  → reject  │  caption="Analyse des 3 joueurs présentant les profils les plus atypiques sur la période 2" near="Vue d'ensemble – Profils atypiques" athletes=0
+premium  tool    │  ERR  │  0.254s  │  add_text  │  Caption rejected: not useful enough for the canvas (Jev).
+premium  tool    │  ok  │  0.005s  │  add_table  │  ds_17
+full-staff  iter 05  │  tool_use  │  7.126s  │  $0.122  │  tok in=36k out=353 cacheR=26k  │  cum $0.505
+full-staff  action  │  tools: add_heading, add_text, add_table
+full-staff    └ tool  │  ok  │  add_heading  │  0.002s
+full-staff    └ tool  │  ERR  │  add_text  │  0.254s  │  Caption rejected: not useful enough for the canvas (Jev).
+full-staff    └ tool  │  ok  │  add_table  │  0.005s  │  ds_17
+full-staff    └ cost  │  this prompt $0.122  │  total so far $0.505  │  iter time 7.126s
+premium  iter 06  │  tool_use  │  3.898s  │  3 tool(s)  │  in=37k out=302 cacheR=26k  │  $0.122  │  cum $0.627
+premium  tool    │  ok  │  0.001s  │  filter_dataset
+premium  tool    │  ok  │  0s  │  filter_dataset
+premium  tool    │  ok  │  0s  │  filter_dataset
+full-staff  iter 06  │  tool_use  │  3.899s  │  $0.122  │  tok in=37k out=302 cacheR=26k  │  cum $0.627
+full-staff  action  │  tools: filter_dataset, filter_dataset, filter_dataset
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.001s
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ tool  │  ok  │  filter_dataset  │  0.000s
+full-staff    └ cost  │  this prompt $0.122  │  total so far $0.627  │  iter time 3.899s
+premium  iter 07  │  tool_use  │  7.961s  │  4 tool(s)  │  in=43k out=492 cacheR=26k  │  $0.145  │  cum $0.772
+premium  tool    │  ERR  │  0.003s  │  update_block  │  columns must match current headers (use renameColumns for labels)
+premium  tool    │  ok  │  0.002s  │  transform_values
+premium  tool    │  ok  │  0s  │  add_heading
+premium  tool    │  ok  │  0.002s  │  add_table  │  ds_43
+full-staff  iter 07  │  tool_use  │  7.968s  │  $0.145  │  tok in=43k out=492 cacheR=26k  │  cum $0.772
+full-staff  action  │  tools: update_block, transform_values, add_heading, add_table
+full-staff    └ tool  │  ERR  │  update_block  │  0.003s  │  columns must match current headers (use renameColumns for labels)
+full-staff    └ tool  │  ok  │  transform_values  │  0.002s
+full-staff    └ tool  │  ok  │  add_heading  │  0.000s
+full-staff    └ tool  │  ok  │  add_table  │  0.002s  │  ds_43
+full-staff    └ cost  │  this prompt $0.145  │  total so far $0.772  │  iter time 7.968s
+premium  iter 08  │  tool_use  │  11.094s  │  3 tool(s)  │  in=44k out=818 cacheR=26k  │  $0.152  │  cum $0.925
+premium  sql     │  ok  │  0.015s  │  query_database  │  rows=3
+premium  tool    │  ok  │  0.028s  │  query_database
+premium  sql     │  ERR  │  0.001s  │  query_database  │  rows=0
+premium  sql     │  Blocked: pm.name 'kpi_highspeedrunningabs' is not on this club's chatbot metric whitelist. Use CLUB PERIOD METRICS names only, or fetch_gps_intensity_daily.
+premium  sql    │ SELECT 
+premium  sql    │   ad.date_of_day,
+premium  sql    │   pm.name AS metric_name,
+premium  sql    │   COALESCE(pmcu.unit, pm.unit) AS unit,
+premium  sql    │   CAST(pmv.value AS DECIMAL) AS value
+premium  sql    │ FROM period_metric_values pmv
+premium  sql    │ JOIN periods p ON pmv.period_id = p.id
+premium  sql    │ JOIN period_metrics pm ON pmv.metric_id = pm.id
+premium  sql    │ LEFT JOIN period_metric_club_units pmcu 
+premium  sql    │   ON pmcu.metric_id = pm.id 
+premium  sql    │   AND pmcu.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │ JOIN sport_activities sa ON p.sport_activity_id = sa.id
+premium  sql    │ JOIN days ad ON sa.day_id = ad.id
+premium  sql    │ JOIN athletes a ON ad.athlete_id = a.id
+premium  sql    │ WHERE a.club_id = '019fa7cc-684c-783e-9609-c132a26eb4e3'
+premium  sql    │   AND TRIM(a.first_name) = 'Bakery'
+premium  sql    │   AND TRIM(a.last_name) = 'Jatta'
+premium  sql    │   AND ad.date_of_day >= '2026-09-21'
+premium  sql    │   AND ad.date_of_day <= '2026-10-04'
+premium  sql    │   AND pm.name IN ('kpi_hmld', 'kpi_highspeedrunningabs', 'kpi_sprintdistance')
+premium  sql    │   AND (
+premium  sql    │     p.name ILIKE '%entire session%'
+premium  sql    │     OR NOT EXISTS (
+premium  sql    │       SELECT 1 FROM periods p2
+premium  sql    │       WHERE p2.sport_activity_id = p.sport_activity_id 
+premium  sql    │         AND p2.name ILIKE '%entire session%'
+premium  sql    │     )
+premium  sql    │   )
+premium  sql    │ ORDER BY ad.date_of_day, pm.name
+premium  tool    │  ERR  │  0.001s  │  query_database  │  Blocked: pm.name 'kpi_highspeedrunningabs' is not on this club's chatbot metric whitelist. Use CLUB PERIOD METRICS names only, or fetch_gps_intensity_daily.
+premium  tool    │  ok  │  0s  │  transform_values
+full-staff  iter 08  │  tool_use  │  11.123s  │  $0.152  │  tok in=44k out=818 cacheR=26k  │  cum $0.925
+full-staff  action  │  tools: query_database, query_database, transform_values
+full-staff    └ tool  │  ok  │  query_database  │  0.028s
+full-staff    └ tool  │  ERR  │  query_database  │  0.001s  │  Blocked: pm.name 'kpi_highspeedrunningabs' is not on this club's chatbot metric whitelist. Use CLUB PERIOD METRICS names only, or fetch_gps_intensity_daily.
+full-staff    └ tool  │  ok  │  transform_values  │  0.000s
+full-staff    └ cost  │  this prompt $0.152  │  total so far $0.925  │  iter time 11.123s
+premium  iter 09  │  tool_use  │  6.555s  │  4 tool(s)  │  in=45k out=513 cacheR=26k  │  $0.152  │  cum $1.076
+premium  tool    │  ok  │  0.003s  │  add_chart  │  ds_46
+premium  tool    │  ok  │  0s  │  add_chart  │  ds_46
+premium  tool    │  ok  │  0s  │  add_heading
+premium  tool    │  ok  │  0s  │  add_table  │  ds_44
+full-staff  iter 09  │  tool_use  │  6.558s  │  $0.152  │  tok in=45k out=513 cacheR=26k  │  cum $1.076
+full-staff  action  │  tools: add_chart, add_chart, add_heading, add_table
+full-staff    └ tool  │  ok  │  add_chart  │  0.003s  │  ds_46
+full-staff    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_46
+full-staff    └ tool  │  ok  │  add_heading  │  0.000s
+full-staff    └ tool  │  ok  │  add_table  │  0.000s  │  ds_44
+full-staff    └ cost  │  this prompt $0.152  │  total so far $1.076  │  iter time 6.558s
+premium  iter 10  │  tool_use  │  7.936s  │  5 tool(s)  │  in=46k out=704 cacheR=26k  │  $0.157  │  cum $1.233
+premium  sql     │  ok  │  0.013s  │  query_database  │  rows=6
+premium  tool    │  ok  │  0.025s  │  query_database
+premium  tool    │  ok  │  0.001s  │  transform_values
+premium  tool    │  ok  │  0.002s  │  add_chart  │  ds_47
+premium  tool    │  ok  │  0s  │  add_heading
+premium  tool    │  ok  │  0.001s  │  add_table  │  ds_45
+full-staff  iter 10  │  tool_use  │  7.965s  │  $0.157  │  tok in=46k out=704 cacheR=26k  │  cum $1.233
+full-staff  action  │  tools: query_database, transform_values, add_chart, add_heading, add_table
+full-staff    └ tool  │  ok  │  query_database  │  0.025s
+full-staff    └ tool  │  ok  │  transform_values  │  0.001s
+full-staff    └ tool  │  ok  │  add_chart  │  0.002s  │  ds_47
+full-staff    └ tool  │  ok  │  add_heading  │  0.000s
+full-staff    └ tool  │  ok  │  add_table  │  0.001s  │  ds_45
+full-staff    └ cost  │  this prompt $0.157  │  total so far $1.233  │  iter time 7.965s
+premium  iter 11  │  tool_use  │  5.784s  │  4 tool(s)  │  in=47k out=529 cacheR=26k  │  $0.158  │  cum $1.391
+premium  sql     │  ok  │  0.009s  │  query_database  │  rows=10
+premium  tool    │  ok  │  0.018s  │  query_database
+premium  tool    │  ok  │  0.001s  │  transform_values
+premium  tool    │  ok  │  0s  │  add_chart  │  ds_48
+premium  tool    │  ok  │  0.001s  │  add_heading
+full-staff  iter 11  │  tool_use  │  5.804s  │  $0.158  │  tok in=47k out=529 cacheR=26k  │  cum $1.391
+full-staff  action  │  tools: query_database, transform_values, add_chart, add_heading
+full-staff    └ tool  │  ok  │  query_database  │  0.018s
+full-staff    └ tool  │  ok  │  transform_values  │  0.001s
+full-staff    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_48
+full-staff    └ tool  │  ok  │  add_heading  │  0.001s
+full-staff    └ cost  │  this prompt $0.158  │  total so far $1.391  │  iter time 5.804s
+premium  iter 12  │  tool_use  │  10.616s  │  4 tool(s)  │  in=48k out=607 cacheR=26k  │  $0.162  │  cum $1.553
+premium  tool    │  ok  │  0.004s  │  correlate  │  matrix
+premium  tool    │  ok  │  0.003s  │  add_chart  │  ds_49
+premium  tool    │  ok  │  0s  │  add_heading
+premium  tool    │  ok  │  0s  │  add_table
+full-staff  iter 12  │  tool_use  │  10.624s  │  $0.162  │  tok in=48k out=607 cacheR=26k  │  cum $1.553
+full-staff  action  │  tools: correlate, add_chart, add_heading, add_table
+full-staff    └ tool  │  ok  │  correlate  │  0.004s  │  matrix
+full-staff    └ tool  │  ok  │  add_chart  │  0.003s  │  ds_49
+full-staff    └ tool  │  ok  │  add_heading  │  0.000s
+full-staff    └ tool  │  ok  │  add_table  │  0.000s
+full-staff    └ cost  │  this prompt $0.162  │  total so far $1.553  │  iter time 10.624s
+premium  iter 13  │  tool_use  │  19.74s  │  1 tool(s)  │  in=50k out=1.3k cacheR=26k  │  $0.176  │  cum $1.729
+premium  tool    │  ok  │  0.001s  │  commit_insight_ir
+full-staff  iter 13  │  tool_use  │  19.741s  │  $0.176  │  tok in=50k out=1.3k cacheR=26k  │  cum $1.729
+full-staff  action  │  tools: commit_insight_ir
+full-staff    └ tool  │  ok  │  commit_insight_ir  │  0.001s
+full-staff    └ cost  │  this prompt $0.176  │  total so far $1.729  │  iter time 19.741s
+premium  iter 14  │  end_turn  │  3.289s  │  in=51k out=42 cacheW=10k  │  $0.193  │  cum $1.922
+full-staff  iter 14  │  end_turn  │  3.290s  │  $0.193  │  tok in=51k out=42  │  cum $1.922
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.193  │  total so far $1.922  │  iter time 3.290s
+[00:02:14.904] INFO (88213): full_staff.analyst_done
+    blocks: 16
+    charts: 5
+    insight: true
+    iterations: 14
+    macrosSkipped: true
+premium  iter 01  │  tool_use  │  1.683s  │  1 tool(s)  │  in=19 out=56 cacheW=3.9k  │  $0.016  │  cum $0.016
+premium  tool    │  ok  │  0.015s  │  build_artifact_html
+full-staff  iter 01  │  tool_use  │  1.699s  │  $0.016  │  tok in=19 out=56  │  cum $0.016
+full-staff  action  │  tools: build_artifact_html
+full-staff    └ tool  │  ok  │  build_artifact_html  │  0.015s
+full-staff    └ cost  │  this prompt $0.016  │  total so far $0.016  │  iter time 1.699s
+premium  iter 02  │  end_turn  │  3.879s  │  in=108 out=182 cacheW=3.9k  │  $0.018  │  cum $0.033
+full-staff  iter 02  │  end_turn  │  3.880s  │  $0.018  │  tok in=108 out=182  │  cum $0.033
+full-staff  action  │  final answer / cover comment
+full-staff    └ cost  │  this prompt $0.018  │  total so far $0.033  │  iter time 3.880s
+[00:02:20.483] INFO (88213): full_staff.designer_done
+    htmlBytes: 40093
+    iterations: 2
+full-staff  pdf  │  1.766s  │  focus-individuel-joueurs-atypiques-14-jours-2026-09-21_2026-10-04.pdf  │  975 KB
+────────────────────────────────────────────────────────────
+full-staff  TOTAL  │  26 iteration(s)  │  216.035s  │  $3.150
+full-staff  tokens  │  in=821k  │  out=14k  │  cacheR=442k  │  cacheW=92k  │  all=835k
+full-staff  per-iter time  │  #1=5.39s  │  #2=5.79s  │  #3=2.96s  │  #4=5.42s  │  #5=11.10s  │  #6=4.72s  │  #7=5.22s  │  #8=6.68s  │  #9=32.65s  │  #10=3.47s  │  #11=5.02s  │  #12=15.70s  │  #13=8.06s  │  #14=11.35s  │  #15=7.13s  │  #16=3.90s  │  #17=7.97s  │  #18=11.12s  │  #19=6.56s  │  #20=7.96s  │  #21=5.80s  │  #22=10.62s  │  #23=19.74s  │  #24=3.29s  │  #25=1.70s  │  #26=3.88s
+full-staff  per-iter $  │  #1=$0.080  │  #2=$0.098  │  #3=$0.049  │  #4=$0.068  │  #5=$0.130  │  #6=$0.127  │  #7=$0.129  │  #8=$0.135  │  #9=$0.196  │  #10=$0.185  │  #11=$0.051  │  #12=$0.106  │  #13=$0.100  │  #14=$0.126  │  #15=$0.122  │  #16=$0.122  │  #17=$0.145  │  #18=$0.152  │  #19=$0.152  │  #20=$0.157  │  #21=$0.158  │  #22=$0.162  │  #23=$0.176  │  #24=$0.193  │  #25=$0.016  │  #26=$0.018
+full-staff  canvas  │  blocks=16  │  charts=5  │  focus-individuel-joueurs-atypiques-14-jours-2026-09-21_2026-10-04.pdf
+════════════════════════════════════════════════════════════
+
+[ info ] {
+  "usecaseId": "ligue1-coach-three-outliers",
+  "persona": "head_coach",
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "clubName": "Hambourg",
+  "language": "fr",
+  "prompt": "Après une semaine très chargée (match + déplacement), je veux un focus individuel sur les 3 joueurs les plus atypiques sur les derniers 14 jours : charge, GPS et forme perçue. Dis-moi qui inquiète avant le prochain match.",
+  "expectNotes": [
+    "Exactly three named outliers with numbers, not a full squad table",
+    "French narrative; cross charge × GPS × wellness",
+    "Congested-week context reflected in interpretation"
+  ],
+  "displayRange": {
+    "from": "2026-09-21",
+    "to": "2026-10-04"
+  },
+  "fetchRange": {
+    "from": "2026-08-24",
+    "to": "2026-10-04"
+  },
+  "daySpan": 14,
+  "daySpanOk": true,
+  "iterations": 26,
+  "usage": {
+    "inputTokens": 820575,
+    "outputTokens": 14062,
+    "totalTokens": 834637,
+    "estimatedCostUsd": 3.150413
+  },
+  "wallSec": 216.036,
+  "iterationSecs": [
+    5.388,
+    5.786,
+    2.958,
+    5.416,
+    11.098,
+    4.716,
+    5.217,
+    6.679,
+    32.648,
+    3.471,
+    5.018,
+    15.701,
+    8.065,
+    11.345,
+    7.126,
+    3.899,
+    7.968,
+    11.123,
+    6.558,
+    7.965,
+    5.804,
+    10.624,
+    19.741,
+    3.29,
+    1.699,
+    3.88
+  ],
+  "iterationCosts": [
+    0.079538,
+    0.098055,
+    0.048782,
+    0.067991,
+    0.129581,
+    0.127196,
+    0.128933,
+    0.134549,
+    0.195635,
+    0.184543,
+    0.051414,
+    0.106274,
+    0.099571,
+    0.125721,
+    0.121527,
+    0.122469,
+    0.145149,
+    0.152472,
+    0.151536,
+    0.156744,
+    0.158016,
+    0.162321,
+    0.176229,
+    0.193,
+    0.01565,
+    0.017521
+  ],
+  "chartCount": 5,
+  "blockCount": 16,
+  "populatedDomains": [
+    "load",
+    "gps",
+    "wellness",
+    "sleep",
+    "biomarkers"
+  ],
+  "emptyDomains": [
+    "match",
+    "vald",
+    "body"
+  ],
+  "htmlPath": "/Users/matprod/mauna/backend-v2/tmp/reports_drafts/focus-individuel-joueurs-atypiques-14-jours-2026-09-21_2026-10-04.html",
+  "pdfPath": "/Users/matprod/mauna/backend-v2/tmp/full_staff_qa/focus-individuel-joueurs-atypiques-14-jours-2026-09-21_2026-10-04.pdf",
+  "pdfFilename": "focus-individuel-joueurs-atypiques-14-jours-2026-09-21_2026-10-04.pdf",
+  "designPackId": "mauna",
+  "insightSignals": {
+    "hasInsightStaffPage": true,
+    "signalBadgeCount": 0,
+    "chartBoxCount": 5,
+    "chartNotReady": 0,
+    "injuryPredictionHits": [],
+    "crossDomainTermHits": [
+      "gps",
+      "wellness",
+      "load",
+      "charge",
+      "sleep"
+    ]
+  }
+}

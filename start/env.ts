@@ -1,0 +1,226 @@
+/*
+|--------------------------------------------------------------------------
+| Environment variables service
+|--------------------------------------------------------------------------
+|
+| The `Env.create` method creates an instance of the Env service. The
+| service validates the environment variables and also cast values
+| to JavaScript data types.
+|
+*/
+
+import { Env } from '@adonisjs/core/env'
+
+export default await Env.create(new URL('../', import.meta.url), {
+  NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
+  PORT: Env.schema.number(),
+  APP_KEY: Env.schema.string(),
+  HOST: Env.schema.string({ format: 'host' }),
+  LOG_LEVEL: Env.schema.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']),
+  LOG_PRETTY: Env.schema.boolean.optional(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring database connection
+  |----------------------------------------------------------
+  */
+  DB_HOST: Env.schema.string({ format: 'host' }),
+  DB_PORT: Env.schema.number(),
+  DB_USER: Env.schema.string(),
+  DB_PASSWORD: Env.schema.string.optional(),
+  DB_DATABASE: Env.schema.string(),
+  DB_CONNECTION: Env.schema.string.optional(),
+  DB_PG_HOST: Env.schema.string.optional({ format: 'host' }),
+  DB_PG_PORT: Env.schema.number.optional(),
+  DB_PG_USER: Env.schema.string.optional(),
+  DB_PG_PASSWORD: Env.schema.string.optional(),
+  DB_PG_DATABASE: Env.schema.string.optional(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring backend V1 API
+  |----------------------------------------------------------
+  */
+  API_V1_URL: Env.schema.string(),
+  API_V1_KEY: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring Brevo
+  |----------------------------------------------------------
+  */
+  BREVO_API_KEY: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring AWS
+  |----------------------------------------------------------
+  */
+  AWS_ACCESS_KEY: Env.schema.string(),
+  AWS_SECRET_KEY: Env.schema.string(),
+  AWS_REGION: Env.schema.string(),
+  AWS_S3_IMAGE_BUCKET: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring MyCoach API
+  |----------------------------------------------------------
+  */
+  MY_COACH_BASE_URL: Env.schema.string(),
+  MY_COACH_API_KEY: Env.schema.string(),
+  MY_COACH_API_KEY_ID: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring Firstbeat API
+  |----------------------------------------------------------
+  */
+  FIRSTBEAT_BASE_URL: Env.schema.string(),
+  FIRSTBEAT_CLIENT_SECRET: Env.schema.string(),
+  FIRSTBEAT_CLIENT_ID: Env.schema.string(),
+  FIRSTBEAT_API_KEY: Env.schema.string(),
+  FIRSTBEAT_ACCOUNT_ID: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring Machine Learning API
+  |----------------------------------------------------------
+  */
+  MACHINE_LEARNING_API_TOKEN: Env.schema.string(),
+  MACHINE_LEARNING_IMPUTATION_TOKEN: Env.schema.string(),
+  MACHINE_LEARNING_API_TRAINING_LOAD_BASE_URL: Env.schema.string(),
+  MACHINE_LEARNING_API_PERFORMANCE_BASE_URL: Env.schema.string(),
+  MACHINE_LEARNING_API_INJURY_BASE_URL: Env.schema.string(),
+  MACHINE_LEARNING_API_IMPUTATION_BASE_URL: Env.schema.string(),
+
+  MACHINE_LEARNING_TMA_IMPUTATION_URL: Env.schema.string(),
+  MACHINE_LEARNING_CATAPULT_IMPUTATION_URL: Env.schema.string(),
+  MACHINE_LEARNING_EXPECTED_PLAYER_LOAD_URL: Env.schema.string(),
+  MACHINE_LEARNING_TRAINING_LOAD_FACTORS_URL: Env.schema.string(),
+  MACHINE_LEARNING_FEATURE_IMPORTANCE_URL: Env.schema.string(),
+  MACHINE_LEARNING_INJURY_PREDICTION_URL: Env.schema.string(),
+  MACHINE_LEARNING_HAMBURG_BASE_URL: Env.schema.string(),
+  API_TOKEN: Env.schema.string(),
+  ML_API_TOKEN: Env.schema.string.optional(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring VALD API
+  |----------------------------------------------------------
+  */
+  VALD_API_BASE_URL: Env.schema.string(),
+  VALD_CLIENT_ID: Env.schema.string(),
+  VALD_CLIENT_SECRET: Env.schema.string(),
+  VALD_TOKEN_URL: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring Groq
+  |----------------------------------------------------------
+  */
+  GROQ_API_KEY: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring Gemini (OpenAI compatible)
+  |----------------------------------------------------------
+  */
+  GEMINI_API_KEY: Env.schema.string.optional(),
+
+  REDIS_HOST: Env.schema.string({ format: 'host' }),
+  REDIS_PORT: Env.schema.number(),
+  REDIS_PASSWORD: Env.schema.string.optional(),
+  LIMITER_STORE: Env.schema.enum.optional(['redis', 'memory'] as const),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring Garmin
+  |----------------------------------------------------------
+  */
+  GARMIN_CONSUMER_KEY: Env.schema.string(),
+  GARMIN_CONSUMER_SECRET: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring API Basketball
+  |----------------------------------------------------------
+  */
+  API_BASKETBALL_URL: Env.schema.string(),
+  API_BASKETBALL_KEY: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring Slack
+  |----------------------------------------------------------
+  */
+  SLACK_MATCH_WEBHOOK_URL: Env.schema.string.optional(),
+  SLACK_LOGS_WEBHOOK_URL: Env.schema.string.optional(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring Backend V1 authentication
+  |----------------------------------------------------------
+  */
+  BACKEND_V1_TOKEN: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for JWT tokens (mobile / athlete auth)
+  |----------------------------------------------------------
+  */
+  JWT_ACCESS_SECRET: Env.schema.string(),
+  JWT_REFRESH_SECRET: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring Wahoo
+  |----------------------------------------------------------
+  */
+  WAHOO_CLIENT_ID: Env.schema.string(),
+  WAHOO_CLIENT_SECRET: Env.schema.string(),
+  WAHOO_REDIRECT_URI: Env.schema.string(),
+  WAHOO_WEBHOOK_TOKEN: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring Whoop
+  |----------------------------------------------------------
+  */
+  WHOOP_CLIENT_ID: Env.schema.string(),
+  WHOOP_CLIENT_SECRET: Env.schema.string(),
+  WHOOP_REDIRECT_URI: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring Train My Athlete
+  |----------------------------------------------------------
+  */
+  TRAIN_MY_ATHLETE_EMAIL: Env.schema.string(),
+  TRAIN_MY_ATHLETE_PASSWORD: Env.schema.string(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring SAP SportsOne API
+  |----------------------------------------------------------
+  */
+  SAPSPORTSONE_HOST: Env.schema.string.optional(),
+  SAPSPORTSONE_EMAIL: Env.schema.string.optional(),
+  SAPSPORTSONE_PASSWORD: Env.schema.string.optional(),
+
+  /*
+  |----------------------------------------------------------
+  | HSV partner API (Supabase RPC)
+  |----------------------------------------------------------
+  */
+  HSV_SUPABASE_ANON_KEY: Env.schema.string.optional(),
+  HSV_PARTNER_API_KEY: Env.schema.string.optional(),
+
+  /*
+  |----------------------------------------------------------
+  | TypeSafe / Jev (question router)
+  |----------------------------------------------------------
+  */
+  TYPESAFE_API_KEY: Env.schema.string.optional(),
+  QUESTION_ROUTER_PROVIDER: Env.schema.enum.optional(['jev', 'haiku'] as const),
+  QUESTION_ROUTER_COMPARE: Env.schema.boolean.optional(),
+})
