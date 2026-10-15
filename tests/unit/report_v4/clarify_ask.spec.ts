@@ -4,7 +4,10 @@ import {
   resolveFreshClarify,
   resolveSoftClarify,
 } from '#services/report_v4/artifact_runtime/clarify'
-import { resolveArtifactEnvelope } from '#services/report_v4/artifact_runtime/resolve'
+import {
+  artifactContractsFromIntent,
+  envelopeFromContracts,
+} from '#services/report_v4/artifact_runtime/resolve'
 
 test.group('report_v4 clarify (free-text ask)', () => {
   test('fresh: explicit period + domains → no ask', ({ assert }) => {
@@ -60,7 +63,7 @@ test.group('report_v4 clarify (free-text ask)', () => {
   })
 
   test('soft: unresolved targets mention candidates, no buttons', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: {
         allAthletes: false,
         dropEmptyDays: false,
@@ -75,7 +78,7 @@ test.group('report_v4 clarify (free-text ask)', () => {
         emphasizeCaptions: false,
       },
       prompt: 'Improve the ACWR chart a bit',
-    })
+    }))
     const clarify = resolveSoftClarify({
       prompt: 'Improve the ACWR chart a bit',
       envelope,
@@ -91,7 +94,7 @@ test.group('report_v4 clarify (free-text ask)', () => {
   })
 
   test('soft: concrete ops skip ask', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: {
         allAthletes: false,
         dropEmptyDays: false,
@@ -106,7 +109,7 @@ test.group('report_v4 clarify (free-text ask)', () => {
         emphasizeCaptions: false,
       },
       prompt: 'Add ACWR thresholds 0.6 and 1.3',
-    })
+    }))
     const clarify = resolveSoftClarify({
       prompt: 'Add ACWR thresholds 0.6 and 1.3',
       envelope,

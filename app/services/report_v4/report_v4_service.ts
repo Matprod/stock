@@ -8,31 +8,33 @@ import type {
 } from '#contracts/premium_report'
 import {
   elapsedSec,
+  logReportV4Done,
+  logReportV4Pdf,
+  withPremiumConsoleQuiet,
   type PremiumReportTokenUsage,
 } from '#services/premium_report/premium_report_log'
-import { logReportV4Done, logReportV4Pdf } from '#services/report_v4/report_v4_log'
 import {
   runReportV4Orchestrator,
   type ReportV4OrchestratorResult,
 } from '#services/report_v4/report_v4_orchestrator'
 import { renderHtmlToPdf, slugFilename } from '#services/report_v4/playwright_pdf'
-import { resolveFullCoverage, type ReportV4CoverageView } from '#services/report_v4/domain_coverage_probe'
 import {
-  normalizeSessionFocus,
-  type ReportV4SessionFocus,
-} from '#services/report_v4/session_focus'
+  resolveFullCoverage,
+  type ReportV4CoverageView,
+} from '#services/report_v4/domain_coverage_probe'
+import { normalizeSessionFocus, type ReportV4SessionFocus } from '#services/report_v4/session_focus'
 import { isReportV4AbortedError, throwIfAborted } from '#services/report_v4/request_abort'
 import { sanitizeDownloadFilename } from '#services/report_v4/sse_utils'
+import { formatRunTimingLine } from '#services/report_v4/run_journal'
+import { resolveReportV4RunFlags } from '#services/report_v4/run_flags'
 import type { AppLanguage } from '#utils/localize'
+import { randomUUID } from 'node:crypto'
 
-export type ReportV4ReportGenerateResult = Omit<
-  ReportV4OrchestratorResult,
-  'designPack' | 'route'
-> & {
+type ReportV4ReportGenerateResult = Omit<ReportV4OrchestratorResult, 'designPack' | 'route'> & {
   designPackId: string
 }
 
-export type ReportV4GenerateInput = {
+type ReportV4GenerateInput = {
   prompt: string
   history?: PremiumReportHistoryTurn[]
   sessionFocus?: ReportV4SessionFocus
@@ -42,7 +44,7 @@ export type ReportV4GenerateInput = {
   skipPdf?: boolean
 }
 
-export type ReportV4PdfResult = {
+type ReportV4PdfResult = {
   buffer: Buffer
   filename: string
   message: string
@@ -82,16 +84,16 @@ export default class ReportV4Service {
     let pdfBuffer: Buffer = Buffer.alloc(0)
     let htmlPath: string | undefined
     const skipPdfForClarify = Boolean(result.clarify?.needsClarify)
+    let pdfDurationSec = 0
     if (!input.skipPdf && !skipPdfForClarify) {
-      onProgress?.(
-        language === 'fr' ? 'Préparation du document...' : 'Preparing the document...'
-      )
+      onProgress?.('render_pdf')
       const pdfStarted = Date.now()
       const pdf = await renderHtmlToPdf({ html: result.html, filename })
       pdfBuffer = Buffer.from(pdf.buffer)
       htmlPath = pdf.htmlPath
+      pdfDurationSec = elapsedSec(pdfStarted)
       logReportV4Pdf({
-        durationSec: elapsedSec(pdfStarted),
+        durationSec: pdfDurationSec,
         filename: pdf.filename,
         bytes: pdf.buffer.length,
       })
@@ -103,9 +105,17 @@ export default class ReportV4Service {
       { role: 'assistant' as const, content: result.message },
     ].slice(-PREMIUM_REPORT_HISTORY_MAX)
 
+    const durationSec = elapsedSec(wallStarted)
+    const runId = result.runId ?? randomUUID()
+    const flags = result.flags ?? resolveReportV4RunFlags({ language, html: result.html })
+    const timingLine = formatRunTimingLine(result.agentCosts ?? [], [
+      ...(pdfDurationSec > 0 ? [{ step: 'pdf', durationSec: pdfDurationSec }] : []),
+      { step: 'wall', durationSec },
+    ])
+    logger.info({ runId, flags, timingLine, durationSec }, 'report_v4.run_timing')
     logReportV4Done({
       iterations: result.iterations,
-      durationSec: elapsedSec(wallStarted),
+      durationSec,
       usage: result.usage,
       iterationSecs: result.iterationSecs,
       iterationCosts: result.iterationCosts,
@@ -141,8 +151,7 @@ export default class ReportV4Service {
     clubId?: string
   }): Promise<{ buffer: Buffer; filename: string }> {
     const raw = sanitizeDownloadFilename(args.filename ?? '').trim()
-    const filename =
-      raw && raw.toLowerCase().endsWith('.pdf') ? raw : `${raw || 'report-v4'}.pdf`
+    const filename = raw && raw.toLowerCase().endsWith('.pdf') ? raw : `${raw || 'report-v4'}.pdf`
     const pdf = await renderHtmlToPdf({ html: args.html, filename })
     return { buffer: Buffer.from(pdf.buffer), filename: pdf.filename }
   }
@@ -155,42 +164,44 @@ export default class ReportV4Service {
     signal?: AbortSignal
   ): Promise<ReportV4ReportGenerateResult> {
     const started = Date.now()
-    try {
-      const result = await runReportV4Orchestrator({
-        clubId,
-        prompt: input.prompt,
-        language,
-        history: input.history,
-        sessionFocus: normalizeSessionFocus(input.sessionFocus) ?? undefined,
-        document: input.document,
-        html: input.html,
-        designPackId: input.designPackId,
-        onProgress,
-        signal,
-      })
-      const { designPack, route: _route, ...rest } = result
-      return { ...rest, designPackId: designPack.id }
-    } catch (error) {
-      if (isReportV4AbortedError(error) || signal?.aborted) {
-        logger.info(
+    return withPremiumConsoleQuiet(async () => {
+      try {
+        const result = await runReportV4Orchestrator({
+          clubId,
+          prompt: input.prompt,
+          language,
+          history: input.history,
+          sessionFocus: normalizeSessionFocus(input.sessionFocus) ?? undefined,
+          document: input.document,
+          html: input.html,
+          designPackId: input.designPackId,
+          onProgress,
+          signal,
+        })
+        const { designPack, route: _route, ...rest } = result
+        return { ...rest, designPackId: designPack.id }
+      } catch (error) {
+        if (isReportV4AbortedError(error) || signal?.aborted) {
+          logger.info(
+            {
+              clubId,
+              durationSec: Number(((Date.now() - started) / 1000).toFixed(3)),
+            },
+            'report_v4_report.generate_cancelled'
+          )
+          throw error
+        }
+        logger.error(
           {
+            err: error,
             clubId,
             durationSec: Number(((Date.now() - started) / 1000).toFixed(3)),
           },
-          'report_v4_report.generate_cancelled'
+          'report_v4_report.generate_failed'
         )
         throw error
       }
-      logger.error(
-        {
-          err: error,
-          clubId,
-          durationSec: Number(((Date.now() - started) / 1000).toFixed(3)),
-        },
-        'report_v4_report.generate_failed'
-      )
-      throw error
-    }
+    })
   }
 
   async coverage(clubId: string, prompt: string): Promise<ReportV4CoverageView> {

@@ -11,17 +11,25 @@ import {
 } from '#services/report_v4/jev_guard'
 import { loadEchartsMinJs } from '#services/report_v4/report_v4_assets'
 import { SseStreamHandler, sanitizeDownloadFilename } from '#services/report_v4/sse_utils'
-import { getLanguageFromRequest } from '#utils/language'
+import { detectReportLanguage } from '#services/report_v4/detect_report_language'
+import {
+  buildProgressEvent,
+  FULL_GENERATION_STEPS,
+  LOCAL_EDIT_STEPS,
+  type ReportProgressStep,
+} from '#services/report_v4/progress_events'
 
 export default class ReportV4Controller {
   private service = new ReportV4Service()
 
   async generate(ctx: HttpContext) {
     const payload = await fullStaffReportGenerateSchema.validate(ctx.request.body())
-    const language = getLanguageFromRequest(ctx.request)
+    const language = detectReportLanguage(payload.prompt)
     const clubId = ctx.auth.user!.clubId
     const signal = abortSignalFromHttp(ctx)
     const sse = SseStreamHandler.open(ctx)
+    const isLocalEdit = Boolean(payload.html || payload.document)
+    const progressSteps = isLocalEdit ? LOCAL_EDIT_STEPS : FULL_GENERATION_STEPS
 
     try {
       const result = await this.service.generatePdf(
@@ -30,6 +38,19 @@ export default class ReportV4Controller {
         language,
         (message) => {
           if (signal.aborted) return
+          const known = progressSteps.find((step) => {
+            const event = buildProgressEvent({ step, language, steps: progressSteps })
+            return event.label === message || event.status === message || step === message
+          })
+          if (known) {
+            sse.sendEvent(buildProgressEvent({ step: known, language, steps: progressSteps }))
+            return
+          }
+          const asStep = message as ReportProgressStep
+          if (progressSteps.includes(asStep)) {
+            sse.sendEvent(buildProgressEvent({ step: asStep, language, steps: progressSteps }))
+            return
+          }
           sse.sendEvent({ status: message })
         },
         signal
@@ -91,11 +112,19 @@ export default class ReportV4Controller {
         sse.sendEvent({ message: 'cancelled' }, 'cancelled')
         return
       }
+      const overflow =
+        error instanceof Error &&
+        (/E_REPORT_V4_DESIGNER_OVERFLOW/.test(String((error as { code?: string }).code ?? '')) ||
+          /trop volumineuse|too large to process/i.test(error.message))
       const message = isJevUnavailableError(error)
         ? jevUnavailableMessage(language)
-        : error instanceof Error && error.message.trim()
+        : overflow && error instanceof Error
           ? error.message
-          : 'Report generation failed'
+          : error instanceof Error && error.message.trim() && !/ValidationException|AccessDenied|stack/i.test(error.message)
+            ? error.message
+            : language === 'fr'
+              ? "La génération du rapport a échoué. Réessayez dans un instant."
+              : 'Report generation failed. Please try again in a moment.'
       sse.sendEvent({ message }, 'error')
     } finally {
       sse.close()

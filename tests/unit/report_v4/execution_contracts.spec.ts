@@ -19,14 +19,13 @@ import {
   listCoveredAthleteNames,
   pathCostBudgetUsd,
   prepareSoftArtifactPath,
-  resolveArtifactContracts,
-  resolveArtifactEnvelope,
+  artifactContractsFromIntent,
+  envelopeFromContracts,
   resolvePathCostClass,
   resolveSoftClarify,
   verifyAcwrHarvest,
   type ArtifactIntentFlags,
 } from '#services/report_v4/artifact_runtime/index'
-import { flagsFromHaikuJson } from '#services/report_v4/artifact_runtime/classify_artifact_intent'
 
 const NONE: ArtifactIntentFlags = {
   allAthletes: false,
@@ -50,52 +49,31 @@ const flags = (partial: Partial<ArtifactIntentFlags>): ArtifactIntentFlags => ({
 test.group('report_v4 artifact runtime', () => {
   test('envelope modes: free / soft_ops / gated_rebuild', ({ assert }) => {
     assert.equal(
-      resolveArtifactEnvelope({
+      envelopeFromContracts(artifactContractsFromIntent({
         flags: flags({}),
         prompt: 'Tighten the intro prose',
-      }).mode,
+      })).mode,
       'free'
     )
     assert.equal(
-      resolveArtifactEnvelope({
+      envelopeFromContracts(artifactContractsFromIntent({
         flags: flags({ wantsThresholds: true, mentionAcwr: true }),
         prompt: 'Add ACWR thresholds 0.6 and 1.3',
-      }).mode,
+      })).mode,
       'soft_ops'
     )
     assert.equal(
-      resolveArtifactEnvelope({
+      envelopeFromContracts(artifactContractsFromIntent({
         flags: flags({ allAthletes: true, mentionAcwr: true, chartAcwr: true }),
         prompt: 'Show ACWR for all players individually',
         rosterNames: ['Ada', 'Bea'],
-      }).mode,
+      })).mode,
       'gated_rebuild'
     )
   })
 
-  test('haiku json maps to intent flags', ({ assert }) => {
-    const mapped = flagsFromHaikuJson({
-      all_athletes: true,
-      drop_empty_days: 'true',
-      wants_thresholds: 1,
-      strip_visual_map: false,
-      remap_encode: false,
-      chart_acwr: false,
-      mention_acwr: true,
-      strengthen_title: false,
-      accent_band: false,
-      tighten_spacing: false,
-      emphasize_captions: false,
-    })
-    assert.isTrue(mapped.allAthletes)
-    assert.isTrue(mapped.dropEmptyDays)
-    assert.isTrue(mapped.wantsThresholds)
-    assert.isTrue(mapped.mentionAcwr)
-    assert.isFalse(mapped.chartAcwr)
-  })
-
   test('resolves all-athletes coverage and ACWR metric', ({ assert }) => {
-    const contracts = resolveArtifactContracts({
+    const contracts = artifactContractsFromIntent({
       flags: flags({ allAthletes: true, mentionAcwr: true, chartAcwr: true }),
       prompt: 'Show ACWR for all players individually',
       rosterNames: ['Ada', 'Bea', 'Cara'],
@@ -108,7 +86,7 @@ test.group('report_v4 artifact runtime', () => {
   })
 
   test('soft-allows ACWR threshold mark lines without chart_metric', ({ assert }) => {
-    const contracts = resolveArtifactContracts({
+    const contracts = artifactContractsFromIntent({
       flags: flags({ wantsThresholds: true, mentionAcwr: true }),
       prompt: 'Add ACWR thresholds 0.6 and 1.3',
       rosterNames: ['Ada'],
@@ -124,7 +102,7 @@ test.group('report_v4 artifact runtime', () => {
   })
 
   test('resolves drop empty days viz op', ({ assert }) => {
-    const contracts = resolveArtifactContracts({
+    const contracts = artifactContractsFromIntent({
       flags: flags({ dropEmptyDays: true }),
       prompt: 'Remove empty days from the load curves',
     })
@@ -133,20 +111,20 @@ test.group('report_v4 artifact runtime', () => {
   })
 
   test('resolves strip_visualMap as soft_ops', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({ stripVisualMap: true }),
       prompt: 'Hide the color scale / visualMap on the bars',
-    })
+    }))
     assert.equal(envelope.mode, 'soft_ops')
     assert.isTrue(envelope.contracts.softAllowed)
     assert.isTrue(envelope.contracts.vizOps.some((op) => op.kind === 'strip_visualMap'))
   })
 
   test('resolves remap_encode swap axes as soft_ops', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({ remapEncode: true, mentionAcwr: true }),
       prompt: 'Swap the axes on the ACWR chart',
-    })
+    }))
     assert.equal(envelope.mode, 'soft_ops')
     assert.isTrue(envelope.contracts.softAllowed)
     const remap = envelope.contracts.vizOps.find((op) => op.kind === 'remap_encode')
@@ -155,10 +133,10 @@ test.group('report_v4 artifact runtime', () => {
   })
 
   test('resolves design ops as soft_ops without analyst rebuild', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({ strengthenTitle: true, tightenSpacing: true }),
       prompt: 'Make the titles stronger and tighten spacing',
-    })
+    }))
     assert.equal(envelope.mode, 'soft_ops')
     assert.isTrue(envelope.contracts.softAllowed)
     assert.isTrue(envelope.contracts.designOps.some((op) => op.kind === 'strengthen_title'))
@@ -182,11 +160,11 @@ test.group('report_v4 artifact runtime', () => {
   })
 
   test('coverage gate refuses incomplete roster', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({ allAthletes: true }),
       prompt: 'Individual sheets for all players',
       rosterNames: ['Ada', 'Bea', 'Cara', 'Dee', 'Eve'],
-    })
+    }))
     const coverage = evaluateCoverageGate(
       {
         blocks: [
@@ -351,10 +329,10 @@ test.group('report_v4 artifact runtime', () => {
         },
       ],
     }
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({ wantsThresholds: true, mentionAcwr: true }),
       prompt: 'Add ACWR thresholds 0.6 and 1.3',
-    })
+    }))
     const prep = prepareSoftArtifactPath({
       document,
       envelope,
@@ -453,7 +431,7 @@ test.group('report_v4 viz ops', () => {
         },
       ],
     }
-    const contracts = resolveArtifactContracts({
+    const contracts = artifactContractsFromIntent({
       flags: flags({ stripVisualMap: true }),
       prompt: 'Remove the color scale legend',
     })
@@ -483,7 +461,7 @@ test.group('report_v4 viz ops', () => {
         },
       ],
     }
-    const contracts = resolveArtifactContracts({
+    const contracts = artifactContractsFromIntent({
       flags: flags({ remapEncode: true }),
       prompt: 'Swap the axes',
     })
@@ -527,7 +505,7 @@ test.group('report_v4 viz ops', () => {
         },
       ],
     }
-    const contracts = resolveArtifactContracts({
+    const contracts = artifactContractsFromIntent({
       flags: flags({ dropEmptyDays: true, wantsThresholds: true, mentionAcwr: true }),
       prompt: 'Drop empty days and add ACWR thresholds 0.6 and 1.3',
     })
@@ -578,10 +556,10 @@ test.group('report_v4 viz ops', () => {
 
 test.group('report_v4 soft★ phase1', () => {
   test('vague soft intent triggers clarify gate', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({}),
       prompt: 'Make it clearer',
-    })
+    }))
     const clarify = resolveSoftClarify({
       prompt: 'Make it clearer',
       envelope,
@@ -597,10 +575,10 @@ test.group('report_v4 soft★ phase1', () => {
   })
 
   test('vague soft intent asks in French by default', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({}),
       prompt: 'Rends ça plus clair',
-    })
+    }))
     const clarify = resolveSoftClarify({
       prompt: 'Rends ça plus clair',
       envelope,
@@ -614,10 +592,10 @@ test.group('report_v4 soft★ phase1', () => {
   })
 
   test('unresolved soft targets ask with candidate titles', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({ mentionAcwr: true }),
       prompt: 'Improve the ACWR chart a bit',
-    })
+    }))
     const clarify = resolveSoftClarify({
       prompt: 'Improve the ACWR chart a bit',
       envelope,
@@ -633,10 +611,10 @@ test.group('report_v4 soft★ phase1', () => {
   })
 
   test('target hint without candidates asks in writing', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({}),
       prompt: 'Improve the chart',
-    })
+    }))
     const clarify = resolveSoftClarify({
       prompt: 'Improve the chart',
       envelope,
@@ -652,10 +630,10 @@ test.group('report_v4 soft★ phase1', () => {
   })
 
   test('concrete soft ops skip clarify', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({ wantsThresholds: true, mentionAcwr: true }),
       prompt: 'Add ACWR thresholds 0.6 and 1.3',
-    })
+    }))
     const clarify = resolveSoftClarify({
       prompt: 'Add ACWR thresholds 0.6 and 1.3',
       envelope,
@@ -667,10 +645,10 @@ test.group('report_v4 soft★ phase1', () => {
   })
 
   test('editorial soft ops (TOC) skip vague clarify', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({}),
       prompt: 'Add a table of contents',
-    })
+    }))
     const clarify = resolveSoftClarify({
       prompt: 'Add a table of contents',
       envelope,
@@ -737,10 +715,10 @@ test.group('report_v4 soft★ phase1', () => {
   })
 
   test('path cost class budgets for editorial and soft_ops', ({ assert }) => {
-    const softOps = resolveArtifactEnvelope({
+    const softOps = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({ wantsThresholds: true, mentionAcwr: true }),
       prompt: 'Add ACWR thresholds 0.6 and 1.3',
-    })
+    }))
     assert.equal(
       resolvePathCostClass({
         envelope: softOps,
@@ -756,10 +734,10 @@ test.group('report_v4 soft★ phase1', () => {
   })
 
   test('soft run summary lists applied and blocked', ({ assert }) => {
-    const envelope = resolveArtifactEnvelope({
+    const envelope = envelopeFromContracts(artifactContractsFromIntent({
       flags: flags({ dropEmptyDays: true }),
       prompt: 'Drop empty days',
-    })
+    }))
     const summary = buildSoftRunSummary({
       envelope,
       softApplied: ['chart_options:1'],
@@ -819,11 +797,11 @@ test.group('report_v4 soft★ phase1', () => {
       { prompt: 'Polish the report', expect: 'clarify', flags: flags({}) },
     ]
     for (const row of cases) {
-      const envelope = resolveArtifactEnvelope({
+      const envelope = envelopeFromContracts(artifactContractsFromIntent({
         flags: row.flags,
         prompt: row.prompt,
         rosterNames: ['Ada', 'Bea', 'Cara'],
-      })
+      }))
       if (row.expect === 'clarify') {
         const clarify = resolveSoftClarify({
           prompt: row.prompt,

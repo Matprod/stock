@@ -6,7 +6,7 @@ import {
 } from '#constants/premium_report.constants'
 import { choice } from '#services/jev_service'
 
-export const CANVAS_ASK_CRITERIA: Record<PremiumCanvasAskKind, string> = {
+const CANVAS_ASK_CRITERIA: Record<PremiumCanvasAskKind, string> = {
   [PREMIUM_CANVAS_ASK.EXPLAIN]:
     'Coach asks why / how existing canvas values relate (math explanation only — no new data or edits).',
   [PREMIUM_CANVAS_ASK.MICRO_EDIT]:
@@ -24,21 +24,15 @@ export const CANVAS_ASK_CRITERIA: Record<PremiumCanvasAskKind, string> = {
   [PREMIUM_CANVAS_ASK.NONE]: 'Greeting, acknowledgment, or no canvas action required.',
 }
 
-export const isCanvasAskKind = (value: string): value is PremiumCanvasAskKind =>
+const isCanvasAskKind = (value: string): value is PremiumCanvasAskKind =>
   (PREMIUM_CANVAS_ASK_KINDS as readonly string[]).includes(value)
 
-export const mustUseToolsForCanvasAsk = (ask: PremiumCanvasAsk): boolean =>
-  ask.kind !== PREMIUM_CANVAS_ASK.EXPLAIN && ask.kind !== PREMIUM_CANVAS_ASK.NONE
-
-export const isCanvasExplain = (ask: PremiumCanvasAsk): boolean =>
-  ask.kind === PREMIUM_CANVAS_ASK.EXPLAIN
-
-export const resolveCanvasAskKind = (
+const resolveCanvasAskKind = (
   picked: string | undefined,
   fallback: PremiumCanvasAskKind
 ): PremiumCanvasAskKind => (picked && isCanvasAskKind(picked) ? picked : fallback)
 
-export const canvasAskFromChoiceAnswer = (
+const canvasAskFromChoiceAnswer = (
   answer: { choice?: string; confidence?: number } | undefined,
   fallback: PremiumCanvasAskKind,
   provider: PremiumCanvasAsk['provider'] = 'jev'
@@ -46,14 +40,6 @@ export const canvasAskFromChoiceAnswer = (
   kind: resolveCanvasAskKind(answer?.choice, fallback),
   provider,
   score: answer?.confidence,
-})
-
-export const heuristicCanvasAsk = (
-  hasExistingCanvas: boolean,
-  existingKind: PremiumCanvasAskKind = PREMIUM_CANVAS_ASK.NONE
-): PremiumCanvasAsk => ({
-  kind: hasExistingCanvas ? existingKind : PREMIUM_CANVAS_ASK.NEW_VIZ,
-  provider: 'heuristic',
 })
 
 export const buildCanvasAskChoice = (question: string) =>

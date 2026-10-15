@@ -1,5 +1,9 @@
 import type { PremiumDataset } from '#contracts/premium_report'
 import type { AppLanguage } from '#utils/localize'
+import {
+  displayMetricColumnLabel,
+  resolveColumnLabel,
+} from '#services/report_v4/metrics/column_labels'
 
 const STRUCTURAL_FR: Record<string, string> = {
   date_of_day: 'Date',
@@ -103,17 +107,6 @@ const STRUCTURAL_EN: Record<string, string> = {
   mechanism: 'Mechanism',
 }
 
-const looksTechnical = (name: string): boolean =>
-  /_/.test(name) || /^[a-z]+(?:[A-Z][a-z0-9]*)+$/.test(name)
-
-const titleCaseWords = (value: string): string =>
-  value
-    .replace(/_/g, ' ')
-    .replace(/([a-z])([A-Z])/g, '$1 $2')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .replace(/\b\w/g, (char) => char.toUpperCase())
-
 const withUnit = (label: string, unit?: string): string => {
   if (!unit) return label
   const trimmed = unit.trim()
@@ -133,7 +126,7 @@ const uniqueDisplayLabel = (base: string, used: Set<string>): string => {
   return label
 }
 
-export type ColumnLabelContext = {
+type ColumnLabelContext = {
   units?: Record<string, string>
   labels?: Record<string, string>
 }
@@ -153,11 +146,8 @@ export const displayColumnLabel = (
     unitsOrCtx && isLabelContext(unitsOrCtx)
       ? unitsOrCtx
       : { units: unitsOrCtx as Record<string, string> | undefined }
-  const fromDb = ctx.labels?.[trimmed] ?? ctx.labels?.[key]
-  const structural = (language === 'en' ? STRUCTURAL_EN : STRUCTURAL_FR)[key]
-  const base = fromDb ?? structural ?? (looksTechnical(trimmed) ? titleCaseWords(trimmed) : trimmed)
   const unit = ctx.units?.[trimmed] ?? ctx.units?.[key]
-  return withUnit(base, unit)
+  return displayMetricColumnLabel(trimmed, language, unit)
 }
 
 const labelCtx = (dataset: PremiumDataset): ColumnLabelContext => ({

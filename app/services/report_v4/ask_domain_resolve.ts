@@ -1,26 +1,15 @@
-import logger from '@adonisjs/core/services/logger'
-import { JEV_ROUTER_MODEL } from '#constants/question_router.constants'
 import {
   PREMIUM_DOMAIN,
   PREMIUM_DOMAINS,
   type PremiumDomain,
 } from '#constants/premium_report_domains'
-import {
-  COACH_REPORT_SHAPE,
-  type CoachReportShape,
-} from '#services/report_v4/coach_policy_heuristic'
-import { noul } from '#services/jev_service'
-import { elapsedSec } from '#services/premium_report/premium_report_log'
-import { requireJevClient, throwJevUnavailable } from '#services/report_v4/jev_guard'
-import { noulScore } from '#utils/jev_answers'
-
-export type FetchDomainSpec = {
+type FetchDomainSpec = {
   domain: PremiumDomain
   from?: string
   to?: string
 }
 
-export type ResolveReportDomainsArgs = {
+type ResolveReportDomainsArgs = {
   prompt: string
   preferred: PremiumDomain[]
   routed: PremiumDomain[]
@@ -31,19 +20,13 @@ export type ResolveReportDomainsArgs = {
   askDomains?: PremiumDomain[]
 }
 
-export type ResolveReportDomainsResult = {
+type ResolveReportDomainsResult = {
   domains: PremiumDomain[]
   fromAsk: PremiumDomain[]
   fromWindows: PremiumDomain[]
   fromPreferred: PremiumDomain[]
   forcedArchive: PremiumDomain[]
   dropped: Array<{ domain: PremiumDomain; reason: string }>
-}
-
-export type MultiSectionAskResult = {
-  multiSection: boolean
-  provider: 'jev' | 'structural'
-  score?: number
 }
 
 const uniqueDomains = (domains: PremiumDomain[]): PremiumDomain[] =>
@@ -106,95 +89,21 @@ export const resolveReportDomains = (
   }
 }
 
-const structuralMultiSection = (args: {
-  askDomainCount: number
-  fetchDomainCount: number
-  fetchWindowCount: number
-}): boolean =>
-  args.askDomainCount >= 4 ||
-  (args.fetchDomainCount >= 4 && args.fetchWindowCount >= 5) ||
-  args.fetchWindowCount >= 6
-
-export const resolveMultiSectionAsk = async (args: {
-  prompt: string
-  askDomainCount: number
-  fetchDomainCount: number
-  fetchWindowCount: number
-}): Promise<MultiSectionAskResult> => {
-  const started = Date.now()
-  const structural = structuralMultiSection(args)
-  const client = requireJevClient({ context: 'multi_section_ask' })
-
-  try {
-    const response = await client.systemOne({
-      model: JEV_ROUTER_MODEL,
-      state: {
-        prompt: args.prompt.slice(0, 3500),
-        askDomainCount: String(args.askDomainCount),
-        fetchDomainCount: String(args.fetchDomainCount),
-        fetchWindowCount: String(args.fetchWindowCount),
-        note: [
-          'Staff report coach ask classification.',
-          'multi_section=true when the coach wants several distinct report beats in one go',
-          '(multiple domains, multiple chart types, archive window plus display, athlete cards plus squad viz, etc.).',
-          'multi_section=false for a thin single-purpose ask (one metric family / one viz / micro follow-up).',
-          'Language-agnostic: judge intent, not wording.',
-        ].join(' '),
-      },
-      questions: {
-        multi_section: noul(
-          'Does this coach ask require a multi-section staff report (several distinct analysis beats) rather than a single thin viz?',
-          {
-            true: 'Multiple beats / domains / viz types in one report',
-            false: 'Single thin ask or micro follow-up',
-          }
-        ),
-      },
-    })
-    const score = noulScore(response.answers as Record<string, unknown>, 'multi_section')
-    const multiSection = score >= 0.55 || structural
-    logger.info(
-      {
-        multiSection,
-        provider: 'jev',
-        score,
-        structural,
-        askDomainCount: args.askDomainCount,
-        fetchDomainCount: args.fetchDomainCount,
-        fetchWindowCount: args.fetchWindowCount,
-        durationSec: elapsedSec(started),
-      },
-      'report_v4.multi_section_ask'
-    )
-    return { multiSection, provider: 'jev', score }
-  } catch (error) {
-    return throwJevUnavailable({ cause: error, context: 'multi_section_ask' })
-  }
-}
-
 export const askCoverageContinue = (args: {
   domains: PremiumDomain[]
   chartCount: number
   tableCount: number
   hasBrief: boolean
-  reportShape?: CoachReportShape
-  multiSection?: boolean
-  monitoringPlaybook?: boolean
+  floors: { minCharts: number; minTables: number; minCombined: number }
 }): string | null => {
   if (args.domains.length === 0) return null
   if (!args.hasBrief) {
     return `Ask coverage incomplete: commit_report_brief required (domains=${args.domains.join(',')}).`
   }
-  const deepFloor =
-    Boolean(args.monitoringPlaybook) || Boolean(args.multiSection) || args.domains.length >= 3
-  const thinFree =
-    !deepFloor &&
-    (args.reportShape ?? COACH_REPORT_SHAPE.FREE) === COACH_REPORT_SHAPE.FREE &&
-    args.domains.length <= 2
-  if (thinFree) return null
-  const minCharts = Math.min(8, Math.max(2, args.domains.length))
-  if (args.chartCount + args.tableCount < minCharts) {
-    return `Ask coverage incomplete: need viz/tables for allowed domains [${args.domains.join(', ')}] (charts=${args.chartCount} tables=${args.tableCount} minCombined=${minCharts}). Use Linker datasetIds only; Plan B once on join/filter errors.`
-  }
-  return null
+  const { minCharts, minTables, minCombined } = args.floors
+  if (minCharts === 0 && minTables === 0 && minCombined === 0) return null
+  const combined = args.chartCount + args.tableCount
+  const thin = args.chartCount < minCharts || args.tableCount < minTables || combined < minCombined
+  if (!thin) return null
+  return `Ask coverage incomplete: need viz/tables for domains with data [${args.domains.join(', ')}] (charts=${args.chartCount}/${minCharts} tables=${args.tableCount}/${minTables} combined=${combined}/${minCombined}). Empty domains → unavailability line, not more charts. Use Linker datasetIds only; Plan B once on join/filter errors.`
 }

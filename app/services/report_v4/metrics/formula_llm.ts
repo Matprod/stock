@@ -1,25 +1,9 @@
 import { REPORT_FORMULA_WINDOW_DEFAULTS } from '#constants/report_builder.constants'
 import {
   REPORT_FORMULAS,
-  isReportFormulaId,
-  mergeFormulaParams,
   type FormulaGroup,
   type ReportFormulaParams,
 } from '#services/report_v4/metrics/formulas'
-import type { ReportFormulaSpec } from '#contracts/report_builder'
-
-type LlmFormula = {
-  id?: string
-  params?: Record<string, number | boolean>
-}
-
-export const parseFormulaSpec = (value: LlmFormula | undefined): ReportFormulaSpec | undefined => {
-  if (!value?.id || !isReportFormulaId(value.id)) return undefined
-  return {
-    id: value.id,
-    params: mergeFormulaParams(value.id, value.params),
-  }
-}
 
 export const formulaCatalogForLlm = (opts?: { formulaIds?: string[] }) => {
   const allow = opts?.formulaIds?.length ? new Set(opts.formulaIds) : null

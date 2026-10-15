@@ -18,7 +18,7 @@ const PREMIUM_TEXT_CAPTION_JEV = {
   falseLabel: 'Skip — filler or ungrounded',
 } as const
 
-export type JevTextCaptionJudgment = {
+type JevTextCaptionJudgment = {
   allow: boolean
   score: number
 }

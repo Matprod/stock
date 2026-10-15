@@ -1,0 +1,1330 @@
+{
+  "title": "Rapport staff — Hambourg",
+  "dateRange": {
+    "from": "2026-03-01",
+    "to": "2026-03-07"
+  },
+  "blocks": [
+    {
+      "id": "33483f57-6c10-46f0-bc07-5f7ac57ecb17",
+      "type": "heading",
+      "text": "Charge",
+      "level": 1
+    },
+    {
+      "id": "8eab4021-0517-4c68-afec-28248a7efb10",
+      "type": "chart",
+      "title": "sRPE moyen — Équipe",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              3046.516,
+              978.2,
+              1586.88,
+              3019.28,
+              812.74,
+              1309.44,
+              2574.88
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "27503282-7e2b-48ef-b3b0-35f971346112",
+      "type": "text",
+      "text": "Principaux déterminants de la charge : La charge globale de volume (distance totale, dépense énergétique, temps de jeu) et la charge de pics d'explosivité planifiée (accélérations/décélérations maximales, efforts zone 6) sont les deux principaux indicateurs de stress d'entraînement. La variabilité quotidienne de la charge externe et la moyenne sur 7 jours complètent le tableau pour suivre l'adaptation individuelle."
+    },
+    {
+      "id": "6c069522-0587-4b33-9ddf-dc4a8c1f0177",
+      "type": "heading",
+      "text": "GPS",
+      "level": 1
+    },
+    {
+      "id": "88d6a5ef-cefa-42dd-bc1e-249e7238f51f",
+      "type": "chart",
+      "title": "Distance totale — Équipe",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Distance total (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Distance total (m)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Distance total (m)",
+            "type": "line",
+            "data": [
+              4865.5,
+              4194.727,
+              2841.429,
+              3085,
+              3054.25,
+              2686.353
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "b1a643c4-2d1f-4559-82fb-174da3453f7e",
+      "type": "chart",
+      "title": "HMLD — Équipe",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "HMLD (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "HMLD (m)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "HMLD (m)",
+            "type": "line",
+            "data": [
+              768.75,
+              578.091,
+              402.286,
+              511.5,
+              438.75,
+              325
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "8aebb986-2038-40af-90db-2d832677e8ce",
+      "type": "chart",
+      "title": "HSR — Équipe",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "High speed running (absolute)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "High speed running (absolute)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "High speed running (absolute)",
+            "type": "line",
+            "data": [
+              344.25,
+              136.091,
+              119.143,
+              200.5,
+              120.583,
+              111.588
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "b3db3c28-63f6-4002-850a-bb3ff7384174",
+      "type": "chart",
+      "title": "Distance explosive — Équipe",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Explosive distance (absolute)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Explosive distance (absolute)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Explosive distance (absolute)",
+            "type": "line",
+            "data": [
+              424,
+              441.727,
+              283.095,
+              311.25,
+              318.167,
+              213.294
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "b35205bd-eb60-439e-adf6-7e4d77c15543",
+      "type": "heading",
+      "text": "Scores",
+      "level": 1
+    },
+    {
+      "id": "44794cef-cfee-4cba-a123-7d02aec97f52",
+      "type": "heading",
+      "text": "Tableau récapitulatif joueurs",
+      "level": 2
+    },
+    {
+      "id": "8c09f76e-a201-49cd-93f6-644daf96177e",
+      "type": "table",
+      "title": "Synthèse période — 25 joueurs",
+      "columns": [
+        "Joueur",
+        "Poste",
+        "Distance total (m)",
+        "HMLD (m)",
+        "High speed running (absolute)",
+        "sRPE daily",
+        "Performance score (0-100)",
+        "Injury risk score (0-100)"
+      ],
+      "rows": [
+        [
+          "Fabio Baldé",
+          "WINGER",
+          "2 690",
+          "328",
+          "133",
+          "3 993",
+          "50",
+          "0"
+        ],
+        [
+          "Nicolás Capaldo",
+          "CENTRAL DEFENDER",
+          null,
+          null,
+          null,
+          "0",
+          "70",
+          "2"
+        ],
+        [
+          "Jean-Luc Dompé",
+          "WINGER",
+          "2 407",
+          "213",
+          "51",
+          "5 445",
+          "47",
+          "6"
+        ],
+        [
+          "Damion Downs",
+          "STRIKER",
+          "2 023",
+          "155",
+          "41",
+          "4 235",
+          "47",
+          "2"
+        ],
+        [
+          "Daniel Elfadli",
+          "DEFENSIVE MIDFIELDER",
+          "3 108",
+          "423",
+          "120",
+          "2 057",
+          "52",
+          "9"
+        ],
+        [
+          "Robert Glatzel",
+          "STRIKER",
+          "3 111",
+          "343",
+          "83",
+          "3 267",
+          "43",
+          "17"
+        ],
+        [
+          "Giorgi Gocholeishvili",
+          "FULL BACK",
+          "2 592",
+          "296",
+          "63",
+          "1 815",
+          "56",
+          "0"
+        ],
+        [
+          "Albert Grønbæk",
+          "WINGER",
+          "3 219",
+          "526",
+          "89",
+          "0",
+          "52",
+          "0"
+        ],
+        [
+          "Bakery Jatta",
+          "WINGER",
+          "3 207",
+          "480",
+          "160",
+          "0",
+          "72",
+          "11"
+        ],
+        [
+          "Noah Katterbach",
+          "FULL BACK",
+          "3 255",
+          "428",
+          "205",
+          "0",
+          "50",
+          "3"
+        ],
+        [
+          "Ransford Königsdörffer",
+          "STRIKER",
+          "3 105",
+          "389",
+          "177",
+          "4 356",
+          "66",
+          "3"
+        ],
+        [
+          "Omar Megeed",
+          "ATTACKING MIDFIELDER",
+          "3 294",
+          "593",
+          "140",
+          "0",
+          "52",
+          "2"
+        ],
+        [
+          "William Mikelbrencis",
+          "FULL BACK",
+          "2 771",
+          "393",
+          "134",
+          "3 025",
+          "56",
+          "4"
+        ],
+        [
+          "Miro Muheim",
+          "FULL BACK",
+          "3 043",
+          "360",
+          "108",
+          "3 146",
+          "51",
+          "1"
+        ],
+        [
+          "Warmed Omari",
+          "CENTRAL DEFENDER",
+          "2 324",
+          "278",
+          "66",
+          "3 751",
+          "53",
+          "0"
+        ],
+        [
+          "Philip Otele",
+          "WINGER",
+          "3 104",
+          "507",
+          "267",
+          "2 420",
+          "50",
+          "5"
+        ],
+        [
+          "Rayan Philippe",
+          "STRIKER",
+          "2 887",
+          "376",
+          "109",
+          "0",
+          "54",
+          "5"
+        ],
+        [
+          "Yussuf Poulsen",
+          "STRIKER",
+          "3 032",
+          "371",
+          "119",
+          "2 662",
+          "48",
+          "68"
+        ],
+        [
+          "Nicolai Remberg",
+          "DEFENSIVE MIDFIELDER",
+          "413",
+          "7",
+          "0",
+          "3 146",
+          "58",
+          "1"
+        ],
+        [
+          "Albert Sambi Lokonga",
+          "CENTRAL MIDFIELDER",
+          "2 722",
+          "330",
+          "105",
+          "4 235",
+          "61",
+          "0"
+        ],
+        [
+          "Otto Stange",
+          "STRIKER",
+          "3 282",
+          "369",
+          "146",
+          "3 267",
+          "54",
+          "2"
+        ],
+        [
+          "Jordan Torunarigha",
+          "CENTRAL DEFENDER",
+          "2 521",
+          "289",
+          "75",
+          "2 420",
+          "53",
+          "2"
+        ],
+        [
+          "Fábio Vieira",
+          "CENTRAL MIDFIELDER",
+          "2 735",
+          "363",
+          "31",
+          "3 872",
+          "68",
+          "0"
+        ],
+        [
+          "Luka Vušković",
+          "CENTRAL DEFENDER",
+          "3 171",
+          "383",
+          "34",
+          "7 260",
+          "67",
+          "3"
+        ]
+      ],
+      "option": {
+        "border": true,
+        "cells": [
+          [
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            {
+              "background": "#c8e6d5"
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#2f9e6f"
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#2f9e6f"
+            },
+            null,
+            {
+              "background": "#f5d0a9"
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#2f9e6f"
+            }
+          ],
+          [
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            {
+              "background": "#f5d0a9"
+            },
+            {
+              "background": "#c8e6d5"
+            },
+            null,
+            null,
+            {
+              "background": "#e07070"
+            }
+          ],
+          [
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            null,
+            {
+              "background": "#e07070"
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            }
+          ],
+          [
+            null,
+            null,
+            {
+              "background": "#2f9e6f"
+            },
+            {
+              "background": "#e07070"
+            }
+          ],
+          [
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            {
+              "background": "#e07070"
+            },
+            {
+              "background": "#2f9e6f"
+            },
+            null,
+            {
+              "background": "#2f9e6f"
+            },
+            {
+              "background": "#e07070"
+            }
+          ],
+          [
+            null,
+            null,
+            {
+              "background": "#2f9e6f"
+            },
+            {
+              "background": "#f5d0a9"
+            },
+            {
+              "background": "#2f9e6f"
+            },
+            null,
+            null,
+            {
+              "background": "#f5d0a9"
+            }
+          ],
+          [
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            {
+              "background": "#f5d0a9"
+            },
+            {
+              "background": "#2f9e6f"
+            },
+            {
+              "background": "#2f9e6f"
+            },
+            {
+              "background": "#c8e6d5"
+            }
+          ],
+          [
+            null,
+            null,
+            {
+              "background": "#2f9e6f"
+            },
+            {
+              "background": "#e07070"
+            },
+            {
+              "background": "#c8e6d5"
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            {
+              "background": "#f5d0a9"
+            },
+            {
+              "background": "#c8e6d5"
+            },
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            {
+              "background": "#f5d0a9"
+            }
+          ],
+          [],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            {
+              "background": "#e07070"
+            },
+            {
+              "background": "#2f9e6f"
+            },
+            null,
+            null,
+            {
+              "background": "#f5d0a9"
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#f5d0a9"
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#e07070"
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            {
+              "background": "#c8e6d5"
+            }
+          ],
+          [
+            null,
+            null,
+            {
+              "background": "#2f9e6f"
+            },
+            null,
+            {
+              "background": "#c8e6d5"
+            }
+          ],
+          [],
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            {
+              "background": "#2f9e6f"
+            }
+          ],
+          [
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            {
+              "background": "#f5d0a9"
+            },
+            null,
+            {
+              "background": "#2f9e6f"
+            },
+            {
+              "background": "#2f9e6f"
+            }
+          ]
+        ],
+        "heatLegend": {
+          "mode": "relative",
+          "hasRisk": true,
+          "colors": {
+            "volumeMid": "#c8e6d5",
+            "volumeHigh": "#2f9e6f",
+            "riskMid": "#f5d0a9",
+            "riskHigh": "#e07070"
+          }
+        }
+      }
+    },
+    {
+      "id": "reliability-h-12",
+      "type": "heading",
+      "text": "Fiabilité des données",
+      "level": 2
+    },
+    {
+      "id": "reliability-t-13",
+      "type": "text",
+      "text": "Échantillon : 465 ligne(s) sur 5 jeu(x). Fenêtre demandée 2026-03-01→2026-03-07 ; 0 jeu(x) démarrent après le début, 1 s'arrêtent avant la fin. Limite : kpi maxacceleration semble bloqué sur une valeur par défaut (6, ~46 % des lignes). Limite : kpi maxdeceleration semble bloqué sur une valeur par défaut (6, ~43 % des lignes). Limite : kpi decelerationdistancez6rel semble bloqué sur une valeur par défaut (0, ~41 % des lignes)."
+    }
+  ]
+}

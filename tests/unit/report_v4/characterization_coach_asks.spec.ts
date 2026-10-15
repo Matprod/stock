@@ -190,6 +190,29 @@ const cases: CoachAskCase[] = [
     expectBlockOrder: ['p1.title', 's1.chart'],
     expectChartCount: 1,
   },
+  {
+    id: 'short_distance_totale',
+    prompt: 'Un seul tableau: top 10 distance GPS totale sur 2026-03-01 → 2026-03-07.',
+    html: `<!DOCTYPE html><html><body>
+      <h1 data-block="p1.title">Top 10 distance totale</h1>
+      <table data-block="t1.table"><thead><tr><th>Joueur</th><th>Distance totale (m)</th></tr></thead></table>
+      <p data-block="t1.note">distance totale substituted from data (was m/min).</p>
+    </body></html>`,
+    expectTitles: ['Top 10 distance totale'],
+    expectBlockOrder: ['p1.title', 't1.table', 't1.note'],
+    expectChartCount: 0,
+  },
+  {
+    id: 'canvas_facts_mean_total',
+    prompt: 'Show team mean and total GPS distance with cited facts',
+    html: `<!DOCTYPE html><html><body>
+      <h1 data-block="p1.title">GPS totals</h1>
+      <p data-block="f1">Mean <span data-fact="gps_daily.total_distance_m.mean">2000</span> · Total <span data-fact="gps_daily.total_distance_m.sum">6000</span></p>
+    </body></html>`,
+    expectTitles: ['GPS totals'],
+    expectBlockOrder: ['p1.title', 'f1'],
+    expectChartCount: 0,
+  },
 ]
 
 test.group('report_v4 characterization · 10 coach asks', () => {

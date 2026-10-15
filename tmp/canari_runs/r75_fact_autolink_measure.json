@@ -1,0 +1,106 @@
+{
+  "hamburg": {
+    "path": "scripts/baseline/baseline_hamburg_r75.html",
+    "before": {
+      "dataFact": 0,
+      "dataSrc": 25
+    },
+    "afterSpans": {
+      "dataFact": 0,
+      "dataSrc": 65
+    },
+    "stats": {
+      "displayed": 97,
+      "linkedFact": 0,
+      "linkedSrc": 40,
+      "linked": 40,
+      "ambiguous": 9,
+      "unmatched": 48,
+      "linkedShare": 0.41237113402061853
+    },
+    "synthetic": {
+      "facts": 25,
+      "datasets": 2,
+      "athleteNames": 16
+    },
+    "false": 0
+  },
+  "individual": {
+    "path": "scripts/baseline/baseline_individual_r75.html",
+    "before": {
+      "dataFact": 0,
+      "dataSrc": 0
+    },
+    "afterSpans": {
+      "dataFact": 0,
+      "dataSrc": 23
+    },
+    "stats": {
+      "displayed": 36,
+      "linkedFact": 0,
+      "linkedSrc": 23,
+      "linked": 23,
+      "ambiguous": 2,
+      "unmatched": 11,
+      "linkedShare": 0.6388888888888888
+    },
+    "synthetic": {
+      "facts": 0,
+      "datasets": 3,
+      "athleteNames": 8
+    },
+    "false": 0
+  },
+  "short": {
+    "path": "scripts/baseline/baseline_short_r75.html",
+    "before": {
+      "dataFact": 1,
+      "dataSrc": 0
+    },
+    "afterSpans": {
+      "dataFact": 1,
+      "dataSrc": 13
+    },
+    "stats": {
+      "displayed": 23,
+      "linkedFact": 0,
+      "linkedSrc": 13,
+      "linked": 13,
+      "ambiguous": 0,
+      "unmatched": 10,
+      "linkedShare": 0.5652173913043478
+    },
+    "synthetic": {
+      "facts": 1,
+      "datasets": 1,
+      "athleteNames": 10
+    },
+    "false": 0
+  },
+  "hard24": {
+    "path": "scripts/baseline/baseline_hard24_r75.html",
+    "before": {
+      "dataFact": 1,
+      "dataSrc": 7
+    },
+    "afterSpans": {
+      "dataFact": 1,
+      "dataSrc": 114
+    },
+    "stats": {
+      "displayed": 175,
+      "linkedFact": 0,
+      "linkedSrc": 107,
+      "linked": 107,
+      "ambiguous": 57,
+      "unmatched": 11,
+      "linkedShare": 0.6114285714285714
+    },
+    "synthetic": {
+      "facts": 8,
+      "datasets": 1,
+      "athleteNames": 30
+    },
+    "false": 0
+  }
+}

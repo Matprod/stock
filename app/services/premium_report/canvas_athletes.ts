@@ -4,7 +4,7 @@ const JOUEUR_COL_RE = /^(joueur|player|athlete|name|full_?name|athlete_?name)$/i
 const NAME_TOKEN_RE =
   /\b([A-ZÀ-ÖØ-Þ][a-zà-öø-ÿ'’-]+(?:\s+[A-ZÀ-ÖØ-Þ][a-zà-öø-ÿ'’-]+)+)\b/g
 
-export type CaptionAthleteOptions = {
+type CaptionAthleteOptions = {
   excludeTokens?: string[]
 }
 

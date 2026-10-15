@@ -6,7 +6,7 @@ import {
   type ArtifactChartSpec,
 } from '#services/report_v4/artifact_html'
 
-export type HostHealResult = {
+type HostHealResult = {
   html: string
   healed: boolean
   injected: number

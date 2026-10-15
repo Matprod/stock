@@ -31,7 +31,7 @@ const TEAM_LABEL_CRITERIA_EN: Record<string, string> = {
   'Team load': 'When the metric is clearly collective load / player load',
 }
 
-export type JevTeamChartJudgment = {
+type JevTeamChartJudgment = {
   op: TeamChartOp
   seriesLabel: string
   score: number

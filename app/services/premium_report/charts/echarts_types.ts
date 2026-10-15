@@ -1,4 +1,4 @@
-export type EchartsEncode = {
+type EchartsEncode = {
   x?: string | string[]
   y?: string | string[]
   tooltip?: string | string[]
@@ -6,14 +6,14 @@ export type EchartsEncode = {
   value?: string
 }
 
-export type EchartsTextStyle = {
+type EchartsTextStyle = {
   fontSize?: number
   color?: string
   fontWeight?: string | number
   [key: string]: unknown
 }
 
-export type EchartsLineStyle = {
+type EchartsLineStyle = {
   width?: number
   color?: string
   type?: string
@@ -21,7 +21,7 @@ export type EchartsLineStyle = {
   [key: string]: unknown
 }
 
-export type EchartsItemStyle = {
+type EchartsItemStyle = {
   color?: string
   shadowBlur?: number
   shadowColor?: string
@@ -122,7 +122,7 @@ export type EchartsSeriesItem = {
   [key: string]: unknown
 }
 
-export type BarOrientation = 'horizontal' | 'vertical' | 'auto'
+type BarOrientation = 'horizontal' | 'vertical' | 'auto'
 
 export type EchartsOption = {
   animation?: boolean

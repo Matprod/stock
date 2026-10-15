@@ -16,8 +16,6 @@ import TeamChatbotsController from '#controllers/team_chatbots_controller'
 import MyCoachController from '#controllers/my_coach_controller'
 import CronsController from '#controllers/crons_controller'
 import NotesController from '#controllers/notes_controller'
-import ReportBuilderController from '#controllers/report_builder_controller'
-import PremiumReportController from '#controllers/premium_report_controller'
 import WorkoutsController from '#controllers/workouts_controller'
 import SummariesController from '#controllers/summaries_controller'
 import NutritionController from '#controllers/nutrition_controller'
@@ -37,8 +35,6 @@ import ThresholdsController from '#controllers/thresholds_controller'
 import DemoPairsController from '#controllers/demo_pairs_controller'
 import WahooOauthController from '#controllers/mobile/wahoo_oauth_controller'
 import WhoopOauthController from '#controllers/mobile/whoop_oauth_controller'
-
-const REPORT_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 router.get('/', async () => {
   return {
@@ -104,30 +100,6 @@ router
   .middleware(middleware.auth())
   .middleware(middleware.permission('notes:view'))
 
-router
-  .group(() => {
-    router.get('/', [PremiumReportController, 'index'])
-    router
-      .post('/generate', [PremiumReportController, 'generate'])
-      .use(middleware.permission('reports-premium:create'))
-    router
-      .post('/pdf', [PremiumReportController, 'exportPdf'])
-      .use(middleware.permission('reports-premium:create'))
-    router
-      .post('/', [PremiumReportController, 'save'])
-      .use(middleware.permission('reports-premium:create'))
-    router.get('/:id', [PremiumReportController, 'show'])
-    router
-      .put('/:id', [PremiumReportController, 'update'])
-      .use(middleware.permission('reports-premium:create'))
-    router
-      .delete('/:id', [PremiumReportController, 'destroy'])
-      .use(middleware.permission('reports-premium:create'))
-  })
-  .prefix('/reports/premium')
-  .middleware(middleware.auth())
-  .middleware(middleware.permission('reports-premium:view'))
-
 const ReportV4Controller = () => import('#services/report_v4/controller')
 router.get('/reports/report-v4/assets/echarts.min.js', [ReportV4Controller, 'echartsAsset'])
 router
@@ -145,44 +117,6 @@ router
   .prefix('/reports/report-v4')
   .middleware(middleware.auth())
   .middleware(middleware.permission('reports-premium:view'))
-
-router
-  .group(() => {
-    router.get('/catalog', [ReportBuilderController, 'catalog'])
-    router
-      .post('/generate', [ReportBuilderController, 'generate'])
-      .use(middleware.permission('reports:create'))
-    router
-      .post('/chatbot', [ReportBuilderController, 'chatbot'])
-      .use(middleware.permission('reports:create'))
-    router
-      .post('/pdf', [ReportBuilderController, 'exportPdf'])
-      .use(middleware.permission('reports:create'))
-    router
-      .post('/', [ReportBuilderController, 'store'])
-      .use(middleware.permission('reports:create'))
-    router.get('/', [ReportBuilderController, 'index'])
-    router.get('/:id', [ReportBuilderController, 'show']).where('id', REPORT_UUID)
-    router
-      .put('/:id', [ReportBuilderController, 'update'])
-      .where('id', REPORT_UUID)
-      .use(middleware.permission('reports:create'))
-    router
-      .delete('/:id', [ReportBuilderController, 'destroy'])
-      .where('id', REPORT_UUID)
-      .use(middleware.permission('reports:create'))
-    router
-      .post('/:id/generate', [ReportBuilderController, 'generateSaved'])
-      .where('id', REPORT_UUID)
-      .use(middleware.permission('reports:create'))
-    router
-      .post('/:id/pdf', [ReportBuilderController, 'exportSavedPdf'])
-      .where('id', REPORT_UUID)
-      .use(middleware.permission('reports:create'))
-  })
-  .prefix('/reports')
-  .middleware(middleware.auth())
-  .middleware(middleware.permission('reports:view'))
 
 router
   .group(() => {

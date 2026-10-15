@@ -41,7 +41,7 @@ const boolFromUnknown = (value: unknown): boolean => {
   return false
 }
 
-export const softEditFlagsFromHaikuJson = (
+const softEditFlagsFromHaikuJson = (
   raw: Record<string, unknown>
 ): SoftEditIntentFlags => ({
   wantsToc: boolFromUnknown(raw.wants_toc),

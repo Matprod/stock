@@ -6,6 +6,7 @@ import {
   DB_TOOL_TEAM_PARTITION_FORMAT,
   MAX_RESULT_BYTES,
   MAX_RESULT_ROWS,
+  REPORT_SQL_DB_TOOL_DESCRIPTION,
   SQL_PARTITION_AGGREGATED_MAX_CHARS,
   SQL_PARTITION_AGGREGATED_MAX_ROWS,
   SQL_PARTITION_TARGET_CHARS,
@@ -247,6 +248,14 @@ const runDbToolExecute = async (
   }
 }
 
+const queryDatabaseInputSchema = {
+  type: 'object',
+  properties: {
+    sql: { type: 'string', description: 'A valid SQL SELECT statement' },
+  },
+  required: ['sql'],
+} as const
+
 export const createDbTool = async (
   question: string = '',
   context?: AgentContext,
@@ -270,6 +279,33 @@ export const createDbTool = async (
   const maxResultBytes = options?.maxResultBytes ?? MAX_RESULT_BYTES
   const skipTeamPartition = options?.skipTeamPartition === true
   const reportSql = options?.reportSql === true
+  const noticeState = { count: 0 }
+
+  const execute = async (input: Record<string, string>) =>
+    runDbToolExecute(input, {
+      question,
+      context,
+      onSuccessfulQuery,
+      teamPartitionState,
+      seriesOnly,
+      noticeState,
+      maxResultRows,
+      maxResultBytes,
+      skipTeamPartition,
+      reportSql,
+    })
+
+  if (reportSql) {
+    return {
+      schema: {
+        name: 'query_database',
+        description: REPORT_SQL_DB_TOOL_DESCRIPTION,
+        input_schema: queryDatabaseInputSchema,
+      },
+      execute,
+    }
+  }
+
   const schema = filterSchema(question, {
     seriesOnly,
     forceDomainTitles: options?.forceDomainTitles,
@@ -295,13 +331,7 @@ export const createDbTool = async (
   const schemaObj = {
     name: 'query_database',
     description,
-    input_schema: {
-      type: 'object',
-      properties: {
-        sql: { type: 'string', description: 'A valid SQL SELECT statement' },
-      },
-      required: ['sql'],
-    },
+    input_schema: queryDatabaseInputSchema,
   }
 
   const fullDescription = description
@@ -314,23 +344,10 @@ export const createDbTool = async (
     get: () => (slimmed ? slimDescription : fullDescription),
   })
 
-  const noticeState = { count: 0 }
-
   return {
     schema: schemaObj,
     execute: async (input) => {
-      const result = await runDbToolExecute(input, {
-        question,
-        context,
-        onSuccessfulQuery,
-        teamPartitionState,
-        seriesOnly,
-        noticeState,
-        maxResultRows,
-        maxResultBytes,
-        skipTeamPartition,
-        reportSql,
-      })
+      const result = await execute(input)
       if (!slimmed && clubMetricsBlock) slimmed = true
       return result
     },

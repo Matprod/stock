@@ -1,209 +1,20 @@
 {
- "dead": [
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/premium_report/jev_canvas_ask.ts",
-   "name": "mustUseToolsForCanvasAsk",
-   "kind": "const",
-   "s": 30,
-   "e": 31,
-   "lines": 2,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/premium_report/jev_canvas_ask.ts",
-   "name": "isCanvasExplain",
-   "kind": "const",
-   "s": 33,
-   "e": 34,
-   "lines": 2,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/premium_report/jev_canvas_ask.ts",
-   "name": "heuristicCanvasAsk",
-   "kind": "const",
-   "s": 51,
-   "e": 57,
-   "lines": 7,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/premium_report/premium_report_document.ts",
-   "name": "resolveTableBorder",
-   "kind": "const",
-   "s": 1180,
-   "e": 1194,
-   "lines": 15,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/premium_report/premium_report_document.ts",
-   "name": "resolveTableHeaderStyle",
-   "kind": "const",
-   "s": 1223,
-   "e": 1224,
-   "lines": 2,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/premium_report/premium_report_document.ts",
-   "name": "resolveTableCellStyle",
-   "kind": "const",
-   "s": 1226,
-   "e": 1237,
-   "lines": 12,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/premium_report/premium_report_log.ts",
-   "name": "logPremiumStart",
-   "kind": "const",
-   "s": 70,
-   "e": 92,
-   "lines": 23,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/premium_report/premium_report_log.ts",
-   "name": "logPremiumSparse",
-   "kind": "const",
-   "s": 94,
-   "e": 109,
-   "lines": 16,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/premium_report/premium_report_log.ts",
-   "name": "logPremiumDone",
-   "kind": "const",
-   "s": 208,
-   "e": 243,
-   "lines": 36,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/premium_report/premium_report_log.ts",
-   "name": "logPremiumPretty",
-   "kind": "const",
-   "s": 246,
-   "e": 257,
-   "lines": 12,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/report_v4/metrics/athlete_split.ts",
-   "name": "resolveAthleteName",
-   "kind": "const",
-   "s": 108,
-   "e": 120,
-   "lines": 13,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/report_v4/metrics/athlete_split.ts",
-   "name": "resolvePromptAthleteScope",
-   "kind": "const",
-   "s": 312,
-   "e": 371,
-   "lines": 60,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/report_v4/metrics/athlete_split.ts",
-   "name": "coverAthleteScopeSplits",
-   "kind": "const",
-   "s": 411,
-   "e": 446,
-   "lines": 36,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/report_v4/metrics/athlete_split.ts",
-   "name": "applyAthleteIdsToBlocs",
-   "kind": "const",
-   "s": 448,
-   "e": 466,
-   "lines": 19,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/report_v4/metrics/athlete_split.ts",
-   "name": "collectBlocAthleteIds",
-   "kind": "const",
-   "s": 468,
-   "e": 469,
-   "lines": 2,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/report_v4/metrics/formula_llm.ts",
-   "name": "parseFormulaSpec",
-   "kind": "const",
-   "s": 16,
-   "e": 22,
-   "lines": 7,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/report_v4/metrics/formulas.ts",
-   "name": "formulaTitleSuffix",
-   "kind": "const",
-   "s": 47,
-   "e": 50,
-   "lines": 4,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  },
-  {
-   "f": "/Users/matprod/mauna/backend-v2/app/services/report_v4/metrics/formulas.ts",
-   "name": "normalizeFormulaSpec",
-   "kind": "const",
-   "s": 52,
-   "e": 55,
-   "lines": 4,
-   "ownRefs": 0,
-   "ext": 0,
-   "extTest": 0
-  }
- ],
+ "dead": [],
  "testOnly": [
   {
    "name": "buildAbsoluteMarkLines",
    "f": "app/services/premium_report/charts/echarts_options.ts",
    "lines": 18
+  },
+  {
+   "name": "setPremiumConsoleLogging",
+   "f": "app/services/premium_report/premium_report_log.ts",
+   "lines": 3
+  },
+  {
+   "name": "premiumLog",
+   "f": "app/services/premium_report/premium_report_log.ts",
+   "lines": 4
   },
   {
    "name": "sqlSafeDecimalCast",
@@ -221,21 +32,6 @@
    "lines": 35
   },
   {
-   "name": "stampDataBlockIdsInHtml",
-   "f": "app/services/report_v4/artifact_html.ts",
-   "lines": 60
-  },
-  {
-   "name": "flagsFromHaikuJson",
-   "f": "app/services/report_v4/artifact_runtime/classify_artifact_intent.ts",
-   "lines": 13
-  },
-  {
-   "name": "indexArtifactSections",
-   "f": "app/services/report_v4/artifact_sections.ts",
-   "lines": 47
-  },
-  {
    "name": "buildAskRequirements",
    "f": "app/services/report_v4/ask_contract.ts",
    "lines": 98
@@ -243,17 +39,12 @@
   {
    "name": "verifyAskContract",
    "f": "app/services/report_v4/ask_contract.ts",
-   "lines": 181
+   "lines": 182
   },
   {
-   "name": "askDomainsFromHaikuJson",
-   "f": "app/services/report_v4/classify_ask_domains.ts",
-   "lines": 2
-  },
-  {
-   "name": "softEditFlagsFromHaikuJson",
-   "f": "app/services/report_v4/classify_soft_edit_intent.ts",
-   "lines": 13
+   "name": "checkChartOptionGuards",
+   "f": "app/services/report_v4/chart_option_guards.ts",
+   "lines": 61
   },
   {
    "name": "truncateInsightScience",
@@ -276,24 +67,14 @@
    "lines": 67
   },
   {
-   "name": "buildDataProfileCanvasText",
-   "f": "app/services/report_v4/data_profiler.ts",
-   "lines": 18
-  },
-  {
-   "name": "datasetsFromFixtureDomainPacks",
-   "f": "app/services/report_v4/data_profiler.ts",
-   "lines": 8
+   "name": "buildDataReliabilityReport",
+   "f": "app/services/report_v4/data_reliability.ts",
+   "lines": 40
   },
   {
    "name": "needsFetchFromSignals",
    "f": "app/services/report_v4/edit_route.ts",
    "lines": 18
-  },
-  {
-   "name": "heuristicNeedsFetch",
-   "f": "app/services/report_v4/edit_route.ts",
-   "lines": 1
   },
   {
    "name": "ScanContext",
@@ -306,38 +87,18 @@
    "lines": 23
   },
   {
-   "name": "REPORT_V4_LEGACY_GONE_CODE",
-   "f": "app/services/report_v4/legacy_gone.ts",
-   "lines": 1
-  },
-  {
-   "name": "legacyReportGoneMessage",
-   "f": "app/services/report_v4/legacy_gone.ts",
-   "lines": 4
-  },
-  {
    "name": "clampFetchesToAsk",
    "f": "app/services/report_v4/prompt_windows_llm.ts",
    "lines": 28
   },
   {
-   "name": "GroundingIssue",
-   "f": "app/services/report_v4/repair_html.ts",
-   "lines": 6
-  },
-  {
-   "name": "RepairContext",
-   "f": "app/services/report_v4/repair_html.ts",
-   "lines": 12
+   "name": "buildPackFontFaceCss",
+   "f": "app/services/report_v4/report_v4_assets.ts",
+   "lines": 24
   },
   {
    "name": "ReportV4AbortedError",
    "f": "app/services/report_v4/request_abort.ts",
-   "lines": 6
-  },
-  {
-   "name": "resolveSoftEditOps",
-   "f": "app/services/report_v4/soft_edit_ops.ts",
    "lines": 6
   }
  ]

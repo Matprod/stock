@@ -55,7 +55,7 @@ export const createReportFactTools = (run: ReportV4RunState): PremiumTool[] => [
           datasetId: { type: 'string' },
           op: {
             type: 'string',
-            enum: ['count', 'count_where', 'sum', 'mean', 'min', 'max', 'distinct'],
+            enum: ['count', 'count_where', 'sum', 'mean', 'min', 'max', 'last', 'distinct', 'delta'],
           },
           column: { type: 'string' },
           unit: { type: 'string' },
@@ -92,7 +92,9 @@ export const createReportFactTools = (run: ReportV4RunState): PremiumTool[] => [
       }
       if (
         !op ||
-        !['count', 'count_where', 'sum', 'mean', 'min', 'max', 'distinct'].includes(op)
+        !['count', 'count_where', 'sum', 'mean', 'min', 'max', 'last', 'distinct', 'delta'].includes(
+          op
+        )
       ) {
         return JSON.stringify({ error: 'invalid op' })
       }

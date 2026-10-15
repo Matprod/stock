@@ -1,6 +1,6 @@
 import db from '@adonisjs/lucid/services/db'
 import type { AppLanguage } from '#utils/localize'
-import { escapeHtml } from '#services/report_v4/report_v4_constants'
+import { escapeHtml } from '#utils/html_text'
 
 export type ClubInsightScience = {
   insightId: string

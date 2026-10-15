@@ -1,0 +1,4534 @@
+{
+  "title": "Fiches individuelles Hambourg",
+  "dateRange": {
+    "from": "2026-03-01",
+    "to": "2026-03-07"
+  },
+  "blocks": [
+    {
+      "id": "2ba93798-024f-40f2-bb4e-0f4dd83a0a53",
+      "type": "heading",
+      "text": "GPS",
+      "level": 1
+    },
+    {
+      "id": "9e3dbb5b-13e1-43ba-b376-e882ffc8cb0b",
+      "type": "table",
+      "title": "GPS — Volumes totaux (1–7 mars)",
+      "columns": [
+        "Joueur",
+        "Distance Total",
+        "HMLD",
+        "Explosive Distance (Absolute)",
+        "High Speed Running (Absolute)",
+        "Maxdeceleration",
+        "Decelerationdistancez 6 Rel",
+        "Maxacceleration"
+      ],
+      "rows": [
+        [
+          "Bakery Jatta",
+          "12 212",
+          "1 779",
+          "1 199",
+          "580",
+          null,
+          null,
+          null
+        ],
+        [
+          "Fabio Baldé",
+          "17 465",
+          "2 431",
+          "1 669",
+          "762",
+          null,
+          null,
+          null
+        ],
+        [
+          "Albert Grønbæk",
+          "16 107",
+          "2 756",
+          "1 786",
+          "968",
+          null,
+          null,
+          null
+        ],
+        [
+          "Noah Katterbach",
+          "18 490",
+          "2 595",
+          "1 597",
+          "995",
+          null,
+          null,
+          null
+        ],
+        [
+          "Otto Stange",
+          "14 779",
+          "1 992",
+          "1 426",
+          "565",
+          null,
+          null,
+          null
+        ],
+        [
+          "Giorgi Gocholeishvili",
+          "10 357",
+          "1 653",
+          "1 116",
+          "536",
+          null,
+          null,
+          null
+        ],
+        [
+          "Robert Glatzel",
+          "13 928",
+          "1 687",
+          "1 238",
+          "450",
+          null,
+          null,
+          null
+        ],
+        [
+          "Daniel Elfadli",
+          "10 407",
+          "1 440",
+          "1 056",
+          "383",
+          null,
+          null,
+          null
+        ],
+        [
+          "Rayan Philippe",
+          "10 290",
+          "1 554",
+          "1 124",
+          "430",
+          null,
+          null,
+          null
+        ],
+        [
+          "Omar Megeed",
+          "10 506",
+          "1 704",
+          "1 227",
+          "477",
+          null,
+          null,
+          null
+        ],
+        [
+          "Jean-Luc Dompé",
+          "9 797",
+          "969",
+          "765",
+          "205",
+          null,
+          null,
+          null
+        ],
+        [
+          "Albert Sambi Lokonga",
+          "8 513",
+          "992",
+          "796",
+          "196",
+          null,
+          null,
+          null
+        ],
+        [
+          "Luka Vušković",
+          "3 171",
+          "383",
+          "349",
+          "34",
+          null,
+          null,
+          null
+        ],
+        [
+          "Nicolai Remberg",
+          "3 672",
+          "548",
+          "351",
+          "197",
+          null,
+          null,
+          null
+        ],
+        [
+          "Yussuf Poulsen",
+          "11 598",
+          "1 573",
+          "1 064",
+          "510",
+          null,
+          null,
+          null
+        ],
+        [
+          "Ransford Königsdörffer",
+          "6 144",
+          "907",
+          "519",
+          "388",
+          null,
+          null,
+          null
+        ],
+        [
+          "Fábio Vieira",
+          "2 735",
+          "363",
+          "332",
+          "31",
+          null,
+          null,
+          null
+        ],
+        [
+          "Warmed Omari",
+          "5 261",
+          "795",
+          "553",
+          "243",
+          null,
+          null,
+          null
+        ],
+        [
+          "Philip Otele",
+          "11 223",
+          "1 657",
+          "952",
+          "704",
+          null,
+          null,
+          null
+        ],
+        [
+          "Jordan Torunarigha",
+          "7 481",
+          "809",
+          "599",
+          "210",
+          null,
+          null,
+          null
+        ],
+        [
+          "William Mikelbrencis",
+          "4 929",
+          "731",
+          "525",
+          "204",
+          null,
+          null,
+          null
+        ],
+        [
+          "Miro Muheim",
+          "8 845",
+          "1 245",
+          "832",
+          "413",
+          null,
+          null,
+          null
+        ],
+        [
+          "Damion Downs",
+          "2 023",
+          "155",
+          "114",
+          "41",
+          null,
+          null,
+          null
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "de5629ee-372f-4c5b-a449-e11ca14c729e",
+      "type": "heading",
+      "text": "Wellness",
+      "level": 1
+    },
+    {
+      "id": "d7ea31b3-0eb2-461b-aa7a-f7302b259c2b",
+      "type": "table",
+      "title": "Wellness — Moyennes (1–7 mars)",
+      "columns": [
+        "Joueur",
+        "Courbature",
+        "Humeur"
+      ],
+      "rows": [
+        [
+          "Albert Grønbæk",
+          "13",
+          "10"
+        ],
+        [
+          "Albert Sambi Lokonga",
+          "19,29",
+          "16,86"
+        ],
+        [
+          "Bakery Jatta",
+          "37,5",
+          "34,25"
+        ],
+        [
+          "Bilal Yalçınkaya",
+          "31,71",
+          "28"
+        ],
+        [
+          "Damion Downs",
+          "36",
+          "32,4"
+        ],
+        [
+          "Daniel Elfadli",
+          "36,14",
+          "26,71"
+        ],
+        [
+          "Fabio Baldé",
+          "33,14",
+          "31,43"
+        ],
+        [
+          "Fábio Vieira",
+          "29,6",
+          "35,2"
+        ],
+        [
+          "Giorgi Gocholeishvili",
+          "18,14",
+          "16,57"
+        ],
+        [
+          "Jean-Luc Dompé",
+          "30,71",
+          "20"
+        ],
+        [
+          "Jordan Torunarigha",
+          "27,83",
+          "25,67"
+        ],
+        [
+          "Luka Vušković",
+          "14,43",
+          "12,14"
+        ],
+        [
+          "Miro Muheim",
+          "29,83",
+          "22,83"
+        ],
+        [
+          "Nicolai Remberg",
+          "18",
+          "17,71"
+        ],
+        [
+          "Nicolás Capaldo",
+          "22,5",
+          "18,5"
+        ],
+        [
+          "Noah Katterbach",
+          "21,71",
+          "31,86"
+        ],
+        [
+          "Omar Megeed",
+          "31",
+          "41"
+        ],
+        [
+          "Otto Stange",
+          "20,29",
+          "16,71"
+        ],
+        [
+          "Philip Otele",
+          "21,71",
+          "14,86"
+        ],
+        [
+          "Ransford Königsdörffer",
+          "36,83",
+          "34,17"
+        ],
+        [
+          "Rayan Philippe",
+          "25,5",
+          "10"
+        ],
+        [
+          "Robert Glatzel",
+          "26,29",
+          "24,43"
+        ],
+        [
+          "Warmed Omari",
+          "30",
+          "26"
+        ],
+        [
+          "William Mikelbrencis",
+          "21,43",
+          "20,43"
+        ],
+        [
+          "Yussuf Poulsen",
+          "23,33",
+          "20,5"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "cf6cf4ba-1d3c-4b7e-93ce-d3fa7e205853",
+      "type": "heading",
+      "text": "Scores",
+      "level": 1
+    },
+    {
+      "id": "898c13e9-afed-4a07-972d-99d9869764e1",
+      "type": "table",
+      "title": "Scores — Moyennes (1–7 mars)",
+      "columns": [
+        "Joueur",
+        "Score perf",
+        "Score risque"
+      ],
+      "rows": [
+        [
+          "Albert Grønbæk",
+          "48,43",
+          "0,57"
+        ],
+        [
+          "Albert Sambi Lokonga",
+          "52,43",
+          null
+        ],
+        [
+          "Bakery Jatta",
+          "58,14",
+          "43,71"
+        ],
+        [
+          "Damion Downs",
+          "43,14",
+          null
+        ],
+        [
+          "Daniel Elfadli",
+          "45,43",
+          "7,14"
+        ],
+        [
+          "Fabio Baldé",
+          "49,29",
+          "0,86"
+        ],
+        [
+          "Fábio Vieira",
+          "49",
+          null
+        ],
+        [
+          "Giorgi Gocholeishvili",
+          "49",
+          null
+        ],
+        [
+          "Jean-Luc Dompé",
+          "47,86",
+          "6,71"
+        ],
+        [
+          "Jordan Torunarigha",
+          "50",
+          "3,71"
+        ],
+        [
+          "Luka Vušković",
+          "52,86",
+          "0,86"
+        ],
+        [
+          "Miro Muheim",
+          "50,86",
+          "1,14"
+        ],
+        [
+          "Nicolai Remberg",
+          "47,43",
+          "2,43"
+        ],
+        [
+          "Nicolás Capaldo",
+          "62",
+          "7,86"
+        ],
+        [
+          "Noah Katterbach",
+          "51,86",
+          null
+        ],
+        [
+          "Omar Megeed",
+          "50,86",
+          "0,86"
+        ],
+        [
+          "Otto Stange",
+          null,
+          "2,43"
+        ],
+        [
+          "Philip Otele",
+          "46,43",
+          "2,14"
+        ],
+        [
+          "Ransford Königsdörffer",
+          "55,71",
+          "3,57"
+        ],
+        [
+          "Rayan Philippe",
+          "45,71",
+          null
+        ],
+        [
+          "Robert Glatzel",
+          "46,71",
+          "17,14"
+        ],
+        [
+          "Warmed Omari",
+          "45,43",
+          "1,43"
+        ],
+        [
+          "William Mikelbrencis",
+          "47,71",
+          "5"
+        ],
+        [
+          "Yussuf Poulsen",
+          null,
+          "63,57"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "6c695239-abb1-4642-9798-86889c1f4e86",
+      "type": "heading",
+      "text": "Outliers",
+      "level": 1
+    },
+    {
+      "id": "739e6797-daf5-405a-a4eb-193c43b54398",
+      "type": "table",
+      "title": "Joueurs à surveiller — Injury risk score &gt; 5",
+      "columns": [
+        "Joueur",
+        "Score risque",
+        "Score perf"
+      ],
+      "rows": [
+        [
+          "Bakery Jatta",
+          "43,71",
+          "58,14"
+        ],
+        [
+          "Daniel Elfadli",
+          "7,14",
+          "45,43"
+        ],
+        [
+          "Jean-Luc Dompé",
+          "6,71",
+          "47,86"
+        ],
+        [
+          "Nicolás Capaldo",
+          "7,86",
+          "62"
+        ],
+        [
+          "Robert Glatzel",
+          "17,14",
+          "46,71"
+        ],
+        [
+          "Yussuf Poulsen",
+          "63,57",
+          "48"
+        ]
+      ],
+      "option": {
+        "border": true,
+        "cells": [
+          [
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            {
+              "background": "#c8e6d5"
+            }
+          ],
+          [],
+          [],
+          [
+            null,
+            null,
+            {
+              "background": "#2f9e6f"
+            }
+          ],
+          [
+            null,
+            {
+              "background": "#c8e6d5"
+            }
+          ],
+          [
+            null,
+            {
+              "background": "#2f9e6f"
+            },
+            {
+              "background": "#c8e6d5"
+            }
+          ]
+        ],
+        "heatLegend": {
+          "mode": "relative",
+          "hasRisk": false,
+          "colors": {
+            "volumeMid": "#c8e6d5",
+            "volumeHigh": "#2f9e6f",
+            "riskMid": "#f5d0a9",
+            "riskHigh": "#e07070"
+          }
+        }
+      }
+    },
+    {
+      "id": "30f94c2c-a290-4485-bd04-db08ee5a623d",
+      "type": "table",
+      "title": "Joueurs à surveiller — Courbatures élevées (&gt; 35)",
+      "columns": [
+        "Joueur",
+        "Courbature",
+        "Humeur"
+      ],
+      "rows": [
+        [
+          "Bakery Jatta",
+          "37,5",
+          "34,25"
+        ],
+        [
+          "Damion Downs",
+          "36",
+          "32,4"
+        ],
+        [
+          "Daniel Elfadli",
+          "36,14",
+          "26,71"
+        ],
+        [
+          "Ransford Königsdörffer",
+          "36,83",
+          "34,17"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "40b14ef6-e8aa-40e2-87af-e19e8080735a",
+      "type": "heading",
+      "text": "Fiches individuelles",
+      "level": 1
+    },
+    {
+      "id": "847fa440-4c94-4a8f-a836-ce3393625b8f",
+      "type": "heading",
+      "text": "Kofi Amoako",
+      "level": 2
+    },
+    {
+      "id": "a445264b-a9b1-4eed-b9df-36336a7c66cc",
+      "type": "heading",
+      "text": "Fabio Baldé",
+      "level": 2
+    },
+    {
+      "id": "9e0f2ae0-75fb-4fe5-a91e-b60699d7ff2c",
+      "type": "chart",
+      "title": "Distance totale",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Distance total (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "05/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Distance total (m)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Distance total (m)",
+            "type": "line",
+            "data": [
+              4417,
+              4670,
+              2627,
+              3061,
+              2690
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "0be5b62a-269e-4fec-b9ae-c9549519f0d6",
+      "type": "chart",
+      "title": "HMLD",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "HMLD (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "05/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "HMLD (m)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "HMLD (m)",
+            "type": "line",
+            "data": [
+              623,
+              690,
+              317,
+              473,
+              328
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "b6c99cab-b50c-4ab3-bc1f-267b866fa539",
+      "type": "chart",
+      "title": "Wellness",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Courbatures"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Courbatures",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Courbatures",
+            "type": "line",
+            "data": [
+              33,
+              34,
+              34,
+              33,
+              33,
+              33,
+              32
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "720f001d-cf1e-4543-b2ed-1e88ed81117d",
+      "type": "chart",
+      "title": "Score de performance",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Performance score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Performance score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Performance score (0-100)",
+            "type": "line",
+            "data": [
+              52,
+              52,
+              44,
+              51,
+              50,
+              46,
+              50
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "80bd19e1-1ad7-4a2c-a14e-aace7b0f047f",
+      "type": "chart",
+      "title": "Score de risque de blessure",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Injury risk score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Injury risk score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Injury risk score (0-100)",
+            "type": "line",
+            "data": [
+              1,
+              0,
+              1,
+              0,
+              0,
+              4,
+              0
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "ec9ae68e-971e-483f-a6bf-786443c58020",
+      "type": "heading",
+      "text": "Nicolás Capaldo",
+      "level": 2
+    },
+    {
+      "id": "40bf9ca6-f888-45e0-94ac-e025b15633bc",
+      "type": "chart",
+      "title": "Wellness",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Courbatures"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Courbatures",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Courbatures",
+            "type": "line",
+            "data": [
+              15,
+              30
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "41fcfe33-9e80-488e-9e41-7dfecaa66618",
+      "type": "chart",
+      "title": "Score de performance",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Performance score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Performance score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Performance score (0-100)",
+            "type": "line",
+            "data": [
+              53,
+              47,
+              61,
+              67,
+              68,
+              68,
+              70
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "a220953e-cb0b-408e-a08a-9ba2de4d75ae",
+      "type": "chart",
+      "title": "Score de risque de blessure",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Injury risk score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Injury risk score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Injury risk score (0-100)",
+            "type": "line",
+            "data": [
+              52,
+              1,
+              0,
+              0,
+              0,
+              0,
+              2
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "cec8dee9-b47d-4b19-9f44-f14574d0357c",
+      "type": "heading",
+      "text": "Jean-Luc Dompé",
+      "level": 2
+    },
+    {
+      "id": "b762ad53-5f57-4128-b614-e33602d0228a",
+      "type": "chart",
+      "title": "Distance totale",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Distance total (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "02/03",
+            "03/03",
+            "05/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Distance total (m)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Distance total (m)",
+            "type": "line",
+            "data": [
+              2965,
+              1826,
+              2599,
+              2407
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "8ec41c31-3257-4327-a3c0-1f549e665ec1",
+      "type": "heading",
+      "text": "Damion Downs",
+      "level": 2
+    },
+    {
+      "id": "af174db0-6f6e-4a8f-ac07-9ef25ef02d01",
+      "type": "table",
+      "title": "GPS (6 mars)",
+      "columns": [
+        "Date",
+        "Distance Total",
+        "HMLD",
+        "Explosive Distance (Absolute)"
+      ],
+      "rows": [
+        [
+          "2026-03-06",
+          "2 023",
+          "155",
+          "114"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "b1703efc-1a28-481c-8f21-2518214060f2",
+      "type": "chart",
+      "title": "HMLD",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "HMLD (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "02/03",
+            "03/03",
+            "05/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "HMLD (m)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "HMLD (m)",
+            "type": "line",
+            "data": [
+              292,
+              167,
+              297,
+              213
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "117f5bb6-252c-48a4-8bcd-cf5629e7d84e",
+      "type": "chart",
+      "title": "Wellness",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Courbatures"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Courbatures",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Courbatures",
+            "type": "line",
+            "data": [
+              25,
+              30,
+              30,
+              30,
+              40,
+              30,
+              30
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "bc659d29-5531-4206-b522-586d5520bd12",
+      "type": "chart",
+      "title": "Score de performance",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Performance score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Performance score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Performance score (0-100)",
+            "type": "line",
+            "data": [
+              60,
+              42,
+              54,
+              56,
+              36,
+              40,
+              47
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "36a22ced-34eb-419e-8fa2-bb8a55b5d557",
+      "type": "chart",
+      "title": "Score de risque de blessure",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Injury risk score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Injury risk score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Injury risk score (0-100)",
+            "type": "line",
+            "data": [
+              8,
+              7,
+              7,
+              7,
+              6,
+              6,
+              6
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "4eda1c54-8db7-4862-ba22-f2c3ae3379e0",
+      "type": "chart",
+      "title": "Wellness",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Courbatures"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "03/03",
+            "04/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Courbatures",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Courbatures",
+            "type": "line",
+            "data": [
+              33,
+              40,
+              36,
+              37,
+              34
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "35c3fae2-4b8c-4d8a-add1-f29044d4ed73",
+      "type": "chart",
+      "title": "Score de performance",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Performance score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Performance score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Performance score (0-100)",
+            "type": "line",
+            "data": [
+              49,
+              36,
+              46,
+              45,
+              34,
+              45,
+              47
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "387fe83a-4611-4018-8495-39a6c19d9d57",
+      "type": "chart",
+      "title": "Score de risque de blessure",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Injury risk score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Injury risk score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Injury risk score (0-100)",
+            "type": "line",
+            "data": [
+              0,
+              0,
+              3,
+              0,
+              0,
+              2,
+              2
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "ce7e2312-49da-409d-aa74-4830a4bd3345",
+      "type": "heading",
+      "text": "Daniel Elfadli",
+      "level": 2
+    },
+    {
+      "id": "85d1ca50-8291-4e39-bc92-8d43add12613",
+      "type": "chart",
+      "title": "Distance totale",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Distance total (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "02/03",
+            "03/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Distance total (m)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Distance total (m)",
+            "type": "line",
+            "data": [
+              4251,
+              3048,
+              3108
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "2a39dd19-12cd-4f07-9052-44bf901313d2",
+      "type": "heading",
+      "text": "Robert Glatzel",
+      "level": 2
+    },
+    {
+      "id": "fe930cae-792d-431b-adf5-00198db2e016",
+      "type": "chart",
+      "title": "Distance totale",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Distance total (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "02/03",
+            "03/03",
+            "05/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Distance total (m)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Distance total (m)",
+            "type": "line",
+            "data": [
+              4353,
+              3307,
+              3157,
+              3111
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "75fdfd6d-bac5-42d3-b532-0b76c973ce6f",
+      "type": "heading",
+      "text": "Giorgi Gocholeishvili",
+      "level": 2
+    },
+    {
+      "id": "e80c8bf3-c7b3-489f-a8ca-488321319fea",
+      "type": "chart",
+      "title": "Distance totale",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Distance total (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "02/03",
+            "03/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Distance total (m)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Distance total (m)",
+            "type": "line",
+            "data": [
+              4686,
+              3079,
+              2592
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "d70d1e38-e9e3-472e-bee6-fb01d00604db",
+      "type": "chart",
+      "title": "HMLD",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "HMLD (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "02/03",
+            "03/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "HMLD (m)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "HMLD (m)",
+            "type": "line",
+            "data": [
+              594,
+              423,
+              423
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "4e07f36e-da80-456b-974f-6686ca6ce26f",
+      "type": "chart",
+      "title": "Wellness",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Courbatures"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Courbatures",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Courbatures",
+            "type": "line",
+            "data": [
+              28,
+              39,
+              37,
+              27,
+              50,
+              41,
+              31
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "9ec3ee87-f18d-42ec-97fb-422640fd958f",
+      "type": "chart",
+      "title": "Score de performance",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Performance score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Performance score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Performance score (0-100)",
+            "type": "line",
+            "data": [
+              53,
+              51,
+              42,
+              45,
+              25,
+              50,
+              52
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "2d477cc8-a21f-410b-8e11-1b01fb217854",
+      "type": "chart",
+      "title": "Score de risque de blessure",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Injury risk score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Injury risk score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Injury risk score (0-100)",
+            "type": "line",
+            "data": [
+              9,
+              7,
+              9,
+              8,
+              1,
+              7,
+              9
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "a7e928fb-c171-4547-88c5-b34f054afd2b",
+      "type": "chart",
+      "title": "HMLD",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "HMLD (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "02/03",
+            "03/03",
+            "05/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "HMLD (m)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "HMLD (m)",
+            "type": "line",
+            "data": [
+              510,
+              430,
+              404,
+              343
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "d5212d30-771d-4220-bfc6-2054a0e12d28",
+      "type": "chart",
+      "title": "Wellness",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Courbatures"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Courbatures",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Courbatures",
+            "type": "line",
+            "data": [
+              25,
+              27,
+              26,
+              27,
+              26,
+              25,
+              28
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "48d4cdd8-cef1-4ca9-a8e5-b167f2cc8cf8",
+      "type": "chart",
+      "title": "Score de performance",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Performance score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Performance score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Performance score (0-100)",
+            "type": "line",
+            "data": [
+              51,
+              50,
+              46,
+              52,
+              44,
+              41,
+              43
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "40d1cf36-020e-4e00-aa34-a60afdd79330",
+      "type": "chart",
+      "title": "Score de risque de blessure",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Injury risk score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Injury risk score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Injury risk score (0-100)",
+            "type": "line",
+            "data": [
+              18,
+              16,
+              16,
+              19,
+              17,
+              17,
+              17
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "reliability-h-47",
+      "type": "heading",
+      "text": "Fiabilité des données",
+      "level": 2
+    },
+    {
+      "id": "reliability-t-48",
+      "type": "text",
+      "text": "Échantillon : 420 ligne(s) sur 4 jeu(x). Fenêtre demandée 2026-03-01→2026-03-07 ; 0 jeu(x) démarrent après le début, 1 s'arrêtent avant la fin. Valeurs écartées : 154 cellule(s) imputée(s) ou sentinelle (sentinel:injury_risk_score=0×56; suspicious_default:kpi_maxacceleration=6@46%×32; suspicious_default:kpi_maxdeceleration=6@43%×30; suspicious_default:kpi_decelerationdistancez6rel=0@41%×28). Limite : energy rating sans valeurs. Limite : stress rating sans valeurs. Limite : wellbeing rating sans valeurs. Limite : kpi maxacceleration semble bloqué sur une valeur par défaut (6, ~46 % des lignes). Limite : kpi maxdeceleration semble bloqué sur une valeur par défaut (6, ~43 % des lignes). Limite : kpi decelerationdistancez6rel semble bloqué sur une valeur par défaut (0, ~41 % des lignes)."
+    }
+  ]
+}

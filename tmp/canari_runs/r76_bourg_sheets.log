@@ -1,0 +1,3 @@
+[runner] start club=019f5371-fdc5-74c6-bdae-d973b3fa5575 tag=r76_bourg_sheets skipPdf=true
+[progress] Récupération des données sportives...
+[runner] done tag=r76_bourg_sheets sec=189.246 pdfOk=false cost=0.6674469999999999

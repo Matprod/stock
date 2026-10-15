@@ -848,20 +848,20 @@ const polishSeriesForPrint = (series: unknown[]): unknown[] =>
     return cleaned
   })
 
-const shortenIsoCategoryLabels = (axis: unknown): unknown => {
-  if (Array.isArray(axis)) return axis.map(shortenIsoCategoryLabels)
+const shortenIsoCategoryLabels = (axis: unknown, language: AppLanguage = 'fr'): unknown => {
+  if (Array.isArray(axis)) return axis.map((row) => shortenIsoCategoryLabels(row, language))
   if (!isPlainRecord(axis) || axis.type !== 'category' || !Array.isArray(axis.data)) return axis
   const raw = axis.data.map((value) => String(value ?? '').trim()).filter(Boolean)
   const dateLike = raw.filter((value) => looksLikeDateLabel(value))
   if (dateLike.length >= Math.max(2, Math.ceil(raw.length * 0.6))) {
     const isoDates = uniqueSortedIsoDates(raw)
     if (isoDates.length > 0) {
-      return { ...axis, data: isoDates.map(formatIsoDateLabel) }
+      return { ...axis, data: isoDates.map((iso) => formatIsoDateLabel(iso, language)) }
     }
   }
   const data = axis.data.map((value) => {
     const key = normalizeIsoDate(value)
-    return key ? formatIsoDateLabel(key) : value
+    return key ? formatIsoDateLabel(key, language) : value
   })
   return { ...axis, data }
 }
@@ -1519,179 +1519,153 @@ export const rebuildLineChartFromRows = (
   })
 }
 
-export const sanitizeChartOptionForPrint = (
+export const sanitizeRadarOptionForPrint = (
   option: EchartsOption,
-  chartTitle = '',
-  scales?: SubjectiveChartScale[]
+  seriesPreview: ReturnType<typeof asSeriesList>
 ): EchartsOption => {
-  const isRadar = Boolean((option as { radar?: unknown }).radar)
-  const seriesPreview = asSeriesList(option.series)
-  const isScatter = seriesPreview.some(
-    (entry) => isPlainRecord(entry) && String(entry.type ?? '') === 'scatter'
-  )
-
-  if (isRadar) {
-    const radarPrev = isPlainRecord(option.radar) ? option.radar : {}
-    const series = seriesPreview.map((entry) => {
-      if (!isPlainRecord(entry) || String(entry.type ?? '') !== 'radar') return entry
-      const prevArea = isPlainRecord(entry.areaStyle) ? entry.areaStyle : {}
-      const prevLine = isPlainRecord(entry.lineStyle) ? entry.lineStyle : {}
-      const dataItems = Array.isArray(entry.data) ? entry.data : []
-      const multi = dataItems.length > 1
-      const data = dataItems.map((item, index) => {
-        if (!isPlainRecord(item)) return item
-        const color = RADAR_SERIES_COLORS[index % RADAR_SERIES_COLORS.length]!
-        const itemArea = isPlainRecord(item.areaStyle) ? item.areaStyle : {}
-        const itemLine = isPlainRecord(item.lineStyle) ? item.lineStyle : {}
-        const itemStyle = isPlainRecord(item.itemStyle) ? item.itemStyle : {}
-        return {
-          ...item,
-          itemStyle: { color, ...itemStyle },
-          areaStyle: { color, opacity: multi ? 0.1 : 0.22, ...itemArea },
-          lineStyle: { color, width: 2.2, ...itemLine },
-        }
-      })
+  const radarPrev = isPlainRecord(option.radar) ? option.radar : {}
+  const series = seriesPreview.map((entry) => {
+    if (!isPlainRecord(entry) || String(entry.type ?? '') !== 'radar') return entry
+    const prevArea = isPlainRecord(entry.areaStyle) ? entry.areaStyle : {}
+    const prevLine = isPlainRecord(entry.lineStyle) ? entry.lineStyle : {}
+    const dataItems = Array.isArray(entry.data) ? entry.data : []
+    const multi = dataItems.length > 1
+    const data = dataItems.map((item, index) => {
+      if (!isPlainRecord(item)) return item
+      const color = RADAR_SERIES_COLORS[index % RADAR_SERIES_COLORS.length]!
+      const itemArea = isPlainRecord(item.areaStyle) ? item.areaStyle : {}
+      const itemLine = isPlainRecord(item.lineStyle) ? item.lineStyle : {}
+      const itemStyle = isPlainRecord(item.itemStyle) ? item.itemStyle : {}
       return {
-        ...entry,
-        data,
-        areaStyle: { opacity: multi ? 0.1 : 0.18, ...prevArea },
-        lineStyle: { width: 2.2, ...prevLine },
-        symbol: entry.symbol ?? 'circle',
-        symbolSize: entry.symbolSize ?? 5,
+        ...item,
+        itemStyle: { color, ...itemStyle },
+        areaStyle: { color, opacity: multi ? 0.1 : 0.22, ...itemArea },
+        lineStyle: { color, width: 2.2, ...itemLine },
       }
     })
     return {
-      ...option,
-      animation: false,
-      color: Array.isArray(option.color) ? option.color : [...RADAR_SERIES_COLORS],
-      radar: {
-        shape: 'polygon',
-        splitNumber: 4,
-        axisName: {
-          color: '#475569',
-          fontSize: 11,
-          ...(isPlainRecord(radarPrev.axisName) ? radarPrev.axisName : {}),
-        },
-        splitArea: {
-          show: true,
-          areaStyle: {
-            color: ['rgba(248,250,252,0.9)', 'rgba(241,245,249,0.75)'],
-          },
-          ...(isPlainRecord(radarPrev.splitArea) ? radarPrev.splitArea : {}),
-        },
-        axisLine: {
-          lineStyle: { color: '#cbd5e1' },
-          ...(isPlainRecord(radarPrev.axisLine) ? radarPrev.axisLine : {}),
-        },
-        splitLine: {
-          lineStyle: { color: '#e2e8f0' },
-          ...(isPlainRecord(radarPrev.splitLine) ? radarPrev.splitLine : {}),
-        },
-        ...radarPrev,
-      },
-      series: series as EchartsSeriesItem[],
-      legend: {
-        top: 4,
-        type: 'plain',
-        left: 'center',
-        textStyle: { fontSize: 10, color: '#475569' },
-        ...(isPlainRecord(option.legend) ? option.legend : {}),
-      },
+      ...entry,
+      data,
+      areaStyle: { opacity: multi ? 0.1 : 0.18, ...prevArea },
+      lineStyle: { width: 2.2, ...prevLine },
+      symbol: entry.symbol ?? 'circle',
+      symbolSize: entry.symbolSize ?? 5,
     }
+  })
+  return {
+    ...option,
+    animation: false,
+    color: Array.isArray(option.color) ? option.color : [...RADAR_SERIES_COLORS],
+    radar: {
+      shape: 'polygon',
+      splitNumber: 4,
+      axisName: {
+        color: '#475569',
+        fontSize: 11,
+        ...(isPlainRecord(radarPrev.axisName) ? radarPrev.axisName : {}),
+      },
+      splitArea: {
+        show: true,
+        areaStyle: {
+          color: ['rgba(248,250,252,0.9)', 'rgba(241,245,249,0.75)'],
+        },
+        ...(isPlainRecord(radarPrev.splitArea) ? radarPrev.splitArea : {}),
+      },
+      axisLine: {
+        lineStyle: { color: '#cbd5e1' },
+        ...(isPlainRecord(radarPrev.axisLine) ? radarPrev.axisLine : {}),
+      },
+      splitLine: {
+        lineStyle: { color: '#e2e8f0' },
+        ...(isPlainRecord(radarPrev.splitLine) ? radarPrev.splitLine : {}),
+      },
+      ...radarPrev,
+    },
+    series: series as EchartsSeriesItem[],
+    legend: {
+      top: 4,
+      type: 'plain',
+      left: 'center',
+      textStyle: { fontSize: 10, color: '#475569' },
+      ...(isPlainRecord(option.legend) ? option.legend : {}),
+    },
   }
+}
 
-  const repaired = lineChartNeedsTimeAxisRepair(option)
-    ? (() => {
-        const records = recordsFromDatasetSource(option)
-        return records ? rebuildLineChartFromRows(records, 'fr', { title: chartTitle }) : null
-      })()
-    : null
-  const working = repaired ?? option
-  const layoutHint =
-    typeof (working as { maunaLayout?: unknown }).maunaLayout === 'string'
-      ? String((working as { maunaLayout?: string }).maunaLayout)
-      : undefined
-  const keepSquadBand = isMeanOnlyLineChart(
-    asSeriesList(working.series),
-    chartTitle,
-    layoutHint
-  )
-  const prunedBars = pruneEmptyBarCategoriesInOption(
-    keepSquadBand ? working : (stripSquadRangeBandSeries(working) as EchartsOption)
-  )
-  const oriented = orientBarsByContext(prunedBars, chartTitle)
-  const policed = applySubjectiveBarVisualMap(oriented, chartTitle, scales)
-  const seriesRaw = Array.isArray(policed.series) ? policed.series : []
-  const series = polishSeriesForPrint(seriesRaw) as EchartsSeriesItem[]
-
-  const legendNames = [
-    ...new Set(
-      series
-        .map((entry) => (isPlainRecord(entry) ? String(entry.name ?? '').trim() : ''))
-        .filter((name) => Boolean(name) && !name.startsWith('_'))
-    ),
-  ]
-
-  const prevLegend = isPlainRecord(policed.legend) ? policed.legend : {}
-  const isLineHeavy = series.some(
-    (entry) => isPlainRecord(entry) && String(entry.type ?? 'line') === 'line'
-  )
-  const lineSeriesCount = series.filter(
-    (entry) => isPlainRecord(entry) && String(entry.type ?? 'line') === 'line'
-  ).length
-  const prevGrid = isPlainRecord(policed.grid) ? policed.grid : {}
-  const yAxisRaw = shortenIsoCategoryLabels(polishAxisForPrint(policed.yAxis))
-  let xAxisRaw = shortenIsoCategoryLabels(polishAxisForPrint(policed.xAxis))
-  if (isLineHeavy && isPlainRecord(xAxisRaw) && xAxisRaw.type === 'value') {
-    xAxisRaw = { ...xAxisRaw, name: '' }
+const withScatterAxisLabels = (axis: unknown): unknown => {
+  if (Array.isArray(axis)) return axis.map(withScatterAxisLabels)
+  if (!isPlainRecord(axis)) return axis
+  const prevLabel = isPlainRecord(axis.axisLabel) ? axis.axisLabel : {}
+  return {
+    ...axis,
+    scale: axis.scale ?? true,
+    axisTick: { show: true, ...(isPlainRecord(axis.axisTick) ? axis.axisTick : {}) },
+    axisLabel: {
+      show: true,
+      color: '#64748b',
+      fontSize: 10,
+      hideOverlap: true,
+      ...prevLabel,
+    },
+    splitLine: {
+      show: true,
+      lineStyle: { color: '#f1f5f9' },
+      ...(isPlainRecord(axis.splitLine) ? axis.splitLine : {}),
+    },
   }
-  const yAxis =
-    isLineHeavy && isPlainRecord(yAxisRaw) && yAxisRaw.type !== 'category'
-      ? { ...yAxisRaw, scale: yAxisRaw.scale ?? true }
-      : yAxisRaw
+}
 
-  if (isScatter) {
-    const scatterGrid = {
+export const sanitizeScatterOptionForPrint = (args: {
+  policed: EchartsOption
+  series: EchartsSeriesItem[]
+  prevLegend: Record<string, unknown>
+  prevGrid: Record<string, unknown>
+  xAxisRaw: unknown
+  yAxisRaw: unknown
+}): EchartsOption => {
+  const { policed, series, prevLegend, prevGrid, xAxisRaw, yAxisRaw } = args
+  return {
+    ...policed,
+    animation: false,
+    series,
+    legend: { show: false, ...(isPlainRecord(prevLegend) ? prevLegend : {}) },
+    grid: {
       containLabel: true,
       left: 56,
       right: 48,
       top: 40,
       bottom: 64,
       ...prevGrid,
-    }
-    const withLabels = (axis: unknown): unknown => {
-      if (Array.isArray(axis)) return axis.map(withLabels)
-      if (!isPlainRecord(axis)) return axis
-      const prevLabel = isPlainRecord(axis.axisLabel) ? axis.axisLabel : {}
-      return {
-        ...axis,
-        scale: axis.scale ?? true,
-        axisTick: { show: true, ...(isPlainRecord(axis.axisTick) ? axis.axisTick : {}) },
-        axisLabel: {
-          show: true,
-          color: '#64748b',
-          fontSize: 10,
-          hideOverlap: true,
-          ...prevLabel,
-        },
-        splitLine: {
-          show: true,
-          lineStyle: { color: '#f1f5f9' },
-          ...(isPlainRecord(axis.splitLine) ? axis.splitLine : {}),
-        },
-      }
-    }
-    return {
-      ...policed,
-      animation: false,
-      series,
-      legend: { show: false, ...(isPlainRecord(prevLegend) ? prevLegend : {}) },
-      grid: scatterGrid,
-      xAxis: withLabels(xAxisRaw) as EchartsAxis,
-      yAxis: withLabels(yAxisRaw) as EchartsAxis,
-    }
+    },
+    xAxis: withScatterAxisLabels(xAxisRaw) as EchartsAxis,
+    yAxis: withScatterAxisLabels(yAxisRaw) as EchartsAxis,
   }
+}
 
+export const buildCartesianPrintChartOption = (args: {
+  policed: EchartsOption
+  series: EchartsSeriesItem[]
+  prevLegend: Record<string, unknown>
+  prevGrid: Record<string, unknown>
+  xAxisRaw: unknown
+  yAxis: unknown
+  yAxisRaw: unknown
+  isLineHeavy: boolean
+  lineSeriesCount: number
+  legendNames: string[]
+}): EchartsOption => {
+  const {
+    policed,
+    series,
+    prevLegend,
+    prevGrid,
+    xAxisRaw,
+    yAxis,
+    yAxisRaw,
+    isLineHeavy,
+    lineSeriesCount,
+    legendNames,
+  } = args
   const isHorizontalBar =
     series.some((entry) => isPlainRecord(entry) && String(entry.type ?? '') === 'bar') &&
     isPlainRecord(yAxisRaw) &&
@@ -1746,6 +1720,95 @@ export const sanitizeChartOptionForPrint = (
   }
 }
 
+export const sanitizeChartOptionForPrint = (
+  option: EchartsOption,
+  chartTitle = '',
+  scales?: SubjectiveChartScale[],
+  language: AppLanguage = 'fr'
+): EchartsOption => {
+  const isRadar = Boolean((option as { radar?: unknown }).radar)
+  const seriesPreview = asSeriesList(option.series)
+  const isScatter = seriesPreview.some(
+    (entry) => isPlainRecord(entry) && String(entry.type ?? '') === 'scatter'
+  )
+
+  if (isRadar) return sanitizeRadarOptionForPrint(option, seriesPreview)
+
+  const repaired = lineChartNeedsTimeAxisRepair(option)
+    ? (() => {
+        const records = recordsFromDatasetSource(option)
+        return records ? rebuildLineChartFromRows(records, language, { title: chartTitle }) : null
+      })()
+    : null
+  const working = repaired ?? option
+  const layoutHint =
+    typeof (working as { maunaLayout?: unknown }).maunaLayout === 'string'
+      ? String((working as { maunaLayout?: string }).maunaLayout)
+      : undefined
+  const keepSquadBand = isMeanOnlyLineChart(
+    asSeriesList(working.series),
+    chartTitle,
+    layoutHint
+  )
+  const prunedBars = pruneEmptyBarCategoriesInOption(
+    keepSquadBand ? working : (stripSquadRangeBandSeries(working) as EchartsOption)
+  )
+  const oriented = orientBarsByContext(prunedBars, chartTitle)
+  const policed = applySubjectiveBarVisualMap(oriented, chartTitle, scales)
+  const seriesRaw = Array.isArray(policed.series) ? policed.series : []
+  const series = polishSeriesForPrint(seriesRaw) as EchartsSeriesItem[]
+
+  const legendNames = [
+    ...new Set(
+      series
+        .map((entry) => (isPlainRecord(entry) ? String(entry.name ?? '').trim() : ''))
+        .filter((name) => Boolean(name) && !name.startsWith('_'))
+    ),
+  ]
+
+  const prevLegend = isPlainRecord(policed.legend) ? policed.legend : {}
+  const isLineHeavy = series.some(
+    (entry) => isPlainRecord(entry) && String(entry.type ?? 'line') === 'line'
+  )
+  const lineSeriesCount = series.filter(
+    (entry) => isPlainRecord(entry) && String(entry.type ?? 'line') === 'line'
+  ).length
+  const prevGrid = isPlainRecord(policed.grid) ? policed.grid : {}
+  const yAxisRaw = shortenIsoCategoryLabels(polishAxisForPrint(policed.yAxis), language)
+  let xAxisRaw = shortenIsoCategoryLabels(polishAxisForPrint(policed.xAxis), language)
+  if (isLineHeavy && isPlainRecord(xAxisRaw) && xAxisRaw.type === 'value') {
+    xAxisRaw = { ...xAxisRaw, name: '' }
+  }
+  const yAxis =
+    isLineHeavy && isPlainRecord(yAxisRaw) && yAxisRaw.type !== 'category'
+      ? { ...yAxisRaw, scale: yAxisRaw.scale ?? true }
+      : yAxisRaw
+
+  if (isScatter) {
+    return sanitizeScatterOptionForPrint({
+      policed,
+      series,
+      prevLegend,
+      prevGrid,
+      xAxisRaw,
+      yAxisRaw,
+    })
+  }
+
+  return buildCartesianPrintChartOption({
+    policed,
+    series,
+    prevLegend,
+    prevGrid,
+    xAxisRaw,
+    yAxis,
+    yAxisRaw,
+    isLineHeavy,
+    lineSeriesCount,
+    legendNames,
+  })
+}
+
 const buildMultiGroupLineOption = (args: {
   rows: Array<Record<string, unknown>>
   dateColumn: string
@@ -1756,8 +1819,6 @@ const buildMultiGroupLineOption = (args: {
   language: AppLanguage
 }): EchartsOption => {
   const { rows, dateColumn, groupColumn, valueColumn, groups, refLines, language } = args
-  // Keep ISO on the axis through the pipeline — DD/MM labels are applied only in
-  // sanitizeChartOptionForPrint. Sorting DD/MM with localeCompare put Oct before Sep.
   const dates = uniqueSortedIsoDates(rows.map((row) => row[dateColumn]))
   const fallbackGroup = groups[0] ?? valueColumn
   const valueByGroupDate = new Map<string, number>()
@@ -1825,319 +1886,260 @@ const buildMultiGroupLineOption = (args: {
   return base
 }
 
-export const buildPresetChartOption = (args: {
-  chartType: PremiumChartPreset
+
+export const buildScatterPresetOption = (args: {
+  category: string
+  y: string
+  y2: string
+  rows?: Array<Record<string, unknown>>
+  refLines: ChartRefLines
+  language: AppLanguage
+}): EchartsOption => {
+  const { category, y, y2, rows, refLines, language } = args
+  const markData = rows?.length
+    ? [
+        ...buildRefLines(rows, y, 'xAxis', refLines, language),
+        ...buildRefLines(rows, y2, 'yAxis', refLines, language),
+      ]
+    : []
+  return {
+    legend: { show: false },
+    grid: { left: 64, right: 56, top: 48, bottom: 72, containLabel: true },
+    xAxis: {
+      type: 'value',
+      name: y,
+      scale: true,
+      nameLocation: 'middle',
+      nameGap: 32,
+      axisTick: { show: true },
+      axisLabel: { show: true, color: '#64748b', fontSize: 10, hideOverlap: true },
+      splitLine: { show: true, lineStyle: { color: '#f1f5f9' } },
+    },
+    yAxis: {
+      type: 'value',
+      name: y2,
+      scale: true,
+      nameLocation: 'middle',
+      nameGap: 44,
+      axisTick: { show: true },
+      axisLabel: { show: true, color: '#64748b', fontSize: 10, hideOverlap: true },
+      splitLine: { show: true, lineStyle: { color: '#f1f5f9' } },
+    },
+    tooltip: { trigger: 'item' },
+    series: [
+      attachRefLines(
+        {
+          type: 'scatter',
+          symbolSize: 7,
+          encode: {
+            x: y,
+            y: y2,
+            tooltip: category ? [category, y, y2] : [y, y2],
+          },
+        },
+        markData
+      ),
+    ],
+  }
+}
+
+export const buildRadarPresetOption = (args: {
   category: string
   values: string[]
-  rows?: Array<Record<string, unknown>>
-  refLines?: ChartRefLines
-  language?: AppLanguage
+  rows: Array<Record<string, unknown>>
+  language: AppLanguage
 }): EchartsOption => {
-  const { chartType, category, values, rows } = args
-  const refLines = args.refLines ?? 'none'
-  const language = args.language ?? 'fr'
-  const y = values[0]
-  const y2 = values[1]
-  if (chartType === PREMIUM_CHART_PRESET.HEATMAP) {
-    return buildEchartsHeatmapOption({
-      rows: rows ?? [],
-      xCol: category || 'x',
-      yCol: values[0] && values[0] !== (category || 'x') ? values[0] : 'y',
-      valueCol: values.find((col) => col !== category && col !== values[0]) ?? values[1] ?? 'r',
+  const { category, values, rows, language } = args
+  const limited = rows.slice(0, PREMIUM_RADAR_MAX_SERIES)
+  const indicator = values.map((col) => {
+    let max = 0
+    for (const row of limited) {
+      const n = toNumber(row[col])
+      if (n != null && n > max) max = n
+    }
+    return {
+      name: displayColumnLabel(col, language),
+      max: max > 0 ? Math.ceil(max * 1.15 * 1000) / 1000 : 1,
+    }
+  })
+  const multi = limited.length > 1
+  return {
+    color: [...RADAR_SERIES_COLORS],
+    legend: { top: 4, type: 'plain', left: 'center', textStyle: { fontSize: 10 } },
+    tooltip: { trigger: 'item' },
+    radar: {
+      indicator,
+      shape: 'polygon',
+      radius: '62%',
+      center: ['50%', '55%'],
+      splitNumber: 4,
+      axisName: { color: '#475569', fontSize: 11 },
+      splitArea: {
+        show: true,
+        areaStyle: { color: ['rgba(248,250,252,0.95)', 'rgba(241,245,249,0.8)'] },
+      },
+      axisLine: { lineStyle: { color: '#cbd5e1' } },
+      splitLine: { lineStyle: { color: '#e2e8f0' } },
+    },
+    series: [
+      {
+        type: 'radar',
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { opacity: multi ? 0.1 : 0.2 },
+        lineStyle: { width: 2.2 },
+        data: limited.map((row, index) => {
+          const color = RADAR_SERIES_COLORS[index % RADAR_SERIES_COLORS.length]!
+          return {
+            name: String(row[category] ?? ''),
+            value: values.map((col) => toNumber(row[col]) ?? 0),
+            itemStyle: { color },
+            lineStyle: { color, width: 2.2 },
+            areaStyle: { color, opacity: multi ? 0.1 : 0.22 },
+          }
+        }),
+      },
+    ],
+  }
+}
+
+export const buildDonutPresetOption = (category: string, y: string | undefined): EchartsOption => ({
+  tooltip: { trigger: 'item' },
+  legend: { bottom: 0 },
+  series: [
+    {
+      type: 'pie',
+      radius: ['42%', '68%'],
+      encode: { itemName: category, value: y },
+      label: { formatter: '{b}\n{c}' },
+    },
+  ],
+})
+
+export const buildBarLinePresetOption = (args: {
+  category: string
+  y: string
+  y2: string
+  rows?: Array<Record<string, unknown>>
+  refLines: ChartRefLines
+  language: AppLanguage
+}): EchartsOption => {
+  const { category, y, y2, rows, refLines, language } = args
+  const barRows = rows?.length ? aggregateRowsByCategory(rows, category, [y, y2]) : undefined
+  const barMarks = barRows?.length ? buildRefLines(barRows, y, 'yAxis', refLines, language) : []
+  return {
+    legend: { top: 8 },
+    grid: { left: 72, right: 72, top: 44, bottom: 96 },
+    xAxis: { type: 'category', axisLabel: { rotate: 40, hideOverlap: true } },
+    yAxis: [
+      { type: 'value', name: y, minInterval: 1 },
+      { type: 'value', name: y2, minInterval: 1 },
+    ],
+    tooltip: axisTooltip,
+    series: [
+      attachRefLines({ name: y, type: 'bar', encode: { x: category, y } }, barMarks),
+      {
+        name: y2,
+        type: 'line',
+        yAxisIndex: 1,
+        encode: { x: category, y: y2 },
+        lineStyle: { width: 3 },
+      },
+    ],
+  }
+}
+
+export const buildDateLinePresetOption = (args: {
+  category: string
+  values: string[]
+  y: string
+  rows: Array<Record<string, unknown>>
+  refLines: ChartRefLines
+  language: AppLanguage
+}): EchartsOption | null => {
+  const { category, values, y, rows, refLines, language } = args
+  const columns = Object.keys(rows[0] ?? {})
+  const groupColumn = pickSeriesGroupColumn(columns)
+  const groups = groupColumn
+    ? [...new Set(rows.map((row) => String(row[groupColumn] ?? '').trim()).filter(Boolean))].sort(
+        (left, right) => left.localeCompare(right)
+      )
+    : []
+  const isDateCategory = Boolean(
+    pickDateColumn([category]) || /date|jour|day/i.test(category)
+  )
+  if (!isDateCategory) return null
+  if (groups.length > 1) {
+    return buildMultiGroupLineOption({
+      rows,
+      dateColumn: category,
+      groupColumn,
+      valueColumn: y,
+      groups,
+      refLines,
       language,
     })
   }
-  if (chartType === PREMIUM_CHART_PRESET.SCATTER && y && y2) {
-    const markData = rows?.length
-      ? [
-          ...buildRefLines(rows, y, 'xAxis', refLines, language),
-          ...buildRefLines(rows, y2, 'yAxis', refLines, language),
-        ]
-      : []
-    return {
-      legend: { show: false },
-      grid: { left: 64, right: 56, top: 48, bottom: 72, containLabel: true },
-      xAxis: {
-        type: 'value',
-        name: y,
-        scale: true,
-        nameLocation: 'middle',
-        nameGap: 32,
-        axisTick: { show: true },
-        axisLabel: { show: true, color: '#64748b', fontSize: 10, hideOverlap: true },
-        splitLine: { show: true, lineStyle: { color: '#f1f5f9' } },
-      },
-      yAxis: {
-        type: 'value',
-        name: y2,
-        scale: true,
-        nameLocation: 'middle',
-        nameGap: 44,
-        axisTick: { show: true },
-        axisLabel: { show: true, color: '#64748b', fontSize: 10, hideOverlap: true },
-        splitLine: { show: true, lineStyle: { color: '#f1f5f9' } },
-      },
-      tooltip: { trigger: 'item' },
-      series: [
-        attachRefLines(
-          {
-            type: 'scatter',
-            symbolSize: 7,
-            encode: {
-              x: y,
-              y: y2,
-              tooltip: category ? [category, y, y2] : [y, y2],
-            },
-          },
-          markData
-        ),
-      ],
-    }
-  }
   if (
-    chartType === PREMIUM_CHART_PRESET.RADAR &&
-    values.length >= PREMIUM_RADAR_MIN_METRICS &&
-    rows?.length
+    values.length > 1 &&
+    (isMeanMinMaxEnvelopeColumns(values) || wantsSquadEnvelopeTitle(String(y)))
   ) {
-    const limited = rows.slice(0, PREMIUM_RADAR_MAX_SERIES)
-    const indicator = values.map((col) => {
-      let max = 0
-      for (const row of limited) {
-        const n = toNumber(row[col])
-        if (n != null && n > max) max = n
-      }
-      return {
-        name: displayColumnLabel(col, language),
-        max: max > 0 ? Math.ceil(max * 1.15 * 1000) / 1000 : 1,
-      }
+    return buildMultiMetricLineOption({
+      rows,
+      dateColumn: category,
+      valueColumns: values,
+      refLines,
+      language,
     })
-    const multi = limited.length > 1
-    return {
-      color: [...RADAR_SERIES_COLORS],
-      legend: { top: 4, type: 'plain', left: 'center', textStyle: { fontSize: 10 } },
-      tooltip: { trigger: 'item' },
-      radar: {
-        indicator,
-        shape: 'polygon',
-        radius: '62%',
-        center: ['50%', '55%'],
-        splitNumber: 4,
-        axisName: { color: '#475569', fontSize: 11 },
-        splitArea: {
-          show: true,
-          areaStyle: { color: ['rgba(248,250,252,0.95)', 'rgba(241,245,249,0.8)'] },
-        },
-        axisLine: { lineStyle: { color: '#cbd5e1' } },
-        splitLine: { lineStyle: { color: '#e2e8f0' } },
-      },
-      series: [
-        {
-          type: 'radar',
-          symbol: 'circle',
-          symbolSize: 5,
-          areaStyle: { opacity: multi ? 0.1 : 0.2 },
-          lineStyle: { width: 2.2 },
-          data: limited.map((row, index) => {
-            const color = RADAR_SERIES_COLORS[index % RADAR_SERIES_COLORS.length]!
-            return {
-              name: String(row[category] ?? ''),
-              value: values.map((col) => toNumber(row[col]) ?? 0),
-              itemStyle: { color },
-              lineStyle: { color, width: 2.2 },
-              areaStyle: { color, opacity: multi ? 0.1 : 0.22 },
-            }
-          }),
-        },
-      ],
-    }
   }
-  if (chartType === PREMIUM_CHART_PRESET.DONUT) {
-    return {
-      tooltip: { trigger: 'item' },
-      legend: { bottom: 0 },
-      series: [
-        {
-          type: 'pie',
-          radius: ['42%', '68%'],
-          encode: { itemName: category, value: y },
-          label: { formatter: '{b}\n{c}' },
-        },
-      ],
-    }
+  if (values.length > 1 && groups.length <= 1) {
+    return buildMultiMetricLineOption({
+      rows,
+      dateColumn: category,
+      valueColumns: resolveSingleGrainLineMetrics(values, rows),
+      refLines,
+      language,
+    })
   }
-  if (chartType === PREMIUM_CHART_PRESET.BAR_LINE && y && y2) {
-    const barRows = rows?.length ? aggregateRowsByCategory(rows, category, [y, y2]) : undefined
-    const barMarks = barRows?.length ? buildRefLines(barRows, y, 'yAxis', refLines, language) : []
-    return {
-      legend: { top: 8 },
-      grid: { left: 72, right: 72, top: 44, bottom: 96 },
-      xAxis: { type: 'category', axisLabel: { rotate: 40, hideOverlap: true } },
-      yAxis: [
-        { type: 'value', name: y, minInterval: 1 },
-        { type: 'value', name: y2, minInterval: 1 },
-      ],
-      tooltip: axisTooltip,
-      series: [
-        attachRefLines({ name: y, type: 'bar', encode: { x: category, y } }, barMarks),
-        {
-          name: y2,
-          type: 'line',
-          yAxisIndex: 1,
-          encode: { x: category, y: y2 },
-          lineStyle: { width: 3 },
-        },
-      ],
-    }
-  }
-  const type = chartType === PREMIUM_CHART_PRESET.LINE ? 'line' : 'bar'
-  if (type === 'line' && rows?.length && y) {
-    const columns = Object.keys(rows[0] ?? {})
-    const groupColumn = pickSeriesGroupColumn(columns)
-    const groups = groupColumn
-      ? [...new Set(rows.map((row) => String(row[groupColumn] ?? '').trim()).filter(Boolean))].sort(
-          (left, right) => left.localeCompare(right)
-        )
-      : []
-    const isDateCategory = Boolean(
-      pickDateColumn([category]) || /date|jour|day/i.test(category)
-    )
-    if (groups.length > 1 && isDateCategory) {
-      return buildMultiGroupLineOption({
-        rows,
-        dateColumn: category,
-        groupColumn,
-        valueColumn: y,
-        groups,
-        refLines,
-        language,
-      })
-    }
-    if (
-      isDateCategory &&
-      values.length > 1 &&
-      (isMeanMinMaxEnvelopeColumns(values) || wantsSquadEnvelopeTitle(String(y)))
-    ) {
-      return buildMultiMetricLineOption({
-        rows,
-        dateColumn: category,
-        valueColumns: values,
-        refLines,
-        language,
-      })
-    }
-    if (isDateCategory && values.length > 1 && groups.length <= 1) {
-      return buildMultiMetricLineOption({
-        rows,
-        dateColumn: category,
-        valueColumns: resolveSingleGrainLineMetrics(values, rows),
-        refLines,
-        language,
-      })
-    }
-    if (isDateCategory) {
-      return buildMultiGroupLineOption({
-        rows,
-        dateColumn: category,
-        groupColumn: undefined,
-        valueColumn: y,
-        groups: [y],
-        refLines,
-        language,
-      })
-    }
-  }
+  return buildMultiGroupLineOption({
+    rows,
+    dateColumn: category,
+    groupColumn: undefined,
+    valueColumn: y,
+    groups: [y],
+    refLines,
+    language,
+  })
+}
 
-  const chartRows =
-    type === 'bar' && rows?.length ? aggregateRowsByCategory(rows, category, values) : rows
-  if (type === 'bar') {
-    const metric = values[0] ?? y
-    const categoryLabels = (chartRows ?? []).map((row) => String(row[category] ?? '').trim())
-    const draft: EchartsOption = {
-      legend: {
-        top: 4,
-        type: 'plain',
-        left: 'center',
-        textStyle: { fontSize: 10, color: '#475569' },
-      },
-      xAxis: { type: 'category', data: categoryLabels },
-      yAxis: { type: 'value' },
-      series: [{ name: metric, type: 'bar', encode: { x: category, y: metric } }],
-    }
-    if (values.length > 1 && chartRows?.length) {
-      const rotate = categoryLabels.some((label) => label.length > 6) ? 30 : 0
-      const valueMarks = y ? buildRefLines(chartRows, y, 'yAxis', refLines, language) : []
-      return {
-        legend: draft.legend,
-        grid: { left: 48, right: 24, top: 44, bottom: rotate ? 56 : 28, containLabel: true },
-        maunaBarOrientation: 'vertical',
-        xAxis: {
-          type: 'category',
-          axisLabel: { color: '#0f172a', fontSize: 11, hideOverlap: true, rotate },
-          axisTick: { show: false },
-          axisLine: { lineStyle: { color: '#cbd5e1' } },
-        },
-        yAxis: {
-          type: 'value',
-          axisLabel: { color: '#64748b', fontSize: 10 },
-          axisTick: { show: false },
-          splitLine: { lineStyle: { color: '#e2e8f0', width: 1 } },
-        },
-        tooltip: { ...axisTooltip, axisPointer: { type: 'shadow' } },
-        series: values.map((col, index) =>
-          attachRefLines(
-            {
-              name: col,
-              type: 'bar',
-              encode: { x: category, y: col },
-              barMaxWidth: 22,
-              itemStyle: { borderRadius: [4, 4, 0, 0] },
-            },
-            index === 0 ? valueMarks : []
-          )
-        ),
-      }
-    }
-    const horizontal = resolveBarOrientation(draft, String(metric ?? category)) === 'horizontal'
-    const valueMarks =
-      chartRows?.length && y
-        ? buildRefLines(chartRows, y, horizontal ? 'xAxis' : 'yAxis', refLines, language)
-        : []
-    if (horizontal) {
-      return {
-        legend: draft.legend,
-        grid: { left: 8, right: 72, top: 36, bottom: 16, containLabel: true },
-        maunaBarOrientation: 'horizontal',
-        xAxis: {
-          type: 'value',
-          axisLabel: { color: '#64748b', fontSize: 10 },
-          axisTick: { show: false },
-          splitLine: { lineStyle: { color: '#e2e8f0', width: 1 } },
-        },
-        yAxis: {
-          type: 'category',
-          axisLabel: { color: '#0f172a', fontSize: 11, hideOverlap: true },
-          axisTick: { show: false },
-          axisLine: { lineStyle: { color: '#cbd5e1' } },
-        },
-        tooltip: { ...axisTooltip, axisPointer: { type: 'shadow' } },
-        series: [
-          attachRefLines(
-            {
-              name: metric,
-              type: 'bar',
-              encode: { y: category, x: metric },
-              barMaxWidth: 18,
-              itemStyle: { borderRadius: [0, 4, 4, 0] },
-            },
-            valueMarks
-          ),
-        ],
-      }
-    }
+export const buildBarPresetOption = (args: {
+  category: string
+  values: string[]
+  y: string | undefined
+  chartRows?: Array<Record<string, unknown>>
+  refLines: ChartRefLines
+  language: AppLanguage
+}): EchartsOption => {
+  const { category, values, y, chartRows, refLines, language } = args
+  const metric = values[0] ?? y
+  const categoryLabels = (chartRows ?? []).map((row) => String(row[category] ?? '').trim())
+  const draft: EchartsOption = {
+    legend: {
+      top: 4,
+      type: 'plain',
+      left: 'center',
+      textStyle: { fontSize: 10, color: '#475569' },
+    },
+    xAxis: { type: 'category', data: categoryLabels },
+    yAxis: { type: 'value' },
+    series: [{ name: metric, type: 'bar', encode: { x: category, y: metric } }],
+  }
+  if (values.length > 1 && chartRows?.length) {
     const rotate = categoryLabels.some((label) => label.length > 6) ? 30 : 0
+    const valueMarks = y ? buildRefLines(chartRows, y, 'yAxis', refLines, language) : []
     return {
       legend: draft.legend,
-      grid: { left: 48, right: 24, top: 36, bottom: rotate ? 56 : 28, containLabel: true },
+      grid: { left: 48, right: 24, top: 44, bottom: rotate ? 56 : 28, containLabel: true },
       maunaBarOrientation: 'vertical',
       xAxis: {
         type: 'category',
@@ -2152,21 +2154,100 @@ export const buildPresetChartOption = (args: {
         splitLine: { lineStyle: { color: '#e2e8f0', width: 1 } },
       },
       tooltip: { ...axisTooltip, axisPointer: { type: 'shadow' } },
+      series: values.map((col, index) =>
+        attachRefLines(
+          {
+            name: col,
+            type: 'bar',
+            encode: { x: category, y: col },
+            barMaxWidth: 22,
+            itemStyle: { borderRadius: [4, 4, 0, 0] },
+          },
+          index === 0 ? valueMarks : []
+        )
+      ),
+    }
+  }
+  const horizontal = resolveBarOrientation(draft, String(metric ?? category)) === 'horizontal'
+  const valueMarks =
+    chartRows?.length && y
+      ? buildRefLines(chartRows, y, horizontal ? 'xAxis' : 'yAxis', refLines, language)
+      : []
+  if (horizontal) {
+    return {
+      legend: draft.legend,
+      grid: { left: 8, right: 72, top: 36, bottom: 16, containLabel: true },
+      maunaBarOrientation: 'horizontal',
+      xAxis: {
+        type: 'value',
+        axisLabel: { color: '#64748b', fontSize: 10 },
+        axisTick: { show: false },
+        splitLine: { lineStyle: { color: '#e2e8f0', width: 1 } },
+      },
+      yAxis: {
+        type: 'category',
+        axisLabel: { color: '#0f172a', fontSize: 11, hideOverlap: true },
+        axisTick: { show: false },
+        axisLine: { lineStyle: { color: '#cbd5e1' } },
+      },
+      tooltip: { ...axisTooltip, axisPointer: { type: 'shadow' } },
       series: [
         attachRefLines(
           {
             name: metric,
             type: 'bar',
-            encode: { x: category, y: metric },
-            barMaxWidth: 28,
-            itemStyle: { borderRadius: [4, 4, 0, 0] },
+            encode: { y: category, x: metric },
+            barMaxWidth: 18,
+            itemStyle: { borderRadius: [0, 4, 4, 0] },
           },
           valueMarks
         ),
       ],
     }
   }
+  const rotate = categoryLabels.some((label) => label.length > 6) ? 30 : 0
+  return {
+    legend: draft.legend,
+    grid: { left: 48, right: 24, top: 36, bottom: rotate ? 56 : 28, containLabel: true },
+    maunaBarOrientation: 'vertical',
+    xAxis: {
+      type: 'category',
+      axisLabel: { color: '#0f172a', fontSize: 11, hideOverlap: true, rotate },
+      axisTick: { show: false },
+      axisLine: { lineStyle: { color: '#cbd5e1' } },
+    },
+    yAxis: {
+      type: 'value',
+      axisLabel: { color: '#64748b', fontSize: 10 },
+      axisTick: { show: false },
+      splitLine: { lineStyle: { color: '#e2e8f0', width: 1 } },
+    },
+    tooltip: { ...axisTooltip, axisPointer: { type: 'shadow' } },
+    series: [
+      attachRefLines(
+        {
+          name: metric,
+          type: 'bar',
+          encode: { x: category, y: metric },
+          barMaxWidth: 28,
+          itemStyle: { borderRadius: [4, 4, 0, 0] },
+        },
+        valueMarks
+      ),
+    ],
+  }
+}
 
+export const buildFallbackPresetOption = (args: {
+  category: string
+  values: string[]
+  y: string | undefined
+  type: 'line' | 'bar'
+  chartRows?: Array<Record<string, unknown>>
+  refLines: ChartRefLines
+  language: AppLanguage
+}): EchartsOption => {
+  const { category, values, y, type, chartRows, refLines, language } = args
   const valueMarks =
     chartRows?.length && y ? buildRefLines(chartRows, y, 'yAxis', refLines, language) : []
 
@@ -2223,3 +2304,79 @@ export const buildPresetChartOption = (args: {
     ),
   }
 }
+
+export const buildPresetChartOption = (args: {
+  chartType: PremiumChartPreset
+  category: string
+  values: string[]
+  rows?: Array<Record<string, unknown>>
+  refLines?: ChartRefLines
+  language?: AppLanguage
+}): EchartsOption => {
+  const { chartType, category, values, rows } = args
+  const refLines = args.refLines ?? 'none'
+  const language = args.language ?? 'fr'
+  const y = values[0]
+  const y2 = values[1]
+  if (chartType === PREMIUM_CHART_PRESET.HEATMAP) {
+    return buildEchartsHeatmapOption({
+      rows: rows ?? [],
+      xCol: category || 'x',
+      yCol: values[0] && values[0] !== (category || 'x') ? values[0] : 'y',
+      valueCol: values.find((col) => col !== category && col !== values[0]) ?? values[1] ?? 'r',
+      language,
+    })
+  }
+  if (chartType === PREMIUM_CHART_PRESET.SCATTER && y && y2) {
+    return buildScatterPresetOption({ category, y, y2, rows, refLines, language })
+  }
+  if (
+    chartType === PREMIUM_CHART_PRESET.RADAR &&
+    values.length >= PREMIUM_RADAR_MIN_METRICS &&
+    rows?.length
+  ) {
+    return buildRadarPresetOption({ category, values, rows, language })
+  }
+  if (chartType === PREMIUM_CHART_PRESET.DONUT) {
+    return buildDonutPresetOption(category, y)
+  }
+  if (chartType === PREMIUM_CHART_PRESET.BAR_LINE && y && y2) {
+    return buildBarLinePresetOption({ category, y, y2, rows, refLines, language })
+  }
+  const type = chartType === PREMIUM_CHART_PRESET.LINE ? 'line' : 'bar'
+  if (type === 'line' && rows?.length && y) {
+    const dateLine = buildDateLinePresetOption({
+      category,
+      values,
+      y,
+      rows,
+      refLines,
+      language,
+    })
+    if (dateLine) return dateLine
+  }
+
+  const chartRows =
+    type === 'bar' && rows?.length ? aggregateRowsByCategory(rows, category, values) : rows
+  if (type === 'bar') {
+    return buildBarPresetOption({
+      category,
+      values,
+      y,
+      chartRows,
+      refLines,
+      language,
+    })
+  }
+
+  return buildFallbackPresetOption({
+    category,
+    values,
+    y,
+    type,
+    chartRows,
+    refLines,
+    language,
+  })
+}
+

@@ -1,0 +1,61 @@
+{
+  "before": {
+    "bourg": {
+      "analyst_iters": 23,
+      "analyst_secs": 248,
+      "analyst_usd": 1.36,
+      "total_usd": 1.81
+    },
+    "baseline_individual": {
+      "analyst_in": "209k",
+      "analyst_iters": 14,
+      "analyst_secs": 186.2,
+      "analyst_usd": 1.097
+    }
+  },
+  "after": {
+    "r76_bourg_sheets": {
+      "analyst_iters": 8,
+      "analyst_secs": 86.6,
+      "analyst_usd": 0.353,
+      "total_usd": 0.667,
+      "durationSec": 189.2
+    },
+    "r76_baseline_individual": {
+      "analyst_iters": 20,
+      "analyst_secs": 124.9,
+      "analyst_usd": 1.379,
+      "total_usd": 1.73,
+      "durationSec": 235.3
+    },
+    "r76_hamburg_24_sheets": {
+      "analyst_iters": 7,
+      "analyst_secs": 127.0,
+      "analyst_usd": 0.497,
+      "total_usd": 0.849,
+      "durationSec": 232.8
+    },
+    "r76_baseline_individual_fix": {
+      "analyst_iters": 2,
+      "analyst_secs": 67.5,
+      "analyst_usd": 0.304,
+      "total_usd": 0.607,
+      "durationSec": 140.7,
+      "sheets_prebuilt": true,
+      "max": 22,
+      "note": "prebuild sheets + strip recreate tools; target \u226410 met"
+    }
+  },
+  "section6": "Removed individualSheets budget bump (28/26); full profile 22/14 applies. 24-player run used 7 analyst iters.",
+  "facts_before_brief": "12 athletes \u00d7 3 metrics \u00d7 4 ops + 3 team means = 147",
+  "regression_diagnosis": {
+    "cause": "per-player add_chart/heading/table loop iters1-16; build_athlete_sheets only at iter17; max=28 stale budget bump",
+    "stop_denied": 0,
+    "grounding_rejects": 0,
+    "build_athlete_sheets_calls": 1,
+    "add_sheet_comments": "ok once not refused",
+    "canvas_facts_after_analyst": 42,
+    "ask_facts": "none logged (0 or skipped)",
+    "facts_not_in_analyst_loop": true
+  }
+}

@@ -1,0 +1,365 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.",
+  "durationSec": 643.793,
+  "iterations": 21,
+  "usage": {
+    "inputTokens": 1117,
+    "outputTokens": 51053,
+    "cacheReadInputTokens": 452939,
+    "cacheCreationInputTokens": 476360,
+    "totalTokens": 52170,
+    "estimatedCostUsd": 2.691379
+  },
+  "iterationSecs": [
+    6.305,
+    6.416,
+    10.334,
+    4.866,
+    3.054,
+    3.582,
+    11.974,
+    3.142,
+    4.093,
+    10.599,
+    30.037,
+    11.605,
+    127.021,
+    11.033,
+    7.66,
+    88.979,
+    96.531,
+    85.996,
+    5.093,
+    96.289,
+    4.372
+  ],
+  "iterationCosts": [
+    0.057269,
+    0.096342,
+    0.068681,
+    0.071378,
+    0.015782,
+    0.014856,
+    0.031764,
+    0.021394,
+    0.079692,
+    0.09143,
+    0.115036,
+    0.100397,
+    0.723668,
+    0.515034,
+    0.055164,
+    0.172509,
+    0.129229,
+    0.101818,
+    0.030573,
+    0.165496,
+    0.033865
+  ],
+  "message": "Rapport refait entièrement. Rapport livré : tout ce qui était demandé est présent.",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    },
+    "fetchRange": {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    },
+    "domainRanges": {
+      "load": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "gps": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "sleep": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "scores": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 6,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 1,
+        "athletesWithData": 13,
+        "populated": false
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 20,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "match",
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.",
+    "domains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "load",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "sleep",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+  },
+  "blockCount": 23,
+  "chartCount": 10,
+  "blockTitles": [
+    {
+      "id": "d4fc6dcb-dd7c-4c83-80d8-8f4bf034ee88",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "185804e8-4ac2-45f7-9d09-56ed6d58344a",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "88d3edb7-5534-40dc-902f-6621352e525e",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "96166d03-08fb-4d66-88a3-5f6201c4a1d8",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "ffa358a2-7b43-474b-bf85-9aa2354c2e92",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "7ed11b05-e216-4dfe-b43f-b8bb6ffca637",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "71ab2cf7-02ad-47f8-bb85-985d7eabd407",
+      "type": "chart",
+      "title": "sRPE quotidien moyen — équipe"
+    },
+    {
+      "id": "8ebda174-367d-4170-abd9-080e56119e5f",
+      "type": "chart",
+      "title": "sRPE total — Top 5"
+    },
+    {
+      "id": "029a627b-a3d6-4e56-bdce-19f558bfceec",
+      "type": "chart",
+      "title": "Distance totale — Top 5"
+    },
+    {
+      "id": "393ac370-24ad-4ba6-ac9d-3cc9cb843afc",
+      "type": "chart",
+      "title": "Distance métabolique — Top 5"
+    },
+    {
+      "id": "85fe04c1-d107-4531-8d0e-27399523b826",
+      "type": "chart",
+      "title": "Distance explosive — Top 5"
+    },
+    {
+      "id": "70c2df7c-a076-4b7a-93ae-49aa9d881ea1",
+      "type": "chart",
+      "title": "Course haute intensité — Top 5"
+    },
+    {
+      "id": "93935d38-19f2-4555-8ad8-1001a5d7c753",
+      "type": "table",
+      "title": "Statistiques match (10 oct.)"
+    },
+    {
+      "id": "6b68e385-989f-4da0-b7dd-2416648e1b90",
+      "type": "chart",
+      "title": "Douleurs corporelles moyennes"
+    },
+    {
+      "id": "3c9963bc-334c-4aec-aecc-db3120fd7344",
+      "type": "chart",
+      "title": "Humeur moyenne"
+    },
+    {
+      "id": "d7c05fe7-e0c2-49f2-94f3-01b94d259b33",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "d4c27ca9-81cf-4de6-a85e-6d9e5af2692e",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "f18d2405-bf01-4751-86df-9c30ca240a1b",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "37f8570f-0b3a-4300-ab74-73aba64dc582",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "5602abd6-1f36-4627-a5de-b90d4cb52363",
+      "type": "table",
+      "title": "Douleurs corporelles — Top 5"
+    },
+    {
+      "id": "e64bb630-2bf9-4b25-8f09-01640405c0dd",
+      "type": "table",
+      "title": "Scores moyens — joueurs avec risque blessure élevé"
+    },
+    {
+      "id": "reliability-h-22",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-23",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    6.305,
+    6.416,
+    10.334,
+    4.866,
+    3.054,
+    3.582,
+    11.974,
+    3.142,
+    4.093,
+    10.599,
+    30.037,
+    11.605,
+    127.021,
+    11.033,
+    7.66,
+    88.979,
+    96.531,
+    85.996,
+    5.093,
+    96.289,
+    4.372
+  ]
+}

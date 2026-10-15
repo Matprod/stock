@@ -1,0 +1,887 @@
+[17:36:27.772] INFO (44492): report_v4.analyze_request_llm
+    explicit: true
+    display: {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+    byDomain: {
+      "load": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "gps": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "sleep": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "scores": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    }
+    fetches: [
+      {
+        "domain": "load",
+        "from": "2026-10-08",
+        "to": "2026-10-14",
+        "metrics": [
+          "srpe"
+        ]
+      },
+      {
+        "domain": "gps",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "sleep",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ]
+    askDomains: [
+      "load",
+      "gps",
+      "wellness",
+      "sleep",
+      "scores",
+      "match"
+    ]
+    periodFollowUp: false
+    multiSection: true
+    rationale: "Coach requested 7-day staff report (derniere semaine) with charge/sRPE, GPS, wellness, sleep, scores, and match data if available. Display window is last 7 calendar days ending today (2026-10-08 to 2026-10-14). All six domains fetched for the same period. Multi-section report with synthesis and essential charts."
+    durationMs: 2779
+[17:36:28.075] INFO (44492): report_v4.edit_route.wipe
+    wipeReason: "no_existing_canvas"
+    hasExistingCanvas: false
+    periodChanged: false
+    multiSectionAsk: true
+    additive: false
+    scopedPeriod: false
+[17:36:28.075] INFO (44492): report_v4.edit_route
+    canvasAsk: "new_viz"
+    preserveCanvas: false
+    needsFetch: true
+    isMicro: false
+    keepPriorDisplayRange: false
+    softOps: null
+    inventory: null
+    additive: false
+    scopedPeriod: false
+    design: false
+    periodChanged: false
+    multiSectionAsk: true
+    wipeCanvas: true
+    wipeReason: "no_existing_canvas"
+    routeFlags: {
+      "wipe": true,
+      "additive": false,
+      "scopedPeriod": false,
+      "design": false,
+      "aesthetic": false,
+      "partialProse": false,
+      "recommendationStrip": false
+    }
+    provider: "skip"
+    durationSec: 0.302
+[17:36:28.075] INFO (44492): report_v4.prompt_windows_resolved
+    explicit: true
+    displayRange: {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+    coverRange: {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+    fetchRange: {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    }
+    domainRanges: {
+      "load": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "gps": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "sleep": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "scores": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    }
+    fetches: [
+      {
+        "domain": "load",
+        "from": "2026-10-08",
+        "to": "2026-10-14",
+        "metrics": [
+          "srpe"
+        ]
+      },
+      {
+        "domain": "gps",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "sleep",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ]
+    extraRanges: []
+    seasons: [
+      {
+        "name": "2026-2027",
+        "from": "2026-08-01",
+        "to": "2027-05-24",
+        "active": true
+      },
+      {
+        "name": "2025-2026",
+        "from": "2025-07-16",
+        "to": "2026-05-16",
+        "active": false
+      },
+      {
+        "name": "2024-2025",
+        "from": "2024-07-02",
+        "to": "2025-05-18",
+        "active": false
+      },
+      {
+        "name": "2023-2024",
+        "from": "2023-07-28",
+        "to": "2024-05-19",
+        "active": false
+      },
+      {
+        "name": "2022-2023",
+        "from": "2022-07-17",
+        "to": "2023-06-05",
+        "active": false
+      }
+    ]
+[17:36:28.114] INFO (44492): report_v4.roster_active_window
+    athletes: 22
+    ranges: [
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ]
+[17:36:29.330] INFO (44492): report_v4.ask_gate
+    reason: "prompt_clear_enough"
+    question_ids: []
+    confidence: 1
+    round: 0
+    skipped: true
+[17:36:29.513] INFO (44492): report_v4.club_metric_catalog_start
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    }
+
+════════════════════════════════════════════════════════════
+report-v4  START  │  Hambourg  │  2026-10-08 → 2026-10-14
+report-v4  domains  │  load, gps, match, wellness, sleep, scores
+report-v4  prompt  │  Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.
+────────────────────────────────────────────────────────────
+[17:36:31.326] INFO (44492): report_v4.club_metric_catalog_done
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    }
+    durationMs: 1813
+    periodKpis: 48
+    matchKpis: 23
+    rpeFetchTable: "health_metric_values"
+    rpeSession: "health_metrics"
+    rpeBody: "health_ratings"
+    clubInsightScience: 8
+[17:36:31.340] INFO (44492): report_v4.linker_start
+    domains: [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores"
+    ]
+    fetchWindows: 6
+    athleteCount: 22
+[17:36:31.341] INFO (44492): report_v4.linker_db_tool_start
+    schemaTitles: 7
+[17:36:31.341] INFO (44492): report_v4.linker_db_tool_done
+    durationMs: 0
+[17:36:31.343] INFO (44492): report_v4.linker_agent_invoke
+    toolCount: 26
+report-v4  iter 01  │  tool_use  │  6.033s  │  $0.078  │  in=19 out=418 cacheW=19k  │  cum $0.078
+report-v4  action  │  tools: build_load_summary, fetch_club_roster, fetch_gps_intensity_daily, fetch_wellness_daily, fetch_sleep_daily, fetch_daily_scores, fetch_match_stats_daily
+report-v4    └ tool  │  ok  │  build_load_summary  │  0.639s  │  2026-09-10 → 2026-10-14 (sql 2026-10-08→2026-10-14)
+report-v4    └ tool  │  ok  │  fetch_club_roster  │  0.000s  │  ? → ?
+report-v4    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.437s  │  2026-10-08 → 2026-10-14
+report-v4    └ tool  │  ok  │  fetch_wellness_daily  │  0.052s  │  2026-10-08 → 2026-10-14
+report-v4    └ tool  │  ok  │  fetch_sleep_daily  │  0.060s  │  2026-10-08 → 2026-10-14
+report-v4    └ tool  │  ok  │  fetch_daily_scores  │  0.053s  │  2026-10-08 → 2026-10-14
+report-v4    └ tool  │  ok  │  fetch_match_stats_daily  │  0.063s  │  2026-10-08 → 2026-10-14
+report-v4    └ cost  │  this prompt $0.078  │  total so far $0.078  │  iter time 6.033s
+report-v4  iter 02  │  end_turn  │  13.097s  │  $0.102  │  in=7 out=608 cacheR=6.1k cacheW=24k  │  cum $0.180
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.102  │  total so far $0.180  │  iter time 13.097s
+report-v4  agent-stop  │  linker  │  self_ended  │  2 iteration(s)  │  max=5  │  force@4  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  linker  │  2 iteration(s)  │  19.130s  │  $0.180
+report-v4  tokens  │  in=26  │  out=1.0k  │  cacheR=6.1k  │  cacheW=43k  │  all=1.1k
+report-v4  detail  │  datasets=8
+[17:36:50.485] INFO (44492): report_v4.path_cost_class
+    pathCostClass: "full"
+    budgetUsd: 1.5
+[17:36:50.500] INFO (44492): report_v4.data_profile
+    datasets: 8
+    unusableDomains: []
+    emptyDomains: []
+    partial: [
+      "gps",
+      "load",
+      "scores",
+      "sleep",
+      "wellness"
+    ]
+    imputedExcludedCells: 252
+report-v4  iter 01  │  tool_use  │  10.632s  │  $0.102  │  in=19 out=918 cacheW=23k  │  cum $0.102
+report-v4  action  │  tools: build_load_summary, fetch_club_roster, filter_dataset, aggregate_dataset, aggregate_dataset, aggregate_dataset, aggregate_dataset, aggregate_dataset, aggregate_dataset, set_report_meta
+report-v4    └ tool  │  ok  │  build_load_summary  │  0.648s  │  2026-09-10 → 2026-10-14 (sql 2026-10-08→2026-10-14)
+report-v4    └ tool  │  ok  │  fetch_club_roster  │  0.000s  │  ? → ?
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.002s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  set_report_meta  │  0.000s
+report-v4    └ cost  │  this prompt $0.102  │  total so far $0.102  │  iter time 10.632s
+report-v4  iter 02  │  tool_use  │  9.313s  │  $0.084  │  in=8.2k out=915 cacheR=13k cacheW=11k  │  cum $0.186
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, compute_report_fact, compute_report_fact, compute_report_fact
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.002s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ cost  │  this prompt $0.084  │  total so far $0.186  │  iter time 9.313s
+report-v4  iter 03  │  tool_use  │  19.934s  │  $0.119  │  in=7 out=2.2k cacheR=13k cacheW=22k  │  cum $0.305
+report-v4  action  │  tools: filter_dataset, add_heading, add_chart, add_heading, add_chart, add_chart, add_chart, add_chart, add_heading, add_table, add_heading, add_chart, add_chart, add_heading, add_chart, add_heading, add_chart, add_chart, add_heading
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.001s
+report-v4    └ tool  │  ok  │  add_chart  │  0.015s  │  ds_13
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_chart  │  0.004s  │  ds_19
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_20
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_21
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_22
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_table  │  0.004s  │  ds_8
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_16
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_16
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_17
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_18
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_18
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.119  │  total so far $0.305  │  iter time 19.934s
+[17:37:30.400] WARN (44492): report_v4.column_label_missing
+    column: "n"
+    key: "n"
+[17:37:30.414] WARN (44492): report_v4.column_label_missing
+    column: "nb_matchs"
+    key: "nb_matchs"
+report-v4  iter 04  │  tool_use  │  4.491s  │  $0.105  │  in=7 out=350 cacheR=13k cacheW=25k  │  cum $0.410
+report-v4  action  │  tools: join_datasets, add_chart, add_table
+report-v4    └ tool  │  ok  │  join_datasets  │  0.001s
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_24
+report-v4    └ tool  │  ok  │  add_table  │  0.000s  │  ds_23
+report-v4    └ cost  │  this prompt $0.105  │  total so far $0.410  │  iter time 4.491s
+report-v4  iter 05  │  tool_use  │  35.103s  │  $0.057  │  in=934 out=2.7k cacheR=39k cacheW=498  │  cum $0.467
+report-v4  action  │  tools: add_table, commit_report_brief
+report-v4    └ tool  │  ok  │  add_table  │  0.001s  │  ds_25
+report-v4    └ tool  │  ERR  │  commit_report_brief  │  0.026s  │  ReportBrief failed grounding audit
+report-v4    └ cost  │  this prompt $0.057  │  total so far $0.467  │  iter time 35.103s
+[17:38:10.016] WARN (44492): report_v4.grounding_reject
+    codes: [
+      "numeric_ungrounded"
+    ]
+    violations: [
+      {
+        "code": "numeric_ungrounded",
+        "message": "KPI value not present in dataset columnStats, table cells, or chart series",
+        "evidence": "Bakery Jatta qualite de sommeil=10,6"
+      }
+    ]
+report-v4  iter 06  │  tool_use  │  19.758s  │  $0.065  │  in=7 out=2.5k cacheR=39k cacheW=4.2k  │  cum $0.532
+report-v4  action  │  tools: filter_dataset, filter_dataset, commit_report_brief
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ERR  │  commit_report_brief  │  0.032s  │  ReportBrief failed grounding audit
+report-v4    └ cost  │  this prompt $0.065  │  total so far $0.532  │  iter time 19.758s
+[17:38:29.775] WARN (44492): report_v4.grounding_reject
+    codes: [
+      "numeric_ungrounded"
+    ]
+    violations: [
+      {
+        "code": "numeric_ungrounded",
+        "message": "KPI value not present in dataset columnStats, table cells, or chart series",
+        "evidence": "Bakery Jatta qualite de sommeil=10,6"
+      }
+    ]
+report-v4  iter 07  │  tool_use  │  23.077s  │  $0.147  │  in=7 out=3.0k cacheR=13k cacheW=26k  │  cum $0.679
+report-v4  action  │  tools: filter_dataset, commit_report_brief
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ERR  │  commit_report_brief  │  0.016s  │  ReportBrief failed grounding audit
+report-v4    └ cost  │  this prompt $0.147  │  total so far $0.679  │  iter time 23.077s
+[17:38:52.853] WARN (44492): report_v4.grounding_reject
+    codes: [
+      "numeric_ungrounded"
+    ]
+    violations: [
+      {
+        "code": "numeric_ungrounded",
+        "message": "KPI value not present in dataset columnStats, table cells, or chart series",
+        "evidence": "Bakery Jatta qualite de sommeil=10,6"
+      }
+    ]
+report-v4  iter 08  │  tool_use  │  23.260s  │  $0.153  │  in=7 out=2.9k cacheR=13k cacheW=28k  │  cum $0.832
+report-v4  action  │  tools: commit_report_brief
+report-v4    └ tool  │  ok  │  commit_report_brief  │  0.037s
+report-v4    └ cost  │  this prompt $0.153  │  total so far $0.832  │  iter time 23.260s
+report-v4  iter 09  │  tool_use  │  8.710s  │  $0.125  │  in=5 out=289 cacheR=13k cacheW=31k  │  cum $0.958
+report-v4  action  │  tools: add_text
+report-v4    └ tool  │  ok  │  add_text  │  0.001s
+report-v4    └ cost  │  this prompt $0.125  │  total so far $0.958  │  iter time 8.710s
+report-v4  iter 10  │  end_turn  │  11.820s  │  $0.127  │  in=5 out=527 cacheR=13k cacheW=31k  │  cum $1.084
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.127  │  total so far $1.084  │  iter time 11.820s
+report-v4  agent-stop  │  analyst  │  self_ended  │  10 iteration(s)  │  max=22  │  force@14  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  analyst  │  10 iteration(s)  │  166.098s  │  $1.084
+report-v4  tokens  │  in=9.2k  │  out=16k  │  cacheR=172k  │  cacheW=203k  │  all=26k
+report-v4  detail  │  blocks=22 charts=11 tables=3 insight=true
+[17:39:36.716] WARN (44492): report_v4.column_label_missing
+    column: "Intensive run distance (m)"
+    key: "intensive_run_distance_m"
+[17:39:36.717] WARN (44492): report_v4.column_label_missing
+    column: "Max speed (km/h)"
+    key: "max_speed_km_h"
+[17:39:36.717] WARN (44492): report_v4.column_label_missing
+    column: "Nb Match"
+    key: "nb_match"
+[17:39:36.717] WARN (44492): report_v4.column_label_missing
+    column: "Courbatures"
+    key: "courbatures"
+[17:39:36.717] WARN (44492): report_v4.column_label_missing
+    column: "Humeur"
+    key: "humeur"
+[17:39:36.717] WARN (44492): report_v4.column_label_missing
+    column: "Qualité de sommeil"
+    key: "qualite_de_sommeil"
+[17:39:36.717] WARN (44492): report_v4.column_label_missing
+    column: "Distance total (m)"
+    key: "distance_total_m"
+[17:39:36.728] INFO (44492): report_v4.precompute_canvas_facts
+    added: 57
+    sample: [
+      "ds_1.srpe_daily.mean",
+      "ds_1.srpe_daily.sum",
+      "ds_1.srpe_daily.delta",
+      "ds_2.srpe_daily.mean",
+      "ds_2.srpe_daily.sum",
+      "ds_2.srpe_daily.delta",
+      "ds_4.kpi_hmld.mean",
+      "ds_4.kpi_hmld.sum"
+    ]
+[17:39:36.728] INFO (44492): report_v4.canvas_facts_precomputed
+    added: 57
+    sample: [
+      "ds_1.srpe_daily.mean",
+      "ds_1.srpe_daily.sum",
+      "ds_1.srpe_daily.delta",
+      "ds_2.srpe_daily.mean",
+      "ds_2.srpe_daily.sum",
+      "ds_2.srpe_daily.delta",
+      "ds_4.kpi_hmld.mean",
+      "ds_4.kpi_hmld.sum"
+    ]
+[17:39:36.728] INFO (44492): report_v4.analyst_done
+    blocks: 22
+    charts: 11
+    tables: 3
+    insight: true
+    iterations: 10
+    macrosSkipped: true
+    shortWindow: true
+    multiSectionAsk: true
+report-v4  iter 01  │  tool_use  │  1.502s  │  $0.011  │  in=19 out=23 cacheW=2.8k  │  cum $0.011
+report-v4  action  │  tools: get_design_context
+report-v4    └ tool  │  ok  │  get_design_context  │  0.005s
+report-v4    └ cost  │  this prompt $0.011  │  total so far $0.011  │  iter time 1.502s
+report-v4  iter 02  │  tool_use  │  77.123s  │  $0.138  │  in=5 out=6.8k cacheR=1.5k cacheW=9.5k  │  cum $0.149
+report-v4  action  │  tools: set_report_html
+report-v4    └ tool  │  ok  │  set_report_html  │  0.230s
+report-v4    └ cost  │  this prompt $0.138  │  total so far $0.149  │  iter time 77.123s
+[17:40:55.140] WARN (44492): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "8"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "14"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "12"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "13"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "30"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "32,5"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "32"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "100"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "11"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "46"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7354"
+      }
+    ]
+[17:40:55.346] INFO (44492): report_v4.fact_autolink
+    displayed: 122
+    linkedFact: 0
+    linkedSrc: 25
+    ambiguous: 96
+    unmatched: 1
+    samples: [
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "8–14 octobre 2026",
+        "candidates": [
+          "src:ds_4#0.kpi_entriesz5abs",
+          "src:ds_4#2.kpi_hmldpermin",
+          "src:ds_4#7.kpi_hibsdistance",
+          "src:ds_4#7.kpi_decelerationdistancez5rel",
+          "src:ds_4#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "8",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "8–14 octobre 2026",
+        "candidates": [
+          "fact:ds_4.kpi_hmldpermin.mean",
+          "fact:ds_8.max_speed.delta",
+          "src:ds_4#0.kpi_hibsmaxspeed",
+          "src:ds_4#0.kpi_hmleffortsmaxspeed",
+          "src:ds_4#0.kpi_maxspeed"
+        ]
+      },
+      {
+        "raw": "3,3 km",
+        "value": 3.3,
+        "reason": "ambiguous",
+        "context": "La charge interne hebdomadaire (sRPE) montre une moyenne équipe fluctuante avec des pics les 8, 10 et 14 octobre, et un repos complet le 12 octobre. Les volumes",
+        "candidates": [
+          "src:ds_4#35.kpi_decelerationdistancez6rel",
+          "src:ds_4#73.kpi_hibsmaxspeed"
+        ]
+      },
+      {
+        "raw": "5,2 km",
+        "value": 5.2,
+        "reason": "ambiguous",
+        "context": "La charge interne hebdomadaire (sRPE) montre une moyenne équipe fluctuante avec des pics les 8, 10 et 14 octobre, et un repos complet le 12 octobre. Les volumes",
+        "candidates": [
+          "src:ds_4#54.kpi_decelerationdistancez4rel",
+          "src:ds_4#69.kpi_hibsmaxspeed"
+        ]
+      },
+      {
+        "raw": "30 km",
+        "value": 30,
+        "reason": "ambiguous",
+        "context": "La charge interne hebdomadaire (sRPE) montre une moyenne équipe fluctuante avec des pics les 8, 10 et 14 octobre, et un repos complet le 12 octobre. Les volumes",
+        "candidates": [
+          "src:ds_4#6.kpi_entriesz4abs",
+          "src:ds_4#8.kpi_entriesz4abs",
+          "src:ds_4#10.kpi_decelerationdistancez4rel",
+          "src:ds_4#19.kpi_accelerationdistancez5rel",
+          "src:ds_4#23.kpi_distancez6abs"
+        ]
+      },
+      {
+        "raw": "12",
+        "value": 12,
+        "reason": "ambiguous",
+        "context": "La charge interne hebdomadaire (sRPE) montre une moyenne équipe fluctuante avec des pics les 8, 10 et 14 octobre, et un repos complet le 12 octobre. Les volumes",
+        "candidates": [
+          "src:ds_4#3.kpi_decelerationdistancez5rel",
+          "src:ds_4#10.kpi_decelerationdistancez6rel",
+          "src:ds_4#18.kpi_distancez6abs",
+          "src:ds_4#20.kpi_decelerationdistancez1rel",
+          "src:ds_4#23.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "La charge interne hebdomadaire (sRPE) montre une moyenne équipe fluctuante avec des pics les 8, 10 et 14 octobre, et un repos complet le 12 octobre. Les volumes",
+        "candidates": [
+          "src:ds_4#0.kpi_entriesz5abs",
+          "src:ds_4#2.kpi_hmldpermin",
+          "src:ds_4#7.kpi_hibsdistance",
+          "src:ds_4#7.kpi_decelerationdistancez5rel",
+          "src:ds_4#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "10",
+        "value": 10,
+        "reason": "ambiguous",
+        "context": "La charge interne hebdomadaire (sRPE) montre une moyenne équipe fluctuante avec des pics les 8, 10 et 14 octobre, et un repos complet le 12 octobre. Les volumes",
+        "candidates": [
+          "src:ds_4#0.kpi_decelerationdistancez6rel",
+          "src:ds_4#3.kpi_decelerationdistancez6rel",
+          "src:ds_4#6.kpi_hmldpermin",
+          "src:ds_4#9.kpi_hmleffortsmaxspeed",
+          "src:ds_4#9.kpi_maxspeed"
+        ]
+      },
+      {
+        "raw": "8",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "La charge interne hebdomadaire (sRPE) montre une moyenne équipe fluctuante avec des pics les 8, 10 et 14 octobre, et un repos complet le 12 octobre. Les volumes",
+        "candidates": [
+          "fact:ds_4.kpi_hmldpermin.mean",
+          "fact:ds_8.max_speed.delta",
+          "src:ds_4#0.kpi_hibsmaxspeed",
+          "src:ds_4#0.kpi_hmleffortsmaxspeed",
+          "src:ds_4#0.kpi_maxspeed"
+        ]
+      },
+      {
+        "raw": "32,5",
+        "value": 32.5,
+        "reason": "ambiguous",
+        "context": "Un match a eu lieu le 10 octobre avec 13 joueurs impliqués. Sur le plan wellness, Bakery Jatta présente les douleurs corporelles moyennes les plus élevées (40/6",
+        "candidates": [
+          "src:ds_17#3.quality_rating",
+          "src:ds_25#3.quality_rating",
+          "src:ds_26#0.quality_rating"
+        ]
+      },
+      {
+        "raw": "13",
+        "value": 13,
+        "reason": "ambiguous",
+        "context": "Un match a eu lieu le 10 octobre avec 13 joueurs impliqués. Sur le plan wellness, Bakery Jatta présente les douleurs corporelles moyennes les plus élevées (40/6",
+        "candidates": [
+          "src:ds_4#19.kpi_entriesz5abs",
+          "src:ds_4#33.kpi_decelerationdistancez4rel",
+          "src:ds_4#37.kpi_entriesz5abs",
+          "src:ds_4#38.kpi_entriesz5abs",
+          "src:ds_4#43.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "10",
+        "value": 10,
+        "reason": "ambiguous",
+        "context": "Un match a eu lieu le 10 octobre avec 13 joueurs impliqués. Sur le plan wellness, Bakery Jatta présente les douleurs corporelles moyennes les plus élevées (40/6",
+        "candidates": [
+          "src:ds_4#0.kpi_decelerationdistancez6rel",
+          "src:ds_4#3.kpi_decelerationdistancez6rel",
+          "src:ds_4#6.kpi_hmldpermin",
+          "src:ds_4#9.kpi_hmleffortsmaxspeed",
+          "src:ds_4#9.kpi_maxspeed"
+        ]
+      }
+    ]
+[17:40:55.354] WARN (44492): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "8"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "14"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "12"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "13"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "30"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "32,5"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "32"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "100"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "11"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "46"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7354"
+      }
+    ]
+report-v4  iter 03  │  end_turn  │  7.519s  │  $0.033  │  in=5 out=231 cacheR=11k cacheW=6.9k  │  cum $0.181
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.033  │  total so far $0.181  │  iter time 7.519s
+report-v4  agent-stop  │  designer  │  self_ended  │  3 iteration(s)  │  max=14  │  force@12  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  designer  │  3 iteration(s)  │  86.144s  │  $0.181
+report-v4  tokens  │  in=29  │  out=7.0k  │  cacheR=13k  │  cacheW=19k  │  all=7.0k
+report-v4  detail  │  htmlBytes=287054 freeArtifact=true softRepair=false
+[17:41:02.878] INFO (44492): report_v4.designer_done
+    htmlBytes: 287054
+    freeArtifact: true
+    iterations: 3
+    softRebindRepair: false
+[17:41:02.905] INFO (44492): report_v4.data_reliability_block
+    blocks: 24
+    sampleRows: 935
+    imputedExcludedCells: 252
+[17:41:02.914] INFO (44492): report_v4.artifact_parity
+    ok: false
+    issues: [
+      {
+        "kind": "missing_block",
+        "blockId": "cac754d0-5782-4233-a908-509becfcb5a7",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "reliability-h-23",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "reliability-t-24",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "ac67fc6c-294e-446a-8f1b-172dd2932bbb",
+        "detail": "html=\"Bilan staff de la semaine : charge interne, volumes GPS multi-KPI, wellness, som\" doc=\"Principaux facteurs d'influence (science club) : (1) RPE corporel vs habituel — \""
+      }
+    ]
+    documentBlockCount: 24
+    htmlBlockCount: 21
+[17:41:02.919] INFO (44492): report_v4.ask_contract
+    status: "delivered"
+    gaps: []
+{"ok":true,"tag":"baseline_hamburg_r75","iterations":15,"costUsd":1.446059,"durationSec":279.449,"pdfOk":true,"pdfError":null,"htmlPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_hamburg_r75.html","metaPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_hamburg_r75.meta.json","pdfPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_hamburg_r75.pdf"}

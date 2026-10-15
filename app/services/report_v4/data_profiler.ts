@@ -1,14 +1,13 @@
 import { PREMIUM_DOMAIN, type PremiumDomain } from '#constants/premium_report_domains'
 import type { PremiumDataset } from '#contracts/premium_report'
+import { REPORT_V4_DATA_PROFILE_DEFAULT_SHARE } from '#services/report_v4/report_v4_constants'
 import type { AppLanguage } from '#utils/localize'
-import {
-  REPORT_V4_DATA_PROFILE_DEFAULT_SHARE,
-  REPORT_V4_SQL_ROW_CAP_HINT,
-} from '#services/report_v4/report_v4_constants'
 
-export type DataProfileVerdict = 'usable' | 'partial' | 'unusable' | 'empty'
+const SQL_ROW_CAP_HINT = 10_000
 
-export type ColumnProfile = {
+type DataProfileVerdict = 'usable' | 'partial' | 'unusable' | 'empty'
+
+type ColumnProfile = {
   column: string
   rowCount: number
   nonNullCount: number
@@ -25,7 +24,7 @@ export type ColumnProfile = {
   groupValue?: string
 }
 
-export type DatasetProfile = {
+type DatasetProfile = {
   datasetId: string
   domain: PremiumDomain | 'roster' | 'unknown'
   rowCount: number
@@ -38,7 +37,7 @@ export type DatasetProfile = {
   reasons: string[]
 }
 
-export type DomainProfile = {
+type DomainProfile = {
   domain: PremiumDomain | 'roster' | 'unknown'
   verdict: DataProfileVerdict
   reasons: string[]
@@ -53,7 +52,7 @@ export type HarvestDataProfile = {
   emptyDomains: Array<PremiumDomain | 'roster' | 'unknown'>
 }
 
-export type SubjectiveScaleHint = {
+type SubjectiveScaleHint = {
   field: string
   label?: string
   min: number
@@ -61,7 +60,7 @@ export type SubjectiveScaleHint = {
   higherIsBetter: boolean
 }
 
-export type ProfileHarvestArgs = {
+type ProfileHarvestArgs = {
   datasets: Iterable<PremiumDataset>
   window?: { from: string; to: string }
   defaultShareThreshold?: number
@@ -97,9 +96,9 @@ const VERDICT_RANK: Record<DataProfileVerdict, number> = {
   usable: 3,
 }
 
-export const isIdentityProfileColumn = (column: string): boolean => IDENTITY_COL_RE.test(column)
+const isIdentityProfileColumn = (column: string): boolean => IDENTITY_COL_RE.test(column)
 
-export const inferDatasetDomain = (
+const inferDatasetDomain = (
   datasetId: string,
   columns: string[]
 ): PremiumDomain | 'roster' | 'unknown' => {
@@ -408,8 +407,9 @@ export const profileDataset = (
     subjectiveScales?: SubjectiveScaleHint[]
   }
 ): DatasetProfile => {
-  const defaultShareThreshold = args?.defaultShareThreshold ?? REPORT_V4_DATA_PROFILE_DEFAULT_SHARE
-  const sqlRowCapHint = args?.sqlRowCapHint ?? REPORT_V4_SQL_ROW_CAP_HINT
+  const defaultShareThreshold =
+    args?.defaultShareThreshold ?? REPORT_V4_DATA_PROFILE_DEFAULT_SHARE
+  const sqlRowCapHint = args?.sqlRowCapHint ?? SQL_ROW_CAP_HINT
   const columns =
     dataset.columns.length > 0
       ? dataset.columns
@@ -502,8 +502,9 @@ const rollupDomainVerdict = (profiles: DatasetProfile[]): DataProfileVerdict => 
 }
 
 export const profileHarvestDatasets = (args: ProfileHarvestArgs): HarvestDataProfile => {
-  const defaultShareThreshold = args.defaultShareThreshold ?? REPORT_V4_DATA_PROFILE_DEFAULT_SHARE
-  const sqlRowCapHint = args.sqlRowCapHint ?? REPORT_V4_SQL_ROW_CAP_HINT
+  const defaultShareThreshold =
+    args.defaultShareThreshold ?? REPORT_V4_DATA_PROFILE_DEFAULT_SHARE
+  const sqlRowCapHint = args.sqlRowCapHint ?? SQL_ROW_CAP_HINT
   const datasets = [...args.datasets].map((dataset) =>
     profileDataset(dataset, {
       window: args.window,
@@ -598,7 +599,7 @@ const humanizeMetricLabel = (raw: string): string =>
     .replace(/\s+/g, ' ')
     .trim()
 
-export const normalizeProfileReason = (reason: string): string => {
+const normalizeProfileReason = (reason: string): string => {
   const trimmed = reason.trim()
   if (PROFILE_REASON_BODY_RE.test(trimmed)) return trimmed
   const stripped = trimmed.replace(/^[^:]+:/, '')
@@ -674,7 +675,7 @@ export const humanizeProfileReason = (reason: string, language: AppLanguage): st
   return null
 }
 
-export const collectCoachProfileLines = (
+const collectCoachProfileLines = (
   profile: HarvestDataProfile,
   language: AppLanguage
 ): string[] => {
@@ -742,12 +743,3 @@ export const buildDataProfileCanvasText = (
   }
   return { title, body: lines.join(' ') }
 }
-
-export const datasetsFromFixtureDomainPacks = (args: {
-  domains: Record<string, { rows?: Array<Record<string, unknown>>; rowCount?: number }>
-}): PremiumDataset[] =>
-  Object.entries(args.domains).map(([id, pack]) => {
-    const rows = Array.isArray(pack.rows) ? pack.rows : []
-    const columns = rows[0] ? Object.keys(rows[0]) : []
-    return { id, columns, rows }
-  })

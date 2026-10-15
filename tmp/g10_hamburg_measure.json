@@ -1,0 +1,114 @@
+{
+  "path": "/Users/matprod/stock3/tmp/reports_drafts/rapport-staff-hambourg-1-7-mars-2026-2026-03-01_2026-03-07.html",
+  "before": {
+    "dataFact": 4,
+    "dataSrc": 0,
+    "displayedEstimate": 226
+  },
+  "after": {
+    "dataFact": 6,
+    "dataSrc": 100,
+    "displayed": 226,
+    "linkedFact": 2,
+    "linkedSrc": 100,
+    "ambiguous": 79,
+    "unmatched": 45
+  },
+  "synthetic": {
+    "facts": 2,
+    "datasets": 5
+  },
+  "handSample": [
+    {
+      "needle": "49.7",
+      "kind": "kpi",
+      "linkedAs": "hambourg.scores.perf_mean",
+      "attr": "fact"
+    },
+    {
+      "needle": "7.58",
+      "kind": "kpi",
+      "linkedAs": "hambourg.scores.injury_mean",
+      "attr": "fact"
+    },
+    {
+      "needle": "63.6",
+      "kind": "prose_rounding",
+      "linkedAs": "html_table_0#0.c_1_Injury risk score (0-100",
+      "attr": "src"
+    },
+    {
+      "needle": "43.7",
+      "kind": "prose_rounding",
+      "linkedAs": "html_table_0#1.c_1_Injury risk score (0-100",
+      "attr": "src"
+    },
+    {
+      "needle": "3,187",
+      "kind": "kpi",
+      "linkedAs": "hambourg.gps.total_distance_mean",
+      "attr": "fact"
+    },
+    {
+      "needle": "593",
+      "kind": "table_or_prose",
+      "linkedAs": "html_table_1#6.c_3_HMLD (m)",
+      "attr": "src"
+    },
+    {
+      "needle": "453",
+      "kind": "table_or_prose",
+      "linkedAs": "html_table_1#6.c_5_Explosive distance (abso",
+      "attr": "src"
+    },
+    {
+      "needle": "4",
+      "kind": "existing_or_small",
+      "linkedAs": "hambourg.scores.perf_mean",
+      "attr": "fact"
+    },
+    {
+      "needle": "1",
+      "kind": "toc",
+      "linkedAs": "hambourg.scores.perf_mean",
+      "attr": "fact"
+    },
+    {
+      "needle": "2",
+      "kind": "toc",
+      "linkedAs": "html_table_1#1.c_5_Explosive distance (abso",
+      "attr": "src"
+    },
+    {
+      "needle": "8",
+      "kind": "toc",
+      "linkedAs": "hambourg.scores.injury_mean",
+      "attr": "fact"
+    },
+    {
+      "needle": "2026",
+      "kind": "date",
+      "linkedAs": null,
+      "attr": null
+    },
+    {
+      "needle": "03-01",
+      "kind": "date",
+      "linkedAs": null,
+      "attr": null
+    },
+    {
+      "needle": "2899",
+      "kind": "prose_maybe",
+      "linkedAs": null,
+      "attr": null
+    },
+    {
+      "needle": "2,899",
+      "kind": "prose_maybe",
+      "linkedAs": null,
+      "attr": null
+    }
+  ],
+  "falseLinks": []
+}

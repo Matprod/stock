@@ -1,0 +1,203 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Un seul tableau: top 10 distance GPS totale sur 2026-03-01 → 2026-03-07.",
+  "durationSec": 225.272,
+  "iterations": 15,
+  "usage": {
+    "inputTokens": 5075,
+    "outputTokens": 18043,
+    "cacheReadInputTokens": 217286,
+    "cacheCreationInputTokens": 200928,
+    "totalTokens": 23118,
+    "estimatedCostUsd": 1.104535
+  },
+  "iterationSecs": [
+    3.158,
+    3.538,
+    5.187,
+    3.578,
+    12.72,
+    4.386,
+    33.177,
+    7.283,
+    16.487,
+    5.31,
+    43.689,
+    27.548,
+    6.709,
+    35.194,
+    4.783
+  ],
+  "iterationCosts": [
+    0.06773,
+    0.075316,
+    0.028942,
+    0.08678,
+    0.064157,
+    0.032315,
+    0.257997,
+    0.176616,
+    0.050197,
+    0.029949,
+    0.070828,
+    0.072859,
+    0.019821,
+    0.055993,
+    0.015036
+  ],
+  "message": "Rapport refait entièrement. Rapport livré : tout ce qui était demandé est présent.",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    },
+    "fetchRange": {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    },
+    "domainRanges": {
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 23,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 3,
+        "athletesWithData": 19,
+        "populated": true
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Un seul tableau: top 10 distance GPS totale sur 2026-03-01 → 2026-03-07.",
+    "domains": [
+      "gps"
+    ],
+    "fetches": [
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Top 10 total GPS distance"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+  },
+  "blockCount": 4,
+  "chartCount": 0,
+  "blockTitles": [
+    {
+      "id": "468f00fd-2dca-4566-8c42-7027468888f7",
+      "type": "table",
+      "title": "Top 10 Distance GPS totale (1–7 mars 2026)"
+    },
+    {
+      "id": "requested_measure_note",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "reliability-h-3",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-4",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    3.158,
+    3.538,
+    5.187,
+    3.578,
+    12.72,
+    4.386,
+    33.177,
+    7.283,
+    16.487,
+    5.31,
+    43.689,
+    27.548,
+    6.709,
+    35.194,
+    4.783
+  ]
+}

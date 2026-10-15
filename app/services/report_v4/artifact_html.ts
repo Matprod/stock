@@ -1,5 +1,5 @@
 import { parseHTML } from 'linkedom'
-import type { PremiumReportDocument } from '#contracts/premium_report'
+import type { PremiumDataset, PremiumReportDocument } from '#contracts/premium_report'
 import {
   asEchartsOption,
   chartTypeFromOption,
@@ -8,33 +8,35 @@ import {
 import type { SubjectiveChartScale } from '#services/premium_report/charts/echarts_options'
 import { asSeriesList } from '#services/premium_report/charts/echarts_types'
 import { columnStats, toNumber } from '#services/premium_report/dataset_ops'
-import { hasChartEmbeddedSource } from '#services/premium_report/premium_report_document'
-import type { ReportDesignPack } from '#services/report_v4/design/report_design_pack'
 import {
-  buildReportPackCss,
-  buildReportPrintCss,
-} from '#services/report_v4/design/report_pack_css'
+  chartOptionHasRenderableData,
+  hasChartEmbeddedSource,
+} from '#services/premium_report/premium_report_document'
+import type { ReportDesignPack } from '#services/report_v4/design/report_design_pack'
+import { buildReportPackCss, buildReportPrintCss } from '#services/report_v4/design/report_pack_css'
 import type { BlockOrigin } from '#services/report_v4/artifact_parity'
 import { enforceChartOptionGuards } from '#services/report_v4/chart_option_guards'
 import { buildEchartsBootScript, echartsCdnScriptTag } from '#services/report_v4/echarts_boot'
 import { packFontsStyleTag } from '#services/report_v4/report_v4_assets'
 import { maunaWatermarkCss, maunaWatermarkImgTag } from '#services/report_v4/mauna_watermark'
+import { ARTIFACT_MIN_HTML_BYTES } from '#services/report_v4/report_v4_constants'
+import { repairLiteralNumberSentencesInHtml } from '#services/report_v4/grounding_report'
+import { injectDataFactsInHtml, type ReportFact } from '#services/report_v4/report_facts'
 import {
-  ARTIFACT_MIN_HTML_BYTES,
-  REPORT_V4_MAX_HTML_BYTES,
-  escapeHtml,
-} from '#services/report_v4/report_v4_constants'
-import {
-  injectDataFactsInHtml,
-  type ReportFact,
-} from '#services/report_v4/report_facts'
+  dedupeAdjacentUnitSpans,
+  genericColumnLabel,
+  resolveColumnLabel,
+} from '#services/report_v4/metrics/column_labels'
+import logger from '@adonisjs/core/services/logger'
 import {
   ensureSectionAnchorsInHtml,
   ensureTocInHtml,
   indexArtifactSections,
 } from '#services/report_v4/artifact_sections'
-import { foldAscii, foldKey } from '#utils/html_text'
+import { escapeHtml, foldAscii, foldKey } from '#utils/html_text'
 import type { AppLanguage } from '#utils/localize'
+
+const MAX_HTML_BYTES = 2_500_000
 
 export type ArtifactChartSpec = {
   id: string
@@ -42,7 +44,7 @@ export type ArtifactChartSpec = {
   option: Record<string, unknown>
 }
 
-export type LeanDesignChart = {
+type LeanDesignChart = {
   id: string
   title: string
   chartType?: string
@@ -51,7 +53,7 @@ export type LeanDesignChart = {
   hasEmbeddedSource?: boolean
 }
 
-export type LeanDesignTable = {
+type LeanDesignTable = {
   id: string
   title: string
   columns: string[]
@@ -64,7 +66,7 @@ export type LeanDesignTable = {
   >
 }
 
-export type FinalizeArtifactResult =
+type FinalizeArtifactResult =
   | {
       ok: true
       html: string
@@ -80,7 +82,8 @@ export const artifactChartHostId = (blockId: string): string => `chart_${blockId
 
 export const collectArtifactCharts = (
   document: PremiumReportDocument,
-  scales?: SubjectiveChartScale[]
+  scales?: SubjectiveChartScale[],
+  language: 'fr' | 'en' = 'fr'
 ): ArtifactChartSpec[] =>
   document.blocks
     .filter((b) => b.type === 'chart')
@@ -89,7 +92,12 @@ export const collectArtifactCharts = (
         ? {
             id: artifactChartHostId(b.id),
             title: b.title,
-            option: sanitizeChartOptionForPrint(asEchartsOption(b.option), b.title, scales),
+            option: sanitizeChartOptionForPrint(
+              asEchartsOption(b.option),
+              b.title,
+              scales,
+              language
+            ),
           }
         : null
     )
@@ -143,7 +151,7 @@ export const projectArtifactChartsForDesign = (
   return charts
 }
 
-export type ArtifactTableSpec = {
+type ArtifactTableSpec = {
   id: string
   blockId: string
   title: string
@@ -315,10 +323,13 @@ const chartCardHtml = (chart: ArtifactChartSpec, blockId?: string): string => {
   return `<article class="chart-card" data-mauna-soft-injected="1"${blockAttr}><h3${blockAttr}>${title}</h3><div id="${escapeHtml(chart.id)}" class="chart-box"${blockAttr}></div></article>`
 }
 
-const cssAttrEscape = (value: string): string =>
-  value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+const cssAttrEscape = (value: string): string => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
 
-const insertHtmlAfterAnchor = (html: string, anchorBlockId: string, snippet: string): string | null => {
+const insertHtmlAfterAnchor = (
+  html: string,
+  anchorBlockId: string,
+  snippet: string
+): string | null => {
   const { document } = parseHTML(wrapArtifactHtml(html))
   const anchor = document.querySelector(`[data-block-id="${cssAttrEscape(anchorBlockId)}"]`)
   if (!anchor || !anchor.parentNode) return null
@@ -342,7 +353,8 @@ export const injectMissingChartHostShells = (
     priorDocument?: PremiumReportDocument | null
   }
 ): { html: string; injected: number } => {
-  const missing = charts.filter((chart, index) => !artifactChartHostPresent(html, chart, index))
+  const drawable = charts.filter((chart) => chartOptionHasRenderableData(chart.option))
+  const missing = drawable.filter((chart, index) => !artifactChartHostPresent(html, chart, index))
   if (missing.length === 0) return { html, injected: 0 }
 
   const blockIdForHost = (hostId: string): string | undefined => {
@@ -401,7 +413,7 @@ const proseBlocksDiffer = (
   return false
 }
 
-export type SoftRebindValidation = {
+type SoftRebindValidation = {
   ok: boolean
   missingHosts: string[]
   proseMiss: boolean
@@ -418,7 +430,11 @@ export const validateSoftRebindHtml = (args: {
 }): SoftRebindValidation => {
   const missingHosts = listMissingArtifactChartHosts(args.html, args.charts)
   const unsyncedBlockIds = [...(args.unsyncedBlockIds ?? [])]
-  if (unsyncedBlockIds.length === 0 && args.syncedProse === 0 && proseBlocksDiffer(args.document, args.priorDocument)) {
+  if (
+    unsyncedBlockIds.length === 0 &&
+    args.syncedProse === 0 &&
+    proseBlocksDiffer(args.document, args.priorDocument)
+  ) {
     for (const block of args.document.blocks) {
       if (block.type !== 'heading' && block.type !== 'text') continue
       const prior = args.priorDocument?.blocks.find((row) => row.id === block.id)
@@ -456,14 +472,23 @@ const buildMinimalFreeArtifactShell = (args: {
   title?: string
   message: string
   dateRange: { from: string; to: string }
+  language?: AppLanguage
 }): string => {
-  const title = escapeHtml(args.title?.trim() || 'Staff report')
+  const lang = args.language === 'fr' ? 'fr' : 'en'
+  const title = escapeHtml(
+    args.title?.trim() || (lang === 'fr' ? 'Rapport staff' : 'Staff report')
+  )
   const club = escapeHtml(args.clubName.trim() || 'Club')
   const from = escapeHtml(args.dateRange.from)
   const to = escapeHtml(args.dateRange.to)
-  const message = escapeHtml(args.message.trim() || 'No populated domain for this window.')
+  const message = escapeHtml(
+    args.message.trim() ||
+      (lang === 'fr'
+        ? 'Aucun domaine renseigne pour cette fenetre.'
+        : 'No populated domain for this window.')
+  )
   return `<!DOCTYPE html>
-<html lang="en">
+<html lang="${lang}">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -615,14 +640,31 @@ const pickTableSpecForHtml = (
   return tables.find((spec, i) => !used.has(i) && htmlTableMatchesSpec(tableHtml, spec))
 }
 
+const isDateTableColumn = (column: string): boolean => /date|jour|day/i.test(column)
+
 const renderArtifactTableHtml = (spec: ArtifactTableSpec): string => {
-  const head = spec.columns.map((col) => `<th>${escapeHtml(String(col ?? ''))}</th>`).join('')
+  const head = spec.columns
+    .map((col) => {
+      const name = String(col ?? '')
+      const cls = isDateTableColumn(name) ? ' class="date"' : ''
+      return `<th${cls}>${escapeHtml(name)}</th>`
+    })
+    .join('')
   const body = spec.rows
     .map((row, rowIndex) => {
       const cells = row
         .map((value, colIndex) => {
           const bg = spec.cells?.[rowIndex]?.[colIndex]?.background
-          const open = bg ? paintTdOpen('<td>', bg) : '<td>'
+          const colName = String(spec.columns[colIndex] ?? '')
+          const dateCls = isDateTableColumn(colName) ? 'date' : ''
+          let open = bg ? paintTdOpen('<td>', bg) : '<td>'
+          if (dateCls) {
+            if (/\bclass=(["'])/.test(open)) {
+              open = open.replace(/\bclass=(["'])/, `class=$1${dateCls} `)
+            } else {
+              open = open.replace(/<td\b/i, `<td class="${dateCls}"`)
+            }
+          }
           const text = value == null ? '' : String(value)
           return `${open}${escapeHtml(text)}</td>`
         })
@@ -665,8 +707,9 @@ export const stampDataBlockIdsInHtml = (
         (el) => !el.getAttribute('data-block-id')
       )
       const match =
-        candidates.find((el) => (el.textContent ?? '').replace(/\s+/g, ' ').trim() === block.text.trim()) ??
-        candidates[0]
+        candidates.find(
+          (el) => (el.textContent ?? '').replace(/\s+/g, ' ').trim() === block.text.trim()
+        ) ?? candidates[0]
       assignIfFree(match, block.id)
       continue
     }
@@ -675,8 +718,9 @@ export const stampDataBlockIdsInHtml = (
         (el) => !el.getAttribute('data-block-id')
       )
       const match =
-        candidates.find((el) => (el.textContent ?? '').replace(/\s+/g, ' ').trim() === block.text.trim()) ??
-        candidates[0]
+        candidates.find(
+          (el) => (el.textContent ?? '').replace(/\s+/g, ' ').trim() === block.text.trim()
+        ) ?? candidates[0]
       assignIfFree(match, block.id)
       continue
     }
@@ -761,8 +805,7 @@ export const syncProseIntoArtifactHtml = (
     if (block.type !== 'heading' && block.type !== 'text') continue
     const prior = priorById.get(block.id)
     if (!prior || prior.type !== block.type) continue
-    const before =
-      prior.type === 'heading' || prior.type === 'text' ? prior.text.trim() : ''
+    const before = prior.type === 'heading' || prior.type === 'text' ? prior.text.trim() : ''
     const after = block.type === 'heading' || block.type === 'text' ? block.text.trim() : ''
     if (!before || !after || before === after) continue
     const el = dom.querySelector(`[data-block-id="${cssAttrEscape(block.id)}"]`)
@@ -797,14 +840,30 @@ const proseHtmlForBlock = (block: {
 
 const looksLikeAthleteName = (value: string): boolean => {
   const cleaned = value.replace(/\s+/g, ' ').trim()
-  if (cleaned.length < 5 || cleaned.length > 60) return false
+  if (cleaned.length < 3 || cleaned.length > 60) return false
   if (
     /performance|injury|score|wellness|sleep|gps|distance|radar|scatter|team|moyenne/i.test(cleaned)
   ) {
     return false
   }
   const parts = cleaned.split(/\s+/).filter(Boolean)
-  return parts.length >= 2 && parts.every((part) => /^[A-ZÀ-ÖØ-Þ]/.test(part) || part.includes("'"))
+  if (parts.length === 0) return false
+  if (parts.length === 1) {
+    return parts[0]!.length >= 3 && /^[A-ZÀ-ÖØ-Þ]/.test(parts[0]!)
+  }
+  return parts.every((part) => /^[A-ZÀ-ÖØ-Þ]/.test(part) || part.includes("'"))
+}
+
+const foldAthleteHeading = (value: string): string =>
+  value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+    .trim()
+
+const isAthleteSheetHeading = (value: string, knownAthletes?: Set<string>): boolean => {
+  if (knownAthletes && knownAthletes.has(foldAthleteHeading(value))) return true
+  return looksLikeAthleteName(value)
 }
 
 const athleteNameNeedle = (name: string): string =>
@@ -819,7 +878,10 @@ const blockMentionsAthlete = (blob: string, athlete: string): boolean => {
   return foldAscii(blob).includes(needle)
 }
 
-const groupCanvasIntoAthleteSheets = (document: PremiumReportDocument) => {
+const groupCanvasIntoAthleteSheets = (
+  document: PremiumReportDocument,
+  knownAthletes?: Set<string>
+) => {
   const sheets: Array<{
     athlete: string
     headingId?: string
@@ -830,7 +892,7 @@ const groupCanvasIntoAthleteSheets = (document: PremiumReportDocument) => {
   }> = []
   let current: (typeof sheets)[number] | null = null
   for (const block of document.blocks) {
-    if (block.type === 'heading' && looksLikeAthleteName(block.text ?? '')) {
+    if (block.type === 'heading' && isAthleteSheetHeading(block.text ?? '', knownAthletes)) {
       current = {
         athlete: block.text.trim(),
         headingId: block.id,
@@ -885,9 +947,14 @@ const groupCanvasIntoAthleteSheets = (document: PremiumReportDocument) => {
 
 export const rebuildAthleteSheetsInArtifactHtml = (
   html: string,
-  document: PremiumReportDocument
+  document: PremiumReportDocument,
+  opts?: { athleteNames?: string[] }
 ): { html: string; sections: number; mismatches: string[] } => {
-  const sheets = groupCanvasIntoAthleteSheets(document)
+  const knownAthletes =
+    opts?.athleteNames && opts.athleteNames.length > 0
+      ? new Set(opts.athleteNames.map(foldAthleteHeading))
+      : undefined
+  const sheets = groupCanvasIntoAthleteSheets(document, knownAthletes)
   if (sheets.length < 2) return { html, sections: 0, mismatches: [] }
 
   const mismatches = sheets.flatMap((sheet) => sheet.mismatches)
@@ -1101,11 +1168,17 @@ export const injectNewSoftBlocksIntoArtifactHtml = (
     }
   }
 
+  const knownHeadingNames = document.blocks
+    .filter((b) => b.type === 'heading')
+    .map((b) => ('text' in b ? b.text : ''))
+    .filter(Boolean)
   const athleteHeadings = newHeadings.filter(
-    (b) => b.type === 'heading' && looksLikeAthleteName(b.text ?? '')
+    (b) => b.type === 'heading' && isAthleteSheetHeading(b.text ?? '', new Set(knownHeadingNames.map(foldAthleteHeading)))
   )
   if (athleteHeadings.length >= 2 && newCharts.length > 0) {
-    const rebuilt = rebuildAthleteSheetsInArtifactHtml(next, document)
+    const rebuilt = rebuildAthleteSheetsInArtifactHtml(next, document, {
+      athleteNames: knownHeadingNames,
+    })
     return {
       html: rebuilt.html,
       injectedProse,
@@ -1152,7 +1225,11 @@ export const injectNewSoftBlocksIntoArtifactHtml = (
       const body = `${extraHeadings.join('\n')}
   ${tableHtmlParts.join('\n')}
   ${chartCards.join('\n')}`
-      const priorBand = [...next.matchAll(/<div\b[^>]*class=["'][^"']*(?<![-\w])band(?![-\w])[^"']*["'][^>]*>[\s\S]*?<\/div>/gi)]
+      const priorBand = [
+        ...next.matchAll(
+          /<div\b[^>]*class=["'][^"']*(?<![-\w])band(?![-\w])[^"']*["'][^>]*>[\s\S]*?<\/div>/gi
+        ),
+      ]
         .map((m) => m[0] ?? '')
         .filter(Boolean)
         .at(-1)
@@ -1354,17 +1431,11 @@ const ensureMaunaWatermarkInHtml = (html: string): string => {
   return next
 }
 
-export const refreshArtifactPresentationCss = (
-  html: string,
-  pack: ReportDesignPack
-): string => {
+export const refreshArtifactPresentationCss = (html: string, pack: ReportDesignPack): string => {
   let next = html
   const packSheet = `<style id="mauna-pack-css" data-pack="${pack.id}">${buildReportPackCss(pack)}</style>`
   if (/id=["']mauna-pack-css["']/i.test(next)) {
-    next = next.replace(
-      /<style\b[^>]*id=["']mauna-pack-css["'][^>]*>[\s\S]*?<\/style>/i,
-      packSheet
-    )
+    next = next.replace(/<style\b[^>]*id=["']mauna-pack-css["'][^>]*>[\s\S]*?<\/style>/i, packSheet)
   } else {
     next = ensureHeadAsset(next, packSheet, /id=["']mauna-pack-css["']/i)
   }
@@ -1373,6 +1444,65 @@ export const refreshArtifactPresentationCss = (
 
 const stripBase64AthletePhotosFromHtml = (html: string): string =>
   html.replace(/<img\b[^>]*src=["']data:image\/[^"']+["'][^>]*>/gi, '')
+
+const SNAKE_METRIC_RE = /\b[a-z][a-z0-9]*(?:_[a-z0-9]+)+\b/g
+
+const humanizeSnakeToken = (token: string, language: AppLanguage): string => {
+  const resolved = resolveColumnLabel(token, language)
+  if (resolved.source === 'table') return resolved.label
+  return genericColumnLabel(token)
+}
+
+const humanizeChartTitles = (
+  charts: ArtifactChartSpec[],
+  language: AppLanguage
+): { charts: ArtifactChartSpec[]; warnings: string[] } => {
+  const warnings: string[] = []
+  const next = charts.map((chart) => {
+    const title = chart.title.trim()
+    if (!title || !SNAKE_METRIC_RE.test(title)) return chart
+    SNAKE_METRIC_RE.lastIndex = 0
+    const humanized = title.replace(SNAKE_METRIC_RE, (token) => humanizeSnakeToken(token, language))
+    if (humanized === title) return chart
+    warnings.push(`human_title:${chart.id}:snake_case`)
+    logger.warn({ chartId: chart.id, from: title, to: humanized }, 'report_v4.chart_title_humanized')
+    return { ...chart, title: humanized }
+  })
+  return { charts: next, warnings }
+}
+
+const humanizeSnakeCaseInHtml = (
+  html: string,
+  language: AppLanguage
+): { html: string; replaced: number } => {
+  let replaced = 0
+  const next = html.replace(
+    /<(h[1-4]|figcaption|th)\b([^>]*)>([\s\S]*?)<\/\1>/gi,
+    (full, tag: string, attrs: string, body: string) => {
+      if (!SNAKE_METRIC_RE.test(body)) return full
+      SNAKE_METRIC_RE.lastIndex = 0
+      const humanized = body.replace(SNAKE_METRIC_RE, (token) => {
+        replaced += 1
+        return humanizeSnakeToken(token, language)
+      })
+      return `<${tag}${attrs}>${humanized}</${tag}>`
+    }
+  )
+  return { html: next, replaced }
+}
+
+const rawSnakeCaseTitleLeaks = (html: string): string[] => {
+  const leaks: string[] = []
+  for (const match of html.matchAll(/<(h[1-4]|figcaption)\b[^>]*>([\s\S]*?)<\/\1>/gi)) {
+    const text = (match[2] ?? '').replace(/<[^>]+>/g, ' ')
+    SNAKE_METRIC_RE.lastIndex = 0
+    for (const token of text.match(SNAKE_METRIC_RE) ?? []) {
+      if (/^(chart|data|block|mauna)_/i.test(token)) continue
+      leaks.push(token)
+    }
+  }
+  return [...new Set(leaks)]
+}
 
 export const finalizeArtifactHtml = (args: {
   html: string
@@ -1383,6 +1513,8 @@ export const finalizeArtifactHtml = (args: {
   tables?: ArtifactTableSpec[]
   injectMissingHosts?: boolean
   facts?: Map<string, ReportFact> | Iterable<ReportFact>
+  datasets?: Iterable<PremiumDataset>
+  linkDisplayedNumbers?: boolean
   document?: PremiumReportDocument
   blockOrigin?: BlockOrigin
 }): FinalizeArtifactResult => {
@@ -1391,7 +1523,7 @@ export const finalizeArtifactHtml = (args: {
   if (html.length < ARTIFACT_MIN_HTML_BYTES) {
     return { ok: false, error: `html too short (<${ARTIFACT_MIN_HTML_BYTES})`, warnings }
   }
-  if (html.length > REPORT_V4_MAX_HTML_BYTES) {
+  if (html.length > MAX_HTML_BYTES) {
     return { ok: false, error: 'html too large', warnings }
   }
   if (!/<html[\s>]/i.test(html)) {
@@ -1400,16 +1532,25 @@ export const finalizeArtifactHtml = (args: {
 
   html = stripBase64AthletePhotosFromHtml(html)
 
+  const language = args.language ?? 'fr'
   const guardedCharts = args.charts.map((chart) => {
     const enforced = enforceChartOptionGuards(chart.option, args.pack)
     if (enforced.issues.length) {
-      warnings.push(
-        `chart_guard:${chart.id}:${enforced.issues.map((row) => row.code).join(',')}`
-      )
+      warnings.push(`chart_guard:${chart.id}:${enforced.issues.map((row) => row.code).join(',')}`)
     }
     return { ...chart, option: enforced.option }
   })
-  const charts = guardedCharts
+  const titled = humanizeChartTitles(guardedCharts, language)
+  warnings.push(...titled.warnings)
+  const emptyDropped = titled.charts.filter((chart) => !chartOptionHasRenderableData(chart.option))
+  if (emptyDropped.length > 0) {
+    warnings.push(`dropped_${emptyDropped.length}_empty_charts`)
+    logger.warn(
+      { dropped: emptyDropped.map((c) => c.id) },
+      'report_v4.finalize_dropped_empty_charts'
+    )
+  }
+  const charts = titled.charts.filter((chart) => chartOptionHasRenderableData(chart.option))
 
   const migratedHosts = migrateOrdinalChartHostsInHtml(html, charts)
   html = migratedHosts.html
@@ -1421,6 +1562,20 @@ export const finalizeArtifactHtml = (args: {
   html = prunedHosts.html
   if (prunedHosts.pruned > 0) {
     warnings.push(`pruned_${prunedHosts.pruned}_orphan_chart_hosts`)
+  }
+
+  const humanizedHtml = humanizeSnakeCaseInHtml(html, language)
+  html = humanizedHtml.html
+  if (humanizedHtml.replaced > 0) {
+    warnings.push(`human_title:html:${humanizedHtml.replaced}`)
+  }
+  const titleLeaks = rawSnakeCaseTitleLeaks(html)
+  if (titleLeaks.length > 0) {
+    return {
+      ok: false,
+      error: `raw_column chart titles still ship: ${titleLeaks.slice(0, 8).join(', ')}`,
+      warnings: [...warnings, 'snake_case_title_leak'],
+    }
   }
 
   html = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, (block) => {
@@ -1435,12 +1590,10 @@ export const finalizeArtifactHtml = (args: {
     return ''
   })
 
-  html = html.replace(/<link\b[^>]*fonts\.googleapis\.com[^>]*>/gi, '')
+  html = html.replace(/<link\b[^>]*(?:fonts\.googleapis\.com|fonts\.gstatic\.com)[^>]*>/gi, '')
+  html = html.replace(/@import\s+(?:url\()?['"]?https?:\/\/fonts\.googleapis\.com[^;]+;?/gi, '')
   html = html.replace(/<script\b[^>]*cdn\.jsdelivr\.net[^>]*>[\s\S]*?<\/script>/gi, '')
-  html = html.replace(
-    /<script\b[^>]*id=["']mauna-echarts["'][^>]*>[\s\S]*?<\/script>/gi,
-    ''
-  )
+  html = html.replace(/<script\b[^>]*id=["']mauna-echarts["'][^>]*>[\s\S]*?<\/script>/gi, '')
   html = ensureHeadAsset(html, packFontsStyleTag(args.pack.id), /id=["']mauna-pack-fonts["']/i)
   html = ensureHeadAsset(html, echartsCdnScriptTag(), /id=["']mauna-echarts["']/i)
   const packCss = buildReportPackCss(args.pack)
@@ -1461,9 +1614,8 @@ export const finalizeArtifactHtml = (args: {
   html = brief.html
   if (brief.scrubbed) warnings.push('scrubbed_coach_brief_echo')
 
-  const presentHosts = countPresentChartHosts(html, charts)
-  const missing = countMissingChartHosts(html, charts)
-  if (freeArtifactMissingAllChartHosts(html, charts)) {
+  const allowHostInject = Boolean(args.injectMissingHosts) && charts.length > 0
+  if (!allowHostInject && freeArtifactMissingAllChartHosts(html, charts)) {
     return {
       ok: false,
       error: `html missing all chart hosts (${charts.length} required: ${charts.map((c) => c.id).join(', ')})`,
@@ -1471,12 +1623,17 @@ export const finalizeArtifactHtml = (args: {
     }
   }
 
-  const injectMissingHosts = Boolean(args.injectMissingHosts)
-  if (missing > 0 && injectMissingHosts) {
-    warnings.push(`injected_${missing}_chart_hosts`)
-  } else if (missing > 0) {
-    warnings.push(`missing_${missing}_chart_hosts`)
+  const missingBefore = countMissingChartHosts(html, charts)
+  let injectedChartHosts = 0
+  if (missingBefore > 0 && allowHostInject) {
+    const injected = injectMissingChartHostShells(html, charts)
+    html = injected.html
+    injectedChartHosts = injected.injected
+    warnings.push(`injected_${injected.injected}_chart_hosts`)
+  } else if (missingBefore > 0) {
+    warnings.push(`missing_${missingBefore}_chart_hosts`)
   }
+  const presentHosts = countPresentChartHosts(html, charts)
 
   html = html.replace(/<script id=["']mauna-artifact-boot["']>[\s\S]*?<\/script>/i, '')
   html = ensureBeforeBodyClose(
@@ -1488,7 +1645,7 @@ export const finalizeArtifactHtml = (args: {
         fontFamily: args.pack.fonts.body,
         ink: args.pack.tokens.ink,
       },
-      injectMissingHosts,
+      injectMissingHosts: false,
       stripLineSymbols: true,
     })
   )
@@ -1515,10 +1672,24 @@ export const finalizeArtifactHtml = (args: {
       facts: args.facts,
       language: args.language ?? 'en',
     })
-    html = injected.html
+    html = dedupeAdjacentUnitSpans(injected.html)
     if (injected.filled > 0) warnings.push(`filled_${injected.filled}_data_facts`)
     if (injected.missing.length > 0) {
       warnings.push(`missing_data_facts:${injected.missing.slice(0, 8).join(',')}`)
+    }
+  } else {
+    html = dedupeAdjacentUnitSpans(html)
+  }
+
+  if (args.facts && (args.facts instanceof Map ? args.facts.size > 0 : true)) {
+    const factCount =
+      args.facts instanceof Map ? args.facts.size : [...args.facts].length
+    if (factCount > 0) {
+      const repaired = repairLiteralNumberSentencesInHtml(html)
+      if (repaired.stripped > 0) {
+        html = repaired.html
+        warnings.push(`stripped_${repaired.stripped}_literal_sentences`)
+      }
     }
   }
 
@@ -1543,7 +1714,7 @@ export const finalizeArtifactHtml = (args: {
   return {
     ok: true,
     html,
-    injectedCharts: injectMissingHosts ? missing : 0,
+    injectedCharts: injectedChartHosts,
     presentHosts,
     warnings,
   }
@@ -1568,6 +1739,9 @@ export const finalizeMinimalEmptyArtifact = (args: {
 export const artifactHtmlLooksValid = (html: string | null | undefined): boolean => {
   if (!html || html.length < ARTIFACT_MIN_HTML_BYTES) return false
   if (!/<html[\s>]/i.test(html)) return false
+  if (/data-artifact=["']free-designer["']/i.test(html) && /\bclass=["'][^"']*\bpage\b/i.test(html)) {
+    return true
+  }
   return /chartsReady|mauna-artifact-boot/i.test(html)
 }
 

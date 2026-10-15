@@ -10,7 +10,7 @@ export type ClubSeasonRef = {
   active: boolean
 }
 
-export type SeasonLocatedRange = IsoDateRange & {
+type SeasonLocatedRange = IsoDateRange & {
   index: number
   end: number
 }

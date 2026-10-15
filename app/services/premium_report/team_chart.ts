@@ -126,7 +126,7 @@ export const pickSquadMetricColumn = (
   return candidates.find((col) => /performance[_\s-]?score|injury[_\s-]?risk/i.test(col))
 }
 
-export const overlayTeamMeanFromSquad = (args: {
+const overlayTeamMeanFromSquad = (args: {
   chartDataset: PremiumDataset
   squadDataset: PremiumDataset
   metricColumn: string

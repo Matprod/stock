@@ -56,12 +56,4 @@ export const prepareSoftArtifactPath = (args: {
 export const analystIterationBudget = (args: {
   envelope: ArtifactEnvelope
   base: { min: number; max: number; forceAnswerAt: number }
-}): { min: number; max: number; forceAnswerAt: number } => {
-  if (!args.envelope.coverage.individualSheets) return args.base
-  const max = Math.max(args.base.max, 28)
-  return {
-    min: Math.max(args.base.min, 5),
-    max,
-    forceAnswerAt: Math.max(args.base.forceAnswerAt, max - 2),
-  }
-}
+}): { min: number; max: number; forceAnswerAt: number } => args.base

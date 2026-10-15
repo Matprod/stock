@@ -1,4 +1,4 @@
-export type ReportBriefSignal = {
+type ReportBriefSignal = {
   athlete?: string
   athleteId?: string
   domains: string[]
@@ -7,7 +7,7 @@ export type ReportBriefSignal = {
   metrics: Record<string, string | number>
 }
 
-export type ReportBriefSection = {
+type ReportBriefSection = {
   id: string
   title: string
   kind: 'team' | 'athlete' | 'cross' | 'coverage'

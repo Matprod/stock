@@ -11,12 +11,12 @@ import {
   type PromptFetchSpec,
   type PromptWindows,
 } from '#services/report_v4/prompt_scope'
-import {
-  REPORT_V4_COVERAGE_MIN_ATHLETES,
-  REPORT_V4_COVERAGE_MIN_DAYS,
-} from '#services/report_v4/report_v4_constants'
+import { buildDomainCoverageSql } from '#services/report_v4/domain_coverage_sql'
 
-export type DomainCoverageRow = {
+const COVERAGE_MIN_DAYS = 2
+const COVERAGE_MIN_ATHLETES = 2
+
+type DomainCoverageRow = {
   domain: PremiumDomain
   daysWithData: number
   athletesWithData: number
@@ -30,23 +30,54 @@ export type DomainCoverageReport = {
   emptyDomains: PremiumDomain[]
 }
 
+const emptyCoverageReport = (dateRange: IsoDateRange): DomainCoverageReport => ({
+  dateRange,
+  domains: PREMIUM_DOMAINS.map((domain) => ({
+    domain,
+    daysWithData: 0,
+    athletesWithData: 0,
+    populated: false,
+  })),
+  populatedDomains: [],
+  emptyDomains: [...PREMIUM_DOMAINS],
+})
+
+const DOMAIN_COVERAGE_PAIRS: Array<[PremiumDomain, string, string]> = [
+  [PREMIUM_DOMAIN.LOAD, 'load_days', 'load_athletes'],
+  [PREMIUM_DOMAIN.GPS, 'gps_days', 'gps_athletes'],
+  [PREMIUM_DOMAIN.MATCH, 'match_days', 'match_athletes'],
+  [PREMIUM_DOMAIN.WELLNESS, 'wellness_days', 'wellness_athletes'],
+  [PREMIUM_DOMAIN.SLEEP, 'sleep_days', 'sleep_athletes'],
+  [PREMIUM_DOMAIN.VALD, 'vald_days', 'vald_athletes'],
+  [PREMIUM_DOMAIN.BIOMARKERS, 'biomarkers_days', 'biomarkers_athletes'],
+  [PREMIUM_DOMAIN.BODY, 'body_days', 'body_athletes'],
+  [PREMIUM_DOMAIN.SCORES, 'scores_days', 'scores_athletes'],
+  [PREMIUM_DOMAIN.INJURY, 'injury_days', 'injury_athletes'],
+]
+
+const rowsFromCoverageQuery = (row: Record<string, number | string | undefined>): DomainCoverageRow[] => {
+  const read = (key: string): number => Number(row[key] ?? 0) || 0
+  return DOMAIN_COVERAGE_PAIRS.map(([domain, daysKey, athletesKey]) => {
+    const daysWithData = read(daysKey)
+    const athletesWithData = read(athletesKey)
+    return {
+      domain,
+      daysWithData,
+      athletesWithData,
+      populated:
+        daysWithData >= COVERAGE_MIN_DAYS &&
+        athletesWithData >= COVERAGE_MIN_ATHLETES,
+    }
+  })
+}
+
 const probeDomainCoverage = async (args: {
   clubId: string
   dateRange: IsoDateRange
   athleteIds: string[]
 }): Promise<DomainCoverageReport> => {
   if (args.athleteIds.length === 0) {
-    return {
-      dateRange: args.dateRange,
-      domains: PREMIUM_DOMAINS.map((domain) => ({
-        domain,
-        daysWithData: 0,
-        athletesWithData: 0,
-        populated: false,
-      })),
-      populatedDomains: [],
-      emptyDomains: [...PREMIUM_DOMAINS],
-    }
+    return emptyCoverageReport(args.dateRange)
   }
 
   const athletePlaceholders = args.athleteIds.map(() => '?').join(', ')
@@ -72,240 +103,9 @@ const probeDomainCoverage = async (args: {
     ...biomarkerBindings,
   ]
 
-  const result = await db.rawQuery(
-    `
-    WITH scoped AS (
-      SELECT
-        d.id AS day_id,
-        d.date_of_day,
-        d.athlete_id,
-        d.performance_score,
-        d.injury_risk_score
-      FROM days d
-      JOIN athletes a ON a.id = d.athlete_id
-      WHERE a.club_id = ?
-        AND d.date_of_day BETWEEN ? AND ?
-        AND a.id IN (${athletePlaceholders})
-    ),
-    injury_overlap AS (
-      SELECT i.date_of_injury, i.athlete_id
-      FROM injuries i
-      JOIN athletes a ON a.id = i.athlete_id
-      WHERE a.club_id = ?
-        AND a.id IN (${athletePlaceholders})
-        AND i.date_of_injury IS NOT NULL
-        AND i.date_of_injury <= ?
-        AND (i.recovery_date IS NULL OR i.recovery_date >= ?)
-    )
-    SELECT
-      (SELECT COUNT(DISTINCT s.date_of_day)::int FROM scoped s
-        WHERE EXISTS (
-          SELECT 1 FROM sport_activities sa
-          WHERE sa.day_id = s.day_id AND NULLIF(sa.rpe, 0) IS NOT NULL
-        )
-        OR EXISTS (
-          SELECT 1 FROM health_ratings hr
-          JOIN health_metric_values hmv ON hmv.health_id = hr.id
-          JOIN health_metrics hm ON hm.id = hmv.metric_id
-          WHERE hr.day_id = s.day_id
-            AND (
-              LOWER(hm.name) LIKE '%rpe%'
-              OR LOWER(hm.name) LIKE '%exertion%'
-              OR LOWER(hm.name) LIKE '%borg%'
-              OR LOWER(REPLACE(hm.name, ' ', '_')) LIKE '%effort%'
-            )
-            AND NULLIF(TRIM(hmv.value), '') IS NOT NULL
-        )
-      ) AS load_days,
-      (SELECT COUNT(DISTINCT s.athlete_id)::int FROM scoped s
-        WHERE EXISTS (
-          SELECT 1 FROM sport_activities sa
-          WHERE sa.day_id = s.day_id AND NULLIF(sa.rpe, 0) IS NOT NULL
-        )
-        OR EXISTS (
-          SELECT 1 FROM health_ratings hr
-          JOIN health_metric_values hmv ON hmv.health_id = hr.id
-          JOIN health_metrics hm ON hm.id = hmv.metric_id
-          WHERE hr.day_id = s.day_id
-            AND (
-              LOWER(hm.name) LIKE '%rpe%'
-              OR LOWER(hm.name) LIKE '%exertion%'
-              OR LOWER(hm.name) LIKE '%borg%'
-              OR LOWER(REPLACE(hm.name, ' ', '_')) LIKE '%effort%'
-            )
-            AND NULLIF(TRIM(hmv.value), '') IS NOT NULL
-        )
-      ) AS load_athletes,
-      (SELECT COUNT(DISTINCT s.date_of_day)::int FROM scoped s
-        WHERE s.performance_score IS NOT NULL OR s.injury_risk_score IS NOT NULL
-      ) AS scores_days,
-      (SELECT COUNT(DISTINCT s.athlete_id)::int FROM scoped s
-        WHERE s.performance_score IS NOT NULL OR s.injury_risk_score IS NOT NULL
-      ) AS scores_athletes,
-      (SELECT COUNT(DISTINCT s.date_of_day)::int FROM scoped s
-        WHERE EXISTS (
-          SELECT 1 FROM sport_activities sa
-          JOIN periods p ON p.sport_activity_id = sa.id
-          JOIN period_metric_values pmv ON pmv.period_id = p.id
-          JOIN period_metrics pm ON pm.id = pmv.metric_id
-          WHERE sa.day_id = s.day_id
-            AND NULLIF(TRIM(pmv.value::text), '') IS NOT NULL
-            AND LOWER(pm.name) NOT LIKE '%accel%'
-            AND LOWER(pm.name) NOT LIKE '%decel%'
-            AND (
-              COALESCE(pm.unit, '') ~* '^(m|km|metre|meter|meters|metres|yd|yard|yards)\\b'
-              OR LOWER(pm.name) LIKE '%distance%'
-            )
-        )
-      ) AS gps_days,
-      (SELECT COUNT(DISTINCT s.athlete_id)::int FROM scoped s
-        WHERE EXISTS (
-          SELECT 1 FROM sport_activities sa
-          JOIN periods p ON p.sport_activity_id = sa.id
-          JOIN period_metric_values pmv ON pmv.period_id = p.id
-          JOIN period_metrics pm ON pm.id = pmv.metric_id
-          WHERE sa.day_id = s.day_id
-            AND NULLIF(TRIM(pmv.value::text), '') IS NOT NULL
-            AND LOWER(pm.name) NOT LIKE '%accel%'
-            AND LOWER(pm.name) NOT LIKE '%decel%'
-            AND (
-              COALESCE(pm.unit, '') ~* '^(m|km|metre|meter|meters|metres|yd|yard|yards)\\b'
-              OR LOWER(pm.name) LIKE '%distance%'
-            )
-        )
-      ) AS gps_athletes,
-      (SELECT COUNT(DISTINCT s.date_of_day)::int FROM scoped s
-        WHERE EXISTS (
-          SELECT 1 FROM sport_activities sa
-          JOIN sport_activity_metric_values samv ON samv.sport_activity_id = sa.id
-          WHERE sa.day_id = s.day_id
-            AND sa.game_activity = true
-            AND NULLIF(TRIM(samv.value::text), '') IS NOT NULL
-        )
-      ) AS match_days,
-      (SELECT COUNT(DISTINCT s.athlete_id)::int FROM scoped s
-        WHERE EXISTS (
-          SELECT 1 FROM sport_activities sa
-          JOIN sport_activity_metric_values samv ON samv.sport_activity_id = sa.id
-          WHERE sa.day_id = s.day_id
-            AND sa.game_activity = true
-            AND NULLIF(TRIM(samv.value::text), '') IS NOT NULL
-        )
-      ) AS match_athletes,
-      (SELECT COUNT(DISTINCT s.date_of_day)::int FROM scoped s
-        WHERE EXISTS (
-          SELECT 1 FROM health_ratings hr
-          WHERE hr.day_id = s.day_id
-            AND (
-              hr.mood_rating IS NOT NULL
-              OR hr.energy_rating IS NOT NULL
-              OR hr.stress_rating IS NOT NULL
-              OR hr.body_soreness_rating IS NOT NULL
-              OR hr.wellbeing_rating IS NOT NULL
-            )
-        )
-      ) AS wellness_days,
-      (SELECT COUNT(DISTINCT s.athlete_id)::int FROM scoped s
-        WHERE EXISTS (
-          SELECT 1 FROM health_ratings hr
-          WHERE hr.day_id = s.day_id
-            AND (
-              hr.mood_rating IS NOT NULL
-              OR hr.energy_rating IS NOT NULL
-              OR hr.stress_rating IS NOT NULL
-              OR hr.body_soreness_rating IS NOT NULL
-              OR hr.wellbeing_rating IS NOT NULL
-            )
-        )
-      ) AS wellness_athletes,
-      (SELECT COUNT(DISTINCT s.date_of_day)::int FROM scoped s
-        WHERE EXISTS (SELECT 1 FROM sleeps sl WHERE sl.day_id = s.day_id)
-      ) AS sleep_days,
-      (SELECT COUNT(DISTINCT s.athlete_id)::int FROM scoped s
-        WHERE EXISTS (SELECT 1 FROM sleeps sl WHERE sl.day_id = s.day_id)
-      ) AS sleep_athletes,
-      (SELECT COUNT(DISTINCT s.date_of_day)::int FROM scoped s
-        WHERE EXISTS (SELECT 1 FROM vald_tests vt WHERE vt.day_id = s.day_id)
-      ) AS vald_days,
-      (SELECT COUNT(DISTINCT s.athlete_id)::int FROM scoped s
-        WHERE EXISTS (SELECT 1 FROM vald_tests vt WHERE vt.day_id = s.day_id)
-      ) AS vald_athletes,
-      (
-        SELECT COUNT(DISTINCT (b.measured_at AT TIME ZONE 'UTC')::date)::int
-        FROM biomarkers b
-        JOIN biomarker_types bt ON bt.id = b.biomarker_type_id
-        WHERE b.athlete_id IN (${athletePlaceholders})
-          AND (b.measured_at AT TIME ZONE 'UTC')::date BETWEEN ? AND ?
-          AND (
-            NOT EXISTS (
-              SELECT 1 FROM biomarker_type_clubs scoped
-              WHERE scoped.biomarker_type_id = bt.id
-            )
-            OR EXISTS (
-              SELECT 1 FROM biomarker_type_clubs scoped
-              WHERE scoped.biomarker_type_id = bt.id AND scoped.club_id = ?
-            )
-          )
-      ) AS biomarkers_days,
-      (
-        SELECT COUNT(DISTINCT b.athlete_id)::int
-        FROM biomarkers b
-        JOIN biomarker_types bt ON bt.id = b.biomarker_type_id
-        WHERE b.athlete_id IN (${athletePlaceholders})
-          AND (b.measured_at AT TIME ZONE 'UTC')::date BETWEEN ? AND ?
-          AND (
-            NOT EXISTS (
-              SELECT 1 FROM biomarker_type_clubs scoped
-              WHERE scoped.biomarker_type_id = bt.id
-            )
-            OR EXISTS (
-              SELECT 1 FROM biomarker_type_clubs scoped
-              WHERE scoped.biomarker_type_id = bt.id AND scoped.club_id = ?
-            )
-          )
-      ) AS biomarkers_athletes,
-      (SELECT COUNT(DISTINCT s.date_of_day)::int FROM scoped s
-        WHERE EXISTS (SELECT 1 FROM bodymetrics_histories bh WHERE bh.day_id = s.day_id)
-      ) AS body_days,
-      (SELECT COUNT(DISTINCT s.athlete_id)::int FROM scoped s
-        WHERE EXISTS (SELECT 1 FROM bodymetrics_histories bh WHERE bh.day_id = s.day_id)
-      ) AS body_athletes,
-      (SELECT COUNT(DISTINCT date_of_injury)::int FROM injury_overlap) AS injury_days,
-      (SELECT COUNT(DISTINCT athlete_id)::int FROM injury_overlap) AS injury_athletes
-    `,
-    bindings
-  )
-
+  const result = await db.rawQuery(buildDomainCoverageSql(athletePlaceholders), bindings)
   const row = (result.rows?.[0] ?? result[0] ?? {}) as Record<string, number | string | undefined>
-
-  const read = (key: string): number => Number(row[key] ?? 0) || 0
-
-  const pairs: Array<[PremiumDomain, string, string]> = [
-    [PREMIUM_DOMAIN.LOAD, 'load_days', 'load_athletes'],
-    [PREMIUM_DOMAIN.GPS, 'gps_days', 'gps_athletes'],
-    [PREMIUM_DOMAIN.MATCH, 'match_days', 'match_athletes'],
-    [PREMIUM_DOMAIN.WELLNESS, 'wellness_days', 'wellness_athletes'],
-    [PREMIUM_DOMAIN.SLEEP, 'sleep_days', 'sleep_athletes'],
-    [PREMIUM_DOMAIN.VALD, 'vald_days', 'vald_athletes'],
-    [PREMIUM_DOMAIN.BIOMARKERS, 'biomarkers_days', 'biomarkers_athletes'],
-    [PREMIUM_DOMAIN.BODY, 'body_days', 'body_athletes'],
-    [PREMIUM_DOMAIN.SCORES, 'scores_days', 'scores_athletes'],
-    [PREMIUM_DOMAIN.INJURY, 'injury_days', 'injury_athletes'],
-  ]
-
-  const domains: DomainCoverageRow[] = pairs.map(([domain, daysKey, athletesKey]) => {
-    const daysWithData = read(daysKey)
-    const athletesWithData = read(athletesKey)
-    return {
-      domain,
-      daysWithData,
-      athletesWithData,
-      populated:
-        daysWithData >= REPORT_V4_COVERAGE_MIN_DAYS &&
-        athletesWithData >= REPORT_V4_COVERAGE_MIN_ATHLETES,
-    }
-  })
-
+  const domains = rowsFromCoverageQuery(row)
   const populatedDomains = domains.filter((d) => d.populated).map((d) => d.domain)
   const emptyDomains = domains.filter((d) => !d.populated).map((d) => d.domain)
 
@@ -406,10 +206,6 @@ const probeCoverageForWindows = async (args: {
     }),
   })
 
-/**
- * Coverage probe for windows already resolved by generate (no Haiku).
- * When windows are omitted (standalone /coverage API), uses the sync regex parser — never Haiku.
- */
 export const resolveFullCoverage = async (args: {
   clubId: string
   prompt: string

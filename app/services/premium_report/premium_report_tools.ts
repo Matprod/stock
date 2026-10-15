@@ -41,6 +41,7 @@ export type PremiumReportState = {
   sqlFailures: Map<string, number>
   blockSql: boolean
   toolHistory: Array<{ name: string; input: Record<string, unknown>; timestamp: number }>
+  harvestTried: Array<{ name: string; from?: string; to?: string; timestamp: number }>
   jevValidations: number
   jevBlocked: number
   requestPrompt: string
@@ -65,7 +66,8 @@ export type PremiumReportState = {
    * Undefined = unlocked (e.g. layoutRepair) or not in allowlist mode.
    */
   softAllowBlockIds?: Set<string>
-  /** Optional per-run caps (defaults from PREMIUM_REPORT_MAX_*). */
+  sheetLockedBlockIds?: Set<string>
+  sheetRetainedMeasures?: Array<{ datasetId: string; metric: string }>
   limits?: {
     maxCharts?: number
     maxBlocks?: number
@@ -90,7 +92,7 @@ export type PremiumTool = {
   execute: (input: Record<string, unknown>) => Promise<string>
 }
 
-export const recordSqlFailure = (state: PremiumReportState, error: string): boolean => {
+const recordSqlFailure = (state: PremiumReportState, error: string): boolean => {
   const key = sqlFailureKey(error)
   const next = (state.sqlFailures.get(key) ?? 0) + 1
   state.sqlFailures.set(key, next)

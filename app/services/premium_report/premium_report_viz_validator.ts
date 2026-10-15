@@ -3,7 +3,7 @@ const DERIVED_METRIC_RE = /ewma_|monotony|strain|acwr/i
 const RAW_METRIC_RE =
   /performance_score|injury_risk|soreness|distance|rpe|duration|load|body_|gps|hr_|heart/i
 
-export type VizValidationResult = {
+type VizValidationResult = {
   isValid: boolean
   reason?: string
   suggestion?: string
@@ -35,7 +35,7 @@ const onlyDerivedMetrics = (columns: string[]): boolean => {
   )
 }
 
-export const validateVisualizationIdea = (args: VizGateArgs): VizValidationResult => {
+const validateVisualizationIdea = (args: VizGateArgs): VizValidationResult => {
   if (args.chartType === 'scatter' || args.chartType === 'heatmap') return ok()
 
   if (args.chartType === 'line' && !args.datasetColumns.some((col) => LINE_DATE_RE.test(col))) {

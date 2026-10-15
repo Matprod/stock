@@ -147,11 +147,37 @@ export const listCoveredAthleteNames = (
   return covered
 }
 
-export const coverageGateMessage = (required: number, delivered: number): string =>
-  `Athlete coverage incomplete: ${delivered}/${required} players. Continue adding individual sheets/charts until full coverage, or state the shortfall explicitly — do not claim a complete roster report.`
+export const coverageGateMessage = (
+  requiredOrCoverage:
+    | number
+    | Pick<ArtifactCoverageResult, 'required' | 'delivered' | 'missing' | 'missingDetails'>,
+  deliveredMaybe?: number,
+  language: 'fr' | 'en' = 'en'
+): string => {
+  const fr = language === 'fr'
+  if (typeof requiredOrCoverage === 'number') {
+    const required = requiredOrCoverage
+    const delivered = deliveredMaybe ?? 0
+    return fr
+      ? `Couverture athletes incomplete: ${delivered}/${required} joueurs absents du rapport — chaque joueur absent doit avoir une fiche ou un motif de fiche courte.`
+      : `Athlete coverage incomplete: ${delivered}/${required} players missing from the report — each absent player needs a sheet or short-sheet reason.`
+  }
+  const { required, delivered, missing, missingDetails = [] } = requiredOrCoverage
+  const detail =
+    missingDetails.length > 0
+      ? missingDetails.map((row) => `${row.athlete} (${row.reason})`).join('; ')
+      : (missing ?? [])
+          .map((name) => (fr ? `${name} (fiche manquante)` : `${name} (missing sheet)`))
+          .join('; ')
+  return fr
+    ? `Couverture athletes incomplete: ${delivered}/${required} joueurs. Manquants: ${detail}. Les fiches courtes qui indiquent l'absence de donnees comptent comme livrees — seuls les joueurs totalement absents bloquent la porte.`
+    : `Athlete coverage incomplete: ${delivered}/${required} players. Missing: ${detail}. Short sheets that state no data count as delivered — only fully absent players block the gate.`
+}
 
 export const evaluateCoverageGate = (
-  document: { blocks: Array<{ type: string; title?: string; option?: unknown }> },
+  document: {
+    blocks: Array<{ type: string; title?: string; text?: string; option?: unknown }>
+  },
   envelope: ArtifactEnvelope
 ): ArtifactCoverageResult | null => {
   if (
@@ -164,11 +190,16 @@ export const evaluateCoverageGate = (
   const covered = listCoveredAthleteNames(document, envelope.coverage.requiredNames)
   const required = envelope.coverage.requiredNames.length
   const delivered = covered.length
+  const missing = envelope.coverage.requiredNames.filter((n) => !covered.includes(n))
   return {
     required,
     delivered,
     covered,
-    missing: envelope.coverage.requiredNames.filter((n) => !covered.includes(n)),
+    missing,
+    missingDetails: missing.map((athlete) => ({
+      athlete,
+      reason: 'missing sheet — no heading or short-sheet reason in the report',
+    })),
     ok: delivered >= required,
   }
 }
@@ -179,20 +210,26 @@ export const annotateBriefCoverageShortfall = (
   language: 'fr' | 'en' = 'en'
 ): ReportBrief | null => {
   if (coverage.ok || !brief) return brief
-  const shortfallNote =
-    language === 'fr'
-      ? `Couverture partielle : ${coverage.delivered}/${coverage.required} joueurs — ce n’est pas un rapport d’effectif complet.`
-      : `Coverage shortfall: ${coverage.delivered}/${coverage.required} players — not a complete roster report.`
+  const fr = language === 'fr'
+  const detail =
+    coverage.missingDetails.length > 0
+      ? coverage.missingDetails.map((row) => `${row.athlete}: ${row.reason}`).join('; ')
+      : coverage.missing
+          .map((name) => (fr ? `${name}: fiche manquante` : `${name}: missing sheet`))
+          .join('; ')
+  const shortfallNote = fr
+    ? `Couverture insuffisante: ${coverage.delivered}/${coverage.required} joueurs — manquants ${detail}. Les fiches courtes avec motif d absence comptent comme livrees.`
+    : `Coverage shortfall: ${coverage.delivered}/${coverage.required} players — missing ${detail}. Short sheets with a no-data reason count as delivered.`
   return {
     ...brief,
     narrative: [...brief.narrative, shortfallNote],
     focus: brief.focus
-      ? language === 'fr'
-        ? `${brief.focus} (couverture d’effectif incomplète)`
-        : `${brief.focus} (incomplete roster coverage)`
-      : language === 'fr'
-        ? 'Couverture d’effectif incomplète'
-        : 'Incomplete roster coverage',
+      ? fr
+        ? `${brief.focus} (couverture effectif incomplete: ${coverage.missing.join(', ')})`
+        : `${brief.focus} (incomplete roster coverage: ${coverage.missing.join(', ')})`
+      : fr
+        ? `Couverture effectif incomplete: ${coverage.missing.join(', ')}`
+        : `Incomplete roster coverage: ${coverage.missing.join(', ')}`,
   }
 }
 

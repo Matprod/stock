@@ -1,11 +1,11 @@
 import { test } from '@japa/runner'
-import { auditArtifactHtml } from '#services/report_v4/grounding_html'
 import {
+  auditArtifactHtml,
   detectSoftDeltaGroundingScope,
   extractSoftDeltaHtmlFragments,
   resolveGroundingAuditHtml,
-} from '#services/report_v4/grounding_scope'
-import type { GroundingAuditInput } from '#services/report_v4/grounding_types'
+  type GroundingAuditInput,
+} from '#services/report_v4/grounding_report'
 
 const baseInput = (): GroundingAuditInput => ({
   roster: [{ name: 'Ada Lovelace' }],
@@ -39,10 +39,22 @@ test.group('grounding_scope soft delta', () => {
 <article class="chart-card" data-mauna-soft-injected="1"><h3>Load</h3><p>Ada Lovelace steady</p></article>
 </body></html>`
     const full = auditArtifactHtml(html, baseInput())
-    assert.isFalse(full.ok)
-    assert.isTrue(full.violations.some((v) => v.code === 'nutrition_out_of_scope'))
+    assert.isTrue(full.ok)
+    assert.isFalse(full.violations.some((v) => v.code === 'nutrition_out_of_scope'))
+    assert.isTrue((full.warnings ?? []).some((v) => v.code === 'nutrition_out_of_scope'))
 
     const scoped = auditArtifactHtml(html, baseInput(), detectSoftDeltaGroundingScope(html))
     assert.isTrue(scoped.ok)
+    assert.isFalse((scoped.warnings ?? []).some((v) => v.code === 'nutrition_out_of_scope'))
+  })
+
+  test('nutrition_out_of_scope is warning not violation', ({ assert }) => {
+    const html = `<!DOCTYPE html><html><body>
+<p>Ada Lovelace drank a Monster energy drink with high protein macros.</p>
+</body></html>`
+    const result = auditArtifactHtml(html, baseInput())
+    assert.isTrue(result.ok)
+    assert.lengthOf(result.violations, 0)
+    assert.isTrue((result.warnings ?? []).some((v) => v.code === 'nutrition_out_of_scope'))
   })
 })

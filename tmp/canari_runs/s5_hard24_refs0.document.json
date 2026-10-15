@@ -1,0 +1,769 @@
+{
+  "title": "Rapport staff Hambourg",
+  "dateRange": {
+    "from": "2026-03-01",
+    "to": "2026-03-07"
+  },
+  "blocks": [
+    {
+      "id": "fcfca5bb-8645-428f-9d53-265245f94800",
+      "type": "heading",
+      "text": "Charge",
+      "level": 1
+    },
+    {
+      "id": "2a9de8ea-f17b-4a68-a563-fcb06dadfbe6",
+      "type": "chart",
+      "title": "sRPE quotidien moyen — équipe",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              3046.516,
+              978.2,
+              1586.88,
+              3019.28,
+              812.74,
+              1309.44,
+              2574.88
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "dd4273c0-d810-4725-adb7-59b99132ea84",
+      "type": "heading",
+      "text": "GPS",
+      "level": 1
+    },
+    {
+      "id": "b8a06ef0-d462-4c3c-8664-096d8a81f8dc",
+      "type": "chart",
+      "title": "Distance totale et HMLD moyennes — équipe",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Distance total (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Distance total (m)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Distance total (m)",
+            "type": "line",
+            "data": [
+              4865.5,
+              4194.727,
+              2841.429,
+              3085,
+              3054.25,
+              2686.353
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 3454.543,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 3 454,54",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "915fe69a-b318-48cc-b96d-90df7e95200f",
+      "type": "heading",
+      "text": "Scores",
+      "level": 1
+    },
+    {
+      "id": "8d93fa9e-7ca6-4069-a711-b4690a129fe1",
+      "type": "chart",
+      "title": "Score de risque de blessure",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Injury risk score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Injury risk score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Injury risk score (0-100)",
+            "type": "line",
+            "data": [
+              10.292,
+              null,
+              7.792,
+              null,
+              7.542,
+              5.958,
+              null
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "6585644e-05df-4001-8c50-3c49cf385d07",
+      "type": "chart",
+      "title": "Score de performance",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Performance score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "01/03",
+            "02/03",
+            "03/03",
+            "04/03",
+            "05/03",
+            "06/03",
+            "07/03"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Performance score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Performance score (0-100)",
+            "type": "line",
+            "data": [
+              54.833,
+              42.708,
+              52.25,
+              52.292,
+              40.125,
+              50.458,
+              55.417
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "00bc99d9-27f7-4ae6-8491-b1c28436a495",
+      "type": "table",
+      "title": "Tableau nominatif — période 2026-03-01 → 2026-03-07",
+      "columns": [
+        "Joueur",
+        "Poste",
+        "Distance Total",
+        "HMLD",
+        "High Speed Running (Absolute)",
+        "sRPE daily",
+        "Score perf",
+        "Score risque"
+      ],
+      "rows": [
+        [
+          "Nicolás Capaldo",
+          "CENTRAL DEFENDER",
+          null,
+          null,
+          null,
+          "3 658",
+          "70",
+          "2"
+        ],
+        [
+          "Warmed Omari",
+          "CENTRAL DEFENDER",
+          "2 324",
+          "278",
+          "66",
+          "3 751",
+          "53",
+          "0"
+        ],
+        [
+          "Aboubaka Soumahoro",
+          "CENTRAL DEFENDER",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "Jordan Torunarigha",
+          "CENTRAL DEFENDER",
+          "2 521",
+          "289",
+          "75",
+          "2 420",
+          "53",
+          "2"
+        ],
+        [
+          "Luka Vušković",
+          "CENTRAL DEFENDER",
+          "3 171",
+          "383",
+          "34",
+          "7 260",
+          "67",
+          "3"
+        ]
+      ],
+      "option": {
+        "border": true,
+        "cells": [
+          [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#2f9e6f"
+            },
+            {
+              "background": "#c8e6d5"
+            }
+          ],
+          [
+            null,
+            null,
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            {
+              "background": "#c8e6d5"
+            }
+          ],
+          [],
+          [
+            null,
+            null,
+            {
+              "background": "#c8e6d5"
+            },
+            {
+              "background": "#f5d0a9"
+            },
+            {
+              "background": "#2f9e6f"
+            }
+          ],
+          [
+            null,
+            null,
+            {
+              "background": "#2f9e6f"
+            },
+            {
+              "background": "#e07070"
+            },
+            null,
+            {
+              "background": "#2f9e6f"
+            },
+            {
+              "background": "#c8e6d5"
+            },
+            {
+              "background": "#2f9e6f"
+            }
+          ]
+        ],
+        "heatLegend": {
+          "mode": "relative",
+          "hasRisk": true,
+          "colors": {
+            "volumeMid": "#c8e6d5",
+            "volumeHigh": "#2f9e6f",
+            "riskMid": "#f5d0a9",
+            "riskHigh": "#e07070"
+          }
+        }
+      }
+    },
+    {
+      "id": "reliability-h-9",
+      "type": "heading",
+      "text": "Fiabilité des données",
+      "level": 2
+    },
+    {
+      "id": "reliability-t-10",
+      "type": "text",
+      "text": "Échantillon : 465 ligne(s) sur 5 jeu(x). Fenêtre demandée 2026-03-01→2026-03-07 ; 0 jeu(x) démarrent après le début, 1 s'arrêtent avant la fin. Valeurs écartées : 154 cellule(s) imputée(s) ou sentinelle (sentinel:injury_risk_score=0×56; suspicious_default:kpi_maxacceleration=6@46%×32; suspicious_default:kpi_maxdeceleration=6@43%×30; suspicious_default:kpi_decelerationdistancez6rel=0@41%×28). Limite : kpi maxacceleration semble bloqué sur une valeur par défaut (6, ~46 % des lignes). Limite : kpi maxdeceleration semble bloqué sur une valeur par défaut (6, ~43 % des lignes). Limite : kpi decelerationdistancez6rel semble bloqué sur une valeur par défaut (0, ~41 % des lignes)."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import type { ReportDesignPack } from '#services/report_v4/design/report_design_pack'
 
-export type ChartGuardIssue = {
+type ChartGuardIssue = {
   code:
     | 'dual_value_axis'
     | 'bar_not_from_zero'
@@ -138,7 +138,6 @@ export const enforceChartOptionGuards = (
   option: Record<string, unknown>,
   pack: ReportDesignPack
 ): { option: Record<string, unknown>; issues: ChartGuardIssue[] } => {
-  const issues = checkChartOptionGuards({ option, pack })
   let next: Record<string, unknown> = { ...option }
 
   if (Array.isArray(next.yAxis) && next.yAxis.length > 1) {

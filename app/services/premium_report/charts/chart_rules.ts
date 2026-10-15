@@ -23,11 +23,11 @@ import type { AppLanguage } from '#utils/localize'
 
 export type ChartRefLines = 'none' | 'mean' | 'mean_median' | 'full'
 
-export type ChartScoreIntent = 'perf' | 'injury' | 'both' | 'none'
+type ChartScoreIntent = 'perf' | 'injury' | 'both' | 'none'
 
-export type ChartLayoutKind = 'individual' | 'team_mean' | 'squad_envelope' | 'auto'
+type ChartLayoutKind = 'individual' | 'team_mean' | 'squad_envelope' | 'auto'
 
-export type ChartRulesJudgment = {
+type ChartRulesJudgment = {
   scoreIntent: ChartScoreIntent
   layout: ChartLayoutKind
   refLines: ChartRefLines

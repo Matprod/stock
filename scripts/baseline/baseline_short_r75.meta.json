@@ -1,0 +1,284 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Un seul tableau: top 10 distance GPS totale sur 2026-03-01 → 2026-03-07.",
+  "durationSec": 77.285,
+  "iterations": 10,
+  "usage": {
+    "inputTokens": 5056,
+    "outputTokens": 4736,
+    "cacheReadInputTokens": 115770,
+    "cacheCreationInputTokens": 72348,
+    "totalTokens": 9792,
+    "estimatedCostUsd": 0.392244
+  },
+  "iterationSecs": [
+    3.064,
+    3.456,
+    7.188,
+    3.625,
+    7.63,
+    8.926,
+    4.051,
+    2.132,
+    24.016,
+    7.272
+  ],
+  "iterationCosts": [
+    0.06773,
+    0.075338,
+    0.031077,
+    0.038066,
+    0.059219,
+    0.035929,
+    0.012915,
+    0.005246,
+    0.051933,
+    0.014792
+  ],
+  "message": "Rapport refait entièrement. Rapport livré : tout ce qui était demandé est présent.",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    },
+    "fetchRange": {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    },
+    "domainRanges": {
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 23,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 3,
+        "athletesWithData": 19,
+        "populated": true
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Un seul tableau: top 10 distance GPS totale sur 2026-03-01 → 2026-03-07.",
+    "domains": [
+      "gps"
+    ],
+    "fetches": [
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Top 10 total GPS distance"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+  },
+  "blockCount": 4,
+  "chartCount": 0,
+  "blockTitles": [
+    {
+      "id": "f987f11c-f2ed-4a8e-8f5a-6f8df339c6bf",
+      "type": "table",
+      "title": "Top 10 Distance GPS totale (1–7 mars 2026)"
+    },
+    {
+      "id": "requested_measure_note",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "reliability-h-3",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-4",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    3.064,
+    3.456,
+    7.188,
+    3.625,
+    7.63,
+    8.926,
+    4.051,
+    2.132,
+    24.016,
+    7.272
+  ],
+  "r75": {
+    "dataFactSpans": 1,
+    "dataSrcSpans": 0,
+    "emDashCount": 11,
+    "rawLabelHits": 0,
+    "measureNotes": 0,
+    "imputedCopyPresent": false,
+    "agentCacheByIter": {
+      "linker": [
+        {
+          "iter": 1,
+          "stop": "tool_use",
+          "in": "19",
+          "out": "89",
+          "cacheR": "—",
+          "cacheW": "18k"
+        },
+        {
+          "iter": 2,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "135",
+          "cacheR": "6.1k",
+          "cacheW": "19k"
+        },
+        {
+          "iter": 3,
+          "stop": "end_turn",
+          "in": "5",
+          "out": "297",
+          "cacheR": "25k",
+          "cacheW": "5.1k"
+        }
+      ],
+      "analyst": [
+        {
+          "iter": 1,
+          "stop": "tool_use",
+          "in": "19",
+          "out": "190",
+          "cacheR": "13k",
+          "cacheW": "8.3k"
+        },
+        {
+          "iter": 2,
+          "stop": "tool_use",
+          "in": "5.0k",
+          "out": "560",
+          "cacheR": "13k",
+          "cacheW": "8.5k"
+        },
+        {
+          "iter": 3,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "489",
+          "cacheR": "22k",
+          "cacheW": "5.9k"
+        },
+        {
+          "iter": 4,
+          "stop": "end_turn",
+          "in": "5",
+          "out": "176",
+          "cacheR": "28k",
+          "cacheW": "516"
+        }
+      ],
+      "designer": [
+        {
+          "iter": 1,
+          "stop": "tool_use",
+          "in": "19",
+          "out": "23",
+          "cacheR": "1.5k",
+          "cacheW": "1.2k"
+        },
+        {
+          "iter": 2,
+          "stop": "tool_use",
+          "in": "5",
+          "out": "2.6k",
+          "cacheR": "1.5k",
+          "cacheW": "3.5k"
+        },
+        {
+          "iter": 3,
+          "stop": "end_turn",
+          "in": "5",
+          "out": "218",
+          "cacheR": "5.0k",
+          "cacheW": "2.7k"
+        }
+      ]
+    }
+  }
+}

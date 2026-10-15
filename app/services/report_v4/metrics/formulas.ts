@@ -34,26 +34,8 @@ export const mergeFormulaParams = (
   ...(params ?? {}),
 })
 
-export const isReduceFormula = (formula: ReportFormulaSpec | null | undefined): boolean =>
-  formula != null && REPORT_FORMULAS[formula.id]?.kind === 'reduce'
-
-export const isAllReduceSeries = (
-  series: Array<{ formula?: ReportFormulaSpec | null }>
-): boolean => series.length > 0 && series.every((spec) => isReduceFormula(spec.formula))
-
 export const applyFormula = (series: FormulaSeries, spec: ReportFormulaSpec): FormulaResult =>
   REPORT_FORMULAS[spec.id].apply(series, mergeFormulaParams(spec.id, spec.params))
-
-export const formulaTitleSuffix = (spec: ReportFormulaSpec): string => {
-  const params = mergeFormulaParams(spec.id, spec.params)
-  return REPORT_FORMULAS[spec.id].titleSuffix?.(params) ?? ` · ${spec.id}`
-}
-
-export const normalizeFormulaSpec = (spec: ReportFormulaSpec): ReportFormulaSpec => ({
-  id: spec.id,
-  params: mergeFormulaParams(spec.id, spec.params),
-})
-
 const round = (value: number): number => Math.round(value * 1000) / 1000
 
 const finite = (value: number | null | undefined): value is number =>
@@ -111,30 +93,6 @@ const bool = (params: ReportFormulaParams, key: string, fallback: boolean): bool
 const windowSlice = (series: FormulaSeries, endIndex: number, size: number): FormulaSeries => {
   const start = Math.max(0, endIndex - size + 1)
   return series.slice(start, endIndex + 1)
-}
-
-export const windowSliceCalendarDays = (
-  series: FormulaSeries,
-  dates: string[],
-  endIndex: number,
-  calendarDays: number
-): FormulaSeries => {
-  if (dates.length !== series.length || calendarDays <= 0) {
-    return windowSlice(series, endIndex, calendarDays)
-  }
-  const endDate = dates[endIndex]
-  if (!endDate) return windowSlice(series, endIndex, calendarDays)
-  const endMs = Date.parse(`${endDate}T12:00:00Z`)
-  if (!Number.isFinite(endMs)) return windowSlice(series, endIndex, calendarDays)
-  const startMs = endMs - (calendarDays - 1) * 86_400_000
-  return series.map((value, index) => {
-    if (index > endIndex) return null
-    const day = dates[index]
-    if (!day) return null
-    const ms = Date.parse(`${day}T12:00:00Z`)
-    if (!Number.isFinite(ms) || ms < startMs || ms > endMs) return null
-    return value
-  })
 }
 
 const lastFinite = (series: FormulaSeries): number | null => {

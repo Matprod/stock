@@ -1,0 +1,76 @@
+======== START s5_short_refs1 refs=1 19:43:13 ========
+======== DONE s5_short_refs1 19:47:00 ========
+[runner] rendering PDF…
+[runner] draft html=/Users/matprod/mauna/backend-v2/tmp/reports_drafts/s5_short_refs1.html
+[runner] done tag=s5_short_refs1 sec=225.272 pdfOk=true cost=1.104535
+202:report-v4  TOTAL  │  linker  │  3 iteration(s)  │  11.883s  │  $0.172
+232:report-v4  TOTAL  │  analyst  │  3 iteration(s)  │  20.684s  │  $0.183
+575:report-v4  agent-stop  │  designer  │  self_ended  │  4 iteration(s)  │  max=14  │  force@12  │  full
+577:report-v4  TOTAL  │  designer  │  4 iteration(s)  │  62.257s  │  $0.515
+579:report-v4  detail  │  htmlBytes=202634 freeDesigner=1 refs=02-summary,05-positions
+659:[19:44:54.496] WARN (71025): report_v4.free_designer_grounding_warn
+718:[19:44:55.153] WARN (71025): report_v4.free_designer_layout_warn
+1069:[19:46:13.508] INFO (71025): report_v4.free_designer_capture_review
+1235:[19:46:54.259] INFO (71025): report_v4.free_designer_capture_review
+1241:[19:46:54.803] WARN (71025): report_v4.free_designer_capture_review_remaining
+1244:      "capture_review: still failing after 2 rounds",
+======== START s5_short_refs0 refs=0 19:47:00 ========
+======== DONE s5_short_refs0 19:49:15 ========
+[runner] rendering PDF…
+[runner] draft html=/Users/matprod/mauna/backend-v2/tmp/reports_drafts/s5_short_refs0.html
+[runner] done tag=s5_short_refs0 sec=132.759 pdfOk=true cost=0.717514
+202:report-v4  TOTAL  │  linker  │  3 iteration(s)  │  13.538s  │  $0.112
+231:report-v4  TOTAL  │  analyst  │  3 iteration(s)  │  15.967s  │  $0.099
+432:report-v4  agent-stop  │  designer  │  self_ended  │  3 iteration(s)  │  max=14  │  force@12  │  full
+434:report-v4  TOTAL  │  designer  │  3 iteration(s)  │  27.312s  │  $0.396
+436:report-v4  detail  │  htmlBytes=200451 freeDesigner=1 refs=
+442:[19:48:04.922] WARN (74874): report_v4.free_designer_layout_warn
+628:[19:48:40.344] INFO (74874): report_v4.free_designer_capture_review
+802:[19:49:09.170] INFO (74874): report_v4.free_designer_capture_review
+808:[19:49:09.633] WARN (74874): report_v4.free_designer_capture_review_remaining
+811:      "capture_review: still failing after 2 rounds",
+======== START s5_hamburg_refs1 refs=1 19:49:15 ========
+======== DONE s5_hamburg_refs1 20:00:00 ========
+[runner] rendering PDF…
+[runner] draft html=/Users/matprod/mauna/backend-v2/tmp/reports_drafts/s5_hamburg_refs1.html
+[runner] done tag=s5_hamburg_refs1 sec=643.793 pdfOk=true cost=2.691379
+316:report-v4  TOTAL  │  linker  │  2 iteration(s)  │  12.721s  │  $0.154
+413:report-v4  TOTAL  │  analyst  │  10 iteration(s)  │  93.286s  │  $0.610
+635:report-v4  agent-stop  │  designer  │  self_ended  │  3 iteration(s)  │  max=14  │  force@12  │  full
+637:report-v4  TOTAL  │  designer  │  3 iteration(s)  │  145.714s  │  $1.294
+639:report-v4  detail  │  htmlBytes=230661 freeDesigner=1 refs=02-summary,03-team-matrix,04-load-acwr,05-positions
+772:[19:53:34.726] WARN (77210): report_v4.free_designer_grounding_warn
+836:[19:53:35.268] WARN (77210): report_v4.free_designer_layout_warn
+1149:[19:58:12.818] INFO (77210): report_v4.free_designer_capture_review
+1316:[19:59:54.942] INFO (77210): report_v4.free_designer_capture_review
+1322:[19:59:55.452] WARN (77210): report_v4.free_designer_capture_review_remaining
+1325:      "capture_review: still failing after 2 rounds",
+======== START s5_hamburg_refs0 refs=0 20:00:01 ========
+======== DONE s5_hamburg_refs0 20:06:31 ========
+[runner] rendering PDF…
+[runner] draft html=/Users/matprod/mauna/backend-v2/tmp/reports_drafts/s5_hamburg_refs0.html
+[runner] done tag=s5_hamburg_refs0 sec=388.316 pdfOk=true cost=2.7279099999999996
+316:report-v4  TOTAL  │  linker  │  2 iteration(s)  │  12.383s  │  $0.176
+420:report-v4  TOTAL  │  analyst  │  14 iteration(s)  │  58.812s  │  $0.945
+793:report-v4  agent-stop  │  designer  │  self_ended  │  4 iteration(s)  │  max=14  │  force@12  │  full
+795:report-v4  TOTAL  │  designer  │  4 iteration(s)  │  280.857s  │  $1.546
+797:report-v4  detail  │  htmlBytes=233549 freeDesigner=1 refs=
+944:[20:06:01.030] WARN (87672): report_v4.free_designer_grounding_warn
+1008:[20:06:01.533] WARN (87672): report_v4.free_designer_layout_warn
+1155:[20:06:25.835] INFO (87672): report_v4.free_designer_capture_review
+1161:[20:06:25.836] WARN (87672): report_v4.free_designer_capture_review_remaining
+======== START s5_hard24_refs1 refs=1 20:06:31 ========
+======== DONE s5_hard24_refs1 20:14:36 ========
+[runner] rendering PDF…
+[runner] draft html=/Users/matprod/mauna/backend-v2/tmp/reports_drafts/s5_hard24_refs1.html
+[runner] done tag=s5_hard24_refs1 sec=482.522 pdfOk=true cost=2.062331
+264:report-v4  TOTAL  │  linker  │  2 iteration(s)  │  8.978s  │  $0.160
+336:report-v4  TOTAL  │  analyst  │  7 iteration(s)  │  66.318s  │  $0.380
+567:report-v4  agent-stop  │  designer  │  self_ended  │  4 iteration(s)  │  max=14  │  force@12  │  full
+569:report-v4  TOTAL  │  designer  │  4 iteration(s)  │  130.708s  │  $1.106
+571:report-v4  detail  │  htmlBytes=225278 freeDesigner=1 refs=02-summary,03-team-matrix,04-load-acwr,05-positions
+674:[20:10:05.208] WARN (93998): report_v4.free_designer_grounding_warn
+738:[20:10:05.717] WARN (93998): report_v4.free_designer_layout_warn
+897:[20:14:30.457] INFO (93998): report_v4.free_designer_capture_review
+903:[20:14:30.458] WARN (93998): report_v4.free_designer_capture_review_remaining
+======== START s5_hard24_refs0 refs=0 20:14:36 ========

@@ -1,0 +1,224 @@
+/*
+  MAUNA staff report theme (A4, print first).
+  Single source of truth for colors, type, spacing and print rules.
+  The Designer writes free HTML, but every color, font and size comes from these variables
+  or from the helper classes below. No other stylesheet, no external font, no CDN.
+*/
+
+/* ---------- Fonts (local files, SIL OFL, see fonts/OFL.txt) ---------- */
+@font-face { font-family: 'Barlow'; font-weight: 400; font-style: normal; font-display: block; src: url('fonts/Barlow-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-weight: 500; font-style: normal; font-display: block; src: url('fonts/Barlow-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow'; font-weight: 600; font-style: normal; font-display: block; src: url('fonts/Barlow-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 500; font-style: normal; font-display: block; src: url('fonts/BarlowCondensed-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 600; font-style: normal; font-display: block; src: url('fonts/BarlowCondensed-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Barlow Condensed'; font-weight: 700; font-style: normal; font-display: block; src: url('fonts/BarlowCondensed-Bold.woff2') format('woff2'); }
+
+:root {
+  /* Type */
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-text: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+  --fs-hero: 40px;      /* page headline, one per page */
+  --fs-h2: 26px;        /* section title */
+  --fs-h3: 20px;        /* block or chart title */
+  --fs-kicker: 14px;    /* small caps label above a headline */
+  --fs-lede: 14px;      /* intro sentence under a headline */
+  --fs-body: 13px;
+  --fs-small: 12px;     /* captions, table cells */
+  --fs-micro: 10.5px;   /* axis ticks, footnotes, sample sizes */
+  --lh-tight: 1.05;
+  --lh-text: 1.45;
+
+  /* Ink and surfaces */
+  --ink: #0F1B2D;        /* titles, values, strong text */
+  --ink-2: #43506A;      /* body text */
+  --ink-3: #667085;      /* captions, units, axis labels */
+  --ink-4: #9AA4B2;      /* disabled, reference lines */
+  --line: #D9DEE6;       /* rules, axes */
+  --line-soft: #EEF1F4;  /* table row rules, grid lines */
+  --surface: #FFFFFF;
+  --surface-2: #F3F5F8;  /* notes, side blocks */
+  --accent: #9A3412;     /* kickers, one highlight per page; never a data color */
+
+  /* Data colors: meaning first. Orange = injury risk, blue = performance. */
+  --risk: #C2410C;
+  --perf: #1F5FB5;
+  --reference: #8793A8;  /* team or position mean, other athletes in gray */
+  --focus: #0F1B2D;      /* the athlete the page is about, when the measure is neither risk nor performance */
+
+  /* Identity of athletes compared on a measure that is neither risk nor performance (ACWR, load, wellness).
+     Max 3 series, validated colorblind-safe on all pairs. Never orange or blue here. Beyond 3: small multiples. */
+  --series-1: #0F1B2D;   /* first athlete, ink */
+  --series-2: #1F9E6E;   /* second athlete, green */
+  --series-3: #A21CAF;   /* third athlete, magenta */
+
+  /* Availability (ordinal: available, adapted training, unavailable). Always labelled. */
+  --avail-ok: #8793A8;
+  --avail-mod: #B45309;
+  --avail-out: #0F1B2D;
+
+  /* Sequential ramps for heatmaps (lightest = near zero) */
+  --risk-0: #EEF1F4; --risk-1: #FCD9B6; --risk-2: #F2994A; --risk-3: #C2410C; --risk-4: #7C2D12;
+  --perf-0: #E8EEF8; --perf-1: #BFD3F0; --perf-2: #8DB0E3; --perf-3: #3F77C4; --perf-4: #1F4E96;
+
+  /* Status (data reliability). Always with an icon and a word, never color alone. */
+  --status-good: #15803D;
+  --status-warn: #B45309;
+  --status-bad: #B91C1C;
+
+  /* Spacing (4 px base) */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px;
+
+  /* Page */
+  --page-w: 794px;   /* A4 at 96 dpi */
+  --page-h: 1123px;
+  --page-pad: 40px 48px 32px;
+}
+
+/* ---------- Page and print ---------- */
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--surface); }
+body {
+  font-family: var(--font-text);
+  font-size: var(--fs-body);
+  line-height: var(--lh-text);
+  color: var(--ink-2);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  font-variant-numeric: tabular-nums;
+}
+.page {
+  width: var(--page-w);
+  height: var(--page-h);
+  padding: var(--page-pad);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  break-after: page;
+  page-break-after: always;
+  position: relative;
+}
+.page:last-child { break-after: auto; page-break-after: auto; }
+table, figure, .card, .kpi-strip, .note, .finding, svg { break-inside: avoid; page-break-inside: avoid; }
+@media screen {
+  body { background: #E5E8ED; }
+  .page { margin: 24px auto; background: var(--surface); box-shadow: 0 1px 3px rgba(15, 27, 45, 0.12); }
+}
+
+/* ---------- Running header and footer ---------- */
+.runhead {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 10px; border-bottom: 2px solid var(--ink);
+}
+.runhead .brand { font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: 0.16em; color: var(--ink); text-transform: uppercase; }
+.runhead .period { font-size: var(--fs-small); color: var(--ink-3); }
+.runfoot {
+  margin-top: auto; border-top: 1px solid var(--line); padding-top: 8px;
+  display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-3);
+}
+
+/* ---------- Headlines ---------- */
+.kicker { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-kicker); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.headline { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-hero); line-height: var(--lh-tight); color: var(--ink); }
+.lede { margin: 0; font-size: var(--fs-lede); line-height: var(--lh-text); color: var(--ink-2); max-width: 620px; }
+.h2 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h2); line-height: 1.1; color: var(--ink); }
+.h3 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h3); line-height: 1.15; color: var(--ink); letter-spacing: 0.01em; }
+.block-title { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1.5px solid var(--ink); padding-bottom: 5px; }
+.block-title .unit { font-size: 11px; color: var(--ink-3); }
+
+/* ---------- KPI strip ---------- */
+.kpi-strip { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.kpi { padding: 12px 16px 12px 0; }
+.kpi + .kpi { padding-left: 16px; border-left: 1px solid var(--line); }
+.kpi .value { font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1; color: var(--ink); }
+.kpi .value small { font-size: 16px; font-weight: 600; color: var(--ink-3); margin-left: 2px; }
+.kpi .label { margin-top: 4px; font-size: var(--fs-small); color: var(--ink-2); }
+.kpi .delta { font-size: var(--fs-micro); color: var(--ink-3); }
+
+/* ---------- Cards, findings, notes ---------- */
+.card { border-top: 2px solid var(--ink); padding-top: 10px; }
+.finding .title { font-weight: 600; font-size: 13.5px; line-height: 1.3; color: var(--ink); }
+.finding .body { font-size: var(--fs-small); line-height: var(--lh-text); color: var(--ink-2); }
+.note { background: var(--surface-2); border-radius: 6px; padding: 12px 18px; font-size: var(--fs-small); line-height: 1.5; color: var(--ink-2); }
+.note b { font-weight: 600; color: var(--ink); }
+.callout { border-left: 3px solid var(--accent); padding: 2px 0 2px 12px; font-size: var(--fs-small); color: var(--ink-2); }
+.callout b { color: var(--ink); font-weight: 600; }
+
+/* ---------- Tables ---------- */
+.table { width: 100%; border-collapse: collapse; font-size: var(--fs-small); color: var(--ink-2); }
+.table th { text-align: left; font-weight: 600; font-size: 11px; color: var(--ink-3); padding: 6px 8px; border-bottom: 1.5px solid var(--ink); }
+.table td { padding: 6px 8px; border-bottom: 1px solid var(--line-soft); }
+.table th, .table td { white-space: nowrap; }
+.table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.table th.num { text-align: right; }
+.table tr.focus td { color: var(--ink); font-weight: 600; }
+.table tr.ref td { color: var(--ink-3); font-style: normal; }
+
+/* ---------- Figures ---------- */
+figure { margin: 0; }
+.figcaption { margin-top: 6px; font-size: var(--fs-micro); color: var(--ink-3); line-height: 1.4; }
+.legend { display: flex; gap: 16px; font-size: 11px; color: var(--ink-2); align-items: center; }
+.legend .key { display: inline-flex; align-items: center; gap: 6px; }
+.legend .swatch { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
+
+/* Inline SVG chart parts. Charts are drawn in SVG, sized in px, no external library. */
+svg .grid { stroke: var(--line-soft); stroke-width: 1; }
+svg .axis { stroke: var(--line); stroke-width: 1; }
+svg .tick { font-family: var(--font-text); font-size: 10.5px; fill: var(--ink-3); }
+svg .label { font-family: var(--font-text); font-size: 11px; fill: var(--ink-2); }
+svg .value { font-family: var(--font-text); font-size: 11px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round; }
+svg .annot { font-family: var(--font-text); font-size: 10.5px; fill: var(--ink-2); }
+svg .line-risk { fill: none; stroke: var(--risk); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+svg .line-perf { fill: none; stroke: var(--perf); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+svg .line-ref { fill: none; stroke: var(--reference); stroke-width: 1.5; stroke-dasharray: 4 3; }
+svg .dot-risk { fill: var(--risk); stroke: var(--surface); stroke-width: 2; }
+svg .dot-perf { fill: var(--perf); stroke: var(--surface); stroke-width: 2; }
+svg .bar { fill: var(--reference); }
+svg .bar-lead { fill: var(--ink); }
+svg .band { fill: var(--surface-2); }
+
+/* ---------- Heatmap cells (risk or performance, 0 to 4) ---------- */
+.hm { display: grid; gap: 1px; font-size: var(--fs-micro); font-weight: 500; text-align: center; }
+.hm > span { height: 20px; display: flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; }
+.r0 { background: var(--risk-0); color: var(--ink-2); }
+.r1 { background: var(--risk-1); color: #3A1D05; }
+.r2 { background: var(--risk-2); color: #2A1204; }
+.r3 { background: var(--risk-3); color: #FFFFFF; }
+.r4 { background: var(--risk-4); color: #FFFFFF; }
+.p0 { background: var(--perf-0); color: #1B2A44; }
+.p1 { background: var(--perf-1); color: #10233F; }
+.p2 { background: var(--perf-2); color: #0B1B33; }
+.p3 { background: var(--perf-3); color: #FFFFFF; }
+.p4 { background: var(--perf-4); color: #FFFFFF; }
+
+/* ---------- Data reliability ---------- */
+/* Shape drawn in CSS (Barlow has no circle glyphs): full = complete, half = partial, empty = limited. */
+.status { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; }
+.status::before { content: ''; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid currentColor; box-sizing: border-box; flex: none; }
+.status.good { color: var(--status-good); }
+.status.good::before { background: currentColor; }
+.status.warn { color: var(--status-warn); }
+.status.warn::before { background: linear-gradient(90deg, currentColor 50%, transparent 50%); }
+.status.bad { color: var(--status-bad); }
+.status.bad::before { background: transparent; }
+
+/* ---------- Chips and links ---------- */
+/* Trend chip: the arrow is a small inline SVG (Barlow has no arrow glyphs). */
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: 4px; font-family: var(--font-display); font-weight: 600; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+.chip svg { width: 10px; height: 10px; }
+.chip.risk-up { background: #FFEDD5; color: var(--accent); }
+.chip.risk-down { background: var(--surface-2); color: var(--ink-2); }
+a { color: inherit; text-decoration: none; }
+.pageref { font-size: var(--fs-micro); font-weight: 600; color: var(--ink-3); }
+
+/* ---------- Layout helpers ---------- */
+.stack-1 > * + * { margin-top: var(--s-1); }
+.stack-2 > * + * { margin-top: var(--s-2); }
+.stack-3 > * + * { margin-top: var(--s-3); }
+.stack-4 > * + * { margin-top: var(--s-4); }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-6); row-gap: var(--s-5); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); }
+.muted { color: var(--ink-3); }
+.strong { color: var(--ink); font-weight: 600; }
+.risk { color: var(--risk); }
+.perf { color: var(--perf); }

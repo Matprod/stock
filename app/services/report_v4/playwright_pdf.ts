@@ -1,5 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
+import logger from '@adonisjs/core/services/logger'
 import { chromium, type Page, type Route } from 'playwright'
 import {
   extractArtifactBootChartIds,
@@ -10,13 +11,13 @@ import {
   loadEchartsMinJs,
   REPORT_V4_ECHARTS_ASSET_PATH,
 } from '#services/report_v4/report_v4_assets'
-import {
-  REPORT_V4_A4_VIEWPORT,
-  REPORT_V4_ALLOWED_FETCH_MS,
-  REPORT_V4_CHARTS_READY_MS,
-  REPORT_V4_PDF_ALLOWED_HOST_SUFFIXES,
-  REPORT_V4_PDF_TIMEOUT_MS,
-} from '#services/report_v4/report_v4_constants'
+import { REPORT_V4_PDF_ALLOWED_HOST_SUFFIXES } from '#services/report_v4/report_v4_constants'
+
+const A4_VIEWPORT = { width: 794, height: 1123 }
+const PDF_TIMEOUT_MS = 45_000
+const CHARTS_READY_MS = 5_000
+const CHARTS_READY_PER_BOX_MS = 400
+const ALLOWED_FETCH_MS = 8_000
 
 const inlineEchartsForPdf = (html: string): string => {
   const tag = /<script\b[^>]*id=["']mauna-echarts["'][^>]*>[\s\S]*?<\/script>/i
@@ -44,17 +45,24 @@ const PDF_CONTRAST_OVERRIDE_CSS = `
 const injectPdfContrastOverrides = (html: string): string => {
   const sheet = `<style id="mauna-pdf-contrast">${PDF_CONTRAST_OVERRIDE_CSS}</style>`
   if (/id=["']mauna-pdf-contrast["']/i.test(html)) {
-    return html.replace(
-      /<style\b[^>]*id=["']mauna-pdf-contrast["'][^>]*>[\s\S]*?<\/style>/i,
-      sheet
-    )
+    return html.replace(/<style\b[^>]*id=["']mauna-pdf-contrast["'][^>]*>[\s\S]*?<\/style>/i, sheet)
   }
   if (/<\/head>/i.test(html)) return html.replace(/<\/head>/i, `${sheet}</head>`)
   return `${sheet}\n${html}`
 }
 
+export const stripExternalPdfAssetHosts = (html: string): string => {
+  let next = html
+  next = next.replace(/<link\b[^>]*(?:fonts\.googleapis\.com|fonts\.gstatic\.com)[^>]*>/gi, '')
+  next = next.replace(/@import\s+(?:url\()?['"]?https?:\/\/fonts\.googleapis\.com[^;]+;?/gi, '')
+  next = next.replace(/<script\b[^>]*cdn\.jsdelivr\.net[^>]*>[\s\S]*?<\/script>/gi, '')
+  return next
+}
+
 const sanitizeHtmlForPdfCharts = (html: string): string => {
-  const withEcharts = injectPdfContrastOverrides(inlineEchartsForPdf(html))
+  const withEcharts = injectPdfContrastOverrides(
+    inlineEchartsForPdf(stripExternalPdfAssetHosts(html))
+  )
   const bootIds = extractArtifactBootChartIds(withEcharts)
   if (bootIds.length === 0) return withEcharts
   return pruneOrphanChartHostsInHtml(
@@ -79,7 +87,7 @@ export class ChartsNotReadyError extends Error {
   }
 }
 
-export type HtmlPdfResult = {
+type HtmlPdfResult = {
   buffer: Buffer
   filename: string
   htmlPath?: string
@@ -102,7 +110,9 @@ const isAllowedNetworkUrl = (raw: string): boolean => {
 const isLocalEchartsAssetUrl = (url: string): boolean => {
   try {
     const path = new URL(url).pathname
-    return path === REPORT_V4_ECHARTS_ASSET_PATH || path.endsWith('/report-v4/assets/echarts.min.js')
+    return (
+      path === REPORT_V4_ECHARTS_ASSET_PATH || path.endsWith('/report-v4/assets/echarts.min.js')
+    )
   } catch {
     return url.includes('report-v4/assets/echarts.min.js')
   }
@@ -138,7 +148,7 @@ const installOfflineNetworkGuard = async (page: Page): Promise<void> => {
     }
 
     try {
-      const response = await route.fetch({ timeout: REPORT_V4_ALLOWED_FETCH_MS })
+      const response = await route.fetch({ timeout: ALLOWED_FETCH_MS })
       await route.fulfill({ response })
     } catch {
       await route.abort('timedout')
@@ -147,47 +157,106 @@ const installOfflineNetworkGuard = async (page: Page): Promise<void> => {
 }
 
 const waitChartsOrContinue = async (
-  page: Page
+  page: Page,
+  timeoutMs: number
 ): Promise<{ chartsReady: boolean; boxesReady: boolean; chartBoxes: number }> => {
-  let chartsReady = false
-  let boxesReady = false
   try {
     await page.waitForFunction(
-      () => document.documentElement.dataset.chartsReady === '1',
+      () => {
+        if (document.documentElement.dataset.chartsReady !== '1') return false
+        const boxes = Array.from(document.querySelectorAll('.chart-box'))
+        if (boxes.length === 0) return true
+        return boxes.every((el) => (el as HTMLElement).dataset.ready === '1')
+      },
       undefined,
-      { timeout: REPORT_V4_CHARTS_READY_MS }
+      { timeout: timeoutMs }
     )
-    chartsReady = true
+    const chartBoxes = await page.locator('.chart-box').count()
+    return { chartsReady: true, boxesReady: true, chartBoxes }
   } catch {
     const chartBoxes = await page.locator('.chart-box').count()
-    return { chartsReady: false, boxesReady: false, chartBoxes }
-  }
-
-  const chartBoxes = await page.locator('.chart-box').count()
-  if (chartBoxes === 0) return { chartsReady: true, boxesReady: true, chartBoxes: 0 }
-
-  try {
-    await page.waitForFunction(
-      () =>
-        Array.from(document.querySelectorAll('.chart-box')).every(
-          (el) => (el as HTMLElement).dataset.ready === '1'
-        ),
-      undefined,
-      { timeout: REPORT_V4_CHARTS_READY_MS }
+    const chartsReady = await page.evaluate(
+      () => document.documentElement.dataset.chartsReady === '1'
     )
-    boxesReady = true
-  } catch {
-    boxesReady = false
+    const boxesReady =
+      chartBoxes === 0
+        ? chartsReady
+        : await page.evaluate(() =>
+            Array.from(document.querySelectorAll('.chart-box')).every(
+              (el) => (el as HTMLElement).dataset.ready === '1'
+            )
+          )
+    return { chartsReady, boxesReady, chartBoxes }
   }
-  return { chartsReady, boxesReady, chartBoxes }
 }
+
+const forcePaintChartsFromBootPayload = async (page: Page): Promise<number> =>
+  page.evaluate(() => {
+    const echarts = (window as unknown as { echarts?: any }).echarts
+    if (!echarts) return 0
+    const bootScript = Array.from(document.querySelectorAll('script')).find((script) =>
+      (script.textContent || '').includes('const charts =')
+    )
+    const text = bootScript?.textContent || ''
+    const match = text.match(/const charts = (\[[\s\S]*?\]);\n\s*const palette/)
+    if (!match?.[1]) return 0
+    let charts: Array<{ id: string; option?: Record<string, unknown> }> = []
+    try {
+      charts = JSON.parse(match[1]) as Array<{ id: string; option?: Record<string, unknown> }>
+    } catch {
+      return 0
+    }
+    let painted = 0
+    for (const chart of charts) {
+      const el = document.getElementById(chart.id) as HTMLElement | null
+      if (!el || !chart.option) continue
+      if (el.dataset.ready === '1') {
+        painted += 1
+        continue
+      }
+      el.classList.add('chart-box')
+      el.style.width = el.clientWidth > 0 ? '100%' : '770px'
+      el.style.height = el.style.height || '260px'
+      try {
+        const prior = echarts.getInstanceByDom?.(el)
+        if (prior) prior.dispose()
+        const instance = echarts.init(el, null, {
+          renderer: 'canvas',
+          width: el.clientWidth || 770,
+          height: el.clientHeight || 260,
+        })
+        instance.setOption({ ...chart.option, animation: false }, true)
+        el.dataset.ready = '1'
+        painted += 1
+      } catch {
+        // keep trying remaining charts
+      }
+    }
+    document.documentElement.dataset.chartsReady = '1'
+    return painted
+  })
 
 const loadHtmlAndWaitCharts = async (
   page: Page,
   html: string
 ): Promise<{ chartsReady: boolean; boxesReady: boolean; chartBoxes: number }> => {
-  await page.setContent(html, { waitUntil: 'load', timeout: REPORT_V4_PDF_TIMEOUT_MS })
-  return waitChartsOrContinue(page)
+  await page.setContent(html, { waitUntil: 'load', timeout: PDF_TIMEOUT_MS })
+  const boxCount = await page.locator('.chart-box').count()
+  const timeoutMs = Math.min(
+    PDF_TIMEOUT_MS,
+    Math.max(CHARTS_READY_MS, boxCount * CHARTS_READY_PER_BOX_MS)
+  )
+  let ready = await waitChartsOrContinue(page, timeoutMs)
+  const readyBoxes = await page.locator('.chart-box[data-ready="1"]').count()
+  if (ready.chartBoxes > 0 && readyBoxes < ready.chartBoxes) {
+    const painted = await forcePaintChartsFromBootPayload(page)
+    logger.info(
+      { painted, chartBoxes: ready.chartBoxes, readyBefore: readyBoxes },
+      'report_v4.pdf_force_paint_charts'
+    )
+    ready = await waitChartsOrContinue(page, Math.min(8_000, timeoutMs))
+  }
+  return ready
 }
 
 export const renderHtmlToPdf = async (args: {
@@ -211,31 +280,41 @@ export const renderHtmlToPdf = async (args: {
 
   try {
     const page = await browser.newPage({
-      viewport: REPORT_V4_A4_VIEWPORT,
+      viewport: A4_VIEWPORT,
       deviceScaleFactor: 2,
     })
-    page.setDefaultTimeout(REPORT_V4_PDF_TIMEOUT_MS)
-    page.setDefaultNavigationTimeout(REPORT_V4_PDF_TIMEOUT_MS)
+    page.setDefaultTimeout(PDF_TIMEOUT_MS)
+    page.setDefaultNavigationTimeout(PDF_TIMEOUT_MS)
     await page.emulateMedia({ media: 'print' })
     await installOfflineNetworkGuard(page)
 
-    let ready = await loadHtmlAndWaitCharts(page, html)
-    const chartsIncomplete = (row: typeof ready): boolean =>
-      row.chartBoxes > 0 && (!row.chartsReady || !row.boxesReady)
-    if (chartsIncomplete(ready)) {
-      ready = await loadHtmlAndWaitCharts(page, html)
-    }
-    if (chartsIncomplete(ready)) {
+    const ready = await loadHtmlAndWaitCharts(page, html)
+    const expectedBoxes = ready.chartBoxes
+    const readyBoxes = await page.locator('.chart-box[data-ready="1"]').count()
+    if (
+      expectedBoxes > 0 &&
+      (!ready.chartsReady || !ready.boxesReady || readyBoxes !== expectedBoxes)
+    ) {
+      logger.error(
+        {
+          expectedBoxes,
+          readyBoxes,
+          chartsReady: ready.chartsReady,
+          boxesReady: ready.boxesReady,
+        },
+        'report_v4.pdf_charts_count_mismatch'
+      )
       throw new ChartsNotReadyError({
-        chartBoxes: ready.chartBoxes,
+        chartBoxes: expectedBoxes,
         chartsReady: ready.chartsReady,
-        boxesReady: ready.boxesReady,
+        boxesReady: readyBoxes === expectedBoxes && ready.boxesReady,
       })
     }
 
-    if (ready.chartBoxes > 0 && ready.boxesReady) {
+    if (readyBoxes > 0) {
       await page.evaluate(() => {
         document.querySelectorAll<HTMLElement>('.chart-box').forEach((el) => {
+          if (el.dataset.ready !== '1') return
           const isLine = el.classList.contains('line-chart') || el.dataset.chartKind === 'line'
           const isBar = el.classList.contains('bar-rank') || el.dataset.chartKind === 'bar'
           el.style.width = '100%'

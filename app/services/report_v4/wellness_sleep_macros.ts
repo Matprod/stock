@@ -5,6 +5,7 @@ import {
   resolveMacroDateRange,
   readString,
   stampDatasetDateRange,
+  stampDatasetDomain,
   storeDataset,
 } from '#services/premium_report/dataset_ops'
 import {
@@ -121,6 +122,7 @@ const makeMacroTool = (args: {
       let dataset = args.state.datasets.get(parsed.datasetId)
       if (dataset) {
         stampDatasetDateRange(dataset, range)
+        stampDatasetDomain(dataset, args.domain)
         parsed.dateRange = range
         applyColumnMeta(dataset, await columnMetaForNames(args.state.clubId, dataset.columns))
         const joueur = readString(input.joueur)?.trim() ?? ''
@@ -134,7 +136,10 @@ const makeMacroTool = (args: {
               dateRange: range,
             })
           }
-          dataset = stampDatasetDateRange(storeDataset(args.state, filtered), range)
+          dataset = stampDatasetDomain(
+            stampDatasetDateRange(storeDataset(args.state, filtered), range),
+            args.domain
+          )
           parsed.datasetId = dataset.id
           parsed.rowCount = dataset.rows.length
         }

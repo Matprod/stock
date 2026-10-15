@@ -1,0 +1,487 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Fiches individuelles pour chaque joueur du groupe sur la période 2026-03-01 → 2026-03-07: wellness, GPS et scores. Une fiche par athlète avec graphiques essentiels.",
+  "durationSec": 235.334,
+  "iterations": 27,
+  "usage": {
+    "inputTokens": 181,
+    "outputTokens": 16618,
+    "cacheReadInputTokens": 426738,
+    "cacheCreationInputTokens": 360519,
+    "totalTokens": 16799,
+    "estimatedCostUsd": 1.729781
+  },
+  "iterationSecs": [
+    3.853,
+    5.956,
+    2.061,
+    3.411,
+    9.48,
+    17.494,
+    2.959,
+    2.695,
+    2.439,
+    2.55,
+    2.687,
+    2.849,
+    2.293,
+    3.638,
+    2.806,
+    2.633,
+    3.16,
+    2.948,
+    2.449,
+    2.962,
+    6.219,
+    16.783,
+    23.255,
+    12.617,
+    1.585,
+    78.52,
+    9.916
+  ],
+  "iterationCosts": [
+    0.053752,
+    0.085587,
+    0.010478,
+    0.015108,
+    0.107003,
+    0.09652,
+    0.018823,
+    0.014498,
+    0.013601,
+    0.013723,
+    0.064752,
+    0.066068,
+    0.065311,
+    0.067767,
+    0.068824,
+    0.071506,
+    0.073767,
+    0.076534,
+    0.075413,
+    0.078739,
+    0.080236,
+    0.102507,
+    0.114908,
+    0.108357,
+    0.005703,
+    0.144729,
+    0.035566
+  ],
+  "message": "Rapport refait entièrement. Rapport partiel : Joueurs demandés (partiel) — Joueurs manquants : Kofi Amoako, Alexander Røssing-Lelesiit, Emir Sahiti",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    },
+    "fetchRange": {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    },
+    "domainRanges": {
+      "wellness": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 23,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 3,
+        "athletesWithData": 19,
+        "populated": true
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Fiches individuelles pour chaque joueur du groupe sur la période 2026-03-01 → 2026-03-07: wellness, GPS et scores. Une fiche par athlète avec graphiques essentiels.",
+    "domains": [
+      "gps",
+      "match",
+      "wellness",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "wellness",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Wellness data for individual player sheets"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "GPS data for individual player sheets"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Performance scores for individual player sheets"
+      },
+      {
+        "domain": "match",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+  },
+  "blockCount": 48,
+  "chartCount": 31,
+  "blockTitles": [
+    {
+      "id": "ea0defb6-0d4c-4473-ac2c-0e5fa66f23ab",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "164221ea-5e94-4356-b349-d1996b3cdb78",
+      "type": "chart",
+      "title": "Distance totale — Top 5"
+    },
+    {
+      "id": "a1d22046-d040-4906-8904-475b48b7b0c4",
+      "type": "chart",
+      "title": "HMLD — Top 5"
+    },
+    {
+      "id": "91553617-fcba-4d33-b53b-92e06334d0cf",
+      "type": "chart",
+      "title": "Distance explosive — Top 5"
+    },
+    {
+      "id": "faddfef8-5c15-455e-ac8e-4773184d6d16",
+      "type": "chart",
+      "title": "HSR — Top 5"
+    },
+    {
+      "id": "df4064a2-f5e9-41f0-98e1-1006357e62d8",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "5bb9dfc0-8298-4d9c-b4ae-3e2e4d842b3b",
+      "type": "table",
+      "title": "Statistiques match — période"
+    },
+    {
+      "id": "c144373a-33bf-419e-8353-bbf0fd725a5f",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "617f433c-4a11-4572-84c5-e479b820ff5d_g1",
+      "type": "chart",
+      "title": "Wellness — moyennes période (1/2)"
+    },
+    {
+      "id": "617f433c-4a11-4572-84c5-e479b820ff5d_g2",
+      "type": "chart",
+      "title": "Wellness — moyennes période (2/2)"
+    },
+    {
+      "id": "fd363a3d-1d1b-456f-a76d-304adb6a14ed",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "ed26f9c7-b2bf-4479-be07-97672f3169d6",
+      "type": "chart",
+      "title": "Score de performance (1/5)"
+    },
+    {
+      "id": "f3b906f3-b3e1-4b84-a375-2f593b37d063",
+      "type": "chart",
+      "title": "Score de performance (2/5)"
+    },
+    {
+      "id": "40b99fe5-d963-4759-a6f2-82fefd918927",
+      "type": "chart",
+      "title": "Score de performance (3/5)"
+    },
+    {
+      "id": "eaf69df0-7888-48dd-b9e2-0aa8e8061abe",
+      "type": "chart",
+      "title": "Score de performance (4/5)"
+    },
+    {
+      "id": "3e592620-1f7a-4479-bcd4-6a99e28ad8cf",
+      "type": "chart",
+      "title": "Score de performance (5/5)"
+    },
+    {
+      "id": "16d48a3a-1b0a-4517-9844-08dff9aa60ed",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "17f280b0-68e2-4fdb-8a41-650926a6e5a6",
+      "type": "chart",
+      "title": "Score de risque de blessure (1/5)"
+    },
+    {
+      "id": "78bea3a7-76da-4a37-b086-9ac38ac3719d",
+      "type": "chart",
+      "title": "Score de risque de blessure (2/5)"
+    },
+    {
+      "id": "d9f8830d-4b73-467d-8b74-b3033a5b4521",
+      "type": "chart",
+      "title": "Score de risque de blessure (3/5)"
+    },
+    {
+      "id": "6adc5d15-0366-4cd2-b1d3-e1126d773e19",
+      "type": "chart",
+      "title": "Score de risque de blessure (4/5)"
+    },
+    {
+      "id": "4b56a9ff-22c0-4fb6-abd1-64250f470547",
+      "type": "chart",
+      "title": "Score de risque de blessure (5/5)"
+    },
+    {
+      "id": "8e0390cf-9052-463c-bbb1-333d250adf77",
+      "type": "chart",
+      "title": "Injury risk score — équipe (moyenne ± min-max)"
+    },
+    {
+      "id": "b931f8a3-e0fb-402f-9e0c-adfa13bd7890",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "8a04c505-1a29-4b9f-8a7a-6fcd091479d6",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "25a14ebd-6a43-4918-911c-e665c2cc5167",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "07bdc4dd-f425-4c3c-9c76-1bbda659355d",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "eecf1dbb-a029-47b6-bbe6-ef03889383fd",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "9eb7bc4f-fffe-4c23-89d0-1028984685c2",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "138727b1-e217-4458-8f83-ab6c1a567463",
+      "type": "chart",
+      "title": "body_soreness_rating"
+    },
+    {
+      "id": "2299c2f7-d813-46af-b9fd-c874106f05af",
+      "type": "chart",
+      "title": "mood_rating"
+    },
+    {
+      "id": "f6d6e233-d27c-4bde-9786-61a952b0b61f",
+      "type": "chart",
+      "title": "kpi_distancez1abs"
+    },
+    {
+      "id": "d8f104e8-ed7c-40dd-9d4b-eb52a1a9b21f",
+      "type": "chart",
+      "title": "kpi_distancez2abs"
+    },
+    {
+      "id": "f994fb0d-5d8f-41b2-b33b-7ceab668c58b",
+      "type": "chart",
+      "title": "kpi_distancez2z6abs"
+    },
+    {
+      "id": "c3192881-80ff-4f6a-a04b-fdfc89e3d507",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "0e3af1c2-e518-4f45-b887-770725102f99",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "211df14b-83e4-4ca9-a9fc-adfdf1452de1",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "03e41efc-702b-43b4-b819-bbb025b0d5e2",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "2f4f29ba-4597-470d-83ec-fbbcab4516e0",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "4b878e3c-e858-48d1-983d-092c7ff19c98",
+      "type": "chart",
+      "title": "injury_risk_score_mean"
+    },
+    {
+      "id": "bb0baf4d-944d-44a4-9472-6c84b9d0b114",
+      "type": "chart",
+      "title": "injury_risk_score_min"
+    },
+    {
+      "id": "f931fc08-7b18-4e5a-bc78-1c46293b7df2",
+      "type": "chart",
+      "title": "injury_risk_score_max"
+    },
+    {
+      "id": "1617e709-919f-475b-97fa-f59d0ec56355",
+      "type": "table",
+      "title": "Omar Megeed — summary"
+    },
+    {
+      "id": "4b565331-4ff3-4fd3-a55a-53cab2f3b282",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "63b02764-840d-4ae8-b143-9701e1e36692",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "e1a6a240-df65-4d85-91c7-c50659aa68e3",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-h-47",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-48",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": false,
+  "pdfError": null,
+  "repairHits": [
+    3.853,
+    5.956,
+    2.061,
+    3.411,
+    9.48,
+    17.494,
+    2.959,
+    2.695,
+    2.439,
+    2.55,
+    2.687,
+    2.849,
+    2.293,
+    3.638,
+    2.806,
+    2.633,
+    3.16,
+    2.948,
+    2.449,
+    2.962,
+    6.219,
+    16.783,
+    23.255,
+    12.617,
+    1.585,
+    78.52,
+    9.916
+  ]
+}

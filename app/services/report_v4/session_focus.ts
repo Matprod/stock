@@ -1,12 +1,6 @@
 import { PREMIUM_DOMAINS, type PremiumDomain } from '#constants/premium_report_domains'
-import { JEV_ROUTER_MODEL } from '#constants/question_router.constants'
 import type { PremiumReportHistoryTurn } from '#contracts/premium_report'
-import { noul, type TypeSafeClient } from '#services/jev_service'
 import type { PromptFetchSpec } from '#services/report_v4/prompt_scope'
-import { invokeHaikuJson } from '#services/report_v4/haiku_json'
-import { runIntentClassifier, type IntentProvider } from '#services/report_v4/jev_guard'
-import { noulScore } from '#utils/jev_answers'
-import type { AppLanguage } from '#utils/localize'
 
 export type ReportV4SessionFocus = {
   lastPrompt: string
@@ -149,44 +143,6 @@ export const priorUserAsks = (
     asks.unshift(content.slice(0, 400))
   }
   return asks
-}
-
-const NOUL_TRUE = 0.55
-
-export const classifyPeriodStatusFollowUp = async (args: {
-  prompt: string
-  language?: AppLanguage
-}): Promise<{ periodFollowUp: boolean; provider: IntentProvider }> => {
-  const { value, provider } = await runIntentClassifier({
-    context: 'period_status_follow_up',
-    language: args.language,
-    jev: async (client: TypeSafeClient) => {
-      const response = await client.systemOne({
-        model: JEV_ROUTER_MODEL,
-        state: { prompt: args.prompt.slice(0, 3500) },
-        questions: {
-          period_or_status: noul(
-            'Is this a period/status follow-up (last season/week/month, today/active status) on prior focus?',
-            {
-              true: 'Period or status follow-up',
-              false: 'Not a period/status follow-up',
-            }
-          ),
-        },
-      })
-      return noulScore(response.answers as Record<string, unknown>, 'period_or_status') >= NOUL_TRUE
-    },
-    haiku: async () => {
-      const raw = await invokeHaikuJson<{ period_or_status?: boolean }>({
-        system:
-          'Respond ONLY with JSON {"period_or_status":true|false}. true if coach asks about last/prior/this season|week|month or today/active status follow-up.',
-        user: `Coach ask:\n${args.prompt.slice(0, 3500)}`,
-      })
-      return Boolean(raw.period_or_status)
-    },
-  })
-  
-  return { periodFollowUp: value, provider }
 }
 
 export const formatSessionFocusBrief = (focus: ReportV4SessionFocus | null | undefined): string => {

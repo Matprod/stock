@@ -1,0 +1,263 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Rapport staff difficile: inclure un long tableau nominatif d au moins 24 joueurs (colonnes: poste, distance totale, HMLD, HSR, sRPE moyen, score perf, score risque) pour 2026-03-01 → 2026-03-07, plus 2 graphiques de synthèse équipe (charge et GPS).",
+  "durationSec": 482.522,
+  "iterations": 17,
+  "usage": {
+    "inputTokens": 560,
+    "outputTokens": 41851,
+    "cacheReadInputTokens": 488537,
+    "cacheCreationInputTokens": 343020,
+    "totalTokens": 42411,
+    "estimatedCostUsd": 2.062331
+  },
+  "iterationSecs": [
+    4.385,
+    4.593,
+    6.835,
+    9.246,
+    3.884,
+    5.379,
+    7.824,
+    22.758,
+    10.392,
+    109.902,
+    8.445,
+    5.892,
+    6.469,
+    90.156,
+    82.68,
+    84.912,
+    6.29
+  ],
+  "iterationCosts": [
+    0.074918,
+    0.085287,
+    0.098187,
+    0.08888,
+    0.019237,
+    0.024399,
+    0.025293,
+    0.041838,
+    0.082,
+    0.610415,
+    0.405264,
+    0.04561,
+    0.044886,
+    0.155559,
+    0.127914,
+    0.126209,
+    0.006434
+  ],
+  "message": "Rapport refait entièrement. Rapport livré : tout ce qui était demandé est présent.",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    },
+    "fetchRange": {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    },
+    "domainRanges": {
+      "load": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 23,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 3,
+        "athletesWithData": 19,
+        "populated": true
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Rapport staff difficile: inclure un long tableau nominatif d au moins 24 joueurs (colonnes: poste, distance totale, HMLD, HSR, sRPE moyen, score perf, score risque) pour 2026-03-01 → 2026-03-07, plus 2 graphiques de synthèse équipe (charge et GPS).",
+    "domains": [
+      "load",
+      "gps",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "load",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+  },
+  "blockCount": 11,
+  "chartCount": 5,
+  "blockTitles": [
+    {
+      "id": "53b4b319-f71d-471d-901a-5143d17b8e3f",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "df572b8c-0c9d-43ed-9cc1-ace617c81c5e",
+      "type": "chart",
+      "title": "sRPE moyen équipe"
+    },
+    {
+      "id": "e658f573-07b3-48da-b191-e6110e98f61a",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "51c678af-a3f5-4959-8ee9-e764bdae4d24",
+      "type": "chart",
+      "title": "HMLD moyen équipe"
+    },
+    {
+      "id": "ff903ed7-2d65-477b-907b-086826ec810e",
+      "type": "chart",
+      "title": "Distance totale moyenne équipe"
+    },
+    {
+      "id": "0db3df23-1cb7-40a2-a3b2-09beb5d6cb96",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "e0a1c796-5356-4ef1-8300-809ff97cc3de",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "897d422c-2e1f-48b5-90eb-dc8b743ac9a5",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "4f60dc78-0b68-47cc-afb1-09cd242c4cd7",
+      "type": "table",
+      "title": "Tableau nominatif — moyennes période"
+    },
+    {
+      "id": "reliability-h-10",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-11",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    4.385,
+    4.593,
+    6.835,
+    9.246,
+    3.884,
+    5.379,
+    7.824,
+    22.758,
+    10.392,
+    109.902,
+    8.445,
+    5.892,
+    6.469,
+    90.156,
+    82.68,
+    84.912,
+    6.29
+  ]
+}

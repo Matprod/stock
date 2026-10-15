@@ -1,12 +1,10 @@
 import { test } from '@japa/runner'
-import { PREMIUM_DOMAIN } from '#constants/premium_report_domains'
 import { selectMatchKpis, type ClubMetricCatalog } from '#services/premium_report/club_metric_catalog'
 import {
   preferredMatchMetricNames,
   preferredMatchSourceFromPrompt,
   resolveCoachMetricsFromCatalog,
 } from '#services/report_v4/coach_metric_resolve'
-import { askDomainsFromHaikuJson } from '#services/report_v4/classify_ask_domains'
 
 const catalogStub = (): ClubMetricCatalog => ({
   periodKpis: [],
@@ -54,9 +52,4 @@ test.group('report_v4 match sport_activity_metrics', () => {
     assert.isUndefined(preferredMatchSourceFromPrompt('match minutes only'))
   })
 
-  test('askDomainsFromHaikuJson maps match flag', ({ assert }) => {
-    const domains = askDomainsFromHaikuJson({ match: true, load: false })
-    assert.isTrue(domains.includes(PREMIUM_DOMAIN.MATCH))
-    assert.isFalse(domains.includes(PREMIUM_DOMAIN.LOAD))
-  })
 })

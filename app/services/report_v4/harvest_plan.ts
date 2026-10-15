@@ -2,35 +2,35 @@ import { PREMIUM_DOMAIN, type PremiumDomain } from '#constants/premium_report_do
 import type { PremiumDataset } from '#contracts/premium_report'
 import type { PremiumReportState } from '#services/premium_report/premium_report_tools'
 
-export type HarvestWindow = { from: string; to: string }
+type HarvestWindow = { from: string; to: string }
 
-export type HarvestPlanEntry = {
+type HarvestPlanEntry = {
   domain: PremiumDomain
   macros: string[]
   window?: HarvestWindow
 }
 
-export type HarvestFetchSpec = {
+type HarvestFetchSpec = {
   domain: PremiumDomain
   from: string
   to: string
 }
 
-export type HarvestPlanOptions = {
+type HarvestPlanOptions = {
   fetches?: HarvestFetchSpec[]
   loadLookback?: HarvestWindow
 }
 
-export type HarvestDomainStatus = 'rows' | 'empty_after_try' | 'pending'
+type HarvestDomainStatus = 'rows' | 'empty_after_try' | 'pending'
 
-export type HarvestDomainVerdict = {
+type HarvestDomainVerdict = {
   domain: PremiumDomain
   window?: HarvestWindow
   status: HarvestDomainStatus
   macros: string[]
 }
 
-export type HarvestVerification = {
+type HarvestVerification = {
   pending: string[]
   verdicts: HarvestDomainVerdict[]
   hasAnyData: boolean
@@ -100,24 +100,66 @@ const readInputRange = (input: Record<string, unknown>): HarvestWindow | null =>
   return { from, to }
 }
 
-const rangesMatch = (a: HarvestWindow, b: HarvestWindow): boolean =>
-  a.from === b.from && a.to === b.to
+const windowsOverlap = (a: HarvestWindow, b: HarvestWindow): boolean =>
+  a.from <= b.to && b.from <= a.to
 
-const triedMacro = (state: PremiumReportState, macros: string[], window?: HarvestWindow): boolean =>
-  state.toolHistory.some((row) => {
+const triedEntryMatches = (
+  entry: { name: string; from?: string; to?: string },
+  macros: string[],
+  window?: HarvestWindow
+): boolean => {
+  if (!macros.includes(entry.name)) return false
+  if (!window) return true
+  if (!entry.from || !entry.to) return true
+  return windowsOverlap({ from: entry.from, to: entry.to }, window)
+}
+
+const triedMacro = (state: PremiumReportState, macros: string[], window?: HarvestWindow): boolean => {
+  if ((state.harvestTried ?? []).some((row) => triedEntryMatches(row, macros, window))) {
+    return true
+  }
+  return state.toolHistory.some((row) => {
     if (!macros.includes(row.name)) return false
     if (!window) return true
     const range = readInputRange(row.input)
-    return range ? rangesMatch(range, window) : false
+    return range ? windowsOverlap(range, window) : true
   })
+}
 
-const datasetHasRows = (dataset: PremiumDataset): boolean =>
-  dataset.id !== 'roster' && dataset.rows.length > 0 && dataset.columns.length > 0
+export const recordHarvestTried = (
+  state: PremiumReportState,
+  name: string,
+  input: Record<string, unknown>
+): void => {
+  if (!(name === 'build_load_summary' || name.startsWith('fetch_'))) return
+  const from = typeof input.from === 'string' ? input.from : undefined
+  const to = typeof input.to === 'string' ? input.to : undefined
+  state.harvestTried = state.harvestTried ?? []
+  state.harvestTried.push({ name, from, to, timestamp: Date.now() })
+}
 
-const IDENTITY_COL_RE = /^(joueur|date_of_day|date|athlete_id|athlete|poste|unit|n)$/i
+const IDENTITY_COL_RE =
+  /^(joueur|player|date_of_day|date|athlete_id|athlete|poste|position|unit|n|name)$/i
+
+const ROSTER_ID_RE = /^(roster|effectif)$/i
 
 const hasNonIdentityColumns = (dataset: PremiumDataset): boolean =>
   dataset.columns.some((col) => !IDENTITY_COL_RE.test(col))
+
+const hasAthleteIdentityColumn = (dataset: PremiumDataset): boolean =>
+  dataset.columns.some((col) => /^(joueur|player|athlete_id|athlete|name|poste|position)$/i.test(col))
+
+export const isRosterDataset = (dataset: PremiumDataset): boolean => {
+  if (ROSTER_ID_RE.test(dataset.id) || /effectif/i.test(dataset.id)) return true
+  if (dataset.columns.length === 0) return false
+  return !hasNonIdentityColumns(dataset) && hasAthleteIdentityColumn(dataset)
+}
+
+const datasetHasRows = (dataset: PremiumDataset): boolean =>
+  !isRosterDataset(dataset) &&
+  dataset.rows.length > 0 &&
+  dataset.columns.length > 0 &&
+  hasNonIdentityColumns(dataset)
 
 const DOMAIN_COLUMN_HINT: Partial<Record<PremiumDomain, RegExp>> = {
   [PREMIUM_DOMAIN.LOAD]: /srpe|acwr|ewma|monotony|strain/i,
@@ -138,8 +180,8 @@ const DOMAIN_COLUMN_HINT: Partial<Record<PremiumDomain, RegExp>> = {
 
 const datasetMatchesWindow = (dataset: PremiumDataset, window?: HarvestWindow): boolean => {
   if (!window) return true
-  if (!dataset.dateRange) return false
-  return rangesMatch(dataset.dateRange, window)
+  if (!dataset.dateRange) return true
+  return windowsOverlap(dataset.dateRange, window)
 }
 
 const domainHasRows = (
@@ -151,6 +193,7 @@ const domainHasRows = (
   for (const dataset of state.datasets.values()) {
     if (!datasetHasRows(dataset) || !hasNonIdentityColumns(dataset)) continue
     if (!datasetMatchesWindow(dataset, window)) continue
+    if (dataset.domain === domain) return true
     if (hint && dataset.columns.some((col) => hint.test(col))) return true
     if (!hint && triedMacro(state, DOMAIN_MACROS[domain] ?? [], window)) return true
   }
@@ -225,3 +268,6 @@ export const acceptLinkerHarvestEndTurn = (
 
 export const harvestHasUsableDatasets = (state: PremiumReportState): boolean =>
   [...state.datasets.values()].some(datasetHasRows)
+
+export const hasLinkedData = (state: PremiumReportState): boolean =>
+  harvestHasUsableDatasets(state)

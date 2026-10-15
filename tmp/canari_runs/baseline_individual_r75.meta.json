@@ -1,0 +1,757 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Fiches individuelles pour chaque joueur du groupe sur la période 2026-03-01 → 2026-03-07: wellness, GPS et scores. Une fiche par athlète avec graphiques essentiels.",
+  "durationSec": 337.653,
+  "iterations": 31,
+  "usage": {
+    "inputTokens": 45256,
+    "outputTokens": 26133,
+    "cacheReadInputTokens": 425371,
+    "cacheCreationInputTokens": 920100,
+    "totalTokens": 71389,
+    "estimatedCostUsd": 4.1057500000000005
+  },
+  "iterationSecs": [
+    4.122,
+    5.569,
+    7.097,
+    6.173,
+    3.234,
+    4.345,
+    5.935,
+    6.591,
+    8.674,
+    5.498,
+    5.939,
+    7.394,
+    14.787,
+    4.02,
+    11.037,
+    21.056,
+    6.128,
+    10.524,
+    11.272,
+    21.87,
+    12.058,
+    10.808,
+    9.26,
+    10.602,
+    14.213,
+    19.744,
+    8.287,
+    6.946,
+    1.596,
+    53.169,
+    8.059
+  ],
+  "iterationCosts": [
+    0.053722,
+    0.08594,
+    0.048003,
+    0.054827,
+    0.015175,
+    0.015342,
+    0.016696,
+    0.020098,
+    0.084305,
+    0.087357,
+    0.092955,
+    0.100426,
+    0.145329,
+    0.118831,
+    0.13441,
+    0.209199,
+    0.198027,
+    0.1848,
+    0.198552,
+    0.276765,
+    0.210349,
+    0.231519,
+    0.21605,
+    0.237063,
+    0.192949,
+    0.259829,
+    0.238504,
+    0.235782,
+    0.005588,
+    0.111333,
+    0.026026
+  ],
+  "message": "Rapport refait entièrement. Rapport partiel : Joueurs demandés (partiel) — Joueurs manquants : Immanuël Pherai, Łukasz Poręba, Alexander Røssing-Lelesiit, Emir Sahiti, Aboubaka Soumahoro",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    },
+    "fetchRange": {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    },
+    "domainRanges": {
+      "wellness": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 23,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 3,
+        "athletesWithData": 19,
+        "populated": true
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Fiches individuelles pour chaque joueur du groupe sur la période 2026-03-01 → 2026-03-07: wellness, GPS et scores. Une fiche par athlète avec graphiques essentiels.",
+    "domains": [
+      "gps",
+      "wellness",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "wellness",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Wellness data for individual player sheets"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "GPS data for individual player sheets"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Performance scores for individual player sheets"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+  },
+  "blockCount": 48,
+  "chartCount": 27,
+  "blockTitles": [
+    {
+      "id": "2ba93798-024f-40f2-bb4e-0f4dd83a0a53",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "9e3dbb5b-13e1-43ba-b376-e882ffc8cb0b",
+      "type": "table",
+      "title": "GPS — Volumes totaux (1–7 mars)"
+    },
+    {
+      "id": "de5629ee-372f-4c5b-a449-e11ca14c729e",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "d7ea31b3-0eb2-461b-aa7a-f7302b259c2b",
+      "type": "table",
+      "title": "Wellness — Moyennes (1–7 mars)"
+    },
+    {
+      "id": "cf6cf4ba-1d3c-4b7e-93ce-d3fa7e205853",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "898c13e9-afed-4a07-972d-99d9869764e1",
+      "type": "table",
+      "title": "Scores — Moyennes (1–7 mars)"
+    },
+    {
+      "id": "6c695239-abb1-4642-9798-86889c1f4e86",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "739e6797-daf5-405a-a4eb-193c43b54398",
+      "type": "table",
+      "title": "Joueurs à surveiller — Injury risk score &gt; 5"
+    },
+    {
+      "id": "30f94c2c-a290-4485-bd04-db08ee5a623d",
+      "type": "table",
+      "title": "Joueurs à surveiller — Courbatures élevées (&gt; 35)"
+    },
+    {
+      "id": "40b14ef6-e8aa-40e2-87af-e19e8080735a",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "847fa440-4c94-4a8f-a836-ce3393625b8f",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "a445264b-a9b1-4eed-b9df-36336a7c66cc",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "9e0f2ae0-75fb-4fe5-a91e-b60699d7ff2c",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "0be5b62a-269e-4fec-b9ae-c9549519f0d6",
+      "type": "chart",
+      "title": "HMLD"
+    },
+    {
+      "id": "b6c99cab-b50c-4ab3-bc1f-267b866fa539",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "720f001d-cf1e-4543-b2ed-1e88ed81117d",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "80bd19e1-1ad7-4a2c-a14e-aace7b0f047f",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "ec9ae68e-971e-483f-a6bf-786443c58020",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "40bf9ca6-f888-45e0-94ac-e025b15633bc",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "41fcfe33-9e80-488e-9e41-7dfecaa66618",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "a220953e-cb0b-408e-a08a-9ba2de4d75ae",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "cec8dee9-b47d-4b19-9f44-f14574d0357c",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "b762ad53-5f57-4128-b614-e33602d0228a",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "8ec41c31-3257-4327-a3c0-1f549e665ec1",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "af174db0-6f6e-4a8f-ac07-9ef25ef02d01",
+      "type": "table",
+      "title": "GPS (6 mars)"
+    },
+    {
+      "id": "b1703efc-1a28-481c-8f21-2518214060f2",
+      "type": "chart",
+      "title": "HMLD"
+    },
+    {
+      "id": "117f5bb6-252c-48a4-8bcd-cf5629e7d84e",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "bc659d29-5531-4206-b522-586d5520bd12",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "36a22ced-34eb-419e-8fa2-bb8a55b5d557",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "4eda1c54-8db7-4862-ba22-f2c3ae3379e0",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "35c3fae2-4b8c-4d8a-add1-f29044d4ed73",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "387fe83a-4611-4018-8495-39a6c19d9d57",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "ce7e2312-49da-409d-aa74-4830a4bd3345",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "85d1ca50-8291-4e39-bc92-8d43add12613",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "2a39dd19-12cd-4f07-9052-44bf901313d2",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "fe930cae-792d-431b-adf5-00198db2e016",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "75fdfd6d-bac5-42d3-b532-0b76c973ce6f",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "e80c8bf3-c7b3-489f-a8ca-488321319fea",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "d70d1e38-e9e3-472e-bee6-fb01d00604db",
+      "type": "chart",
+      "title": "HMLD"
+    },
+    {
+      "id": "4e07f36e-da80-456b-974f-6686ca6ce26f",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "9ec3ee87-f18d-42ec-97fb-422640fd958f",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "2d477cc8-a21f-410b-8e11-1b01fb217854",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "a7e928fb-c171-4547-88c5-b34f054afd2b",
+      "type": "chart",
+      "title": "HMLD"
+    },
+    {
+      "id": "d5212d30-771d-4220-bfc6-2054a0e12d28",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "48d4cdd8-cef1-4ca9-a8e5-b167f2cc8cf8",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "40d1cf36-020e-4e00-aa34-a60afdd79330",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "reliability-h-47",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-48",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    4.122,
+    5.569,
+    7.097,
+    6.173,
+    3.234,
+    4.345,
+    5.935,
+    6.591,
+    8.674,
+    5.498,
+    5.939,
+    7.394,
+    14.787,
+    4.02,
+    11.037,
+    21.056,
+    6.128,
+    10.524,
+    11.272,
+    21.87,
+    12.058,
+    10.808,
+    9.26,
+    10.602,
+    14.213,
+    19.744,
+    8.287,
+    6.946,
+    1.596,
+    53.169,
+    8.059
+  ],
+  "r75": {
+    "dataFactSpans": 0,
+    "dataSrcSpans": 0,
+    "emDashCount": 27,
+    "rawLabelHits": 0,
+    "measureNotes": 0,
+    "imputedCopyPresent": false,
+    "agentCacheByIter": {
+      "linker": [
+        {
+          "iter": 1,
+          "stop": "tool_use",
+          "in": "19",
+          "out": "221",
+          "cacheR": "6.1k",
+          "cacheW": "13k"
+        },
+        {
+          "iter": 2,
+          "stop": "end_turn",
+          "in": "7",
+          "out": "204",
+          "cacheR": "6.1k",
+          "cacheW": "22k"
+        }
+      ],
+      "analyst": [
+        {
+          "iter": 1,
+          "stop": "tool_use",
+          "in": "19",
+          "out": "637",
+          "cacheR": "13k",
+          "cacheW": "9.2k"
+        },
+        {
+          "iter": 2,
+          "stop": "tool_use",
+          "in": "411",
+          "out": "538",
+          "cacheR": "13k",
+          "cacheW": "11k"
+        },
+        {
+          "iter": 3,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "208",
+          "cacheR": "24k",
+          "cacheW": "1.3k"
+        },
+        {
+          "iter": 4,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "360",
+          "cacheR": "26k",
+          "cacheW": "590"
+        },
+        {
+          "iter": 5,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "445",
+          "cacheR": "26k",
+          "cacheW": "564"
+        },
+        {
+          "iter": 6,
+          "stop": "tool_use",
+          "in": "772",
+          "out": "520",
+          "cacheR": "27k",
+          "cacheW": "514"
+        },
+        {
+          "iter": 7,
+          "stop": "tool_use",
+          "in": "5.4k",
+          "out": "736",
+          "cacheR": "13k",
+          "cacheW": "14k"
+        },
+        {
+          "iter": 8,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "414",
+          "cacheR": "13k",
+          "cacheW": "21k"
+        },
+        {
+          "iter": 9,
+          "stop": "tool_use",
+          "in": "1.0k",
+          "out": "523",
+          "cacheR": "13k",
+          "cacheW": "21k"
+        },
+        {
+          "iter": 10,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "776",
+          "cacheR": "13k",
+          "cacheW": "23k"
+        },
+        {
+          "iter": 11,
+          "stop": "tool_use",
+          "in": "4.8k",
+          "out": "1.4k",
+          "cacheR": "13k",
+          "cacheW": "28k"
+        },
+        {
+          "iter": 12,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "199",
+          "cacheR": "13k",
+          "cacheW": "30k"
+        },
+        {
+          "iter": 13,
+          "stop": "tool_use",
+          "in": "5",
+          "out": "1.2k",
+          "cacheR": "13k",
+          "cacheW": "30k"
+        },
+        {
+          "iter": 14,
+          "stop": "tool_use",
+          "in": "5.5k",
+          "out": "2.2k",
+          "cacheR": "13k",
+          "cacheW": "41k"
+        },
+        {
+          "iter": 15,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "419",
+          "cacheR": "13k",
+          "cacheW": "50k"
+        },
+        {
+          "iter": 16,
+          "stop": "tool_use",
+          "in": "5.4k",
+          "out": "788",
+          "cacheR": "13k",
+          "cacheW": "41k"
+        },
+        {
+          "iter": 17,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "1.1k",
+          "cacheR": "13k",
+          "cacheW": "47k"
+        },
+        {
+          "iter": 18,
+          "stop": "tool_use",
+          "in": "5.4k",
+          "out": "2.2k",
+          "cacheR": "13k",
+          "cacheW": "59k"
+        },
+        {
+          "iter": 19,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "688",
+          "cacheR": "13k",
+          "cacheW": "52k"
+        },
+        {
+          "iter": 20,
+          "stop": "tool_use",
+          "in": "5.4k",
+          "out": "785",
+          "cacheR": "13k",
+          "cacheW": "53k"
+        },
+        {
+          "iter": 21,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "527",
+          "cacheR": "13k",
+          "cacheW": "54k"
+        },
+        {
+          "iter": 22,
+          "stop": "tool_use",
+          "in": "5.4k",
+          "out": "678",
+          "cacheR": "13k",
+          "cacheW": "55k"
+        },
+        {
+          "iter": 23,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "1.2k",
+          "cacheR": "13k",
+          "cacheW": "46k"
+        },
+        {
+          "iter": 24,
+          "stop": "tool_use",
+          "in": "5.4k",
+          "out": "1.5k",
+          "cacheR": "13k",
+          "cacheW": "58k"
+        },
+        {
+          "iter": 25,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "602",
+          "cacheR": "13k",
+          "cacheW": "60k"
+        },
+        {
+          "iter": 26,
+          "stop": "end_turn",
+          "in": "7",
+          "out": "185",
+          "cacheR": "13k",
+          "cacheW": "61k"
+        }
+      ],
+      "designer": [
+        {
+          "iter": 1,
+          "stop": "tool_use",
+          "in": "19",
+          "out": "23",
+          "cacheR": "1.5k",
+          "cacheW": "1.3k"
+        },
+        {
+          "iter": 2,
+          "stop": "tool_use",
+          "in": "5",
+          "out": "4.6k",
+          "cacheR": "1.5k",
+          "cacheW": "11k"
+        },
+        {
+          "iter": 3,
+          "stop": "end_turn",
+          "in": "5",
+          "out": "302",
+          "cacheR": "13k",
+          "cacheW": "4.7k"
+        }
+      ]
+    }
+  }
+}

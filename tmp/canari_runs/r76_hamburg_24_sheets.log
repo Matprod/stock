@@ -1,0 +1,3 @@
+[runner] start club=019fa7cc-684c-783e-9609-c132a26eb4e3 tag=r76_hamburg_24_sheets skipPdf=true
+[progress] Récupération des données sportives...
+[runner] done tag=r76_hamburg_24_sheets sec=232.843 pdfOk=false cost=0.8490979999999999

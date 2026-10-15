@@ -5,7 +5,7 @@ import {
   type PremiumSqlTemplateId,
 } from '#services/premium_report/premium_report_sql_templates'
 
-export type PremiumColumnMeta = {
+type PremiumColumnMeta = {
   units: Record<string, string>
   labels: Record<string, string>
 }
@@ -17,7 +17,7 @@ const pickDisplayName = (row: { display_name?: unknown; displayName?: unknown })
   return raw != null ? String(raw).trim() : ''
 }
 
-export const loadPeriodMetricMeta = async (
+const loadPeriodMetricMeta = async (
   clubId: string,
   metricNames: string[]
 ): Promise<Record<string, { unit: string; label: string }>> => {
@@ -45,7 +45,7 @@ export const loadPeriodMetricMeta = async (
   return out
 }
 
-export const loadSportActivityMetricMeta = async (
+const loadSportActivityMetricMeta = async (
   metricNames: string[]
 ): Promise<Record<string, { unit: string; label: string }>> => {
   const names = [...new Set(metricNames.filter(Boolean))]

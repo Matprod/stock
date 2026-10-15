@@ -1,0 +1,960 @@
+[17:41:08.756] INFO (48986): report_v4.analyze_request_llm
+    explicit: true
+    display: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    byDomain: {
+      "wellness": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    }
+    fetches: [
+      {
+        "domain": "wellness",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Wellness data for individual player sheets"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "GPS data for individual player sheets"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Performance scores for individual player sheets"
+      }
+    ]
+    askDomains: [
+      "wellness",
+      "gps",
+      "scores"
+    ]
+    periodFollowUp: false
+    multiSection: true
+    rationale: "Coach explicitly requested individual player sheets (fiches individuelles) for the week 2026-03-01 to 2026-03-07 with three domains: wellness, GPS, and scores. Multi-section because multiple athletes and domains require distinct visualizations."
+    durationMs: 2289
+[17:41:09.028] INFO (48986): report_v4.edit_route.wipe
+    wipeReason: "no_existing_canvas"
+    hasExistingCanvas: false
+    periodChanged: false
+    multiSectionAsk: true
+    additive: false
+    scopedPeriod: false
+[17:41:09.029] INFO (48986): report_v4.edit_route
+    canvasAsk: "new_viz"
+    preserveCanvas: false
+    needsFetch: true
+    isMicro: false
+    keepPriorDisplayRange: false
+    softOps: null
+    inventory: null
+    additive: false
+    scopedPeriod: false
+    design: false
+    periodChanged: false
+    multiSectionAsk: true
+    wipeCanvas: true
+    wipeReason: "no_existing_canvas"
+    routeFlags: {
+      "wipe": true,
+      "additive": false,
+      "scopedPeriod": false,
+      "design": false,
+      "aesthetic": false,
+      "partialProse": false,
+      "recommendationStrip": false
+    }
+    provider: "skip"
+    durationSec: 0.272
+[17:41:09.029] INFO (48986): report_v4.prompt_windows_resolved
+    explicit: true
+    displayRange: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    coverRange: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    fetchRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+    domainRanges: {
+      "wellness": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    }
+    fetches: [
+      {
+        "domain": "wellness",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Wellness data for individual player sheets"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "GPS data for individual player sheets"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Performance scores for individual player sheets"
+      }
+    ]
+    extraRanges: []
+    seasons: [
+      {
+        "name": "2026-2027",
+        "from": "2026-08-01",
+        "to": "2027-05-24",
+        "active": true
+      },
+      {
+        "name": "2025-2026",
+        "from": "2025-07-16",
+        "to": "2026-05-16",
+        "active": false
+      },
+      {
+        "name": "2024-2025",
+        "from": "2024-07-02",
+        "to": "2025-05-18",
+        "active": false
+      },
+      {
+        "name": "2023-2024",
+        "from": "2023-07-28",
+        "to": "2024-05-19",
+        "active": false
+      },
+      {
+        "name": "2022-2023",
+        "from": "2022-07-17",
+        "to": "2023-06-05",
+        "active": false
+      }
+    ]
+[17:41:09.069] INFO (48986): report_v4.roster_active_window
+    athletes: 30
+    ranges: [
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ]
+[17:41:10.479] INFO (48986): report_v4.ask_gate
+    reason: "prompt_clear_enough"
+    question_ids: []
+    confidence: 1
+    round: 0
+    skipped: true
+[17:41:10.662] INFO (48986): report_v4.club_metric_catalog_start
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+
+════════════════════════════════════════════════════════════
+report-v4  START  │  Hambourg  │  2026-03-01 → 2026-03-07
+report-v4  domains  │  gps, wellness, scores
+report-v4  prompt  │  Fiches individuelles pour chaque joueur du groupe sur la période 2026-03-01 → 2026-03-07: wellness, GPS et scores. Une fiche par athlète avec graphiques essentiels.
+────────────────────────────────────────────────────────────
+[17:41:12.056] INFO (48986): report_v4.club_metric_catalog_done
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+    durationMs: 1394
+    periodKpis: 48
+    matchKpis: 7
+    rpeFetchTable: "health_metric_values"
+    rpeSession: "health_metrics"
+    rpeBody: "health_ratings"
+    clubInsightScience: 8
+[17:41:12.065] INFO (48986): report_v4.linker_start
+    domains: [
+      "gps",
+      "wellness",
+      "scores"
+    ]
+    fetchWindows: 3
+    athleteCount: 30
+[17:41:12.065] INFO (48986): report_v4.linker_db_tool_start
+    schemaTitles: 6
+[17:41:12.066] INFO (48986): report_v4.linker_db_tool_done
+    durationMs: 1
+[17:41:12.068] INFO (48986): report_v4.linker_agent_invoke
+    toolCount: 26
+report-v4  iter 01  │  tool_use  │  4.122s  │  $0.054  │  in=19 out=221 cacheR=6.1k cacheW=13k  │  cum $0.054
+report-v4  action  │  tools: fetch_wellness_daily, fetch_gps_intensity_daily, fetch_daily_scores, fetch_club_roster
+report-v4    └ tool  │  ok  │  fetch_wellness_daily  │  0.096s  │  2026-03-01 → 2026-03-07
+report-v4    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.652s  │  2026-03-01 → 2026-03-07
+report-v4    └ tool  │  ok  │  fetch_daily_scores  │  0.060s  │  2026-03-01 → 2026-03-07
+report-v4    └ tool  │  ok  │  fetch_club_roster  │  0.000s  │  ? → ?
+report-v4    └ cost  │  this prompt $0.054  │  total so far $0.054  │  iter time 4.122s
+report-v4  iter 02  │  end_turn  │  5.569s  │  $0.086  │  in=7 out=204 cacheR=6.1k cacheW=22k  │  cum $0.140
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.086  │  total so far $0.140  │  iter time 5.569s
+report-v4  agent-stop  │  linker  │  self_ended  │  2 iteration(s)  │  max=5  │  force@4  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  linker  │  2 iteration(s)  │  9.691s  │  $0.140
+report-v4  tokens  │  in=26  │  out=425  │  cacheR=12k  │  cacheW=35k  │  all=451
+report-v4  detail  │  datasets=4
+[17:41:21.764] INFO (48986): report_v4.path_cost_class
+    pathCostClass: "gated_rebuild"
+    budgetUsd: 0.9
+[17:41:21.769] INFO (48986): report_v4.data_profile
+    datasets: 4
+    unusableDomains: []
+    emptyDomains: []
+    partial: [
+      "gps",
+      "wellness"
+    ]
+    imputedExcludedCells: 154
+report-v4  iter 01  │  tool_use  │  7.097s  │  $0.048  │  in=19 out=637 cacheR=13k cacheW=9.2k  │  cum $0.048
+report-v4  action  │  tools: aggregate_dataset, aggregate_dataset, aggregate_dataset, set_report_meta, add_heading, add_heading, add_heading
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.005s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  set_report_meta  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.001s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.048  │  total so far $0.048  │  iter time 7.097s
+report-v4  iter 02  │  tool_use  │  6.173s  │  $0.055  │  in=411 out=538 cacheR=13k cacheW=11k  │  cum $0.103
+report-v4  action  │  tools: add_table, add_table, add_table, add_heading
+report-v4    └ tool  │  ok  │  add_table  │  0.012s  │  ds_5
+report-v4    └ tool  │  ok  │  add_table  │  0.001s  │  ds_6
+report-v4    └ tool  │  ok  │  add_table  │  0.000s  │  ds_7
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.055  │  total so far $0.103  │  iter time 6.173s
+[17:41:35.059] WARN (48986): report_v4.column_label_missing
+    column: "kpi_maxdeceleration"
+    key: "kpi_maxdeceleration"
+[17:41:35.060] WARN (48986): report_v4.column_label_missing
+    column: "kpi_decelerationdistancez6rel"
+    key: "kpi_decelerationdistancez6rel"
+[17:41:35.060] WARN (48986): report_v4.column_label_missing
+    column: "kpi_maxacceleration"
+    key: "kpi_maxacceleration"
+report-v4  iter 03  │  tool_use  │  3.234s  │  $0.015  │  in=7 out=208 cacheR=24k cacheW=1.3k  │  cum $0.118
+report-v4  action  │  tools: filter_dataset, filter_dataset
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ cost  │  this prompt $0.015  │  total so far $0.118  │  iter time 3.234s
+report-v4  iter 04  │  tool_use  │  4.345s  │  $0.015  │  in=7 out=360 cacheR=26k cacheW=590  │  cum $0.133
+report-v4  action  │  tools: add_table, add_table, add_heading
+report-v4    └ tool  │  ok  │  add_table  │  0.002s  │  ds_8
+report-v4    └ tool  │  ok  │  add_table  │  0.000s  │  ds_9
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.015  │  total so far $0.133  │  iter time 4.345s
+report-v4  iter 05  │  tool_use  │  5.935s  │  $0.017  │  in=7 out=445 cacheR=26k cacheW=564  │  cum $0.150
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset, add_heading
+report-v4    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  no rows for joueur eq "Kofi Amoako"
+report-v4    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  no rows for joueur eq "Kofi Amoako"
+report-v4    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  no rows for joueur eq "Kofi Amoako"
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.017  │  total so far $0.150  │  iter time 5.935s
+report-v4  iter 06  │  tool_use  │  6.591s  │  $0.020  │  in=772 out=520 cacheR=27k cacheW=514  │  cum $0.170
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset, add_text, add_heading
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  add_text  │  0.002s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.020  │  total so far $0.170  │  iter time 6.591s
+report-v4  iter 07  │  tool_use  │  8.674s  │  $0.084  │  in=5.4k out=736 cacheR=13k cacheW=14k  │  cum $0.254
+report-v4  action  │  tools: add_chart, add_chart, add_chart, add_chart, add_chart
+report-v4    └ tool  │  ok  │  add_chart  │  0.008s  │  ds_10
+report-v4    └ tool  │  ok  │  add_chart  │  0.002s  │  ds_10
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_11
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_12
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_12
+report-v4    └ cost  │  this prompt $0.084  │  total so far $0.254  │  iter time 8.674s
+[17:42:03.847] WARN (48986): report_v4.column_label_missing
+    column: "wellbeing_rating"
+    key: "wellbeing_rating"
+report-v4  iter 08  │  tool_use  │  5.498s  │  $0.087  │  in=7 out=414 cacheR=13k cacheW=21k  │  cum $0.342
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset, add_heading
+report-v4    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  no rows for joueur eq "Nicolás Capaldo"
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.087  │  total so far $0.342  │  iter time 5.498s
+report-v4  iter 09  │  tool_use  │  5.939s  │  $0.093  │  in=1.0k out=523 cacheR=13k cacheW=21k  │  cum $0.435
+report-v4  action  │  tools: add_text, add_chart, add_chart, add_chart
+report-v4    └ tool  │  ok  │  add_text  │  0.002s
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_13
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_14
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_14
+report-v4    └ cost  │  this prompt $0.093  │  total so far $0.435  │  iter time 5.939s
+report-v4  iter 10  │  tool_use  │  7.394s  │  $0.100  │  in=7 out=776 cacheR=13k cacheW=23k  │  cum $0.535
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, add_heading, add_heading
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.100  │  total so far $0.535  │  iter time 7.394s
+report-v4  iter 11  │  tool_use  │  14.787s  │  $0.145  │  in=4.8k out=1.4k cacheR=13k cacheW=28k  │  cum $0.681
+report-v4  action  │  tools: add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart
+report-v4    └ tool  │  ok  │  add_chart  │  0.003s  │  ds_15
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_15
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_16
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_17
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_17
+report-v4    └ tool  │  ERR  │  add_chart  │  0.000s  │  ds_18  Bar/ranking chart has 1 category (need ≥2)
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_19
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_20
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_20
+report-v4    └ cost  │  this prompt $0.145  │  total so far $0.681  │  iter time 14.787s
+report-v4  iter 12  │  tool_use  │  4.020s  │  $0.119  │  in=7 out=199 cacheR=13k cacheW=30k  │  cum $0.799
+report-v4  action  │  tools: add_table
+report-v4    └ tool  │  ok  │  add_table  │  0.001s  │  ds_18
+report-v4    └ cost  │  this prompt $0.119  │  total so far $0.799  │  iter time 4.020s
+report-v4  iter 13  │  tool_use  │  11.037s  │  $0.134  │  in=5 out=1.2k cacheR=13k cacheW=30k  │  cum $0.934
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, add_heading, add_heading, add_heading
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.134  │  total so far $0.934  │  iter time 11.037s
+report-v4  iter 14  │  tool_use  │  21.056s  │  $0.209  │  in=5.5k out=2.2k cacheR=13k cacheW=41k  │  cum $1.143
+report-v4  action  │  tools: add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart
+report-v4    └ tool  │  ok  │  add_chart  │  0.002s  │  ds_21
+report-v4    └ tool  │  ok  │  add_chart  │  0.002s  │  ds_21
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_22
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_23
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_23
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_24
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_24
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_25
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_26
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_26
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_27
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_27
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_28
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_29
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_29
+report-v4    └ cost  │  this prompt $0.209  │  total so far $1.143  │  iter time 21.056s
+report-v4  iter 15  │  tool_use  │  6.128s  │  $0.198  │  in=7 out=419 cacheR=13k cacheW=50k  │  cum $1.341
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset, add_heading
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.198  │  total so far $1.341  │  iter time 6.128s
+report-v4  iter 16  │  tool_use  │  10.524s  │  $0.185  │  in=5.4k out=788 cacheR=13k cacheW=41k  │  cum $1.526
+report-v4  action  │  tools: add_chart, add_chart, add_chart, add_chart, add_chart
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_30
+report-v4    └ tool  │  ok  │  add_chart  │  0.002s  │  ds_30
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_31
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_32
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_32
+report-v4    └ cost  │  this prompt $0.185  │  total so far $1.526  │  iter time 10.524s
+report-v4  iter 17  │  tool_use  │  11.272s  │  $0.199  │  in=7 out=1.1k cacheR=13k cacheW=47k  │  cum $1.724
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, add_heading, add_heading, add_heading
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.199  │  total so far $1.724  │  iter time 11.272s
+report-v4  iter 18  │  tool_use  │  21.870s  │  $0.277  │  in=5.4k out=2.2k cacheR=13k cacheW=59k  │  cum $2.001
+report-v4  action  │  tools: add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart
+report-v4    └ tool  │  ok  │  add_chart  │  0.004s  │  ds_33
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_33
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_34
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_35
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_35
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_36
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_36
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_37
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_38
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_38
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_39
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_39
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_40
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_41
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_41
+report-v4    └ cost  │  this prompt $0.277  │  total so far $2.001  │  iter time 21.870s
+report-v4  iter 19  │  tool_use  │  12.058s  │  $0.210  │  in=7 out=688 cacheR=13k cacheW=52k  │  cum $2.211
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset, add_heading
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.210  │  total so far $2.211  │  iter time 12.058s
+report-v4  iter 20  │  tool_use  │  10.808s  │  $0.232  │  in=5.4k out=785 cacheR=13k cacheW=53k  │  cum $2.443
+report-v4  action  │  tools: add_chart, add_chart, add_chart, add_chart, add_chart
+report-v4    └ tool  │  ok  │  add_chart  │  0.003s  │  ds_42
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_42
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_43
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_44
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_44
+report-v4    └ cost  │  this prompt $0.232  │  total so far $2.443  │  iter time 10.808s
+report-v4  iter 21  │  tool_use  │  9.260s  │  $0.216  │  in=7 out=527 cacheR=13k cacheW=54k  │  cum $2.659
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset, add_heading
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.216  │  total so far $2.659  │  iter time 9.260s
+report-v4  iter 22  │  tool_use  │  10.602s  │  $0.237  │  in=5.4k out=678 cacheR=13k cacheW=55k  │  cum $2.896
+report-v4  action  │  tools: add_chart, add_chart, add_chart, add_chart
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_45
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_46
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_47
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_47
+report-v4    └ cost  │  this prompt $0.237  │  total so far $2.896  │  iter time 10.602s
+report-v4  iter 23  │  tool_use  │  14.213s  │  $0.193  │  in=7 out=1.2k cacheR=13k cacheW=46k  │  cum $3.089
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, filter_dataset, add_heading, add_heading, add_heading
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.193  │  total so far $3.089  │  iter time 14.213s
+report-v4  iter 24  │  tool_use  │  19.744s  │  $0.260  │  in=5.4k out=1.5k cacheR=13k cacheW=58k  │  cum $3.349
+report-v4  action  │  tools: add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart, add_chart
+report-v4    └ tool  │  ok  │  add_chart  │  0.006s  │  ds_48
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_49
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_50
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_51
+report-v4    └ tool  │  ERR  │  add_chart  │  0.001s  │  ds_52  Report already has 64 charts
+report-v4    └ tool  │  ERR  │  add_chart  │  0.000s  │  ds_53  Report already has 64 charts
+report-v4    └ tool  │  ERR  │  add_chart  │  0.001s  │  ds_54  Report already has 64 charts
+report-v4    └ tool  │  ERR  │  add_chart  │  0.000s  │  ds_55  Report already has 64 charts
+report-v4    └ tool  │  ERR  │  add_chart  │  0.000s  │  ds_56  Report already has 64 charts
+report-v4    └ cost  │  this prompt $0.260  │  total so far $3.349  │  iter time 19.744s
+report-v4  iter 25  │  tool_use  │  8.287s  │  $0.239  │  in=7 out=602 cacheR=13k cacheW=60k  │  cum $3.587
+report-v4  action  │  tools: add_table, add_table, add_table, add_table
+report-v4    └ tool  │  ok  │  add_table  │  0.001s  │  ds_52
+report-v4    └ tool  │  ok  │  add_table  │  0.000s  │  ds_53
+report-v4    └ tool  │  ok  │  add_table  │  0.001s  │  ds_55
+report-v4    └ tool  │  ok  │  add_table  │  0.000s  │  ds_56
+report-v4    └ cost  │  this prompt $0.239  │  total so far $3.587  │  iter time 8.287s
+report-v4  iter 26  │  end_turn  │  6.946s  │  $0.236  │  in=7 out=185 cacheR=13k cacheW=61k  │  cum $3.823
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.236  │  total so far $3.823  │  iter time 6.946s
+report-v4  agent-stop  │  analyst  │  force_answer_at  │  26 iteration(s)  │  max=28  │  force@26  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  analyst  │  26 iteration(s)  │  253.492s  │  $3.823
+report-v4  tokens  │  in=45k  │  out=21k  │  cacheR=397k  │  cacheW=868k  │  all=66k
+report-v4  detail  │  blocks=46 charts=27 tables=6 insight=true
+[17:45:35.334] WARN (48986): report_v4.column_label_missing
+    column: "Distance total (m)"
+    key: "distance_total_m"
+[17:45:35.334] WARN (48986): report_v4.column_label_missing
+    column: "Explosive distance (absolute)"
+    key: "explosive_distance_absolute"
+[17:45:35.334] WARN (48986): report_v4.column_label_missing
+    column: "High speed running (absolute)"
+    key: "high_speed_running_absolute"
+[17:45:35.334] WARN (48986): report_v4.column_label_missing
+    column: "Maxdeceleration"
+    key: "maxdeceleration"
+[17:45:35.334] WARN (48986): report_v4.column_label_missing
+    column: "Decelerationdistancez 6 Rel"
+    key: "decelerationdistancez_6_rel"
+[17:45:35.334] WARN (48986): report_v4.column_label_missing
+    column: "Maxacceleration"
+    key: "maxacceleration"
+[17:45:35.334] WARN (48986): report_v4.column_label_missing
+    column: "Courbatures"
+    key: "courbatures"
+[17:45:35.334] WARN (48986): report_v4.column_label_missing
+    column: "Humeur"
+    key: "humeur"
+[17:45:35.341] WARN (48986): report_v4.report_brief_synthesized_after_missing_commit
+    title: "Fiches individuelles Hambourg"
+    headings: 13
+[17:45:35.341] INFO (48986): report_v4.coverage_gate
+    required: 30
+    delivered: 25
+    missing: [
+      "Immanuël Pherai",
+      "Łukasz Poręba",
+      "Alexander Røssing-Lelesiit",
+      "Emir Sahiti",
+      "Aboubaka Soumahoro"
+    ]
+    mode: "gated_rebuild"
+[17:45:35.344] INFO (48986): report_v4.precompute_canvas_facts_capped
+    added: 80
+    maxFacts: 80
+[17:45:35.344] INFO (48986): report_v4.canvas_facts_precomputed
+    added: 80
+    sample: [
+      "ds_2.kpi_hmld.mean",
+      "ds_2.kpi_hmld.sum",
+      "ds_2.kpi_hmld.delta",
+      "ds_2.kpi_hmldpermin.mean",
+      "ds_2.kpi_hmldpermin.sum",
+      "ds_2.kpi_hmldpermin.delta",
+      "ds_2.kpi_maxacceleration.mean",
+      "ds_2.kpi_maxacceleration.sum"
+    ]
+[17:45:35.344] INFO (48986): report_v4.analyst_done
+    blocks: 46
+    charts: 27
+    tables: 6
+    insight: true
+    iterations: 26
+    macrosSkipped: true
+    shortWindow: true
+    multiSectionAsk: true
+report-v4  iter 01  │  tool_use  │  1.596s  │  $0.0056  │  in=19 out=23 cacheR=1.5k cacheW=1.3k  │  cum $0.0056
+report-v4  action  │  tools: get_design_context
+report-v4    └ tool  │  ok  │  get_design_context  │  0.003s
+report-v4    └ cost  │  this prompt $0.0056  │  total so far $0.0056  │  iter time 1.596s
+report-v4  iter 02  │  tool_use  │  53.169s  │  $0.111  │  in=5 out=4.6k cacheR=1.5k cacheW=11k  │  cum $0.117
+report-v4  action  │  tools: set_report_html
+report-v4    └ tool  │  ok  │  set_report_html  │  0.094s
+report-v4    └ cost  │  this prompt $0.111  │  total so far $0.117  │  iter time 53.169s
+[17:46:30.021] WARN (48986): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "60"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "0"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "100"
+      }
+    ]
+[17:46:30.090] INFO (48986): report_v4.fact_autolink
+    displayed: 32
+    linkedFact: 0
+    linkedSrc: 0
+    ambiguous: 32
+    unmatched: 0
+    samples: [
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "1 – 7 mars 2026",
+        "candidates": [
+          "fact:ds_2.kpi_maxacceleration.delta",
+          "fact:ds_10.kpi_maxacceleration.mean",
+          "fact:ds_27.kpi_hmldpermin.delta",
+          "src:ds_2#1.kpi_maxacceleration",
+          "src:ds_2#2.kpi_hsrabspermin"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "1 – 7 mars 2026",
+        "candidates": [
+          "fact:ds_10.kpi_maxacceleration.delta",
+          "fact:ds_15.kpi_maxacceleration.delta",
+          "fact:ds_15.kpi_maxdeceleration.delta",
+          "fact:ds_24.kpi_maxdeceleration.delta",
+          "fact:ds_27.kpi_maxacceleration.delta"
+        ]
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Volumes GPS collectés sur la période du 1 au 7 mars 2026. Les graphiques ci-dessous présentent la distance totale et le HMLD pour les joueurs avec données dispo",
+        "candidates": [
+          "fact:ds_2.kpi_maxacceleration.delta",
+          "fact:ds_10.kpi_maxacceleration.mean",
+          "fact:ds_27.kpi_hmldpermin.delta",
+          "src:ds_2#1.kpi_maxacceleration",
+          "src:ds_2#2.kpi_hsrabspermin"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Volumes GPS collectés sur la période du 1 au 7 mars 2026. Les graphiques ci-dessous présentent la distance totale et le HMLD pour les joueurs avec données dispo",
+        "candidates": [
+          "src:ds_2#13.kpi_hsrabspermin",
+          "src:ds_2#13.kpi_hsrrelpermin",
+          "src:ds_2#13.kpi_entriesz5abs",
+          "src:ds_2#14.kpi_hsrabspermin",
+          "src:ds_2#14.kpi_hsrrelpermin"
+        ]
+      },
+      {
+        "raw": "60",
+        "value": 60,
+        "reason": "ambiguous",
+        "context": "Données de bien-être collectées quotidiennement. Les courbatures sont mesurées sur une échelle de 10 à 60 (valeurs élevées indiquent plus de courbatures).",
+        "candidates": [
+          "src:ds_2#10.kpi_accelerationdistancez6rel",
+          "src:ds_2#13.kpi_decelerationdistancez1rel",
+          "src:ds_2#14.kpi_decelerationdistancez1rel",
+          "src:ds_2#16.kpi_accelerationdistancez6rel",
+          "src:ds_2#28.kpi_sprintdistance"
+        ]
+      },
+      {
+        "raw": "10",
+        "value": 10,
+        "reason": "ambiguous",
+        "context": "Données de bien-être collectées quotidiennement. Les courbatures sont mesurées sur une échelle de 10 à 60 (valeurs élevées indiquent plus de courbatures).",
+        "candidates": [
+          "src:ds_1#0.mood_rating",
+          "src:ds_1#1.mood_rating",
+          "src:ds_1#2.mood_rating",
+          "src:ds_1#3.mood_rating",
+          "src:ds_1#4.body_soreness_rating"
+        ]
+      },
+      {
+        "raw": "60",
+        "value": 60,
+        "reason": "ambiguous",
+        "context": "Échelle courbatures : 10–60 (plus élevé = plus de courbatures)",
+        "candidates": [
+          "src:ds_2#10.kpi_accelerationdistancez6rel",
+          "src:ds_2#13.kpi_decelerationdistancez1rel",
+          "src:ds_2#14.kpi_decelerationdistancez1rel",
+          "src:ds_2#16.kpi_accelerationdistancez6rel",
+          "src:ds_2#28.kpi_sprintdistance"
+        ]
+      },
+      {
+        "raw": "10",
+        "value": 10,
+        "reason": "ambiguous",
+        "context": "Échelle courbatures : 10–60 (plus élevé = plus de courbatures)",
+        "candidates": [
+          "src:ds_1#0.mood_rating",
+          "src:ds_1#1.mood_rating",
+          "src:ds_1#2.mood_rating",
+          "src:ds_1#3.mood_rating",
+          "src:ds_1#4.body_soreness_rating"
+        ]
+      },
+      {
+        "raw": "100",
+        "value": 100,
+        "reason": "ambiguous",
+        "context": "Scores de performance et de risque de blessure calculés sur la période. Le score de performance varie de 0 à 100 (plus élevé = meilleure performance). Le score ",
+        "candidates": [
+          "src:ds_2#32.kpi_metabolicdistancez6abs",
+          "src:ds_2#41.kpi_decelerationdistancez3rel",
+          "src:ds_2#45.kpi_metabolicdistancez6abs",
+          "src:ds_2#54.kpi_accelerationdistancez4rel",
+          "src:ds_2#63.kpi_accelerationdistancez3rel"
+        ]
+      },
+      {
+        "raw": "0",
+        "value": 0,
+        "reason": "ambiguous",
+        "context": "Scores de performance et de risque de blessure calculés sur la période. Le score de performance varie de 0 à 100 (plus élevé = meilleure performance). Le score ",
+        "candidates": [
+          "fact:ds_21.kpi_maxacceleration.delta",
+          "fact:ds_24.kpi_maxacceleration.delta",
+          "fact:ds_27.kpi_maxdeceleration.delta",
+          "src:ds_2#0.kpi_hibsdistance",
+          "src:ds_2#0.kpi_hibsmaxspeed"
+        ]
+      },
+      {
+        "raw": "100",
+        "value": 100,
+        "reason": "ambiguous",
+        "context": "Scores de performance et de risque de blessure calculés sur la période. Le score de performance varie de 0 à 100 (plus élevé = meilleure performance). Le score ",
+        "candidates": [
+          "src:ds_2#32.kpi_metabolicdistancez6abs",
+          "src:ds_2#41.kpi_decelerationdistancez3rel",
+          "src:ds_2#45.kpi_metabolicdistancez6abs",
+          "src:ds_2#54.kpi_accelerationdistancez4rel",
+          "src:ds_2#63.kpi_accelerationdistancez3rel"
+        ]
+      },
+      {
+        "raw": "0",
+        "value": 0,
+        "reason": "ambiguous",
+        "context": "Scores de performance et de risque de blessure calculés sur la période. Le score de performance varie de 0 à 100 (plus élevé = meilleure performance). Le score ",
+        "candidates": [
+          "fact:ds_21.kpi_maxacceleration.delta",
+          "fact:ds_24.kpi_maxacceleration.delta",
+          "fact:ds_27.kpi_maxdeceleration.delta",
+          "src:ds_2#0.kpi_hibsdistance",
+          "src:ds_2#0.kpi_hibsmaxspeed"
+        ]
+      }
+    ]
+[17:46:30.100] WARN (48986): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "01"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "02"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "03"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "2"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "04"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "05"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "4"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "06"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "5"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      }
+    ]
+[17:46:30.110] INFO (48986): report_v4.athlete_sheets_rebuilt_generate
+    sections: 8
+    mismatches: []
+report-v4  iter 03  │  end_turn  │  8.059s  │  $0.026  │  in=5 out=302 cacheR=13k cacheW=4.7k  │  cum $0.143
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.026  │  total so far $0.143  │  iter time 8.059s
+report-v4  agent-stop  │  designer  │  self_ended  │  3 iteration(s)  │  max=14  │  force@12  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  designer  │  3 iteration(s)  │  62.824s  │  $0.143
+report-v4  tokens  │  in=29  │  out=4.9k  │  cacheR=16k  │  cacheW=17k  │  all=5.0k
+report-v4  detail  │  htmlBytes=312085 freeArtifact=true softRepair=false
+[17:46:38.171] INFO (48986): report_v4.designer_done
+    htmlBytes: 312085
+    freeArtifact: true
+    iterations: 3
+    softRebindRepair: false
+[17:46:38.177] INFO (48986): report_v4.data_reliability_block
+    blocks: 48
+    sampleRows: 420
+    imputedExcludedCells: 154
+[17:46:38.181] INFO (48986): report_v4.artifact_parity
+    ok: false
+    issues: [
+      {
+        "kind": "missing_block",
+        "blockId": "898c13e9-afed-4a07-972d-99d9869764e1",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "739e6797-daf5-405a-a4eb-193c43b54398",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "30f94c2c-a290-4485-bd04-db08ee5a623d",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "9e0f2ae0-75fb-4fe5-a91e-b60699d7ff2c",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "0be5b62a-269e-4fec-b9ae-c9549519f0d6",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "b6c99cab-b50c-4ab3-bc1f-267b866fa539",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "720f001d-cf1e-4543-b2ed-1e88ed81117d",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "80bd19e1-1ad7-4a2c-a14e-aace7b0f047f",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "40bf9ca6-f888-45e0-94ac-e025b15633bc",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "41fcfe33-9e80-488e-9e41-7dfecaa66618",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "a220953e-cb0b-408e-a08a-9ba2de4d75ae",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "b762ad53-5f57-4128-b614-e33602d0228a",
+        "detail": "data-block-id absent from html"
+      }
+    ]
+    documentBlockCount: 48
+    htmlBlockCount: 15
+[17:46:38.183] INFO (48986): report_v4.ask_contract
+    status: "partial"
+    gaps: [
+      {
+        "id": "athletes",
+        "status": "partial"
+      }
+    ]
+[17:46:43.769] WARN (48986): report_v4.pdf_charts_partial
+    chartBoxes: 27
+    chartsReady: true
+    boxesReady: false
+{"ok":true,"tag":"baseline_individual_r75","iterations":31,"costUsd":4.1057500000000005,"durationSec":337.653,"pdfOk":true,"pdfError":null,"htmlPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_individual_r75.html","metaPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_individual_r75.meta.json","pdfPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_individual_r75.pdf"}

@@ -1,4 +1,4 @@
-export type FewShotXml = string
+type FewShotXml = string
 
 export const ANALYST_FEW_SHOTS: FewShotXml = `
 <example id="analyst_scores_individuals_envelope">
@@ -133,8 +133,8 @@ export const ANALYST_FEW_SHOTS: FewShotXml = `
   <ideal_tool_calls>
     1. add_heading "Wellness" → add_chart/add_table from ds_wellness columns only
     2. add_heading "GPS" → add_chart/add_table from ds_gps columns only
-    3. Per watch athlete: add_heading AthleteName → charts/tables that mention that athlete (athletes:[Name] or rows)
-    4. commit_report_brief then end_turn
+    3. athlete sheets already built by code for watch athletes — never per-athlete heading loops
+    4. add_sheet_comments once with comments:[{athlete,text}] then commit_report_brief then end_turn
   </ideal_tool_calls>
   <notes>
     Table columns MUST match the section domain: never put GPS distance/hmld/hsr columns under a Wellness heading (or vice versa). Athlete sheet heading A must not host athlete B's table.

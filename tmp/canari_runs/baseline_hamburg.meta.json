@@ -1,0 +1,404 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.",
+  "durationSec": 215.596,
+  "iterations": 11,
+  "usage": {
+    "inputTokens": 83022,
+    "outputTokens": 16421,
+    "cacheReadInputTokens": 199000,
+    "cacheCreationInputTokens": 1942,
+    "totalTokens": 99443,
+    "estimatedCostUsd": 0.562363
+  },
+  "iterationSecs": [
+    5.893,
+    6.198,
+    10.698,
+    9.182,
+    36.742,
+    7.821,
+    33.512,
+    17.272,
+    1.725,
+    65.812,
+    8.8
+  ],
+  "iterationCosts": [
+    0.015369,
+    0.045715,
+    0.02242,
+    0.034292,
+    0.078098,
+    0.051206,
+    0.083987,
+    0.066758,
+    0.004734,
+    0.117834,
+    0.041949
+  ],
+  "message": "Rapport refait entièrement. Rapport livré : tout ce qui était demandé est présent.",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    },
+    "fetchRange": {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    },
+    "domainRanges": {
+      "load": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "gps": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "sleep": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "scores": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 6,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 4,
+        "athletesWithData": 20,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 1,
+        "athletesWithData": 13,
+        "populated": false
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 6,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 6,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 20,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "match",
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.",
+    "domains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "load",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "sleep",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+  },
+  "blockCount": 31,
+  "chartCount": 10,
+  "blockTitles": [
+    {
+      "id": "0d7007f0-f2ac-4ebb-b383-1726c188951a",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "81c3395f-aa89-4e8f-bfec-5ce5093ed000",
+      "type": "chart",
+      "title": "sRPE quotidien équipe"
+    },
+    {
+      "id": "32d2317c-7cdb-4e16-8ea5-092f03d3eb5b",
+      "type": "table",
+      "title": "Top 5 charge sRPE période"
+    },
+    {
+      "id": "e9af5d79-fef5-498b-afd5-695ccc4e721a",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "56b82137-43f7-4376-ab91-a22425ae3aed",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "d25be6cf-bd7e-4061-bab8-4ac1933465e6",
+      "type": "chart",
+      "title": "Distance totale — Top 3"
+    },
+    {
+      "id": "99279003-40b8-4722-ba51-6b0d54f23a31",
+      "type": "chart",
+      "title": "HMLD — Top 3"
+    },
+    {
+      "id": "61e1bbae-2af4-41ae-b274-4aa2395c5bab",
+      "type": "chart",
+      "title": "High speed running — Top 3"
+    },
+    {
+      "id": "9959d947-0534-4576-9524-eefa55a374b5",
+      "type": "chart",
+      "title": "Distance explosive — Top 3"
+    },
+    {
+      "id": "f01b8737-08c7-4324-9c7c-b47b26977e39",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "8a6b9755-7019-4cf8-bbe1-baf6b9c933ad",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "ff39f662-82bb-4d7d-be56-2821529b0d36",
+      "type": "table",
+      "title": "Top 10 minutes jouées (10 oct.)"
+    },
+    {
+      "id": "1f5cb191-eef1-4af0-bbf0-9892bbc00f45",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "90bf0fa7-edc2-456d-9449-b910b055655b",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "ffa0074f-3e31-4a4f-9b96-21f989a00791",
+      "type": "chart",
+      "title": "Courbatures moyennes (RPE Body)"
+    },
+    {
+      "id": "db677af6-dfc7-452b-b2ec-d19ea375b0d2",
+      "type": "chart",
+      "title": "Humeur moyenne"
+    },
+    {
+      "id": "33396492-98d0-4942-8d3d-f9c7322cb2ce",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "288ea438-edf2-4d0b-97b8-694f2ee510a5",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "ca36314b-9045-4df5-b523-b8b3098b3477",
+      "type": "chart",
+      "title": "Qualité de sommeil moyenne"
+    },
+    {
+      "id": "0475d021-bdb2-4e81-883f-eff2c1b07268",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "a466eb98-d097-4ec4-a272-ed79978831d2",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "bafd830d-e6a7-400a-8027-0c568dddc11c",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "c5ab694c-ae99-420b-8eae-7e6b3f62beed",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "851b6fc3-285e-423b-86b2-4047a7c82ac4",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "2676219d-9cd9-4dd6-9d86-40e3381d6b6c",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "ec05428f-e6e8-4af6-80e0-78dd7c98cf2d",
+      "type": "table",
+      "title": "Top 5 risque blessure (dernière valeur)"
+    },
+    {
+      "id": "d0549069-8cfe-4d86-a428-6a5f8cce12a8",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "774d4237-dd9b-4a12-a5b6-5424845578ae",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "b8fb7523-a207-4362-a2b7-caeeebdf69ea",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "reliability-h-30",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-31",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    5.893,
+    6.198,
+    10.698,
+    9.182,
+    36.742,
+    7.821,
+    33.512,
+    17.272,
+    1.725,
+    65.812,
+    8.8
+  ],
+  "agentUsage": {
+    "linker": {
+      "iterations": 2,
+      "durationSec": 12.091,
+      "costUsd": 0.061,
+      "inputTokens": "11k",
+      "outputTokens": "632",
+      "cacheReadInputTokens": "59k",
+      "cacheCreationInputTokens": "0"
+    },
+    "analyst": {
+      "iterations": 6,
+      "durationSec": 115.227,
+      "costUsd": 0.337,
+      "inputTokens": "54k",
+      "outputTokens": "8.9k",
+      "cacheReadInputTokens": "133k",
+      "cacheCreationInputTokens": "0"
+    },
+    "designer": {
+      "iterations": 3,
+      "durationSec": 76.337,
+      "costUsd": 0.165,
+      "inputTokens": "17k",
+      "outputTokens": "6.9k",
+      "cacheReadInputTokens": "6.4k",
+      "cacheCreationInputTokens": "1.9k"
+    }
+  }
+}

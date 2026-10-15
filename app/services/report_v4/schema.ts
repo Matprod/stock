@@ -8,8 +8,9 @@ import {
   REPORT_DESIGN_PACK_IDS,
   REPORT_V4_ISO_DATE_PATTERN,
   REPORT_V4_MAX_BLOCKS,
-  REPORT_V4_PROMPT_MAX,
 } from '#services/report_v4/report_v4_constants'
+
+const PROMPT_MAX = 48_000
 
 const isoDateSchema = vine.string().regex(new RegExp(REPORT_V4_ISO_DATE_PATTERN))
 
@@ -40,7 +41,7 @@ const historySchema = vine
   .array(
     vine.object({
       role: vine.enum(['user', 'assistant'] as const),
-      content: vine.string().trim().minLength(1).maxLength(REPORT_V4_PROMPT_MAX),
+      content: vine.string().trim().minLength(1).maxLength(PROMPT_MAX),
     })
   )
   .maxLength(PREMIUM_REPORT_HISTORY_MAX)
@@ -65,7 +66,7 @@ const sessionFocusSchema = vine.object({
 
 export const fullStaffReportGenerateSchema = vine.compile(
   vine.object({
-    prompt: vine.string().trim().minLength(1).maxLength(REPORT_V4_PROMPT_MAX),
+    prompt: vine.string().trim().minLength(1).maxLength(PROMPT_MAX),
     history: historySchema.clone().optional(),
     sessionFocus: sessionFocusSchema.clone().optional(),
     document: documentSchema.clone().optional(),

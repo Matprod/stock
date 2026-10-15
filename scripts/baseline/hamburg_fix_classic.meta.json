@@ -1,0 +1,353 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.",
+  "durationSec": 336.763,
+  "iterations": 13,
+  "usage": {
+    "inputTokens": 739,
+    "outputTokens": 27631,
+    "cacheReadInputTokens": 181153,
+    "cacheCreationInputTokens": 210536,
+    "totalTokens": 28370,
+    "estimatedCostUsd": 1.260538
+  },
+  "iterationSecs": [
+    7.156,
+    5.673,
+    13.722,
+    20.469,
+    12.473,
+    9.344,
+    5.023,
+    43.661,
+    11.127,
+    1.504,
+    99.011,
+    89.146,
+    11.874
+  ],
+  "iterationCosts": [
+    0.079501,
+    0.097261,
+    0.120154,
+    0.116427,
+    0.12152,
+    0.119183,
+    0.022314,
+    0.062588,
+    0.110476,
+    0.011213,
+    0.163239,
+    0.190581,
+    0.04608
+  ],
+  "message": "Mise en page libre impossible (set_report_html_grounding_reject) ; modèle de secours utilisé.",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    },
+    "fetchRange": {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    },
+    "domainRanges": {
+      "load": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "wellness": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "sleep": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "match": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 23,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 3,
+        "athletesWithData": 19,
+        "populated": true
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.",
+    "domains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "load",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "domain": "sleep",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "domain": "match",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+  },
+  "blockCount": 25,
+  "chartCount": 11,
+  "blockTitles": [
+    {
+      "id": "3049ff23-4f79-43a9-8201-aaaf198f9b5b",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "3ca0c0fe-89c3-4b00-bb8a-e62d25395c17",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "10306b2e-27d1-44f8-9b00-8b9096792bb7",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "48412967-884d-4159-ab1e-1efa1e9a85e2",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "bd357586-047a-4c23-84a0-956d2b5921be",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "5e69719f-cf08-4648-b40c-8eb31201b9be",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "3acc387b-84a7-40b4-b719-299700675112",
+      "type": "chart",
+      "title": "sRPE quotidien — moyenne équipe"
+    },
+    {
+      "id": "aa3145ce-b77c-4d8a-a137-87f3c9966aec",
+      "type": "chart",
+      "title": "Charge totale hebdomadaire (sRPE)"
+    },
+    {
+      "id": "25ef32a7-a0ed-41cf-833c-9243062cded7",
+      "type": "table",
+      "title": "Top 5 — Charge quotidienne maximale"
+    },
+    {
+      "id": "9d8bfbbe-fe58-44c9-9cd1-dee10b2ddfe7",
+      "type": "chart",
+      "title": "Distance totale hebdomadaire"
+    },
+    {
+      "id": "5d358c81-398f-43b8-909a-1e1b317044e6",
+      "type": "chart",
+      "title": "HMLD hebdomadaire"
+    },
+    {
+      "id": "b510cd28-745d-4b7d-9893-697bdc49e7cc",
+      "type": "chart",
+      "title": "Distance explosive hebdomadaire"
+    },
+    {
+      "id": "7e73fb42-1e58-48b1-9171-4834b107791d",
+      "type": "chart",
+      "title": "Course à haute vitesse hebdomadaire"
+    },
+    {
+      "id": "1a7a3d50-16ed-45d2-9faa-5a4f33a23f1a",
+      "type": "table",
+      "title": "Statistiques match — période"
+    },
+    {
+      "id": "5a8110b8-beda-4bc0-b56f-cffa849355fd",
+      "type": "chart",
+      "title": "Courbatures moyennes (RPE Body)"
+    },
+    {
+      "id": "d5b09f7a-594c-4485-ab3c-8bcb765ec886",
+      "type": "chart",
+      "title": "Humeur moyenne"
+    },
+    {
+      "id": "dc78f033-5c01-4ff6-94ca-4d7693196ad4",
+      "type": "chart",
+      "title": "Qualité de sommeil moyenne"
+    },
+    {
+      "id": "927f2595-9e69-4717-8e1a-468a7decb5f5",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "d8b28c8b-b2ef-45c9-b4da-dee87710f2a7",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "0a01f85e-b8f8-442e-8ed2-5947fed931e5",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "87167bbb-48e2-47e3-b19e-453d1827522a",
+      "type": "table",
+      "title": "Qualité de sommeil — à surveiller"
+    },
+    {
+      "id": "2785692f-a648-4566-82a5-59056c6e9018",
+      "type": "table",
+      "title": "Synthèse — Charge × Wellness"
+    },
+    {
+      "id": "e1d5e205-085f-4b1c-b27d-32e1ac681348",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "reliability-h-24",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-25",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    7.156,
+    5.673,
+    13.722,
+    20.469,
+    12.473,
+    9.344,
+    5.023,
+    43.661,
+    11.127,
+    1.504,
+    99.011,
+    89.146,
+    11.874
+  ],
+  "freeDesigner": false,
+  "freeDesignerRefs": true
+}

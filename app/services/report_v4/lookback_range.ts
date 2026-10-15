@@ -1,11 +1,16 @@
+import { DateTime } from 'luxon'
+import type { AppLanguage } from '#utils/localize'
+
 export type IsoDateRange = { from: string; to: string }
 
-export type LookbackOptions = {
+type LookbackOptions = {
   ewmaWindowDays?: number
   lookbackDays?: number
 }
 
 export const EWMA_CHRONIC_MIN_LOOKBACK_DAYS = 28
+
+export const DEFAULT_REPORT_TIMEZONE = 'Europe/Paris'
 
 const isoFromUtc = (date: Date): string => {
   const year = date.getUTCFullYear()
@@ -15,6 +20,54 @@ const isoFromUtc = (date: Date): string => {
 }
 
 export const todayUtcIso = (): string => isoFromUtc(new Date())
+
+export const todayInTimeZone = (timeZone = DEFAULT_REPORT_TIMEZONE): string => {
+  const iso = DateTime.now().setZone(timeZone).toISODate()
+  return iso ?? todayUtcIso()
+}
+
+export const resolveClubReportTimeZone = (_club?: { language?: AppLanguage } | null): string =>
+  DEFAULT_REPORT_TIMEZONE
+
+export const previousCompleteCalendarWeek = (todayIso: string): IsoDateRange => {
+  const [y, m, d] = todayIso.split('-').map(Number)
+  const today = new Date(Date.UTC(y!, m! - 1, d!))
+  const dow = today.getUTCDay()
+  const daysSinceMonday = (dow + 6) % 7
+  const thisMonday = new Date(today)
+  thisMonday.setUTCDate(today.getUTCDate() - daysSinceMonday)
+  const lastSunday = new Date(thisMonday)
+  lastSunday.setUTCDate(thisMonday.getUTCDate() - 1)
+  const lastMonday = new Date(lastSunday)
+  lastMonday.setUTCDate(lastSunday.getUTCDate() - 6)
+  return { from: isoFromUtc(lastMonday), to: isoFromUtc(lastSunday) }
+}
+
+export const currentWeekToDate = (todayIso: string): IsoDateRange => {
+  const [y, m, d] = todayIso.split('-').map(Number)
+  const today = new Date(Date.UTC(y!, m! - 1, d!))
+  const dow = today.getUTCDay()
+  const daysSinceMonday = (dow + 6) % 7
+  const thisMonday = new Date(today)
+  thisMonday.setUTCDate(today.getUTCDate() - daysSinceMonday)
+  return { from: isoFromUtc(thisMonday), to: todayIso }
+}
+
+export const formatReportDateLabel = (
+  isoDate: string,
+  language: AppLanguage = 'en',
+  timeZone = 'UTC'
+): string => {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(isoDate)
+  if (!match) return isoDate
+  const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])))
+  return date.toLocaleDateString(language === 'fr' ? 'fr-FR' : 'en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    timeZone,
+  })
+}
 
 export const dateToIsoDay = (value: Date | string): string => {
   if (typeof value === 'string') {

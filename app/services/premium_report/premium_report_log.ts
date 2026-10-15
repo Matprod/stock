@@ -1,5 +1,3 @@
-import { inspect } from 'node:util'
-
 export const elapsedSec = (t0: number): number => Number(((Date.now() - t0) / 1000).toFixed(3))
 
 export type PremiumReportTokenUsage = {
@@ -33,17 +31,33 @@ const c = {
 
 const PREFIX = c.magenta(c.bold('premium'))
 
+let premiumConsoleEnabled = true
+
+export const setPremiumConsoleLogging = (enabled: boolean): void => {
+  premiumConsoleEnabled = enabled
+}
+
+export const withPremiumConsoleQuiet = async <T>(fn: () => Promise<T>): Promise<T> => {
+  const previous = premiumConsoleEnabled
+  premiumConsoleEnabled = false
+  try {
+    return await fn()
+  } finally {
+    premiumConsoleEnabled = previous
+  }
+}
+
 const sep = (): string => c.dim('│')
 
 const joinParts = (parts: Array<string | undefined>): string =>
   parts.filter(Boolean).join(`  ${sep()}  `)
 
-const tag = (label: string, tone: (s: string) => string = c.cyan): string =>
-  tone(label.padEnd(6))
+const tag = (label: string, tone: (s: string) => string = c.cyan): string => tone(label.padEnd(6))
 
 const statusOk = (ok: boolean): string => (ok ? c.green('ok') : c.red('ERR'))
 
 export const premiumLog = (line: string): void => {
+  if (!premiumConsoleEnabled) return
   process.stdout.write(`${PREFIX}  ${line}\n`)
 }
 
@@ -53,10 +67,7 @@ const formatTokens = (usage: {
   cacheReadInputTokens?: number
   cacheCreationInputTokens?: number
 }): string => {
-  const parts = [
-    `in=${fmtCount(usage.inputTokens)}`,
-    `out=${fmtCount(usage.outputTokens)}`,
-  ]
+  const parts = [`in=${fmtCount(usage.inputTokens)}`, `out=${fmtCount(usage.outputTokens)}`]
   if (usage.cacheReadInputTokens) parts.push(`cacheR=${fmtCount(usage.cacheReadInputTokens)}`)
   if (usage.cacheCreationInputTokens) {
     parts.push(`cacheW=${fmtCount(usage.cacheCreationInputTokens)}`)
@@ -64,49 +75,7 @@ const formatTokens = (usage: {
   return c.gray(parts.join(' '))
 }
 
-const formatUsd = (usd: number): string =>
-  c.yellow(`$${usd.toFixed(usd < 0.01 ? 4 : 3)}`)
-
-export const logPremiumStart = (args: {
-  clubId: string
-  domains: string[]
-  athleteCount: number
-  toolCount: number
-  promptPreview: string
-}): void => {
-  premiumLog(
-    joinParts([
-      tag('START', c.bold),
-      c.cyan(`club=${args.clubId}`),
-      `domains=${c.blue(args.domains.join(',') || '—')}`,
-      `athletes=${args.athleteCount}`,
-      `tools=${args.toolCount}`,
-    ])
-  )
-  premiumLog(
-    joinParts([
-      tag('prompt', c.dim),
-      c.dim(args.promptPreview.replace(/\s+/g, ' ').trim()),
-    ])
-  )
-}
-
-export const logPremiumSparse = (args: {
-  daysWithData: number
-  athletesWithData: number
-  minDays: number
-  minAthletes: number
-  dateRange: { from: string; to: string }
-}): void => {
-  premiumLog(
-    joinParts([
-      tag('SPARSE', c.yellow),
-      `${args.dateRange.from}→${args.dateRange.to}`,
-      `days=${args.daysWithData}/${args.minDays}`,
-      `athletesWithData=${args.athletesWithData}/${args.minAthletes}`,
-    ])
-  )
-}
+const formatUsd = (usd: number): string => c.yellow(`$${usd.toFixed(usd < 0.01 ? 4 : 3)}`)
 
 export const logPremiumIteration = (args: {
   iteration: number
@@ -133,7 +102,15 @@ export const logPremiumIteration = (args: {
 }
 
 export const logPremiumJev = (args: {
-  kind: 'intent' | 'chart_type' | 'chart_rules' | 'table_heat' | 'text_caption' | 'canvas_ask' | 'route' | 'team_chart'
+  kind:
+    | 'intent'
+    | 'chart_type'
+    | 'chart_rules'
+    | 'table_heat'
+    | 'text_caption'
+    | 'canvas_ask'
+    | 'route'
+    | 'team_chart'
   durationSec: number
   ok: boolean
   decision: string
@@ -205,57 +182,6 @@ export const logPremiumTool = (args: {
   )
 }
 
-export const logPremiumDone = (args: {
-  iterations: number
-  durationSec: number
-  usage: PremiumReportTokenUsage
-  blockCount?: number
-  chartCount?: number
-  datasetCount?: number
-  blockSql?: boolean
-  maxIterations?: boolean
-  sqlErrors?: number
-  jevValidations?: number
-  jevBlocked?: number
-  chartsBackfilled?: number
-}): void => {
-  const label = args.maxIterations ? 'MAX' : 'DONE'
-  premiumLog(
-    joinParts([
-      tag(label, args.maxIterations ? c.yellow : c.green),
-      `${args.iterations} iters`,
-      c.dim(`${args.durationSec}s`),
-      c.gray(`tok=${fmtCount(args.usage.totalTokens)} (${formatTokens(args.usage)})`),
-      formatUsd(args.usage.estimatedCostUsd),
-      args.blockCount != null ? `blocks=${args.blockCount}` : undefined,
-      args.chartCount != null ? `charts=${args.chartCount}` : undefined,
-      args.chartsBackfilled != null ? `charts+=${args.chartsBackfilled}` : undefined,
-      args.datasetCount != null ? `datasets=${args.datasetCount}` : undefined,
-      args.blockSql ? c.yellow('sql=blocked') : undefined,
-      args.sqlErrors != null && args.sqlErrors > 0
-        ? c.red(`sql_errors=${args.sqlErrors}`)
-        : undefined,
-      args.jevValidations != null && args.jevValidations > 0
-        ? `jev=${args.jevValidations}/${args.jevBlocked || 0}`
-        : undefined,
-    ])
-  )
-}
-
-/** Pretty-print a structured object on one or more indented lines (debug). */
-export const logPremiumPretty = (label: string, value: unknown): void => {
-  const body = inspect(value, {
-    colors: USE_COLOR,
-    depth: 4,
-    compact: false,
-    breakLength: 100,
-  })
-  premiumLog(joinParts([tag('dump', c.cyan), c.bold(label)]))
-  for (const line of body.split('\n')) {
-    premiumLog(c.dim(`       ${line}`))
-  }
-}
-
 const SQL_LOG_MAX = 2_000
 
 const logSqlBody = (sql: string): void => {
@@ -301,21 +227,49 @@ export const logReportV4Banner = (args: {
   promptPreview: string
   displayRange: { from: string; to: string }
   domains: string[]
+  freeDesigner?: boolean
+  freeDesignerRefs?: boolean
+  lang?: string
+  path?: string
+  runId?: string
 }): void => {
-  process.stdout.write(`\n${c.blue('════════════════════════════════════════════════════════════')}\n`)
-  v4Line([c.bold('START'), c.white(args.clubName), `${args.displayRange.from} → ${args.displayRange.to}`])
+  process.stdout.write(
+    `\n${c.blue('════════════════════════════════════════════════════════════')}\n`
+  )
+  v4Line([
+    c.bold('START'),
+    c.white(args.clubName),
+    `${args.displayRange.from} → ${args.displayRange.to}`,
+  ])
   v4Line([c.dim('domains'), c.cyan(args.domains.join(', ') || '—')])
+  if (
+    args.freeDesigner != null ||
+    args.freeDesignerRefs != null ||
+    args.lang != null ||
+    args.path != null
+  ) {
+    v4Line([
+      c.dim('flags'),
+      c.white(
+        [
+          `freeDesigner=${args.freeDesigner ? 'on' : 'off'}`,
+          `refs=${args.freeDesignerRefs ? 'on' : 'off'}`,
+          `lang=${args.lang ?? '—'}`,
+          `path=${args.path ?? '—'}`,
+        ].join(' · ')
+      ),
+      args.runId ? c.dim(`run=${args.runId}`) : undefined,
+    ])
+  }
   v4Line([c.dim('prompt'), c.dim(args.promptPreview.replace(/\s+/g, ' ').trim().slice(0, 180))])
-  process.stdout.write(`${c.blue('────────────────────────────────────────────────────────────')}\n`)
+  process.stdout.write(
+    `${c.blue('────────────────────────────────────────────────────────────')}\n`
+  )
 }
 
 export const logReportV4Iteration = (args: ReportV4IterationLog): void => {
   const reasonTone =
-    args.stopReason === 'tool_use'
-      ? c.cyan
-      : args.stopReason === 'end_turn'
-        ? c.green
-        : c.yellow
+    args.stopReason === 'tool_use' ? c.cyan : args.stopReason === 'end_turn' ? c.green : c.yellow
 
   const action =
     args.tools.length > 0
@@ -367,6 +321,31 @@ export const logReportV4Pdf = (args: {
   ])
 }
 
+export type ReportV4AgentStopClass = 'self_ended' | 'force_answer_at' | 'max_reached'
+
+export const logReportV4AgentStop = (args: {
+  agent: 'linker' | 'analyst' | 'analyst_recovery' | 'designer' | string
+  stopClass: ReportV4AgentStopClass
+  iterations: number
+  maxIterations?: number
+  forceAnswerAt?: number
+  profile?: 'soft' | 'full'
+}): void => {
+  let stopTone = c.red
+  if (args.stopClass === 'self_ended') stopTone = c.green
+  else if (args.stopClass === 'force_answer_at') stopTone = c.yellow
+
+  v4Line([
+    c.magenta('agent-stop'),
+    c.white(args.agent),
+    stopTone(args.stopClass),
+    `${args.iterations} iteration(s)`,
+    args.maxIterations != null ? c.dim(`max=${args.maxIterations}`) : undefined,
+    args.forceAnswerAt != null ? c.dim(`force@${args.forceAnswerAt}`) : undefined,
+    args.profile ? c.dim(args.profile) : undefined,
+  ])
+}
+
 export const logReportV4AgentTotal = (args: {
   agent: 'linker' | 'analyst' | 'designer' | string
   iterations: number
@@ -405,7 +384,9 @@ export const logReportV4Done = (args: {
   chartCount: number
   filename?: string
 }): void => {
-  process.stdout.write(`${c.blue('────────────────────────────────────────────────────────────')}\n`)
+  process.stdout.write(
+    `${c.blue('────────────────────────────────────────────────────────────')}\n`
+  )
   v4Line([
     c.green(c.bold('TOTAL')),
     `${args.iterations} iteration(s)`,
@@ -440,7 +421,9 @@ export const logReportV4Done = (args: {
     `charts=${args.chartCount}`,
     args.filename ? c.white(args.filename) : undefined,
   ])
-  process.stdout.write(`${c.blue('════════════════════════════════════════════════════════════')}\n`)
+  process.stdout.write(
+    `${c.blue('════════════════════════════════════════════════════════════')}\n`
+  )
   const hmrPad = c.dim('-'.repeat(60))
   for (let i = 0; i < 48; i++) {
     process.stdout.write(`${hmrPad}\n`)

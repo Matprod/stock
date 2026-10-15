@@ -1,4 +1,4 @@
-export type ScopeAthlete = {
+type ScopeAthlete = {
   id: string
   name: string
   position: string | null

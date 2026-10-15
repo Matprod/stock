@@ -61,6 +61,9 @@ Select s.id,s.type,a.id AS athlete_id, names, ad.date_of_day. TRIM+ILIKE names; 
 SCHEMA:
 `
 
+export const REPORT_SQL_DB_TOOL_DESCRIPTION =
+  'Execute a read-only SQL SELECT. Prefer macros. Schema and club metric names are in the system run block. Always SELECT unit with values. Never invent rows.'
+
 export const DB_TOOL_FULL_DESCRIPTION_PREFIX = `Execute a read-only SQL SELECT against mauna.
 Use CLUB * METRICS / CLUB BIOMARKERS / CLUB HEALTH METRICS blocks for names; always SELECT unit with values.
 RPE / perceived exertion: if CLUB HEALTH METRICS lists any *rpe* name, those are the ONLY session-RPE source — query health_metric_values. Do NOT query/mention sport_activities.rpe. Daily body wellness (body_soreness_rating) comes from club subjective scales, not sa.rpe.

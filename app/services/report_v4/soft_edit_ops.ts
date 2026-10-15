@@ -11,7 +11,7 @@ import {
 import type { SoftCanvasInventory } from '#services/report_v4/soft_canvas_inventory'
 import type { AppLanguage } from '#utils/localize'
 
-export type SoftEditOp =
+type SoftEditOp =
   | { type: 'remove_section'; query: string }
   | { type: 'ensure_toc' }
   | { type: 'strip_empty_sections' }
@@ -33,7 +33,7 @@ export type SoftEditOpsPlan = {
   chartOptionsPatched?: number
 }
 
-export const softEditOpsFromIntent = (
+const softEditOpsFromIntent = (
   flags: SoftEditIntentFlags,
   removeQueries: string[] = []
 ): SoftEditOpsPlan => {
@@ -91,13 +91,6 @@ export const softEditOpsFromIntent = (
     enrichExistingCharts,
   }
 }
-
-export const resolveSoftEditOps = (
-  flags: SoftEditIntentFlags,
-  _prompt?: string,
-  _inventory?: SoftCanvasInventory | null,
-  removeQueries: string[] = []
-): SoftEditOpsPlan => softEditOpsFromIntent(flags, removeQueries)
 
 export const resolveSoftEditOpsAsync = async (args: {
   prompt: string

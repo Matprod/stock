@@ -21,7 +21,7 @@ import { ASK_FAITHFUL_NOTE } from '#services/report_v4/coach_policy_heuristic'
 import { requireJevClient, throwJevUnavailable } from '#services/report_v4/jev_guard'
 import { choiceValue, noulScore } from '#utils/jev_answers'
 
-export type ReportV4AnalysisDepth = 'standard' | 'deep'
+type ReportV4AnalysisDepth = 'standard' | 'deep'
 
 export type ReportV4Route = {
   grain: PremiumGrain

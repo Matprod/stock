@@ -1,4 +1,5 @@
 import { PREMIUM_BLOCK_TYPE } from '#constants/premium_report.constants'
+import type { PremiumDomain } from '#constants/premium_report_domains'
 import type { ReportDateRange } from '#contracts/report_builder'
 
 export type PremiumReportDateRange = ReportDateRange
@@ -93,4 +94,7 @@ export type PremiumDataset = {
   units?: Record<string, string>
   labels?: Record<string, string>
   dateRange?: PremiumReportDateRange
+  domain?: PremiumDomain
+  imputed?: Array<Record<string, string> | undefined>
+  imputedExcludedCount?: number
 }

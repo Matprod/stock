@@ -6,7 +6,7 @@ import {
   tocPresentInHtml,
 } from '#services/report_v4/artifact_sections'
 
-export type SoftCanvasBlockIndex = {
+type SoftCanvasBlockIndex = {
   id: string
   type: string
   title: string

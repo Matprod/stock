@@ -10,12 +10,8 @@ import {
 } from '#services/premium_report/premium_report_document'
 import type { PremiumReportState } from '#services/premium_report/premium_report_tools'
 import type { PremiumReportTokenUsage } from '#services/premium_report/premium_report_log'
-import {
-  REPORT_V4_MIN_CHARTS,
-  REPORT_V4_MIN_CHARTS_SHORT,
-  REPORT_V4_MIN_TABLES,
-  REPORT_V4_MIN_TABLES_SHORT,
-} from '#services/report_v4/report_v4_constants'
+import { contentFloorsThin, type ContentFloors } from '#services/report_v4/request/content_ask'
+import { harvestHasUsableDatasets } from '#services/report_v4/harvest_plan'
 import { synthesizeReportBriefFromDocument } from '#services/report_v4/report_brief'
 import type { ReportBrief } from '#services/report_v4/report_brief'
 import { pruneDocumentToClubPositions } from '#services/report_v4/position_catalog'
@@ -27,6 +23,8 @@ import type { ReportFact } from '#services/report_v4/report_facts'
 import type { AppLanguage } from '#utils/localize'
 
 import type { ClubInsightScience } from '#services/report_v4/club_insight_science'
+import type { LayoutWarning } from '#services/report_v4/free_designer/layout_checks'
+import type { GroundingViolation } from '#services/report_v4/grounding_report'
 
 export type ReportV4RunState = {
   route: ReportV4Route
@@ -44,16 +42,18 @@ export type ReportV4RunState = {
   clubName: string
   clubInsightScience?: ClubInsightScience[]
   templateRecoveredReason?: string | null
+  groundingWarnings?: GroundingViolation[]
+  layoutWarnings?: LayoutWarning[]
 }
 
-export type DatasetCatalogEntry = {
+type DatasetCatalogEntry = {
   id: string
   columns: string[]
   rows: number
   dateRange: IsoDateRange | null
 }
 
-export type CanvasStats = {
+type CanvasStats = {
   charts: number
   tables: number
   thin: boolean
@@ -104,7 +104,7 @@ const formatFetchWindows = (
     .join(' | ')
 }
 
-export type TimeRangeBriefArgs = {
+type TimeRangeBriefArgs = {
   displayRange: IsoDateRange
   coverRange: IsoDateRange
   fetchRange: IsoDateRange
@@ -146,16 +146,20 @@ export const formatTimeRangeBrief = (args: TimeRangeBriefArgs): string => {
 
 export const canvasStats = (
   document: PremiumReportDocument,
-  floors?: { minCharts: number; minTables: number }
+  floors?: ContentFloors
 ): CanvasStats => {
-  const minCharts = floors?.minCharts ?? REPORT_V4_MIN_CHARTS
-  const minTables = floors?.minTables ?? REPORT_V4_MIN_TABLES
   const charts = document.blocks.filter((block) => block.type === PREMIUM_BLOCK_TYPE.CHART).length
   const tables = document.blocks.filter((block) => block.type === PREMIUM_BLOCK_TYPE.TABLE).length
+  const resolved: ContentFloors = floors ?? {
+    minCharts: 0,
+    minTables: 0,
+    minCombined: 0,
+    mode: 'none',
+  }
   return {
     charts,
     tables,
-    thin: charts < minCharts || tables < minTables,
+    thin: contentFloorsThin(resolved, charts, tables),
   }
 }
 
@@ -231,7 +235,7 @@ export const rejectThinCanvas =
   (args: {
     preserveCanvas: boolean
     continueMsg: string
-    shortWindow?: boolean
+    floors: ContentFloors
     priorSoftDigest?: string
   }) =>
   (state: PremiumReportState): string | null => {
@@ -240,15 +244,18 @@ export const rejectThinCanvas =
       if (canvasSoftDigest(state.document) === args.priorSoftDigest) return args.continueMsg
       return null
     }
-    const hasHarvestData = [...state.datasets.values()].some(
-      (dataset) => dataset.id !== 'roster' && dataset.rows.length > 0
-    )
+    const hasHarvestData = harvestHasUsableDatasets(state)
     if (!hasHarvestData) return null
-    const minCharts = args.shortWindow ? REPORT_V4_MIN_CHARTS_SHORT : REPORT_V4_MIN_CHARTS
-    const minTables = args.shortWindow ? REPORT_V4_MIN_TABLES_SHORT : REPORT_V4_MIN_TABLES
-    const stats = canvasStats(state.document, { minCharts, minTables })
+    if (
+      args.floors.minCharts === 0 &&
+      args.floors.minTables === 0 &&
+      args.floors.minCombined === 0
+    ) {
+      return null
+    }
+    const stats = canvasStats(state.document, args.floors)
     if (stats.thin) {
-      return `${args.continueMsg} (charts=${stats.charts}/${minCharts}, tables=${stats.tables}/${minTables})`
+      return `${args.continueMsg} (charts=${stats.charts}/${args.floors.minCharts}, tables=${stats.tables}/${args.floors.minTables}, combined=${stats.charts + stats.tables}/${args.floors.minCombined})`
     }
     return null
   }
@@ -260,21 +267,23 @@ export const finalizeAnalystCanvas = (args: {
   clubPostes: string[]
   fallbackTitle: string
   heatScales?: import('#services/premium_report/charts/echarts_options').SubjectiveChartScale[]
+  maxBlocks?: number
 }): PremiumReportDocument => {
   const next = args.document
   if (!next.title.trim()) {
     next.title = args.fallbackTitle.replace(/\s+/g, ' ').trim().slice(0, 80)
   }
   next.dateRange = { from: args.displayRange.from, to: args.displayRange.to }
+  const maxBlocks = Math.max(args.maxBlocks ?? 0, next.blocks.length, 48)
   const prepared = pruneDocumentToClubPositions(
     prepareReportV4Document(
-      sanitizeIncomingDocument(next, args.displayRange, args.language),
+      sanitizeIncomingDocument(next, args.displayRange, args.language, { maxBlocks }),
       args.language,
       args.heatScales
     ),
     args.clubPostes
   )
-  const pruned = dropEmptyChartBlocks(prepared)
+  const pruned = dropEmptyChartBlocks(prepared, args.language)
   if (pruned.dropped.length) {
     logger.warn({ dropped: pruned.dropped }, 'report_v4.dropped_empty_charts')
   }
@@ -291,9 +300,7 @@ export const synthesizeReportBriefIfMissing = (args: {
   const isDataProfileBlock = (id: string): boolean =>
     id === 'data_profile_heading' || id === 'data_profile_body'
   const headings = args.document.blocks
-    .filter(
-      (block) => block.type === PREMIUM_BLOCK_TYPE.HEADING && !isDataProfileBlock(block.id)
-    )
+    .filter((block) => block.type === PREMIUM_BLOCK_TYPE.HEADING && !isDataProfileBlock(block.id))
     .map((block) => (block.type === PREMIUM_BLOCK_TYPE.HEADING ? block.text.trim() : ''))
     .filter(Boolean)
   const textBullets = args.document.blocks

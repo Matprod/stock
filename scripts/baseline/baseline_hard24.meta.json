@@ -1,0 +1,296 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Rapport staff difficile: inclure un long tableau nominatif d au moins 24 joueurs (colonnes: poste, distance totale, HMLD, HSR, sRPE moyen, score perf, score risque) pour 2026-03-01 → 2026-03-07, plus 2 graphiques de synthèse équipe (charge et GPS).",
+  "durationSec": 194.137,
+  "iterations": 15,
+  "usage": {
+    "inputTokens": 126046,
+    "outputTokens": 14118,
+    "cacheReadInputTokens": 179013,
+    "cacheCreationInputTokens": 85443,
+    "totalTokens": 140164,
+    "estimatedCostUsd": 0.964024
+  },
+  "iterationSecs": [
+    4.832,
+    6.937,
+    4.235,
+    6.073,
+    2.585,
+    4.556,
+    10.457,
+    9.707,
+    4.166,
+    26.614,
+    6.289,
+    9.365,
+    2.821,
+    75.988,
+    10.153
+  ],
+  "iterationCosts": [
+    0.111162,
+    0.133804,
+    0.079531,
+    0.0587,
+    0.041182,
+    0.04804,
+    0.063598,
+    0.066547,
+    0.036694,
+    0.060835,
+    0.040261,
+    0.0418,
+    0.011138,
+    0.128175,
+    0.042557
+  ],
+  "message": "Rapport refait entièrement. Rapport livré : tout ce qui était demandé est présent.",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    },
+    "fetchRange": {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    },
+    "domainRanges": {
+      "load": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 23,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 3,
+        "athletesWithData": 19,
+        "populated": true
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Rapport staff difficile: inclure un long tableau nominatif d au moins 24 joueurs (colonnes: poste, distance totale, HMLD, HSR, sRPE moyen, score perf, score risque) pour 2026-03-01 → 2026-03-07, plus 2 graphiques de synthèse équipe (charge et GPS).",
+    "domains": [
+      "load",
+      "gps",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "load",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+  },
+  "blockCount": 13,
+  "chartCount": 5,
+  "blockTitles": [
+    {
+      "id": "33483f57-6c10-46f0-bc07-5f7ac57ecb17",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "8eab4021-0517-4c68-afec-28248a7efb10",
+      "type": "chart",
+      "title": "sRPE moyen — Équipe"
+    },
+    {
+      "id": "27503282-7e2b-48ef-b3b0-35f971346112",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "6c069522-0587-4b33-9ddf-dc4a8c1f0177",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "88d6a5ef-cefa-42dd-bc1e-249e7238f51f",
+      "type": "chart",
+      "title": "Distance totale — Équipe"
+    },
+    {
+      "id": "b1a643c4-2d1f-4559-82fb-174da3453f7e",
+      "type": "chart",
+      "title": "HMLD — Équipe"
+    },
+    {
+      "id": "8aebb986-2038-40af-90db-2d832677e8ce",
+      "type": "chart",
+      "title": "HSR — Équipe"
+    },
+    {
+      "id": "b3db3c28-63f6-4002-850a-bb3ff7384174",
+      "type": "chart",
+      "title": "Distance explosive — Équipe"
+    },
+    {
+      "id": "b35205bd-eb60-439e-adf6-7e4d77c15543",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "44794cef-cfee-4cba-a123-7d02aec97f52",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "8c09f76e-a201-49cd-93f6-644daf96177e",
+      "type": "table",
+      "title": "Synthèse période — 25 joueurs"
+    },
+    {
+      "id": "reliability-h-12",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-13",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    4.832,
+    6.937,
+    4.235,
+    6.073,
+    2.585,
+    4.556,
+    10.457,
+    9.707,
+    4.166,
+    26.614,
+    6.289,
+    9.365,
+    2.821,
+    75.988,
+    10.153
+  ],
+  "agentUsage": {
+    "linker": {
+      "iterations": 2,
+      "durationSec": 11.769,
+      "costUsd": 0.245,
+      "inputTokens": "8.8k",
+      "outputTokens": "477",
+      "cacheReadInputTokens": "0",
+      "cacheCreationInputTokens": "56k"
+    },
+    "analyst": {
+      "iterations": 10,
+      "durationSec": 84.047,
+      "costUsd": 0.537,
+      "inputTokens": "100k",
+      "outputTokens": "6.0k",
+      "cacheReadInputTokens": "174k",
+      "cacheCreationInputTokens": "25k"
+    },
+    "designer": {
+      "iterations": 3,
+      "durationSec": 88.962,
+      "costUsd": 0.182,
+      "inputTokens": "17k",
+      "outputTokens": "7.7k",
+      "cacheReadInputTokens": "4.6k",
+      "cacheCreationInputTokens": "3.8k"
+    }
+  }
+}

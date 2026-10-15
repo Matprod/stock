@@ -150,6 +150,14 @@ export const createMutateDocumentTools = (state: PremiumReportState): PremiumToo
       if (!id) return JSON.stringify({ error: 'id required' })
       const locked = softMutateReject(state, id)
       if (locked) return locked
+      if (state.sheetLockedBlockIds?.has(id)) {
+        return JSON.stringify({
+          error:
+            'Athlete sheet blocks are locked (prebuilt sheets) — remove_block rejected for this id. Use add_sheet_comments / commit_report_brief instead.',
+          id,
+          skipped: true,
+        })
+      }
       const target = state.document.blocks.find((block) => block.id === id)
       if (!target) return blockNotFoundError(state, id)
       if (

@@ -1,0 +1,477 @@
+[15:44:37.424] INFO (29054): report_v4.analyze_request_llm
+    explicit: true
+    display: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    byDomain: {
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    }
+    fetches: [
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "total_distance"
+        ],
+        "label": "Top 10 total GPS distance"
+      }
+    ]
+    askDomains: [
+      "gps"
+    ]
+    periodFollowUp: false
+    multiSection: false
+    rationale: "Coach requests a single table of top 10 total GPS distance for the explicit absolute week 2026-03-01 to 2026-03-07. One GPS fetch with total_distance metric."
+    durationMs: 1567
+[15:44:37.778] INFO (29054): report_v4.edit_route.wipe
+    wipeReason: "no_existing_canvas"
+    hasExistingCanvas: false
+    periodChanged: false
+    multiSectionAsk: false
+    additive: false
+    scopedPeriod: false
+[15:44:37.778] INFO (29054): report_v4.edit_route
+    canvasAsk: "new_viz"
+    preserveCanvas: false
+    needsFetch: true
+    isMicro: false
+    keepPriorDisplayRange: false
+    softOps: null
+    inventory: null
+    additive: false
+    scopedPeriod: false
+    design: false
+    periodChanged: false
+    multiSectionAsk: false
+    wipeCanvas: true
+    wipeReason: "no_existing_canvas"
+    routeFlags: {
+      "wipe": true,
+      "additive": false,
+      "scopedPeriod": false,
+      "design": false,
+      "aesthetic": false,
+      "partialProse": false,
+      "recommendationStrip": false
+    }
+    provider: "skip"
+    durationSec: 0.354
+[15:44:37.779] INFO (29054): report_v4.prompt_windows_resolved
+    explicit: true
+    displayRange: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    coverRange: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    fetchRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+    domainRanges: {
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    }
+    fetches: [
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "total_distance"
+        ],
+        "label": "Top 10 total GPS distance"
+      }
+    ]
+    extraRanges: []
+    seasons: [
+      {
+        "name": "2026-2027",
+        "from": "2026-08-01",
+        "to": "2027-05-24",
+        "active": true
+      },
+      {
+        "name": "2025-2026",
+        "from": "2025-07-16",
+        "to": "2026-05-16",
+        "active": false
+      },
+      {
+        "name": "2024-2025",
+        "from": "2024-07-02",
+        "to": "2025-05-18",
+        "active": false
+      },
+      {
+        "name": "2023-2024",
+        "from": "2023-07-28",
+        "to": "2024-05-19",
+        "active": false
+      },
+      {
+        "name": "2022-2023",
+        "from": "2022-07-17",
+        "to": "2023-06-05",
+        "active": false
+      }
+    ]
+[15:44:37.815] INFO (29054): report_v4.roster_active_window
+    athletes: 30
+    ranges: [
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ]
+[15:44:38.897] INFO (29054): report_v4.ask_gate
+    reason: "prompt_clear_enough"
+    question_ids: []
+    confidence: 1
+    round: 0
+    skipped: true
+[15:44:39.057] INFO (29054): report_v4.club_metric_catalog_start
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+
+════════════════════════════════════════════════════════════
+report-v4  START  │  Hambourg  │  2026-03-01 → 2026-03-07
+report-v4  domains  │  gps
+report-v4  prompt  │  Un seul tableau: top 10 distance GPS totale sur 2026-03-01 → 2026-03-07.
+────────────────────────────────────────────────────────────
+[15:44:40.159] INFO (29054): report_v4.club_metric_catalog_done
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+    durationMs: 1102
+    periodKpis: 48
+    matchKpis: 7
+    rpeFetchTable: "health_metric_values"
+    rpeSession: "health_metrics"
+    rpeBody: "health_ratings"
+    clubInsightScience: 8
+[15:44:40.161] INFO (29054): report_v4.linker_start
+    domains: [
+      "gps"
+    ]
+    fetchWindows: 1
+    athleteCount: 30
+[15:44:40.162] INFO (29054): report_v4.linker_db_tool_start
+    schemaTitles: 5
+[15:44:40.213] INFO (29054): report_v4.linker_db_tool_done
+    durationMs: 51
+[15:44:40.215] INFO (29054): report_v4.linker_agent_invoke
+    toolCount: 14
+report-v4  iter 01  │  tool_use  │  3.058s  │  $0.095  │  in=19 out=68 cacheW=25k  │  cum $0.095
+report-v4  action  │  tools: fetch_gps_distance
+report-v4    └ tool  │  ok  │  fetch_gps_distance  │  0.596s  │  2026-03-01 → 2026-03-07
+report-v4    └ cost  │  this prompt $0.095  │  total so far $0.095  │  iter time 3.058s
+report-v4  iter 02  │  tool_use  │  2.542s  │  $0.093  │  in=434 out=114 cacheW=24k  │  cum $0.189
+report-v4  action  │  tools: filter_dataset
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ cost  │  this prompt $0.093  │  total so far $0.189  │  iter time 2.542s
+report-v4  iter 03  │  end_turn  │  2.522s  │  $0.010  │  in=740 out=44 cacheR=24k  │  cum $0.199
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.010  │  total so far $0.199  │  iter time 2.522s
+report-v4  agent-stop  │  linker  │  self_ended  │  3 iteration(s)  │  max=5  │  force@4  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  linker  │  3 iteration(s)  │  8.122s  │  $0.199
+report-v4  tokens  │  in=1.2k  │  out=226  │  cacheR=24k  │  cacheW=49k  │  all=1.4k
+report-v4  detail  │  datasets=2
+[15:44:48.345] INFO (29054): report_v4.path_cost_class
+    pathCostClass: "full"
+    budgetUsd: 1.5
+[15:44:48.350] INFO (29054): report_v4.data_profile
+    datasets: 2
+    unusableDomains: []
+    emptyDomains: []
+    partial: []
+report-v4  iter 01  │  tool_use  │  3.428s  │  $0.068  │  in=19 out=188 cacheW=17k  │  cum $0.068
+report-v4  action  │  tools: filter_dataset, set_report_meta
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  set_report_meta  │  0.000s
+report-v4    └ cost  │  this prompt $0.068  │  total so far $0.068  │  iter time 3.428s
+report-v4  iter 02  │  tool_use  │  6.488s  │  $0.027  │  in=490 out=555 cacheR=14k cacheW=3.5k  │  cum $0.095
+report-v4  action  │  tools: add_table, compute_report_fact, compute_report_fact, compute_report_fact
+report-v4    └ tool  │  ok  │  add_table  │  0.014s  │  ds_3
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.001s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ cost  │  this prompt $0.027  │  total so far $0.095  │  iter time 6.488s
+report-v4  iter 03  │  tool_use  │  8.086s  │  $0.016  │  in=1.4k out=443 cacheR=17k  │  cum $0.111
+report-v4  action  │  tools: commit_report_brief
+report-v4    └ tool  │  ok  │  commit_report_brief  │  0.015s
+report-v4    └ cost  │  this prompt $0.016  │  total so far $0.111  │  iter time 8.086s
+report-v4  iter 04  │  end_turn  │  5.053s  │  $0.013  │  in=1.9k out=130 cacheR=17k  │  cum $0.123
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.013  │  total so far $0.123  │  iter time 5.053s
+report-v4  agent-stop  │  analyst  │  self_ended  │  4 iteration(s)  │  max=12  │  force@10  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  analyst  │  4 iteration(s)  │  23.055s  │  $0.123
+report-v4  tokens  │  in=3.8k  │  out=1.3k  │  cacheR=48k  │  cacheW=21k  │  all=5.1k
+report-v4  detail  │  blocks=1 charts=0 tables=1 insight=true
+[15:45:11.468] INFO (29054): report_v4.analyst_done
+    blocks: 1
+    charts: 0
+    tables: 1
+    insight: true
+    iterations: 4
+    macrosSkipped: true
+    shortWindow: true
+    multiSectionAsk: false
+report-v4  iter 01  │  tool_use  │  1.391s  │  $0.011  │  in=19 out=23 cacheW=2.7k  │  cum $0.011
+report-v4  action  │  tools: get_design_context
+report-v4    └ tool  │  ok  │  get_design_context  │  0.002s
+report-v4    └ cost  │  this prompt $0.011  │  total so far $0.011  │  iter time 1.391s
+report-v4  iter 02  │  tool_use  │  27.661s  │  $0.057  │  in=2.6k out=3.0k cacheR=1.8k cacheW=840  │  cum $0.068
+report-v4  action  │  tools: set_report_html
+report-v4    └ tool  │  ok  │  set_report_html  │  0.032s
+report-v4    └ cost  │  this prompt $0.057  │  total so far $0.068  │  iter time 27.661s
+[15:45:40.492] WARN (29054): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      }
+    ]
+[15:45:40.513] INFO (29054): report_v4.fact_autolink
+    displayed: 35
+    linkedFact: 1
+    linkedSrc: 0
+    ambiguous: 30
+    unmatched: 4
+    samples: [
+      {
+        "raw": "10",
+        "value": 10,
+        "reason": "ambiguous",
+        "context": "GPS Distance totale — Top 10 GPS Distance totale — Top 10",
+        "candidates": [
+          "fact:gps.top10_count",
+          "src:ds_1#1.total_minutes",
+          "src:ds_1#2.total_minutes",
+          "src:ds_1#6.total_minutes",
+          "src:ds_1#9.total_minutes"
+        ]
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "1–7 mars 2026",
+        "candidates": [
+          "src:ds_1#19.total_minutes",
+          "src:ds_1#21.total_minutes"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "unmatched",
+        "context": "1–7 mars 2026"
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Classement des 10 joueurs ayant parcouru la plus grande distance GPS totale sur la semaine du 1 au 7 mars 2026.",
+        "candidates": [
+          "src:ds_1#19.total_minutes",
+          "src:ds_1#21.total_minutes"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "unmatched",
+        "context": "Classement des 10 joueurs ayant parcouru la plus grande distance GPS totale sur la semaine du 1 au 7 mars 2026."
+      },
+      {
+        "raw": "10",
+        "value": 10,
+        "reason": "ambiguous",
+        "context": "Classement des 10 joueurs ayant parcouru la plus grande distance GPS totale sur la semaine du 1 au 7 mars 2026.",
+        "candidates": [
+          "fact:gps.top10_count",
+          "src:ds_1#1.total_minutes",
+          "src:ds_1#2.total_minutes",
+          "src:ds_1#6.total_minutes",
+          "src:ds_1#9.total_minutes"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "unmatched",
+        "context": "Distance GPS maximale (Top 1)"
+      },
+      {
+        "raw": "10",
+        "value": 10,
+        "reason": "ambiguous",
+        "context": "Distance GPS moyenne (Top 10)",
+        "candidates": [
+          "fact:gps.top10_count",
+          "src:ds_1#1.total_minutes",
+          "src:ds_1#2.total_minutes",
+          "src:ds_1#6.total_minutes",
+          "src:ds_1#9.total_minutes"
+        ]
+      },
+      {
+        "raw": "10",
+        "value": 10,
+        "reason": "ambiguous",
+        "context": "Nombre de joueurs (Top 10)",
+        "candidates": [
+          "fact:gps.top10_count",
+          "src:ds_1#1.total_minutes",
+          "src:ds_1#2.total_minutes",
+          "src:ds_1#6.total_minutes",
+          "src:ds_1#9.total_minutes"
+        ]
+      },
+      {
+        "raw": "361",
+        "value": 361,
+        "reason": "ambiguous",
+        "context": "Nicolai Remberg en tête avec 368 m/min, Daniel Elfadli à 361 m/min.",
+        "candidates": [
+          "src:ds_1#1.total_distance_m",
+          "src:ds_2#1.total_distance_m",
+          "src:ds_3#1.total_distance_m"
+        ]
+      },
+      {
+        "raw": "368",
+        "value": 368,
+        "reason": "ambiguous",
+        "context": "Nicolai Remberg en tête avec 368 m/min, Daniel Elfadli à 361 m/min.",
+        "candidates": [
+          "fact:gps.top_distance",
+          "src:ds_1#0.total_distance_m",
+          "src:ds_2#0.total_distance_m",
+          "src:ds_3#0.total_distance_m"
+        ]
+      },
+      {
+        "raw": "336,4",
+        "value": 336.4,
+        "reason": "linked_fact",
+        "context": "Top 10 moyenne : 336,4 m/min.",
+        "candidates": [
+          "fact:gps.top10_mean_distance"
+        ]
+      }
+    ]
+[15:45:40.521] WARN (29054): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "01"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "02"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "03"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "2"
+      }
+    ]
+report-v4  iter 03  │  end_turn  │  6.411s  │  $0.022  │  in=5.7k out=246 cacheR=2.6k  │  cum $0.089
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.022  │  total so far $0.089  │  iter time 6.411s
+report-v4  agent-stop  │  designer  │  self_ended  │  3 iteration(s)  │  max=14  │  force@12  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  designer  │  3 iteration(s)  │  35.463s  │  $0.089
+report-v4  tokens  │  in=8.3k  │  out=3.3k  │  cacheR=4.4k  │  cacheW=3.6k  │  all=12k
+report-v4  detail  │  htmlBytes=254654 freeArtifact=true softRepair=false
+[15:45:46.932] INFO (29054): report_v4.designer_done
+    htmlBytes: 254654
+    freeArtifact: true
+    iterations: 3
+    softRebindRepair: false
+[15:45:46.935] INFO (29054): report_v4.data_reliability_block
+    blocks: 3
+    sampleRows: 34
+[15:45:46.937] INFO (29054): report_v4.artifact_parity
+    ok: false
+    issues: [
+      {
+        "kind": "missing_block",
+        "blockId": "reliability-h-2",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "reliability-t-3",
+        "detail": "data-block-id absent from html"
+      }
+    ]
+    documentBlockCount: 3
+    htmlBlockCount: 1
+[15:45:46.937] INFO (29054): report_v4.ask_contract
+    status: "delivered"
+    gaps: []
+{"ok":true,"tag":"baseline_short","iterations":10,"costUsd":0.411555,"durationSec":72,"pdfOk":true,"pdfError":null,"htmlPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_short.html","metaPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_short.meta.json","pdfPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_short.pdf"}

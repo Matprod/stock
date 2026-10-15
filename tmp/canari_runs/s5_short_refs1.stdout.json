@@ -1,0 +1,1287 @@
+[19:43:16.787] INFO (71025): report_v4.analyze_request_llm
+    explicit: true
+    display: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    byDomain: {
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    }
+    fetches: [
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "total_distance"
+        ],
+        "label": "Top 10 total GPS distance"
+      }
+    ]
+    askDomains: [
+      "gps"
+    ]
+    periodFollowUp: false
+    multiSection: false
+    rationale: "Coach requests a single table of top 10 total GPS distance for the explicit absolute week 2026-03-01 to 2026-03-07. One GPS fetch with total_distance metric."
+    durationMs: 1562
+[19:43:17.060] INFO (71025): report_v4.edit_route.wipe
+    wipeReason: "no_existing_canvas"
+    hasExistingCanvas: false
+    periodChanged: false
+    multiSectionAsk: false
+    additive: false
+    scopedPeriod: false
+[19:43:17.060] INFO (71025): report_v4.edit_route
+    canvasAsk: "new_viz"
+    preserveCanvas: false
+    needsFetch: true
+    isMicro: false
+    keepPriorDisplayRange: false
+    softOps: null
+    inventory: null
+    additive: false
+    scopedPeriod: false
+    design: false
+    periodChanged: false
+    multiSectionAsk: false
+    wipeCanvas: true
+    wipeReason: "no_existing_canvas"
+    routeFlags: {
+      "wipe": true,
+      "additive": false,
+      "scopedPeriod": false,
+      "design": false,
+      "aesthetic": false,
+      "partialProse": false,
+      "recommendationStrip": false
+    }
+    provider: "skip"
+    durationSec: 0.273
+[19:43:17.061] INFO (71025): report_v4.prompt_windows_resolved
+    explicit: true
+    displayRange: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    coverRange: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    fetchRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+    domainRanges: {
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    }
+    fetches: [
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "total_distance"
+        ],
+        "label": "Top 10 total GPS distance"
+      }
+    ]
+    extraRanges: []
+    seasons: [
+      {
+        "name": "2026-2027",
+        "from": "2026-08-01",
+        "to": "2027-05-24",
+        "active": true
+      },
+      {
+        "name": "2025-2026",
+        "from": "2025-07-16",
+        "to": "2026-05-16",
+        "active": false
+      },
+      {
+        "name": "2024-2025",
+        "from": "2024-07-02",
+        "to": "2025-05-18",
+        "active": false
+      },
+      {
+        "name": "2023-2024",
+        "from": "2023-07-28",
+        "to": "2024-05-19",
+        "active": false
+      },
+      {
+        "name": "2022-2023",
+        "from": "2022-07-17",
+        "to": "2023-06-05",
+        "active": false
+      }
+    ]
+[19:43:17.130] INFO (71025): report_v4.roster_active_window
+    athletes: 30
+    ranges: [
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ]
+[19:43:18.302] INFO (71025): report_v4.ask_gate
+    reason: "prompt_clear_enough"
+    question_ids: []
+    confidence: 1
+    round: 0
+    skipped: true
+[19:43:18.594] INFO (71025): report_v4.club_metric_catalog_start
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+
+════════════════════════════════════════════════════════════
+report-v4  START  │  Hambourg  │  2026-03-01 → 2026-03-07
+report-v4  domains  │  gps
+report-v4  prompt  │  Un seul tableau: top 10 distance GPS totale sur 2026-03-01 → 2026-03-07.
+────────────────────────────────────────────────────────────
+[19:43:19.594] INFO (71025): report_v4.club_metric_catalog_done
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+    durationMs: 1000
+    periodKpis: 48
+    matchKpis: 7
+    rpeFetchTable: "health_metric_values"
+    rpeSession: "health_metrics"
+    rpeBody: "health_ratings"
+    clubInsightScience: 8
+[19:43:19.599] INFO (71025): report_v4.requested_measure
+    metric: "kpi_distanceTotal"
+    unit: "m"
+    alias: "kpi_distanceTotal"
+    phrase: "total distance"
+[19:43:19.600] INFO (71025): report_v4.linker_start
+    domains: [
+      "gps"
+    ]
+    fetchWindows: 1
+    athleteCount: 30
+[19:43:19.600] INFO (71025): report_v4.linker_db_tool_start
+    schemaTitles: 5
+[19:43:19.600] INFO (71025): report_v4.linker_db_tool_done
+    durationMs: 0
+[19:43:19.602] INFO (71025): report_v4.linker_agent_invoke
+    toolCount: 26
+report-v4  iter 01  │  tool_use  │  3.158s  │  $0.068  │  in=19 out=89 cacheW=18k  │  cum $0.068
+report-v4  action  │  tools: fetch_club_roster, fetch_gps_intensity
+report-v4    └ tool  │  ok  │  fetch_club_roster  │  0.000s  │  ? → ?
+report-v4    └ tool  │  ok  │  fetch_gps_intensity  │  0.550s  │  2026-03-01 → 2026-03-07
+report-v4    └ cost  │  this prompt $0.068  │  total so far $0.068  │  iter time 3.158s
+report-v4  iter 02  │  tool_use  │  3.538s  │  $0.075  │  in=7 out=134 cacheR=6.1k cacheW=19k  │  cum $0.143
+report-v4  action  │  tools: filter_dataset
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ cost  │  this prompt $0.075  │  total so far $0.143  │  iter time 3.538s
+report-v4  iter 03  │  end_turn  │  5.187s  │  $0.029  │  in=5 out=155 cacheR=25k cacheW=5.1k  │  cum $0.172
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.029  │  total so far $0.172  │  iter time 5.187s
+report-v4  agent-stop  │  linker  │  self_ended  │  3 iteration(s)  │  max=5  │  force@4  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  linker  │  3 iteration(s)  │  11.883s  │  $0.172
+report-v4  tokens  │  in=31  │  out=378  │  cacheR=31k  │  cacheW=42k  │  all=409
+report-v4  detail  │  datasets=3
+[19:43:31.493] INFO (71025): report_v4.path_cost_class
+    pathCostClass: "full"
+    budgetUsd: 1.5
+[19:43:31.507] INFO (71025): report_v4.data_profile
+    datasets: 3
+    unusableDomains: []
+    emptyDomains: []
+    partial: [
+      "gps"
+    ]
+    imputedExcludedCells: 30
+report-v4  iter 01  │  tool_use  │  3.578s  │  $0.087  │  in=19 out=190 cacheW=22k  │  cum $0.087
+report-v4  action  │  tools: filter_dataset, set_report_meta
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  set_report_meta  │  0.000s
+report-v4    └ cost  │  this prompt $0.087  │  total so far $0.087  │  iter time 3.578s
+report-v4  iter 02  │  tool_use  │  12.720s  │  $0.064  │  in=5.0k out=737 cacheR=13k cacheW=9.1k  │  cum $0.151
+report-v4  action  │  tools: add_table, compute_report_fact, commit_report_brief
+report-v4    └ tool  │  ok  │  add_table  │  0.007s  │  ds_3
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.001s
+report-v4    └ tool  │  ok  │  commit_report_brief  │  0.018s
+report-v4    └ cost  │  this prompt $0.064  │  total so far $0.151  │  iter time 12.720s
+report-v4  iter 03  │  end_turn  │  4.386s  │  $0.032  │  in=7 out=221 cacheR=23k cacheW=5.9k  │  cum $0.183
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.032  │  total so far $0.183  │  iter time 4.386s
+report-v4  agent-stop  │  analyst  │  self_ended  │  3 iteration(s)  │  max=12  │  force@10  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  analyst  │  3 iteration(s)  │  20.684s  │  $0.183
+report-v4  tokens  │  in=5.0k  │  out=1.1k  │  cacheR=36k  │  cacheW=37k  │  all=6.1k
+report-v4  detail  │  blocks=2 charts=0 tables=1 insight=true
+[19:43:52.219] WARN (71025): report_v4.column_label_missing
+    column: "Distance total (m)"
+    key: "distance_total_m"
+[19:43:52.219] WARN (71025): report_v4.column_label_missing
+    column: "Max acceleration (m/s2)"
+    key: "max_acceleration_m_s2"
+[19:43:52.222] INFO (71025): report_v4.requested_measure_substituted
+    metric: "kpi_distanceTotal"
+    unit: "m"
+    displayedUnit: null
+    datasetId: "ds_1"
+    column: "kpi_distancetotal"
+[19:43:52.222] INFO (71025): report_v4.requested_measure_gate
+    status: "substituted"
+    metric: "kpi_distanceTotal"
+    unit: "m"
+    displayedUnit: null
+    phase: "pre_designer"
+[19:43:52.223] INFO (71025): report_v4.analyst_done
+    blocks: 2
+    charts: 0
+    tables: 1
+    insight: true
+    iterations: 3
+    harvestHasRows: true
+    shortWindow: true
+    multiSectionAsk: false
+report-v4  iter 01  │  tool_use  │  33.177s  │  $0.258  │  in=19 out=2.8k cacheW=57k  │  cum $0.258
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ok  │  set_report_pages  │  0.040s
+report-v4    └ cost  │  this prompt $0.258  │  total so far $0.258  │  iter time 33.177s
+[19:44:25.403] INFO (71025): report_v4.fact_autolink
+    displayed: 22
+    linkedFact: 0
+    linkedSrc: 0
+    ambiguous: 21
+    unmatched: 1
+    samples: [
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Semaine du 1 au 7 mars 2026",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Semaine du 1 au 7 mars 2026",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "26 000 m",
+        "value": 26000,
+        "reason": "unmatched",
+        "context": "Nicolai Remberg en tête avec 38 180 m,dix joueurs au-dessus de 26 000 m dix joueurs au-dessus de 26 000 m"
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Classement des dix joueurs ayant parcouru la plus grande distance totale GPS sur la semaine du 1 au 7 mars 2026. Les défenseurs centraux et milieux dominent le ",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Classement des dix joueurs ayant parcouru la plus grande distance totale GPS sur la semaine du 1 au 7 mars 2026. Les défenseurs centraux et milieux dominent le ",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "1 Nicolai Remberg Milieu défensif 38 180 368 7 707 2 470 1",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "2",
+        "value": 2,
+        "reason": "ambiguous",
+        "context": "2 Luka Vušković Défenseur central 35 001 322 6 159 1 819 2",
+        "candidates": [
+          "src:ds_1#23.kpi_hsrabspermin",
+          "src:ds_1#23.kpi_hsrrelpermin"
+        ]
+      },
+      {
+        "raw": "3",
+        "value": 3,
+        "reason": "ambiguous",
+        "context": "3 Ransford Königsdörffer Attaquant 32 632 325 6 095 2 515 3",
+        "candidates": [
+          "src:ds_1#3.kpi_averagespeed",
+          "src:ds_1#5.kpi_averagespeed",
+          "src:ds_1#7.kpi_averagespeed",
+          "src:ds_1#8.kpi_averagespeed",
+          "src:ds_1#9.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "4",
+        "value": 4,
+        "reason": "ambiguous",
+        "context": "4 William Mikelbrencis Latéral 32 238 311 6 954 2 510 4",
+        "candidates": [
+          "src:ds_1#0.kpi_averagespeed",
+          "src:ds_1#1.kpi_averagespeed",
+          "src:ds_1#2.kpi_averagespeed",
+          "src:ds_1#4.kpi_averagespeed",
+          "src:ds_1#10.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "5",
+        "value": 5,
+        "reason": "ambiguous",
+        "context": "5 Jordan Torunarigha Défenseur central 31 079 338 5 153 1 742 5",
+        "candidates": [
+          "src:ds_1#6.kpi_averagespeed",
+          "src:ds_1#14.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_maxacceleration",
+          "src:ds_2#1.kpi_averagespeed",
+          "src:ds_3#1.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "6",
+        "value": 6,
+        "reason": "ambiguous",
+        "context": "6 Miro Muheim Latéral 30 966 353 5 728 2 130 6",
+        "candidates": [
+          "src:ds_1#0.kpi_decelerationdistancez6rel",
+          "src:ds_1#7.kpi_decelerationdistancez6rel",
+          "src:ds_1#16.kpi_maxdeceleration",
+          "src:ds_1#22.kpi_maxdeceleration",
+          "src:ds_1#23.kpi_entriesz5abs"
+        ]
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "7 Daniel Elfadli Milieu défensif 28 617 361 5 266 1 534 7",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      }
+    ]
+report-v4  iter 02  │  end_turn  │  7.283s  │  $0.177  │  in=5 out=280 cacheR=16k cacheW=45k  │  cum $0.435
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.177  │  total so far $0.435  │  iter time 7.283s
+report-v4  iter 03  │  tool_use  │  16.487s  │  $0.050  │  in=3 out=2.1k cacheR=60k cacheW=287  │  cum $0.485
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ok  │  set_report_pages  │  0.043s
+report-v4    └ cost  │  this prompt $0.050  │  total so far $0.485  │  iter time 16.487s
+[19:44:49.176] INFO (71025): report_v4.fact_autolink
+    displayed: 68
+    linkedFact: 0
+    linkedSrc: 0
+    ambiguous: 67
+    unmatched: 1
+    samples: [
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Semaine du 1 au 7 mars 2026",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Semaine du 1 au 7 mars 2026",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "26 000 m",
+        "value": 26000,
+        "reason": "unmatched",
+        "context": "Nicolai Remberg en tête avec 38 180 m,dix joueurs au-dessus de 26 000 m dix joueurs au-dessus de 26 000 m"
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Classement des dix joueurs ayant parcouru la plus grande distance totale GPS sur la semaine du 1 au 7 mars 2026. Les défenseurs centraux et milieux dominent le ",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Classement des dix joueurs ayant parcouru la plus grande distance totale GPS sur la semaine du 1 au 7 mars 2026. Les défenseurs centraux et milieux dominent le ",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "1 Nicolai Remberg Milieu défensif 38 180 368 7 707 2 470 1",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "368",
+        "value": 368,
+        "reason": "ambiguous",
+        "context": "1 Nicolai Remberg Milieu défensif 38 180 368 7 707 2 470 368",
+        "candidates": [
+          "src:ds_1#2.kpi_distancepermin",
+          "src:ds_1#23.kpi_distancez4abs",
+          "src:ds_2#0.kpi_distancepermin",
+          "src:ds_3#0.kpi_distancepermin"
+        ]
+      },
+      {
+        "raw": "7 707",
+        "value": 7707,
+        "reason": "ambiguous",
+        "context": "1 Nicolai Remberg Milieu défensif 38 180 368 7 707 2 470 7 707",
+        "candidates": [
+          "src:ds_1#2.kpi_hmld",
+          "src:ds_2#0.kpi_hmld",
+          "src:ds_3#0.kpi_hmld"
+        ]
+      },
+      {
+        "raw": "2 470",
+        "value": 2470,
+        "reason": "ambiguous",
+        "context": "1 Nicolai Remberg Milieu défensif 38 180 368 7 707 2 470 2 470",
+        "candidates": [
+          "src:ds_1#2.kpi_highspeedrunningabs",
+          "src:ds_2#0.kpi_highspeedrunningabs",
+          "src:ds_3#0.kpi_highspeedrunningabs"
+        ]
+      },
+      {
+        "raw": "2",
+        "value": 2,
+        "reason": "ambiguous",
+        "context": "2 Luka Vušković Défenseur central 35 001 322 6 159 1 819 2",
+        "candidates": [
+          "src:ds_1#23.kpi_hsrabspermin",
+          "src:ds_1#23.kpi_hsrrelpermin"
+        ]
+      },
+      {
+        "raw": "35 001",
+        "value": 35001,
+        "reason": "ambiguous",
+        "context": "2 Luka Vušković Défenseur central 35 001 322 6 159 1 819 35 001",
+        "candidates": [
+          "src:ds_1#6.kpi_distancetotal",
+          "src:ds_2#1.kpi_distancetotal",
+          "src:ds_3#1.kpi_distancetotal"
+        ]
+      },
+      {
+        "raw": "322",
+        "value": 322,
+        "reason": "ambiguous",
+        "context": "2 Luka Vušković Défenseur central 35 001 322 6 159 1 819 322",
+        "candidates": [
+          "src:ds_1#6.kpi_distancepermin",
+          "src:ds_2#1.kpi_distancepermin",
+          "src:ds_3#1.kpi_distancepermin"
+        ]
+      }
+    ]
+report-v4  iter 04  │  end_turn  │  5.310s  │  $0.030  │  in=5 out=250 cacheR=61k cacheW=2.1k  │  cum $0.515
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.030  │  total so far $0.515  │  iter time 5.310s
+report-v4  agent-stop  │  designer  │  self_ended  │  4 iteration(s)  │  max=14  │  force@12  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  designer  │  4 iteration(s)  │  62.257s  │  $0.515
+report-v4  tokens  │  in=32  │  out=5.4k  │  cacheR=137k  │  cacheW=105k  │  all=5.5k
+report-v4  detail  │  htmlBytes=202634 freeDesigner=1 refs=02-summary,05-positions
+[19:44:54.489] INFO (71025): report_v4.designer_done
+    htmlBytes: 202634
+    freeDesigner: true
+    refs: [
+      "02-summary",
+      "05-positions"
+    ]
+    iterations: 4
+[19:44:54.496] WARN (71025): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "26"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "38"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "2"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "35"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "31"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "28"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "6"
+      }
+    ]
+[19:44:54.496] WARN (71025): report_v4.free_designer_grounding_warn
+    violations: []
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "26"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "38"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "2"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "35"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "31"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "28"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "6"
+      }
+    ]
+[19:44:55.153] WARN (71025): report_v4.free_designer_layout_warn
+    count: 2
+    warnings: [
+      {
+        "pageIndex": 0,
+        "blockId": "page_1",
+        "selector": "[data-block-id=\"page_1\"]",
+        "code": "page_underfilled",
+        "detail": "page filled 70% (< 70%)"
+      },
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "h1.headline",
+        "code": "text_overflow",
+        "detail": "scroll 698x87 > client 698x84"
+      }
+    ]
+report-v4  iter 01  │  tool_use  │  43.689s  │  $0.071  │  in=3 out=3.9k cacheW=3.1k  │  cum $0.071
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ok  │  set_report_pages  │  0.029s
+report-v4    └ cost  │  this prompt $0.071  │  total so far $0.071  │  iter time 43.689s
+[19:45:39.248] INFO (71025): report_v4.fact_autolink
+    displayed: 21
+    linkedFact: 0
+    linkedSrc: 0
+    ambiguous: 21
+    unmatched: 0
+    samples: [
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Semaine du 1 au 7 mars 2026",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Semaine du 1 au 7 mars 2026",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Classement des dix joueurs ayant parcouru la plus grande distance totale GPS sur la semaine du 1 au 7 mars 2026. Les défenseurs centraux et milieux dominent le ",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Classement des dix joueurs ayant parcouru la plus grande distance totale GPS sur la semaine du 1 au 7 mars 2026. Les défenseurs centraux et milieux dominent le ",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "1 Nicolai Remberg Milieu défensif 38 180 368 7 707 2 470 1",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "2",
+        "value": 2,
+        "reason": "ambiguous",
+        "context": "2 Luka Vušković Défenseur central 35 001 322 6 159 1 819 2",
+        "candidates": [
+          "src:ds_1#23.kpi_hsrabspermin",
+          "src:ds_1#23.kpi_hsrrelpermin"
+        ]
+      },
+      {
+        "raw": "3",
+        "value": 3,
+        "reason": "ambiguous",
+        "context": "3 Ransford Königsdörffer Attaquant 32 632 325 6 095 2 515 3",
+        "candidates": [
+          "src:ds_1#3.kpi_averagespeed",
+          "src:ds_1#5.kpi_averagespeed",
+          "src:ds_1#7.kpi_averagespeed",
+          "src:ds_1#8.kpi_averagespeed",
+          "src:ds_1#9.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "4",
+        "value": 4,
+        "reason": "ambiguous",
+        "context": "4 William Mikelbrencis Latéral 32 238 311 6 954 2 510 4",
+        "candidates": [
+          "src:ds_1#0.kpi_averagespeed",
+          "src:ds_1#1.kpi_averagespeed",
+          "src:ds_1#2.kpi_averagespeed",
+          "src:ds_1#4.kpi_averagespeed",
+          "src:ds_1#10.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "5",
+        "value": 5,
+        "reason": "ambiguous",
+        "context": "5 Jordan Torunarigha Défenseur central 31 079 338 5 153 1 742 5",
+        "candidates": [
+          "src:ds_1#6.kpi_averagespeed",
+          "src:ds_1#14.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_maxacceleration",
+          "src:ds_2#1.kpi_averagespeed",
+          "src:ds_3#1.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "6",
+        "value": 6,
+        "reason": "ambiguous",
+        "context": "6 Miro Muheim Latéral 30 966 353 5 728 2 130 6",
+        "candidates": [
+          "src:ds_1#0.kpi_decelerationdistancez6rel",
+          "src:ds_1#7.kpi_decelerationdistancez6rel",
+          "src:ds_1#16.kpi_maxdeceleration",
+          "src:ds_1#22.kpi_maxdeceleration",
+          "src:ds_1#23.kpi_entriesz5abs"
+        ]
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "7 Daniel Elfadli Milieu défensif 28 617 361 5 266 1 534 7",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "8",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "8 Warmed Omari Défenseur central 28 379 259 4 654 1 386 8",
+        "candidates": [
+          "src:ds_1#1.kpi_maxacceleration",
+          "src:ds_1#2.kpi_maxdeceleration",
+          "src:ds_1#4.kpi_maxdeceleration",
+          "src:ds_1#5.kpi_maxdeceleration",
+          "src:ds_1#6.kpi_maxdeceleration"
+        ]
+      }
+    ]
+report-v4  iter 02  │  tool_use  │  27.548s  │  $0.073  │  in=5 out=3.8k cacheR=3.1k cacheW=4.0k  │  cum $0.144
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ok  │  set_report_pages  │  0.020s
+report-v4    └ cost  │  this prompt $0.073  │  total so far $0.144  │  iter time 27.548s
+[19:46:06.798] INFO (71025): report_v4.fact_autolink
+    displayed: 21
+    linkedFact: 0
+    linkedSrc: 0
+    ambiguous: 21
+    unmatched: 0
+    samples: [
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Semaine du 1 au 7 mars 2026",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Semaine du 1 au 7 mars 2026",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Classement des dix joueurs ayant parcouru la plus grande distance totale GPS sur la semaine du 1 au 7 mars 2026. Les défenseurs centraux et milieux dominent le ",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Classement des dix joueurs ayant parcouru la plus grande distance totale GPS sur la semaine du 1 au 7 mars 2026. Les défenseurs centraux et milieux dominent le ",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "1 Nicolai Remberg Milieu défensif 38 180 368 7 707 2 470 1",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "2",
+        "value": 2,
+        "reason": "ambiguous",
+        "context": "2 Luka Vušković Défenseur central 35 001 322 6 159 1 819 2",
+        "candidates": [
+          "src:ds_1#23.kpi_hsrabspermin",
+          "src:ds_1#23.kpi_hsrrelpermin"
+        ]
+      },
+      {
+        "raw": "3",
+        "value": 3,
+        "reason": "ambiguous",
+        "context": "3 Ransford Königsdörffer Attaquant 32 632 325 6 095 2 515 3",
+        "candidates": [
+          "src:ds_1#3.kpi_averagespeed",
+          "src:ds_1#5.kpi_averagespeed",
+          "src:ds_1#7.kpi_averagespeed",
+          "src:ds_1#8.kpi_averagespeed",
+          "src:ds_1#9.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "4",
+        "value": 4,
+        "reason": "ambiguous",
+        "context": "4 William Mikelbrencis Latéral 32 238 311 6 954 2 510 4",
+        "candidates": [
+          "src:ds_1#0.kpi_averagespeed",
+          "src:ds_1#1.kpi_averagespeed",
+          "src:ds_1#2.kpi_averagespeed",
+          "src:ds_1#4.kpi_averagespeed",
+          "src:ds_1#10.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "5",
+        "value": 5,
+        "reason": "ambiguous",
+        "context": "5 Jordan Torunarigha Défenseur central 31 079 338 5 153 1 742 5",
+        "candidates": [
+          "src:ds_1#6.kpi_averagespeed",
+          "src:ds_1#14.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_maxacceleration",
+          "src:ds_2#1.kpi_averagespeed",
+          "src:ds_3#1.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "6",
+        "value": 6,
+        "reason": "ambiguous",
+        "context": "6 Miro Muheim Latéral 30 966 353 5 728 2 130 6",
+        "candidates": [
+          "src:ds_1#0.kpi_decelerationdistancez6rel",
+          "src:ds_1#7.kpi_decelerationdistancez6rel",
+          "src:ds_1#16.kpi_maxdeceleration",
+          "src:ds_1#22.kpi_maxdeceleration",
+          "src:ds_1#23.kpi_entriesz5abs"
+        ]
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "7 Daniel Elfadli Milieu défensif 28 617 361 5 266 1 534 7",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "8",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "8 Warmed Omari Défenseur central 28 379 259 4 654 1 386 8",
+        "candidates": [
+          "src:ds_1#1.kpi_maxacceleration",
+          "src:ds_1#2.kpi_maxdeceleration",
+          "src:ds_1#4.kpi_maxdeceleration",
+          "src:ds_1#5.kpi_maxdeceleration",
+          "src:ds_1#6.kpi_maxdeceleration"
+        ]
+      }
+    ]
+report-v4  iter 03  │  end_turn  │  6.709s  │  $0.020  │  in=5 out=209 cacheR=7.1k cacheW=3.9k  │  cum $0.164
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.020  │  total so far $0.164  │  iter time 6.709s
+[19:46:13.508] INFO (71025): report_v4.free_designer_capture_review
+    round: 1
+    changed: true
+    layoutWarnings: 2
+    pages: 1
+    iterations: 3
+report-v4  iter 01  │  tool_use  │  35.194s  │  $0.056  │  in=3 out=3.0k cacheW=3.1k  │  cum $0.056
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ok  │  set_report_pages  │  0.044s
+report-v4    └ cost  │  this prompt $0.056  │  total so far $0.056  │  iter time 35.194s
+[19:46:49.475] INFO (71025): report_v4.fact_autolink
+    displayed: 31
+    linkedFact: 0
+    linkedSrc: 0
+    ambiguous: 30
+    unmatched: 1
+    samples: [
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Semaine du 1 au 7 mars 2026",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Semaine du 1 au 7 mars 2026",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "26 000 m",
+        "value": 26000,
+        "reason": "unmatched",
+        "context": "Nicolai Remberg en tête avec 38 180 m, dix joueurs au-dessus de 26 000 m Nicolai Remberg en tête avec 38 180 m, dix joueurs au-dessus de 26 000 m"
+      },
+      {
+        "raw": "38 180 m",
+        "value": 38180,
+        "reason": "ambiguous",
+        "context": "Nicolai Remberg en tête avec 38 180 m, dix joueurs au-dessus de 26 000 m Nicolai Remberg en tête avec 38 180 m, dix joueurs au-dessus de 26 000 m",
+        "candidates": [
+          "fact:gps.distance_total.top1",
+          "src:ds_1#2.kpi_distancetotal",
+          "src:ds_2#0.kpi_distancetotal",
+          "src:ds_3#0.kpi_distancetotal"
+        ]
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Classement des dix joueurs ayant parcouru la plus grande distance totale GPS sur la semaine du 1 au 7 mars 2026. Les défenseurs centraux et milieux dominent le ",
+        "candidates": [
+          "src:ds_1#0.kpi_maxdeceleration",
+          "src:ds_1#11.kpi_maxdeceleration",
+          "src:ds_1#12.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_maxdeceleration",
+          "src:ds_1#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Classement des dix joueurs ayant parcouru la plus grande distance totale GPS sur la semaine du 1 au 7 mars 2026. Les défenseurs centraux et milieux dominent le ",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "1 Nicolai Remberg Milieu défensif 38 180 368 7 707 2 470 1",
+        "candidates": [
+          "src:ds_1#15.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_hsrrelpermin",
+          "src:ds_1#20.kpi_decelerationdistancez6rel",
+          "src:ds_1#21.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "2",
+        "value": 2,
+        "reason": "ambiguous",
+        "context": "2 Luka Vušković Défenseur central 35 001 322 6 159 1 819 2",
+        "candidates": [
+          "src:ds_1#23.kpi_hsrabspermin",
+          "src:ds_1#23.kpi_hsrrelpermin"
+        ]
+      },
+      {
+        "raw": "3",
+        "value": 3,
+        "reason": "ambiguous",
+        "context": "3 Ransford Königsdörffer Attaquant 32 632 325 6 095 2 515 3",
+        "candidates": [
+          "src:ds_1#3.kpi_averagespeed",
+          "src:ds_1#5.kpi_averagespeed",
+          "src:ds_1#7.kpi_averagespeed",
+          "src:ds_1#8.kpi_averagespeed",
+          "src:ds_1#9.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "4",
+        "value": 4,
+        "reason": "ambiguous",
+        "context": "4 William Mikelbrencis Latéral 32 238 311 6 954 2 510 4",
+        "candidates": [
+          "src:ds_1#0.kpi_averagespeed",
+          "src:ds_1#1.kpi_averagespeed",
+          "src:ds_1#2.kpi_averagespeed",
+          "src:ds_1#4.kpi_averagespeed",
+          "src:ds_1#10.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "5",
+        "value": 5,
+        "reason": "ambiguous",
+        "context": "5 Jordan Torunarigha Défenseur central 31 079 338 5 153 1 742 5",
+        "candidates": [
+          "src:ds_1#6.kpi_averagespeed",
+          "src:ds_1#14.kpi_decelerationdistancez6rel",
+          "src:ds_1#23.kpi_maxacceleration",
+          "src:ds_2#1.kpi_averagespeed",
+          "src:ds_3#1.kpi_averagespeed"
+        ]
+      },
+      {
+        "raw": "6",
+        "value": 6,
+        "reason": "ambiguous",
+        "context": "6 Miro Muheim Latéral 30 966 353 5 728 2 130 6",
+        "candidates": [
+          "src:ds_1#0.kpi_decelerationdistancez6rel",
+          "src:ds_1#7.kpi_decelerationdistancez6rel",
+          "src:ds_1#16.kpi_maxdeceleration",
+          "src:ds_1#22.kpi_maxdeceleration",
+          "src:ds_1#23.kpi_entriesz5abs"
+        ]
+      }
+    ]
+report-v4  iter 02  │  end_turn  │  4.783s  │  $0.015  │  in=5 out=185 cacheR=3.1k cacheW=3.0k  │  cum $0.071
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.015  │  total so far $0.071  │  iter time 4.783s
+[19:46:54.259] INFO (71025): report_v4.free_designer_capture_review
+    round: 2
+    changed: true
+    layoutWarnings: 3
+    pages: 1
+    iterations: 2
+[19:46:54.803] WARN (71025): report_v4.free_designer_capture_review_remaining
+    rounds: 2
+    warnings: [
+      "capture_review: still failing after 2 rounds",
+      "layout:text_overflow:page1:scroll 233x35 > client 233x32",
+      "layout:text_overflow:page1:scroll 233x35 > client 233x32",
+      "layout:text_overflow:page1:scroll 233x35 > client 233x32"
+    ]
+    layoutRemaining: 3
+[19:46:54.805] INFO (71025): report_v4.data_reliability_block
+    blocks: 4
+    sampleRows: 64
+    imputedExcludedCells: 30
+[19:46:54.807] INFO (71025): report_v4.artifact_parity
+    ok: false
+    issues: [
+      {
+        "kind": "missing_block",
+        "blockId": "468f00fd-2dca-4566-8c42-7027468888f7",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "requested_measure_note",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "reliability-h-3",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "reliability-t-4",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "order",
+        "detail": "html=[page_1] doc=[468f00fd-2dca-4566-8c42-7027468888f7,requested_measure_note,reliability-h-3,reliability-t-4]"
+      }
+    ]
+    documentBlockCount: 4
+    htmlBlockCount: 1
+[19:46:54.808] INFO (71025): report_v4.ask_contract
+    status: "delivered"
+    gaps: []
+{"ok":true,"tag":"s5_short_refs1","iterations":15,"costUsd":1.104535,"durationSec":225.272,"pdfOk":true,"pdfError":null,"htmlPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/s5_short_refs1.html","metaPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/s5_short_refs1.meta.json","pdfPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/s5_short_refs1.pdf"}

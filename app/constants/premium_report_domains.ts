@@ -17,6 +17,8 @@ export type PremiumDomain = (typeof PREMIUM_DOMAIN)[keyof typeof PREMIUM_DOMAIN]
 
 export const PREMIUM_DOMAINS = Object.values(PREMIUM_DOMAIN) as PremiumDomain[]
 
+export const allPremiumMacroDomains = (): PremiumDomain[] => [...PREMIUM_DOMAINS]
+
 export type PremiumDomainMacro = {
   name: string
   templateId:

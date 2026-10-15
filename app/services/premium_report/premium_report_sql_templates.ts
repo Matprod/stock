@@ -6,7 +6,7 @@ import {
 } from '#services/premium_report/club_metric_catalog'
 import { probeRpeSources, RPE_SOURCE } from '#services/premium_report/rpe_source_probe'
 
-export type PremiumSqlTemplateArgs = {
+type PremiumSqlTemplateArgs = {
   clubId: string
   from: string
   to: string
@@ -96,7 +96,7 @@ const DEFAULT_HEALTH_RPE_NAMES = [
   'rpe',
 ]
 
-export const sqlDailySrpe = async (args: PremiumSqlTemplateArgs): Promise<string> => {
+const sqlDailySrpe = async (args: PremiumSqlTemplateArgs): Promise<string> => {
   const [catalog, rpeProbe] = await Promise.all([
     clubMetricCatalog(args.clubId, { from: args.from, to: args.to }),
     probeRpeSources({
@@ -218,7 +218,7 @@ ORDER BY joueur, d.date_of_day
 `.trim()
 }
 
-export const sqlGpsDistance = async (args: PremiumSqlTemplateArgs): Promise<string> => {
+const sqlGpsDistance = async (args: PremiumSqlTemplateArgs): Promise<string> => {
   const catalog = await clubMetricCatalog(args.clubId, { from: args.from, to: args.to })
   const distanceAliases = catalog.namesByUnit('distance')
   const durationAliases = catalog.namesByUnit('duration')
@@ -268,7 +268,7 @@ ORDER BY total_distance_m DESC NULLS LAST
 `.trim()
 }
 
-export const sqlGpsIntensity = async (args: PremiumSqlTemplateArgs): Promise<string> => {
+const sqlGpsIntensity = async (args: PremiumSqlTemplateArgs): Promise<string> => {
   const catalog = await clubMetricCatalog(args.clubId, { from: args.from, to: args.to })
   const kpis = selectPeriodKpis(catalog, args.preferredPeriodNames ?? [])
   const metricNames = kpis.map((k) => k.name)
@@ -291,7 +291,7 @@ ORDER BY ${orderCol} DESC NULLS LAST
 `.trim()
 }
 
-export const sqlGpsIntensityDaily = async (args: PremiumSqlTemplateArgs): Promise<string> => {
+const sqlGpsIntensityDaily = async (args: PremiumSqlTemplateArgs): Promise<string> => {
   const catalog = await clubMetricCatalog(args.clubId, { from: args.from, to: args.to })
   const kpis = selectPeriodKpis(catalog, args.preferredPeriodNames ?? [])
   const metricNames = kpis.map((k) => k.name)
@@ -346,7 +346,7 @@ const matchMinutesSelect = (metricNames: string[]): string =>
     ? `,\n  ROUND(SUM(COALESCE(sa.duration_seconds, 0)) / 60.0, 1) AS minutes_played`
     : ''
 
-export const sqlMatchStats = async (args: PremiumSqlTemplateArgs): Promise<string> => {
+const sqlMatchStats = async (args: PremiumSqlTemplateArgs): Promise<string> => {
   const { kpis, metricNames } = await resolveMatchKpis(args)
   const orderCol = pickGpsOrderColumn(kpis.map((k) => k.alias)) || 'nb_matchs'
   const kpiSelect = kpis.map((k) => caseAgg('sam', k.agg, k.name, k.alias, k.digits)).join(',\n  ')
@@ -365,7 +365,7 @@ ORDER BY ${orderCol} DESC NULLS LAST
 `.trim()
 }
 
-export const sqlMatchStatsDaily = async (args: PremiumSqlTemplateArgs): Promise<string> => {
+const sqlMatchStatsDaily = async (args: PremiumSqlTemplateArgs): Promise<string> => {
   const { kpis, metricNames } = await resolveMatchKpis(args)
   const orderCol = pickGpsOrderColumn(kpis.map((k) => k.alias)) || 'nb_matchs'
   const kpiSelect = kpis.map((k) => caseAgg('sam', k.agg, k.name, k.alias, k.digits)).join(',\n  ')
@@ -399,7 +399,7 @@ const biomarkerTypeClubScope = (clubId: string): string =>
   )
 `.trim()
 
-export const sqlBiomarkers = (args: PremiumSqlTemplateArgs): string =>
+const sqlBiomarkers = (args: PremiumSqlTemplateArgs): string =>
   `
 SELECT
   ${JOUEUR} AS joueur,
@@ -440,7 +440,7 @@ HAVING AVG(${sqlSafeDecimalCast('b.value')}) IS NOT NULL
 ORDER BY date_of_day, bt.name, joueur
 `.trim()
 
-export const sqlDailyScores = (args: PremiumSqlTemplateArgs): string =>
+const sqlDailyScores = (args: PremiumSqlTemplateArgs): string =>
   `
 SELECT
   ${JOUEUR} AS joueur,
@@ -454,7 +454,7 @@ WHERE ${clubDateWhere(args)}
 ORDER BY d.date_of_day, joueur
 `.trim()
 
-export const sqlValdTests = (args: PremiumSqlTemplateArgs): string =>
+const sqlValdTests = (args: PremiumSqlTemplateArgs): string =>
   `
 SELECT
   ${JOUEUR} AS joueur,
@@ -479,7 +479,7 @@ HAVING COUNT(vtr.id) > 0
 ORDER BY vt.test_type, jump_height_moy DESC NULLS LAST
 `.trim()
 
-export const sqlBodyMetrics = (args: PremiumSqlTemplateArgs): string =>
+const sqlBodyMetrics = (args: PremiumSqlTemplateArgs): string =>
   `
 WITH ranked AS (
   SELECT
@@ -500,7 +500,7 @@ WHERE rn = 1
 ORDER BY poids_kg DESC NULLS LAST
 `.trim()
 
-export const sqlInjuries = (args: PremiumSqlTemplateArgs): string =>
+const sqlInjuries = (args: PremiumSqlTemplateArgs): string =>
   `
 SELECT
   ${JOUEUR} AS joueur,

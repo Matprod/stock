@@ -16,6 +16,63 @@ import {
 } from '#services/report_v4/coach_metric_resolve'
 import type { ClubMetricCatalog } from '#services/premium_report/club_metric_catalog'
 
+export const REPORT_V4_LINKER_CONTINUE =
+  'HarvestPlan incomplete. Call the remaining domain macros (load→build_load_summary on Load lookback; scores→fetch_daily_scores; gps→fetch_gps_intensity_daily; match→fetch_match_stats_daily then fetch_match_stats; injury→fetch_injuries; wellness/sleep/biomarkers/vald/body as listed). Empty once = OK then move on. Do not invent ACWR on empty load. Then end_turn.'
+
+export const REPORT_V4_ANALYST_CONTINUE =
+  'Canvas still below the soft floor for THIS ask. Reuse datasetIds. Add only what the coach asked (comparators / cross-domain when relevant). Units on axes. commit_report_brief. Do not pad a staff monitoring pack.'
+
+export const REPORT_V4_ANALYST_RECOVERY_CONTINUE =
+  'RECOVERY: below soft floor for THIS ask / contract. No free SQL. Macros + datasetIds. Add only what the ask requires — do not invent a full briefing. commit_report_brief. Then end_turn.'
+
+export const softAnalystContinueForAsk = (opts?: {
+  additive?: boolean
+  restoreSheets?: boolean
+  addSectionProse?: boolean
+  layoutRepair?: boolean
+  enrichExistingCharts?: boolean
+}): string => {
+  if (opts?.layoutRepair) {
+    return [
+      'Soft LAYOUT REPAIR (Virtual DOM): prior blocks are unlocked (reshape).',
+      'Pair each athlete with THEIR charts: update_block titles with athlete name, remove_block orphan stacked headings, add_chart only if a sheet is missing a metric.',
+      'Never leave a list of athlete headings above a single shared chart. Keep mutating until each athlete sheet is self-contained, then end_turn.',
+    ].join(' ')
+  }
+  if (opts?.enrichExistingCharts) {
+    return [
+      'Soft ENRICH existing charts (Virtual DOM): prior blocks unlocked for reshape.',
+      'update_block(id, datasetId, values) on existing individual/focus chart ids — do not spam add_chart duplicates.',
+      'Fetch every asked domain first. Keep mutating until energy/soreness (or named metrics) appear on the target charts, then end_turn.',
+    ].join(' ')
+  }
+  if (opts?.additive || opts?.restoreSheets || opts?.addSectionProse) {
+    const goals: string[] = []
+    if (opts.restoreSheets) {
+      goals.push(
+        'Restore individual athlete sheets: add_heading + add_chart/add_text per athlete (use live datasetIds; splitAthletes or athletes:[...] as needed)'
+      )
+    }
+    if (opts.addSectionProse) {
+      goals.push(
+        'Add grounded add_text captions under each major chart/section the coach asked to annotate (not one global heading)'
+      )
+    }
+    if (opts?.additive && goals.length === 0) {
+      goals.push('Complete every additive part of the coach ask with add_*/update_block')
+    }
+    return [
+      'Soft ADDITIVE edit (Virtual DOM): keep prior layout; mutate by exact block.id; add_* for new content.',
+      goals.join('. ') + '.',
+      'Do NOT end_turn after a single tool — keep mutating until the coach ask is covered, then end_turn. Never omit id.',
+    ].join(' ')
+  }
+  return 'Soft edit (Virtual DOM): mutate by exact block.id from current only (update_block / remove_block / filter_block / charts_to_team with ids / add_*). After ONE successful mutation → end_turn. Never omit id.'
+}
+
+export const REPORT_V4_DESIGNER_CONTINUE =
+  'Artifact HTML not set. get_design_context then set_report_html with a full HTML document hosting every requiredChartIds entry. After one set_report_html rejection, call build_artifact_html.'
+
 const domainLine = (domains: PremiumDomain[]) => domains.join(', ') || 'none'
 
 const loadFlagHint = (loadFlag: CoachPromptPolicy['loadFlag']): string => {
@@ -77,6 +134,28 @@ const ANALYST_TOOL_HYGIENE = `
 - Single-player subjective evolution: multi-series line on same-scale ratings preferred over N separate charts.
 - Biomarkers: if harvest empty_after_try or window has no rows, say so in prose — never invent lab tables/product labels.
 - Clinical injuries: use fetch_injuries dataset only — never invent injury rows or confuse with injury_risk_score.
+- Individual sheets ask: athlete sheets are already built by code. Only \`add_sheet_comments\` ONCE with comments:[{athlete,text}] (grounded like the brief), then \`commit_report_brief\`. FORBIDDEN \`add_heading\` / \`add_chart\` (and per-athlete loops). \`build_athlete_sheets\` is optional recovery only.
+`.trim()
+
+const SHEETS_PREBUILT_ANALYST_STABLE = `
+You are the ANALYST for MAUNA staff reports.
+Honour Allowed / BANNED domains from the run block.
+
+## Role — week report + prebuilt athlete sheets
+Athlete sheets already exist on the canvas (built by code). This ask is a week report with sheets — not sheets-only.
+
+## Your work
+1. \`add_sheet_comments\` once with comments:[{athlete,text}] grounded on Linker facts (roster ∪ dataset athletes only).
+2. Build the team part in ReportBrief from brief + facts (week synthesis, players to watch, coverage) — not free canvas prose.
+3. Use fact tools (\`compute_report_fact\` / registered facts) for named KPIs. Then \`commit_report_brief\` (title, period=display, focus, narrative, signals, sections) and end_turn.
+4. \`build_athlete_sheets\` is recovery only if sheets are missing.
+
+## Rails
+- Sheet blocks are locked. Do not recreate or delete athlete sheet content.
+- Team synthèse / watchlist / coverage live in the brief JSON consumed by Designer — keep them evidence-based.
+- Players to watch = deviation vs own baseline or team on retained measures, or risk score when present. Missing data belongs in reliability / short sheets — never the watchlist.
+- Signals = watch|review|info — never diagnose injury.
+- Soft floor: honour a thin coach canvas when the ask is thin. Do NOT invent a full monitoring pack.
 `.trim()
 
 const ANALYST_PROMPT = `
@@ -125,6 +204,7 @@ Narrow ask: cover + host(s) only — skip empty TOC/KPI scaffolding.
 - Pack tokens = solid-colour A4 print palette/spacing only — never a content plan.
 - KPI = white bordered \`.kpi\` tiles only when InsightIR/canvas has real figures (no gradient bands). Real chart hosts with exact \`charts[].id\` only.
 - Omit empty "unavailable / next report / coming soon" filler sections.
+- FORBIDDEN nutrition / energy-drink / product-label prose unless NUTRITION SCOPE ON.
 - REQUIRED: every requiredChartIds / charts[].id once as empty \`<div class="chart-box" id="{exact charts[].id}">\` in the authored layout — copy ids verbatim from get_design_context; never invent chart_1..N (server may nudge once; do not rely on host injection). Keep analyst chart types.
 - Chart / band / TOC titles: metric (+ part i/n when split) — FORBIDDEN "Group N" and athlete name ranges in titles (legend carries names).
 - Coach brief (optional): 1–3 line synthesis of the ask — NEVER paste raw coachPrompt / numbered checklist.
@@ -140,7 +220,25 @@ Narrow ask: cover + host(s) only — skip empty TOC/KPI scaffolding.
 - Flow: get_design_context → set_report_html. On grounding reject → fix cited spans and retry set_report_html (server auto-templates after two rejects).
 `.trim()
 
-export const buildLinkerSystemPrompt = (args: {
+export const buildLinkerSystemStable = (): string =>
+  `
+You are the LINKER for MAUNA staff reports.
+Pull a joinable data layer for the analyst — nothing more.
+
+## Retrieval
+- fetch_club_roster once.
+- Prefer macros, one primary call per needed allowed domain (load→ALWAYS build_load_summary on Load lookback — sRPE = RPE×minutes from sport_activities.rpe AND/OR health_ratings→health_metric_values *rpe|exertion|borg* (club-specific names); gps→fetch_gps_intensity_daily with this club's Abs distance KPIs, match→fetch_match_stats_daily then fetch_match_stats (sport_activity_metrics on game_activity), scores→fetch_daily_scores with performance_score+injury_risk_score, injury→fetch_injuries for clinical injury log / availability / rehab, biomarkers→fetch_biomarkers_daily, body→fetch_body_metrics when body composition / mass asked, plus wellness/sleep/vald when allowed and needed). Empty result once → stop retrying that window.
+- When the coach asks perf + injury-risk scores: ALWAYS fetch_daily_scores then the analyst will need TWO charts (performance_score | injury_risk_score). Fetch both score columns. Clinical injuries are a different domain — use fetch_injuries, never substitute injury_risk_score.
+- EVERY macro MUST pass from+to (ISO). Fetch windows is the complete map — one macro call per entry (same domain may repeat with different windows/metrics, e.g. wellness mood vs stress). Domains not listed → Display. load → Load lookback. Never expand every macro to Cover. When the coach names a club season, honour the Club seasons dates in Time ranges (do not invent July–June defaults).
+- Soft edit / additive ask: fetch ONLY domains required by the coach delta — do not refetch the whole stack.
+- Never pass athleteIds to macros. Join later on joueur/date when the ask needs crosses.
+- Club postes only — no generic MIDFIELDER-DEFENDER-FORWARD-GOALKEEPER dumps outside the catalog.
+- Catalog is assembled server-side. After macros succeed, end_turn. No paste of dataset tables/CSV.
+- Free SQL only when a macro cannot cover the ask — honour the schema slice in the run block.
+- Honour Allowed / BANNED domains from the run block — tools may list all macros; only call those for allowed domains.
+`.trim()
+
+export const buildLinkerSystemRun = (args: {
   clubId: string
   clubName: string
   displayRange: IsoDateRange
@@ -156,9 +254,7 @@ export const buildLinkerSystemPrompt = (args: {
   const schemaSlice = filterSchema('', { forceDomainTitles: args.schemaTitles }).trim()
 
   return `
-You are the LINKER for MAUNA staff reports (${args.clubName}).
-Pull a joinable data layer for the analyst — nothing more.
-
+Club: ${args.clubName}.
 ${args.timeRanges}
 SQL ONLY club_id '${args.clubId}'.
 Allowed domains: ${domainLine(args.domains)}.
@@ -166,21 +262,13 @@ Club postes (ONLY these): ${args.clubPostes.join(', ') || 'none'}.
 ${args.policy.excludedDomains.length ? `BANNED: ${domainLine(args.policy.excludedDomains)}.` : ''}
 ${args.policy.preferredDomains.length ? `PRIORITISE: ${domainLine(args.policy.preferredDomains)}.` : ''}
 
-## Retrieval
-- fetch_club_roster once.
-- Prefer macros, one primary call per needed allowed domain (load→ALWAYS build_load_summary on Load lookback — sRPE = RPE×minutes from sport_activities.rpe AND/OR health_ratings→health_metric_values *rpe|exertion|borg* (club-specific names); gps→fetch_gps_intensity_daily with this club's Abs distance KPIs, match→fetch_match_stats_daily then fetch_match_stats (sport_activity_metrics on game_activity), scores→fetch_daily_scores with performance_score+injury_risk_score, injury→fetch_injuries for clinical injury log / availability / rehab, biomarkers→fetch_biomarkers_daily, body→fetch_body_metrics when body composition / mass asked, plus wellness/sleep/vald when allowed and needed). Empty result once → stop retrying that window.
-- When the coach asks perf + injury-risk scores: ALWAYS fetch_daily_scores then the analyst will need TWO charts (performance_score | injury_risk_score). Fetch both score columns. Clinical injuries are a different domain — use fetch_injuries, never substitute injury_risk_score.
-- EVERY macro MUST pass from+to (ISO). Fetch windows is the complete map — one macro call per entry (same domain may repeat with different windows/metrics, e.g. wellness mood vs stress). Domains not listed → Display. load → Load lookback. Never expand every macro to Cover. When the coach names a club season, honour the Club seasons dates in Time ranges (do not invent July–June defaults).
-- Soft edit / additive ask: fetch ONLY domains required by the coach delta — do not refetch the whole stack.
-- Never pass athleteIds to macros. Join later on joueur/date when the ask needs crosses.
-- Club postes only — no generic MIDFIELDER-DEFENDER-FORWARD-GOALKEEPER dumps outside the catalog.
-- Catalog is assembled server-side. After macros succeed, end_turn. No paste of dataset tables/CSV.
-- Free SQL only when a macro cannot cover the ask — honour the schema slice below.
-
 ## Database schema (filtered domains for this report)
 ${schemaSlice || '(no schema slice — prefer macros only)'}
 `.trim()
 }
+
+export const buildLinkerSystemPrompt = (args: Parameters<typeof buildLinkerSystemRun>[0]): string =>
+  `${buildLinkerSystemStable()}\n\n${buildLinkerSystemRun(args)}`
 
 const gpsAnalystRails = (args: {
   domains: PremiumDomain[]
@@ -208,7 +296,24 @@ ${densityLine}
 `.trim()
 }
 
-export const buildAnalystSystemPrompt = (args: {
+export const buildAnalystSystemStable = (args?: { sheetsPrebuilt?: boolean }): string => {
+  if (args?.sheetsPrebuilt) return SHEETS_PREBUILT_ANALYST_STABLE
+  return `
+You are the ANALYST for MAUNA staff reports.
+Honour Allowed / BANNED domains from the run block — macros may list all domains; only use allowed ones.
+
+${ANALYST_PROMPT}
+
+${VIZ_SEMANTICS}
+
+## Examples
+<examples>
+${ANALYST_FEW_SHOTS}
+</examples>
+`.trim()
+}
+
+export const buildAnalystSystemRun = (args: {
   clubId: string
   clubName: string
   displayRange: IsoDateRange
@@ -225,17 +330,21 @@ export const buildAnalystSystemPrompt = (args: {
   clubInsightScienceHint?: string
   subjectiveScalesLine?: string
   namedAthletes?: string[]
+  sheetsPrebuilt?: boolean
 }): string => {
   const coachStructure = monitoringStructureHint(args.policy)
   const named =
-    args.namedAthletes && args.namedAthletes.length > 0
-      ? args.namedAthletes.slice(0, 24)
-      : []
-  const namedFocusBlock =
-    named.length > 0
-      ? `\n## Named athlete focus (coach-named — mandatory)\n${named.join(', ')}\nDedicate individual sheets/charts to these athletes (athletes:[Name] or split among them). Squad-wide charts only as thin context. Do not stop after one shared chart with names in the legend. Brief.focus must list them.\n`
+    args.namedAthletes && args.namedAthletes.length > 0 ? args.namedAthletes.slice(0, 24) : []
+  const namedFocusBlock = args.sheetsPrebuilt
+    ? named.length > 0
+      ? `\n## Named athlete focus (coach-named — mandatory)\n${named.join(', ')}\nSheets for these athletes already exist — \`add_sheet_comments\` once, then \`commit_report_brief\`. Brief.focus must list them. Team synthèse / players to watch / coverage come from brief + facts.\n`
       : args.policy.reportShape === 'individual_focus'
-        ? `\n## Individual focus shape\nPrefer watchlist / high-signal athletes with dedicated sheets — not a late single profile after squad spaghetti only.\n`
+        ? `\n## Individual focus shape\nWatchlist / high-signal athlete sheets already exist — \`add_sheet_comments\` once, then \`commit_report_brief\`. Team synthèse / players to watch / coverage come from brief + facts.\n`
+        : `\n## Prebuilt athlete sheets\nSheets already exist on the canvas. Staff comments via \`add_sheet_comments\` once, then \`commit_report_brief\`. Team synthèse / players to watch / coverage come from brief + facts — not free canvas text.\n`
+    : named.length > 0
+      ? `\n## Named athlete focus (coach-named — mandatory)\n${named.join(', ')}\nSheets for these athletes are already built by code — \`add_sheet_comments\` once, then \`commit_report_brief\`. Squad-wide charts only as thin context. Do not stop after one shared chart with names in the legend. Brief.focus must list them. FORBIDDEN \`add_heading\` / \`add_chart\`.\n`
+      : args.policy.reportShape === 'individual_focus'
+        ? `\n## Individual focus shape\nWatchlist / high-signal athlete sheets are already built by code — \`add_sheet_comments\` once, then \`commit_report_brief\`. Not a late single profile after squad spaghetti only. FORBIDDEN \`add_heading\` / \`add_chart\`.\n`
         : ''
   const structureBlock =
     coachStructure.trim().length > 0
@@ -261,19 +370,23 @@ export const buildAnalystSystemPrompt = (args: {
         })
       : []
   const periodBlock =
-    periodKpis.length > 0
+    !args.sheetsPrebuilt && periodKpis.length > 0
       ? `\n## Populated periodKpis (club GPS catalogue)\n${formatPeriodKpisBrief(periodKpis)}\n`
       : ''
-  const gpsBlock = gpsAnalystRails({
-    domains: args.domains,
-    periodKpis,
-    gpsBindings,
-    multiKpiRequired,
-  })
+  const gpsBlock = args.sheetsPrebuilt
+    ? ''
+    : gpsAnalystRails({
+        domains: args.domains,
+        periodKpis,
+        gpsBindings,
+        multiKpiRequired,
+      })
 
   return `
-You are the ANALYST for MAUNA staff reports (${args.clubName}).
-Language: ${args.language === 'fr' ? 'French' : 'English'}.
+Club: ${args.clubName}.
+Language: ${args.language === 'fr' ? 'French' : 'English'} (from the coach ask only — write all prose in this language).
+Metric names, column ids and positions stay in English (humanized). Never translate positions.
+Cite each number with its nature (mean / max / total / single-day) and period.
 Here is the data for the Display period: ${args.displayRange.from} to ${args.displayRange.to}.
 club_id '${args.clubId}'. Allowed: ${domainLine(args.domains)}.
 Club postes (ONLY these): ${args.clubPostes.join(', ') || 'none'}.
@@ -290,7 +403,7 @@ ${args.policy.allowWellnessInference ? '' : 'Do not infer fatigue/sleep/internal
 ${
   args.policy.allowNutritionScope
     ? 'NUTRITION SCOPE ON: answer briefly with product-label facts in a short text block. No club-specific meal plans. Charts/tables stay on monitoring datasets.'
-    : 'Nutrition digressions only if the coach asked.'
+    : 'NUTRITION SCOPE OFF: nutrition / energy-drink / product prose only when the coach asked.'
 }
 ${periodBlock}
 ${gpsBlock}
@@ -302,24 +415,14 @@ ${
 ${args.dataProfileHint ? `\n${args.dataProfileHint}\n` : ''}
 ${args.clubInsightScienceHint ? `\n${args.clubInsightScienceHint}\n` : ''}
 ${namedFocusBlock}
-
-${ANALYST_PROMPT}
 ${structureBlock}
-${VIZ_SEMANTICS}
-
-## Examples
-<examples>
-${ANALYST_FEW_SHOTS}
-</examples>
 `.trim()
 }
 
-export const buildSoftAnalystSystemPrompt = (args: {
-  clubName: string
-  language: 'fr' | 'en'
-  clubPostes: string[]
-  displayRange: IsoDateRange
-  allowNutritionScope?: boolean
+export const buildAnalystSystemPrompt = (args: Parameters<typeof buildAnalystSystemRun>[0]): string =>
+  `${buildAnalystSystemStable({ sheetsPrebuilt: args.sheetsPrebuilt })}\n\n${buildAnalystSystemRun(args)}`
+
+const softAnalystVirtualDomRails = (args: {
   additive?: boolean
   restoreSheets?: boolean
   addSectionProse?: boolean
@@ -327,23 +430,8 @@ export const buildSoftAnalystSystemPrompt = (args: {
   wantsTeamMean?: boolean
   enrichExistingCharts?: boolean
   targetsUnresolved?: boolean
-  subjectiveScalesLine?: string
 }): string =>
   `
-You are the ANALYST doing a SOFT EDIT on an existing MAUNA staff report (${args.clubName}).
-Language: ${args.language === 'fr' ? 'French' : 'English'}.
-Here is the data for the Display period: ${args.displayRange.from} to ${args.displayRange.to}.
-Club postes (ONLY these): ${args.clubPostes.join(', ') || 'none'}.
-${
-  args.subjectiveScalesLine
-    ? `Club subjective scales (authoritative): ${args.subjectiveScalesLine}. Honour higherIsBetter — never call the good end of the scale weak/low.`
-    : ''
-}
-${
-  args.allowNutritionScope
-    ? 'NUTRITION SCOPE ON: coach asked nutrition / energy drink / composition — answer briefly in add_text (product-label facts).'
-    : ''
-}
 You also receive conversation history, artifactOutline, blockIndex (id/title/type), and softOps — use them to understand the existing PDF before mutating.
 
 ## Virtual DOM (absolute)
@@ -430,7 +518,80 @@ ${
 }
 `.trim()
 
-export const buildDesignerSystemPrompt = (args: {
+export const buildSoftAnalystSystemStable = (args: {
+  additive?: boolean
+  restoreSheets?: boolean
+  addSectionProse?: boolean
+  layoutRepair?: boolean
+  wantsTeamMean?: boolean
+  enrichExistingCharts?: boolean
+  targetsUnresolved?: boolean
+}): string =>
+  `
+You are the ANALYST doing a SOFT EDIT on an existing MAUNA staff report.
+
+${softAnalystVirtualDomRails(args)}
+`.trim()
+
+export const buildSoftAnalystSystemRun = (args: {
+  clubName: string
+  language: 'fr' | 'en'
+  clubPostes: string[]
+  displayRange: IsoDateRange
+  allowNutritionScope?: boolean
+  subjectiveScalesLine?: string
+}): string =>
+  `
+Club: ${args.clubName}.
+Language: ${args.language === 'fr' ? 'French' : 'English'} (from the coach ask only — write all prose in this language).
+Metric names, column ids and positions stay in English (humanized). Never translate positions.
+Cite each number with its nature (mean / max / total / single-day) and period.
+Here is the data for the Display period: ${args.displayRange.from} to ${args.displayRange.to}.
+Club postes (ONLY these): ${args.clubPostes.join(', ') || 'none'}.
+${
+  args.subjectiveScalesLine
+    ? `Club subjective scales (authoritative): ${args.subjectiveScalesLine}. Honour higherIsBetter — never call the good end of the scale weak/low.`
+    : ''
+}
+${
+  args.allowNutritionScope
+    ? 'NUTRITION SCOPE ON: coach asked nutrition / energy drink / composition — answer briefly in add_text (product-label facts).'
+    : 'NUTRITION SCOPE OFF: do not add nutrition / energy-drink / product prose.'
+}
+`.trim()
+
+export const buildSoftAnalystSystemPrompt = (args: {
+  clubName: string
+  language: 'fr' | 'en'
+  clubPostes: string[]
+  displayRange: IsoDateRange
+  allowNutritionScope?: boolean
+  additive?: boolean
+  restoreSheets?: boolean
+  addSectionProse?: boolean
+  layoutRepair?: boolean
+  wantsTeamMean?: boolean
+  enrichExistingCharts?: boolean
+  targetsUnresolved?: boolean
+  subjectiveScalesLine?: string
+}): string =>
+  `${buildSoftAnalystSystemStable(args)}\n\n${buildSoftAnalystSystemRun(args)}`
+
+export const buildDesignerSystemStable = (): string =>
+  `
+You are the DESIGNER for a MAUNA HTML artifact.
+Compose a free-form Claude-style HTML artifact.
+Photos: off — never embed athlete profile photos / img / data-URI avatars in HTML (initials-only banners).
+
+${DESIGNER_PROMPT}
+
+## Examples
+<examples>
+${DESIGNER_FEW_SHOTS}
+</examples>
+`.trim()
+
+export const buildDesignerSystemRun = (args: {
   clubName: string
   route: ReportV4Route
   language: 'fr' | 'en'
@@ -440,29 +601,26 @@ export const buildDesignerSystemPrompt = (args: {
   wellnessScalesLine?: string
 }): string =>
   `
-You are the DESIGNER for a MAUNA HTML artifact (${args.clubName}).
-Compose a free-form Claude-style HTML artifact.
-Language: ${args.language === 'fr' ? 'French' : 'English'}.
+Club: ${args.clubName}.
+Language: ${args.language === 'fr' ? 'French' : 'English'} (from the coach ask only — write all prose in this language).
+Metric names, column ids and positions stay in English (humanized). Never translate positions.
+Cite each number with its nature (mean / max / total / single-day) and period.
 Here is the data for the Display period: ${args.displayRange.from} to ${args.displayRange.to}.
 Pack: ${args.route.designPackId}. ${args.packHint}
-Photos: off — never embed athlete profile photos / img / data-URI avatars in HTML (initials-only banners).
 Cover/hero dates use the Display period above.
 ${args.policy.sectionOrder.length ? `REQUIRED section order: ${args.policy.sectionOrder.join(' → ')}.` : ''}
 ${
   args.policy.allowNutritionScope
     ? 'NUTRITION SCOPE ON: keep any coach-requested nutrition / energy-drink prose from the canvas.'
-    : ''
+    : 'NUTRITION SCOPE OFF: strip or omit nutrition / energy-drink / product prose — do not add it.'
 }
 ${
   args.wellnessScalesLine
     ? `Club wellness scales (authoritative min/max/isReversed): ${args.wellnessScalesLine}`
     : ''
 }
-
-${DESIGNER_PROMPT}
-
-## Examples
-<examples>
-${DESIGNER_FEW_SHOTS}
-</examples>
 `.trim()
+
+export const buildDesignerSystemPrompt = (
+  args: Parameters<typeof buildDesignerSystemRun>[0]
+): string => `${buildDesignerSystemStable()}\n\n${buildDesignerSystemRun(args)}`

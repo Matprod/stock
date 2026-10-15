@@ -1,0 +1,508 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Fiches individuelles pour chaque joueur du groupe sur la période 2026-03-01 → 2026-03-07: wellness, GPS et scores. Une fiche par athlète avec graphiques essentiels.",
+  "durationSec": 275.564,
+  "iterations": 21,
+  "usage": {
+    "inputTokens": 254455,
+    "outputTokens": 25128,
+    "cacheReadInputTokens": 297751,
+    "cacheCreationInputTokens": 100183,
+    "totalTokens": 279583,
+    "estimatedCostUsd": 1.605296
+  },
+  "iterationSecs": [
+    4.419,
+    4.818,
+    3.314,
+    3.21,
+    9.114,
+    6.345,
+    6.666,
+    14.564,
+    14.529,
+    18.2,
+    17.997,
+    18.025,
+    18.28,
+    17.391,
+    8.603,
+    19.943,
+    5.642,
+    10.889,
+    1.446,
+    51.871,
+    7.219
+  ],
+  "iterationCosts": [
+    0.111728,
+    0.133071,
+    0.036525,
+    0.081334,
+    0.090923,
+    0.043297,
+    0.02731,
+    0.047173,
+    0.055481,
+    0.072652,
+    0.07856,
+    0.089756,
+    0.100588,
+    0.105782,
+    0.093143,
+    0.102712,
+    0.094429,
+    0.095347,
+    0.010936,
+    0.095853,
+    0.038695
+  ],
+  "message": "Rapport refait entièrement. Rapport partiel : Joueurs demandés (partiel) — Joueurs manquants : Immanuël Pherai, Łukasz Poręba, Alexander Røssing-Lelesiit, Emir Sahiti, Aboubaka Soumahoro",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    },
+    "fetchRange": {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    },
+    "domainRanges": {
+      "wellness": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 23,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 3,
+        "athletesWithData": 19,
+        "populated": true
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Fiches individuelles pour chaque joueur du groupe sur la période 2026-03-01 → 2026-03-07: wellness, GPS et scores. Une fiche par athlète avec graphiques essentiels.",
+    "domains": [
+      "gps",
+      "match",
+      "wellness",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "wellness",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Wellness data for individual player sheets"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "GPS data for individual player sheets"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Performance scores for individual player sheets"
+      },
+      {
+        "domain": "match",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+  },
+  "blockCount": 50,
+  "chartCount": 30,
+  "blockTitles": [
+    {
+      "id": "38192cfe-6c7a-48dc-a610-c91785374955",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "dc24527f-0dfd-4aa6-8d27-9fb1128b84d6",
+      "type": "table",
+      "title": "GPS — Volumes totaux (1–7 mars)"
+    },
+    {
+      "id": "cb23a055-f2a3-4d4b-acd5-966daf980739",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "e11a3397-fc11-49d9-bef3-307dba57ef23",
+      "type": "table",
+      "title": "Match — Volumes totaux (1–7 mars)"
+    },
+    {
+      "id": "855f417d-ac64-4507-9e33-e944a2588181",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "d408f5bc-df7f-40d8-8c92-5f55c5712c1d",
+      "type": "table",
+      "title": "Wellness — Moyennes (1–7 mars)"
+    },
+    {
+      "id": "1c9c2159-3fa8-40d6-bd81-0e33e1134594",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "aa371e02-28cc-4214-8d8e-44251cdade09",
+      "type": "table",
+      "title": "Scores — Moyennes (1–7 mars)"
+    },
+    {
+      "id": "4d2e4207-0bef-4048-91ee-92f99b014ac0",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "3370c85e-f329-4e5b-a498-ebb3983a14b0",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "5d3a0eea-a64f-4635-99d2-5f5b29f2f00c",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "a07aa4f6-44df-4119-9f96-996a79ec0dcf",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "4cda31f8-03f2-4d81-bf13-32d994f91a94",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "d15eac72-8b44-43e0-a25e-647d1d54afb6",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "11178bbd-82ee-425a-b241-479990dcfb10",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "7f55e0ee-6d96-4387-999f-a0cd829afe59",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "c90d4100-fc10-4a95-a2a6-cf7d3b8193bb",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "198ecb6e-c12c-4e30-86c9-0102ec4867f0",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "4140c647-5e10-4605-93f7-e82a1e1adc60",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "1310f2bf-0393-4543-ab8b-fb13f0c9582d",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "088ff848-9521-499e-b460-22ae53b95a1a",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "686aa023-d1a0-43ec-8743-a544c21ca933",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "3b06520d-cc91-475e-b458-5db4111a3112",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "161dbee8-e1ea-46ef-80c1-7a624ffb1944",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "01503f3a-5bba-4f97-b5e4-becc876ca586",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "32c2fdb1-a76d-4ba2-9a3b-e1f145bdff2e",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "d4b24e1e-1cd7-4416-9edd-a5a9bdfe104d",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "626c276d-83df-41be-b1b0-55f4ba560851",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "f699b7fd-2f72-4ef5-b1e3-89b30b2d2cbd",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "43865fe7-fb4d-4f78-b9aa-a6b497039223",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "b97393e1-cbd9-40bc-967f-05744d4d3e7d",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "34fdb932-84d8-4811-be15-3bc74022ae03",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "15780b49-e1db-44a2-9e70-85a07d1db82f",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "16807ea9-4992-4709-8386-5a2adf22e34e",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "c34f3942-93e0-42de-9b87-ee23ea87218c",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "f2d397a0-a45f-43a7-bea1-16b72464193f",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "79b2a9a5-a17e-4ea0-b21f-dd3331e82015",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "02a04741-3b6b-44c8-8187-ded174745352",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "776e4f43-b3d8-4d4f-b0da-fd65a7b09fa4",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "35cfeaec-105d-4950-bc6b-097700c0745f",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "7b7e7691-a5fe-4a6f-bdf7-e6d940a6745c",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "db9b47ab-f413-4ac3-8c0a-f2291be932e1",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "43b356b4-573a-44e0-a9d6-ad7bc7341141",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "73a72d94-9375-4dc5-9f50-6103a207a88d",
+      "type": "chart",
+      "title": "Wellness"
+    },
+    {
+      "id": "2996535a-e07e-46c0-add2-6d80a32356b4",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "143bc973-dc4a-4784-8bce-d9f9f0768992",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "7cd157d2-079c-4013-bff8-3567ddac5785",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "4d9573e5-f44a-4344-9a8b-ff890e4a384f",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "reliability-h-49",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-50",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    4.419,
+    4.818,
+    3.314,
+    3.21,
+    9.114,
+    6.345,
+    6.666,
+    14.564,
+    14.529,
+    18.2,
+    17.997,
+    18.025,
+    18.28,
+    17.391,
+    8.603,
+    19.943,
+    5.642,
+    10.889,
+    1.446,
+    51.871,
+    7.219
+  ],
+  "agentUsage": {
+    "linker": {
+      "iterations": 4,
+      "durationSec": 15.761,
+      "costUsd": 0.363,
+      "inputTokens": "28k",
+      "outputTokens": "624",
+      "cacheReadInputTokens": "28k",
+      "cacheCreationInputTokens": "70k"
+    },
+    "analyst": {
+      "iterations": 14,
+      "durationSec": 186.188,
+      "costUsd": 1.097,
+      "inputTokens": "209k",
+      "outputTokens": "19k",
+      "cacheReadInputTokens": "265k",
+      "cacheCreationInputTokens": "27k"
+    },
+    "designer": {
+      "iterations": 3,
+      "durationSec": 60.536,
+      "costUsd": 0.145,
+      "inputTokens": "18k",
+      "outputTokens": "5.1k",
+      "cacheReadInputTokens": "4.6k",
+      "cacheCreationInputTokens": "3.7k"
+    }
+  }
+}

@@ -1,0 +1,454 @@
+{
+  "clubId": "019f5371-fdc5-74c6-bdae-d973b3fa5575",
+  "prompt": "Fiches individuelles pour chaque joueur du groupe sur la période 2026-10-07 → 2026-10-14: GPS, match et wellness. Une fiche par athlète avec graphiques essentiels.",
+  "durationSec": 189.246,
+  "iterations": 13,
+  "usage": {
+    "inputTokens": 4260,
+    "outputTokens": 14352,
+    "cacheReadInputTokens": 128897,
+    "cacheCreationInputTokens": 106858,
+    "totalTokens": 18612,
+    "estimatedCostUsd": 0.6674469999999999
+  },
+  "iterationSecs": [
+    3.676,
+    5.265,
+    5.739,
+    5.512,
+    3.618,
+    5.95,
+    5.765,
+    14.863,
+    35.103,
+    10.032,
+    1.45,
+    77.432,
+    10.015
+  ],
+  "iterationCosts": [
+    0.068307,
+    0.055816,
+    0.065041,
+    0.041621,
+    0.02372,
+    0.016434,
+    0.017518,
+    0.026624,
+    0.094992,
+    0.06722,
+    0.011618,
+    0.142659,
+    0.035876
+  ],
+  "message": "Rapport refait entièrement. Rapport livré : tout ce qui était demandé est présent.",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-10-07",
+      "to": "2026-10-14"
+    },
+    "fetchRange": {
+      "from": "2026-09-09",
+      "to": "2026-10-14"
+    },
+    "domainRanges": {
+      "gps": {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 12,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "match",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 12,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 12,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 3,
+        "athletesWithData": 3,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "wellness",
+      "sleep",
+      "injury"
+    ],
+    "emptyDomains": [
+      "gps",
+      "match",
+      "vald",
+      "biomarkers",
+      "body",
+      "scores"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Fiches individuelles pour chaque joueur du groupe sur la période 2026-10-07 → 2026-10-14: GPS, match et wellness. Une fiche par athlète avec graphiques essentiels.",
+    "domains": [
+      "gps",
+      "match",
+      "wellness"
+    ],
+    "fetches": [
+      {
+        "domain": "gps",
+        "from": "2026-10-07",
+        "to": "2026-10-14",
+        "label": "GPS data for individual player sheets"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-07",
+        "to": "2026-10-14",
+        "label": "Match data for individual player sheets"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-07",
+        "to": "2026-10-14",
+        "label": "Wellness data for individual player sheets"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-10-07",
+      "to": "2026-10-14"
+    }
+  },
+  "blockCount": 51,
+  "chartCount": 22,
+  "blockTitles": [
+    {
+      "id": "457a3d8e-527f-4a9b-b06a-4a7abee704ef",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "4ceeee13-db11-4565-8dd1-9095cd2bbfbc",
+      "type": "chart",
+      "title": "Movement load — Total période"
+    },
+    {
+      "id": "7a5a99f0-e875-4de8-aab1-4da79c928f13",
+      "type": "chart",
+      "title": "TRIMP — Total période"
+    },
+    {
+      "id": "48648ecb-f1ee-4d51-b2c4-8fe4daa91aae",
+      "type": "chart",
+      "title": "EPOC final — Total période"
+    },
+    {
+      "id": "76486bd6-398f-4937-9d5e-c3838b6ef99f",
+      "type": "chart",
+      "title": "RMSSD — Total période"
+    },
+    {
+      "id": "b1c80821-2ff4-4665-be3b-2708d2d1ea83",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "794b37be-c7b5-49b0-8468-c83b673f7c0c",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "02bd8a6e-309b-4dfe-9b3c-d06b1cd00815",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "8d76d389-7d32-4049-b098-d4efaeb36e00_g1",
+      "type": "chart",
+      "title": "Profil wellness — Moyennes période (1/2)"
+    },
+    {
+      "id": "8d76d389-7d32-4049-b098-d4efaeb36e00_g2",
+      "type": "chart",
+      "title": "Profil wellness — Moyennes période (2/2)"
+    },
+    {
+      "id": "e3829069-a03d-41d2-8120-14110247aade",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "81cd5a79-a506-4f26-a419-ffc95ea0cc9a",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "1cf91833-ba3a-4757-8528-18baca7735ad",
+      "type": "table",
+      "title": "Joueurs à surveiller — Bien-être moyen le plus bas"
+    },
+    {
+      "id": "6d4dcc08-c720-4504-99e9-b51d9b314a52",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "2fbb5ab0-87f3-4c26-bd2a-3251157b3649",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "1a5b77b1-f316-44f8-bded-117fdb58aeb8",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "0eadb294-e20f-4682-abb0-38dd429ac243",
+      "type": "chart",
+      "title": "energy_rating"
+    },
+    {
+      "id": "b1123f17-9216-47bb-bf35-064d30524550",
+      "type": "chart",
+      "title": "mood_rating"
+    },
+    {
+      "id": "ea10a21b-696a-4ea3-b0ff-cdafce6fdc60",
+      "type": "chart",
+      "title": "stress_rating"
+    },
+    {
+      "id": "36c70999-b593-42cf-8b7c-8be95df46283",
+      "type": "table",
+      "title": "Kadin Shedrick — summary"
+    },
+    {
+      "id": "0371af58-b58a-4347-a693-695628f0f6c6",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "3930c3a6-f02b-4ad6-91ba-6a2fe2bd54c5",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "1fe00428-371f-4f48-85b6-b9cb7e262472",
+      "type": "chart",
+      "title": "energy_rating"
+    },
+    {
+      "id": "e71fe0a6-2802-4d28-9831-d106a62fe2fb",
+      "type": "chart",
+      "title": "mood_rating"
+    },
+    {
+      "id": "e59c50dd-3a25-4dc8-928e-44221144318a",
+      "type": "chart",
+      "title": "stress_rating"
+    },
+    {
+      "id": "37de3d00-16a9-4509-bb95-e7722d0fed63",
+      "type": "table",
+      "title": "Lionel Gaudoux — summary"
+    },
+    {
+      "id": "2dbcb2ce-0de6-4b86-a056-ffa81ebbeb46",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "77194e5f-95f5-409a-9e4f-9f6e3a0b27ec",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "f70cb47b-9e96-46b0-9494-7e038925d3aa",
+      "type": "chart",
+      "title": "energy_rating"
+    },
+    {
+      "id": "a2c889a3-ca13-4d0e-91a6-6e7b9643eb0c",
+      "type": "chart",
+      "title": "mood_rating"
+    },
+    {
+      "id": "0c43fa3e-6d28-442a-9de4-a36f9618c503",
+      "type": "chart",
+      "title": "stress_rating"
+    },
+    {
+      "id": "99abe574-954a-4af6-8589-c8ad6784fb27",
+      "type": "table",
+      "title": "Tyger Campbell — summary"
+    },
+    {
+      "id": "6905a573-cdeb-4410-8884-d7b30f86af40",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "61aee412-b71a-4470-b58a-1a3b71d258ac",
+      "type": "chart",
+      "title": "energy_rating"
+    },
+    {
+      "id": "636d882e-5d47-481a-b8a9-b8700c12743c",
+      "type": "chart",
+      "title": "mood_rating"
+    },
+    {
+      "id": "81fd22cc-faa0-4778-bf6f-41c293bef7bc",
+      "type": "chart",
+      "title": "stress_rating"
+    },
+    {
+      "id": "dbf694ae-6e70-4adc-af1b-7fd42c97a387",
+      "type": "table",
+      "title": "Tyson Walker — summary"
+    },
+    {
+      "id": "540309ce-9479-4eb9-83e9-f0dfc1063c91",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "1759bb3d-9e15-49d5-8ae2-a3ace758ceaa",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "bb21a24a-f3d0-4a85-b97f-11fc44fdecd2",
+      "type": "chart",
+      "title": "energy_rating"
+    },
+    {
+      "id": "44221e8f-5fa3-4606-ad4e-df54856d2a02",
+      "type": "chart",
+      "title": "mood_rating"
+    },
+    {
+      "id": "76ca1ff0-0ae7-4b0e-96db-c557077bb4e8",
+      "type": "chart",
+      "title": "stress_rating"
+    },
+    {
+      "id": "991107a3-46a3-4671-8cd3-2127f4513da7",
+      "type": "table",
+      "title": "Adrian Nelson — summary"
+    },
+    {
+      "id": "793ecdb4-738c-4e23-8bf9-73742e2e182d",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "54961dac-60d4-4dde-809a-e78be4faf8be",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "0a468acf-83a0-467f-8baf-b9f95f8707c3",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "0e584e96-1567-44aa-9c27-28ada1362fbe",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "6e67a695-85f1-484f-a27f-4550f3f23a32",
+      "type": "chart",
+      "title": "energy_rating"
+    },
+    {
+      "id": "missing-match-49",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "reliability-h-50",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-51",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": false,
+  "pdfError": null,
+  "repairHits": [
+    3.676,
+    5.265,
+    5.739,
+    5.512,
+    3.618,
+    5.95,
+    5.765,
+    14.863,
+    35.103,
+    10.032,
+    1.45,
+    77.432,
+    10.015
+  ]
+}

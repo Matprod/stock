@@ -14,6 +14,7 @@ import {
   readString,
   readStringList,
   stampDatasetDateRange,
+  stampDatasetDomain,
   storeDataset,
   toNumber,
 } from '#services/premium_report/dataset_ops'
@@ -273,6 +274,7 @@ const buildLoadSummaryTool = (state: PremiumReportState, runSql: RunSql): Premiu
     }
 
     stampDatasetDateRange(frame, { from, to })
+    stampDatasetDomain(frame, PREMIUM_DOMAIN.LOAD)
     const formulaDatasetIds = Object.fromEntries(specs.map((spec) => [spec.outputColumn, dailyId]))
     const keepCols = [athleteColumn, valueColumn, ...specs.map((spec) => spec.outputColumn)]
     let merged = takeLatestActiveLoadRows(frame, athleteColumn, dateColumn, valueColumn, keepCols)
@@ -293,7 +295,10 @@ const buildLoadSummaryTool = (state: PremiumReportState, runSql: RunSql): Premiu
         dropNote = `All latest ${valueColumn} were 0. Kept rows anyway.`
       }
     }
-    const summary = stampDatasetDateRange(storeDataset(state, merged), { from, to })
+    const summary = stampDatasetDomain(
+      stampDatasetDateRange(storeDataset(state, merged), { from, to }),
+      PREMIUM_DOMAIN.LOAD
+    )
     const durationSec = elapsedSec(started)
     const acwrColumn = specs.some((s) => s.outputColumn === 'acwr_ewma') ? 'acwr_ewma' : undefined
     logPremiumTool({
@@ -470,7 +475,9 @@ const runTemplateQuery = async (
   if (parsed && !parsed.error && typeof parsed.datasetId === 'string') {
     let dataset = state.datasets.get(parsed.datasetId)
     if (dataset) {
+      const macroDomain = domainForTemplate(templateId)
       stampDatasetDateRange(dataset, { from, to })
+      stampDatasetDomain(dataset, macroDomain)
       parsed.dateRange = { from, to }
       let meta = state.templateMetaCache.get(templateId)
       if (!meta) {
@@ -497,7 +504,10 @@ const runTemplateQuery = async (
             hint: 'Pass exact "First Last" or a unique last name',
           })
         }
-        dataset = stampDatasetDateRange(storeDataset(state, filtered), { from, to })
+        dataset = stampDatasetDomain(
+          stampDatasetDateRange(storeDataset(state, filtered), { from, to }),
+          macroDomain
+        )
         parsed.datasetId = dataset.id
         parsed.rowCount = dataset.rows.length
         parsed.note = `Filtered to joueur~${joueur} (${dataset.rows.length} rows).`

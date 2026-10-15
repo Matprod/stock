@@ -7,7 +7,7 @@ import {
 } from '#services/report_v4/prompt_windows_llm'
 import type { ReportV4SessionFocus } from '#services/report_v4/session_focus'
 
-export type AnalyzeRequestResult = {
+type AnalyzeRequestResult = {
   windows: PromptWindows
   askDomains: PremiumDomain[]
   periodFollowUp: boolean
@@ -15,11 +15,13 @@ export type AnalyzeRequestResult = {
   provider: AnalyzeRequestLlmBundle['provider']
 }
 
-export type AnalyzeRequestOpts = {
+type AnalyzeRequestOpts = {
   seasons?: ClubSeasonRef[]
   sessionFocus?: ReportV4SessionFocus | null
   priorUserAsks?: string[]
   fallbackDays?: number
+  timeZone?: string
+  today?: string
 }
 
 export const analyzeRequest = async (

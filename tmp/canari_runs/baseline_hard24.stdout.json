@@ -1,0 +1,732 @@
+[15:45:53.959] INFO (30280): report_v4.analyze_request_llm
+    explicit: true
+    display: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    byDomain: {
+      "load": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    }
+    fetches: [
+      {
+        "domain": "load",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "srpe"
+        ]
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "distance_total",
+          "hmld",
+          "hsr"
+        ]
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "performance_score",
+          "injury_risk_score"
+        ]
+      }
+    ]
+    askDomains: [
+      "load",
+      "gps",
+      "scores"
+    ]
+    periodFollowUp: false
+    multiSection: true
+    rationale: "Coach requests a detailed staff report for 2026-03-01 to 2026-03-07 with a 24+ player roster table (position, total distance, HMLD, HSR, avg sRPE, perf score, risk score) plus 2 team summary charts (load and GPS). Three domains required: load (sRPE), gps (distance metrics), scores (performance and injury risk). Multi-section true due to roster table + dual synthesis charts."
+    durationMs: 3491
+[15:45:54.193] INFO (30280): report_v4.edit_route.wipe
+    wipeReason: "no_existing_canvas"
+    hasExistingCanvas: false
+    periodChanged: false
+    multiSectionAsk: true
+    additive: false
+    scopedPeriod: false
+[15:45:54.193] INFO (30280): report_v4.edit_route
+    canvasAsk: "new_viz"
+    preserveCanvas: false
+    needsFetch: true
+    isMicro: false
+    keepPriorDisplayRange: false
+    softOps: null
+    inventory: null
+    additive: false
+    scopedPeriod: false
+    design: false
+    periodChanged: false
+    multiSectionAsk: true
+    wipeCanvas: true
+    wipeReason: "no_existing_canvas"
+    routeFlags: {
+      "wipe": true,
+      "additive": false,
+      "scopedPeriod": false,
+      "design": false,
+      "aesthetic": false,
+      "partialProse": false,
+      "recommendationStrip": false
+    }
+    provider: "skip"
+    durationSec: 0.233
+[15:45:54.194] INFO (30280): report_v4.prompt_windows_resolved
+    explicit: true
+    displayRange: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    coverRange: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    fetchRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+    domainRanges: {
+      "load": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    }
+    fetches: [
+      {
+        "domain": "load",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "srpe"
+        ]
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "distance_total",
+          "hmld",
+          "hsr"
+        ]
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "performance_score",
+          "injury_risk_score"
+        ]
+      }
+    ]
+    extraRanges: []
+    seasons: [
+      {
+        "name": "2026-2027",
+        "from": "2026-08-01",
+        "to": "2027-05-24",
+        "active": true
+      },
+      {
+        "name": "2025-2026",
+        "from": "2025-07-16",
+        "to": "2026-05-16",
+        "active": false
+      },
+      {
+        "name": "2024-2025",
+        "from": "2024-07-02",
+        "to": "2025-05-18",
+        "active": false
+      },
+      {
+        "name": "2023-2024",
+        "from": "2023-07-28",
+        "to": "2024-05-19",
+        "active": false
+      },
+      {
+        "name": "2022-2023",
+        "from": "2022-07-17",
+        "to": "2023-06-05",
+        "active": false
+      }
+    ]
+[15:45:54.232] INFO (30280): report_v4.roster_active_window
+    athletes: 30
+    ranges: [
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ]
+[15:45:55.434] INFO (30280): report_v4.ask_gate
+    reason: "prompt_clear_enough"
+    question_ids: []
+    confidence: 1
+    round: 0
+    skipped: true
+[15:45:55.672] INFO (30280): report_v4.club_metric_catalog_start
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+
+════════════════════════════════════════════════════════════
+report-v4  START  │  Hambourg  │  2026-03-01 → 2026-03-07
+report-v4  domains  │  load, gps, scores
+report-v4  prompt  │  Rapport staff difficile: inclure un long tableau nominatif d au moins 24 joueurs (colonnes: poste, distance totale, HMLD, HSR, sRPE moyen, score perf, score risque) pour 2026-03-01
+────────────────────────────────────────────────────────────
+[15:45:58.191] INFO (30280): report_v4.club_metric_catalog_done
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+    durationMs: 2519
+    periodKpis: 48
+    matchKpis: 7
+    rpeFetchTable: "health_metric_values"
+    rpeSession: "health_metrics"
+    rpeBody: "health_ratings"
+    clubInsightScience: 8
+[15:45:58.193] INFO (30280): report_v4.linker_start
+    domains: [
+      "load",
+      "gps",
+      "scores"
+    ]
+    fetchWindows: 3
+    athleteCount: 30
+[15:45:58.194] INFO (30280): report_v4.linker_db_tool_start
+    schemaTitles: 6
+[15:45:58.249] INFO (30280): report_v4.linker_db_tool_done
+    durationMs: 55
+[15:45:58.251] INFO (30280): report_v4.linker_agent_invoke
+    toolCount: 17
+report-v4  iter 01  │  tool_use  │  4.832s  │  $0.111  │  in=19 out=221 cacheW=29k  │  cum $0.111
+report-v4  action  │  tools: build_load_summary, fetch_club_roster, fetch_gps_intensity_daily, fetch_daily_scores
+report-v4    └ tool  │  ok  │  build_load_summary  │  0.786s  │  2026-02-01 → 2026-03-07 (sql 2026-03-01→2026-03-07)
+report-v4    └ tool  │  ok  │  fetch_club_roster  │  0.000s  │  ? → ?
+report-v4    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.383s  │  2026-03-01 → 2026-03-07
+report-v4    └ tool  │  ok  │  fetch_daily_scores  │  0.051s  │  2026-03-01 → 2026-03-07
+report-v4    └ cost  │  this prompt $0.111  │  total so far $0.111  │  iter time 4.832s
+report-v4  iter 02  │  end_turn  │  6.937s  │  $0.134  │  in=8.7k out=256 cacheW=28k  │  cum $0.245
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.134  │  total so far $0.245  │  iter time 6.937s
+report-v4  agent-stop  │  linker  │  self_ended  │  2 iteration(s)  │  max=5  │  force@4  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  linker  │  2 iteration(s)  │  11.769s  │  $0.245
+report-v4  tokens  │  in=8.8k  │  out=477  │  cacheR=0  │  cacheW=56k  │  all=9.2k
+report-v4  detail  │  datasets=5
+[15:46:10.029] INFO (30280): report_v4.path_cost_class
+    pathCostClass: "full"
+    budgetUsd: 1.5
+[15:46:10.038] INFO (30280): report_v4.data_profile
+    datasets: 5
+    unusableDomains: []
+    emptyDomains: []
+    partial: [
+      "gps"
+    ]
+report-v4  iter 01  │  tool_use  │  4.235s  │  $0.080  │  in=19 out=291 cacheW=20k  │  cum $0.080
+report-v4  action  │  tools: join_datasets, join_datasets, join_datasets, set_report_meta
+report-v4    └ tool  │  ok  │  join_datasets  │  0.001s
+report-v4    └ tool  │  ok  │  join_datasets  │  0.001s
+report-v4    └ tool  │  ok  │  join_datasets  │  0.000s
+report-v4    └ tool  │  ok  │  set_report_meta  │  0.000s
+report-v4    └ cost  │  this prompt $0.080  │  total so far $0.080  │  iter time 4.235s
+report-v4  iter 02  │  tool_use  │  6.073s  │  $0.059  │  in=9.7k out=391 cacheR=15k cacheW=5.2k  │  cum $0.138
+report-v4  action  │  tools: take_latest, aggregate_dataset, aggregate_dataset
+report-v4    └ tool  │  ok  │  take_latest  │  0.000s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+report-v4    └ cost  │  this prompt $0.059  │  total so far $0.138  │  iter time 6.073s
+report-v4  iter 03  │  tool_use  │  2.585s  │  $0.041  │  in=11k out=106 cacheR=20k  │  cum $0.179
+report-v4  action  │  tools: join_datasets
+report-v4    └ tool  │  ok  │  join_datasets  │  0.000s
+report-v4    └ cost  │  this prompt $0.041  │  total so far $0.179  │  iter time 2.585s
+report-v4  iter 04  │  tool_use  │  4.556s  │  $0.048  │  in=12k out=347 cacheR=20k  │  cum $0.227
+report-v4  action  │  tools: filter_dataset, aggregate_dataset, aggregate_dataset
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ cost  │  this prompt $0.048  │  total so far $0.227  │  iter time 4.556s
+report-v4  iter 05  │  tool_use  │  10.457s  │  $0.064  │  in=14k out=1.0k cacheR=20k  │  cum $0.291
+report-v4  action  │  tools: add_heading, add_chart, add_heading, add_chart, add_chart, add_chart, add_chart, add_heading, add_heading, add_table
+report-v4    └ tool  │  ok  │  add_heading  │  0.002s
+report-v4    └ tool  │  ok  │  add_chart  │  0.012s  │  ds_14
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_chart  │  0.002s  │  ds_15
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_15
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_15
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_15
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_table  │  0.004s  │  ds_13
+report-v4    └ cost  │  this prompt $0.064  │  total so far $0.291  │  iter time 10.457s
+report-v4  iter 06  │  tool_use  │  9.707s  │  $0.067  │  in=16k out=914 cacheR=20k  │  cum $0.358
+report-v4  action  │  tools: filter_dataset, filter_dataset, compute_report_fact, compute_report_fact, compute_report_fact, compute_report_fact, compute_report_fact
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.001s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.001s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ cost  │  this prompt $0.067  │  total so far $0.358  │  iter time 9.707s
+report-v4  iter 07  │  tool_use  │  4.166s  │  $0.037  │  in=8.7k out=309 cacheR=20k  │  cum $0.394
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ cost  │  this prompt $0.037  │  total so far $0.394  │  iter time 4.166s
+report-v4  iter 08  │  tool_use  │  26.614s  │  $0.061  │  in=9.2k out=1.8k cacheR=20k  │  cum $0.455
+report-v4  action  │  tools: commit_report_brief
+report-v4    └ tool  │  ok  │  commit_report_brief  │  0.036s
+report-v4    └ cost  │  this prompt $0.061  │  total so far $0.455  │  iter time 26.614s
+report-v4  iter 09  │  tool_use  │  6.289s  │  $0.040  │  in=10k out=228 cacheR=20k  │  cum $0.495
+report-v4  action  │  tools: add_text
+report-v4    └ tool  │  ok  │  add_text  │  0.002s
+report-v4    └ cost  │  this prompt $0.040  │  total so far $0.495  │  iter time 6.289s
+report-v4  iter 10  │  end_turn  │  9.365s  │  $0.042  │  in=9.4k out=513 cacheR=20k  │  cum $0.537
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.042  │  total so far $0.537  │  iter time 9.365s
+report-v4  agent-stop  │  analyst  │  self_ended  │  10 iteration(s)  │  max=22  │  force@14  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  analyst  │  10 iteration(s)  │  84.047s  │  $0.537
+report-v4  tokens  │  in=100k  │  out=6.0k  │  cacheR=174k  │  cacheW=25k  │  all=106k
+report-v4  detail  │  blocks=11 charts=5 tables=1 insight=true
+[15:47:34.168] INFO (30280): report_v4.analyst_done
+    blocks: 11
+    charts: 5
+    tables: 1
+    insight: true
+    iterations: 10
+    macrosSkipped: true
+    shortWindow: true
+    multiSectionAsk: true
+report-v4  iter 01  │  tool_use  │  2.821s  │  $0.011  │  in=19 out=23 cacheW=2.9k  │  cum $0.011
+report-v4  action  │  tools: get_design_context
+report-v4    └ tool  │  ok  │  get_design_context  │  0.001s
+report-v4    └ cost  │  this prompt $0.011  │  total so far $0.011  │  iter time 2.821s
+report-v4  iter 02  │  tool_use  │  75.988s  │  $0.128  │  in=4.8k out=7.3k cacheR=1.8k cacheW=976  │  cum $0.139
+report-v4  action  │  tools: set_report_html
+report-v4    └ tool  │  ok  │  set_report_html  │  0.316s
+report-v4    └ cost  │  this prompt $0.128  │  total so far $0.139  │  iter time 75.988s
+[15:48:52.668] WARN (30280): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1904"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3047"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "4"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3019"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "813"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "5"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "6"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "25"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "23"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3000"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7260"
+      }
+    ]
+[15:48:52.956] INFO (30280): report_v4.fact_autolink
+    displayed: 180
+    linkedFact: 2
+    linkedSrc: 9
+    ambiguous: 150
+    unmatched: 19
+    samples: [
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "1 – 7 mars 2026",
+        "candidates": [
+          "src:ds_4#1.kpi_maxacceleration",
+          "src:ds_4#2.kpi_hsrabspermin",
+          "src:ds_4#2.kpi_hsrrelpermin",
+          "src:ds_4#4.kpi_accelerationdistancez6rel",
+          "src:ds_4#4.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "1 – 7 mars 2026",
+        "candidates": [
+          "src:ds_4#13.kpi_hsrabspermin",
+          "src:ds_4#13.kpi_hsrrelpermin",
+          "src:ds_4#13.kpi_entriesz5abs",
+          "src:ds_4#14.kpi_hsrabspermin",
+          "src:ds_4#14.kpi_hsrrelpermin"
+        ]
+      },
+      {
+        "raw": "5",
+        "value": 5,
+        "reason": "ambiguous",
+        "context": "La période du 1er au 7 mars 2026 montre une charge interne moyenne de 1904 sRPE par joueur, avec des pics le 1er mars (3047) et le 4 mars (3019), suivis de jour",
+        "candidates": [
+          "src:ds_4#0.kpi_maxacceleration",
+          "src:ds_4#2.kpi_averagespeed",
+          "src:ds_4#2.kpi_maxacceleration",
+          "src:ds_4#2.kpi_maxdeceleration",
+          "src:ds_4#3.kpi_hsrabspermin"
+        ]
+      },
+      {
+        "raw": "813",
+        "value": 813,
+        "reason": "linked_src",
+        "context": "La période du 1er au 7 mars 2026 montre une charge interne moyenne de 1904 sRPE par joueur, avec des pics le 1er mars (3047) et le 4 mars (3019), suivis de jour",
+        "candidates": [
+          "src:ds_14#4.srpe_daily"
+        ]
+      },
+      {
+        "raw": "3019",
+        "value": 3019,
+        "reason": "linked_src",
+        "context": "La période du 1er au 7 mars 2026 montre une charge interne moyenne de 1904 sRPE par joueur, avec des pics le 1er mars (3047) et le 4 mars (3019), suivis de jour",
+        "candidates": [
+          "src:ds_14#3.srpe_daily"
+        ]
+      },
+      {
+        "raw": "4",
+        "value": 4,
+        "reason": "ambiguous",
+        "context": "La période du 1er au 7 mars 2026 montre une charge interne moyenne de 1904 sRPE par joueur, avec des pics le 1er mars (3047) et le 4 mars (3019), suivis de jour",
+        "candidates": [
+          "src:ds_4#0.kpi_averagespeed",
+          "src:ds_4#0.kpi_hsrabspermin",
+          "src:ds_4#0.kpi_hsrrelpermin",
+          "src:ds_4#1.kpi_averagespeed",
+          "src:ds_4#1.kpi_hsrabspermin"
+        ]
+      },
+      {
+        "raw": "3047",
+        "value": 3047,
+        "reason": "linked_src",
+        "context": "La période du 1er au 7 mars 2026 montre une charge interne moyenne de 1904 sRPE par joueur, avec des pics le 1er mars (3047) et le 4 mars (3019), suivis de jour",
+        "candidates": [
+          "src:ds_14#0.srpe_daily"
+        ]
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "La période du 1er au 7 mars 2026 montre une charge interne moyenne de 1904 sRPE par joueur, avec des pics le 1er mars (3047) et le 4 mars (3019), suivis de jour",
+        "candidates": [
+          "src:ds_4#1.kpi_maxacceleration",
+          "src:ds_4#2.kpi_hsrabspermin",
+          "src:ds_4#2.kpi_hsrrelpermin",
+          "src:ds_4#4.kpi_accelerationdistancez6rel",
+          "src:ds_4#4.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "6",
+        "value": 6,
+        "reason": "ambiguous",
+        "context": "Les volumes GPS moyens s'établissent à 3187 m de distance totale et 445 m de HMLD par session, avec une variabilité importante selon les jours (4866 m le 1er ma",
+        "candidates": [
+          "src:ds_4#0.kpi_maxdeceleration",
+          "src:ds_4#1.kpi_maxdeceleration",
+          "src:ds_4#4.kpi_maxacceleration",
+          "src:ds_4#4.kpi_maxdeceleration",
+          "src:ds_4#5.kpi_entriesz5abs"
+        ]
+      },
+      {
+        "raw": "2686 m",
+        "value": 2686,
+        "reason": "linked_src",
+        "context": "Les volumes GPS moyens s'établissent à 3187 m de distance totale et 445 m de HMLD par session, avec une variabilité importante selon les jours (4866 m le 1er ma",
+        "candidates": [
+          "src:ds_15#5.kpi_distancetotal"
+        ]
+      },
+      {
+        "raw": "4866 m",
+        "value": 4866,
+        "reason": "linked_src",
+        "context": "Les volumes GPS moyens s'établissent à 3187 m de distance totale et 445 m de HMLD par session, avec une variabilité importante selon les jours (4866 m le 1er ma",
+        "candidates": [
+          "src:ds_15#0.kpi_distancetotal"
+        ]
+      },
+      {
+        "raw": "445 m",
+        "value": 445,
+        "reason": "ambiguous",
+        "context": "Les volumes GPS moyens s'établissent à 3187 m de distance totale et 445 m de HMLD par session, avec une variabilité importante selon les jours (4866 m le 1er ma",
+        "candidates": [
+          "fact:gps.hmld_mean",
+          "src:ds_4#56.kpi_distancez4z6abs",
+          "src:ds_6#26.kpi_distancez4z6abs"
+        ]
+      }
+    ]
+[15:48:52.978] WARN (30280): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "01"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "02"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "03"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "2"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "04"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1904"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "4"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "5"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "6"
+      }
+    ]
+report-v4  iter 03  │  end_turn  │  10.153s  │  $0.043  │  in=12k out=340 cacheR=2.8k  │  cum $0.182
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.043  │  total so far $0.182  │  iter time 10.153s
+report-v4  agent-stop  │  designer  │  self_ended  │  3 iteration(s)  │  max=14  │  force@12  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  designer  │  3 iteration(s)  │  88.962s  │  $0.182
+report-v4  tokens  │  in=17k  │  out=7.7k  │  cacheR=4.6k  │  cacheW=3.8k  │  all=25k
+report-v4  detail  │  htmlBytes=278139 freeArtifact=true softRepair=false
+[15:49:03.135] INFO (30280): report_v4.designer_done
+    htmlBytes: 278139
+    freeArtifact: true
+    iterations: 3
+    softRebindRepair: false
+[15:49:03.156] INFO (30280): report_v4.data_reliability_block
+    blocks: 13
+    sampleRows: 465
+[15:49:03.162] INFO (30280): report_v4.artifact_parity
+    ok: false
+    issues: [
+      {
+        "kind": "missing_block",
+        "blockId": "reliability-h-12",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "reliability-t-13",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "33483f57-6c10-46f0-bc07-5f7ac57ecb17",
+        "detail": "html=\"Charge interne\" doc=\"Charge\""
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "27503282-7e2b-48ef-b3b0-35f971346112",
+        "detail": "html=\"La période du 1er au 7 mars 2026 montre une charge interne moyenne de 1904 sRPE \" doc=\"Principaux déterminants de la charge : La charge globale de volume (distance tot\""
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "6c069522-0587-4b33-9ddf-dc4a8c1f0177",
+        "detail": "html=\"GPS — Volumes et intensités\" doc=\"GPS\""
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "b35205bd-eb60-439e-adf6-7e4d77c15543",
+        "detail": "html=\"Scores et tableau récapitulatif\" doc=\"Scores\""
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "44794cef-cfee-4cba-a123-7d02aec97f52",
+        "detail": "html=\"Évolution hebdomadaire\" doc=\"Tableau récapitulatif joueurs\""
+      }
+    ]
+    documentBlockCount: 13
+    htmlBlockCount: 11
+[15:49:03.163] INFO (30280): report_v4.ask_contract
+    status: "delivered"
+    gaps: []
+{"ok":true,"tag":"baseline_hard24","iterations":15,"costUsd":0.964024,"durationSec":194.137,"pdfOk":true,"pdfError":null,"htmlPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_hard24.html","metaPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_hard24.meta.json","pdfPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_hard24.pdf"}

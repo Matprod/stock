@@ -1,0 +1,127 @@
+======== START bourg_fix_classic FREE_DESIGNER=0 22:17:38 ========
+======== DONE bourg_fix_classic ========
+[runner] start club=019f5371-fdc5-74c6-bdae-d973b3fa5575 tag=bourg_fix_classic skipPdf=false language=fr freeDesigner=0 freeDesignerRefs=1
+[progress] Récupération des données sportives...
+[runner] rendering PDF…
+[runner] draft html=/Users/matprod/mauna/backend-v2/tmp/reports_drafts/bourg_fix_classic.html
+[runner] done tag=bourg_fix_classic sec=467.894 pdfOk=true cost=2.157324
+tmp/canari_runs/bourg_fix_classic.log:1:[runner] start club=019f5371-fdc5-74c6-bdae-d973b3fa5575 tag=bourg_fix_classic skipPdf=false language=fr freeDesigner=0 freeDesignerRefs=1
+tmp/canari_runs/bourg_fix_classic.meta.json:54:  "coverage": {
+tmp/canari_runs/bourg_fix_classic.meta.json:472:  "freeDesigner": false,
+tmp/canari_runs/bourg_fix_classic.meta.json:473:  "freeDesignerRefs": true
+tmp/canari_runs/bourg_fix_classic.stdout.json:48:    rationale: "Coach requests last week (dernière semaine) staff report for Bourg-en-Bresse covering GPS, match, and wellness. Last complete calendar week Monday–Sunday before today (2026-10-15) is 2026-10-05 to 2026-10-11. Multi-section report with team summary, player tracking, data coverage, and individual player sheets with essential charts."
+tmp/canari_runs/bourg_fix_classic.stdout.json:228:report-v4  TOTAL  │  linker  │  2 iteration(s)  │  15.996s  │  $0.137
+tmp/canari_runs/bourg_fix_classic.stdout.json:231:[22:18:01.426] WARN (86535): report_v4.harvest_empty_after_try
+tmp/canari_runs/bourg_fix_classic.stdout.json:260:[22:18:01.505] INFO (86535): report_v4.athlete_sheets_prebuilt
+tmp/canari_runs/bourg_fix_classic.stdout.json:353:report-v4  TOTAL  │  analyst  │  10 iteration(s)  │  244.285s  │  $1.603
+tmp/canari_runs/bourg_fix_classic.stdout.json:360:[22:22:05.841] INFO (86535): report_v4.coverage_gate
+tmp/canari_runs/bourg_fix_classic.stdout.json:414:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:415:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:416:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:417:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:418:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:419:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:420:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:421:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:422:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:423:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:424:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:425:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:426:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:427:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:428:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:429:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:430:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:431:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:432:      "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:433:      "literal_number"
+tmp/canari_runs/bourg_fix_classic.stdout.json:437:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:442:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:447:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:452:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:457:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:462:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:467:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:472:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:477:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_classic.stdout.json:482:        "code": "literal_number",
+======== START bourg_fix_free FREE_DESIGNER=1 22:25:28 ========
+======== DONE bourg_fix_free ========
+[runner] start club=019f5371-fdc5-74c6-bdae-d973b3fa5575 tag=bourg_fix_free skipPdf=false language=fr freeDesigner=1 freeDesignerRefs=1
+[progress] Récupération des données sportives...
+[runner] rendering PDF…
+[runner] draft html=/Users/matprod/mauna/backend-v2/tmp/reports_drafts/bourg_fix_free.html
+[runner] done tag=bourg_fix_free sec=513.365 pdfOk=true cost=1.625437
+tmp/canari_runs/bourg_fix_free.log:1:[runner] start club=019f5371-fdc5-74c6-bdae-d973b3fa5575 tag=bourg_fix_free skipPdf=false language=fr freeDesigner=1 freeDesignerRefs=1
+tmp/canari_runs/bourg_fix_free.stdout.json:48:    rationale: "Coach requests last week (dernière semaine) staff report for Bourg-en-Bresse covering GPS, match, and wellness. Last complete calendar week Monday–Sunday before today (2026-10-15) is 2026-10-05 to 2026-10-11. Multi-section report with team summary, player tracking, data coverage, and individual player sheets with essential charts."
+tmp/canari_runs/bourg_fix_free.stdout.json:228:report-v4  TOTAL  │  linker  │  2 iteration(s)  │  14.413s  │  $0.137
+tmp/canari_runs/bourg_fix_free.stdout.json:231:[22:25:49.178] WARN (94067): report_v4.harvest_empty_after_try
+tmp/canari_runs/bourg_fix_free.stdout.json:260:[22:25:49.259] INFO (94067): report_v4.athlete_sheets_prebuilt
+tmp/canari_runs/bourg_fix_free.stdout.json:291:report-v4  TOTAL  │  analyst  │  4 iteration(s)  │  105.261s  │  $0.344
+tmp/canari_runs/bourg_fix_free.stdout.json:298:[22:27:34.588] INFO (94067): report_v4.coverage_gate
+tmp/canari_runs/bourg_fix_free.stdout.json:360:[22:32:02.193] INFO (94067): report_v4.fact_autolink
+tmp/canari_runs/bourg_fix_free.stdout.json:461:report-v4  TOTAL  │  designer  │  3 iteration(s)  │  287.625s  │  $0.876
+tmp/canari_runs/bourg_fix_free.stdout.json:463:report-v4  detail  │  htmlBytes=271554 freeDesigner=1 refs=02-summary,04-load-acwr,05-positions,06-wellness
+tmp/canari_runs/bourg_fix_free.stdout.json:466:    freeDesigner: true
+tmp/canari_runs/bourg_fix_free.stdout.json:482:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_free.stdout.json:487:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_free.stdout.json:492:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_free.stdout.json:497:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_free.stdout.json:502:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_free.stdout.json:507:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_free.stdout.json:512:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_free.stdout.json:517:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_free.stdout.json:522:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_free.stdout.json:527:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_free.stdout.json:532:        "code": "literal_number",
+tmp/canari_runs/bourg_fix_free.meta.json:42:  "coverage": {
+tmp/canari_runs/bourg_fix_free.meta.json:454:  "freeDesigner": true,
+tmp/canari_runs/bourg_fix_free.meta.json:455:  "freeDesignerRefs": true
+======== START hamburg_fix_classic FREE_DESIGNER=0 22:34:03 ========
+======== DONE hamburg_fix_classic ========
+[runner] start club=019fa7cc-684c-783e-9609-c132a26eb4e3 tag=hamburg_fix_classic skipPdf=false language=fr freeDesigner=0 freeDesignerRefs=1
+[progress] Récupération des données sportives...
+[runner] rendering PDF…
+[runner] draft html=/Users/matprod/mauna/backend-v2/tmp/reports_drafts/hamburg_fix_classic.html
+[runner] done tag=hamburg_fix_classic sec=336.763 pdfOk=true cost=1.260538
+tmp/canari_runs/hamburg_fix_classic.log:1:[runner] start club=019fa7cc-684c-783e-9609-c132a26eb4e3 tag=hamburg_fix_classic skipPdf=false language=fr freeDesigner=0 freeDesignerRefs=1
+tmp/canari_runs/hamburg_fix_classic.meta.json:46:  "coverage": {
+tmp/canari_runs/hamburg_fix_classic.meta.json:351:  "freeDesigner": false,
+tmp/canari_runs/hamburg_fix_classic.meta.json:352:  "freeDesignerRefs": true
+tmp/canari_runs/hamburg_fix_classic.stdout.json:316:report-v4  TOTAL  │  linker  │  2 iteration(s)  │  12.829s  │  $0.177
+tmp/canari_runs/hamburg_fix_classic.stdout.json:425:report-v4  TOTAL  │  analyst  │  7 iteration(s)  │  115.819s  │  $0.673
+tmp/canari_runs/hamburg_fix_classic.stdout.json:483:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:484:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:485:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:486:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:487:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:488:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:489:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:490:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:491:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:492:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:493:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:494:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:495:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:496:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:497:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:498:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:499:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:500:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:501:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:502:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:503:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:504:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:505:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:506:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:507:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:508:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:509:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:510:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:511:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:512:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:513:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:514:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:515:      "literal_number",
+tmp/canari_runs/hamburg_fix_classic.stdout.json:516:      "literal_number",
+ALL DELIVERABLE RUNS COMPLETE 22:39:42

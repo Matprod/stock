@@ -7,7 +7,7 @@ export type SoftEditPath =
   | 'template_recovered'
   | 'unchanged'
 
-export type SoftRefusalCode =
+type SoftRefusalCode =
   | 'soft_truth_escalate'
   | 'soft_diff_gate'
   | 'zero_mutations'
@@ -26,7 +26,7 @@ export type SoftRefusal = {
   blockIds: string[]
 }
 
-export const softRefusal = (args: {
+const softRefusal = (args: {
   code: SoftRefusalCode
   reason: string
   blockIds?: string[]

@@ -85,7 +85,7 @@ export type { SubjectiveChartScale } from '#services/premium_report/charts/echar
 
 const RADAR_SKIP_VALUE_RE = /^(n|count|samples?|rows?|unit|nb_.*|athletes?|players?)$/i
 
-export type RadarAthletePlan = {
+type RadarAthletePlan = {
   category: string
   values: string[]
   rows: Array<Record<string, unknown>>

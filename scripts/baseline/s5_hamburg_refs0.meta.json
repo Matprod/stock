@@ -1,0 +1,330 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.",
+  "durationSec": 388.316,
+  "iterations": 21,
+  "usage": {
+    "inputTokens": 545,
+    "outputTokens": 34020,
+    "cacheReadInputTokens": 534784,
+    "cacheCreationInputTokens": 548144,
+    "totalTokens": 34565,
+    "estimatedCostUsd": 2.7279099999999996
+  },
+  "iterationSecs": [
+    5.791,
+    6.592,
+    10.198,
+    16.445,
+    2.831,
+    2.236,
+    2.695,
+    2.412,
+    2.836,
+    3.721,
+    2.653,
+    2.817,
+    2.796,
+    2.402,
+    3.107,
+    1.663,
+    136.991,
+    10.798,
+    125.984,
+    7.084,
+    23.392
+  ],
+  "iterationCosts": [
+    0.078342,
+    0.097812,
+    0.115111,
+    0.094103,
+    0.07748,
+    0.012277,
+    0.013057,
+    0.012337,
+    0.074927,
+    0.076217,
+    0.077005,
+    0.077492,
+    0.078494,
+    0.077466,
+    0.080219,
+    0.078561,
+    0.692963,
+    0.514002,
+    0.242873,
+    0.096312,
+    0.06086
+  ],
+  "message": "Rapport refait entièrement. Rapport livré : tout ce qui était demandé est présent.",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    },
+    "fetchRange": {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    },
+    "domainRanges": {
+      "load": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "gps": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "sleep": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "scores": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 6,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 1,
+        "athletesWithData": 13,
+        "populated": false
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 20,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "match",
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.",
+    "domains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "load",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "sleep",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+  },
+  "blockCount": 16,
+  "chartCount": 7,
+  "blockTitles": [
+    {
+      "id": "603383c0-1dc3-4b1e-87ab-a84ea22d852a",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "199c2975-060d-413f-90ed-70684c7fa1ad",
+      "type": "chart",
+      "title": "sRPE quotidien moyen — équipe"
+    },
+    {
+      "id": "209ff532-c0e2-4e37-9f38-4dfd92060964",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "5031aec8-d3d3-4a51-a613-26462c71ce7f",
+      "type": "chart",
+      "title": "Distance totale — Top 5"
+    },
+    {
+      "id": "5ecc042e-6e0d-4a27-b7c6-f2a45e93ff8e",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "8bbe580d-8d9b-4985-b93f-b3a7595e17a4",
+      "type": "table",
+      "title": "Statistiques match (10 oct.)"
+    },
+    {
+      "id": "d2b718d6-1ea7-40f3-a3b2-bad1ae443203",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "1e432863-af40-4765-abd1-2bb7b35180bf",
+      "type": "chart",
+      "title": "Douleurs corporelles moyennes"
+    },
+    {
+      "id": "fed82ed1-b59a-46af-b26a-c0401249a90e",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "5894e5f3-d6b1-41c0-9976-56eed0002a55",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "7d5ee405-1c06-433c-bed7-953e8c847e01",
+      "type": "chart",
+      "title": "Charge totale sRPE — Top 5"
+    },
+    {
+      "id": "a05c3c5a-f8d3-4c12-bb07-4c46167838ca",
+      "type": "chart",
+      "title": "Distance métabolique — Top 5"
+    },
+    {
+      "id": "8f1447fb-bd75-4cae-afec-ef18ce3527b3",
+      "type": "chart",
+      "title": "Distance explosive — Top 5"
+    },
+    {
+      "id": "03998910-cbf5-4246-8237-5e3400a2fcd1",
+      "type": "chart",
+      "title": "Course haute intensité — Top 5"
+    },
+    {
+      "id": "reliability-h-15",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-16",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    5.791,
+    6.592,
+    10.198,
+    16.445,
+    2.831,
+    2.236,
+    2.695,
+    2.412,
+    2.836,
+    3.721,
+    2.653,
+    2.817,
+    2.796,
+    2.402,
+    3.107,
+    1.663,
+    136.991,
+    10.798,
+    125.984,
+    7.084,
+    23.392
+  ]
+}

@@ -1,0 +1,397 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Rapport staff difficile: inclure un long tableau nominatif d au moins 24 joueurs (colonnes: poste, distance totale, HMLD, HSR, sRPE moyen, score perf, score risque) pour 2026-03-01 → 2026-03-07, plus 2 graphiques de synthèse équipe (charge et GPS).",
+  "durationSec": 174.054,
+  "iterations": 14,
+  "usage": {
+    "inputTokens": 9417,
+    "outputTokens": 13029,
+    "cacheReadInputTokens": 217095,
+    "cacheCreationInputTokens": 132313,
+    "totalTokens": 22446,
+    "estimatedCostUsd": 0.784988
+  },
+  "iterationSecs": [
+    4.564,
+    5.551,
+    4.034,
+    5.427,
+    2.811,
+    3.647,
+    10.793,
+    8.483,
+    4.262,
+    28.975,
+    9.235,
+    1.521,
+    69.943,
+    8.017
+  ],
+  "iterationCosts": [
+    0.053846,
+    0.085595,
+    0.041621,
+    0.07158,
+    0.048996,
+    0.01837,
+    0.030547,
+    0.028726,
+    0.070936,
+    0.092457,
+    0.07471,
+    0.005805,
+    0.129131,
+    0.03267
+  ],
+  "message": "Rapport refait entièrement. Rapport livré : tout ce qui était demandé est présent.",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    },
+    "fetchRange": {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    },
+    "domainRanges": {
+      "load": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 23,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 3,
+        "athletesWithData": 19,
+        "populated": true
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Rapport staff difficile: inclure un long tableau nominatif d au moins 24 joueurs (colonnes: poste, distance totale, HMLD, HSR, sRPE moyen, score perf, score risque) pour 2026-03-01 → 2026-03-07, plus 2 graphiques de synthèse équipe (charge et GPS).",
+    "domains": [
+      "load",
+      "gps",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "load",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+  },
+  "blockCount": 14,
+  "chartCount": 7,
+  "blockTitles": [
+    {
+      "id": "347ece73-0ef2-414c-a6cd-7ee71261e390",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "f11c3df6-942b-4316-9cfc-5891c8a69b39",
+      "type": "chart",
+      "title": "sRPE moyen équipe"
+    },
+    {
+      "id": "9fae8f09-194f-4d57-9688-37712cd55476",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "05e7553f-d4a8-4df6-99cf-621f9eace71d",
+      "type": "chart",
+      "title": "Distance totale moyenne équipe"
+    },
+    {
+      "id": "571d749f-b355-4aec-975f-f4f245263466",
+      "type": "chart",
+      "title": "HMLD moyen équipe"
+    },
+    {
+      "id": "3f937b36-97fd-461a-bfb9-3bec8569f68b",
+      "type": "chart",
+      "title": "Distance métabolique moyenne équipe"
+    },
+    {
+      "id": "f3f9d6a8-b891-492f-8f1d-e515cd33dea3",
+      "type": "chart",
+      "title": "Distance explosive moyenne équipe"
+    },
+    {
+      "id": "fee72011-4c1c-4418-9ded-4c6af6a65f98",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "82dfe2af-e1f0-4e56-b993-40b9c95e865b",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "565becd4-6ff7-443b-9c3d-4b24612ab109",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "861353ad-3d04-4c0d-a297-025044a381d0",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "72f877b6-9a53-4783-816c-55618de69261",
+      "type": "table",
+      "title": "Synthèse joueurs (1–7 mars 2026)"
+    },
+    {
+      "id": "reliability-h-13",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-14",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    4.564,
+    5.551,
+    4.034,
+    5.427,
+    2.811,
+    3.647,
+    10.793,
+    8.483,
+    4.262,
+    28.975,
+    9.235,
+    1.521,
+    69.943,
+    8.017
+  ],
+  "r75": {
+    "dataFactSpans": 1,
+    "dataSrcSpans": 7,
+    "emDashCount": 27,
+    "rawLabelHits": 3,
+    "measureNotes": 0,
+    "imputedCopyPresent": false,
+    "agentCacheByIter": {
+      "linker": [
+        {
+          "iter": 1,
+          "stop": "tool_use",
+          "in": "19",
+          "out": "221",
+          "cacheR": "6.1k",
+          "cacheW": "13k"
+        },
+        {
+          "iter": 2,
+          "stop": "end_turn",
+          "in": "7",
+          "out": "177",
+          "cacheR": "6.1k",
+          "cacheW": "22k"
+        }
+      ],
+      "analyst": [
+        {
+          "iter": 1,
+          "stop": "tool_use",
+          "in": "19",
+          "out": "290",
+          "cacheR": "13k",
+          "cacheW": "8.9k"
+        },
+        {
+          "iter": 2,
+          "stop": "tool_use",
+          "in": "9.3k",
+          "out": "356",
+          "cacheR": "13k",
+          "cacheW": "9.2k"
+        },
+        {
+          "iter": 3,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "113",
+          "cacheR": "23k",
+          "cacheW": "11k"
+        },
+        {
+          "iter": 4,
+          "stop": "tool_use",
+          "in": "5",
+          "out": "264",
+          "cacheR": "33k",
+          "cacheW": "1.2k"
+        },
+        {
+          "iter": 5,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "1.0k",
+          "cacheR": "35k",
+          "cacheW": "1.2k"
+        },
+        {
+          "iter": 6,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "794",
+          "cacheR": "36k",
+          "cacheW": "1.6k"
+        },
+        {
+          "iter": 7,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "351",
+          "cacheR": "13k",
+          "cacheW": "16k"
+        },
+        {
+          "iter": 8,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "1.9k",
+          "cacheR": "13k",
+          "cacheW": "16k"
+        },
+        {
+          "iter": 9,
+          "stop": "end_turn",
+          "in": "5",
+          "out": "459",
+          "cacheR": "13k",
+          "cacheW": "17k"
+        }
+      ],
+      "designer": [
+        {
+          "iter": 1,
+          "stop": "tool_use",
+          "in": "19",
+          "out": "23",
+          "cacheR": "1.5k",
+          "cacheW": "1.3k"
+        },
+        {
+          "iter": 2,
+          "stop": "tool_use",
+          "in": "5",
+          "out": "6.7k",
+          "cacheR": "1.5k",
+          "cacheW": "7.3k"
+        },
+        {
+          "iter": 3,
+          "stop": "end_turn",
+          "in": "5",
+          "out": "280",
+          "cacheR": "8.9k",
+          "cacheW": "6.9k"
+        }
+      ]
+    }
+  }
+}

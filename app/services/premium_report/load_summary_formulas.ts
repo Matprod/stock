@@ -1,6 +1,6 @@
 import type { ReportFormulaId } from '#constants/report_builder.constants'
 
-export type LoadFormulaSpec = {
+type LoadFormulaSpec = {
   id: ReportFormulaId
   outputColumn: string
   params?: { n?: number }

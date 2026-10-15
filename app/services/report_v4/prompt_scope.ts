@@ -1,11 +1,24 @@
 import { PREMIUM_DOMAINS, type PremiumDomain } from '#constants/premium_report_domains'
 import { collectSeasonRanges, type ClubSeasonRef } from '#services/report_v4/club_seasons'
-import { shiftIsoDate, type IsoDateRange } from '#services/report_v4/lookback_range'
+import {
+  currentWeekToDate,
+  DEFAULT_REPORT_TIMEZONE,
+  previousCompleteCalendarWeek,
+  shiftIsoDate,
+  todayInTimeZone,
+  type IsoDateRange,
+} from '#services/report_v4/lookback_range'
 import {
   REPORT_V4_LEAN_WINDOW_DAYS,
   REPORT_V4_MS_PER_DAY,
-  REPORT_V4_RANGE_SEP as RANGE_SEP,
 } from '#services/report_v4/report_v4_constants'
+
+export type ResolvePromptWindowsOpts = {
+  timeZone?: string
+  today?: string
+}
+
+const RANGE_SEP = String.raw`(?:to|->|→|⇒|–|-|—)`
 
 export type { IsoDateRange }
 
@@ -75,11 +88,6 @@ const isoDate = (year: number, month: number, day: number): string =>
 
 const lastDayOfMonth = (year: number, month: number): number =>
   new Date(Date.UTC(year, month, 0)).getUTCDate()
-
-const todayUtc = (): string => {
-  const now = new Date()
-  return isoDate(now.getUTCFullYear(), now.getUTCMonth() + 1, now.getUTCDate())
-}
 
 const isValidIsoDay = (iso: string): boolean =>
   /^\d{4}-\d{2}-\d{2}$/.test(iso) && Number.isFinite(Date.parse(`${iso}T12:00:00Z`))
@@ -396,6 +404,33 @@ const parseRelativeCount = (raw: string | undefined): number | null => {
   return word != null && word >= 1 ? word : null
 }
 
+const collectNamedWeekRanges = (text: string, todayIso: string): LocatedRange[] => {
+  const out: LocatedRange[] = []
+  const lastWeek = previousCompleteCalendarWeek(todayIso)
+  const thisWeek = currentWeekToDate(todayIso)
+  const patterns: Array<{ re: RegExp; range: IsoDateRange }> = [
+    {
+      re: /\b(?:(?:la|de\s+la)\s+)?semaine\s+derniere\b|\bderniere\s+semaine\b|\blast\s+week\b|\bprevious\s+week\b/g,
+      range: lastWeek,
+    },
+    {
+      re: /\bcette\s+semaine\b|\bthis\s+week\b/g,
+      range: thisWeek,
+    },
+  ]
+  for (const { re, range } of patterns) {
+    for (const match of text.matchAll(re)) {
+      pushUnique(out, {
+        from: range.from,
+        to: range.to,
+        index: match.index ?? 0,
+        end: (match.index ?? 0) + match[0].length,
+      })
+    }
+  }
+  return out
+}
+
 const collectRelativeRanges = (text: string, anchorTo: string): LocatedRange[] => {
   const out: LocatedRange[] = []
   const patterns: Array<{ re: RegExp; days: (n: number) => number }> = [
@@ -579,10 +614,14 @@ const sameMetricSet = (a?: string[], b?: string[]): boolean => {
 export const resolvePromptWindows = (
   prompt: string,
   fallbackDays = REPORT_V4_LEAN_WINDOW_DAYS,
-  seasons: ClubSeasonRef[] = []
+  seasons: ClubSeasonRef[] = [],
+  opts?: ResolvePromptWindowsOpts
 ): PromptWindows => {
   const text = fold(prompt)
-  const today = todayUtc()
+  const today =
+    opts?.today && isValidIsoDay(opts.today)
+      ? opts.today
+      : todayInTimeZone(opts?.timeZone ?? DEFAULT_REPORT_TIMEZONE)
 
   const isoPairs = collectIsoPairs(text)
   const isoMonths = collectIsoMonthWindows(text)
@@ -604,15 +643,25 @@ export const resolvePromptWindows = (
     index: row.index,
     end: row.end,
   }))
+  const namedWeeks = collectNamedWeekRanges(text, today)
 
-  const spanning = [...isoPairs, ...isoMonths, ...daySpans, ...namedMonths, ...seasonRanges]
+  const spanning = [
+    ...isoPairs,
+    ...isoMonths,
+    ...daySpans,
+    ...namedMonths,
+    ...seasonRanges,
+    ...namedWeeks,
+  ]
   const singles = [...namedDays, ...collectIsoSingles(text)].filter(
     (day) => !spanning.some((span) => rangeContainsToken(span, day))
   )
   const calendar = [...spanning, ...singles]
 
   const anchorTo = [...calendar].sort((a, b) => a.index - b.index)[0]?.to ?? today
-  const relative = collectRelativeRanges(text, anchorTo)
+  const relative = collectRelativeRanges(text, anchorTo).filter(
+    (range) => !namedWeeks.some((week) => rangeContainsToken(week, range) || rangeContainsToken(range, week))
+  )
 
   const located = [...calendar, ...relative].sort((a, b) => a.index - b.index)
   const fetches: PromptFetchSpec[] = []

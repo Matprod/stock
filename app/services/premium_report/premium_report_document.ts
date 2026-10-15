@@ -18,7 +18,6 @@ import type {
   PremiumReportDocument,
   PremiumReportDocumentDraft,
   PremiumTableBlock,
-  PremiumTableCellStyle,
 } from '#contracts/premium_report'
 import {
   aggregateRowsByCategory,
@@ -74,7 +73,7 @@ const daysInRange = (from: string, to: string): number => {
 const isMinutesColumnName = (column: string): boolean =>
   /(^|_)min(ute|utes|s)?(_|$)|duree_min|minutes_jou|temps_de_jeu/i.test(column)
 
-export const isDistanceMetersColumn = (column: string): boolean => {
+const isDistanceMetersColumn = (column: string): boolean => {
   const name = column.toLowerCase()
   if (/\bkm\b|_km\b|\(km\)|per_?min|\/\s*min|hsr|band/.test(name)) return false
   return /distance/.test(name)
@@ -274,16 +273,21 @@ export const insertBlock = (
 export const sanitizeIncomingDocument = (
   raw: PremiumReportDocumentDraft | undefined,
   fallbackRange: PremiumReportDocument['dateRange'],
-  language: AppLanguage = 'fr'
+  language: AppLanguage = 'fr',
+  limits?: { maxBlocks?: number }
 ): PremiumReportDocument => {
   if (!raw) return emptyPremiumDocument(fallbackRange)
   const dateRange = {
     from: raw.dateRange?.from || fallbackRange.from,
     to: raw.dateRange?.to || fallbackRange.to,
   }
+  const maxBlocks = Math.max(
+    limits?.maxBlocks ?? PREMIUM_REPORT_MAX_BLOCKS,
+    PREMIUM_REPORT_MAX_BLOCKS
+  )
   const blocks = (raw.blocks ?? [])
     .flatMap((block) => sanitizeBlock(block as PremiumReportBlock, language))
-    .slice(0, PREMIUM_REPORT_MAX_BLOCKS)
+    .slice(0, maxBlocks)
   return {
     title: raw.title?.trim() ?? '',
     dateRange,
@@ -335,13 +339,22 @@ export const datasetToSource = (dataset: PremiumDataset): unknown[] => {
   const rows = dataset.rows.slice(0, PREMIUM_REPORT_MAX_DATASET_ROWS)
   return [
     dataset.columns,
-    ...rows.map((row) => dataset.columns.map((column) => toCell(row[column]))),
+    ...rows.map((row, rowIndex) =>
+      dataset.columns.map((column) => {
+        if (dataset.imputed?.[rowIndex]?.[column]) return null
+        return toCell(row[column])
+      })
+    ),
   ]
 }
 
 export const toDisplayChartDataset = (dataset: PremiumDataset): PremiumDataset => {
-  const rows = dataset.rows.map((row) => {
+  const rows = dataset.rows.map((row, rowIndex) => {
     const next: Record<string, unknown> = { ...row }
+    const marks = dataset.imputed?.[rowIndex]
+    if (marks) {
+      for (const column of Object.keys(marks)) next[column] = null
+    }
     const joueur = playerLabel(row)
     if (joueur) next.joueur = joueur
     const seconds = firstDurationSeconds(next)
@@ -586,16 +599,53 @@ export const chartOptionHasRenderableData = (option: Record<string, unknown>): b
   return false
 }
 
-/** Drop chart blocks that would render as empty axes (categories without values). */
+/** Replace empty chart/table blocks with a localized unavailable line (never leave a blank frame). */
 export const dropEmptyChartBlocks = (
-  document: PremiumReportDocument
+  document: PremiumReportDocument,
+  language: AppLanguage = 'fr'
 ): { document: PremiumReportDocument; dropped: string[] } => {
   const dropped: string[] = []
-  const blocks = document.blocks.filter((block) => {
-    if (block.type !== PREMIUM_BLOCK_TYPE.CHART) return true
-    if (chartOptionHasRenderableData(block.option)) return true
-    dropped.push(block.title || block.id)
-    return false
+  const fr = language !== 'en'
+  const blocks = document.blocks.flatMap((block) => {
+    if (block.type === PREMIUM_BLOCK_TYPE.CHART) {
+      if (chartOptionHasRenderableData(block.option)) return [block]
+      const title = block.title || block.id
+      dropped.push(title)
+      const reason = fr
+        ? `Graphique non disponible : aucune donnée exploitable pour « ${title} ».`
+        : `Chart unavailable: no usable data for “${title}”.`
+      return [
+        {
+          id: `${block.id}_unavailable`,
+          type: PREMIUM_BLOCK_TYPE.TEXT,
+          text: reason,
+        },
+      ]
+    }
+    if (block.type === PREMIUM_BLOCK_TYPE.TABLE) {
+      const hasRows = block.rows.some((row) =>
+        row.some((cell) => {
+          if (cell == null) return false
+          if (typeof cell === 'number') return Number.isFinite(cell)
+          const text = String(cell).trim()
+          return text !== '' && text !== '—' && text !== '-'
+        })
+      )
+      if (hasRows && block.columns.length > 0) return [block]
+      const title = block.title || block.id
+      dropped.push(title)
+      const reason = fr
+        ? `Tableau non disponible : aucune donnée exploitable pour « ${title} ».`
+        : `Table unavailable: no usable data for “${title}”.`
+      return [
+        {
+          id: `${block.id}_unavailable`,
+          type: PREMIUM_BLOCK_TYPE.TEXT,
+          text: reason,
+        },
+      ]
+    }
+    return [block]
   })
   if (!dropped.length) return { document, dropped }
   return { document: { ...document, blocks }, dropped }
@@ -625,7 +675,7 @@ const hasPrebuiltSeriesData = (option: Record<string, unknown>): boolean => {
   })
 }
 
-export const stripUuidLabels = (option: Record<string, unknown>): Record<string, unknown> =>
+const stripUuidLabels = (option: Record<string, unknown>): Record<string, unknown> =>
   sanitizePlainObject(replaceUuidValues(option)) ?? option
 
 export const tableFromDataset = (
@@ -722,14 +772,26 @@ const columnScaleIsComparable = (values: number[]): boolean => {
 }
 
 const STAFF_SIGNAL_COLUMN_RE =
-  /acwr|ewma|srpe|monotony|strain|soreness|body.?soreness|stress|rpe|readiness|fatigue|mood|risk|injury|wellness|sleep.?quality|sleep.?score|sleep.?duration|energy|quality.?rating/i
+  /acwr|ewma|srpe|monotony|strain|soreness|body.?soreness|stress|rpe|readiness|fatigue|mood|risk|injury|wellness|sleep.?quality|sleep.?score|sleep.?duration|energy.?rating|quality.?rating|wellbeing/i
+
+const NEVER_HEAT_COLUMN_RE =
+  /carb|lipid|fat|zone\s*[1-5]|zone[1-5]|energy_consumption|glucide|lipide/i
+
+const isHeatEligibleColumn = (column: string, scales?: StaffHeatScale[]): boolean => {
+  const name = String(column).trim()
+  if (!name || LABEL_COLUMN_RE.test(name) || COUNT_COLUMN_RE.test(name)) return false
+  if (NEVER_HEAT_COLUMN_RE.test(name)) return false
+  if (scales?.length && matchStaffHeatScale(name, scales)) return true
+  if (!STAFF_SIGNAL_COLUMN_RE.test(name) && !RISK_COLUMN_RE.test(name)) return false
+  const polarity = staffHeatPolarity(name, scales)
+  return polarity === 'risk_high' || polarity === 'risk_low'
+}
 
 export const shouldHeatStaffTable = (block: PremiumTableBlock): boolean => {
   if (block.rows.length < 4) return false
   return block.columns.some((col, index) => {
     const name = String(col).trim()
-    if (LABEL_COLUMN_RE.test(name) || COUNT_COLUMN_RE.test(name)) return false
-    if (!STAFF_SIGNAL_COLUMN_RE.test(name) && !RISK_COLUMN_RE.test(name)) return false
+    if (!isHeatEligibleColumn(name)) return false
     const values: number[] = []
     for (const row of block.rows) {
       const n = toNumber(row[index])
@@ -739,21 +801,21 @@ export const shouldHeatStaffTable = (block: PremiumTableBlock): boolean => {
   })
 }
 
-export const PREMIUM_HEAT_COLORS = {
+const PREMIUM_HEAT_COLORS = {
   volumeMid: '#C8E6D5',
   volumeHigh: '#2F9E6F',
   riskMid: '#F5D0A9',
   riskHigh: '#E07070',
 } as const
 
-export type PremiumHeatColors = {
+type PremiumHeatColors = {
   volumeMid: string
   volumeHigh: string
   riskMid: string
   riskHigh: string
 }
 
-export const resolveHeatColors = (option?: Record<string, unknown>): PremiumHeatColors => {
+const resolveHeatColors = (option?: Record<string, unknown>): PremiumHeatColors => {
   const legend = isPlainRecord(option?.heatLegend) ? option.heatLegend : undefined
   const raw = isPlainRecord(legend?.colors)
     ? legend.colors
@@ -785,7 +847,7 @@ export const applyTableHeat = (
   if (enableHeat) {
     for (let c = 0; c < block.columns.length; c++) {
       const col = String(block.columns[c] ?? '').trim()
-      if (LABEL_COLUMN_RE.test(col) || COUNT_COLUMN_RE.test(col)) continue
+      if (!isHeatEligibleColumn(col, opts?.scales)) continue
       const values: Array<{ row: number; value: number }> = []
       for (let r = 0; r < block.rows.length; r++) {
         const n = toNumber(block.rows[r]?.[c])
@@ -794,7 +856,8 @@ export const applyTableHeat = (
       if (values.length < 3) continue
       if (!columnScaleIsComparable(values.map((entry) => entry.value))) continue
       const polarity = staffHeatPolarity(col, opts?.scales)
-      if (polarity !== 'volume_high') hasRisk = true
+      if (polarity === 'volume_high') continue
+      hasRisk = true
       const ranked = [...values].sort((left, right) =>
         polarity === 'risk_low' ? left.value - right.value : right.value - left.value
       )
@@ -882,7 +945,7 @@ export const applyValueTransform = (
   return JSON.stringify({ error: 'transform_values only applies to charts and tables' })
 }
 
-export const renameMetersToKm = (column: string): string => {
+const renameMetersToKm = (column: string): string => {
   if (column.toLowerCase().endsWith('_m')) return `${column.slice(0, -2)}_km`
   if (/\(m\)/i.test(column)) return column.replace(/\(m\)/gi, '(km)')
   if (/metres?/i.test(column) || /meters?/i.test(column)) {
@@ -892,7 +955,7 @@ export const renameMetersToKm = (column: string): string => {
   return `${column}_km`
 }
 
-export const renameMetersInLabel = (value: string): string =>
+const renameMetersInLabel = (value: string): string =>
   value
     .replace(/\(m\)/gi, '(km)')
     .replace(/_m\b/g, '_km')
@@ -1177,22 +1240,6 @@ export const pruneEmptyTableColumns = (
   }
 }
 
-export const resolveTableBorder = (
-  option?: Record<string, unknown>
-): { color: string; width: number } | undefined => {
-  if (!option || option.border === false || option.border == null) return undefined
-  if (option.border === true) return { color: '#94a3b8', width: 1 }
-  if (typeof option.border === 'string') {
-    const color = sanitizeCssColor(option.border)
-    return color ? { color, width: 1 } : { color: '#94a3b8', width: 1 }
-  }
-  if (!isPlainRecord(option.border)) return undefined
-  const color = sanitizeCssColor(option.border.color) ?? '#94a3b8'
-  const width =
-    typeof option.border.width === 'number' && option.border.width > 0 ? option.border.width : 1
-  return { color, width }
-}
-
 const sameColumnName = (left: string, right: string): boolean =>
   columnKey(left) === columnKey(right)
 
@@ -1220,97 +1267,8 @@ const remapTableOptionNames = (
   return next
 }
 
-export const resolveTableHeaderStyle = (option?: Record<string, unknown>): PremiumTableCellStyle =>
-  readCellStyle(option?.header)
-
-export const resolveTableCellStyle = (args: {
-  column: string
-  rowIndex: number
-  colIndex: number
-  option?: Record<string, unknown>
-}): PremiumTableCellStyle => {
-  const option = args.option ?? {}
-  const columnMap = isPlainRecord(option.columnStyles) ? option.columnStyles : undefined
-  const fromColumn = columnMap ? readCellStyle(columnMap[args.column]) : {}
-  const fromCell = readSparseCellStyle(option.cells, args.rowIndex, args.colIndex)
-  return { ...fromColumn, ...fromCell }
-}
-
-const readSparseCellStyle = (
-  cells: unknown,
-  rowIndex: number,
-  colIndex: number
-): PremiumTableCellStyle => {
-  if (!Array.isArray(cells) || !Array.isArray(cells[rowIndex])) return {}
-  return readCellStyle(cells[rowIndex][colIndex])
-}
-
-const readCellStyle = (value: unknown): PremiumTableCellStyle => {
-  if (!isPlainRecord(value)) return {}
-  const style: PremiumTableCellStyle = {}
-  const background = sanitizeCssColor(value.background)
-  const text = sanitizeCssColor(value.color)
-  if (background) style.background = background
-  else if (text) style.background = text
-  if (background && text) {
-    style.color = text
-  } else if (background) {
-    style.color = isLightColor(background) ? '#111827' : '#ffffff'
-  }
-  if (value.bold === true) style.bold = true
-  if (value.align === 'left' || value.align === 'center' || value.align === 'right') {
-    style.align = value.align
-  }
-  return style
-}
-
-const toLinear = (c: number) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4)
-
-const isLightColor = (hex: string): boolean => {
-  const h = hex.replace('#', '')
-  const full =
-    h.length === 3
-      ? h
-          .split('')
-          .map((c) => c + c)
-          .join('')
-      : h
-  const r = parseInt(full.slice(0, 2), 16) / 255
-  const g = parseInt(full.slice(2, 4), 16) / 255
-  const b = parseInt(full.slice(4, 6), 16) / 255
-  const L = 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b)
-  return L > 0.35
-}
-
 const isPlainRecord = (value: unknown): value is Record<string, unknown> =>
   Boolean(value) && typeof value === 'object' && !Array.isArray(value)
-
-const HEX_COLOR_RE = /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i
-
-const CSS_COLOR_NAMES: Record<string, string> = {
-  red: '#ef4444',
-  rouge: '#ef4444',
-  orange: '#f97316',
-  yellow: '#eab308',
-  jaune: '#eab308',
-  green: '#22c55e',
-  vert: '#22c55e',
-  blue: '#3b82f6',
-  bleu: '#3b82f6',
-  purple: '#a855f7',
-  pink: '#ec4899',
-  white: '#ffffff',
-  black: '#111827',
-  gray: '#6b7280',
-  grey: '#6b7280',
-}
-
-const sanitizeCssColor = (value: unknown): string | undefined => {
-  if (typeof value !== 'string') return undefined
-  const trimmed = value.trim().toLowerCase()
-  if (HEX_COLOR_RE.test(trimmed)) return trimmed
-  return CSS_COLOR_NAMES[trimmed]
-}
 
 const transformNumber = (
   value: unknown,
@@ -1495,9 +1453,7 @@ const foldEncodeColumn = (value: string): string =>
 
 const isCategoryEncodeName = (column: string, category: string): boolean =>
   column === category ||
-  /^(joueur|player|athlete|athlete_name|name|poste|position|date|date_of_day)$/i.test(
-    column.trim()
-  )
+  /^(joueur|player|athlete|athlete_name|name|poste|position|date|date_of_day)$/i.test(column.trim())
 
 const resolveEncodeColumn = (
   column: string,

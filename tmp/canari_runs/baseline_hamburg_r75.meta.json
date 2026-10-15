@@ -1,0 +1,488 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.",
+  "durationSec": 279.449,
+  "iterations": 15,
+  "usage": {
+    "inputTokens": 9294,
+    "outputTokens": 24394,
+    "cacheReadInputTokens": 190457,
+    "cacheCreationInputTokens": 265368,
+    "totalTokens": 33688,
+    "estimatedCostUsd": 1.446059
+  },
+  "iterationSecs": [
+    6.033,
+    13.097,
+    10.632,
+    9.313,
+    19.934,
+    4.491,
+    35.103,
+    19.758,
+    23.077,
+    23.26,
+    8.71,
+    11.82,
+    1.502,
+    77.123,
+    7.519
+  ],
+  "iterationCosts": [
+    0.078342,
+    0.102035,
+    0.101892,
+    0.083934,
+    0.119495,
+    0.104723,
+    0.057161,
+    0.065134,
+    0.14672,
+    0.153428,
+    0.125211,
+    0.126764,
+    0.011041,
+    0.137621,
+    0.03256
+  ],
+  "message": "Rapport refait entièrement. Rapport livré : tout ce qui était demandé est présent.",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    },
+    "fetchRange": {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    },
+    "domainRanges": {
+      "load": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "gps": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "sleep": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "scores": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 6,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 1,
+        "athletesWithData": 13,
+        "populated": false
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 22,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 20,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "match",
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.",
+    "domains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "load",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "sleep",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+  },
+  "blockCount": 24,
+  "chartCount": 11,
+  "blockTitles": [
+    {
+      "id": "470be8a0-a70d-496e-9e11-d07e614cf456",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "44164bd2-ff53-47de-a326-4ceb374bb57d",
+      "type": "chart",
+      "title": "sRPE quotidien — moyenne équipe"
+    },
+    {
+      "id": "67fb3a18-b329-4132-9b7f-1544400d1919",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "468f8995-f842-4407-be37-62bcb2fce881",
+      "type": "chart",
+      "title": "Distance totale — Top 5"
+    },
+    {
+      "id": "ab85e05e-348d-4b06-a764-60e2dd2863cc",
+      "type": "chart",
+      "title": "HMLD — Top 5"
+    },
+    {
+      "id": "8baa04c7-8265-44fd-974c-72738ca0dfaf",
+      "type": "chart",
+      "title": "Distance explosive — Top 5"
+    },
+    {
+      "id": "f16a3030-e147-48fc-bb7f-b78cd158808b",
+      "type": "chart",
+      "title": "Course haute vitesse — Top 5"
+    },
+    {
+      "id": "a1ff6fd2-1c58-4e90-be5d-5ffc6091c81c",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "46b0b4cb-724d-4441-bb99-f2726b1c13a0",
+      "type": "table",
+      "title": "Statistiques match — 10 octobre"
+    },
+    {
+      "id": "1ebb6ea4-583c-439a-93a5-9d612d5367c7",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "4810e057-c3e2-4d97-8cc6-a5095677334c",
+      "type": "chart",
+      "title": "Douleurs corporelles moyennes"
+    },
+    {
+      "id": "5b5c2de9-b51f-4457-aebb-40b865fa3f93",
+      "type": "chart",
+      "title": "Humeur moyenne"
+    },
+    {
+      "id": "9d7f8db8-3a87-441e-95b4-5f4f9b5b00d8",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "c22cd337-9d57-4f29-bba2-5de896a0152d",
+      "type": "chart",
+      "title": "Qualité de sommeil moyenne"
+    },
+    {
+      "id": "e389d910-76f6-4c01-b7c3-2a5a2db55e79",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "5cf61149-ced2-41f1-9490-f11b04217399",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "d91ee5d0-b5e0-4e88-84d0-e4f5b889e7cf",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "d2fbaf35-a9f2-473e-8dbb-b72bacfc6875",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "ac67fc6c-294e-446a-8f1b-172dd2932bbb",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "02345c4a-9767-469e-8012-15e6510837f4",
+      "type": "chart",
+      "title": "sRPE hebdomadaire — Top 10"
+    },
+    {
+      "id": "34193da3-976b-4f24-ad20-4a3f3f36a694",
+      "type": "table",
+      "title": "Joueurs avec douleurs corporelles élevées"
+    },
+    {
+      "id": "cac754d0-5782-4233-a908-509becfcb5a7",
+      "type": "table",
+      "title": "Vue d'ensemble — Wellness, sommeil et GPS"
+    },
+    {
+      "id": "reliability-h-23",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-24",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    6.033,
+    13.097,
+    10.632,
+    9.313,
+    19.934,
+    4.491,
+    35.103,
+    19.758,
+    23.077,
+    23.26,
+    8.71,
+    11.82,
+    1.502,
+    77.123,
+    7.519
+  ],
+  "r75": {
+    "dataFactSpans": 0,
+    "dataSrcSpans": 25,
+    "emDashCount": 10,
+    "rawLabelHits": 12,
+    "measureNotes": 0,
+    "imputedCopyPresent": false,
+    "agentCacheByIter": {
+      "linker": [
+        {
+          "iter": 1,
+          "stop": "tool_use",
+          "in": "19",
+          "out": "418",
+          "cacheR": "—",
+          "cacheW": "19k"
+        },
+        {
+          "iter": 2,
+          "stop": "end_turn",
+          "in": "7",
+          "out": "608",
+          "cacheR": "6.1k",
+          "cacheW": "24k"
+        }
+      ],
+      "analyst": [
+        {
+          "iter": 1,
+          "stop": "tool_use",
+          "in": "19",
+          "out": "918",
+          "cacheR": "—",
+          "cacheW": "23k"
+        },
+        {
+          "iter": 2,
+          "stop": "tool_use",
+          "in": "8.2k",
+          "out": "915",
+          "cacheR": "13k",
+          "cacheW": "11k"
+        },
+        {
+          "iter": 3,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "2.2k",
+          "cacheR": "13k",
+          "cacheW": "22k"
+        },
+        {
+          "iter": 4,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "350",
+          "cacheR": "13k",
+          "cacheW": "25k"
+        },
+        {
+          "iter": 5,
+          "stop": "tool_use",
+          "in": "934",
+          "out": "2.7k",
+          "cacheR": "39k",
+          "cacheW": "498"
+        },
+        {
+          "iter": 6,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "2.5k",
+          "cacheR": "39k",
+          "cacheW": "4.2k"
+        },
+        {
+          "iter": 7,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "3.0k",
+          "cacheR": "13k",
+          "cacheW": "26k"
+        },
+        {
+          "iter": 8,
+          "stop": "tool_use",
+          "in": "7",
+          "out": "2.9k",
+          "cacheR": "13k",
+          "cacheW": "28k"
+        },
+        {
+          "iter": 9,
+          "stop": "tool_use",
+          "in": "5",
+          "out": "289",
+          "cacheR": "13k",
+          "cacheW": "31k"
+        },
+        {
+          "iter": 10,
+          "stop": "end_turn",
+          "in": "5",
+          "out": "527",
+          "cacheR": "13k",
+          "cacheW": "31k"
+        }
+      ],
+      "designer": [
+        {
+          "iter": 1,
+          "stop": "tool_use",
+          "in": "19",
+          "out": "23",
+          "cacheR": "—",
+          "cacheW": "2.8k"
+        },
+        {
+          "iter": 2,
+          "stop": "tool_use",
+          "in": "5",
+          "out": "6.8k",
+          "cacheR": "1.5k",
+          "cacheW": "9.5k"
+        },
+        {
+          "iter": 3,
+          "stop": "end_turn",
+          "in": "5",
+          "out": "231",
+          "cacheR": "11k",
+          "cacheW": "6.9k"
+        }
+      ]
+    }
+  }
+}

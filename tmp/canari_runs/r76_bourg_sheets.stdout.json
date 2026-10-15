@@ -1,0 +1,779 @@
+[18:14:35.368] INFO (83027): report_v4.analyze_request_llm
+    explicit: true
+    display: {
+      "from": "2026-10-07",
+      "to": "2026-10-14"
+    }
+    byDomain: {
+      "gps": {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      }
+    }
+    fetches: [
+      {
+        "domain": "gps",
+        "from": "2026-10-07",
+        "to": "2026-10-14",
+        "label": "GPS data for individual player sheets"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-07",
+        "to": "2026-10-14",
+        "label": "Match data for individual player sheets"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-07",
+        "to": "2026-10-14",
+        "label": "Wellness data for individual player sheets"
+      }
+    ]
+    askDomains: [
+      "gps",
+      "match",
+      "wellness"
+    ]
+    periodFollowUp: false
+    multiSection: true
+    rationale: "Coach requested individual player sheets (fiches individuelles) for the explicit period 2026-10-07 → 2026-10-14 with three named domains: GPS, match, and wellness. Multi-section because multiple domains and per-athlete visualization required."
+    durationMs: 2094
+[18:14:35.654] INFO (83027): report_v4.edit_route.wipe
+    wipeReason: "no_existing_canvas"
+    hasExistingCanvas: false
+    periodChanged: false
+    multiSectionAsk: true
+    additive: false
+    scopedPeriod: false
+[18:14:35.655] INFO (83027): report_v4.edit_route
+    canvasAsk: "new_viz"
+    preserveCanvas: false
+    needsFetch: true
+    isMicro: false
+    keepPriorDisplayRange: false
+    softOps: null
+    inventory: null
+    additive: false
+    scopedPeriod: false
+    design: false
+    periodChanged: false
+    multiSectionAsk: true
+    wipeCanvas: true
+    wipeReason: "no_existing_canvas"
+    routeFlags: {
+      "wipe": true,
+      "additive": false,
+      "scopedPeriod": false,
+      "design": false,
+      "aesthetic": false,
+      "partialProse": false,
+      "recommendationStrip": false
+    }
+    provider: "skip"
+    durationSec: 0.286
+[18:14:35.656] INFO (83027): report_v4.prompt_windows_resolved
+    explicit: true
+    displayRange: {
+      "from": "2026-10-07",
+      "to": "2026-10-14"
+    }
+    coverRange: {
+      "from": "2026-10-07",
+      "to": "2026-10-14"
+    }
+    fetchRange: {
+      "from": "2026-09-09",
+      "to": "2026-10-14"
+    }
+    domainRanges: {
+      "gps": {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      }
+    }
+    fetches: [
+      {
+        "domain": "gps",
+        "from": "2026-10-07",
+        "to": "2026-10-14",
+        "label": "GPS data for individual player sheets"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-07",
+        "to": "2026-10-14",
+        "label": "Match data for individual player sheets"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-07",
+        "to": "2026-10-14",
+        "label": "Wellness data for individual player sheets"
+      }
+    ]
+    extraRanges: []
+    seasons: [
+      {
+        "name": "Pro A 2026 - 2027",
+        "from": "2026-05-28",
+        "to": "2027-07-01",
+        "active": true
+      },
+      {
+        "name": "Pro A 2025 - 2026",
+        "from": "2025-07-17",
+        "to": "2026-05-27",
+        "active": false
+      }
+    ]
+[18:14:35.694] INFO (83027): report_v4.roster_active_window
+    athletes: 12
+    ranges: [
+      {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-07",
+        "to": "2026-10-14"
+      }
+    ]
+[18:14:36.936] INFO (83027): report_v4.ask_gate
+    reason: "prompt_clear_enough"
+    question_ids: []
+    confidence: 1
+    round: 0
+    skipped: true
+[18:14:37.036] INFO (83027): report_v4.club_metric_catalog_start
+    clubId: "019f5371-fdc5-74c6-bdae-d973b3fa5575"
+    catalogRange: {
+      "from": "2026-09-09",
+      "to": "2026-10-14"
+    }
+
+════════════════════════════════════════════════════════════
+report-v4  START  │  Bourg-En-Bresse  │  2026-10-07 → 2026-10-14
+report-v4  domains  │  gps, match, wellness
+report-v4  prompt  │  Fiches individuelles pour chaque joueur du groupe sur la période 2026-10-07 → 2026-10-14: GPS, match et wellness. Une fiche par athlète avec graphiques essentiels.
+────────────────────────────────────────────────────────────
+[18:14:37.691] INFO (83027): report_v4.club_metric_catalog_done
+    clubId: "019f5371-fdc5-74c6-bdae-d973b3fa5575"
+    catalogRange: {
+      "from": "2026-09-09",
+      "to": "2026-10-14"
+    }
+    durationMs: 655
+    periodKpis: 15
+    matchKpis: 0
+    rpeFetchTable: "sport_activities"
+    rpeSession: "sport_activities"
+    rpeBody: null
+    clubInsightScience: 0
+[18:14:37.693] INFO (83027): report_v4.linker_start
+    domains: [
+      "gps",
+      "match",
+      "wellness"
+    ]
+    fetchWindows: 3
+    athleteCount: 12
+[18:14:37.694] INFO (83027): report_v4.linker_db_tool_start
+    schemaTitles: 6
+[18:14:37.694] INFO (83027): report_v4.linker_db_tool_done
+    durationMs: 0
+[18:14:37.695] INFO (83027): report_v4.linker_agent_invoke
+    toolCount: 26
+report-v4  iter 01  │  tool_use  │  3.676s  │  $0.068  │  in=19 out=223 cacheW=17k  │  cum $0.068
+report-v4  action  │  tools: fetch_club_roster, fetch_gps_intensity_daily, fetch_match_stats_daily, fetch_wellness_daily
+report-v4    └ tool  │  ok  │  fetch_club_roster  │  0.000s  │  ? → ?
+report-v4    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.314s  │  2026-10-07 → 2026-10-14
+report-v4    └ tool  │  ERR  │  fetch_match_stats_daily  │  0.066s  │  2026-10-07 → 2026-10-14  No rows for template — Query returned 0 rows for this template/window.
+report-v4    └ tool  │  ok  │  fetch_wellness_daily  │  0.078s  │  2026-10-07 → 2026-10-14
+report-v4    └ cost  │  this prompt $0.068  │  total so far $0.068  │  iter time 3.676s
+report-v4  iter 02  │  end_turn  │  5.265s  │  $0.056  │  in=7 out=159 cacheR=6.1k cacheW=14k  │  cum $0.124
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.056  │  total so far $0.124  │  iter time 5.265s
+report-v4  agent-stop  │  linker  │  self_ended  │  2 iteration(s)  │  max=14  │  force@12  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  linker  │  2 iteration(s)  │  8.941s  │  $0.124
+report-v4  tokens  │  in=26  │  out=382  │  cacheR=6.1k  │  cacheW=31k  │  all=408
+report-v4  detail  │  datasets=3
+[18:14:46.642] WARN (83027): report_v4.harvest_empty_after_try
+    emptyAfterTry: [
+      "gps@2026-10-07→2026-10-14",
+      "match@2026-10-07→2026-10-14"
+    ]
+[18:14:46.643] INFO (83027): report_v4.path_cost_class
+    pathCostClass: "gated_rebuild"
+    budgetUsd: 0.9
+[18:14:46.654] INFO (83027): report_v4.data_profile
+    datasets: 3
+    unusableDomains: []
+    emptyDomains: []
+    partial: [
+      "wellness"
+    ]
+    imputedExcludedCells: 60
+report-v4  iter 01  │  tool_use  │  5.739s  │  $0.065  │  in=19 out=529 cacheW=15k  │  cum $0.065
+report-v4  action  │  tools: filter_dataset, filter_dataset, filter_dataset, aggregate_dataset, set_report_meta, add_heading
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.003s
+report-v4    └ tool  │  ok  │  set_report_meta  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.065  │  total so far $0.065  │  iter time 5.739s
+report-v4  iter 02  │  tool_use  │  5.512s  │  $0.042  │  in=3.3k out=517 cacheR=10k cacheW=5.6k  │  cum $0.107
+report-v4  action  │  tools: add_chart, add_chart, add_chart, add_chart, add_heading
+report-v4    └ tool  │  ok  │  add_chart  │  0.011s  │  ds_6
+report-v4    └ tool  │  ok  │  add_chart  │  0.003s  │  ds_6
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_6
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_6
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.042  │  total so far $0.107  │  iter time 5.512s
+[18:14:57.936] WARN (83027): report_v4.column_label_missing
+    column: "n"
+    key: "n"
+[18:14:57.937] WARN (83027): report_v4.column_label_missing
+    column: "zone5_time"
+    key: "zone5_time"
+report-v4  iter 03  │  tool_use  │  3.618s  │  $0.024  │  in=7 out=235 cacheR=16k cacheW=4.1k  │  cum $0.130
+report-v4  action  │  tools: aggregate_dataset, add_text, add_heading
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  add_text  │  0.001s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.024  │  total so far $0.130  │  iter time 3.618s
+report-v4  iter 04  │  tool_use  │  5.950s  │  $0.016  │  in=477 out=510 cacheR=20k cacheW=366  │  cum $0.147
+report-v4  action  │  tools: filter_dataset, filter_dataset, add_chart, add_text, add_heading
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  add_chart  │  0.003s  │  ds_7
+report-v4    └ tool  │  ok  │  add_text  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.016  │  total so far $0.147  │  iter time 5.950s
+[18:15:07.604] WARN (83027): report_v4.column_label_missing
+    column: "wellbeing_rating"
+    key: "wellbeing_rating"
+report-v4  iter 05  │  tool_use  │  5.765s  │  $0.018  │  in=383 out=395 cacheR=20k cacheW=1.2k  │  cum $0.164
+report-v4  action  │  tools: add_table, add_text, build_athlete_sheets
+report-v4    └ tool  │  ok  │  add_table  │  0.004s  │  ds_8
+report-v4    └ tool  │  ok  │  add_text  │  0.002s
+report-v4    └ tool  │  ok  │  build_athlete_sheets  │  0.024s
+report-v4    └ cost  │  this prompt $0.018  │  total so far $0.164  │  iter time 5.765s
+report-v4  iter 06  │  tool_use  │  14.863s  │  $0.027  │  in=7 out=903 cacheR=21k cacheW=1.8k  │  cum $0.191
+report-v4  action  │  tools: add_sheet_comments
+report-v4    └ tool  │  ok  │  add_sheet_comments  │  0.002s
+report-v4    └ cost  │  this prompt $0.027  │  total so far $0.191  │  iter time 14.863s
+report-v4  iter 07  │  tool_use  │  35.103s  │  $0.095  │  in=5 out=3.3k cacheR=10k cacheW=11k  │  cum $0.286
+report-v4  action  │  tools: commit_report_brief
+report-v4    └ tool  │  ok  │  commit_report_brief  │  0.022s
+report-v4    └ cost  │  this prompt $0.095  │  total so far $0.286  │  iter time 35.103s
+report-v4  iter 08  │  end_turn  │  10.032s  │  $0.067  │  in=5 out=514 cacheR=10k cacheW=15k  │  cum $0.353
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.067  │  total so far $0.353  │  iter time 10.032s
+report-v4  agent-stop  │  analyst  │  self_ended  │  8 iteration(s)  │  max=28  │  force@26  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  analyst  │  8 iteration(s)  │  86.582s  │  $0.353
+report-v4  tokens  │  in=4.2k  │  out=6.9k  │  cacheR=108k  │  cacheW=55k  │  all=11k
+report-v4  detail  │  blocks=49 charts=22 tables=6 insight=true
+[18:16:13.414] WARN (83027): report_v4.column_label_missing
+    column: "Humeur"
+    key: "humeur"
+[18:16:13.414] WARN (83027): report_v4.column_label_missing
+    column: "Stress"
+    key: "stress"
+[18:16:13.414] WARN (83027): report_v4.column_label_missing
+    column: "Énergie"
+    key: "energie"
+[18:16:13.424] INFO (83027): report_v4.missing_domain_notice
+    domains: [
+      "match"
+    ]
+[18:16:13.425] INFO (83027): report_v4.coverage_gate
+    required: 12
+    delivered: 12
+    missing: []
+    mode: "gated_rebuild"
+[18:16:13.429] INFO (83027): report_v4.precompute_canvas_facts_capped
+    added: 80
+    maxFacts: 80
+[18:16:13.429] INFO (83027): report_v4.canvas_facts_precomputed
+    added: 80
+    sample: [
+      "ds_1.movement_load.mean",
+      "ds_1.movement_load.sum",
+      "ds_1.movement_load.delta",
+      "ds_1.rmssd.mean",
+      "ds_1.rmssd.sum",
+      "ds_1.rmssd.delta",
+      "ds_1.trimp.mean",
+      "ds_1.trimp.sum"
+    ]
+[18:16:13.429] INFO (83027): report_v4.analyst_done
+    blocks: 49
+    charts: 22
+    tables: 6
+    insight: true
+    iterations: 8
+    harvestHasRows: true
+    shortWindow: false
+    multiSectionAsk: true
+report-v4  iter 01  │  tool_use  │  1.450s  │  $0.012  │  in=19 out=23 cacheW=3.0k  │  cum $0.012
+report-v4  action  │  tools: get_design_context
+report-v4    └ tool  │  ok  │  get_design_context  │  0.002s
+report-v4    └ cost  │  this prompt $0.012  │  total so far $0.012  │  iter time 1.450s
+report-v4  iter 02  │  tool_use  │  77.432s  │  $0.143  │  in=5 out=6.6k cacheR=1.6k cacheW=11k  │  cum $0.154
+report-v4  action  │  tools: set_report_html
+report-v4    └ tool  │  ok  │  set_report_html  │  0.113s
+report-v4    └ cost  │  this prompt $0.143  │  total so far $0.154  │  iter time 77.432s
+[18:17:32.211] WARN (83027): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "14"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "12"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "8"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "5"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "2"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3.0"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3.3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "422"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3.5"
+      }
+    ]
+[18:17:32.269] INFO (83027): report_v4.fact_autolink
+    displayed: 56
+    linkedFact: 0
+    linkedSrc: 6
+    ambiguous: 50
+    unmatched: 0
+    samples: [
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "7 octobre 2026 → 14 octobre 2026",
+        "candidates": [
+          "src:ds_1#3.zone4_time",
+          "src:ds_1#6.zone2_time",
+          "src:ds_1#6.zone3_time",
+          "src:ds_1#13.zone2_time",
+          "src:ds_1#14.rmssd"
+        ]
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "7 octobre 2026 → 14 octobre 2026",
+        "candidates": [
+          "fact:ds_4.rmssd.delta",
+          "src:ds_1#5.rmssd",
+          "src:ds_1#10.epoc_final",
+          "src:ds_1#10.rmssd",
+          "src:ds_1#10.zone4_time"
+        ]
+      },
+      {
+        "raw": "8",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "Suivi individuel GPS et wellness pour les 12 joueurs du groupe sur 8 jours. Identification des charges élevées et des signaux wellness à surveiller.",
+        "candidates": [
+          "src:ds_1#8.epoc_final",
+          "src:ds_1#8.zone2_time",
+          "src:ds_1#13.epoc_final",
+          "src:ds_1#19.zone3_time",
+          "src:ds_1#23.rmssd"
+        ]
+      },
+      {
+        "raw": "12",
+        "value": 12,
+        "reason": "ambiguous",
+        "context": "Suivi individuel GPS et wellness pour les 12 joueurs du groupe sur 8 jours. Identification des charges élevées et des signaux wellness à surveiller.",
+        "candidates": [
+          "fact:ds_1.rmssd.mean",
+          "fact:ds_3.rmssd.mean",
+          "fact:ds_3.rmssd.delta",
+          "fact:ds_5.rmssd.mean",
+          "fact:ds_5.rmssd.delta"
+        ]
+      },
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "Aucune donnée match disponible pour la période du 7 au 14 octobre 2026.",
+        "candidates": [
+          "src:ds_1#3.zone4_time",
+          "src:ds_1#6.zone2_time",
+          "src:ds_1#6.zone3_time",
+          "src:ds_1#13.zone2_time",
+          "src:ds_1#14.rmssd"
+        ]
+      },
+      {
+        "raw": "7 au",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Aucune donnée match disponible pour la période du 7 au 14 octobre 2026.",
+        "candidates": [
+          "src:ds_1#5.rmssd",
+          "src:ds_1#10.epoc_final",
+          "src:ds_1#10.rmssd",
+          "src:ds_1#10.zone4_time",
+          "src:ds_1#14.epoc_final"
+        ]
+      },
+      {
+        "raw": "5",
+        "value": 5,
+        "reason": "ambiguous",
+        "context": "Échelles wellness : 1 (faible) → 5 (élevé). Humeur, Stress, Bien-être, Énergie.",
+        "candidates": [
+          "src:ds_1#4.epoc_final",
+          "src:ds_1#7.zone4_time",
+          "src:ds_1#8.zone3_time",
+          "src:ds_1#17.zone4_time",
+          "src:ds_1#27.zone2_time"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Échelles wellness : 1 (faible) → 5 (élevé). Humeur, Stress, Bien-être, Énergie.",
+        "candidates": [
+          "fact:ds_8.energy_rating.delta",
+          "fact:ds_8.mood_rating.delta",
+          "fact:ds_8.stress_rating.delta",
+          "src:ds_1#4.zone5_time",
+          "src:ds_1#5.zone5_time"
+        ]
+      },
+      {
+        "raw": "5",
+        "value": 5,
+        "reason": "ambiguous",
+        "context": "Échelles wellness : 1 (faible) → 5 (élevé). Humeur, Stress, Bien-être, Énergie.",
+        "candidates": [
+          "src:ds_1#4.epoc_final",
+          "src:ds_1#7.zone4_time",
+          "src:ds_1#8.zone3_time",
+          "src:ds_1#17.zone4_time",
+          "src:ds_1#27.zone2_time"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Échelles wellness : 1 (faible) → 5 (élevé). Humeur, Stress, Bien-être, Énergie.",
+        "candidates": [
+          "fact:ds_8.energy_rating.delta",
+          "fact:ds_8.mood_rating.delta",
+          "fact:ds_8.stress_rating.delta",
+          "src:ds_1#4.zone5_time",
+          "src:ds_1#5.zone5_time"
+        ]
+      },
+      {
+        "raw": "2,86",
+        "value": 2.86,
+        "reason": "ambiguous",
+        "context": "Assemian Moularé 2,86 2,43 4 3,14 2,86",
+        "candidates": [
+          "src:ds_7#2.wellbeing_rating",
+          "src:ds_8#0.wellbeing_rating",
+          "src:ds_9#0.wellbeing_rating"
+        ]
+      },
+      {
+        "raw": "2,43",
+        "value": 2.43,
+        "reason": "ambiguous",
+        "context": "Assemian Moularé 2,86 2,43 4 3,14 2,43",
+        "candidates": [
+          "src:ds_7#2.mood_rating",
+          "src:ds_8#0.mood_rating",
+          "src:ds_9#0.mood_rating"
+        ]
+      }
+    ]
+[18:17:32.291] WARN (83027): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "01"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "02"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "03"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "2"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "04"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "05"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "4"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "06"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "5"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      }
+    ]
+[18:17:32.313] INFO (83027): report_v4.athlete_sheets_rebuilt_generate
+    sections: 11
+    mismatches: []
+report-v4  iter 03  │  end_turn  │  10.015s  │  $0.036  │  in=5 out=447 cacheR=13k cacheW=6.7k  │  cum $0.190
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.036  │  total so far $0.190  │  iter time 10.015s
+report-v4  agent-stop  │  designer  │  self_ended  │  3 iteration(s)  │  max=14  │  force@12  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  designer  │  3 iteration(s)  │  88.897s  │  $0.190
+report-v4  tokens  │  in=29  │  out=7.1k  │  cacheR=15k  │  cacheW=21k  │  all=7.1k
+report-v4  detail  │  htmlBytes=317266 freeArtifact=true softRepair=false
+[18:17:42.332] INFO (83027): report_v4.designer_done
+    htmlBytes: 317266
+    freeArtifact: true
+    iterations: 3
+    softRebindRepair: false
+[18:17:42.356] INFO (83027): report_v4.data_reliability_block
+    blocks: 51
+    sampleRows: 120
+    imputedExcludedCells: 60
+[18:17:42.364] INFO (83027): report_v4.artifact_parity
+    ok: false
+    issues: [
+      {
+        "kind": "missing_block",
+        "blockId": "4ceeee13-db11-4565-8dd1-9095cd2bbfbc",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "7a5a99f0-e875-4de8-aab1-4da79c928f13",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "48648ecb-f1ee-4d51-b2c4-8fe4daa91aae",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "76486bd6-398f-4937-9d5e-c3838b6ef99f",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "1a5b77b1-f316-44f8-bded-117fdb58aeb8",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "0eadb294-e20f-4682-abb0-38dd429ac243",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "b1123f17-9216-47bb-bf35-064d30524550",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "ea10a21b-696a-4ea3-b0ff-cdafce6fdc60",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "1fe00428-371f-4f48-85b6-b9cb7e262472",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "e71fe0a6-2802-4d28-9831-d106a62fe2fb",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "e59c50dd-3a25-4dc8-928e-44221144318a",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "f70cb47b-9e96-46b0-9494-7e038925d3aa",
+        "detail": "data-block-id absent from html"
+      }
+    ]
+    documentBlockCount: 51
+    htmlBlockCount: 28
+[18:17:42.367] INFO (83027): report_v4.ask_contract
+    status: "delivered"
+    gaps: []
+{"ok":true,"tag":"r76_bourg_sheets","iterations":13,"costUsd":0.6674469999999999,"durationSec":189.246,"pdfOk":false,"pdfError":null,"htmlPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/r76_bourg_sheets.html","metaPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/r76_bourg_sheets.meta.json","pdfPath":null}

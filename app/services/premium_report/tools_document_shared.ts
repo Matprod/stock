@@ -8,7 +8,7 @@ import { jevTeamChart } from '#services/premium_report/jev_team_chart'
 import { relabelTableColumns } from '#services/premium_report/column_labels'
 import { pickDateColumn, readString, readStringList, requireDatasetColumns, isFilterOp, filterRows, parseFilterCompare, type FilterOp } from '#services/premium_report/dataset_ops'
 import { jevTextCaption } from '#services/premium_report/jev_text_caption'
-import { collectGroundedAthleteNames, gateDeterministicCaption } from '#services/report_v4/grounding_auditor'
+import { collectGroundedAthleteNames, gateDeterministicCaption } from '#services/report_v4/grounding_report'
 import { resolveChartRules, stampMaunaChartLayout } from '#services/premium_report/charts/chart_rules'
 import { PREMIUM_CANVAS_ASK } from '#constants/premium_report.constants'
 import type { PremiumReportState } from '#services/premium_report/premium_report_tools'
@@ -16,13 +16,13 @@ import { softEditBlockTitle } from '#services/premium_report/soft_edit_targets'
 import { foldAscii } from '#utils/html_text'
 import type { AppLanguage } from '#utils/localize'
 
-export const SHORT_TEXT_PATCH_MAX = 80
-export const SHORT_TEXT_PATCH_SENTENCES = 2
+const SHORT_TEXT_PATCH_MAX = 80
+const SHORT_TEXT_PATCH_SENTENCES = 2
 
-export const EVERY_PLAYER_LINE_ASK_RE =
+const EVERY_PLAYER_LINE_ASK_RE =
   /\b(?:every\s+player|each\s+player|all\s+(?:the\s+)?(?:my\s+)?players|my\s+players|individual(?:ly)?(?:\s+(?:evolution|evolutions|lines?|curves?|scores?))?|individual\s+(?:player\s+)?(?:lines?|evolutions?|curves?)|one\s+line\s+per\s+player|per[\s-]?player\s+(?:lines?|evolutions?|scores?)|spaghetti)\b/i
 
-export const TEAM_MEAN_ENVELOPE_ASK_RE =
+const TEAM_MEAN_ENVELOPE_ASK_RE =
   /\b(?:mean|avg|average|moyenne|team|squad|equipe|envelope|enveloppe|min\s*[-–—]?\s*max|minmax|squad\s*range|range\s*band)\b/i
 
 export const coachAskedEveryPlayerLines = (state: PremiumReportState): boolean =>
@@ -45,7 +45,7 @@ export const staffSplitGroupTitle = (
   return `${metricTitle}${part}`.slice(0, PREMIUM_REPORT_MAX_HEADING_LENGTH)
 }
 
-export type AcwrSeriesCheck =
+type AcwrSeriesCheck =
   | { status: 'ok' }
   | { status: 'empty'; errorJson: string }
   | { status: 'sparse'; coerceToBar: true; acwrCol: string; median: number }
@@ -100,13 +100,13 @@ export const acwrSeriesTooSparse = (dataset: PremiumDataset, values: string[]): 
   return null
 }
 
-export const SOFT_ALLOWLIST_ASK_KINDS = new Set<string>([
+const SOFT_ALLOWLIST_ASK_KINDS = new Set<string>([
   PREMIUM_CANVAS_ASK.MICRO_EDIT,
   PREMIUM_CANVAS_ASK.RESHAPE,
   PREMIUM_CANVAS_ASK.REMOVE,
 ])
 
-export const softAdditiveLocksPrior = (
+const softAdditiveLocksPrior = (
   state: PremiumReportState,
   id: string,
   opts?: { allowTeamOverlay?: boolean; allowDatasetRebuild?: boolean }
@@ -128,7 +128,7 @@ export const softAdditiveLocksPrior = (
   })
 }
 
-export const softAllowlistReject = (state: PremiumReportState, id: string): string | null => {
+const softAllowlistReject = (state: PremiumReportState, id: string): string | null => {
   if (!state.softPreserveCanvas || !SOFT_ALLOWLIST_ASK_KINDS.has(state.canvasAsk.kind)) return null
   const allow = state.softAllowBlockIds
   if (allow === undefined) return null
@@ -195,7 +195,7 @@ export const resolveToolDataset = (
   return mergeChartDatasets(datasets)
 }
 
-export const resolveToolDatasetSoft = (
+const resolveToolDatasetSoft = (
   state: PremiumReportState,
   input: Record<string, unknown>
 ): { dataset?: PremiumDataset; staleIds: string[] } => {
@@ -223,7 +223,7 @@ export const commitInsert = (
   return result
 }
 
-export const teamChartMode = (
+const teamChartMode = (
   state: PremiumReportState,
   explicit: string | undefined,
   chartTitles: string[]
@@ -471,12 +471,12 @@ export const gateTextCaption = async (
   })
 }
 
-export const resolveAfter = (state: PremiumReportState, after?: string): string =>
+const resolveAfter = (state: PremiumReportState, after?: string): string =>
   after === 'start' && state.lastInsertedId
     ? state.lastInsertedId
     : after || state.lastInsertedId || state.defaultAfter
 
-export const applySeriesMetaPatch = (
+const applySeriesMetaPatch = (
   option: Record<string, unknown>,
   input: Record<string, unknown>
 ): Record<string, unknown> | string => {
@@ -522,7 +522,7 @@ export const applySeriesMetaPatch = (
   return { ...option, series }
 }
 
-export const softSafeOptionPatch = (incoming: Record<string, unknown>): Record<string, unknown> => {
+const softSafeOptionPatch = (incoming: Record<string, unknown>): Record<string, unknown> => {
   const next = { ...incoming }
   delete next.series
   delete next.dataset
@@ -532,7 +532,7 @@ export const softSafeOptionPatch = (incoming: Record<string, unknown>): Record<s
   return next
 }
 
-export const deepMergeChartOption = (
+const deepMergeChartOption = (
   base: Record<string, unknown>,
   patch: Record<string, unknown>
 ): Record<string, unknown> => {
@@ -558,7 +558,7 @@ export const deepMergeChartOption = (
   return out
 }
 
-export const lockChartDataFields = (
+const lockChartDataFields = (
   original: Record<string, unknown>,
   merged: Record<string, unknown>
 ): Record<string, unknown> => {
@@ -767,7 +767,7 @@ export const patchChartOrBlock = async (
   }
 }
 
-export const parseJsonValue = (value: unknown): unknown => {
+const parseJsonValue = (value: unknown): unknown => {
   if (typeof value !== 'string') return value
   const trimmed = value.trim()
   if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) return value
@@ -778,10 +778,10 @@ export const parseJsonValue = (value: unknown): unknown => {
   }
 }
 
-export const parsePlainObject = (value: unknown): Record<string, unknown> | undefined =>
+const parsePlainObject = (value: unknown): Record<string, unknown> | undefined =>
   sanitizePlainObject(parseJsonValue(value))
 
-export const applyTablePatch = (
+const applyTablePatch = (
   table: PremiumTableBlock,
   style: Record<string, unknown> | undefined,
   reshape: PremiumTableReshape | undefined,
@@ -947,7 +947,7 @@ export const readTableRows = (
   })
 }
 
-export const readKeepSeriesIndexes = (value: unknown): number[] => {
+const readKeepSeriesIndexes = (value: unknown): number[] => {
   if (!Array.isArray(value)) return []
   return value.flatMap((item) => {
     const n = typeof item === 'number' ? item : Number(item)
@@ -955,7 +955,7 @@ export const readKeepSeriesIndexes = (value: unknown): number[] => {
   })
 }
 
-export const resolveFilterColumn = (columns: string[], wanted: string): string | undefined => {
+const resolveFilterColumn = (columns: string[], wanted: string): string | undefined => {
   const needle = wanted.trim().toLowerCase()
   if (!needle) return undefined
   const exact = columns.find((column) => column.toLowerCase() === needle)

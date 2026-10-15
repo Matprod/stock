@@ -1,0 +1,3 @@
+[runner] start club=019fa7cc-684c-783e-9609-c132a26eb4e3 tag=r76_baseline_individual skipPdf=true
+[progress] Récupération des données sportives...
+[runner] done tag=r76_baseline_individual sec=235.334 pdfOk=false cost=1.729781

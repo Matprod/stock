@@ -61,7 +61,7 @@ const blockMatchesAskDomain = (label: string, domains: PremiumDomain[]): boolean
     return key.length >= 3 && (label.includes(key) || label.includes(key.replace(/_/g, ' ')))
   })
 
-export type SoftEditTargetsOpts = {
+type SoftEditTargetsOpts = {
   askDomains?: PremiumDomain[]
 }
 

@@ -1,0 +1,599 @@
+[23:10:05.409] INFO (38162): report_v4.analyze_request_llm
+    explicit: true
+    display: {
+      "from": "2026-10-05",
+      "to": "2026-10-11"
+    }
+    byDomain: {
+      "gps": {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      },
+      "match": {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      },
+      "wellness": {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      }
+    }
+    fetches: [
+      {
+        "domain": "gps",
+        "from": "2026-10-05",
+        "to": "2026-10-11",
+        "label": "Last week GPS"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-05",
+        "to": "2026-10-11",
+        "label": "Last week match"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-05",
+        "to": "2026-10-11",
+        "label": "Last week wellness"
+      }
+    ]
+    askDomains: [
+      "gps",
+      "match",
+      "wellness"
+    ]
+    periodFollowUp: false
+    multiSection: true
+    rationale: "Coach requests last week (dernière semaine) staff report for Bourg-en-Bresse covering GPS, match, and wellness. Last complete calendar week Monday–Sunday before today (2026-10-15) is 2026-10-05 to 2026-10-11. Multi-section report with team summary, player tracking, data coverage, and individual player sheets with essential charts."
+    durationMs: 2374
+[23:10:05.696] INFO (38162): report_v4.edit_route.wipe
+    wipeReason: "no_existing_canvas"
+    hasExistingCanvas: false
+    periodChanged: false
+    multiSectionAsk: true
+    additive: false
+    scopedPeriod: false
+[23:10:05.697] INFO (38162): report_v4.edit_route
+    canvasAsk: "new_viz"
+    preserveCanvas: false
+    needsFetch: true
+    isMicro: false
+    keepPriorDisplayRange: false
+    softOps: null
+    inventory: null
+    additive: false
+    scopedPeriod: false
+    design: false
+    periodChanged: false
+    multiSectionAsk: true
+    wipeCanvas: true
+    wipeReason: "no_existing_canvas"
+    routeFlags: {
+      "wipe": true,
+      "additive": false,
+      "scopedPeriod": false,
+      "design": false,
+      "aesthetic": false,
+      "partialProse": false,
+      "recommendationStrip": false
+    }
+    provider: "skip"
+    durationSec: 0.287
+[23:10:05.697] INFO (38162): report_v4.prompt_windows_resolved
+    explicit: true
+    displayRange: {
+      "from": "2026-10-05",
+      "to": "2026-10-11"
+    }
+    coverRange: {
+      "from": "2026-10-05",
+      "to": "2026-10-11"
+    }
+    fetchRange: {
+      "from": "2026-09-07",
+      "to": "2026-10-11"
+    }
+    domainRanges: {
+      "gps": {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      },
+      "match": {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      },
+      "wellness": {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      }
+    }
+    fetches: [
+      {
+        "domain": "gps",
+        "from": "2026-10-05",
+        "to": "2026-10-11",
+        "label": "Last week GPS"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-05",
+        "to": "2026-10-11",
+        "label": "Last week match"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-05",
+        "to": "2026-10-11",
+        "label": "Last week wellness"
+      }
+    ]
+    extraRanges: []
+    seasons: [
+      {
+        "name": "Pro A 2026 - 2027",
+        "from": "2026-05-28",
+        "to": "2027-07-01",
+        "active": true
+      },
+      {
+        "name": "Pro A 2025 - 2026",
+        "from": "2025-07-17",
+        "to": "2026-05-27",
+        "active": false
+      }
+    ]
+[23:10:05.737] INFO (38162): report_v4.roster_active_window
+    athletes: 12
+    ranges: [
+      {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      },
+      {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      },
+      {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      },
+      {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      }
+    ]
+[23:10:06.973] INFO (38162): report_v4.ask_gate
+    reason: "prompt_clear_enough"
+    question_ids: []
+    confidence: 1
+    round: 0
+    skipped: true
+[23:10:07.090] INFO (38162): report_v4.club_metric_catalog_start
+    clubId: "019f5371-fdc5-74c6-bdae-d973b3fa5575"
+    catalogRange: {
+      "from": "2026-09-07",
+      "to": "2026-10-11"
+    }
+
+════════════════════════════════════════════════════════════
+report-v4  START  │  Bourg-En-Bresse  │  2026-10-05 → 2026-10-11
+report-v4  domains  │  load, gps, match, wellness
+report-v4  prompt  │  Bilan staff Bourg-en-Bresse de la semaine dernière: GPS, match et wellness. Synthèse équipe, joueurs à suivre, couverture des données, et fiches individuelles pour chaque joueur du
+────────────────────────────────────────────────────────────
+[23:10:07.788] INFO (38162): report_v4.club_metric_catalog_done
+    clubId: "019f5371-fdc5-74c6-bdae-d973b3fa5575"
+    catalogRange: {
+      "from": "2026-09-07",
+      "to": "2026-10-11"
+    }
+    durationMs: 698
+    periodKpis: 15
+    matchKpis: 0
+    rpeFetchTable: "sport_activities"
+    rpeSession: "sport_activities"
+    rpeBody: null
+    clubInsightScience: 0
+[23:10:07.795] INFO (38162): report_v4.linker_start
+    domains: [
+      "load",
+      "gps",
+      "match",
+      "wellness"
+    ]
+    fetchWindows: 3
+    athleteCount: 12
+[23:10:07.795] INFO (38162): report_v4.linker_db_tool_start
+    schemaTitles: 6
+[23:10:07.796] INFO (38162): report_v4.linker_db_tool_done
+    durationMs: 1
+[23:10:07.798] INFO (38162): report_v4.linker_agent_invoke
+    toolCount: 26
+report-v4  iter 01  │  tool_use  │  6.030s  │  $0.071  │  in=19 out=416 cacheW=17k  │  cum $0.071
+report-v4  action  │  tools: build_load_summary, fetch_club_roster, fetch_gps_intensity_daily, fetch_match_stats_daily, fetch_wellness_daily, fetch_sleep_daily, fetch_injuries
+report-v4    └ tool  │  ok  │  build_load_summary  │  0.691s  │  2026-09-07 → 2026-10-11
+report-v4    └ tool  │  ok  │  fetch_club_roster  │  0.001s  │  ? → ?
+report-v4    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.250s  │  2026-10-05 → 2026-10-11
+report-v4    └ tool  │  ERR  │  fetch_match_stats_daily  │  0.044s  │  2026-10-05 → 2026-10-11  No rows for template — Query returned 0 rows for this template/window.
+report-v4    └ tool  │  ok  │  fetch_wellness_daily  │  0.088s  │  2026-10-05 → 2026-10-11
+report-v4    └ tool  │  ok  │  fetch_sleep_daily  │  0.095s  │  2026-10-05 → 2026-10-11
+report-v4    └ tool  │  ok  │  fetch_injuries  │  0.071s  │  2026-10-05 → 2026-10-11
+report-v4    └ cost  │  this prompt $0.071  │  total so far $0.071  │  iter time 6.030s
+report-v4  iter 02  │  end_turn  │  7.359s  │  $0.065  │  in=7 out=341 cacheR=6.1k cacheW=16k  │  cum $0.137
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.065  │  total so far $0.137  │  iter time 7.359s
+report-v4  agent-stop  │  linker  │  self_ended  │  2 iteration(s)  │  max=5  │  force@4  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  linker  │  2 iteration(s)  │  13.389s  │  $0.137
+report-v4  tokens  │  in=26  │  out=757  │  cacheR=6.1k  │  cacheW=33k  │  all=783
+report-v4  detail  │  datasets=7
+[23:10:21.195] WARN (38162): report_v4.harvest_empty_after_try
+    emptyAfterTry: [
+      "match@2026-10-05→2026-10-11"
+    ]
+[23:10:21.196] INFO (38162): report_v4.path_cost_class
+    pathCostClass: "gated_rebuild"
+    budgetUsd: 0.9
+[23:10:21.201] INFO (38162): report_v4.data_profile
+    datasets: 7
+    unusableDomains: []
+    emptyDomains: []
+    partial: [
+      "sleep",
+      "unknown",
+      "wellness"
+    ]
+    imputedExcludedCells: 82
+[23:10:21.227] WARN (38162): report_v4.column_label_missing
+    column: "movement_load"
+    key: "movement_load"
+[23:10:21.227] WARN (38162): report_v4.column_label_missing
+    column: "trimp"
+    key: "trimp"
+[23:10:21.227] WARN (38162): report_v4.column_label_missing
+    column: "rmssd"
+    key: "rmssd"
+[23:10:21.230] WARN (38162): report_v4.column_label_missing
+    column: "unit"
+    key: "unit"
+[23:10:21.256] INFO (38162): report_v4.athlete_sheets_prebuilt
+    athletes: 12
+    blocks: 70
+    maxBlocks: 200
+report-v4  iter 01  │  tool_use  │  23.672s  │  $0.102  │  in=19 out=1.9k cacheW=20k  │  cum $0.102
+report-v4  action  │  tools: aggregate_dataset, add_sheet_comments, compute_report_fact, compute_report_fact, compute_report_fact
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.010s
+report-v4    └ tool  │  ok  │  add_sheet_comments  │  0.026s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.001s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ cost  │  this prompt $0.102  │  total so far $0.102  │  iter time 23.672s
+report-v4  iter 02  │  tool_use  │  26.387s  │  $0.126  │  in=1.3k out=2.1k cacheR=8.8k cacheW=24k  │  cum $0.229
+report-v4  action  │  tools: aggregate_dataset, aggregate_dataset, add_sheet_comments, compute_report_fact, compute_report_fact, compute_report_fact
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+report-v4    └ tool  │  ERR  │  add_sheet_comments  │  0.025s  │  No sheet comments applied
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.001s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ cost  │  this prompt $0.126  │  total so far $0.229  │  iter time 26.387s
+report-v4  iter 03  │  tool_use  │  28.575s  │  $0.092  │  in=1.0k out=2.1k cacheR=32k cacheW=13k  │  cum $0.320
+report-v4  action  │  tools: add_sheet_comments, compute_report_fact, compute_report_fact, compute_report_fact, compute_report_fact, compute_report_fact
+report-v4    └ tool  │  ok  │  add_sheet_comments  │  0.026s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ cost  │  this prompt $0.092  │  total so far $0.320  │  iter time 28.575s
+report-v4  iter 04  │  tool_use  │  24.590s  │  $0.089  │  in=7 out=1.7k cacheR=45k cacheW=14k  │  cum $0.410
+report-v4  action  │  tools: add_sheet_comments
+report-v4    └ tool  │  ok  │  add_sheet_comments  │  0.024s
+report-v4    └ cost  │  this prompt $0.089  │  total so far $0.410  │  iter time 24.590s
+report-v4  iter 05  │  tool_use  │  7.922s  │  $0.085  │  in=5 out=373 cacheR=59k cacheW=17k  │  cum $0.495
+report-v4  action  │  tools: add_sheet_comments
+report-v4    └ tool  │  ERR  │  add_sheet_comments  │  0.009s  │  No sheet comments applied
+report-v4    └ cost  │  this prompt $0.085  │  total so far $0.495  │  iter time 7.922s
+report-v4  iter 06  │  tool_use  │  4.601s  │  $0.034  │  in=5 out=386 cacheR=75k cacheW=1.5k  │  cum $0.529
+report-v4  action  │  tools: add_sheet_comments
+report-v4    └ tool  │  ERR  │  add_sheet_comments  │  0.004s  │  No sheet comments applied
+report-v4    └ cost  │  this prompt $0.034  │  total so far $0.529  │  iter time 4.601s
+report-v4  iter 07  │  tool_use  │  5.115s  │  $0.226  │  in=5 out=386 cacheR=8.8k cacheW=58k  │  cum $0.755
+report-v4  action  │  tools: add_sheet_comments
+report-v4    └ tool  │  ok  │  add_sheet_comments  │  0.004s
+report-v4    └ cost  │  this prompt $0.226  │  total so far $0.755  │  iter time 5.115s
+report-v4  iter 08  │  tool_use  │  38.919s  │  $0.230  │  in=5 out=2.4k cacheR=8.8k cacheW=51k  │  cum $0.985
+report-v4  action  │  tools: commit_report_brief
+report-v4    └ tool  │  ERR  │  commit_report_brief  │  0.000s  │  LOOP_DETECTED
+report-v4    └ cost  │  this prompt $0.230  │  total so far $0.985  │  iter time 38.919s
+report-v4  iter 09  │  tool_use  │  14.959s  │  $0.192  │  in=5 out=1.6k cacheR=8.8k cacheW=44k  │  cum $1.176
+report-v4  action  │  tools: commit_report_brief
+report-v4    └ tool  │  ok  │  commit_report_brief  │  0.019s
+report-v4    └ cost  │  this prompt $0.192  │  total so far $1.176  │  iter time 14.959s
+report-v4  iter 10  │  tool_use  │  2.923s  │  $0.119  │  in=5 out=64 cacheR=8.8k cacheW=31k  │  cum $1.295
+report-v4  action  │  tools: get_report_brief
+report-v4    └ tool  │  ok  │  get_report_brief  │  0.000s
+report-v4    └ cost  │  this prompt $0.119  │  total so far $1.295  │  iter time 2.923s
+report-v4  iter 11  │  end_turn  │  10.286s  │  $0.126  │  in=5 out=442 cacheR=8.8k cacheW=31k  │  cum $1.421
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.126  │  total so far $1.421  │  iter time 10.286s
+report-v4  agent-stop  │  analyst  │  self_ended  │  11 iteration(s)  │  max=22  │  force@14  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  analyst  │  11 iteration(s)  │  187.949s  │  $1.421
+report-v4  tokens  │  in=2.4k  │  out=13k  │  cacheR=264k  │  cacheW=302k  │  all=16k
+report-v4  detail  │  blocks=85 charts=22 tables=12 insight=true
+[23:13:29.298] INFO (38162): report_v4.missing_domain_notice
+    domains: [
+      "match"
+    ]
+[23:13:29.298] INFO (38162): report_v4.coverage_gate
+    required: 12
+    delivered: 12
+    missing: []
+    mode: "gated_rebuild"
+[23:13:29.301] INFO (38162): report_v4.precompute_canvas_facts
+    added: 12
+    sample: [
+      "ds_1.srpe_daily.mean",
+      "ds_1.srpe_daily.sum",
+      "ds_1.srpe_daily.delta",
+      "ds_2.srpe_daily.mean",
+      "ds_2.srpe_daily.sum",
+      "ds_2.srpe_daily.delta",
+      "ds_3.movement_load.mean",
+      "ds_3.movement_load.sum"
+    ]
+[23:13:29.301] INFO (38162): report_v4.canvas_facts_precomputed
+    added: 12
+    sample: [
+      "ds_1.srpe_daily.mean",
+      "ds_1.srpe_daily.sum",
+      "ds_1.srpe_daily.delta",
+      "ds_2.srpe_daily.mean",
+      "ds_2.srpe_daily.sum",
+      "ds_2.srpe_daily.delta",
+      "ds_3.movement_load.mean",
+      "ds_3.movement_load.sum"
+    ]
+[23:13:29.301] INFO (38162): report_v4.analyst_done
+    blocks: 85
+    charts: 22
+    tables: 12
+    insight: true
+    iterations: 11
+    harvestHasRows: true
+    shortWindow: true
+    multiSectionAsk: true
+report-v4  iter 01  │  tool_use  │  1.611s  │  $0.012  │  in=19 out=23 cacheW=3.0k  │  cum $0.012
+report-v4  action  │  tools: get_design_context
+report-v4    └ tool  │  ok  │  get_design_context  │  0.002s
+report-v4    └ cost  │  this prompt $0.012  │  total so far $0.012  │  iter time 1.611s
+report-v4  iter 02  │  tool_use  │  75.017s  │  $0.135  │  in=5 out=6.6k cacheR=1.6k cacheW=9.3k  │  cum $0.147
+report-v4  action  │  tools: set_report_html
+report-v4    └ tool  │  ERR  │  set_report_html  │  0.021s  │  HTML failed grounding audit
+report-v4    └ cost  │  this prompt $0.135  │  total so far $0.147  │  iter time 75.017s
+[23:14:45.930] WARN (38162): report_v4.grounding_reject
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    violations: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "11"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "238"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "666"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "5"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "4"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "82,3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "213"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "660"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "207"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "534"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "81"
+      }
+    ]
+report-v4  iter 03  │  tool_use  │  62.461s  │  $0.150  │  in=5 out=6.4k cacheR=11k cacheW=13k  │  cum $0.297
+report-v4  action  │  tools: set_report_html
+report-v4    └ tool  │  ERR  │  set_report_html  │  0.008s  │  HTML failed grounding audit after retry
+report-v4    └ cost  │  this prompt $0.150  │  total so far $0.297  │  iter time 62.461s
+[23:15:48.392] WARN (38162): report_v4.grounding_reject
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    violations: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "11"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "5"
+      }
+    ]
+report-v4  iter 04  │  tool_use  │  60.060s  │  $0.129  │  in=5 out=6.4k cacheR=24k cacheW=6.7k  │  cum $0.426
+report-v4  action  │  tools: set_report_html
+report-v4    └ tool  │  ERR  │  set_report_html  │  0.090s  │  error
+report-v4    └ cost  │  this prompt $0.129  │  total so far $0.426  │  iter time 60.060s
+[23:16:48.370] WARN (38162): report_v4.grounding_reject
+    codes: [
+      "literal_number"
+    ]
+    violations: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "11"
+      }
+    ]
+[23:16:48.371] WARN (38162): report_v4.designer_fallback_template
+    reason: "set_report_html_grounding_reject"
+    charts: 22
+    tables: 12
+    briefSignals: 4
+    populatedDomains: 4
+[23:16:48.452] INFO (38162): report_v4.designer_template_recovered
+    reason: "set_report_html_grounding_reject"
+    mode: "template_fallback"
+    htmlBytes: 352244
+    freeHtmlRejects: 3
+report-v4  iter 05  │  end_turn  │  6.477s  │  $0.038  │  in=5 out=231 cacheR=31k cacheW=6.6k  │  cum $0.464
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.038  │  total so far $0.464  │  iter time 6.477s
+report-v4  agent-stop  │  designer  │  self_ended  │  5 iteration(s)  │  max=14  │  force@12  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  designer  │  5 iteration(s)  │  205.626s  │  $0.464
+report-v4  tokens  │  in=39  │  out=20k  │  cacheR=68k  │  cacheW=39k  │  all=20k
+report-v4  detail  │  htmlBytes=352244 freeArtifact=false softRepair=false
+[23:16:54.936] INFO (38162): report_v4.designer_done
+    htmlBytes: 352244
+    freeArtifact: false
+    iterations: 5
+    softRebindRepair: false
+[23:16:54.949] INFO (38162): report_v4.insight_photos_signed
+    applied: 4
+[23:16:54.954] INFO (38162): report_v4.data_reliability_block
+    blocks: 87
+    sampleRows: 606
+    imputedExcludedCells: 82
+[23:16:54.986] INFO (38162): report_v4.artifact_parity
+    ok: false
+    issues: [
+      {
+        "kind": "missing_block",
+        "blockId": "b7aee642-8ff1-4959-9d34-85b475d764fd",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "9bde3e83-37d1-4ef1-bc48-0a3a0b819e85",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "28329633-18e7-44af-9523-3810d276e899",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "a4078f64-afb6-4122-8d52-8f49260bca51",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "2c0e3d59-5788-4e17-b7a1-f5122166c0ac",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "9205ed54-d49f-4756-ae40-d2994b65a584",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "796ea6c9-b37a-4934-85fd-18b13cf7f88d",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "15b0c6ed-e901-4e43-b6ea-9a4c2b8ac23a",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "14fcba98-bc59-44d8-b340-d4ef0cddfa6e",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "06ebaa5a-630f-4f5b-aa8e-9c51a254b675",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "deb2f78d-58d9-4966-a276-fcb08afaf6d2",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "2020df4a-36b0-4ea5-8bb7-be9377e1e13c",
+        "detail": "data-block-id absent from html"
+      }
+    ]
+    documentBlockCount: 87
+    htmlBlockCount: 48
+[23:16:54.992] INFO (38162): report_v4.ask_contract
+    status: "partial"
+    gaps: [
+      {
+        "id": "section_order",
+        "status": "partial"
+      }
+    ]
+{"ok":true,"tag":"bourg_fix_classic","iterations":18,"costUsd":2.02161,"durationSec":413.808,"pdfOk":true,"pdfError":null,"htmlPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/bourg_fix_classic.html","metaPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/bourg_fix_classic.meta.json","pdfPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/bourg_fix_classic.pdf"}

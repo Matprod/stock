@@ -9,11 +9,6 @@ import {
 } from '#services/report_v4/data_reliability'
 import type { HarvestDataProfile } from '#services/report_v4/data_profiler'
 import { resolveReportDesignPack } from '#services/report_v4/design/report_design_pack'
-import { windowSliceCalendarDays } from '#services/report_v4/metrics/formulas'
-import {
-  DEFAULT_ACWR_ZONES,
-  zoneOfAcwr,
-} from '#services/report_v4/sport_expertise_config'
 
 const contrastRatio = (a: string, b: string): number => {
   const rel = (hex: string) => {
@@ -36,13 +31,6 @@ test.group('étape 8 expertise + charts', () => {
         `${color} vs paper ${pack.tokens.paper}`
       )
     }
-  })
-
-  test('zoneOfAcwr uses configured thresholds', ({ assert }) => {
-    assert.equal(zoneOfAcwr(0.7, DEFAULT_ACWR_ZONES, 'en').key, 'under')
-    assert.equal(zoneOfAcwr(1.0, DEFAULT_ACWR_ZONES, 'fr').key, 'ok')
-    assert.equal(zoneOfAcwr(1.4, DEFAULT_ACWR_ZONES, 'en').key, 'watch')
-    assert.equal(zoneOfAcwr(1.6, DEFAULT_ACWR_ZONES, 'fr').key, 'risk')
   })
 
   test('chart guards reject dual value axes and force bars from zero', ({ assert }) => {
@@ -131,10 +119,4 @@ test.group('étape 8 expertise + charts', () => {
     assert.isFalse(second.inserted)
   })
 
-  test('windowSliceCalendarDays respects ISO dates not only index count', ({ assert }) => {
-    const series = [1, 2, 3, 4, 5]
-    const dates = ['2026-03-01', '2026-03-02', '2026-03-05', '2026-03-06', '2026-03-07']
-    const sliced = windowSliceCalendarDays(series, dates, 4, 3)
-    assert.deepEqual(sliced, [null, null, 3, 4, 5])
-  })
 })

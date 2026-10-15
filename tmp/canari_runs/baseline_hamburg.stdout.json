@@ -1,0 +1,852 @@
+[15:36:01.523] INFO (20296): report_v4.analyze_request_llm
+    explicit: true
+    display: {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+    byDomain: {
+      "load": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "gps": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "sleep": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "scores": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    }
+    fetches: [
+      {
+        "domain": "load",
+        "from": "2026-10-08",
+        "to": "2026-10-14",
+        "metrics": [
+          "srpe"
+        ]
+      },
+      {
+        "domain": "gps",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "sleep",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ]
+    askDomains: [
+      "load",
+      "gps",
+      "wellness",
+      "sleep",
+      "scores",
+      "match"
+    ]
+    periodFollowUp: false
+    multiSection: true
+    rationale: "Coach requested 7-day staff report (derniere semaine) with charge/sRPE, GPS, wellness, sleep, scores, and match data if available. Display window is last 7 calendar days ending today (2026-10-08 to 2026-10-14). All six domains fetched for the same period. Multi-section report with synthesis and essential charts."
+    durationMs: 2661
+[15:36:01.795] INFO (20296): report_v4.edit_route.wipe
+    wipeReason: "no_existing_canvas"
+    hasExistingCanvas: false
+    periodChanged: false
+    multiSectionAsk: true
+    additive: false
+    scopedPeriod: false
+[15:36:01.796] INFO (20296): report_v4.edit_route
+    canvasAsk: "new_viz"
+    preserveCanvas: false
+    needsFetch: true
+    isMicro: false
+    keepPriorDisplayRange: false
+    softOps: null
+    inventory: null
+    additive: false
+    scopedPeriod: false
+    design: false
+    periodChanged: false
+    multiSectionAsk: true
+    wipeCanvas: true
+    wipeReason: "no_existing_canvas"
+    routeFlags: {
+      "wipe": true,
+      "additive": false,
+      "scopedPeriod": false,
+      "design": false,
+      "aesthetic": false,
+      "partialProse": false,
+      "recommendationStrip": false
+    }
+    provider: "skip"
+    durationSec: 0.272
+[15:36:01.796] INFO (20296): report_v4.prompt_windows_resolved
+    explicit: true
+    displayRange: {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+    coverRange: {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+    fetchRange: {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    }
+    domainRanges: {
+      "load": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "gps": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "sleep": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "scores": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    }
+    fetches: [
+      {
+        "domain": "load",
+        "from": "2026-10-08",
+        "to": "2026-10-14",
+        "metrics": [
+          "srpe"
+        ]
+      },
+      {
+        "domain": "gps",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "sleep",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ]
+    extraRanges: []
+    seasons: [
+      {
+        "name": "2026-2027",
+        "from": "2026-08-01",
+        "to": "2027-05-24",
+        "active": true
+      },
+      {
+        "name": "2025-2026",
+        "from": "2025-07-16",
+        "to": "2026-05-16",
+        "active": false
+      },
+      {
+        "name": "2024-2025",
+        "from": "2024-07-02",
+        "to": "2025-05-18",
+        "active": false
+      },
+      {
+        "name": "2023-2024",
+        "from": "2023-07-28",
+        "to": "2024-05-19",
+        "active": false
+      },
+      {
+        "name": "2022-2023",
+        "from": "2022-07-17",
+        "to": "2023-06-05",
+        "active": false
+      }
+    ]
+[15:36:01.871] INFO (20296): report_v4.roster_active_window
+    athletes: 22
+    ranges: [
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ]
+[15:36:03.404] INFO (20296): report_v4.ask_gate
+    reason: "prompt_clear_enough"
+    question_ids: []
+    confidence: 1
+    round: 0
+    skipped: true
+[15:36:03.608] INFO (20296): report_v4.club_metric_catalog_start
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    }
+
+════════════════════════════════════════════════════════════
+report-v4  START  │  Hambourg  │  2026-10-08 → 2026-10-14
+report-v4  domains  │  load, gps, match, wellness, sleep, scores
+report-v4  prompt  │  Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.
+────────────────────────────────────────────────────────────
+[15:36:05.140] INFO (20296): report_v4.club_metric_catalog_done
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    }
+    durationMs: 1532
+    periodKpis: 48
+    matchKpis: 23
+    rpeFetchTable: "health_metric_values"
+    rpeSession: "health_metrics"
+    rpeBody: "health_ratings"
+    clubInsightScience: 8
+[15:36:05.142] INFO (20296): report_v4.linker_start
+    domains: [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores"
+    ]
+    fetchWindows: 6
+    athleteCount: 22
+[15:36:05.143] INFO (20296): report_v4.linker_db_tool_start
+    schemaTitles: 7
+[15:36:05.196] INFO (20296): report_v4.linker_db_tool_done
+    durationMs: 53
+[15:36:05.200] INFO (20296): report_v4.linker_agent_invoke
+    toolCount: 21
+report-v4  iter 01  │  tool_use  │  5.893s  │  $0.015  │  in=19 out=418 cacheR=30k  │  cum $0.015
+report-v4  action  │  tools: build_load_summary, fetch_club_roster, fetch_gps_intensity_daily, fetch_wellness_daily, fetch_sleep_daily, fetch_daily_scores, fetch_match_stats_daily
+report-v4    └ tool  │  ok  │  build_load_summary  │  0.627s  │  2026-09-10 → 2026-10-14 (sql 2026-10-08→2026-10-14)
+report-v4    └ tool  │  ok  │  fetch_club_roster  │  0.000s  │  ? → ?
+report-v4    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.323s  │  2026-10-08 → 2026-10-14
+report-v4    └ tool  │  ok  │  fetch_wellness_daily  │  0.048s  │  2026-10-08 → 2026-10-14
+report-v4    └ tool  │  ok  │  fetch_sleep_daily  │  0.064s  │  2026-10-08 → 2026-10-14
+report-v4    └ tool  │  ok  │  fetch_daily_scores  │  0.052s  │  2026-10-08 → 2026-10-14
+report-v4    └ tool  │  ok  │  fetch_match_stats_daily  │  0.058s  │  2026-10-08 → 2026-10-14
+report-v4    └ cost  │  this prompt $0.015  │  total so far $0.015  │  iter time 5.893s
+report-v4  iter 02  │  end_turn  │  6.198s  │  $0.046  │  in=11k out=214 cacheR=29k  │  cum $0.061
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.046  │  total so far $0.061  │  iter time 6.198s
+report-v4  agent-stop  │  linker  │  self_ended  │  2 iteration(s)  │  max=5  │  force@4  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  linker  │  2 iteration(s)  │  12.091s  │  $0.061
+report-v4  tokens  │  in=11k  │  out=632  │  cacheR=59k  │  cacheW=0  │  all=12k
+report-v4  detail  │  datasets=8
+[15:36:17.297] INFO (20296): report_v4.path_cost_class
+    pathCostClass: "full"
+    budgetUsd: 1.5
+[15:36:17.302] INFO (20296): report_v4.data_profile
+    datasets: 8
+    unusableDomains: []
+    emptyDomains: []
+    partial: [
+      "gps",
+      "load",
+      "scores",
+      "sleep",
+      "wellness"
+    ]
+report-v4  iter 01  │  tool_use  │  10.698s  │  $0.022  │  in=19 out=1.0k cacheR=22k  │  cum $0.022
+report-v4  action  │  tools: fetch_club_roster, filter_dataset, filter_dataset, filter_dataset, aggregate_dataset, aggregate_dataset, aggregate_dataset, aggregate_dataset, aggregate_dataset, aggregate_dataset, set_report_meta
+report-v4    └ tool  │  ok  │  fetch_club_roster  │  0.000s  │  ? → ?
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  set_report_meta  │  0.000s
+report-v4    └ cost  │  this prompt $0.022  │  total so far $0.022  │  iter time 10.698s
+report-v4  iter 02  │  tool_use  │  9.182s  │  $0.034  │  in=4.6k out=918 cacheR=22k  │  cum $0.057
+report-v4  action  │  tools: take_latest, filter_dataset, filter_dataset, filter_dataset, filter_dataset, compute_report_fact, compute_report_fact, compute_report_fact
+report-v4    └ tool  │  ok  │  take_latest  │  0.001s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.001s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.001s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ cost  │  this prompt $0.034  │  total so far $0.057  │  iter time 9.182s
+report-v4  iter 03  │  tool_use  │  36.742s  │  $0.078  │  in=7.3k out=3.3k cacheR=22k  │  cum $0.135
+report-v4  action  │  tools: filter_dataset, add_heading, add_chart, add_table, add_text, add_heading, add_chart, add_chart, add_chart, add_chart, add_text, add_heading, add_table, add_text, add_heading, add_chart, add_chart, add_text, add_heading, add_chart, add_text, add_heading, add_chart, add_chart, add_text, add_heading, add_table
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  add_heading  │  0.001s
+report-v4    └ tool  │  ok  │  add_chart  │  0.008s  │  ds_13
+report-v4    └ tool  │  ok  │  add_table  │  0.002s  │  ds_10
+report-v4    └ tool  │  ok  │  add_text  │  0.002s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_chart  │  0.003s  │  ds_20
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_21
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_22
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_23
+report-v4    └ tool  │  ok  │  add_text  │  0.001s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_table  │  0.000s  │  ds_11
+report-v4    └ tool  │  ok  │  add_text  │  0.001s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_16
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_16
+report-v4    └ tool  │  ok  │  add_text  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_17
+report-v4    └ tool  │  ok  │  add_text  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_18
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_18
+report-v4    └ tool  │  ok  │  add_text  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_table  │  0.000s  │  ds_19
+report-v4    └ cost  │  this prompt $0.078  │  total so far $0.135  │  iter time 36.742s
+report-v4  iter 04  │  tool_use  │  7.821s  │  $0.051  │  in=12k out=496 cacheR=22k  │  cum $0.186
+report-v4  action  │  tools: join_datasets, add_text, add_heading, add_text
+report-v4    └ tool  │  ok  │  join_datasets  │  0.002s
+report-v4    └ tool  │  ok  │  add_text  │  0.002s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_text  │  0.001s
+report-v4    └ cost  │  this prompt $0.051  │  total so far $0.186  │  iter time 7.821s
+report-v4  iter 05  │  tool_use  │  33.512s  │  $0.084  │  in=14k out=2.4k cacheR=22k  │  cum $0.270
+report-v4  action  │  tools: commit_report_brief
+report-v4    └ tool  │  ok  │  commit_report_brief  │  0.038s
+report-v4    └ cost  │  this prompt $0.084  │  total so far $0.270  │  iter time 33.512s
+report-v4  iter 06  │  end_turn  │  17.272s  │  $0.067  │  in=16k out=714 cacheR=22k  │  cum $0.337
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.067  │  total so far $0.337  │  iter time 17.272s
+report-v4  agent-stop  │  analyst  │  self_ended  │  6 iteration(s)  │  max=22  │  force@14  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  analyst  │  6 iteration(s)  │  115.227s  │  $0.337
+report-v4  tokens  │  in=54k  │  out=8.9k  │  cacheR=133k  │  cacheW=0  │  all=63k
+report-v4  detail  │  blocks=29 charts=10 tables=3 insight=true
+[15:38:12.653] INFO (20296): report_v4.analyst_done
+    blocks: 29
+    charts: 10
+    tables: 3
+    insight: true
+    iterations: 6
+    macrosSkipped: true
+    shortWindow: true
+    multiSectionAsk: true
+report-v4  iter 01  │  tool_use  │  1.725s  │  $0.0047  │  in=19 out=23 cacheR=1.8k cacheW=1.0k  │  cum $0.0047
+report-v4  action  │  tools: get_design_context
+report-v4    └ tool  │  ok  │  get_design_context  │  0.003s
+report-v4    └ cost  │  this prompt $0.0047  │  total so far $0.0047  │  iter time 1.725s
+report-v4  iter 02  │  tool_use  │  65.812s  │  $0.118  │  in=5.4k out=6.5k cacheR=1.8k cacheW=933  │  cum $0.123
+report-v4  action  │  tools: set_report_html
+report-v4    └ tool  │  ok  │  set_report_html  │  0.266s
+report-v4    └ cost  │  this prompt $0.118  │  total so far $0.123  │  iter time 65.812s
+[15:39:19.942] WARN (20296): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "08"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "14"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "0"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "5"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "11"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "21"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "4"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "2"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "20"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "40"
+      }
+    ]
+[15:39:20.175] INFO (20296): report_v4.fact_autolink
+    displayed: 124
+    linkedFact: 1
+    linkedSrc: 0
+    ambiguous: 123
+    unmatched: 0
+    samples: [
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "Bilan staff semaine 08–14 octobre 2026 Bilan staff semaine 08–14 octobre 2026",
+        "candidates": [
+          "src:ds_4#0.kpi_entriesz5abs",
+          "src:ds_4#2.kpi_hmldpermin",
+          "src:ds_4#7.kpi_hibsdistance",
+          "src:ds_4#7.kpi_decelerationdistancez5rel",
+          "src:ds_4#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "08",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "Bilan staff semaine 08–14 octobre 2026 Bilan staff semaine 08–14 octobre 2026",
+        "candidates": [
+          "src:ds_4#0.kpi_hibsmaxspeed",
+          "src:ds_4#0.kpi_hmleffortsmaxspeed",
+          "src:ds_4#0.kpi_maxspeed",
+          "src:ds_4#1.kpi_hibsmaxspeed",
+          "src:ds_4#3.kpi_maxdeceleration"
+        ]
+      },
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "08 octobre – 14 octobre 2026",
+        "candidates": [
+          "src:ds_4#0.kpi_entriesz5abs",
+          "src:ds_4#2.kpi_hmldpermin",
+          "src:ds_4#7.kpi_hibsdistance",
+          "src:ds_4#7.kpi_decelerationdistancez5rel",
+          "src:ds_4#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "08",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "08 octobre – 14 octobre 2026",
+        "candidates": [
+          "src:ds_4#0.kpi_hibsmaxspeed",
+          "src:ds_4#0.kpi_hmleffortsmaxspeed",
+          "src:ds_4#0.kpi_maxspeed",
+          "src:ds_4#1.kpi_hibsmaxspeed",
+          "src:ds_4#3.kpi_maxdeceleration"
+        ]
+      },
+      {
+        "raw": "10",
+        "value": 10,
+        "reason": "ambiguous",
+        "context": "Bilan multi-domaines couvrant charge interne, GPS, match, wellness, sommeil et scores de performance/risque pour la période du 8 au 14 octobre 2026. La charge i",
+        "candidates": [
+          "fact:match.players_count",
+          "src:ds_4#0.kpi_decelerationdistancez6rel",
+          "src:ds_4#3.kpi_decelerationdistancez6rel",
+          "src:ds_4#6.kpi_hmldpermin",
+          "src:ds_4#9.kpi_hmleffortsmaxspeed"
+        ]
+      },
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "Bilan multi-domaines couvrant charge interne, GPS, match, wellness, sommeil et scores de performance/risque pour la période du 8 au 14 octobre 2026. La charge i",
+        "candidates": [
+          "src:ds_4#0.kpi_entriesz5abs",
+          "src:ds_4#2.kpi_hmldpermin",
+          "src:ds_4#7.kpi_hibsdistance",
+          "src:ds_4#7.kpi_decelerationdistancez5rel",
+          "src:ds_4#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "8 au",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "Bilan multi-domaines couvrant charge interne, GPS, match, wellness, sommeil et scores de performance/risque pour la période du 8 au 14 octobre 2026. La charge i",
+        "candidates": [
+          "src:ds_4#0.kpi_hibsmaxspeed",
+          "src:ds_4#0.kpi_hmleffortsmaxspeed",
+          "src:ds_4#0.kpi_maxspeed",
+          "src:ds_4#1.kpi_hibsmaxspeed",
+          "src:ds_4#3.kpi_maxdeceleration"
+        ]
+      },
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "Activité concentrée en début de semaine (08–11 oct.), puis valeurs nulles 12–14 octobre",
+        "candidates": [
+          "src:ds_4#0.kpi_entriesz5abs",
+          "src:ds_4#2.kpi_hmldpermin",
+          "src:ds_4#7.kpi_hibsdistance",
+          "src:ds_4#7.kpi_decelerationdistancez5rel",
+          "src:ds_4#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "12",
+        "value": 12,
+        "reason": "ambiguous",
+        "context": "Activité concentrée en début de semaine (08–11 oct.), puis valeurs nulles 12–14 octobre",
+        "candidates": [
+          "src:ds_4#3.kpi_decelerationdistancez5rel",
+          "src:ds_4#10.kpi_decelerationdistancez6rel",
+          "src:ds_4#18.kpi_distancez6abs",
+          "src:ds_4#20.kpi_decelerationdistancez1rel",
+          "src:ds_4#23.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "11",
+        "value": 11,
+        "reason": "ambiguous",
+        "context": "Activité concentrée en début de semaine (08–11 oct.), puis valeurs nulles 12–14 octobre",
+        "candidates": [
+          "src:ds_4#6.kpi_entriesz5abs",
+          "src:ds_4#11.kpi_accelerationdistancez6rel",
+          "src:ds_4#11.kpi_entriesz5abs",
+          "src:ds_4#13.kpi_hmldpermin",
+          "src:ds_4#13.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "08",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "Activité concentrée en début de semaine (08–11 oct.), puis valeurs nulles 12–14 octobre",
+        "candidates": [
+          "src:ds_4#0.kpi_hibsmaxspeed",
+          "src:ds_4#0.kpi_hmleffortsmaxspeed",
+          "src:ds_4#0.kpi_maxspeed",
+          "src:ds_4#1.kpi_hibsmaxspeed",
+          "src:ds_4#3.kpi_maxdeceleration"
+        ]
+      },
+      {
+        "raw": "0",
+        "value": 0,
+        "reason": "ambiguous",
+        "context": "Proportion élevée de valeurs par défaut (0) limitant l'interprétation",
+        "candidates": [
+          "src:ds_1#1.srpe_daily",
+          "src:ds_1#4.srpe_daily",
+          "src:ds_1#5.srpe_daily",
+          "src:ds_1#10.srpe_daily",
+          "src:ds_1#11.srpe_daily"
+        ]
+      }
+    ]
+[15:39:20.192] WARN (20296): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "01"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "02"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "03"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "2"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "04"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "05"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "4"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "06"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "5"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "07"
+      }
+    ]
+report-v4  iter 03  │  end_turn  │  8.800s  │  $0.042  │  in=12k out=338 cacheR=2.8k  │  cum $0.165
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.042  │  total so far $0.165  │  iter time 8.800s
+report-v4  agent-stop  │  designer  │  self_ended  │  3 iteration(s)  │  max=14  │  force@12  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  designer  │  3 iteration(s)  │  76.337s  │  $0.165
+report-v4  tokens  │  in=17k  │  out=6.9k  │  cacheR=6.4k  │  cacheW=1.9k  │  all=24k
+report-v4  detail  │  htmlBytes=285705 freeArtifact=true softRepair=false
+[15:39:28.995] INFO (20296): report_v4.designer_done
+    htmlBytes: 285705
+    freeArtifact: true
+    iterations: 3
+    softRebindRepair: false
+[15:39:29.023] INFO (20296): report_v4.data_reliability_block
+    blocks: 31
+    sampleRows: 845
+[15:39:29.036] INFO (20296): report_v4.artifact_parity
+    ok: false
+    issues: [
+      {
+        "kind": "missing_block",
+        "blockId": "reliability-h-30",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "reliability-t-31",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "e9af5d79-fef5-498b-afd5-695ccc4e721a",
+        "detail": "html=\"Bilan multi-domaines couvrant charge interne, GPS, match, wellness, sommeil et s\" doc=\"La charge interne montre une activité concentrée en début de semaine (08–11 oct.\""
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "f01b8737-08c7-4324-9c7c-b47b26977e39",
+        "detail": "html=\"Cumule un risque blessure élevé (48 au 14 oct.), des courbatures importantes (40\" doc=\"Les données GPS couvrent jusqu'au 11 octobre (avant la fin de période demandée).\""
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "1f5cb191-eef1-4af0-bbf0-9892bbc00f45",
+        "detail": "html=\"Présente le deuxième risque blessure le plus élevé (41 au 14 oct.), à surveiller\" doc=\"Un match enregistré le 10 octobre avec 10 joueurs. Nicolás Capaldo et Warmed Oma\""
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "33396492-98d0-4942-8d3d-f9c7322cb2ce",
+        "detail": "html=\"Affiche les volumes GPS les plus élevés de la période (distance totale 21 235 m,\" doc=\"Les échelles subjectives du club sont inversées (valeurs basses = bon état). Bak\""
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "0475d021-bdb2-4e81-883f-eff2c1b07268",
+        "detail": "html=\"A joué l'intégralité du match (206 min) avec une distance totale de 21 726 m et \" doc=\"La qualité de sommeil (échelle inversée : bas = bon) montre David Möller Wolfe a\""
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "851b6fc3-285e-423b-86b2-4047a7c82ac4",
+        "detail": "html=\"Signaux croisés wellness-sommeil-scores nécessitant une attention particulière. \" doc=\"Le score de performance moyen reste stable autour de 50 (légère baisse le 11 oct\""
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "d0549069-8cfe-4d86-a428-6a5f8cce12a8",
+        "detail": "html=\"Les graphiques détaillés pour ce joueur sont disponibles dans les sections théma\" doc=\"Bakery Jatta et Yussuf Poulsen présentent les scores de risque blessure les plus\""
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "774d4237-dd9b-4a12-a5b6-5424845578ae",
+        "detail": "html=\"Synthèse hebdomadaire\" doc=\"Mécanismes clés — Risque blessure\""
+      },
+      {
+        "kind": "text_mismatch",
+        "blockId": "b8fb7523-a207-4362-a2b7-caeeebdf69ea",
+        "detail": "html=\"Deuxième risque blessure le plus élevé (41 au 14 oct.), à surveiller dans le con\" doc=\"Les principaux facteurs identifiés pour ce club sont : (1) le statut douleur/ble\""
+      }
+    ]
+    documentBlockCount: 31
+    htmlBlockCount: 29
+[15:39:29.042] INFO (20296): report_v4.ask_contract
+    status: "delivered"
+    gaps: []
+{"ok":true,"tag":"baseline_hamburg","iterations":11,"costUsd":0.562363,"durationSec":215.596,"pdfOk":true,"pdfError":null,"htmlPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_hamburg.html","metaPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_hamburg.meta.json","pdfPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/baseline_hamburg.pdf"}

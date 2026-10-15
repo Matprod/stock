@@ -1,7 +1,7 @@
 import db from '@adonisjs/lucid/services/db'
 import { shiftIsoDate, type IsoDateRange } from '#services/report_v4/lookback_range'
 
-export const RPE_PROBE_LOOKBACK_DAYS = 14
+const RPE_PROBE_LOOKBACK_DAYS = 14
 
 export const RPE_SOURCE = {
   HEALTH_METRICS: 'health_metrics',
@@ -9,9 +9,9 @@ export const RPE_SOURCE = {
   HEALTH_RATINGS: 'health_ratings',
 } as const
 
-export type RpeSourceId = (typeof RPE_SOURCE)[keyof typeof RPE_SOURCE]
+type RpeSourceId = (typeof RPE_SOURCE)[keyof typeof RPE_SOURCE]
 
-export type RpeSourceHit = {
+type RpeSourceHit = {
   source: RpeSourceId
   table: string
   fetchVia: string
@@ -22,7 +22,7 @@ export type RpeSourceHit = {
   populated: boolean
 }
 
-export type RpeSourceProbe = {
+type RpeSourceProbe = {
   lookback: IsoDateRange
   sources: RpeSourceHit[]
   sessionPrimary: RpeSourceHit | null
@@ -37,7 +37,7 @@ const HEALTH_RPE_NAME_SQL = `
   OR LOWER(REPLACE(hm.name, ' ', '_')) LIKE '%effort%'
 `
 
-export const buildRpeProbeRange = (anchorTo: string): { from: string; to: string } => {
+const buildRpeProbeRange = (anchorTo: string): { from: string; to: string } => {
   const from = shiftIsoDate(anchorTo, -(RPE_PROBE_LOOKBACK_DAYS - 1))
   return { from, to: anchorTo }
 }

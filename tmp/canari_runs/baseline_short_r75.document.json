@@ -1,0 +1,90 @@
+{
+  "title": "Top 10 Distance GPS totale",
+  "dateRange": {
+    "from": "2026-03-01",
+    "to": "2026-03-07"
+  },
+  "blocks": [
+    {
+      "id": "f987f11c-f2ed-4a8e-8f5a-6f8df339c6bf",
+      "type": "table",
+      "title": "Top 10 Distance GPS totale (1–7 mars 2026)",
+      "columns": [
+        "Joueur",
+        "Distance total (m)",
+        "Max acceleration (m/s2)"
+      ],
+      "rows": [
+        [
+          "Nicolai Remberg",
+          38180,
+          null
+        ],
+        [
+          "Luka Vušković",
+          35001,
+          null
+        ],
+        [
+          "Ransford Königsdörffer",
+          32632,
+          null
+        ],
+        [
+          "William Mikelbrencis",
+          32238,
+          null
+        ],
+        [
+          "Jordan Torunarigha",
+          31079,
+          null
+        ],
+        [
+          "Miro Muheim",
+          30966,
+          null
+        ],
+        [
+          "Daniel Elfadli",
+          28617,
+          null
+        ],
+        [
+          "Warmed Omari",
+          28379,
+          null
+        ],
+        [
+          "Philip Otele",
+          27254,
+          null
+        ],
+        [
+          "Giorgi Gocholeishvili",
+          26510,
+          null
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "requested_measure_note",
+      "type": "text",
+      "text": "total distance substituée depuis les données (à la place de mesure affichée)."
+    },
+    {
+      "id": "reliability-h-3",
+      "type": "heading",
+      "text": "Fiabilité des données",
+      "level": 2
+    },
+    {
+      "id": "reliability-t-4",
+      "type": "text",
+      "text": "Échantillon : 64 ligne(s) sur 3 jeu(x). Valeurs écartées : 30 cellule(s) imputée(s) ou sentinelle (suspicious_default:kpi_maxacceleration=6@67%×16; suspicious_default:kpi_maxacceleration=6@80%×8; suspicious_default:kpi_maxdeceleration=8@60%×6). Limite : kpi maxacceleration semble bloqué sur une valeur par défaut (6, ~67 % des lignes). Limite : kpi maxacceleration semble bloqué sur une valeur par défaut (6, ~80 % des lignes). Limite : kpi maxdeceleration semble bloqué sur une valeur par défaut (8, ~60 % des lignes)."
+    }
+  ]
+}

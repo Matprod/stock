@@ -3,10 +3,10 @@ import { PREMIUM_BLOCK_TYPE } from '#constants/premium_report.constants'
 import type { PremiumReportDocument } from '#contracts/premium_report'
 import { indexArtifactSections, tocPresentInHtml } from '#services/report_v4/artifact_sections'
 import { pruneOrphanChartHostsInHtml } from '#services/report_v4/artifact_html'
-import type { SoftEditIntentFlags } from '#services/report_v4/classify_soft_edit_intent'
-import { softEditFlagsFromHaikuJson } from '#services/report_v4/classify_soft_edit_intent'
-import { buildSoftCanvasInventory } from '#services/report_v4/soft_canvas_inventory'
-import { resolveSoftEditOps, applyResolvedSoftEditorial } from '#services/report_v4/soft_edit_ops'
+import {
+  applyResolvedSoftEditorial,
+  type SoftEditOpsPlan,
+} from '#services/report_v4/soft_edit_ops'
 import { resolveSoftEditTargets } from '#services/premium_report/soft_edit_targets'
 
 const fixtureHtml = (): string => `<!DOCTYPE html>
@@ -60,151 +60,34 @@ const fixtureDocument = (): PremiumReportDocument => ({
   ],
 })
 
-const NONE: SoftEditIntentFlags = {
-  wantsToc: false,
-  wantsRemove: false,
-  stripEmpty: false,
-  wantsTeamMean: false,
-  enrichExistingCharts: false,
-  restoreSheets: false,
-  addSectionProse: false,
-  layoutRepair: false,
-  residualNeedsAnalyst: false,
+const editorialPlan = (args: {
+  removeQueries?: string[]
+  ensureToc?: boolean
+  stripEmpty?: boolean
+}): SoftEditOpsPlan => {
+  const removeQueries = args.removeQueries ?? []
+  const ops: SoftEditOpsPlan['ops'] = []
+  for (const query of removeQueries) {
+    ops.push({ type: 'remove_section', query })
+  }
+  if (args.ensureToc) ops.push({ type: 'ensure_toc' })
+  if (args.stripEmpty) ops.push({ type: 'strip_empty_sections' })
+  return {
+    ops,
+    editorialOnly: true,
+    needsAnalyst: false,
+    needsFetch: false,
+    removeQueries,
+    ensureToc: Boolean(args.ensureToc),
+    hasDataOps: false,
+    restoreSheets: false,
+    addSectionProse: false,
+    additiveSoft: false,
+    layoutRepair: false,
+    wantsTeamMean: false,
+    enrichExistingCharts: false,
+  }
 }
-
-const softFlags = (partial: Partial<SoftEditIntentFlags>): SoftEditIntentFlags => ({
-  ...NONE,
-  ...partial,
-})
-
-test.group('soft_edit_ops router', () => {
-  test('parses TOC + delete scatter as multi-op editorial plan', ({ assert }) => {
-    const plan = resolveSoftEditOps(
-      softFlags({ wantsRemove: true, wantsToc: true }),
-      'delete the Sleep Quality vs Mood – Scatter that is empty and add a table of contents',
-      null,
-      ['Sleep Quality vs Mood – Scatter']
-    )
-    assert.isTrue(plan.editorialOnly)
-    assert.isFalse(plan.needsAnalyst)
-    assert.isTrue(plan.ensureToc)
-    assert.include(plan.removeQueries, 'Sleep Quality vs Mood – Scatter')
-  })
-
-  test('haiku json maps soft edit flags', ({ assert }) => {
-    const mapped = softEditFlagsFromHaikuJson({
-      wants_toc: true,
-      wants_remove: false,
-      strip_empty: 'true',
-      wants_team_mean: 0,
-      enrich_existing_charts: false,
-      restore_sheets: true,
-      add_section_prose: false,
-      layout_repair: false,
-      residual_needs_analyst: false,
-    })
-    assert.isTrue(mapped.wantsToc)
-    assert.isTrue(mapped.stripEmpty)
-    assert.isTrue(mapped.restoreSheets)
-    assert.isFalse(mapped.wantsTeamMean)
-  })
-
-  test('restore sheets + descriptive texts is additive soft', ({ assert }) => {
-    const plan = resolveSoftEditOps(
-      softFlags({ restoreSheets: true, addSectionProse: true }),
-      'Restore the individual sheets and add descriptive texts under each block'
-    )
-    assert.isTrue(plan.restoreSheets)
-    assert.isTrue(plan.addSectionProse)
-    assert.isTrue(plan.additiveSoft)
-    assert.isTrue(plan.needsFetch)
-    assert.isFalse(plan.editorialOnly)
-  })
-
-  test('poorly orchestrated sheets is layout repair reshape', ({ assert }) => {
-    const plan = resolveSoftEditOps(
-      softFlags({ layoutRepair: true }),
-      'Individual sheets are broken, athletes are not linked to their charts — reorganize pairing'
-    )
-    assert.isTrue(plan.layoutRepair)
-    assert.isFalse(plan.additiveSoft)
-    assert.isFalse(plan.needsFetch)
-    assert.isTrue(plan.needsAnalyst)
-    assert.isFalse(plan.editorialOnly)
-  })
-
-  test('descriptive texts + TOC is not editorial-only', ({ assert }) => {
-    const plan = resolveSoftEditOps(
-      softFlags({ wantsToc: true, addSectionProse: true }),
-      'Add descriptive texts for each section and add a table of contents'
-    )
-    assert.isTrue(plan.ensureToc)
-    assert.isFalse(plan.editorialOnly)
-    assert.isTrue(plan.needsAnalyst)
-    assert.isTrue(plan.addSectionProse)
-  })
-
-  test('missing individual sheets restores with fetch', ({ assert }) => {
-    const plan = resolveSoftEditOps(
-      softFlags({ restoreSheets: true }),
-      'Some players are missing individual sheets'
-    )
-    assert.isTrue(plan.restoreSheets)
-    assert.isTrue(plan.needsFetch)
-    assert.isFalse(plan.editorialOnly)
-  })
-
-  test('duplicate empty executive summary remove does not strip_empty alone', ({ assert }) => {
-    const plan = resolveSoftEditOps(
-      softFlags({ wantsRemove: true, restoreSheets: true }),
-      'I have empty executive summary duplicates — remove it. Also restore individual performance and injury player charts.',
-      null,
-      ['executive summary']
-    )
-    assert.include(plan.removeQueries.map((q) => q.toLowerCase()), 'executive summary')
-    assert.isFalse(plan.ops.some((op) => op.type === 'strip_empty_sections'))
-    assert.isTrue(plan.restoreSheets)
-    assert.isTrue(plan.needsFetch)
-  })
-
-  test('team mean ask sets wantsTeamMean without dead overlay op', ({ assert }) => {
-    const plan = resolveSoftEditOps(
-      softFlags({ wantsTeamMean: true }),
-      'Add team mean overlay on the performance chart'
-    )
-    assert.isTrue(plan.wantsTeamMean)
-    assert.isTrue(plan.hasDataOps)
-    assert.isFalse(plan.ops.some((op) => (op as { type: string }).type === 'overlay_team_mean'))
-  })
-
-  test('enrich existing individual charts routes as enrichExistingCharts', ({ assert }) => {
-    const plan = resolveSoftEditOps(
-      softFlags({ enrichExistingCharts: true }),
-      'On the individual focus graphs, add energy rating data with body soreness'
-    )
-    assert.isTrue(plan.enrichExistingCharts)
-    assert.isTrue(plan.needsFetch)
-    assert.isFalse(plan.additiveSoft)
-    assert.isFalse(plan.editorialOnly)
-  })
-
-  test('inventory titles resolve remove queries without hardcodes', ({ assert }) => {
-    const inventory = buildSoftCanvasInventory({
-      document: fixtureDocument(),
-      html: fixtureHtml(),
-    })
-    const plan = resolveSoftEditOps(
-      softFlags({ wantsRemove: true }),
-      'Please remove Monster Radar from the report',
-      inventory,
-      ['Monster Radar']
-    )
-    assert.include(
-      plan.removeQueries.map((q) => q.toLowerCase()),
-      'monster radar'
-    )
-  })
-})
 
 test.group('soft_edit_editorial', () => {
   test('indexes sections by band title and chart hosts', ({ assert }) => {
@@ -213,12 +96,10 @@ test.group('soft_edit_editorial', () => {
   })
 
   test('delete scatter + TOC removes scatter and adds TOC', ({ assert }) => {
-    const ops = resolveSoftEditOps(
-      softFlags({ wantsRemove: true, wantsToc: true }),
-      'delete the Sleep Quality vs Mood – Scatter that is empty and add a table of contents',
-      null,
-      ['Sleep Quality vs Mood – Scatter']
-    )
+    const ops = editorialPlan({
+      removeQueries: ['Sleep Quality vs Mood – Scatter'],
+      ensureToc: true,
+    })
     const result = applyResolvedSoftEditorial({
       html: fixtureHtml(),
       document: fixtureDocument(),
@@ -270,13 +151,7 @@ test.group('soft_edit_editorial', () => {
         },
       ],
     }
-    const inventory = buildSoftCanvasInventory({ document, html })
-    const ops = resolveSoftEditOps(
-      softFlags({ wantsRemove: true }),
-      'Remove the biomarkers sections',
-      inventory,
-      ['Biomarker CK']
-    )
+    const ops = editorialPlan({ removeQueries: ['Biomarker CK'] })
     const result = applyResolvedSoftEditorial({
       html,
       document,

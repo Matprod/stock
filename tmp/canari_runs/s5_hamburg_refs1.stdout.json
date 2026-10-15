@@ -1,0 +1,1407 @@
+[19:49:20.394] INFO (77210): report_v4.analyze_request_llm
+    explicit: true
+    display: {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+    byDomain: {
+      "load": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "gps": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "sleep": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "scores": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    }
+    fetches: [
+      {
+        "domain": "load",
+        "from": "2026-10-08",
+        "to": "2026-10-14",
+        "metrics": [
+          "srpe"
+        ]
+      },
+      {
+        "domain": "gps",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "sleep",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ]
+    askDomains: [
+      "load",
+      "gps",
+      "wellness",
+      "sleep",
+      "scores",
+      "match"
+    ]
+    periodFollowUp: false
+    multiSection: true
+    rationale: "Coach requested 7-day staff report (derniere semaine) with explicit domains: charge/sRPE, GPS, wellness, sommeil, scores, match. Display window is last 7 calendar days ending today (2026-10-08 to 2026-10-14). All six domains fetched for the same period. Multi-section true due to multiple distinct report beats (load, gps, wellness, sleep, scores, match) with synthesis + essential graphics."
+    durationMs: 3060
+[19:49:20.648] INFO (77210): report_v4.edit_route.wipe
+    wipeReason: "no_existing_canvas"
+    hasExistingCanvas: false
+    periodChanged: false
+    multiSectionAsk: true
+    additive: false
+    scopedPeriod: false
+[19:49:20.649] INFO (77210): report_v4.edit_route
+    canvasAsk: "new_viz"
+    preserveCanvas: false
+    needsFetch: true
+    isMicro: false
+    keepPriorDisplayRange: false
+    softOps: null
+    inventory: null
+    additive: false
+    scopedPeriod: false
+    design: false
+    periodChanged: false
+    multiSectionAsk: true
+    wipeCanvas: true
+    wipeReason: "no_existing_canvas"
+    routeFlags: {
+      "wipe": true,
+      "additive": false,
+      "scopedPeriod": false,
+      "design": false,
+      "aesthetic": false,
+      "partialProse": false,
+      "recommendationStrip": false
+    }
+    provider: "skip"
+    durationSec: 0.254
+[19:49:20.650] INFO (77210): report_v4.prompt_windows_resolved
+    explicit: true
+    displayRange: {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+    coverRange: {
+      "from": "2026-10-08",
+      "to": "2026-10-14"
+    }
+    fetchRange: {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    }
+    domainRanges: {
+      "load": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "gps": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "wellness": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "sleep": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "scores": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      "match": {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    }
+    fetches: [
+      {
+        "domain": "load",
+        "from": "2026-10-08",
+        "to": "2026-10-14",
+        "metrics": [
+          "srpe"
+        ]
+      },
+      {
+        "domain": "gps",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "sleep",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ]
+    extraRanges: []
+    seasons: [
+      {
+        "name": "2026-2027",
+        "from": "2026-08-01",
+        "to": "2027-05-24",
+        "active": true
+      },
+      {
+        "name": "2025-2026",
+        "from": "2025-07-16",
+        "to": "2026-05-16",
+        "active": false
+      },
+      {
+        "name": "2024-2025",
+        "from": "2024-07-02",
+        "to": "2025-05-18",
+        "active": false
+      },
+      {
+        "name": "2023-2024",
+        "from": "2023-07-28",
+        "to": "2024-05-19",
+        "active": false
+      },
+      {
+        "name": "2022-2023",
+        "from": "2022-07-17",
+        "to": "2023-06-05",
+        "active": false
+      }
+    ]
+[19:49:20.690] INFO (77210): report_v4.roster_active_window
+    athletes: 22
+    ranges: [
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      },
+      {
+        "from": "2026-10-08",
+        "to": "2026-10-14"
+      }
+    ]
+[19:49:21.726] INFO (77210): report_v4.ask_gate
+    reason: "prompt_clear_enough"
+    question_ids: []
+    confidence: 1
+    round: 0
+    skipped: true
+[19:49:21.880] INFO (77210): report_v4.club_metric_catalog_start
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    }
+
+════════════════════════════════════════════════════════════
+report-v4  START  │  Hambourg  │  2026-10-08 → 2026-10-14
+report-v4  domains  │  load, gps, match, wellness, sleep, scores
+report-v4  prompt  │  Bilan staff des 7 derniers jours (2026-03-01 → 2026-03-07): charge/sRPE, GPS, wellness, sommeil, scores, match si dispo. Synthèse + graphiques essentiels.
+────────────────────────────────────────────────────────────
+[19:49:22.828] INFO (77210): report_v4.club_metric_catalog_done
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-09-10",
+      "to": "2026-10-14"
+    }
+    durationMs: 948
+    periodKpis: 48
+    matchKpis: 23
+    rpeFetchTable: "health_metric_values"
+    rpeSession: "health_metrics"
+    rpeBody: "health_ratings"
+    clubInsightScience: 8
+[19:49:22.836] INFO (77210): report_v4.linker_start
+    domains: [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores"
+    ]
+    fetchWindows: 6
+    athleteCount: 22
+[19:49:22.836] INFO (77210): report_v4.linker_db_tool_start
+    schemaTitles: 7
+[19:49:22.836] INFO (77210): report_v4.linker_db_tool_done
+    durationMs: 0
+[19:49:22.838] INFO (77210): report_v4.linker_agent_invoke
+    toolCount: 26
+report-v4  iter 01  │  tool_use  │  6.305s  │  $0.057  │  in=19 out=418 cacheR=6.1k cacheW=13k  │  cum $0.057
+report-v4  action  │  tools: build_load_summary, fetch_club_roster, fetch_gps_intensity_daily, fetch_wellness_daily, fetch_sleep_daily, fetch_daily_scores, fetch_match_stats_daily
+report-v4    └ tool  │  ok  │  build_load_summary  │  0.624s  │  2026-09-10 → 2026-10-14 (sql 2026-10-08→2026-10-14)
+report-v4    └ tool  │  ok  │  fetch_club_roster  │  0.001s  │  ? → ?
+report-v4    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.403s  │  2026-10-08 → 2026-10-14
+report-v4    └ tool  │  ok  │  fetch_wellness_daily  │  0.051s  │  2026-10-08 → 2026-10-14
+report-v4    └ tool  │  ok  │  fetch_sleep_daily  │  0.059s  │  2026-10-08 → 2026-10-14
+report-v4    └ tool  │  ok  │  fetch_daily_scores  │  0.050s  │  2026-10-08 → 2026-10-14
+report-v4    └ tool  │  ok  │  fetch_match_stats_daily  │  0.058s  │  2026-10-08 → 2026-10-14
+report-v4    └ cost  │  this prompt $0.057  │  total so far $0.057  │  iter time 6.305s
+report-v4  iter 02  │  end_turn  │  6.416s  │  $0.096  │  in=7 out=229 cacheR=6.1k cacheW=24k  │  cum $0.154
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.096  │  total so far $0.154  │  iter time 6.416s
+report-v4  agent-stop  │  linker  │  self_ended  │  2 iteration(s)  │  max=5  │  force@4  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  linker  │  2 iteration(s)  │  12.721s  │  $0.154
+report-v4  tokens  │  in=26  │  out=647  │  cacheR=12k  │  cacheW=37k  │  all=673
+report-v4  detail  │  datasets=8
+[19:49:35.566] INFO (77210): report_v4.path_cost_class
+    pathCostClass: "full"
+    budgetUsd: 1.5
+[19:49:35.584] INFO (77210): report_v4.data_profile
+    datasets: 8
+    unusableDomains: []
+    emptyDomains: []
+    partial: [
+      "gps",
+      "load",
+      "scores",
+      "sleep",
+      "wellness"
+    ]
+    imputedExcludedCells: 252
+report-v4  iter 01  │  tool_use  │  10.334s  │  $0.069  │  in=19 out=1.1k cacheR=13k cacheW=13k  │  cum $0.069
+report-v4  action  │  tools: aggregate_dataset, aggregate_dataset, aggregate_dataset, aggregate_dataset, aggregate_dataset, set_report_meta, add_heading, add_heading, add_heading, add_heading, add_heading, add_heading
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.002s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  set_report_meta  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.001s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.069  │  total so far $0.069  │  iter time 10.334s
+report-v4  iter 02  │  tool_use  │  4.866s  │  $0.071  │  in=403 out=383 cacheR=13k cacheW=16k  │  cum $0.140
+report-v4  action  │  tools: filter_dataset, filter_dataset, add_chart
+report-v4    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  LOOP_DETECTED
+report-v4    └ tool  │  ERR  │  filter_dataset  │  0.000s  │  LOOP_DETECTED
+report-v4    └ tool  │  ERR  │  add_chart  │  0.000s  │  LOOP_DETECTED
+report-v4    └ cost  │  this prompt $0.071  │  total so far $0.140  │  iter time 4.866s
+report-v4  iter 03  │  tool_use  │  3.054s  │  $0.016  │  in=67 out=242 cacheR=30k cacheW=822  │  cum $0.156
+report-v4  action  │  tools: filter_dataset, add_chart
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  add_chart  │  0.011s  │  ds_8
+report-v4    └ cost  │  this prompt $0.016  │  total so far $0.156  │  iter time 3.054s
+[19:49:53.875] WARN (77210): report_v4.column_label_missing
+    column: "n"
+    key: "n"
+report-v4  iter 04  │  tool_use  │  3.582s  │  $0.015  │  in=145 out=261 cacheR=30k cacheW=371  │  cum $0.171
+report-v4  action  │  tools: filter_dataset, add_chart
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  add_chart  │  0.002s  │  ds_13
+report-v4    └ cost  │  this prompt $0.015  │  total so far $0.171  │  iter time 3.582s
+report-v4  iter 05  │  tool_use  │  11.974s  │  $0.032  │  in=375 out=1.3k cacheR=31k cacheW=466  │  cum $0.202
+report-v4  action  │  tools: add_chart, add_chart, add_chart, add_chart, add_table, add_chart, add_chart, add_text, add_chart, add_chart
+report-v4    └ tool  │  ok  │  add_chart  │  0.006s  │  ds_14
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_14
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_14
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_14
+report-v4    └ tool  │  ok  │  add_table  │  0.002s  │  ds_7
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_11
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_11
+report-v4    └ tool  │  ok  │  add_text  │  0.001s
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_12
+report-v4    └ tool  │  ok  │  add_chart  │  0.000s  │  ds_12
+report-v4    └ cost  │  this prompt $0.032  │  total so far $0.202  │  iter time 11.974s
+[19:50:09.432] WARN (77210): report_v4.column_label_missing
+    column: "nb_matchs"
+    key: "nb_matchs"
+report-v4  iter 06  │  tool_use  │  3.142s  │  $0.021  │  in=7 out=219 cacheR=31k cacheW=2.3k  │  cum $0.224
+report-v4  action  │  tools: filter_dataset, aggregate_dataset
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.001s
+report-v4    └ cost  │  this prompt $0.021  │  total so far $0.224  │  iter time 3.142s
+report-v4  iter 07  │  tool_use  │  4.093s  │  $0.080  │  in=7 out=266 cacheR=13k cacheW=19k  │  cum $0.304
+report-v4  action  │  tools: filter_dataset, add_heading, add_table
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_table  │  0.000s  │  ds_15
+report-v4    └ cost  │  this prompt $0.080  │  total so far $0.304  │  iter time 4.093s
+report-v4  iter 08  │  tool_use  │  10.599s  │  $0.091  │  in=7 out=882 cacheR=13k cacheW=20k  │  cum $0.395
+report-v4  action  │  tools: add_table, compute_report_fact, compute_report_fact, compute_report_fact, compute_report_fact, compute_report_fact
+report-v4    └ tool  │  ok  │  add_table  │  0.004s  │  ds_17
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.002s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ cost  │  this prompt $0.091  │  total so far $0.395  │  iter time 10.599s
+report-v4  iter 09  │  tool_use  │  30.037s  │  $0.115  │  in=7 out=2.1k cacheR=13k cacheW=21k  │  cum $0.510
+report-v4  action  │  tools: commit_report_brief
+report-v4    └ tool  │  ok  │  commit_report_brief  │  0.024s
+report-v4    └ cost  │  this prompt $0.115  │  total so far $0.510  │  iter time 30.037s
+report-v4  iter 10  │  end_turn  │  11.605s  │  $0.100  │  in=5 out=647 cacheR=13k cacheW=23k  │  cum $0.610
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.100  │  total so far $0.610  │  iter time 11.605s
+report-v4  agent-stop  │  analyst  │  self_ended  │  10 iteration(s)  │  max=22  │  force@14  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  analyst  │  10 iteration(s)  │  93.286s  │  $0.610
+report-v4  tokens  │  in=1.0k  │  out=7.4k  │  cacheR=203k  │  cacheW=116k  │  all=8.5k
+report-v4  detail  │  blocks=21 charts=10 tables=3 insight=true
+[19:51:08.980] WARN (77210): report_v4.column_label_missing
+    column: "Intensive run distance (m)"
+    key: "intensive_run_distance_m"
+[19:51:08.980] WARN (77210): report_v4.column_label_missing
+    column: "Max speed (km/h)"
+    key: "max_speed_km_h"
+[19:51:08.980] WARN (77210): report_v4.column_label_missing
+    column: "Nb Match"
+    key: "nb_match"
+[19:51:08.981] WARN (77210): report_v4.column_label_missing
+    column: "Courbatures"
+    key: "courbatures"
+[19:51:08.981] WARN (77210): report_v4.column_label_missing
+    column: "Humeur"
+    key: "humeur"
+[19:51:08.988] INFO (77210): report_v4.precompute_canvas_facts
+    added: 21
+    sample: [
+      "ds_1.srpe_daily.mean",
+      "ds_1.srpe_daily.sum",
+      "ds_1.srpe_daily.delta",
+      "ds_2.srpe_daily.mean",
+      "ds_2.srpe_daily.sum",
+      "ds_2.srpe_daily.delta",
+      "ds_7.intensive_run_distance.mean",
+      "ds_7.intensive_run_distance.sum"
+    ]
+[19:51:08.988] INFO (77210): report_v4.canvas_facts_precomputed
+    added: 21
+    sample: [
+      "ds_1.srpe_daily.mean",
+      "ds_1.srpe_daily.sum",
+      "ds_1.srpe_daily.delta",
+      "ds_2.srpe_daily.mean",
+      "ds_2.srpe_daily.sum",
+      "ds_2.srpe_daily.delta",
+      "ds_7.intensive_run_distance.mean",
+      "ds_7.intensive_run_distance.sum"
+    ]
+[19:51:08.988] INFO (77210): report_v4.analyst_done
+    blocks: 21
+    charts: 10
+    tables: 3
+    insight: true
+    iterations: 10
+    harvestHasRows: true
+    shortWindow: true
+    multiSectionAsk: true
+report-v4  iter 01  │  tool_use  │  127.021s  │  $0.724  │  in=19 out=11k cacheW=147k  │  cum $0.724
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ok  │  set_report_pages  │  0.370s
+report-v4    └ cost  │  this prompt $0.724  │  total so far $0.724  │  iter time 127.021s
+[19:53:16.013] INFO (77210): report_v4.fact_autolink
+    displayed: 293
+    linkedFact: 1
+    linkedSrc: 40
+    ambiguous: 244
+    unmatched: 8
+    samples: [
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "8 au 14 octobre 2026",
+        "candidates": [
+          "src:ds_3#0.kpi_entriesz5abs",
+          "src:ds_3#2.kpi_hmldpermin",
+          "src:ds_3#7.kpi_hibsdistance",
+          "src:ds_3#7.kpi_decelerationdistancez5rel",
+          "src:ds_3#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "8 au",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "8 au 14 octobre 2026",
+        "candidates": [
+          "src:ds_3#0.kpi_hibsmaxspeed",
+          "src:ds_3#0.kpi_hmleffortsmaxspeed",
+          "src:ds_3#0.kpi_maxspeed",
+          "src:ds_3#1.kpi_hibsmaxspeed",
+          "src:ds_3#3.kpi_maxdeceleration"
+        ]
+      },
+      {
+        "raw": "1 448 AU",
+        "value": 1448,
+        "reason": "ambiguous",
+        "context": "Charge moyenne de 1 448 AU par jour,8 joueurs à risque élevé Charge moyenne de 1 448 AU par jour,",
+        "candidates": [
+          "fact:team.srpe.mean",
+          "fact:ds_8.srpe_daily.mean"
+        ]
+      },
+      {
+        "raw": "8",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "Charge moyenne de 1 448 AU par jour,8 joueurs à risque élevé 8 joueurs à risque élevé",
+        "candidates": [
+          "fact:scores.injury_risk.high.count",
+          "fact:ds_7.max_speed.delta",
+          "src:ds_3#0.kpi_hibsmaxspeed",
+          "src:ds_3#0.kpi_hmleffortsmaxspeed",
+          "src:ds_3#0.kpi_maxspeed"
+        ]
+      },
+      {
+        "raw": "53",
+        "value": 53,
+        "reason": "ambiguous",
+        "context": "La semaine montre une charge soutenue avec un pic le 10 octobre (match). Huit joueurs présentent un risque de blessure élevé en moyenne, dont Bakery Jatta (58) ",
+        "candidates": [
+          "src:ds_3#11.kpi_distancez6abs",
+          "src:ds_3#12.kpi_accelerationdistancez5rel",
+          "src:ds_3#15.kpi_entriesz3abs",
+          "src:ds_3#44.kpi_entriesz4abs",
+          "src:ds_3#71.kpi_decelerationdistancez3rel"
+        ]
+      },
+      {
+        "raw": "58",
+        "value": 58,
+        "reason": "ambiguous",
+        "context": "La semaine montre une charge soutenue avec un pic le 10 octobre (match). Huit joueurs présentent un risque de blessure élevé en moyenne, dont Bakery Jatta (58) ",
+        "candidates": [
+          "src:ds_3#0.kpi_decelerationdistancez4rel",
+          "src:ds_3#8.kpi_distancepermin",
+          "src:ds_3#9.kpi_decelerationdistancez4rel",
+          "src:ds_3#13.kpi_entriesz3abs",
+          "src:ds_3#54.kpi_sprintdistance"
+        ]
+      },
+      {
+        "raw": "10",
+        "value": 10,
+        "reason": "ambiguous",
+        "context": "La semaine montre une charge soutenue avec un pic le 10 octobre (match). Huit joueurs présentent un risque de blessure élevé en moyenne, dont Bakery Jatta (58) ",
+        "candidates": [
+          "src:ds_3#0.kpi_decelerationdistancez6rel",
+          "src:ds_3#3.kpi_decelerationdistancez6rel",
+          "src:ds_3#6.kpi_hmldpermin",
+          "src:ds_3#9.kpi_hmleffortsmaxspeed",
+          "src:ds_3#9.kpi_maxspeed"
+        ]
+      },
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "par jour, 8 au 14 octobre",
+        "candidates": [
+          "src:ds_3#0.kpi_entriesz5abs",
+          "src:ds_3#2.kpi_hmldpermin",
+          "src:ds_3#7.kpi_hibsdistance",
+          "src:ds_3#7.kpi_decelerationdistancez5rel",
+          "src:ds_3#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "8 au",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "par jour, 8 au 14 octobre",
+        "candidates": [
+          "src:ds_3#0.kpi_hibsmaxspeed",
+          "src:ds_3#0.kpi_hmleffortsmaxspeed",
+          "src:ds_3#0.kpi_maxspeed",
+          "src:ds_3#1.kpi_hibsmaxspeed",
+          "src:ds_3#3.kpi_maxdeceleration"
+        ]
+      },
+      {
+        "raw": "20",
+        "value": 20,
+        "reason": "ambiguous",
+        "context": "risque moyen ≥ 20",
+        "candidates": [
+          "src:ds_3#1.kpi_decelerationdistancez5rel",
+          "src:ds_3#4.kpi_decelerationdistancez4rel",
+          "src:ds_3#18.kpi_sprintdistance",
+          "src:ds_3#22.kpi_accelerationdistancez6rel",
+          "src:ds_3#35.kpi_decelerationdistancez4rel"
+        ]
+      },
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "Risque de blessure moyen, 8–14 octobre",
+        "candidates": [
+          "src:ds_3#0.kpi_entriesz5abs",
+          "src:ds_3#2.kpi_hmldpermin",
+          "src:ds_3#7.kpi_hibsdistance",
+          "src:ds_3#7.kpi_decelerationdistancez5rel",
+          "src:ds_3#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "8",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "Risque de blessure moyen, 8–14 octobre",
+        "candidates": [
+          "fact:scores.injury_risk.high.count",
+          "fact:ds_7.max_speed.delta",
+          "src:ds_3#0.kpi_hibsmaxspeed",
+          "src:ds_3#0.kpi_hmleffortsmaxspeed",
+          "src:ds_3#0.kpi_maxspeed"
+        ]
+      }
+    ]
+report-v4  iter 02  │  end_turn  │  11.033s  │  $0.515  │  in=5 out=422 cacheR=25k cacheW=134k  │  cum $1.239
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.515  │  total so far $1.239  │  iter time 11.033s
+report-v4  iter 03  │  end_turn  │  7.660s  │  $0.055  │  in=3 out=396 cacheR=159k cacheW=429  │  cum $1.294
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.055  │  total so far $1.294  │  iter time 7.660s
+report-v4  agent-stop  │  designer  │  self_ended  │  3 iteration(s)  │  max=14  │  force@12  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  designer  │  3 iteration(s)  │  145.714s  │  $1.294
+report-v4  tokens  │  in=27  │  out=12k  │  cacheR=184k  │  cacheW=281k  │  all=12k
+report-v4  detail  │  htmlBytes=230661 freeDesigner=1 refs=02-summary,03-team-matrix,04-load-acwr,05-positions
+[19:53:34.715] INFO (77210): report_v4.designer_done
+    htmlBytes: 230661
+    freeDesigner: true
+    refs: [
+      "02-summary",
+      "03-team-matrix",
+      "04-load-acwr",
+      "05-positions"
+    ]
+    iterations: 3
+[19:53:34.726] WARN (77210): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "14"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "8"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "58"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "53"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "507"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "35"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "20"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "58,3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "45"
+      }
+    ]
+[19:53:34.726] WARN (77210): report_v4.free_designer_grounding_warn
+    violations: []
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "14"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "8"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "58"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "53"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "507"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "35"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "20"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "58,3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "45"
+      }
+    ]
+[19:53:35.268] WARN (77210): report_v4.free_designer_layout_warn
+    count: 26
+    warnings: [
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "h1.headline",
+        "code": "text_overflow",
+        "detail": "scroll 698x87 > client 698x84"
+      },
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "div.value",
+        "code": "text_overflow",
+        "detail": "scroll 217x37 > client 217x34"
+      },
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "div.value",
+        "code": "text_overflow",
+        "detail": "scroll 200x37 > client 200x34"
+      },
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "div.value",
+        "code": "text_overflow",
+        "detail": "scroll 200x37 > client 200x34"
+      },
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "div.value",
+        "code": "text_overflow",
+        "detail": "scroll 61x39 > client 61x36"
+      },
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "svg",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "div.value",
+        "code": "text_overflow",
+        "detail": "scroll 61x39 > client 61x36"
+      },
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "svg",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 1,
+        "blockId": null,
+        "selector": "h1.headline",
+        "code": "text_overflow",
+        "detail": "scroll 698x87 > client 698x84"
+      },
+      {
+        "pageIndex": 1,
+        "blockId": null,
+        "selector": "svg",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 1,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 1,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 1,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 1,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 2,
+        "blockId": "page_3",
+        "selector": "[data-block-id=\"page_3\"]",
+        "code": "page_underfilled",
+        "detail": "page filled 63% (< 70%)"
+      },
+      {
+        "pageIndex": 2,
+        "blockId": null,
+        "selector": "h1.headline",
+        "code": "text_overflow",
+        "detail": "scroll 698x87 > client 698x84"
+      },
+      {
+        "pageIndex": 3,
+        "blockId": "page_4",
+        "selector": "[data-block-id=\"page_4\"]",
+        "code": "page_underfilled",
+        "detail": "page filled 54% (< 70%)"
+      },
+      {
+        "pageIndex": 3,
+        "blockId": null,
+        "selector": "h1.headline",
+        "code": "text_overflow",
+        "detail": "scroll 698x87 > client 698x84"
+      },
+      {
+        "pageIndex": 3,
+        "blockId": null,
+        "selector": "svg",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 3,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      }
+    ]
+report-v4  iter 01  │  max_tokens  │  88.979s  │  $0.173  │  in=3 out=8.2k cacheW=13k  │  cum $0.173
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ERR  │  set_report_pages  │  0.000s  │  TRUNCATED
+report-v4    └ cost  │  this prompt $0.173  │  total so far $0.173  │  iter time 88.979s
+report-v4  iter 02  │  max_tokens  │  96.531s  │  $0.129  │  in=3 out=8.2k cacheR=13k cacheW=632  │  cum $0.302
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ERR  │  set_report_pages  │  0.000s  │  TRUNCATED
+report-v4    └ cost  │  this prompt $0.129  │  total so far $0.302  │  iter time 96.531s
+report-v4  iter 03  │  tool_use  │  85.996s  │  $0.102  │  in=3 out=6.5k cacheR=14k cacheW=132  │  cum $0.404
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ok  │  set_report_pages  │  0.358s
+report-v4    └ cost  │  this prompt $0.102  │  total so far $0.404  │  iter time 85.996s
+[19:58:07.721] INFO (77210): report_v4.fact_autolink
+    displayed: 286
+    linkedFact: 2
+    linkedSrc: 42
+    ambiguous: 234
+    unmatched: 8
+    samples: [
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "8 au 14 octobre 2026",
+        "candidates": [
+          "src:ds_3#0.kpi_entriesz5abs",
+          "src:ds_3#2.kpi_hmldpermin",
+          "src:ds_3#7.kpi_hibsdistance",
+          "src:ds_3#7.kpi_decelerationdistancez5rel",
+          "src:ds_3#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "8 au",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "8 au 14 octobre 2026",
+        "candidates": [
+          "src:ds_3#0.kpi_hibsmaxspeed",
+          "src:ds_3#0.kpi_hmleffortsmaxspeed",
+          "src:ds_3#0.kpi_maxspeed",
+          "src:ds_3#1.kpi_hibsmaxspeed",
+          "src:ds_3#3.kpi_maxdeceleration"
+        ]
+      },
+      {
+        "raw": "8",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "Charge moyenne de 1 448 AU par jour, 8 joueurs à risque élevé Charge moyenne de 1 448 AU par jour, 8 joueurs à risque élevé",
+        "candidates": [
+          "fact:scores.injury_risk.high.count",
+          "fact:ds_7.max_speed.delta",
+          "src:ds_3#0.kpi_hibsmaxspeed",
+          "src:ds_3#0.kpi_hmleffortsmaxspeed",
+          "src:ds_3#0.kpi_maxspeed"
+        ]
+      },
+      {
+        "raw": "1 448 AU",
+        "value": 1448,
+        "reason": "ambiguous",
+        "context": "Charge moyenne de 1 448 AU par jour, 8 joueurs à risque élevé Charge moyenne de 1 448 AU par jour, 8 joueurs à risque élevé",
+        "candidates": [
+          "fact:team.srpe.mean",
+          "fact:ds_8.srpe_daily.mean"
+        ]
+      },
+      {
+        "raw": "53",
+        "value": 53,
+        "reason": "ambiguous",
+        "context": "La semaine montre une charge soutenue avec un pic le 10 octobre (match). Huit joueurs présentent un risque de blessure élevé en moyenne, dont Bakery Jatta (58) ",
+        "candidates": [
+          "src:ds_3#11.kpi_distancez6abs",
+          "src:ds_3#12.kpi_accelerationdistancez5rel",
+          "src:ds_3#15.kpi_entriesz3abs",
+          "src:ds_3#44.kpi_entriesz4abs",
+          "src:ds_3#71.kpi_decelerationdistancez3rel"
+        ]
+      },
+      {
+        "raw": "58",
+        "value": 58,
+        "reason": "ambiguous",
+        "context": "La semaine montre une charge soutenue avec un pic le 10 octobre (match). Huit joueurs présentent un risque de blessure élevé en moyenne, dont Bakery Jatta (58) ",
+        "candidates": [
+          "src:ds_3#0.kpi_decelerationdistancez4rel",
+          "src:ds_3#8.kpi_distancepermin",
+          "src:ds_3#9.kpi_decelerationdistancez4rel",
+          "src:ds_3#13.kpi_entriesz3abs",
+          "src:ds_3#54.kpi_sprintdistance"
+        ]
+      },
+      {
+        "raw": "10",
+        "value": 10,
+        "reason": "ambiguous",
+        "context": "La semaine montre une charge soutenue avec un pic le 10 octobre (match). Huit joueurs présentent un risque de blessure élevé en moyenne, dont Bakery Jatta (58) ",
+        "candidates": [
+          "src:ds_3#0.kpi_decelerationdistancez6rel",
+          "src:ds_3#3.kpi_decelerationdistancez6rel",
+          "src:ds_3#6.kpi_hmldpermin",
+          "src:ds_3#9.kpi_hmleffortsmaxspeed",
+          "src:ds_3#9.kpi_maxspeed"
+        ]
+      },
+      {
+        "raw": "1 448",
+        "value": 1448,
+        "reason": "ambiguous",
+        "context": "1 448",
+        "candidates": [
+          "fact:team.srpe.mean",
+          "fact:ds_8.srpe_daily.mean"
+        ]
+      },
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "par jour, 8 au 14 octobre",
+        "candidates": [
+          "src:ds_3#0.kpi_entriesz5abs",
+          "src:ds_3#2.kpi_hmldpermin",
+          "src:ds_3#7.kpi_hibsdistance",
+          "src:ds_3#7.kpi_decelerationdistancez5rel",
+          "src:ds_3#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "8 au",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "par jour, 8 au 14 octobre",
+        "candidates": [
+          "src:ds_3#0.kpi_hibsmaxspeed",
+          "src:ds_3#0.kpi_hmleffortsmaxspeed",
+          "src:ds_3#0.kpi_maxspeed",
+          "src:ds_3#1.kpi_hibsmaxspeed",
+          "src:ds_3#3.kpi_maxdeceleration"
+        ]
+      },
+      {
+        "raw": "507 151",
+        "value": 507151,
+        "reason": "linked_fact",
+        "context": "507 151",
+        "candidates": [
+          "fact:team.distance.sum"
+        ]
+      },
+      {
+        "raw": "8",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "8",
+        "candidates": [
+          "fact:scores.injury_risk.high.count",
+          "fact:ds_7.max_speed.delta",
+          "src:ds_3#0.kpi_hibsmaxspeed",
+          "src:ds_3#0.kpi_hmleffortsmaxspeed",
+          "src:ds_3#0.kpi_maxspeed"
+        ]
+      }
+    ]
+report-v4  iter 04  │  end_turn  │  5.093s  │  $0.031  │  in=5 out=122 cacheR=14k cacheW=6.5k  │  cum $0.434
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.031  │  total so far $0.434  │  iter time 5.093s
+[19:58:12.818] INFO (77210): report_v4.free_designer_capture_review
+    round: 1
+    changed: true
+    layoutWarnings: 26
+    pages: 7
+    iterations: 4
+report-v4  iter 01  │  tool_use  │  96.289s  │  $0.165  │  in=3 out=7.7k cacheW=13k  │  cum $0.165
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ok  │  set_report_pages  │  0.554s
+report-v4    └ cost  │  this prompt $0.165  │  total so far $0.165  │  iter time 96.289s
+[19:59:50.566] INFO (77210): report_v4.fact_autolink
+    displayed: 278
+    linkedFact: 2
+    linkedSrc: 42
+    ambiguous: 226
+    unmatched: 8
+    samples: [
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "8 au 14 octobre 2026",
+        "candidates": [
+          "src:ds_3#0.kpi_entriesz5abs",
+          "src:ds_3#2.kpi_hmldpermin",
+          "src:ds_3#7.kpi_hibsdistance",
+          "src:ds_3#7.kpi_decelerationdistancez5rel",
+          "src:ds_3#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "8 au",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "8 au 14 octobre 2026",
+        "candidates": [
+          "src:ds_3#0.kpi_hibsmaxspeed",
+          "src:ds_3#0.kpi_hmleffortsmaxspeed",
+          "src:ds_3#0.kpi_maxspeed",
+          "src:ds_3#1.kpi_hibsmaxspeed",
+          "src:ds_3#3.kpi_maxdeceleration"
+        ]
+      },
+      {
+        "raw": "8",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "Charge moyenne de 1 448 AU par jour, 8 joueurs à risque élevé Charge moyenne de 1 448 AU par jour, 8 joueurs à risque élevé",
+        "candidates": [
+          "fact:scores.injury_risk.high.count",
+          "fact:ds_7.max_speed.delta",
+          "src:ds_3#0.kpi_hibsmaxspeed",
+          "src:ds_3#0.kpi_hmleffortsmaxspeed",
+          "src:ds_3#0.kpi_maxspeed"
+        ]
+      },
+      {
+        "raw": "1 448 AU",
+        "value": 1448,
+        "reason": "ambiguous",
+        "context": "Charge moyenne de 1 448 AU par jour, 8 joueurs à risque élevé Charge moyenne de 1 448 AU par jour, 8 joueurs à risque élevé",
+        "candidates": [
+          "fact:team.srpe.mean",
+          "fact:ds_8.srpe_daily.mean"
+        ]
+      },
+      {
+        "raw": "53",
+        "value": 53,
+        "reason": "ambiguous",
+        "context": "La semaine montre une charge soutenue avec un pic le 10 octobre (match). Huit joueurs présentent un risque de blessure élevé en moyenne, dont Bakery Jatta (58) ",
+        "candidates": [
+          "src:ds_3#11.kpi_distancez6abs",
+          "src:ds_3#12.kpi_accelerationdistancez5rel",
+          "src:ds_3#15.kpi_entriesz3abs",
+          "src:ds_3#44.kpi_entriesz4abs",
+          "src:ds_3#71.kpi_decelerationdistancez3rel"
+        ]
+      },
+      {
+        "raw": "58",
+        "value": 58,
+        "reason": "ambiguous",
+        "context": "La semaine montre une charge soutenue avec un pic le 10 octobre (match). Huit joueurs présentent un risque de blessure élevé en moyenne, dont Bakery Jatta (58) ",
+        "candidates": [
+          "src:ds_3#0.kpi_decelerationdistancez4rel",
+          "src:ds_3#8.kpi_distancepermin",
+          "src:ds_3#9.kpi_decelerationdistancez4rel",
+          "src:ds_3#13.kpi_entriesz3abs",
+          "src:ds_3#54.kpi_sprintdistance"
+        ]
+      },
+      {
+        "raw": "10",
+        "value": 10,
+        "reason": "ambiguous",
+        "context": "La semaine montre une charge soutenue avec un pic le 10 octobre (match). Huit joueurs présentent un risque de blessure élevé en moyenne, dont Bakery Jatta (58) ",
+        "candidates": [
+          "src:ds_3#0.kpi_decelerationdistancez6rel",
+          "src:ds_3#3.kpi_decelerationdistancez6rel",
+          "src:ds_3#6.kpi_hmldpermin",
+          "src:ds_3#9.kpi_hmleffortsmaxspeed",
+          "src:ds_3#9.kpi_maxspeed"
+        ]
+      },
+      {
+        "raw": "1 448 AU",
+        "value": 1448,
+        "reason": "ambiguous",
+        "context": "1 448 AU",
+        "candidates": [
+          "fact:team.srpe.mean",
+          "fact:ds_8.srpe_daily.mean"
+        ]
+      },
+      {
+        "raw": "14",
+        "value": 14,
+        "reason": "ambiguous",
+        "context": "par jour, 8 au 14 octobre",
+        "candidates": [
+          "src:ds_3#0.kpi_entriesz5abs",
+          "src:ds_3#2.kpi_hmldpermin",
+          "src:ds_3#7.kpi_hibsdistance",
+          "src:ds_3#7.kpi_decelerationdistancez5rel",
+          "src:ds_3#11.kpi_decelerationdistancez5rel"
+        ]
+      },
+      {
+        "raw": "8 au",
+        "value": 8,
+        "reason": "ambiguous",
+        "context": "par jour, 8 au 14 octobre",
+        "candidates": [
+          "src:ds_3#0.kpi_hibsmaxspeed",
+          "src:ds_3#0.kpi_hmleffortsmaxspeed",
+          "src:ds_3#0.kpi_maxspeed",
+          "src:ds_3#1.kpi_hibsmaxspeed",
+          "src:ds_3#3.kpi_maxdeceleration"
+        ]
+      },
+      {
+        "raw": "507 151 m",
+        "value": 507151,
+        "reason": "linked_fact",
+        "context": "507 151 m",
+        "candidates": [
+          "fact:team.distance.sum"
+        ]
+      },
+      {
+        "raw": "20",
+        "value": 20,
+        "reason": "ambiguous",
+        "context": "risque moyen ≥ 20",
+        "candidates": [
+          "src:ds_3#1.kpi_decelerationdistancez5rel",
+          "src:ds_3#4.kpi_decelerationdistancez4rel",
+          "src:ds_3#18.kpi_sprintdistance",
+          "src:ds_3#22.kpi_accelerationdistancez6rel",
+          "src:ds_3#35.kpi_decelerationdistancez4rel"
+        ]
+      }
+    ]
+report-v4  iter 02  │  end_turn  │  4.372s  │  $0.034  │  in=5 out=45 cacheR=13k cacheW=7.8k  │  cum $0.199
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.034  │  total so far $0.199  │  iter time 4.372s
+[19:59:54.942] INFO (77210): report_v4.free_designer_capture_review
+    round: 2
+    changed: true
+    layoutWarnings: 26
+    pages: 7
+    iterations: 2
+[19:59:55.452] WARN (77210): report_v4.free_designer_capture_review_remaining
+    rounds: 2
+    warnings: [
+      "capture_review: still failing after 2 rounds",
+      "layout:page_underfilled:page2:page filled 50% (< 70%)",
+      "layout:page_underfilled:page3:page filled 54% (< 70%)",
+      "layout:page_underfilled:page4:page filled 47% (< 70%)",
+      "layout:page_underfilled:page5:page filled 53% (< 70%)",
+      "layout:page_underfilled:page6:page filled 55% (< 70%)",
+      "layout:page_underfilled:page7:page filled 57% (< 70%)"
+    ]
+    layoutRemaining: 6
+[19:59:55.465] INFO (77210): report_v4.data_reliability_block
+    blocks: 23
+    sampleRows: 935
+    imputedExcludedCells: 252
+[19:59:55.469] INFO (77210): report_v4.artifact_parity
+    ok: false
+    issues: [
+      {
+        "kind": "missing_block",
+        "blockId": "d4fc6dcb-dd7c-4c83-80d8-8f4bf034ee88",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "185804e8-4ac2-45f7-9d09-56ed6d58344a",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "88d3edb7-5534-40dc-902f-6621352e525e",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "96166d03-08fb-4d66-88a3-5f6201c4a1d8",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "ffa358a2-7b43-474b-bf85-9aa2354c2e92",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "7ed11b05-e216-4dfe-b43f-b8bb6ffca637",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "71ab2cf7-02ad-47f8-bb85-985d7eabd407",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "8ebda174-367d-4170-abd9-080e56119e5f",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "029a627b-a3d6-4e56-bdce-19f558bfceec",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "393ac370-24ad-4ba6-ac9d-3cc9cb843afc",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "85fe04c1-d107-4531-8d0e-27399523b826",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "70c2df7c-a076-4b7a-93ae-49aa9d881ea1",
+        "detail": "data-block-id absent from html"
+      }
+    ]
+    documentBlockCount: 23
+    htmlBlockCount: 7
+[19:59:55.471] INFO (77210): report_v4.ask_contract
+    status: "delivered"
+    gaps: []
+{"ok":true,"tag":"s5_hamburg_refs1","iterations":21,"costUsd":2.691379,"durationSec":643.793,"pdfOk":true,"pdfError":null,"htmlPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/s5_hamburg_refs1.html","metaPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/s5_hamburg_refs1.meta.json","pdfPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/s5_hamburg_refs1.pdf"}

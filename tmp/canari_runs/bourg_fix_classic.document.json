@@ -1,0 +1,6100 @@
+{
+  "title": "Bilan hebdomadaire Bourg-en-Bresse — 5 au 11 octobre 2026",
+  "dateRange": {
+    "from": "2026-10-05",
+    "to": "2026-10-11"
+  },
+  "blocks": [
+    {
+      "id": "6994a850-a927-4e6c-88f9-ba5fd1033789",
+      "type": "heading",
+      "text": "Kadin Shedrick",
+      "level": 2
+    },
+    {
+      "id": "a8169cd3-1b2f-462d-b11f-ec61fb0175cb",
+      "type": "text",
+      "text": "Charge interne moyenne de 387,4 UA (max 1219,2 UA). Movement Load moyen de 173 UA (plage 93-234) et Trimp de 54,7. RMSSD moyen de 18,1 ms (15-21,6 ms) indique une bonne récupération cardiaque. Profil stable sans alerte particulière."
+    },
+    {
+      "id": "1a35cff0-6804-4a43-b3cc-e52189cb45ee",
+      "type": "text",
+      "text": "Measure choice: srpe_daily (domain priority), movement_load (primary load), trimp (intensity), rmssd (HRV) — first matching vendor aliases present in club datasets."
+    },
+    {
+      "id": "b7aee642-8ff1-4959-9d34-85b475d764fd",
+      "type": "text",
+      "text": "KPI — sRPE daily: 387.4 · Movement Load: 173 · Trimp: 54.7 · Rmssd: 18.1"
+    },
+    {
+      "id": "ceba378f-5713-4a72-9f40-138e3fd1f07d",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "lun. 7 sept.",
+            "mar. 8 sept.",
+            "mer. 9 sept.",
+            "jeu. 10 sept.",
+            "ven. 11 sept.",
+            "sam. 12 sept.",
+            "dim. 13 sept.",
+            "lun. 14 sept.",
+            "mar. 15 sept.",
+            "mer. 16 sept.",
+            "jeu. 17 sept.",
+            "ven. 18 sept.",
+            "sam. 19 sept.",
+            "dim. 20 sept.",
+            "lun. 21 sept.",
+            "mar. 22 sept.",
+            "mer. 23 sept.",
+            "jeu. 24 sept.",
+            "ven. 25 sept.",
+            "sam. 26 sept.",
+            "dim. 27 sept.",
+            "lun. 28 sept.",
+            "mar. 29 sept.",
+            "mer. 30 sept.",
+            "jeu. 1 oct.",
+            "ven. 2 oct.",
+            "sam. 3 oct.",
+            "dim. 4 oct.",
+            "lun. 5 oct.",
+            "mar. 6 oct.",
+            "mer. 7 oct.",
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct.",
+            "dim. 11 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              0,
+              1219.2,
+              1040.2,
+              1110.3,
+              559,
+              466.6,
+              0,
+              0,
+              null,
+              0,
+              0,
+              111.6,
+              0,
+              0,
+              0,
+              1120.5,
+              737.2,
+              742,
+              313.4,
+              720,
+              0,
+              810,
+              0,
+              840,
+              0,
+              450,
+              480,
+              0,
+              360,
+              600,
+              0,
+              694.1,
+              315.3,
+              483.8,
+              0
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 387.447,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 387,45",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "99ab0648-61ab-4bf8-8e2e-4ff2387c7aad",
+      "type": "chart",
+      "title": "Movement Load — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Movement load"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Movement load",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Movement load",
+            "type": "line",
+            "data": [
+              234,
+              192,
+              93
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "4a761b9a-e046-482d-997b-4692f8b7b8ba",
+      "type": "table",
+      "title": "Kadin Shedrick — summary",
+      "columns": [
+        "Date",
+        "sRPE daily"
+      ],
+      "rows": [
+        [
+          "2026-09-07",
+          "0"
+        ],
+        [
+          "2026-09-08",
+          "1 219,2"
+        ],
+        [
+          "2026-09-09",
+          "1 040,2"
+        ],
+        [
+          "2026-09-10",
+          "1 110,3"
+        ],
+        [
+          "2026-09-11",
+          "559"
+        ],
+        [
+          "2026-09-12",
+          "466,6"
+        ],
+        [
+          "2026-09-13",
+          "0"
+        ],
+        [
+          "2026-09-14",
+          "0"
+        ],
+        [
+          "2026-09-15",
+          null
+        ],
+        [
+          "2026-09-16",
+          "0"
+        ],
+        [
+          "2026-09-17",
+          "0"
+        ],
+        [
+          "2026-09-18",
+          "111,6"
+        ],
+        [
+          "2026-09-19",
+          "0"
+        ],
+        [
+          "2026-09-20",
+          "0"
+        ],
+        [
+          "2026-09-21",
+          "0"
+        ],
+        [
+          "2026-09-22",
+          "1 120,5"
+        ],
+        [
+          "2026-09-23",
+          "737,2"
+        ],
+        [
+          "2026-09-24",
+          "742"
+        ],
+        [
+          "2026-09-25",
+          "313,4"
+        ],
+        [
+          "2026-09-26",
+          "720"
+        ],
+        [
+          "2026-09-27",
+          "0"
+        ],
+        [
+          "2026-09-28",
+          "810"
+        ],
+        [
+          "2026-09-29",
+          "0"
+        ],
+        [
+          "2026-09-30",
+          "840"
+        ],
+        [
+          "2026-10-01",
+          "0"
+        ],
+        [
+          "2026-10-02",
+          "450"
+        ],
+        [
+          "2026-10-03",
+          "480"
+        ],
+        [
+          "2026-10-04",
+          "0"
+        ],
+        [
+          "2026-10-05",
+          "360"
+        ],
+        [
+          "2026-10-06",
+          "600"
+        ],
+        [
+          "2026-10-07",
+          "0"
+        ],
+        [
+          "2026-10-08",
+          "694,1"
+        ],
+        [
+          "2026-10-09",
+          "315,3"
+        ],
+        [
+          "2026-10-10",
+          "483,8"
+        ],
+        [
+          "2026-10-11",
+          "0"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "c70f3e23-c25b-45b7-84a8-903f5d15f648",
+      "type": "heading",
+      "text": "Lionel Gaudoux",
+      "level": 2
+    },
+    {
+      "id": "9bde3e83-37d1-4ef1-bc48-0a3a0b819e85",
+      "type": "text",
+      "text": "Charge interne moyenne de 410 UA (max 1172,2 UA). Movement Load moyen de 170 UA (107-230) et Trimp de 54,7. RMSSD moyen de 11,6 ms (8,8-13,9 ms) est relativement bas, suggérant une récupération parasympathique à surveiller."
+    },
+    {
+      "id": "28329633-18e7-44af-9523-3810d276e899",
+      "type": "text",
+      "text": "Charge hebdomadaire moyenne avec un sRPE de 410 UA. Movement Load à 170 UA et Trimp à 54,7 montrent une intensité stable. RMSSD à 11,6 ms est relativement bas, suggérant une récupération parasympathique à surveiller. Pas de signal d'alarme majeur."
+    },
+    {
+      "id": "a4078f64-afb6-4122-8d52-8f49260bca51",
+      "type": "text",
+      "text": "Measure choice: srpe_daily (domain priority), movement_load (primary load), trimp (intensity), rmssd (HRV) — first matching vendor aliases present in club datasets."
+    },
+    {
+      "id": "2c0e3d59-5788-4e17-b7a1-f5122166c0ac",
+      "type": "text",
+      "text": "KPI — sRPE daily: 410 · Movement Load: 170 · Trimp: 54.7 · Rmssd: 11.6"
+    },
+    {
+      "id": "e71adc0a-e645-4caf-a7b4-4d504ea0e159",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "lun. 7 sept.",
+            "mar. 8 sept.",
+            "mer. 9 sept.",
+            "jeu. 10 sept.",
+            "ven. 11 sept.",
+            "sam. 12 sept.",
+            "dim. 13 sept.",
+            "lun. 14 sept.",
+            "mar. 15 sept.",
+            "mer. 16 sept.",
+            "jeu. 17 sept.",
+            "ven. 18 sept.",
+            "sam. 19 sept.",
+            "dim. 20 sept.",
+            "lun. 21 sept.",
+            "mar. 22 sept.",
+            "mer. 23 sept.",
+            "jeu. 24 sept.",
+            "ven. 25 sept.",
+            "sam. 26 sept.",
+            "dim. 27 sept.",
+            "lun. 28 sept.",
+            "mar. 29 sept.",
+            "mer. 30 sept.",
+            "jeu. 1 oct.",
+            "ven. 2 oct.",
+            "sam. 3 oct.",
+            "dim. 4 oct.",
+            "lun. 5 oct.",
+            "mar. 6 oct.",
+            "mer. 7 oct.",
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct.",
+            "dim. 11 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              null,
+              631.8,
+              814.1,
+              937.6,
+              295.6,
+              1172.2,
+              0,
+              0,
+              null,
+              0,
+              0,
+              177.2,
+              0,
+              0,
+              0,
+              599.7,
+              591.9,
+              437.3,
+              320.9,
+              720,
+              0,
+              630,
+              0,
+              840,
+              0,
+              450,
+              840,
+              270,
+              360,
+              960,
+              null,
+              588.1,
+              460.5,
+              1023.9,
+              0
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 410.025,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 410,03",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "9c6c94fa-4f90-426b-bd31-4f05140dca67",
+      "type": "chart",
+      "title": "Movement Load — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Movement load"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Movement load",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Movement load",
+            "type": "line",
+            "data": [
+              230,
+              173,
+              107
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "4070db36-19f4-4878-802d-95313cf34215",
+      "type": "table",
+      "title": "Lionel Gaudoux — summary",
+      "columns": [
+        "Date",
+        "sRPE daily"
+      ],
+      "rows": [
+        [
+          "2026-09-07",
+          null
+        ],
+        [
+          "2026-09-08",
+          "631,8"
+        ],
+        [
+          "2026-09-09",
+          "814,1"
+        ],
+        [
+          "2026-09-10",
+          "937,6"
+        ],
+        [
+          "2026-09-11",
+          "295,6"
+        ],
+        [
+          "2026-09-12",
+          "1 172,2"
+        ],
+        [
+          "2026-09-13",
+          "0"
+        ],
+        [
+          "2026-09-14",
+          "0"
+        ],
+        [
+          "2026-09-15",
+          null
+        ],
+        [
+          "2026-09-16",
+          "0"
+        ],
+        [
+          "2026-09-17",
+          "0"
+        ],
+        [
+          "2026-09-18",
+          "177,2"
+        ],
+        [
+          "2026-09-19",
+          "0"
+        ],
+        [
+          "2026-09-20",
+          "0"
+        ],
+        [
+          "2026-09-21",
+          "0"
+        ],
+        [
+          "2026-09-22",
+          "599,7"
+        ],
+        [
+          "2026-09-23",
+          "591,9"
+        ],
+        [
+          "2026-09-24",
+          "437,3"
+        ],
+        [
+          "2026-09-25",
+          "320,9"
+        ],
+        [
+          "2026-09-26",
+          "720"
+        ],
+        [
+          "2026-09-27",
+          "0"
+        ],
+        [
+          "2026-09-28",
+          "630"
+        ],
+        [
+          "2026-09-29",
+          "0"
+        ],
+        [
+          "2026-09-30",
+          "840"
+        ],
+        [
+          "2026-10-01",
+          "0"
+        ],
+        [
+          "2026-10-02",
+          "450"
+        ],
+        [
+          "2026-10-03",
+          "840"
+        ],
+        [
+          "2026-10-04",
+          "270"
+        ],
+        [
+          "2026-10-05",
+          "360"
+        ],
+        [
+          "2026-10-06",
+          "960"
+        ],
+        [
+          "2026-10-07",
+          null
+        ],
+        [
+          "2026-10-08",
+          "588,1"
+        ],
+        [
+          "2026-10-09",
+          "460,5"
+        ],
+        [
+          "2026-10-10",
+          "1 023,9"
+        ],
+        [
+          "2026-10-11",
+          "0"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "0250f4f4-e7d2-46bb-beff-0afec647d23a",
+      "type": "heading",
+      "text": "Tyger Campbell",
+      "level": 2
+    },
+    {
+      "id": "9205ed54-d49f-4756-ae40-d2994b65a584",
+      "type": "text",
+      "text": "Charge interne moyenne de 660 UA (max 1320 UA), la plus élevée de l'effectif. Augmentation de 206,8 UA par rapport à la baseline. Données GPS absentes pour la semaine. Cette charge perçue importante mérite attention."
+    },
+    {
+      "id": "796ea6c9-b37a-4934-85fd-18b13cf7f88d",
+      "type": "text",
+      "text": "Charge interne élevée avec un sRPE de 660 UA, nettement au-dessus de la moyenne équipe. Données GPS absentes pour la semaine. Cette charge perçue importante mérite attention pour vérifier l'adéquation avec la charge externe et la récupération."
+    },
+    {
+      "id": "15b0c6ed-e901-4e43-b6ea-9a4c2b8ac23a",
+      "type": "text",
+      "text": "Measure choice: srpe_daily (domain priority), movement_load (primary load), trimp (intensity), rmssd (HRV) — first matching vendor aliases present in club datasets."
+    },
+    {
+      "id": "14fcba98-bc59-44d8-b340-d4ef0cddfa6e",
+      "type": "text",
+      "text": "KPI — sRPE daily: 660"
+    },
+    {
+      "id": "9e662be0-1f92-450e-8df5-43e1b4603f95",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "lun. 7 sept.",
+            "mar. 8 sept.",
+            "mer. 9 sept.",
+            "jeu. 10 sept.",
+            "ven. 11 sept.",
+            "sam. 12 sept.",
+            "dim. 13 sept.",
+            "lun. 14 sept.",
+            "mar. 15 sept.",
+            "mer. 16 sept.",
+            "jeu. 17 sept.",
+            "ven. 18 sept.",
+            "sam. 19 sept.",
+            "dim. 20 sept.",
+            "lun. 21 sept.",
+            "mar. 22 sept.",
+            "mer. 23 sept.",
+            "jeu. 24 sept.",
+            "ven. 25 sept.",
+            "sam. 26 sept.",
+            "dim. 27 sept.",
+            "lun. 28 sept.",
+            "mar. 29 sept.",
+            "mer. 30 sept.",
+            "jeu. 1 oct.",
+            "ven. 2 oct.",
+            "sam. 3 oct.",
+            "dim. 4 oct.",
+            "lun. 5 oct.",
+            "mar. 6 oct.",
+            "mer. 7 oct.",
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct.",
+            "dim. 11 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              1320,
+              0
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "e68592dc-e543-4f10-8c41-bc350b111748",
+      "type": "table",
+      "title": "Tyger Campbell — summary",
+      "columns": [
+        "Date",
+        "sRPE daily"
+      ],
+      "rows": [
+        [
+          "2026-09-07",
+          null
+        ],
+        [
+          "2026-09-08",
+          null
+        ],
+        [
+          "2026-09-09",
+          null
+        ],
+        [
+          "2026-09-10",
+          null
+        ],
+        [
+          "2026-09-11",
+          null
+        ],
+        [
+          "2026-09-12",
+          null
+        ],
+        [
+          "2026-09-13",
+          null
+        ],
+        [
+          "2026-09-14",
+          null
+        ],
+        [
+          "2026-09-15",
+          null
+        ],
+        [
+          "2026-09-16",
+          null
+        ],
+        [
+          "2026-09-17",
+          null
+        ],
+        [
+          "2026-09-18",
+          null
+        ],
+        [
+          "2026-09-19",
+          null
+        ],
+        [
+          "2026-09-20",
+          null
+        ],
+        [
+          "2026-09-21",
+          null
+        ],
+        [
+          "2026-09-22",
+          null
+        ],
+        [
+          "2026-09-23",
+          null
+        ],
+        [
+          "2026-09-24",
+          null
+        ],
+        [
+          "2026-09-25",
+          null
+        ],
+        [
+          "2026-09-26",
+          null
+        ],
+        [
+          "2026-09-27",
+          null
+        ],
+        [
+          "2026-09-28",
+          null
+        ],
+        [
+          "2026-09-29",
+          null
+        ],
+        [
+          "2026-09-30",
+          null
+        ],
+        [
+          "2026-10-01",
+          null
+        ],
+        [
+          "2026-10-02",
+          null
+        ],
+        [
+          "2026-10-03",
+          null
+        ],
+        [
+          "2026-10-04",
+          null
+        ],
+        [
+          "2026-10-05",
+          null
+        ],
+        [
+          "2026-10-06",
+          null
+        ],
+        [
+          "2026-10-07",
+          null
+        ],
+        [
+          "2026-10-08",
+          null
+        ],
+        [
+          "2026-10-09",
+          null
+        ],
+        [
+          "2026-10-10",
+          "1 320"
+        ],
+        [
+          "2026-10-11",
+          "0"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "143527b4-3912-4e70-84ce-16104e5914b4",
+      "type": "heading",
+      "text": "Tyson Walker",
+      "level": 2
+    },
+    {
+      "id": "06ebaa5a-630f-4f5b-aa8e-9c51a254b675",
+      "type": "text",
+      "text": "Charge interne moyenne de 247,7 UA (max historique 1615,4 UA). Delta de -205,47 UA par rapport à la baseline. Données GPS absentes pour la semaine. Cette charge réduite peut refléter une gestion planifiée ou disponibilité limitée à l'entraînement."
+    },
+    {
+      "id": "deb2f78d-58d9-4966-a276-fcb08afaf6d2",
+      "type": "text",
+      "text": "Measure choice: srpe_daily (domain priority), movement_load (primary load), trimp (intensity), rmssd (HRV) — first matching vendor aliases present in club datasets."
+    },
+    {
+      "id": "2020df4a-36b0-4ea5-8bb7-be9377e1e13c",
+      "type": "text",
+      "text": "KPI — sRPE daily: 247.7"
+    },
+    {
+      "id": "3334bd0a-ad0c-4d53-be28-7ada433606e0",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "lun. 7 sept.",
+            "mar. 8 sept.",
+            "mer. 9 sept.",
+            "jeu. 10 sept.",
+            "ven. 11 sept.",
+            "sam. 12 sept.",
+            "dim. 13 sept.",
+            "lun. 14 sept.",
+            "mar. 15 sept.",
+            "mer. 16 sept.",
+            "jeu. 17 sept.",
+            "ven. 18 sept.",
+            "sam. 19 sept.",
+            "dim. 20 sept.",
+            "lun. 21 sept.",
+            "mar. 22 sept.",
+            "mer. 23 sept.",
+            "jeu. 24 sept.",
+            "ven. 25 sept.",
+            "sam. 26 sept.",
+            "dim. 27 sept.",
+            "lun. 28 sept.",
+            "mar. 29 sept.",
+            "mer. 30 sept.",
+            "jeu. 1 oct.",
+            "ven. 2 oct.",
+            "sam. 3 oct.",
+            "dim. 4 oct.",
+            "lun. 5 oct.",
+            "mar. 6 oct.",
+            "mer. 7 oct.",
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct.",
+            "dim. 11 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              null,
+              90,
+              288,
+              1046.4,
+              477.4,
+              1615.4,
+              0,
+              0,
+              null,
+              0,
+              0,
+              58.5,
+              0,
+              0,
+              null,
+              0,
+              60,
+              0,
+              0,
+              null,
+              null,
+              765,
+              0,
+              1080,
+              0,
+              360,
+              720,
+              0,
+              0,
+              0,
+              null,
+              225,
+              150,
+              0,
+              null
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 247.704,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 247,7",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "c85a78b8-d08e-4e1a-911f-8f28dab83fdf",
+      "type": "table",
+      "title": "Tyson Walker — summary",
+      "columns": [
+        "Date",
+        "sRPE daily"
+      ],
+      "rows": [
+        [
+          "2026-09-07",
+          null
+        ],
+        [
+          "2026-09-08",
+          "90"
+        ],
+        [
+          "2026-09-09",
+          "288"
+        ],
+        [
+          "2026-09-10",
+          "1 046,4"
+        ],
+        [
+          "2026-09-11",
+          "477,4"
+        ],
+        [
+          "2026-09-12",
+          "1 615,4"
+        ],
+        [
+          "2026-09-13",
+          "0"
+        ],
+        [
+          "2026-09-14",
+          "0"
+        ],
+        [
+          "2026-09-15",
+          null
+        ],
+        [
+          "2026-09-16",
+          "0"
+        ],
+        [
+          "2026-09-17",
+          "0"
+        ],
+        [
+          "2026-09-18",
+          "58,5"
+        ],
+        [
+          "2026-09-19",
+          "0"
+        ],
+        [
+          "2026-09-20",
+          "0"
+        ],
+        [
+          "2026-09-21",
+          null
+        ],
+        [
+          "2026-09-22",
+          "0"
+        ],
+        [
+          "2026-09-23",
+          "60"
+        ],
+        [
+          "2026-09-24",
+          "0"
+        ],
+        [
+          "2026-09-25",
+          "0"
+        ],
+        [
+          "2026-09-26",
+          null
+        ],
+        [
+          "2026-09-27",
+          null
+        ],
+        [
+          "2026-09-28",
+          "765"
+        ],
+        [
+          "2026-09-29",
+          "0"
+        ],
+        [
+          "2026-09-30",
+          "1 080"
+        ],
+        [
+          "2026-10-01",
+          "0"
+        ],
+        [
+          "2026-10-02",
+          "360"
+        ],
+        [
+          "2026-10-03",
+          "720"
+        ],
+        [
+          "2026-10-04",
+          "0"
+        ],
+        [
+          "2026-10-05",
+          "0"
+        ],
+        [
+          "2026-10-06",
+          "0"
+        ],
+        [
+          "2026-10-07",
+          null
+        ],
+        [
+          "2026-10-08",
+          "225"
+        ],
+        [
+          "2026-10-09",
+          "150"
+        ],
+        [
+          "2026-10-10",
+          "0"
+        ],
+        [
+          "2026-10-11",
+          null
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "59557696-a452-427f-8414-2ecb1e62b380",
+      "type": "heading",
+      "text": "Adrian Nelson",
+      "level": 2
+    },
+    {
+      "id": "c9ad731f-f39d-4043-b91d-259d7a2e9647",
+      "type": "text",
+      "text": "Charge interne moyenne de 415,1 UA (max 1225,3 UA). Movement Load moyen de 182,3 UA (110-252) et Trimp de 72. RMSSD moyen de 15,9 ms (12,5-20,2 ms) montre une récupération acceptable."
+    },
+    {
+      "id": "405945d5-ed4b-43cd-9afe-30e042cdda30",
+      "type": "text",
+      "text": "Measure choice: srpe_daily (domain priority), movement_load (primary load), trimp (intensity), rmssd (HRV) — first matching vendor aliases present in club datasets."
+    },
+    {
+      "id": "9802e10c-d737-4c2d-839f-c299eac54e89",
+      "type": "text",
+      "text": "KPI — sRPE daily: 415.1 · Movement Load: 182.3 · Trimp: 72 · Rmssd: 15.9"
+    },
+    {
+      "id": "e225d02f-3e58-458c-8cbf-a55b4dd6b2cc",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "lun. 7 sept.",
+            "mar. 8 sept.",
+            "mer. 9 sept.",
+            "jeu. 10 sept.",
+            "ven. 11 sept.",
+            "sam. 12 sept.",
+            "dim. 13 sept.",
+            "lun. 14 sept.",
+            "mar. 15 sept.",
+            "mer. 16 sept.",
+            "jeu. 17 sept.",
+            "ven. 18 sept.",
+            "sam. 19 sept.",
+            "dim. 20 sept.",
+            "lun. 21 sept.",
+            "mar. 22 sept.",
+            "mer. 23 sept.",
+            "jeu. 24 sept.",
+            "ven. 25 sept.",
+            "sam. 26 sept.",
+            "dim. 27 sept.",
+            "lun. 28 sept.",
+            "mar. 29 sept.",
+            "mer. 30 sept.",
+            "jeu. 1 oct.",
+            "ven. 2 oct.",
+            "sam. 3 oct.",
+            "dim. 4 oct.",
+            "lun. 5 oct.",
+            "mar. 6 oct.",
+            "mer. 7 oct.",
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct.",
+            "dim. 11 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              null,
+              797.1,
+              1225.3,
+              916.5,
+              415.9,
+              957.9,
+              0,
+              0,
+              null,
+              471.6,
+              0,
+              243.3,
+              0,
+              0,
+              0,
+              895.2,
+              945.5,
+              838.2,
+              270.5,
+              480,
+              0,
+              630,
+              0,
+              480,
+              0,
+              180,
+              600,
+              270,
+              360,
+              540,
+              null,
+              586.1,
+              450.2,
+              730.1,
+              0
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 415.106,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 415,11",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "42dc4be9-9637-450f-bfad-d78d8c48ab97",
+      "type": "chart",
+      "title": "Movement Load — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Movement load"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Movement load",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Movement load",
+            "type": "line",
+            "data": [
+              252,
+              185,
+              110
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "fd5dfe8a-a23e-45b7-9535-2c65f38c0289",
+      "type": "table",
+      "title": "Adrian Nelson — summary",
+      "columns": [
+        "Date",
+        "sRPE daily"
+      ],
+      "rows": [
+        [
+          "2026-09-07",
+          null
+        ],
+        [
+          "2026-09-08",
+          "797,1"
+        ],
+        [
+          "2026-09-09",
+          "1 225,3"
+        ],
+        [
+          "2026-09-10",
+          "916,5"
+        ],
+        [
+          "2026-09-11",
+          "415,9"
+        ],
+        [
+          "2026-09-12",
+          "957,9"
+        ],
+        [
+          "2026-09-13",
+          "0"
+        ],
+        [
+          "2026-09-14",
+          "0"
+        ],
+        [
+          "2026-09-15",
+          null
+        ],
+        [
+          "2026-09-16",
+          "471,6"
+        ],
+        [
+          "2026-09-17",
+          "0"
+        ],
+        [
+          "2026-09-18",
+          "243,3"
+        ],
+        [
+          "2026-09-19",
+          "0"
+        ],
+        [
+          "2026-09-20",
+          "0"
+        ],
+        [
+          "2026-09-21",
+          "0"
+        ],
+        [
+          "2026-09-22",
+          "895,2"
+        ],
+        [
+          "2026-09-23",
+          "945,5"
+        ],
+        [
+          "2026-09-24",
+          "838,2"
+        ],
+        [
+          "2026-09-25",
+          "270,5"
+        ],
+        [
+          "2026-09-26",
+          "480"
+        ],
+        [
+          "2026-09-27",
+          "0"
+        ],
+        [
+          "2026-09-28",
+          "630"
+        ],
+        [
+          "2026-09-29",
+          "0"
+        ],
+        [
+          "2026-09-30",
+          "480"
+        ],
+        [
+          "2026-10-01",
+          "0"
+        ],
+        [
+          "2026-10-02",
+          "180"
+        ],
+        [
+          "2026-10-03",
+          "600"
+        ],
+        [
+          "2026-10-04",
+          "270"
+        ],
+        [
+          "2026-10-05",
+          "360"
+        ],
+        [
+          "2026-10-06",
+          "540"
+        ],
+        [
+          "2026-10-07",
+          null
+        ],
+        [
+          "2026-10-08",
+          "586,1"
+        ],
+        [
+          "2026-10-09",
+          "450,2"
+        ],
+        [
+          "2026-10-10",
+          "730,1"
+        ],
+        [
+          "2026-10-11",
+          "0"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "6a92e122-7a8e-448e-ab3f-0e0158d1dfcc",
+      "type": "heading",
+      "text": "Nathan Soliman",
+      "level": 2
+    },
+    {
+      "id": "ddcff800-984a-461d-bf05-b2aeaf86748d",
+      "type": "text",
+      "text": "Charge interne moyenne de 665,9 UA (max 1620,2 UA), la plus élevée avec Tyger Campbell. Augmentation de 212,7 UA par rapport à la baseline. Movement Load de 172,3 UA et Trimp de 72. RMSSD moyen de 8,7 ms (6,9-10,6 ms) est le plus bas du groupe, signalant une récupération parasympathique limitée. Joueur prioritaire à surveiller."
+    },
+    {
+      "id": "45214a4d-2f10-49a2-b9ae-ec65562db6fb",
+      "type": "text",
+      "text": "Measure choice: srpe_daily (domain priority), movement_load (primary load), trimp (intensity), rmssd (HRV) — first matching vendor aliases present in club datasets."
+    },
+    {
+      "id": "d3e8c683-62a5-49c9-ae5a-2754bc85dce1",
+      "type": "text",
+      "text": "KPI — sRPE daily: 665.9 · Movement Load: 172.3 · Trimp: 72 · Rmssd: 8.7"
+    },
+    {
+      "id": "d9fd507a-e131-4543-a26a-dbf16dccd95a",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "lun. 7 sept.",
+            "mar. 8 sept.",
+            "mer. 9 sept.",
+            "jeu. 10 sept.",
+            "ven. 11 sept.",
+            "sam. 12 sept.",
+            "dim. 13 sept.",
+            "lun. 14 sept.",
+            "mar. 15 sept.",
+            "mer. 16 sept.",
+            "jeu. 17 sept.",
+            "ven. 18 sept.",
+            "sam. 19 sept.",
+            "dim. 20 sept.",
+            "lun. 21 sept.",
+            "mar. 22 sept.",
+            "mer. 23 sept.",
+            "jeu. 24 sept.",
+            "ven. 25 sept.",
+            "sam. 26 sept.",
+            "dim. 27 sept.",
+            "lun. 28 sept.",
+            "mar. 29 sept.",
+            "mer. 30 sept.",
+            "jeu. 1 oct.",
+            "ven. 2 oct.",
+            "sam. 3 oct.",
+            "dim. 4 oct.",
+            "lun. 5 oct.",
+            "mar. 6 oct.",
+            "mer. 7 oct.",
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct.",
+            "dim. 11 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              null,
+              1362,
+              1225.5,
+              1595.5,
+              746.9,
+              1620.2,
+              0,
+              0,
+              null,
+              null,
+              0,
+              230.9,
+              0,
+              0,
+              null,
+              1607.5,
+              300,
+              933,
+              565.1,
+              1080,
+              0,
+              990,
+              0,
+              960,
+              0,
+              840,
+              1080,
+              0,
+              540,
+              1320,
+              null,
+              1099.4,
+              754.8,
+              1125.1,
+              0
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 665.863,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 665,86",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "fea45345-a41a-4460-a47e-b8011ee48839",
+      "type": "chart",
+      "title": "Movement Load — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Movement load"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Movement load",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Movement load",
+            "type": "line",
+            "data": [
+              240,
+              161,
+              116
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "944971ee-c9d6-4a80-9655-475562d42c4e",
+      "type": "table",
+      "title": "Nathan Soliman — summary",
+      "columns": [
+        "Date",
+        "sRPE daily"
+      ],
+      "rows": [
+        [
+          "2026-09-07",
+          null
+        ],
+        [
+          "2026-09-08",
+          "1 362"
+        ],
+        [
+          "2026-09-09",
+          "1 225,5"
+        ],
+        [
+          "2026-09-10",
+          "1 595,5"
+        ],
+        [
+          "2026-09-11",
+          "746,9"
+        ],
+        [
+          "2026-09-12",
+          "1 620,2"
+        ],
+        [
+          "2026-09-13",
+          "0"
+        ],
+        [
+          "2026-09-14",
+          "0"
+        ],
+        [
+          "2026-09-15",
+          null
+        ],
+        [
+          "2026-09-16",
+          null
+        ],
+        [
+          "2026-09-17",
+          "0"
+        ],
+        [
+          "2026-09-18",
+          "230,9"
+        ],
+        [
+          "2026-09-19",
+          "0"
+        ],
+        [
+          "2026-09-20",
+          "0"
+        ],
+        [
+          "2026-09-21",
+          null
+        ],
+        [
+          "2026-09-22",
+          "1 607,5"
+        ],
+        [
+          "2026-09-23",
+          "300"
+        ],
+        [
+          "2026-09-24",
+          "933"
+        ],
+        [
+          "2026-09-25",
+          "565,1"
+        ],
+        [
+          "2026-09-26",
+          "1 080"
+        ],
+        [
+          "2026-09-27",
+          "0"
+        ],
+        [
+          "2026-09-28",
+          "990"
+        ],
+        [
+          "2026-09-29",
+          "0"
+        ],
+        [
+          "2026-09-30",
+          "960"
+        ],
+        [
+          "2026-10-01",
+          "0"
+        ],
+        [
+          "2026-10-02",
+          "840"
+        ],
+        [
+          "2026-10-03",
+          "1 080"
+        ],
+        [
+          "2026-10-04",
+          "0"
+        ],
+        [
+          "2026-10-05",
+          "540"
+        ],
+        [
+          "2026-10-06",
+          "1 320"
+        ],
+        [
+          "2026-10-07",
+          null
+        ],
+        [
+          "2026-10-08",
+          "1 099,4"
+        ],
+        [
+          "2026-10-09",
+          "754,8"
+        ],
+        [
+          "2026-10-10",
+          "1 125,1"
+        ],
+        [
+          "2026-10-11",
+          "0"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "1afd980b-acf7-4a0d-b964-625654ade9b2",
+      "type": "heading",
+      "text": "Tyrese Samuel",
+      "level": 2
+    },
+    {
+      "id": "89029756-d9b1-4dac-ae73-a4ff393998f7",
+      "type": "text",
+      "text": "Charge interne moyenne de 537,1 UA (max 1242 UA). Augmentation de 83,9 UA par rapport à la baseline. Movement Load moyen de 177,3 UA (119-245) et Trimp de 47,3. RMSSD moyen de 19,2 ms (10,6-35,3 ms) est le meilleur de l'équipe, indiquant une excellente capacité de récupération cardiaque."
+    },
+    {
+      "id": "33c1e9ff-ad8f-437e-bd87-e80b837c0336",
+      "type": "text",
+      "text": "Measure choice: srpe_daily (domain priority), movement_load (primary load), trimp (intensity), rmssd (HRV) — first matching vendor aliases present in club datasets."
+    },
+    {
+      "id": "cc5dac33-649b-491c-af43-2916c5d145ab",
+      "type": "text",
+      "text": "KPI — sRPE daily: 537.1 · Movement Load: 177.3 · Trimp: 47.3 · Rmssd: 19.2"
+    },
+    {
+      "id": "ed38180c-2e66-4917-b77d-f695cc1bf6a4",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "lun. 7 sept.",
+            "mar. 8 sept.",
+            "mer. 9 sept.",
+            "jeu. 10 sept.",
+            "ven. 11 sept.",
+            "sam. 12 sept.",
+            "dim. 13 sept.",
+            "lun. 14 sept.",
+            "mar. 15 sept.",
+            "mer. 16 sept.",
+            "jeu. 17 sept.",
+            "ven. 18 sept.",
+            "sam. 19 sept.",
+            "dim. 20 sept.",
+            "lun. 21 sept.",
+            "mar. 22 sept.",
+            "mer. 23 sept.",
+            "jeu. 24 sept.",
+            "ven. 25 sept.",
+            "sam. 26 sept.",
+            "dim. 27 sept.",
+            "lun. 28 sept.",
+            "mar. 29 sept.",
+            "mer. 30 sept.",
+            "jeu. 1 oct.",
+            "ven. 2 oct.",
+            "sam. 3 oct.",
+            "dim. 4 oct.",
+            "lun. 5 oct.",
+            "mar. 6 oct.",
+            "mer. 7 oct.",
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct.",
+            "dim. 11 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              null,
+              1207.3,
+              1242,
+              1127.1,
+              530.9,
+              942,
+              0,
+              0,
+              null,
+              0,
+              0,
+              164.3,
+              0,
+              0,
+              null,
+              691.9,
+              840.7,
+              830.4,
+              430.3,
+              840,
+              0,
+              945,
+              0,
+              960,
+              0,
+              540,
+              1080,
+              360,
+              450,
+              1080,
+              null,
+              919.9,
+              449.7,
+              1018.6,
+              0
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 537.1,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 537,1",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "a96530ac-581c-439b-9837-483a04878376",
+      "type": "chart",
+      "title": "Movement Load — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Movement load"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Movement load",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Movement load",
+            "type": "line",
+            "data": [
+              245,
+              168,
+              119
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "1553f407-095f-458c-8462-615c3206b0b7",
+      "type": "table",
+      "title": "Tyrese Samuel — summary",
+      "columns": [
+        "Date",
+        "sRPE daily"
+      ],
+      "rows": [
+        [
+          "2026-09-07",
+          null
+        ],
+        [
+          "2026-09-08",
+          "1 207,3"
+        ],
+        [
+          "2026-09-09",
+          "1 242"
+        ],
+        [
+          "2026-09-10",
+          "1 127,1"
+        ],
+        [
+          "2026-09-11",
+          "530,9"
+        ],
+        [
+          "2026-09-12",
+          "942"
+        ],
+        [
+          "2026-09-13",
+          "0"
+        ],
+        [
+          "2026-09-14",
+          "0"
+        ],
+        [
+          "2026-09-15",
+          null
+        ],
+        [
+          "2026-09-16",
+          "0"
+        ],
+        [
+          "2026-09-17",
+          "0"
+        ],
+        [
+          "2026-09-18",
+          "164,3"
+        ],
+        [
+          "2026-09-19",
+          "0"
+        ],
+        [
+          "2026-09-20",
+          "0"
+        ],
+        [
+          "2026-09-21",
+          null
+        ],
+        [
+          "2026-09-22",
+          "691,9"
+        ],
+        [
+          "2026-09-23",
+          "840,7"
+        ],
+        [
+          "2026-09-24",
+          "830,4"
+        ],
+        [
+          "2026-09-25",
+          "430,3"
+        ],
+        [
+          "2026-09-26",
+          "840"
+        ],
+        [
+          "2026-09-27",
+          "0"
+        ],
+        [
+          "2026-09-28",
+          "945"
+        ],
+        [
+          "2026-09-29",
+          "0"
+        ],
+        [
+          "2026-09-30",
+          "960"
+        ],
+        [
+          "2026-10-01",
+          "0"
+        ],
+        [
+          "2026-10-02",
+          "540"
+        ],
+        [
+          "2026-10-03",
+          "1 080"
+        ],
+        [
+          "2026-10-04",
+          "360"
+        ],
+        [
+          "2026-10-05",
+          "450"
+        ],
+        [
+          "2026-10-06",
+          "1 080"
+        ],
+        [
+          "2026-10-07",
+          null
+        ],
+        [
+          "2026-10-08",
+          "919,9"
+        ],
+        [
+          "2026-10-09",
+          "449,7"
+        ],
+        [
+          "2026-10-10",
+          "1 018,6"
+        ],
+        [
+          "2026-10-11",
+          "0"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "c090246b-4fd6-4819-918d-c5b603976e27",
+      "type": "heading",
+      "text": "Antony Labanca",
+      "level": 2
+    },
+    {
+      "id": "c4b37018-ddc3-4bb1-961e-9d8263b8bb11",
+      "type": "text",
+      "text": "Charge interne moyenne de 386,3 UA (max historique 1409,5 UA). Movement Load moyen de 140,7 UA (94-178), le plus bas parmi ceux avec GPS, et Trimp de 55,7. RMSSD moyen de 9,4 ms (8,8-10,5 ms) est bas. Présence d'une blessure en cours dans les données cliniques."
+    },
+    {
+      "id": "6dc1288c-871d-469e-9c52-86f3dd922091",
+      "type": "text",
+      "text": "Measure choice: srpe_daily (domain priority), movement_load (primary load), trimp (intensity), rmssd (HRV) — first matching vendor aliases present in club datasets."
+    },
+    {
+      "id": "04faccec-0a9c-476e-9a43-cb8c8c0a0a10",
+      "type": "text",
+      "text": "KPI — sRPE daily: 386.3 · Movement Load: 140.7 · Trimp: 55.7 · Rmssd: 9.4"
+    },
+    {
+      "id": "ea13851f-ad09-42e3-a3b7-d75aedc68f7a",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "lun. 7 sept.",
+            "mar. 8 sept.",
+            "mer. 9 sept.",
+            "jeu. 10 sept.",
+            "ven. 11 sept.",
+            "sam. 12 sept.",
+            "dim. 13 sept.",
+            "lun. 14 sept.",
+            "mar. 15 sept.",
+            "mer. 16 sept.",
+            "jeu. 17 sept.",
+            "ven. 18 sept.",
+            "sam. 19 sept.",
+            "dim. 20 sept.",
+            "lun. 21 sept.",
+            "mar. 22 sept.",
+            "mer. 23 sept.",
+            "jeu. 24 sept.",
+            "ven. 25 sept.",
+            "sam. 26 sept.",
+            "dim. 27 sept.",
+            "lun. 28 sept.",
+            "mar. 29 sept.",
+            "mer. 30 sept.",
+            "jeu. 1 oct.",
+            "ven. 2 oct.",
+            "sam. 3 oct.",
+            "dim. 4 oct.",
+            "lun. 5 oct.",
+            "mar. 6 oct.",
+            "mer. 7 oct.",
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct.",
+            "dim. 11 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              null,
+              315,
+              1238.7,
+              0,
+              0,
+              0,
+              0,
+              0,
+              null,
+              0,
+              0,
+              178.7,
+              0,
+              0,
+              null,
+              1409.5,
+              814.9,
+              917.4,
+              465.1,
+              960,
+              0,
+              855,
+              0,
+              960,
+              0,
+              540,
+              960,
+              0,
+              450,
+              960,
+              0,
+              796.7,
+              354.2,
+              184.9,
+              0
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 386.253,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 386,25",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "abff3739-059e-46c6-bb23-a5f793d9eaf8",
+      "type": "chart",
+      "title": "Movement Load — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Movement load"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Movement load",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Movement load",
+            "type": "line",
+            "data": [
+              178,
+              150,
+              94
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "69d110d1-23ad-4653-b320-ead60f0731dd",
+      "type": "table",
+      "title": "Antony Labanca — summary",
+      "columns": [
+        "Date",
+        "sRPE daily"
+      ],
+      "rows": [
+        [
+          "2026-09-07",
+          null
+        ],
+        [
+          "2026-09-08",
+          "315"
+        ],
+        [
+          "2026-09-09",
+          "1 238,7"
+        ],
+        [
+          "2026-09-10",
+          "0"
+        ],
+        [
+          "2026-09-11",
+          "0"
+        ],
+        [
+          "2026-09-12",
+          "0"
+        ],
+        [
+          "2026-09-13",
+          "0"
+        ],
+        [
+          "2026-09-14",
+          "0"
+        ],
+        [
+          "2026-09-15",
+          null
+        ],
+        [
+          "2026-09-16",
+          "0"
+        ],
+        [
+          "2026-09-17",
+          "0"
+        ],
+        [
+          "2026-09-18",
+          "178,7"
+        ],
+        [
+          "2026-09-19",
+          "0"
+        ],
+        [
+          "2026-09-20",
+          "0"
+        ],
+        [
+          "2026-09-21",
+          null
+        ],
+        [
+          "2026-09-22",
+          "1 409,5"
+        ],
+        [
+          "2026-09-23",
+          "814,9"
+        ],
+        [
+          "2026-09-24",
+          "917,4"
+        ],
+        [
+          "2026-09-25",
+          "465,1"
+        ],
+        [
+          "2026-09-26",
+          "960"
+        ],
+        [
+          "2026-09-27",
+          "0"
+        ],
+        [
+          "2026-09-28",
+          "855"
+        ],
+        [
+          "2026-09-29",
+          "0"
+        ],
+        [
+          "2026-09-30",
+          "960"
+        ],
+        [
+          "2026-10-01",
+          "0"
+        ],
+        [
+          "2026-10-02",
+          "540"
+        ],
+        [
+          "2026-10-03",
+          "960"
+        ],
+        [
+          "2026-10-04",
+          "0"
+        ],
+        [
+          "2026-10-05",
+          "450"
+        ],
+        [
+          "2026-10-06",
+          "960"
+        ],
+        [
+          "2026-10-07",
+          "0"
+        ],
+        [
+          "2026-10-08",
+          "796,7"
+        ],
+        [
+          "2026-10-09",
+          "354,2"
+        ],
+        [
+          "2026-10-10",
+          "184,9"
+        ],
+        [
+          "2026-10-11",
+          "0"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "b5ec435a-1f37-4c5c-ac01-25d9bc0bbb41",
+      "type": "heading",
+      "text": "Assemian Moularé",
+      "level": 2
+    },
+    {
+      "id": "41b00568-2fd3-4041-bef1-37544eddbc75",
+      "type": "text",
+      "text": "Charge interne moyenne de 534,4 UA (max 1567,8 UA). Augmentation de 81,2 UA par rapport à la baseline. Movement Load moyen de 180,7 UA (132-211) et Trimp de 62,3 reflètent une intensité soutenue. RMSSD moyen de 9,3 ms (7-11,6 ms) est parmi les plus bas, indiquant une récupération cardiaque limitée."
+    },
+    {
+      "id": "1dc32d91-f5a1-4fb2-9cf2-458934fa6305",
+      "type": "text",
+      "text": "Measure choice: srpe_daily (domain priority), movement_load (primary load), trimp (intensity), rmssd (HRV) — first matching vendor aliases present in club datasets."
+    },
+    {
+      "id": "b9be8f80-e0cd-44d1-81a2-620729e8dcf7",
+      "type": "text",
+      "text": "KPI — sRPE daily: 534.4 · Movement Load: 180.7 · Trimp: 62.3 · Rmssd: 9.3"
+    },
+    {
+      "id": "e92125ef-a961-4477-9253-0816ea19bed3",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "lun. 7 sept.",
+            "mar. 8 sept.",
+            "mer. 9 sept.",
+            "jeu. 10 sept.",
+            "ven. 11 sept.",
+            "sam. 12 sept.",
+            "dim. 13 sept.",
+            "lun. 14 sept.",
+            "mar. 15 sept.",
+            "mer. 16 sept.",
+            "jeu. 17 sept.",
+            "ven. 18 sept.",
+            "sam. 19 sept.",
+            "dim. 20 sept.",
+            "lun. 21 sept.",
+            "mar. 22 sept.",
+            "mer. 23 sept.",
+            "jeu. 24 sept.",
+            "ven. 25 sept.",
+            "sam. 26 sept.",
+            "dim. 27 sept.",
+            "lun. 28 sept.",
+            "mar. 29 sept.",
+            "mer. 30 sept.",
+            "jeu. 1 oct.",
+            "ven. 2 oct.",
+            "sam. 3 oct.",
+            "dim. 4 oct.",
+            "lun. 5 oct.",
+            "mar. 6 oct.",
+            "mer. 7 oct.",
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct.",
+            "dim. 11 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              null,
+              1422,
+              1243.7,
+              1567.8,
+              577.4,
+              861.8,
+              0,
+              0,
+              null,
+              0,
+              0,
+              349.2,
+              0,
+              0,
+              null,
+              933.5,
+              819,
+              804.2,
+              291.7,
+              1080,
+              0,
+              765,
+              0,
+              840,
+              0,
+              540,
+              1080,
+              0,
+              0,
+              1200,
+              0,
+              1065.9,
+              454,
+              1205.1,
+              0
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 534.384,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 534,38",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "137c6075-3784-47f5-9308-136b36273e6a",
+      "type": "chart",
+      "title": "Movement Load — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Movement load"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Movement load",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Movement load",
+            "type": "line",
+            "data": [
+              211,
+              199,
+              132
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "93152d30-5227-4552-a179-ad6e60617c29",
+      "type": "table",
+      "title": "Assemian Moularé — summary",
+      "columns": [
+        "Date",
+        "sRPE daily"
+      ],
+      "rows": [
+        [
+          "2026-09-07",
+          null
+        ],
+        [
+          "2026-09-08",
+          "1 422"
+        ],
+        [
+          "2026-09-09",
+          "1 243,7"
+        ],
+        [
+          "2026-09-10",
+          "1 567,8"
+        ],
+        [
+          "2026-09-11",
+          "577,4"
+        ],
+        [
+          "2026-09-12",
+          "861,8"
+        ],
+        [
+          "2026-09-13",
+          "0"
+        ],
+        [
+          "2026-09-14",
+          "0"
+        ],
+        [
+          "2026-09-15",
+          null
+        ],
+        [
+          "2026-09-16",
+          "0"
+        ],
+        [
+          "2026-09-17",
+          "0"
+        ],
+        [
+          "2026-09-18",
+          "349,2"
+        ],
+        [
+          "2026-09-19",
+          "0"
+        ],
+        [
+          "2026-09-20",
+          "0"
+        ],
+        [
+          "2026-09-21",
+          null
+        ],
+        [
+          "2026-09-22",
+          "933,5"
+        ],
+        [
+          "2026-09-23",
+          "819"
+        ],
+        [
+          "2026-09-24",
+          "804,2"
+        ],
+        [
+          "2026-09-25",
+          "291,7"
+        ],
+        [
+          "2026-09-26",
+          "1 080"
+        ],
+        [
+          "2026-09-27",
+          "0"
+        ],
+        [
+          "2026-09-28",
+          "765"
+        ],
+        [
+          "2026-09-29",
+          "0"
+        ],
+        [
+          "2026-09-30",
+          "840"
+        ],
+        [
+          "2026-10-01",
+          "0"
+        ],
+        [
+          "2026-10-02",
+          "540"
+        ],
+        [
+          "2026-10-03",
+          "1 080"
+        ],
+        [
+          "2026-10-04",
+          "0"
+        ],
+        [
+          "2026-10-05",
+          "0"
+        ],
+        [
+          "2026-10-06",
+          "1 200"
+        ],
+        [
+          "2026-10-07",
+          "0"
+        ],
+        [
+          "2026-10-08",
+          "1 065,9"
+        ],
+        [
+          "2026-10-09",
+          "454"
+        ],
+        [
+          "2026-10-10",
+          "1 205,1"
+        ],
+        [
+          "2026-10-11",
+          "0"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "95b8b0dd-047f-4579-b6a5-354833f85a3f",
+      "type": "heading",
+      "text": "Hugo Robineau",
+      "level": 2
+    },
+    {
+      "id": "16dc538d-64b5-4127-8d84-e63b5e693de3",
+      "type": "text",
+      "text": "Charge interne moyenne de 238,5 UA (max historique 1170,6 UA), la plus basse de l'effectif. Delta de -214,70 UA par rapport à la baseline. Movement Load constant à 70 UA (delta -100,61) et Trimp à 45 (delta -16,21) confirment une exposition très limitée cette semaine. RMSSD de 19,8 ms est excellent. Présence d'une blessure en cours dans les données cliniques."
+    },
+    {
+      "id": "716c399b-8daa-4ed7-939c-3e6980294f24",
+      "type": "text",
+      "text": "Measure choice: srpe_daily (domain priority), movement_load (primary load), trimp (intensity), rmssd (HRV) — first matching vendor aliases present in club datasets."
+    },
+    {
+      "id": "1412d6ac-b782-44a4-809d-8f37893ea10f",
+      "type": "text",
+      "text": "KPI — sRPE daily: 238.5 · Movement Load: 70 · Trimp: 45 · Rmssd: 19.8"
+    },
+    {
+      "id": "4ba45099-cdd1-4814-a352-cf5a684c1800",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "lun. 7 sept.",
+            "mar. 8 sept.",
+            "mer. 9 sept.",
+            "jeu. 10 sept.",
+            "ven. 11 sept.",
+            "sam. 12 sept.",
+            "dim. 13 sept.",
+            "lun. 14 sept.",
+            "mar. 15 sept.",
+            "mer. 16 sept.",
+            "jeu. 17 sept.",
+            "ven. 18 sept.",
+            "sam. 19 sept.",
+            "dim. 20 sept.",
+            "lun. 21 sept.",
+            "mar. 22 sept.",
+            "mer. 23 sept.",
+            "jeu. 24 sept.",
+            "ven. 25 sept.",
+            "sam. 26 sept.",
+            "dim. 27 sept.",
+            "lun. 28 sept.",
+            "mar. 29 sept.",
+            "mer. 30 sept.",
+            "jeu. 1 oct.",
+            "ven. 2 oct.",
+            "sam. 3 oct.",
+            "dim. 4 oct.",
+            "lun. 5 oct.",
+            "mar. 6 oct.",
+            "mer. 7 oct.",
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct.",
+            "dim. 11 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              null,
+              1170.6,
+              589.9,
+              332.5,
+              504.6,
+              409.2,
+              0,
+              0,
+              null,
+              0,
+              0,
+              0,
+              0,
+              0,
+              null,
+              300,
+              360,
+              225,
+              0,
+              null,
+              null,
+              315,
+              null,
+              null,
+              null,
+              210,
+              0,
+              0,
+              210,
+              0,
+              735,
+              360,
+              240,
+              null,
+              null
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 238.472,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 238,47",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "f03d4ca5-387f-4a62-afbc-65d6ed2fbd3f",
+      "type": "chart",
+      "title": "Movement Load — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Movement load"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "jeu. 8 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Movement load",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Movement load",
+            "type": "line",
+            "data": [
+              70
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "48304ab3-29e5-4a79-a893-41b4b71a5919",
+      "type": "table",
+      "title": "Hugo Robineau — summary",
+      "columns": [
+        "Date",
+        "sRPE daily"
+      ],
+      "rows": [
+        [
+          "2026-09-07",
+          null
+        ],
+        [
+          "2026-09-08",
+          "1 170,6"
+        ],
+        [
+          "2026-09-09",
+          "589,9"
+        ],
+        [
+          "2026-09-10",
+          "332,5"
+        ],
+        [
+          "2026-09-11",
+          "504,6"
+        ],
+        [
+          "2026-09-12",
+          "409,2"
+        ],
+        [
+          "2026-09-13",
+          "0"
+        ],
+        [
+          "2026-09-14",
+          "0"
+        ],
+        [
+          "2026-09-15",
+          null
+        ],
+        [
+          "2026-09-16",
+          "0"
+        ],
+        [
+          "2026-09-17",
+          "0"
+        ],
+        [
+          "2026-09-18",
+          "0"
+        ],
+        [
+          "2026-09-19",
+          "0"
+        ],
+        [
+          "2026-09-20",
+          "0"
+        ],
+        [
+          "2026-09-21",
+          null
+        ],
+        [
+          "2026-09-22",
+          "300"
+        ],
+        [
+          "2026-09-23",
+          "360"
+        ],
+        [
+          "2026-09-24",
+          "225"
+        ],
+        [
+          "2026-09-25",
+          "0"
+        ],
+        [
+          "2026-09-26",
+          null
+        ],
+        [
+          "2026-09-27",
+          null
+        ],
+        [
+          "2026-09-28",
+          "315"
+        ],
+        [
+          "2026-09-29",
+          null
+        ],
+        [
+          "2026-09-30",
+          null
+        ],
+        [
+          "2026-10-01",
+          null
+        ],
+        [
+          "2026-10-02",
+          "210"
+        ],
+        [
+          "2026-10-03",
+          "0"
+        ],
+        [
+          "2026-10-04",
+          "0"
+        ],
+        [
+          "2026-10-05",
+          "210"
+        ],
+        [
+          "2026-10-06",
+          "0"
+        ],
+        [
+          "2026-10-07",
+          "735"
+        ],
+        [
+          "2026-10-08",
+          "360"
+        ],
+        [
+          "2026-10-09",
+          "240"
+        ],
+        [
+          "2026-10-10",
+          null
+        ],
+        [
+          "2026-10-11",
+          null
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "3ac90e63-b6cb-409b-996c-1732b7143bc6",
+      "type": "heading",
+      "text": "Trey Woodbury",
+      "level": 2
+    },
+    {
+      "id": "4d68f967-dfc0-4930-82fe-88248f237a05",
+      "type": "text",
+      "text": "Charge interne moyenne de 524,5 UA (max 1796,8 UA). Augmentation de 71,3 UA par rapport à la baseline. Movement Load moyen de 189,7 UA (116-256), le plus élevé, et Trimp de 82,3, le plus haut, indiquent une intensité maximale. RMSSD moyen de 6,8 ms (5,7-8,3 ms) est le plus bas de l'équipe, signalant une récupération parasympathique très limitée. Joueur prioritaire à surveiller."
+    },
+    {
+      "id": "ffcdb58b-5067-48e5-8f67-fcdd127b1b40",
+      "type": "text",
+      "text": "Measure choice: srpe_daily (domain priority), movement_load (primary load), trimp (intensity), rmssd (HRV) — first matching vendor aliases present in club datasets."
+    },
+    {
+      "id": "2ba5cd82-4fb4-4118-aca5-130eb458f8ae",
+      "type": "text",
+      "text": "KPI — sRPE daily: 524.5 · Movement Load: 189.7 · Trimp: 82.3 · Rmssd: 6.8"
+    },
+    {
+      "id": "98445cc9-b7a2-49f3-a83d-3dbba0816d93",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "lun. 7 sept.",
+            "mar. 8 sept.",
+            "mer. 9 sept.",
+            "jeu. 10 sept.",
+            "ven. 11 sept.",
+            "sam. 12 sept.",
+            "dim. 13 sept.",
+            "lun. 14 sept.",
+            "mar. 15 sept.",
+            "mer. 16 sept.",
+            "jeu. 17 sept.",
+            "ven. 18 sept.",
+            "sam. 19 sept.",
+            "dim. 20 sept.",
+            "lun. 21 sept.",
+            "mar. 22 sept.",
+            "mer. 23 sept.",
+            "jeu. 24 sept.",
+            "ven. 25 sept.",
+            "sam. 26 sept.",
+            "dim. 27 sept.",
+            "lun. 28 sept.",
+            "mar. 29 sept.",
+            "mer. 30 sept.",
+            "jeu. 1 oct.",
+            "ven. 2 oct.",
+            "sam. 3 oct.",
+            "dim. 4 oct.",
+            "lun. 5 oct.",
+            "mar. 6 oct.",
+            "mer. 7 oct.",
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct.",
+            "dim. 11 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              null,
+              1286,
+              1067.5,
+              1112.2,
+              565.8,
+              1796.8,
+              0,
+              0,
+              null,
+              0,
+              0,
+              180.6,
+              0,
+              0,
+              null,
+              606.3,
+              681.2,
+              1139.6,
+              389.1,
+              840,
+              0,
+              900,
+              0,
+              720,
+              0,
+              450,
+              840,
+              0,
+              450,
+              1080,
+              null,
+              758.9,
+              368.3,
+              1027.1,
+              0
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 524.497,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 524,5",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "31abed3d-2d34-426b-b02b-6330e0887472",
+      "type": "chart",
+      "title": "Movement Load — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Movement load"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Movement load",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Movement load",
+            "type": "line",
+            "data": [
+              256,
+              197,
+              116
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "65663371-79dc-4126-bb74-b748c436a5c7",
+      "type": "table",
+      "title": "Trey Woodbury — summary",
+      "columns": [
+        "Date",
+        "sRPE daily"
+      ],
+      "rows": [
+        [
+          "2026-09-07",
+          null
+        ],
+        [
+          "2026-09-08",
+          "1 286"
+        ],
+        [
+          "2026-09-09",
+          "1 067,5"
+        ],
+        [
+          "2026-09-10",
+          "1 112,2"
+        ],
+        [
+          "2026-09-11",
+          "565,8"
+        ],
+        [
+          "2026-09-12",
+          "1 796,8"
+        ],
+        [
+          "2026-09-13",
+          "0"
+        ],
+        [
+          "2026-09-14",
+          "0"
+        ],
+        [
+          "2026-09-15",
+          null
+        ],
+        [
+          "2026-09-16",
+          "0"
+        ],
+        [
+          "2026-09-17",
+          "0"
+        ],
+        [
+          "2026-09-18",
+          "180,6"
+        ],
+        [
+          "2026-09-19",
+          "0"
+        ],
+        [
+          "2026-09-20",
+          "0"
+        ],
+        [
+          "2026-09-21",
+          null
+        ],
+        [
+          "2026-09-22",
+          "606,3"
+        ],
+        [
+          "2026-09-23",
+          "681,2"
+        ],
+        [
+          "2026-09-24",
+          "1 139,6"
+        ],
+        [
+          "2026-09-25",
+          "389,1"
+        ],
+        [
+          "2026-09-26",
+          "840"
+        ],
+        [
+          "2026-09-27",
+          "0"
+        ],
+        [
+          "2026-09-28",
+          "900"
+        ],
+        [
+          "2026-09-29",
+          "0"
+        ],
+        [
+          "2026-09-30",
+          "720"
+        ],
+        [
+          "2026-10-01",
+          "0"
+        ],
+        [
+          "2026-10-02",
+          "450"
+        ],
+        [
+          "2026-10-03",
+          "840"
+        ],
+        [
+          "2026-10-04",
+          "0"
+        ],
+        [
+          "2026-10-05",
+          "450"
+        ],
+        [
+          "2026-10-06",
+          "1 080"
+        ],
+        [
+          "2026-10-07",
+          null
+        ],
+        [
+          "2026-10-08",
+          "758,9"
+        ],
+        [
+          "2026-10-09",
+          "368,3"
+        ],
+        [
+          "2026-10-10",
+          "1 027,1"
+        ],
+        [
+          "2026-10-11",
+          "0"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "4e61b4bb-a40c-41fd-a433-3e90f571cd59",
+      "type": "heading",
+      "text": "Keith Jordan",
+      "level": 2
+    },
+    {
+      "id": "e4d58531-3c69-41e3-aea2-481ef878c430",
+      "type": "text",
+      "text": "Charge interne moyenne de 578,6 UA (max 1660,2 UA). Augmentation de 125,5 UA par rapport à la baseline. Movement Load moyen de 183 UA (108-278) et Trimp de 55,3 reflètent une intensité soutenue. RMSSD moyen de 10,2 ms (9,1-11,5 ms) est bas, suggérant une récupération cardiaque à surveiller."
+    },
+    {
+      "id": "8fe8eb7f-0aff-45fd-bf9c-dfb0a007ae34",
+      "type": "text",
+      "text": "Measure choice: srpe_daily (domain priority), movement_load (primary load), trimp (intensity), rmssd (HRV) — first matching vendor aliases present in club datasets."
+    },
+    {
+      "id": "4b3595d6-d047-4561-a88a-a9e1c5328d81",
+      "type": "text",
+      "text": "KPI — sRPE daily: 578.6 · Movement Load: 183 · Trimp: 55.3 · Rmssd: 10.2"
+    },
+    {
+      "id": "f0828b22-958f-4900-b5d2-2bb0bde8bc28",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "lun. 7 sept.",
+            "mar. 8 sept.",
+            "mer. 9 sept.",
+            "jeu. 10 sept.",
+            "ven. 11 sept.",
+            "sam. 12 sept.",
+            "dim. 13 sept.",
+            "lun. 14 sept.",
+            "mar. 15 sept.",
+            "mer. 16 sept.",
+            "jeu. 17 sept.",
+            "ven. 18 sept.",
+            "sam. 19 sept.",
+            "dim. 20 sept.",
+            "lun. 21 sept.",
+            "mar. 22 sept.",
+            "mer. 23 sept.",
+            "jeu. 24 sept.",
+            "ven. 25 sept.",
+            "sam. 26 sept.",
+            "dim. 27 sept.",
+            "lun. 28 sept.",
+            "mar. 29 sept.",
+            "mer. 30 sept.",
+            "jeu. 1 oct.",
+            "ven. 2 oct.",
+            "sam. 3 oct.",
+            "dim. 4 oct.",
+            "lun. 5 oct.",
+            "mar. 6 oct.",
+            "mer. 7 oct.",
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct.",
+            "dim. 11 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              null,
+              1302.9,
+              875.9,
+              1299.7,
+              530.9,
+              1660.2,
+              0,
+              0,
+              null,
+              0,
+              0,
+              347,
+              0,
+              0,
+              null,
+              1373.1,
+              949.1,
+              946.2,
+              382.5,
+              960,
+              0,
+              990,
+              0,
+              840,
+              0,
+              360,
+              840,
+              360,
+              540,
+              960,
+              null,
+              892.2,
+              612.2,
+              915.5,
+              0
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 578.626,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 578,63",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "0de0a187-959a-45dc-8437-f15d76a2672e",
+      "type": "chart",
+      "title": "Movement Load — team mean ref",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Movement load"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "jeu. 8 oct.",
+            "ven. 9 oct.",
+            "sam. 10 oct."
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Movement load",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Movement load",
+            "type": "line",
+            "data": [
+              278,
+              163,
+              108
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "132cd233-f4eb-49d4-846a-c13b8d0cbfb2",
+      "type": "table",
+      "title": "Keith Jordan — summary",
+      "columns": [
+        "Date",
+        "sRPE daily"
+      ],
+      "rows": [
+        [
+          "2026-09-07",
+          null
+        ],
+        [
+          "2026-09-08",
+          "1 302,9"
+        ],
+        [
+          "2026-09-09",
+          "875,9"
+        ],
+        [
+          "2026-09-10",
+          "1 299,7"
+        ],
+        [
+          "2026-09-11",
+          "530,9"
+        ],
+        [
+          "2026-09-12",
+          "1 660,2"
+        ],
+        [
+          "2026-09-13",
+          "0"
+        ],
+        [
+          "2026-09-14",
+          "0"
+        ],
+        [
+          "2026-09-15",
+          null
+        ],
+        [
+          "2026-09-16",
+          "0"
+        ],
+        [
+          "2026-09-17",
+          "0"
+        ],
+        [
+          "2026-09-18",
+          "347"
+        ],
+        [
+          "2026-09-19",
+          "0"
+        ],
+        [
+          "2026-09-20",
+          "0"
+        ],
+        [
+          "2026-09-21",
+          null
+        ],
+        [
+          "2026-09-22",
+          "1 373,1"
+        ],
+        [
+          "2026-09-23",
+          "949,1"
+        ],
+        [
+          "2026-09-24",
+          "946,2"
+        ],
+        [
+          "2026-09-25",
+          "382,5"
+        ],
+        [
+          "2026-09-26",
+          "960"
+        ],
+        [
+          "2026-09-27",
+          "0"
+        ],
+        [
+          "2026-09-28",
+          "990"
+        ],
+        [
+          "2026-09-29",
+          "0"
+        ],
+        [
+          "2026-09-30",
+          "840"
+        ],
+        [
+          "2026-10-01",
+          "0"
+        ],
+        [
+          "2026-10-02",
+          "360"
+        ],
+        [
+          "2026-10-03",
+          "840"
+        ],
+        [
+          "2026-10-04",
+          "360"
+        ],
+        [
+          "2026-10-05",
+          "540"
+        ],
+        [
+          "2026-10-06",
+          "960"
+        ],
+        [
+          "2026-10-07",
+          null
+        ],
+        [
+          "2026-10-08",
+          "892,2"
+        ],
+        [
+          "2026-10-09",
+          "612,2"
+        ],
+        [
+          "2026-10-10",
+          "915,5"
+        ],
+        [
+          "2026-10-11",
+          "0"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "missing-match-85",
+      "type": "text",
+      "text": "No match data for the selected period."
+    },
+    {
+      "id": "reliability-h-86",
+      "type": "heading",
+      "text": "Fiabilité des données",
+      "level": 2
+    },
+    {
+      "id": "reliability-t-87",
+      "type": "text",
+      "text": "Échantillon : 606 ligne(s) sur 7 jeu(x). Fenêtre demandée 2026-10-05→2026-10-11 ; 1 jeu(x) démarrent après le début, 1 s'arrêtent avant la fin. Valeurs écartées : 82 cellule(s) imputée(s) ou sentinelle (suspicious_default:quality_rating=4@45%×29; suspicious_default:energy_rating=4@42%×27; suspicious_default:zone5_time=0@82%×23; suspicious_default:hours_awake=0@50%×3). Limite : zone5 time semble bloqué sur une valeur par défaut (0, ~82 % des lignes). Limite : body soreness rating sans valeurs. Limite : energy rating semble bloqué sur une valeur par défaut (4, ~42 % des lignes). Limite : sleep efficiency percentage sans valeurs. Limite : sleep consistency percentage sans valeurs. Limite : quality rating semble bloqué sur une valeur par défaut (4, ~45 % des lignes). Limite : hours awake semble bloqué sur une valeur par défaut (0, ~50 % des lignes). Limite : recovery date sans valeurs. Limite : location sans valeurs. Limite : contact type sans valeurs."
+    }
+  ]
+}

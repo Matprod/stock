@@ -1,7 +1,5 @@
 import type { PremiumReportBlock, PremiumReportDocument } from '#contracts/premium_report'
 import {
-  escapeHtml,
-  foldKey,
   REPORT_V4_BAR_CHUNK_HORIZONTAL,
   REPORT_V4_BAR_CHUNK_VERTICAL,
   REPORT_V4_CHART_CHUNK,
@@ -10,6 +8,7 @@ import {
   REPORT_V4_DISTANCE_TITLE_RE,
   REPORT_V4_SCORE_RATING_SERIES_RE,
 } from '#services/report_v4/report_v4_constants'
+import { escapeHtml, foldKey } from '#utils/html_text'
 import {
   asEchartsOption,
   isTeamAggregateSeriesName,
@@ -36,10 +35,11 @@ import {
   renderClubInsightScienceStaffPanel,
   type ClubInsightScience,
 } from '#services/report_v4/club_insight_science'
+import { displayPositionLabel } from '#services/report_v4/metrics/column_labels'
 
 export { prepareReportV4Document }
 
-export type ClubHtmlReportMeta = {
+type ClubHtmlReportMeta = {
   clubName: string
   language: 'fr' | 'en'
   populatedDomains: string[]
@@ -105,9 +105,8 @@ const formatDisplayDate = (iso: string, language: 'fr' | 'en'): string => {
   const date = new Date(`${iso}T12:00:00Z`)
   return date.toLocaleDateString(language === 'fr' ? 'fr-FR' : 'en-GB', {
     weekday: 'short',
-    day: '2-digit',
-    month: '2-digit',
-    year: '2-digit',
+    day: 'numeric',
+    month: 'short',
     timeZone: 'UTC',
   })
 }
@@ -124,22 +123,28 @@ const isDateColumn = (name: string): boolean => /date|jour|day/i.test(name)
 const isLabelColumn = (name: string): boolean =>
   /player|joueur|athlete|name|nom|poste|position/i.test(name) || isDateColumn(name)
 
+const NEVER_HEAT_COLUMN_RE =
+  /carb|lipid|fat|zone\s*[1-5]|zone[1-5]|energy_consumption|glucide|lipide/i
+
 const isHeatMetricColumn = (column: string): boolean => {
   const name = column.trim()
   if (isLabelColumn(name) || isDateColumn(name)) return false
   if (/^(n|nb)$/i.test(name) || /count|sessions?|jours?|days?|id\b/i.test(name)) return false
-  return true
+  if (NEVER_HEAT_COLUMN_RE.test(name)) return false
+  return isDefaultHeatColumn(name) || /risk|injury|acwr|monotony|strain|soreness|stress|fatigue/i.test(name)
 }
 
-const isDefaultHeatColumn = (column: string): boolean =>
-  /acwr|monotony|strain|soreness|stress|rpe|readiness|fatigue|mood|energy.?rating|quality.?rating|sleep.?quality|sleep.?score/i.test(
+const isDefaultHeatColumn = (column: string): boolean => {
+  if (NEVER_HEAT_COLUMN_RE.test(column)) return false
+  return /acwr|monotony|strain|soreness|stress|rpe|readiness|fatigue|mood|energy.?rating|quality.?rating|sleep.?quality|sleep.?score|wellbeing|injury.?risk/i.test(
     column
   )
+}
 
 const isWorseHighColumn = (column: string): boolean =>
-  /acwr|monotony|strain|soreness|stress|fatigue|risk|injury|decel|load|cumul|acute|distance|hsr|hmld|sprint|accel|dsl|rpe|ewma|player.?load/i.test(
+  /acwr|monotony|strain|soreness|stress|fatigue|risk|injury|decel|cumul|acute|hsr|hmld|sprint|accel|dsl|rpe|ewma|player.?load/i.test(
     column
-  ) && !/performance|readiness|quality|mood|energy|sleep.?score|wellness/i.test(column)
+  ) && !/performance|readiness|quality|mood|energy|sleep.?score|wellness|wellbeing/i.test(column)
 
 const coachAsksTableColor = (prompt?: string): boolean =>
   Boolean(
@@ -262,10 +267,16 @@ const formatCoverCommentHtml = (raw: string): string => {
   return html
 }
 
-const shortDateLabel = (iso: string): string => {
+const shortDateLabel = (iso: string, language: 'fr' | 'en' = 'fr'): string => {
   const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/)
   if (!m) return iso
-  return `${m[3]}/${m[2]}`
+  const date = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])))
+  return date.toLocaleDateString(language === 'fr' ? 'fr-FR' : 'en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    timeZone: 'UTC',
+  })
 }
 
 const tableRowHasData = (row: unknown[]): boolean =>
@@ -664,6 +675,7 @@ export const buildClubHtmlReport = (args: {
         heading,
         pieces: currentPieces,
         athlete,
+        language: meta.language,
       })
     )
     currentPieces = []
@@ -687,6 +699,7 @@ export const buildClubHtmlReport = (args: {
         clubName: meta.clubName,
         rangeLabel,
         heading: pendingHeading,
+        language: meta.language,
         pieces: [
           {
             kind: 'prose',
@@ -832,7 +845,7 @@ const resolveSectionAthlete = (
   return undefined
 }
 
-const athleteBannerHtml = (athlete: RosterAthlete): string => {
+const athleteBannerHtml = (athlete: RosterAthlete, language: 'fr' | 'en'): string => {
   const initials = escapeHtml(initialsOf(athlete.name))
   const photo =
     athlete.photoUrl?.startsWith('http://') || athlete.photoUrl?.startsWith('https://')
@@ -842,7 +855,8 @@ const athleteBannerHtml = (athlete: RosterAthlete): string => {
   const img = photo
     ? `<img src="${escapeHtml(photo)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.athlete-banner')?.classList.add('no-photo')" />`
     : ''
-  return `<div class="${bannerClass}"><div class="avatar-wrap">${img}<div class="avatar-fallback">${initials}</div></div><div><div class="name">${escapeHtml(athlete.name)}</div><div class="meta">${escapeHtml(athlete.position)}</div></div></div>`
+  const positionLabel = displayPositionLabel(athlete.position, language)
+  return `<div class="${bannerClass}"><div class="avatar-wrap">${img}<div class="avatar-fallback">${initials}</div></div><div><div class="name">${escapeHtml(athlete.name)}</div><div class="meta">${escapeHtml(positionLabel)}</div></div></div>`
 }
 
 const layoutSectionBody = (pieces: LayoutPiece[]): string => {
@@ -884,15 +898,16 @@ const buildSectionBlock = (args: {
   heading: string
   pieces: LayoutPiece[]
   athlete?: RosterAthlete
+  language: 'fr' | 'en'
 }): string => {
   const pieces = [...args.pieces]
   let intro = ''
   const showBanner = Boolean(args.athlete?.name)
   if (showBanner && pieces[0]?.kind === 'prose') {
     const lead = pieces.shift()!
-    intro = `<div class="section-intro">${athleteBannerHtml(args.athlete!)}<div class="intro-prose">${lead.html}</div></div>`
+    intro = `<div class="section-intro">${athleteBannerHtml(args.athlete!, args.language)}<div class="intro-prose">${lead.html}</div></div>`
   } else if (showBanner) {
-    intro = athleteBannerHtml(args.athlete!)
+    intro = athleteBannerHtml(args.athlete!, args.language)
   }
   const body = layoutSectionBody(pieces)
   const athleteAttr = args.athlete?.name
@@ -1472,7 +1487,9 @@ const decorateChartOption = (
   let catCount = 0
   if (isPlainRecord(xAxis) && Array.isArray(xAxis.data)) {
     const data = xAxis.data.map((value) =>
-      typeof value === 'string' && /^\d{4}-\d{2}-\d{2}/.test(value) ? shortDateLabel(value) : value
+      typeof value === 'string' && /^\d{4}-\d{2}-\d{2}/.test(value)
+        ? shortDateLabel(value, ctx?.language ?? 'fr')
+        : value
     )
     catCount = data.length
     const axisLabel = isPlainRecord(xAxis.axisLabel) ? { ...xAxis.axisLabel } : {}
@@ -1609,10 +1626,18 @@ const renderTable = (
       })
       .filter((index) => index >= 0)
   )
+  const dateCols = new Set(
+    block.columns
+      .map((col, index) => (isDateColumn(String(col)) ? index : -1))
+      .filter((index) => index >= 0)
+  )
   const head = block.columns
     .map((column, index) => {
-      const num = numericCols.has(index) ? ' class="num"' : ''
-      return `<th${num}>${escapeHtml(String(column))}</th>`
+      const classes: string[] = []
+      if (numericCols.has(index)) classes.push('num')
+      if (dateCols.has(index)) classes.push('date')
+      const cls = classes.length ? ` class="${classes.join(' ')}"` : ''
+      return `<th${cls}>${escapeHtml(String(column))}</th>`
     })
     .join('')
   const rows = block.rows
@@ -1625,6 +1650,7 @@ const renderTable = (
           const thr = thresholds.get(index)
           const classes: string[] = []
           if (numericCols.has(index)) classes.push('num')
+          if (dateCols.has(index)) classes.push('date')
           if (n != null && thr) {
             const high = n >= thr.hi
             const mid = n >= thr.midLo

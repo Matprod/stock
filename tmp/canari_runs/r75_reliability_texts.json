@@ -1,0 +1,18 @@
+{
+  "hamburg": {
+    "reliability": "Échantillon : 935 ligne(s) sur 8 jeu(x). Fenêtre demandée 2026-10-08→2026-10-14 ; 1 jeu(x) démarrent après le début, 1 s'arrêtent avant la fin. Valeurs écartées : 252 cellule(s) imputée(s) ou sentinelle (suspicious_default:performance_score=51@50%×120; sentinel:injury_risk_score=0×62; suspicious_default:kpi_maxacceleration=5@44%×46; constant:nb_matchs=1×13). Limite : srpe daily semble bloqué sur une valeur par défaut (0, ~60 % des lignes). Limite : kpi maxacceleration semble bloqué sur une valeur par défaut (5, ~44 % des lignes). Limite : energy rating sans valeurs. Limite : stress rating sans valeurs. Limite : wellbeing rating sans valeurs. Limite : sleep efficiency percentage sans valeurs. Limite : sleep consistency percentage sans valeurs. Limite : hours in bed sans valeurs. Limite : hours slow wave sans valeurs. Limite : hours rem sans valeurs.",
+    "measureNote": null
+  },
+  "individual": {
+    "reliability": "Échantillon : 420 ligne(s) sur 4 jeu(x). Fenêtre demandée 2026-03-01→2026-03-07 ; 0 jeu(x) démarrent après le début, 1 s'arrêtent avant la fin. Valeurs écartées : 154 cellule(s) imputée(s) ou sentinelle (sentinel:injury_risk_score=0×56; suspicious_default:kpi_maxacceleration=6@46%×32; suspicious_default:kpi_maxdeceleration=6@43%×30; suspicious_default:kpi_decelerationdistancez6rel=0@41%×28). Limite : energy rating sans valeurs. Limite : stress rating sans valeurs. Limite : wellbeing rating sans valeurs. Limite : kpi maxacceleration semble bloqué sur une valeur par défaut (6, ~46 % des lignes). Limite : kpi maxdeceleration semble bloqué sur une valeur par défaut (6, ~43 % des lignes). Limite : kpi decelerationdistancez6rel semble bloqué sur une valeur par défaut (0, ~41 % des lignes).",
+    "measureNote": null
+  },
+  "short": {
+    "reliability": "Échantillon : 64 ligne(s) sur 3 jeu(x). Valeurs écartées : 30 cellule(s) imputée(s) ou sentinelle (suspicious_default:kpi_maxacceleration=6@67%×16; suspicious_default:kpi_maxacceleration=6@80%×8; suspicious_default:kpi_maxdeceleration=8@60%×6). Limite : kpi maxacceleration semble bloqué sur une valeur par défaut (6, ~67 % des lignes). Limite : kpi maxacceleration semble bloqué sur une valeur par défaut (6, ~80 % des lignes). Limite : kpi maxdeceleration semble bloqué sur une valeur par défaut (8, ~60 % des lignes).",
+    "measureNote": "total distance substituée depuis les données (à la place de mesure affichée)."
+  },
+  "hard24": {
+    "reliability": "Échantillon : 465 ligne(s) sur 5 jeu(x). Fenêtre demandée 2026-03-01→2026-03-07 ; 0 jeu(x) démarrent après le début, 1 s'arrêtent avant la fin. Valeurs écartées : 154 cellule(s) imputée(s) ou sentinelle (sentinel:injury_risk_score=0×56; suspicious_default:kpi_maxacceleration=6@46%×32; suspicious_default:kpi_maxdeceleration=6@43%×30; suspicious_default:kpi_decelerationdistancez6rel=0@41%×28). Limite : kpi maxacceleration semble bloqué sur une valeur par défaut (6, ~46 % des lignes). Limite : kpi maxdeceleration semble bloqué sur une valeur par défaut (6, ~43 % des lignes). Limite : kpi decelerationdistancez6rel semble bloqué sur une valeur par défaut (0, ~41 % des lignes).",
+    "measureNote": null
+  }
+}

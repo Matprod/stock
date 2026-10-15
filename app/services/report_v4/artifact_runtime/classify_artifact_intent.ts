@@ -68,7 +68,7 @@ const boolFromUnknown = (value: unknown): boolean => {
   return false
 }
 
-export const flagsFromHaikuJson = (raw: Record<string, unknown>): ArtifactIntentFlags => ({
+const flagsFromHaikuJson = (raw: Record<string, unknown>): ArtifactIntentFlags => ({
   allAthletes: boolFromUnknown(raw.all_athletes),
   dropEmptyDays: boolFromUnknown(raw.drop_empty_days),
   wantsThresholds: boolFromUnknown(raw.wants_thresholds),
@@ -172,7 +172,7 @@ const classifyFlagsWithHaiku = async (prompt: string): Promise<ArtifactIntentFla
   return flagsFromHaikuJson(raw)
 }
 
-export const classifyArtifactIntentFlags = async (args: {
+const classifyArtifactIntentFlags = async (args: {
   prompt: string
   language?: AppLanguage
 }): Promise<{ flags: ArtifactIntentFlags; provider: IntentProvider }> => {

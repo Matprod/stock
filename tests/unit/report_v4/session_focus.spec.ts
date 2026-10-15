@@ -7,7 +7,7 @@ import {
   priorUserAsks,
   withAskRound,
 } from '#services/report_v4/session_focus'
-import { heuristicNeedsFetch } from '#services/report_v4/edit_route'
+import { needsFetchFromSignals } from '#services/report_v4/edit_route'
 
 test.group('report_v4 session_focus', () => {
   test('normalizeSessionFocus accepts domains + fetches', ({ assert }) => {
@@ -96,7 +96,7 @@ test.group('report_v4 session_focus', () => {
 test.group('report_v4 edit_route needsFetchFromSignals', () => {
   test('forces fetch for sessionFocus data ask and skips aesthetic', ({ assert }) => {
     assert.isTrue(
-      heuristicNeedsFetch({
+      needsFetchFromSignals({
         aesthetic: false,
         design: false,
         additive: false,
@@ -113,7 +113,7 @@ test.group('report_v4 edit_route needsFetchFromSignals', () => {
       })
     )
     assert.isFalse(
-      heuristicNeedsFetch({
+      needsFetchFromSignals({
         aesthetic: true,
         design: true,
         additive: false,

@@ -5,17 +5,26 @@ import { test } from '@japa/runner'
 import { PREMIUM_BLOCK_TYPE } from '#constants/premium_report.constants'
 import {
   buildDataProfileCanvasText,
-  datasetsFromFixtureDomainPacks,
   humanizeProfileReason,
   profileDataset,
   profileHarvestDatasets,
 } from '#services/report_v4/data_profiler'
 import { synthesizeReportBriefIfMissing } from '#services/report_v4/orchestrator_helpers'
+import type { PremiumDataset } from '#contracts/premium_report'
 
 const FIXTURE_PATH = join(
   fileURLToPath(new URL('../../..', import.meta.url)),
   'tmp/claude-artifact-fixture-2026-10-12.json'
 )
+
+const datasetsFromFixtureDomainPacks = (args: {
+  domains: Record<string, { rows?: Array<Record<string, unknown>>; rowCount?: number }>
+}): PremiumDataset[] =>
+  Object.entries(args.domains).map(([id, pack]) => {
+    const rows = Array.isArray(pack.rows) ? pack.rows : []
+    const columns = rows[0] ? Object.keys(rows[0]) : []
+    return { id, columns, rows }
+  })
 
 const loadFixtureDatasets = () => {
   const raw = JSON.parse(readFileSync(FIXTURE_PATH, 'utf8')) as {

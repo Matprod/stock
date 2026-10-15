@@ -1,4 +1,4 @@
-export type WellnessSleepSqlArgs = {
+type WellnessSleepSqlArgs = {
   clubId: string
   from: string
   to: string

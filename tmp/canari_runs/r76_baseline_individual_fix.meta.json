@@ -1,0 +1,443 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Fiches individuelles pour chaque joueur du groupe sur la période 2026-03-01 → 2026-03-07: wellness, GPS et scores. Une fiche par athlète avec graphiques essentiels.",
+  "durationSec": 140.714,
+  "iterations": 9,
+  "usage": {
+    "inputTokens": 89,
+    "outputTokens": 10359,
+    "cacheReadInputTokens": 86127,
+    "cacheCreationInputTokens": 113502,
+    "totalTokens": 10448,
+    "estimatedCostUsd": 0.607123
+  },
+  "iterationSecs": [
+    4.634,
+    6.233,
+    2.496,
+    3.459,
+    55.625,
+    11.917,
+    2.165,
+    39.093,
+    9.263
+  ],
+  "iterationCosts": [
+    0.074825,
+    0.085722,
+    0.010512,
+    0.015875,
+    0.193816,
+    0.109826,
+    0.011116,
+    0.084688,
+    0.020744
+  ],
+  "message": "Rapport refait entièrement. Rapport partiel : Joueurs demandés (partiel) — Joueurs manquants : Kofi Amoako, Fabio Baldé, Jean-Luc Dompé, Damion Downs, Daniel Elfadli, Robert Glatzel, Giorgi Gocholeishvili, Albert Grønbæk · Ordre des sections (partiel) — L’ordre des sections ne suit pas la demande",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    },
+    "fetchRange": {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    },
+    "domainRanges": {
+      "wellness": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 23,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 3,
+        "athletesWithData": 19,
+        "populated": true
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Fiches individuelles pour chaque joueur du groupe sur la période 2026-03-01 → 2026-03-07: wellness, GPS et scores. Une fiche par athlète avec graphiques essentiels.",
+    "domains": [
+      "gps",
+      "match",
+      "wellness",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "wellness",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Wellness data for individual player sheets"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "GPS data for individual player sheets"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Performance scores for individual player sheets"
+      },
+      {
+        "domain": "match",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+  },
+  "blockCount": 50,
+  "chartCount": 28,
+  "blockTitles": [
+    {
+      "id": "fe53ad8f-2346-48c6-ae92-50fd5bdf4537",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "d980b5ca-4384-4e68-8716-d893813c0330",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "5e9ec52f-a4ff-48a6-bbca-b5431d320b67",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "85ea2b92-d42c-4854-b29d-154e61a00eb7",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "2b074c38-efcb-478c-848d-21f6130808d1",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "010429f1-8101-48e4-b26b-554127f43178",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "3aef2559-29c2-4552-940e-23308f281c31",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "b0e858a4-d788-4615-b673-09876c1e411a",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "aa50b335-8c27-4bab-a93f-45164fe2793b",
+      "type": "chart",
+      "title": "body_soreness_rating"
+    },
+    {
+      "id": "dd6982c6-54ec-4bcd-88d0-19d21fb001df",
+      "type": "chart",
+      "title": "mood_rating"
+    },
+    {
+      "id": "2edd68fd-bf3c-49f3-a3bf-590226e85bd9",
+      "type": "chart",
+      "title": "kpi_distancez1abs"
+    },
+    {
+      "id": "21c9cd7e-d62a-4f7a-9984-c3c05abad332",
+      "type": "chart",
+      "title": "kpi_distancez2abs"
+    },
+    {
+      "id": "f400a4fd-9d00-4abd-b6f9-134b8cb8618c",
+      "type": "chart",
+      "title": "kpi_distancez2z6abs"
+    },
+    {
+      "id": "6bf33249-b9b1-4354-a567-72718a7f122f",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "b348be96-1b1f-493f-bc9f-d79656a0810e",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "17cbc62e-6edc-4c92-a234-911714bec932",
+      "type": "table",
+      "title": "Omar Megeed — summary"
+    },
+    {
+      "id": "d40471c2-976d-4572-81b7-d386d502ed9f",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "f8bc099f-e8c1-4eae-a7a1-7bad2e9e9d87",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "8a009fde-631a-4dcb-b46a-322a306d35c8",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "81b413f7-931a-4231-a287-cff00e4bfb6e",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "11454fcc-30fb-4c59-9495-7b294c047e27",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "9500debe-f6aa-4ca6-a5f1-5d076ba85746",
+      "type": "chart",
+      "title": "body_soreness_rating"
+    },
+    {
+      "id": "04ff8665-2496-44c5-bc03-1d9c6bfb1dfd",
+      "type": "chart",
+      "title": "mood_rating"
+    },
+    {
+      "id": "a38b4cb4-27f8-4645-aab1-a96c0ce72da3",
+      "type": "chart",
+      "title": "kpi_distancez1abs"
+    },
+    {
+      "id": "ff83d45d-6367-43a2-b815-a27de27a9556",
+      "type": "chart",
+      "title": "kpi_distancez2abs"
+    },
+    {
+      "id": "64d4cd3c-c951-454b-9cf6-84b4cc3d185e",
+      "type": "chart",
+      "title": "kpi_distancez2z6abs"
+    },
+    {
+      "id": "3764d83a-0aef-4606-82c1-bfff61227aa3",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "672cd473-2b30-44d7-a8be-ec6de7f081fc",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "17207845-bb00-4e21-9e37-19c3dfad2166",
+      "type": "chart",
+      "title": "nb_matchs"
+    },
+    {
+      "id": "412db90b-0cfb-4d8d-8351-e507b267915f",
+      "type": "chart",
+      "title": "minutes_played"
+    },
+    {
+      "id": "41f08fa3-8956-4a24-9549-924d59b64218",
+      "type": "chart",
+      "title": "total_distance"
+    },
+    {
+      "id": "eca56dec-074d-4dc5-89f8-a55f9bccf8b7",
+      "type": "table",
+      "title": "Jordan Torunarigha — summary"
+    },
+    {
+      "id": "0e2b1f74-f81a-491c-8416-22a9e10c656e",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "9f54757a-cf3c-473e-9f62-ca7c83f35afb",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "567cdac9-09f3-4741-bfc9-9277b3c8ff8a",
+      "type": "chart",
+      "title": "body_soreness_rating"
+    },
+    {
+      "id": "7580db24-890e-47d2-be4e-3e5f6a4774d4",
+      "type": "chart",
+      "title": "mood_rating"
+    },
+    {
+      "id": "9e9112f3-d92a-40a0-bce6-b693b5d91449",
+      "type": "chart",
+      "title": "kpi_distancez1abs"
+    },
+    {
+      "id": "11034793-6f1f-41bd-acf6-a81a62358e82",
+      "type": "chart",
+      "title": "kpi_distancez2abs"
+    },
+    {
+      "id": "c050d9d6-8236-40d6-9ecd-96794ee1b5df",
+      "type": "chart",
+      "title": "kpi_distancez2z6abs"
+    },
+    {
+      "id": "72e7713e-1944-45b8-ac61-4314c89f6e31",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "d74abce8-4bbf-403f-8536-f1da1c1d40d0",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "e64af40c-dbe7-478f-ba30-2b791d9118f2",
+      "type": "chart",
+      "title": "nb_matchs"
+    },
+    {
+      "id": "ba13eafe-2f96-4c3b-97fc-47dbf5c1e1b8",
+      "type": "chart",
+      "title": "minutes_played"
+    },
+    {
+      "id": "58c345ce-1e02-4356-bfae-c0159727fec1",
+      "type": "chart",
+      "title": "total_distance"
+    },
+    {
+      "id": "cfc8c92e-bf7c-4e37-a61b-dfdc62f75697",
+      "type": "table",
+      "title": "Luka Vušković — summary"
+    },
+    {
+      "id": "315bbc66-54e6-443f-be66-f55af7196520",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "7a3fd268-8621-40bf-984a-76b1322d4eeb",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "5abc9168-a976-4653-9432-66fbe410cc59",
+      "type": "chart",
+      "title": "body_soreness_rating"
+    },
+    {
+      "id": "reliability-h-49",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-50",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": false,
+  "pdfError": null,
+  "repairHits": [
+    4.634,
+    6.233,
+    2.496,
+    3.459,
+    55.625,
+    11.917,
+    2.165,
+    39.093,
+    9.263
+  ]
+}

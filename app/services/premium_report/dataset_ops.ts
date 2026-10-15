@@ -7,7 +7,7 @@ import type { PremiumDataset } from '#contracts/premium_report'
 import type { PremiumDomain } from '#constants/premium_report_domains'
 import type { PremiumReportState } from '#services/premium_report/premium_report_tools'
 
-export type DatasetToolResultOptions = {
+type DatasetToolResultOptions = {
   sampleRows?: number
 }
 
@@ -33,7 +33,7 @@ const IDENTITY_COLUMNS = new Set([
 const copyMeta = (
   dataset: PremiumDataset,
   columns?: string[]
-): Pick<PremiumDataset, 'units' | 'labels'> => {
+): Pick<PremiumDataset, 'units' | 'labels' | 'domain'> => {
   const filterMap = (map?: Record<string, string>) => {
     if (!map || Object.keys(map).length === 0) return undefined
     if (!columns) return { ...map }
@@ -47,14 +47,24 @@ const copyMeta = (
   return {
     ...(units ? { units } : {}),
     ...(labels ? { labels } : {}),
+    ...(dataset.domain ? { domain: dataset.domain } : {}),
   }
+}
+
+const nextAutoDatasetId = (state: PremiumReportState): string => {
+  let n = 1
+  while (state.datasets.has(`ds_${n}`)) n += 1
+  return `ds_${n}`
 }
 
 export const storeDataset = (
   state: PremiumReportState,
   dataset: PremiumDataset
 ): PremiumDataset => {
-  const id = `ds_${state.datasets.size + 1}`
+  const id =
+    dataset.id === 'roster' && !state.datasets.has('roster')
+      ? 'roster'
+      : nextAutoDatasetId(state)
   const stored = {
     ...dataset,
     id,
@@ -105,7 +115,7 @@ export const requireDataset = (
   return dataset
 }
 
-export const columnMissingError = (column: string, available: string[]): string =>
+const columnMissingError = (column: string, available: string[]): string =>
   JSON.stringify({
     error: `Column '${column}' not found in dataset.`,
     available_columns: available,
@@ -157,7 +167,7 @@ const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/
 const isIsoDate = (value: string | undefined): value is string =>
   Boolean(value && ISO_DATE_RE.test(value))
 
-export const clampDateRange = (
+const clampDateRange = (
   requested: { from: string; to: string },
   allowed: { from: string; to: string }
 ): { from: string; to: string } => {
@@ -255,6 +265,14 @@ export const stampDatasetDateRange = (
   return dataset
 }
 
+export const stampDatasetDomain = (
+  dataset: PremiumDataset,
+  domain: PremiumDomain | undefined
+): PremiumDataset => {
+  if (domain) dataset.domain = domain
+  return dataset
+}
+
 export const readString = (value: unknown): string | undefined => {
   if (typeof value !== 'string') return undefined
   const trimmed = value.trim()
@@ -289,7 +307,7 @@ export const toNumber = (value: unknown): number | null => {
   return null
 }
 
-export const readFilterValue = (
+const readFilterValue = (
   raw: unknown
 ): { kind: 'string'; value: string } | { kind: 'number'; value: number } | null => {
   if (typeof raw === 'number' && Number.isFinite(raw)) return { kind: 'number', value: raw }
@@ -345,7 +363,7 @@ export const formatDisplayCell = (
   return String(value)
 }
 
-export type ColumnStats = {
+type ColumnStats = {
   mean: number
   median: number
   min: number
@@ -815,7 +833,7 @@ export const dropEmptyMetricDays = (
   }
 }
 
-export const isEmptyMetricColumn = (dataset: PremiumDataset, column: string): boolean => {
+const isEmptyMetricColumn = (dataset: PremiumDataset, column: string): boolean => {
   if (IDENTITY_COLUMNS.has(column.toLowerCase())) return false
   for (const row of dataset.rows) {
     const raw = row[column]
@@ -853,6 +871,19 @@ export const pruneEmptyMetricColumns = (
   }
 
   if (dropped.length === 0) return { dataset, dropped }
+  const keep = new Set(columns)
+  const imputed = dataset.imputed?.map((marks) => {
+    if (!marks) return undefined
+    const next: Record<string, string> = {}
+    for (const [column, reason] of Object.entries(marks)) {
+      if (keep.has(column)) next[column] = reason
+    }
+    return Object.keys(next).length ? next : undefined
+  })
+  const imputedExcludedCount = imputed?.reduce(
+    (sum, row) => sum + (row ? Object.keys(row).length : 0),
+    0
+  )
   return {
     dataset: {
       id: dataset.id,
@@ -863,6 +894,8 @@ export const pruneEmptyMetricColumns = (
         return next
       }),
       ...copyMeta(dataset, columns),
+      ...(imputed?.some(Boolean) ? { imputed } : {}),
+      ...(imputedExcludedCount ? { imputedExcludedCount } : {}),
     },
     dropped,
   }
@@ -964,7 +997,7 @@ export const normalizeIsoDate = (value: unknown, yearHint?: number): string | nu
   return null
 }
 
-export const compareIsoDateKeys = (left: unknown, right: unknown): number => {
+const compareIsoDateKeys = (left: unknown, right: unknown): number => {
   const a = normalizeIsoDate(left)
   const b = normalizeIsoDate(right)
   if (a && b) return a < b ? -1 : a > b ? 1 : 0
@@ -992,9 +1025,19 @@ export const uniqueSortedIsoDates = (
   return [...keys].sort()
 }
 
-export const formatIsoDateLabel = (isoDate: string): string => {
+export const formatIsoDateLabel = (
+  isoDate: string,
+  language: 'fr' | 'en' = 'fr'
+): string => {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(isoDate)
-  return match ? `${match[3]}/${match[2]}` : isoDate
+  if (!match) return isoDate
+  const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])))
+  return date.toLocaleDateString(language === 'fr' ? 'fr-FR' : 'en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    timeZone: 'UTC',
+  })
 }
 
 const enumerateIsoDays = (from: string, to: string): string[] => {

@@ -18,8 +18,6 @@ export {
   artifactContractsFromIntent,
   envelopeFromContracts,
   markLineValuesFromContracts,
-  resolveArtifactContracts,
-  resolveArtifactEnvelope,
   resolveArtifactEnvelopeAsync,
   wantsDropEmptyDays,
   type ArtifactIntentFlags,

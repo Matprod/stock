@@ -1,0 +1,443 @@
+{
+  "clubId": "019fa7cc-684c-783e-9609-c132a26eb4e3",
+  "prompt": "Fiches individuelles pour 24 joueurs du groupe sur la période 2026-03-01 → 2026-03-07: wellness, GPS et scores. Une fiche par athlète.",
+  "durationSec": 232.843,
+  "iterations": 14,
+  "usage": {
+    "inputTokens": 524,
+    "outputTokens": 18726,
+    "cacheReadInputTokens": 230787,
+    "cacheCreationInputTokens": 132640,
+    "totalTokens": 19250,
+    "estimatedCostUsd": 0.8490979999999999
+  },
+  "iterationSecs": [
+    3.901,
+    6.706,
+    2.086,
+    3.973,
+    8.726,
+    3.948,
+    13.283,
+    8.578,
+    34.642,
+    41.892,
+    15.919,
+    1.504,
+    74.143,
+    8.409
+  ],
+  "iterationCosts": [
+    0.053763,
+    0.087023,
+    0.010835,
+    0.015857,
+    0.058119,
+    0.061102,
+    0.035521,
+    0.075794,
+    0.066569,
+    0.079474,
+    0.120252,
+    0.005665,
+    0.144594,
+    0.034529
+  ],
+  "message": "Rapport refait entièrement. Rapport partiel : Joueurs demandés (partiel) — Joueurs manquants : Kofi Amoako, Alexander Røssing-Lelesiit, Emir Sahiti",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    },
+    "fetchRange": {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    },
+    "domainRanges": {
+      "wellness": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 7,
+        "athletesWithData": 23,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "match",
+        "daysWithData": 3,
+        "athletesWithData": 19,
+        "populated": true
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 7,
+        "athletesWithData": 24,
+        "populated": true
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 4,
+        "athletesWithData": 4,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "gps",
+      "match",
+      "wellness",
+      "sleep",
+      "scores",
+      "injury"
+    ],
+    "emptyDomains": [
+      "vald",
+      "biomarkers",
+      "body"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Fiches individuelles pour 24 joueurs du groupe sur la période 2026-03-01 → 2026-03-07: wellness, GPS et scores. Une fiche par athlète.",
+    "domains": [
+      "gps",
+      "match",
+      "wellness",
+      "scores"
+    ],
+    "fetches": [
+      {
+        "domain": "wellness",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Wellness data for 24 players"
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "GPS data for 24 players"
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "label": "Scores data for 24 players"
+      },
+      {
+        "domain": "match",
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+  },
+  "blockCount": 47,
+  "chartCount": 28,
+  "blockTitles": [
+    {
+      "id": "3a66cc61-ba2f-4a59-8346-c4b951102aff",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "4031e697-3d73-4116-a17f-963f565d894a",
+      "type": "chart",
+      "title": "Distance totale"
+    },
+    {
+      "id": "00bf2e31-9014-403a-8238-0fa6627d2934",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "5bbec72f-b45a-4454-86e8-5dcbdc428992",
+      "type": "chart",
+      "title": "Minutes jouées"
+    },
+    {
+      "id": "fc8282bd-b566-43be-89aa-ea9d225c3a78",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "88c58e7b-ffff-4023-b27c-8cff81c2ce0e",
+      "type": "chart",
+      "title": "Douleurs musculaires (moyenne)"
+    },
+    {
+      "id": "33a7807c-e557-48d0-82d9-4f014882128d",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "52a62a76-0598-4da3-8285-498d4717e214",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "0cf6c8fa-5741-4cdc-b748-7d8e77c4232a",
+      "type": "chart",
+      "title": "HMLD"
+    },
+    {
+      "id": "7662f03a-e389-4091-b7fb-d971525ac95c",
+      "type": "chart",
+      "title": "Distance explosive (absolue)"
+    },
+    {
+      "id": "56a70d04-ef1f-4020-ba17-bec3c188fb0f",
+      "type": "chart",
+      "title": "Course à haute vitesse (absolue)"
+    },
+    {
+      "id": "c7951f91-75fe-49f4-b519-ae3d055ea547",
+      "type": "chart",
+      "title": "Distance totale (match)"
+    },
+    {
+      "id": "5f2a2b17-23d8-42fe-a957-9559a059631a",
+      "type": "chart",
+      "title": "Distance de sprint (match)"
+    },
+    {
+      "id": "5acb53dd-53bc-4a18-88af-8f3c119390c6",
+      "type": "chart",
+      "title": "Humeur (moyenne)"
+    },
+    {
+      "id": "6c87d743-7669-46ff-8a8f-bd060f629cc2",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "a88560f7-05d9-4a9b-a077-f2303d5af07f",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "7b850654-f84e-4b9c-8085-d6ace7710413",
+      "type": "table",
+      "title": "Scores moyens – période"
+    },
+    {
+      "id": "733ee14f-e85d-460a-9c22-5ec86cc195be",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "c7384bf0-c543-4f41-9c7f-eebbc9845189",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "9dcf6c13-08e8-494a-9c4a-20c7b310195b",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "c890dc09-def0-49a9-a25c-41fc06ed7428",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "e124a646-8aa7-4150-90f9-0ba5e40d6b48",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "71cbdbe1-8e01-4133-b64e-a4c70734756b",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "921c2f6e-bc21-4e56-b6e6-1e7a1a8b1936",
+      "type": "chart",
+      "title": "body_soreness_rating"
+    },
+    {
+      "id": "5b0980ed-efa0-4b7f-9a7e-658273031e51",
+      "type": "chart",
+      "title": "mood_rating"
+    },
+    {
+      "id": "3b329f50-d9a3-4607-b29c-225b447ab80f",
+      "type": "chart",
+      "title": "kpi_distancez1abs"
+    },
+    {
+      "id": "adc37183-906c-4fe9-aaec-73624c25c9cf",
+      "type": "chart",
+      "title": "kpi_distancez2abs"
+    },
+    {
+      "id": "82c13442-6588-4f42-a2b3-5d48763422f1",
+      "type": "chart",
+      "title": "kpi_distancez2z6abs"
+    },
+    {
+      "id": "ee9e33cc-be31-4f3d-bc7f-fb4c2e3c0e97",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "88c1dd3a-88d4-4054-a99c-fc27dd62bea0",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "cac1b3fb-5001-4c75-97ad-02637c3a559f",
+      "type": "table",
+      "title": "Omar Megeed — summary"
+    },
+    {
+      "id": "8c79bca6-dec5-484f-8f0c-1983f1e68f2c",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "e0a94a0b-e98b-4640-aec1-9dbaf3c9820e",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "aca4fae2-d81e-4e27-83ae-8e4e054637a4",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "aeaffc1d-f892-417f-914a-c28b1d5c6def",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "24f97e16-475b-42c1-8b6c-4ecc13e80b5c",
+      "type": "chart",
+      "title": "body_soreness_rating"
+    },
+    {
+      "id": "e8e16558-b890-4fab-9344-a8d31da7f98b",
+      "type": "chart",
+      "title": "mood_rating"
+    },
+    {
+      "id": "977ede69-ae53-479c-bdec-26010d39477e",
+      "type": "chart",
+      "title": "kpi_distancez1abs"
+    },
+    {
+      "id": "1709160d-db00-49da-be33-eb1f70ccba46",
+      "type": "chart",
+      "title": "kpi_distancez2abs"
+    },
+    {
+      "id": "76706ca3-0c8e-489e-b27a-8983766b9205",
+      "type": "chart",
+      "title": "kpi_distancez2z6abs"
+    },
+    {
+      "id": "def7c379-70fa-4e5c-9beb-797b43dff7b3",
+      "type": "chart",
+      "title": "Score de performance"
+    },
+    {
+      "id": "2dd09e03-4149-4e5f-9407-4b0566fe81aa",
+      "type": "chart",
+      "title": "Score de risque de blessure"
+    },
+    {
+      "id": "6f3c1c15-7e4b-47d1-aa3f-3f5b065ecbff",
+      "type": "chart",
+      "title": "nb_matchs"
+    },
+    {
+      "id": "3496ed82-e021-4301-98c8-fae996fb82d8",
+      "type": "chart",
+      "title": "minutes_played"
+    },
+    {
+      "id": "8d5ef6a9-2bcf-4fac-9d81-2958177c22c0",
+      "type": "chart",
+      "title": "total_distance"
+    },
+    {
+      "id": "reliability-h-46",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-47",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": false,
+  "pdfError": null,
+  "repairHits": [
+    3.901,
+    6.706,
+    2.086,
+    3.973,
+    8.726,
+    3.948,
+    13.283,
+    8.578,
+    34.642,
+    41.892,
+    15.919,
+    1.504,
+    74.143,
+    8.409
+  ]
+}

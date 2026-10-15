@@ -4,9 +4,13 @@ import {
   buildDataProfileCanvasText,
   type HarvestDataProfile,
 } from '#services/report_v4/data_profiler'
+import {
+  formatImputedExclusionLine,
+  type ImputedMarkSummary,
+} from '#services/report_v4/imputed_cells'
 import type { AppLanguage } from '#utils/localize'
 
-export type DataReliabilityReport = {
+type DataReliabilityReport = {
   title: string
   body: string
   sampleRows: number
@@ -15,11 +19,14 @@ export type DataReliabilityReport = {
   emptyDomains: string[]
   unusableDomains: string[]
   coverageNote?: string
+  imputedExcludedCount?: number
 }
 
 export const buildDataReliabilityReport = (
   profile: HarvestDataProfile,
-  language: AppLanguage
+  language: AppLanguage,
+  imputedSummary?: ImputedMarkSummary | null,
+  missingAthletes?: string[]
 ): DataReliabilityReport => {
   const canvas = buildDataProfileCanvasText(profile, language)
   const sampleRows = profile.datasets.reduce((sum, row) => sum + row.rowCount, 0)
@@ -45,7 +52,20 @@ export const buildDataReliabilityReport = (
       ? `Échantillon : ${sampleRows} ligne(s) sur ${profile.datasets.length} jeu(x).`
       : `Sample: ${sampleRows} row(s) across ${profile.datasets.length} dataset(s).`
 
-  const bodyParts = [sampleLine, coverageNote, canvas.body].filter(Boolean)
+  const imputedLine = imputedSummary
+    ? formatImputedExclusionLine(imputedSummary, language === 'en' ? 'en' : 'fr')
+    : null
+
+  const missingLine =
+    missingAthletes && missingAthletes.length > 0
+      ? language === 'fr'
+        ? `Joueurs sans données sur la période (hors watchlist) : ${missingAthletes.slice(0, 12).join(', ')}${missingAthletes.length > 12 ? '…' : ''}.`
+        : `Athletes with no period data (not watchlist): ${missingAthletes.slice(0, 12).join(', ')}${missingAthletes.length > 12 ? '…' : ''}.`
+      : null
+
+  const bodyParts = [sampleLine, coverageNote, missingLine, imputedLine, canvas.body].filter(
+    Boolean
+  )
   return {
     title: language === 'fr' ? 'Fiabilité des données' : 'Data reliability',
     body: bodyParts.join(' '),
@@ -55,6 +75,9 @@ export const buildDataReliabilityReport = (
     emptyDomains: profile.emptyDomains.map(String),
     unusableDomains: profile.unusableDomains.map(String),
     coverageNote,
+    ...(imputedSummary
+      ? { imputedExcludedCount: imputedSummary.excludedCellCount }
+      : {}),
   }
 }
 
@@ -63,7 +86,8 @@ const RELIABILITY_TITLE_RE = /fiabilit[eé] des donn[eé]es|data reliability|ce 
 export const ensureDataReliabilityBlocks = (
   document: PremiumReportDocument,
   profile: HarvestDataProfile,
-  language: AppLanguage
+  language: AppLanguage,
+  imputedSummary?: ImputedMarkSummary | null
 ): { document: PremiumReportDocument; inserted: boolean } => {
   const already = document.blocks.some(
     (block) =>
@@ -72,7 +96,7 @@ export const ensureDataReliabilityBlocks = (
   )
   if (already) return { document, inserted: false }
 
-  const report = buildDataReliabilityReport(profile, language)
+  const report = buildDataReliabilityReport(profile, language, imputedSummary)
   const headingId = `reliability-h-${document.blocks.length + 1}`
   const textId = `reliability-t-${document.blocks.length + 2}`
   return {

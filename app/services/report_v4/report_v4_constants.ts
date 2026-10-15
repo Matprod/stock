@@ -3,9 +3,6 @@ import {
   PREMIUM_LINE_MAX_ATHLETES,
   type PremiumCanvasAskKind,
 } from '#constants/premium_report.constants'
-import { PREMIUM_DOMAIN, type PremiumDomain } from '#constants/premium_report_domains'
-import { envFlag } from '#services/report_v4/env_flag'
-import { escapeHtml as escapeHtmlUtil, foldKey as foldKeyUtil } from '#utils/html_text'
 
 export const REPORT_V4_LINKER_MAX_ITERATIONS = 14
 export const REPORT_V4_LINKER_MIN_ITERATIONS = 3
@@ -21,7 +18,6 @@ export const REPORT_V4_ANALYST_MIN_ITERATIONS_DEEP = 5
 export const REPORT_V4_ANALYST_FORCE_ANSWER_AT = 14
 
 export const REPORT_V4_SHORT_WINDOW_DAYS = 7
-export const REPORT_V4_MAX_FETCH_LOOKBACK_BEFORE_DISPLAY = 45
 export const REPORT_V4_ANALYST_MAX_ITERATIONS_SHORT = 12
 export const REPORT_V4_ANALYST_MIN_ITERATIONS_SHORT = 3
 export const REPORT_V4_ANALYST_FORCE_ANSWER_AT_SHORT = 10
@@ -38,10 +34,6 @@ export const REPORT_V4_TEMPERATURE = 0.3
 
 export const REPORT_V4_MAX_CHARTS = 64
 export const REPORT_V4_MAX_BLOCKS = 200
-export const REPORT_V4_MIN_CHARTS = 2
-export const REPORT_V4_MIN_TABLES = 1
-export const REPORT_V4_MIN_CHARTS_SHORT = 1
-export const REPORT_V4_MIN_TABLES_SHORT = 0
 
 export const REPORT_V4_SOFT_LINKER_MAX_ITERATIONS = 5
 export const REPORT_V4_SOFT_LINKER_MIN_ITERATIONS = 1
@@ -52,125 +44,32 @@ export const REPORT_V4_SOFT_ANALYST_FORCE_ANSWER_AT = 3
 export const REPORT_V4_SOFT_ANALYST_ADDITIVE_MAX_ITERATIONS = 6
 export const REPORT_V4_SOFT_ANALYST_ADDITIVE_FORCE_ANSWER_AT = 5
 
-export const REPORT_V4_LINKER_CONTINUE =
-  'HarvestPlan incomplete. Call the remaining domain macros (load→build_load_summary on Load lookback; scores→fetch_daily_scores; gps→fetch_gps_intensity_daily; match→fetch_match_stats_daily then fetch_match_stats; injury→fetch_injuries; wellness/sleep/biomarkers/vald/body as listed). Empty once = OK then move on. Do not invent ACWR on empty load. Then end_turn.'
-
-export const REPORT_V4_ANALYST_CONTINUE =
-  'Canvas still below the soft floor for THIS ask. Reuse datasetIds. Add only what the coach asked (comparators / cross-domain when relevant). Units on axes. commit_report_brief. Do not pad a staff monitoring pack.'
-
-export const REPORT_V4_ANALYST_RECOVERY_CONTINUE =
-  'RECOVERY: below soft floor. No free SQL. Macros + datasetIds. Reach ≥2 charts and ≥1 table that answer THIS coach ask — do not invent a full briefing. commit_report_brief. Then end_turn.'
-
-export const softAnalystContinueForAsk = (opts?: {
-  additive?: boolean
-  restoreSheets?: boolean
-  addSectionProse?: boolean
-  layoutRepair?: boolean
-  enrichExistingCharts?: boolean
-}): string => {
-  if (opts?.layoutRepair) {
-    return [
-      'Soft LAYOUT REPAIR (Virtual DOM): prior blocks are unlocked (reshape).',
-      'Pair each athlete with THEIR charts: update_block titles with athlete name, remove_block orphan stacked headings, add_chart only if a sheet is missing a metric.',
-      'Never leave a list of athlete headings above a single shared chart. Keep mutating until each athlete sheet is self-contained, then end_turn.',
-    ].join(' ')
-  }
-  if (opts?.enrichExistingCharts) {
-    return [
-      'Soft ENRICH existing charts (Virtual DOM): prior blocks unlocked for reshape.',
-      'update_block(id, datasetId, values) on existing individual/focus chart ids — do not spam add_chart duplicates.',
-      'Fetch every asked domain first. Keep mutating until energy/soreness (or named metrics) appear on the target charts, then end_turn.',
-    ].join(' ')
-  }
-  if (opts?.additive || opts?.restoreSheets || opts?.addSectionProse) {
-    const goals: string[] = []
-    if (opts.restoreSheets) {
-      goals.push(
-        'Restore individual athlete sheets: add_heading + add_chart/add_text per athlete (use live datasetIds; splitAthletes or athletes:[...] as needed)'
-      )
-    }
-    if (opts.addSectionProse) {
-      goals.push(
-        'Add grounded add_text captions under each major chart/section the coach asked to annotate (not one global heading)'
-      )
-    }
-    if (opts?.additive && goals.length === 0) {
-      goals.push('Complete every additive part of the coach ask with add_*/update_block')
-    }
-    return [
-      'Soft ADDITIVE edit (Virtual DOM): keep prior layout; mutate by exact block.id; add_* for new content.',
-      goals.join('. ') + '.',
-      'Do NOT end_turn after a single tool — keep mutating until the coach ask is covered, then end_turn. Never omit id.',
-    ].join(' ')
-  }
-  return 'Soft edit (Virtual DOM): mutate by exact block.id from current only (update_block / remove_block / filter_block / charts_to_team with ids / add_*). After ONE successful mutation → end_turn. Never omit id.'
-}
-
-export const REPORT_V4_DESIGNER_CONTINUE =
-  'Artifact HTML not set. get_design_context then set_report_html with a full HTML document hosting every requiredChartIds entry. After one set_report_html rejection, call build_artifact_html.'
-
 export const REPORT_V4_CHART_CHUNK = PREMIUM_LINE_MAX_ATHLETES
 export const REPORT_V4_BAR_CHUNK_HORIZONTAL = 12
 export const REPORT_V4_BAR_CHUNK_VERTICAL = 8
-export const REPORT_V4_MAX_INLINE_PHOTOS = 8
 
 export const REPORT_V4_LEAN_WINDOW_DAYS = 14
 export const REPORT_V4_MS_PER_DAY = 86_400_000
-export const REPORT_V4_COVERAGE_MIN_DAYS = 2
-export const REPORT_V4_COVERAGE_MIN_ATHLETES = 2
 
-export const REPORT_V4_DATA_PROFILE_DEFAULT_SHARE = 0.4
-export const REPORT_V4_SQL_ROW_CAP_HINT = 10_000
-
-export const REPORT_V4_GROUNDING_TOKENIZER_ENABLED = false
-export const REPORT_V4_GROUNDING_YEAR_MIN = 1990
-export const REPORT_V4_GROUNDING_YEAR_MAX = 2100
-export const REPORT_V4_GROUNDING_COUNT_NOUNS = [
-  'joueur',
-  'joueurs',
-  'athlète',
-  'athlètes',
-  'athlete',
-  'athletes',
-  'player',
-  'players',
-  'blessure',
-  'blessures',
-  'injury',
-  'injuries',
-  'semaine',
-  'semaines',
-  'week',
-  'weeks',
-  'match',
-  'matches',
-  'session',
-  'sessions',
-  'jour',
-  'jours',
-  'day',
-  'days',
-] as const
-
-export const REPORT_V4_REPAIR_ENABLED = false
-export const REPORT_V4_REPAIR_MAX_ROUNDS = 2
-export const REPORT_V4_REPAIR_PROSE_DROP_RATIO = 0.3
-
-export const isReportV4StaffComponentsEnabled = (): boolean =>
-  envFlag('REPORT_V4_STAFF_COMPONENTS', true)
-
-export const REPORT_V4_PROMPT_MAX = 48_000
 export const REPORT_V4_ISO_DATE_PATTERN = '^\\d{4}-\\d{2}-\\d{2}$'
 
-export const REPORT_V4_MAX_HTML_BYTES = 2_500_000
+export const REPORT_V4_DATA_PROFILE_DEFAULT_SHARE = 0.4
+
+export const REPORT_V4_IMPUTED_DISPLAY = '—'
+
+export const REPORT_V4_IMPUTED_SENTINELS: ReadonlyArray<{
+  column: RegExp
+  value: number
+  reason: string
+}> = [
+  // Hamburg/Sunderland ML mid-scale when features are missing (Hard24 HTML ×13 at 50; fixture scores ~51)
+  { column: /performance_score/i, value: 50, reason: 'sentinel:performance_score=50' },
+  // Model/db injury-risk floor when no elevated signal (Hard24 HTML risk cells often 0)
+  { column: /injury_risk_score/i, value: 0, reason: 'sentinel:injury_risk_score=0' },
+]
+
 export const ARTIFACT_MIN_HTML_BYTES = 400
 
-export const REPORT_V4_PRESIGN_CONCURRENCY = 8
-
-export const REPORT_V4_A4_VIEWPORT = { width: 794, height: 1123 }
-export const REPORT_V4_PDF_TIMEOUT_MS = 15_000
-export const REPORT_V4_CHARTS_READY_MS = 12_000
-export const REPORT_V4_ALLOWED_FETCH_MS = 8_000
 export const REPORT_V4_PDF_ALLOWED_HOST_SUFFIXES = ['amazonaws.com'] as const
 
 export const REPORT_DESIGN_PACK_IDS = ['mauna', 'clinical', 'editorial'] as const
@@ -197,94 +96,9 @@ export const REPORT_V4_MICRO_EDIT_KINDS = new Set<PremiumCanvasAskKind>([
   PREMIUM_CANVAS_ASK.NONE,
 ])
 
-export const REPORT_V4_RANGE_SEP = String.raw`(?:to|->|→|⇒|–|-|—)`
-
-export const REPORT_V4_DOMAIN_ALIASES: Array<{ domain: PremiumDomain; aliases: string[] }> = [
-  {
-    domain: PREMIUM_DOMAIN.SCORES,
-    aliases: [
-      'scores?',
-      'score',
-      'performance_score',
-      'injury_risk_score',
-      'performance scores?',
-      'injury risk',
-    ],
-  },
-  {
-    domain: PREMIUM_DOMAIN.BIOMARKERS,
-    aliases: ['biomarkers?', 'creatine kinase', 'creatine_kinase', 'ferritin', 'cortisol'],
-  },
-  {
-    domain: PREMIUM_DOMAIN.WELLNESS,
-    aliases: ['wellness', 'readiness', 'soreness', 'subjective', 'mood', 'energy', 'stress'],
-  },
-  { domain: PREMIUM_DOMAIN.SLEEP, aliases: ['sleep', 'hrv'] },
-  {
-    domain: PREMIUM_DOMAIN.GPS,
-    aliases: ['gps', 'hsr', 'sprint', 'distance', 'accel', 'decel', 'cod'],
-  },
-  {
-    domain: PREMIUM_DOMAIN.LOAD,
-    aliases: ['load', 'acwr', 'srpe', 'rpe', 'monotony', 'strain'],
-  },
-  {
-    domain: PREMIUM_DOMAIN.MATCH,
-    aliases: [
-      'match',
-      'matches',
-      'skillcorner',
-      'competition',
-      'game',
-      'minutes_played',
-      'tackles',
-      'box_score',
-    ],
-  },
-  {
-    domain: PREMIUM_DOMAIN.VALD,
-    aliases: [
-      'tests?',
-      'trials?',
-      'test_type',
-      'cmj',
-      'countermovement',
-      'drop[- ]?jump',
-      'single[- ]?leg',
-      'jump(?:s|ing)?',
-      'rsi',
-      'rfd',
-      'asymmetr(?:y|ies)',
-      'force[- ]?testing',
-      'strength[- ]?tests?',
-    ],
-  },
-  {
-    domain: PREMIUM_DOMAIN.BODY,
-    aliases: ['body', 'composition', 'body.?comp', 'weight', 'fat\\s*%?', 'anthropo'],
-  },
-  {
-    domain: PREMIUM_DOMAIN.INJURY,
-    aliases: [
-      'injuries',
-      'injury.?log',
-      'injury.?history',
-      'injured',
-      'availability',
-      'rehab',
-      'return.?to.?play',
-      'rtp',
-      'time.?loss',
-    ],
-  },
-]
-
-export const windowDayCount = (from: string, to: string): number => {
+export const windowDayCount = (from: string, to: string): number | null => {
   const a = Date.parse(`${from}T12:00:00Z`)
   const b = Date.parse(`${to}T12:00:00Z`)
-  if (!Number.isFinite(a) || !Number.isFinite(b) || b < a) return REPORT_V4_LEAN_WINDOW_DAYS
+  if (!Number.isFinite(a) || !Number.isFinite(b) || b < a) return null
   return Math.round((b - a) / REPORT_V4_MS_PER_DAY) + 1
 }
-
-export const escapeHtml = escapeHtmlUtil
-export const foldKey = foldKeyUtil

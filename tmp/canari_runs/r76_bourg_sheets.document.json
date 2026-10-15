@@ -1,0 +1,4444 @@
+{
+  "title": "Fiches individuelles — Bourg-En-Bresse",
+  "dateRange": {
+    "from": "2026-10-07",
+    "to": "2026-10-14"
+  },
+  "blocks": [
+    {
+      "id": "457a3d8e-527f-4a9b-b06a-4a7abee704ef",
+      "type": "heading",
+      "text": "GPS",
+      "level": 1
+    },
+    {
+      "id": "4ceeee13-db11-4565-8dd1-9095cd2bbfbc",
+      "type": "chart",
+      "title": "Movement load — Total période",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Movement load"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 8,
+          "top": 36,
+          "bottom": 16,
+          "right": 72
+        },
+        "maunaBarOrientation": "horizontal",
+        "xAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "yAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "Movement load",
+            "type": "bar",
+            "encode": {
+              "y": "Joueur",
+              "x": "Movement load"
+            },
+            "barMaxWidth": 18,
+            "itemStyle": {
+              "borderRadius": [
+                0,
+                4,
+                4,
+                0
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Energy consumption carbs (kcal)",
+              "Energy consumption fats (kcal)",
+              "Epoc final (ml/kg)",
+              "Epoc peak (ml/kg)",
+              "Hf average",
+              "Lf average",
+              "Lf hf ratio",
+              "Movement load",
+              "Rmssd (ms)",
+              "Trimp",
+              "Zone 1 time (min)",
+              "Zone 2 time (min)",
+              "Zone 5 Time"
+            ],
+            [
+              "Adrian Nelson",
+              5,
+              2110,
+              1659,
+              40,
+              252,
+              1772.3,
+              4715.1,
+              1690,
+              910,
+              77.5,
+              349,
+              99,
+              99,
+              null
+            ],
+            [
+              "Nathan Soliman",
+              5,
+              2379,
+              1977,
+              77,
+              190,
+              568.2,
+              2064.6,
+              2820.3,
+              884,
+              43.5,
+              357,
+              131,
+              110,
+              null
+            ],
+            [
+              "Trey Woodbury",
+              5,
+              1940,
+              1512,
+              40,
+              261,
+              777.3,
+              1592,
+              1447.2,
+              942,
+              46.1,
+              379,
+              111,
+              98,
+              null
+            ],
+            [
+              "Kadin Shedrick",
+              5,
+              1997,
+              1598,
+              27,
+              177,
+              2268.1,
+              5634.7,
+              1700,
+              853,
+              86.8,
+              273,
+              80,
+              51,
+              null
+            ],
+            [
+              "Tyrese Samuel",
+              5,
+              1967,
+              1467,
+              40,
+              241,
+              1390.4,
+              2695.1,
+              1495.1,
+              883,
+              80,
+              282,
+              96,
+              56,
+              null
+            ],
+            [
+              "Assemian Moularé",
+              4,
+              1541,
+              1353,
+              27,
+              150,
+              561.5,
+              1676.2,
+              1664.9,
+              877,
+              39.9,
+              283,
+              101,
+              98,
+              null
+            ],
+            [
+              "Lionel Gaudoux",
+              5,
+              1784,
+              1390,
+              23,
+              201,
+              522.7,
+              2215.3,
+              2316.2,
+              760,
+              49.5,
+              260,
+              109,
+              67,
+              null
+            ],
+            [
+              "Antony Labanca",
+              3,
+              1000,
+              830,
+              29,
+              80,
+              222.4,
+              813.6,
+              1117.3,
+              422,
+              28.2,
+              167,
+              80,
+              52,
+              null
+            ],
+            [
+              "Hugo Robineau",
+              1,
+              336,
+              251,
+              8,
+              62,
+              237.1,
+              663.1,
+              483.9,
+              70,
+              19.8,
+              45,
+              21,
+              8,
+              null
+            ],
+            [
+              "Keith Jordan",
+              5,
+              1704,
+              1436,
+              36,
+              186,
+              520.4,
+              1814.4,
+              1732.6,
+              880,
+              52.3,
+              293,
+              105,
+              89,
+              null
+            ],
+            [
+              "Tyger Campbell",
+              2,
+              756,
+              451,
+              101,
+              164,
+              771,
+              2412.7,
+              729.3,
+              334,
+              31.1,
+              152,
+              29,
+              23,
+              null
+            ]
+          ]
+        },
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "7a5a99f0-e875-4de8-aab1-4da79c928f13",
+      "type": "chart",
+      "title": "TRIMP — Total période",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Trimp"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 8,
+          "top": 36,
+          "bottom": 16,
+          "right": 72
+        },
+        "maunaBarOrientation": "horizontal",
+        "xAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "yAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "Trimp",
+            "type": "bar",
+            "encode": {
+              "y": "Joueur",
+              "x": "Trimp"
+            },
+            "barMaxWidth": 18,
+            "itemStyle": {
+              "borderRadius": [
+                0,
+                4,
+                4,
+                0
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Energy consumption carbs (kcal)",
+              "Energy consumption fats (kcal)",
+              "Epoc final (ml/kg)",
+              "Epoc peak (ml/kg)",
+              "Hf average",
+              "Lf average",
+              "Lf hf ratio",
+              "Movement load",
+              "Rmssd (ms)",
+              "Trimp",
+              "Zone 1 time (min)",
+              "Zone 2 time (min)",
+              "Zone 5 Time"
+            ],
+            [
+              "Adrian Nelson",
+              5,
+              2110,
+              1659,
+              40,
+              252,
+              1772.3,
+              4715.1,
+              1690,
+              910,
+              77.5,
+              349,
+              99,
+              99,
+              null
+            ],
+            [
+              "Nathan Soliman",
+              5,
+              2379,
+              1977,
+              77,
+              190,
+              568.2,
+              2064.6,
+              2820.3,
+              884,
+              43.5,
+              357,
+              131,
+              110,
+              null
+            ],
+            [
+              "Trey Woodbury",
+              5,
+              1940,
+              1512,
+              40,
+              261,
+              777.3,
+              1592,
+              1447.2,
+              942,
+              46.1,
+              379,
+              111,
+              98,
+              null
+            ],
+            [
+              "Kadin Shedrick",
+              5,
+              1997,
+              1598,
+              27,
+              177,
+              2268.1,
+              5634.7,
+              1700,
+              853,
+              86.8,
+              273,
+              80,
+              51,
+              null
+            ],
+            [
+              "Tyrese Samuel",
+              5,
+              1967,
+              1467,
+              40,
+              241,
+              1390.4,
+              2695.1,
+              1495.1,
+              883,
+              80,
+              282,
+              96,
+              56,
+              null
+            ],
+            [
+              "Assemian Moularé",
+              4,
+              1541,
+              1353,
+              27,
+              150,
+              561.5,
+              1676.2,
+              1664.9,
+              877,
+              39.9,
+              283,
+              101,
+              98,
+              null
+            ],
+            [
+              "Lionel Gaudoux",
+              5,
+              1784,
+              1390,
+              23,
+              201,
+              522.7,
+              2215.3,
+              2316.2,
+              760,
+              49.5,
+              260,
+              109,
+              67,
+              null
+            ],
+            [
+              "Antony Labanca",
+              3,
+              1000,
+              830,
+              29,
+              80,
+              222.4,
+              813.6,
+              1117.3,
+              422,
+              28.2,
+              167,
+              80,
+              52,
+              null
+            ],
+            [
+              "Hugo Robineau",
+              1,
+              336,
+              251,
+              8,
+              62,
+              237.1,
+              663.1,
+              483.9,
+              70,
+              19.8,
+              45,
+              21,
+              8,
+              null
+            ],
+            [
+              "Keith Jordan",
+              5,
+              1704,
+              1436,
+              36,
+              186,
+              520.4,
+              1814.4,
+              1732.6,
+              880,
+              52.3,
+              293,
+              105,
+              89,
+              null
+            ],
+            [
+              "Tyger Campbell",
+              2,
+              756,
+              451,
+              101,
+              164,
+              771,
+              2412.7,
+              729.3,
+              334,
+              31.1,
+              152,
+              29,
+              23,
+              null
+            ]
+          ]
+        },
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "48648ecb-f1ee-4d51-b2c4-8fe4daa91aae",
+      "type": "chart",
+      "title": "EPOC final — Total période",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Epoc final (ml/kg)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 8,
+          "top": 36,
+          "bottom": 16,
+          "right": 72
+        },
+        "maunaBarOrientation": "horizontal",
+        "xAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "yAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "Epoc final (ml/kg)",
+            "type": "bar",
+            "encode": {
+              "y": "Joueur",
+              "x": "Epoc final (ml/kg)"
+            },
+            "barMaxWidth": 18,
+            "itemStyle": {
+              "borderRadius": [
+                0,
+                4,
+                4,
+                0
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Energy consumption carbs (kcal)",
+              "Energy consumption fats (kcal)",
+              "Epoc final (ml/kg)",
+              "Epoc peak (ml/kg)",
+              "Hf average",
+              "Lf average",
+              "Lf hf ratio",
+              "Movement load",
+              "Rmssd (ms)",
+              "Trimp",
+              "Zone 1 time (min)",
+              "Zone 2 time (min)",
+              "Zone 5 Time"
+            ],
+            [
+              "Adrian Nelson",
+              5,
+              2110,
+              1659,
+              40,
+              252,
+              1772.3,
+              4715.1,
+              1690,
+              910,
+              77.5,
+              349,
+              99,
+              99,
+              null
+            ],
+            [
+              "Nathan Soliman",
+              5,
+              2379,
+              1977,
+              77,
+              190,
+              568.2,
+              2064.6,
+              2820.3,
+              884,
+              43.5,
+              357,
+              131,
+              110,
+              null
+            ],
+            [
+              "Trey Woodbury",
+              5,
+              1940,
+              1512,
+              40,
+              261,
+              777.3,
+              1592,
+              1447.2,
+              942,
+              46.1,
+              379,
+              111,
+              98,
+              null
+            ],
+            [
+              "Kadin Shedrick",
+              5,
+              1997,
+              1598,
+              27,
+              177,
+              2268.1,
+              5634.7,
+              1700,
+              853,
+              86.8,
+              273,
+              80,
+              51,
+              null
+            ],
+            [
+              "Tyrese Samuel",
+              5,
+              1967,
+              1467,
+              40,
+              241,
+              1390.4,
+              2695.1,
+              1495.1,
+              883,
+              80,
+              282,
+              96,
+              56,
+              null
+            ],
+            [
+              "Assemian Moularé",
+              4,
+              1541,
+              1353,
+              27,
+              150,
+              561.5,
+              1676.2,
+              1664.9,
+              877,
+              39.9,
+              283,
+              101,
+              98,
+              null
+            ],
+            [
+              "Lionel Gaudoux",
+              5,
+              1784,
+              1390,
+              23,
+              201,
+              522.7,
+              2215.3,
+              2316.2,
+              760,
+              49.5,
+              260,
+              109,
+              67,
+              null
+            ],
+            [
+              "Antony Labanca",
+              3,
+              1000,
+              830,
+              29,
+              80,
+              222.4,
+              813.6,
+              1117.3,
+              422,
+              28.2,
+              167,
+              80,
+              52,
+              null
+            ],
+            [
+              "Hugo Robineau",
+              1,
+              336,
+              251,
+              8,
+              62,
+              237.1,
+              663.1,
+              483.9,
+              70,
+              19.8,
+              45,
+              21,
+              8,
+              null
+            ],
+            [
+              "Keith Jordan",
+              5,
+              1704,
+              1436,
+              36,
+              186,
+              520.4,
+              1814.4,
+              1732.6,
+              880,
+              52.3,
+              293,
+              105,
+              89,
+              null
+            ],
+            [
+              "Tyger Campbell",
+              2,
+              756,
+              451,
+              101,
+              164,
+              771,
+              2412.7,
+              729.3,
+              334,
+              31.1,
+              152,
+              29,
+              23,
+              null
+            ]
+          ]
+        },
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "76486bd6-398f-4937-9d5e-c3838b6ef99f",
+      "type": "chart",
+      "title": "RMSSD — Total période",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Rmssd (ms)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 8,
+          "top": 36,
+          "bottom": 16,
+          "right": 72
+        },
+        "maunaBarOrientation": "horizontal",
+        "xAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "yAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "Rmssd (ms)",
+            "type": "bar",
+            "encode": {
+              "y": "Joueur",
+              "x": "Rmssd (ms)"
+            },
+            "barMaxWidth": 18,
+            "itemStyle": {
+              "borderRadius": [
+                0,
+                4,
+                4,
+                0
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Energy consumption carbs (kcal)",
+              "Energy consumption fats (kcal)",
+              "Epoc final (ml/kg)",
+              "Epoc peak (ml/kg)",
+              "Hf average",
+              "Lf average",
+              "Lf hf ratio",
+              "Movement load",
+              "Rmssd (ms)",
+              "Trimp",
+              "Zone 1 time (min)",
+              "Zone 2 time (min)",
+              "Zone 5 Time"
+            ],
+            [
+              "Adrian Nelson",
+              5,
+              2110,
+              1659,
+              40,
+              252,
+              1772.3,
+              4715.1,
+              1690,
+              910,
+              77.5,
+              349,
+              99,
+              99,
+              null
+            ],
+            [
+              "Nathan Soliman",
+              5,
+              2379,
+              1977,
+              77,
+              190,
+              568.2,
+              2064.6,
+              2820.3,
+              884,
+              43.5,
+              357,
+              131,
+              110,
+              null
+            ],
+            [
+              "Trey Woodbury",
+              5,
+              1940,
+              1512,
+              40,
+              261,
+              777.3,
+              1592,
+              1447.2,
+              942,
+              46.1,
+              379,
+              111,
+              98,
+              null
+            ],
+            [
+              "Kadin Shedrick",
+              5,
+              1997,
+              1598,
+              27,
+              177,
+              2268.1,
+              5634.7,
+              1700,
+              853,
+              86.8,
+              273,
+              80,
+              51,
+              null
+            ],
+            [
+              "Tyrese Samuel",
+              5,
+              1967,
+              1467,
+              40,
+              241,
+              1390.4,
+              2695.1,
+              1495.1,
+              883,
+              80,
+              282,
+              96,
+              56,
+              null
+            ],
+            [
+              "Assemian Moularé",
+              4,
+              1541,
+              1353,
+              27,
+              150,
+              561.5,
+              1676.2,
+              1664.9,
+              877,
+              39.9,
+              283,
+              101,
+              98,
+              null
+            ],
+            [
+              "Lionel Gaudoux",
+              5,
+              1784,
+              1390,
+              23,
+              201,
+              522.7,
+              2215.3,
+              2316.2,
+              760,
+              49.5,
+              260,
+              109,
+              67,
+              null
+            ],
+            [
+              "Antony Labanca",
+              3,
+              1000,
+              830,
+              29,
+              80,
+              222.4,
+              813.6,
+              1117.3,
+              422,
+              28.2,
+              167,
+              80,
+              52,
+              null
+            ],
+            [
+              "Hugo Robineau",
+              1,
+              336,
+              251,
+              8,
+              62,
+              237.1,
+              663.1,
+              483.9,
+              70,
+              19.8,
+              45,
+              21,
+              8,
+              null
+            ],
+            [
+              "Keith Jordan",
+              5,
+              1704,
+              1436,
+              36,
+              186,
+              520.4,
+              1814.4,
+              1732.6,
+              880,
+              52.3,
+              293,
+              105,
+              89,
+              null
+            ],
+            [
+              "Tyger Campbell",
+              2,
+              756,
+              451,
+              101,
+              164,
+              771,
+              2412.7,
+              729.3,
+              334,
+              31.1,
+              152,
+              29,
+              23,
+              null
+            ]
+          ]
+        },
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "b1c80821-2ff4-4665-be3b-2708d2d1ea83",
+      "type": "heading",
+      "text": "Match",
+      "level": 1
+    },
+    {
+      "id": "794b37be-c7b5-49b0-8468-c83b673f7c0c",
+      "type": "text",
+      "text": "Aucune donnée match disponible pour cette période."
+    },
+    {
+      "id": "02bd8a6e-309b-4dfe-9b3c-d06b1cd00815",
+      "type": "heading",
+      "text": "Wellness",
+      "level": 1
+    },
+    {
+      "id": "8d76d389-7d32-4049-b098-d4efaeb36e00_g1",
+      "type": "chart",
+      "title": "Profil wellness — Moyennes période (1/2)",
+      "option": {
+        "legend": {
+          "show": false
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 48,
+          "bottom": 56,
+          "right": 48
+        },
+        "maunaBarOrientation": "vertical",
+        "xAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true,
+            "rotate": 30
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "Humeur",
+            "type": "bar",
+            "encode": {
+              "x": "Joueur",
+              "y": "Humeur"
+            },
+            "barMaxWidth": 22,
+            "itemStyle": {
+              "borderRadius": [
+                4,
+                4,
+                0,
+                0
+              ]
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 4.019,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 4,02",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "Stress",
+            "type": "bar",
+            "encode": {
+              "x": "Joueur",
+              "y": "Stress"
+            },
+            "barMaxWidth": 22,
+            "itemStyle": {
+              "borderRadius": [
+                4,
+                4,
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "name": "Wellbeing Rating",
+            "type": "bar",
+            "encode": {
+              "x": "Joueur",
+              "y": "Wellbeing Rating"
+            },
+            "barMaxWidth": 22,
+            "itemStyle": {
+              "borderRadius": [
+                4,
+                4,
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "name": "Énergie",
+            "type": "bar",
+            "encode": {
+              "x": "Joueur",
+              "y": "Énergie"
+            },
+            "barMaxWidth": 22,
+            "itemStyle": {
+              "borderRadius": [
+                4,
+                4,
+                0,
+                0
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Énergie",
+              "Humeur",
+              "Stress",
+              "Wellbeing Rating"
+            ],
+            [
+              "Adrian Nelson",
+              6,
+              4.833,
+              5,
+              5,
+              4.833
+            ],
+            [
+              "Nathan  Soliman",
+              6,
+              3.8,
+              3.8,
+              5,
+              3.8
+            ],
+            [
+              "Tyson Walker",
+              2,
+              5,
+              5,
+              5,
+              5
+            ],
+            [
+              "Hugo Robineau",
+              2,
+              4.5,
+              5,
+              5,
+              5
+            ],
+            [
+              "Lionel Gaudoux",
+              6,
+              3.833,
+              3.833,
+              4,
+              3.833
+            ],
+            [
+              "Tyrese Samuel",
+              6,
+              3.667,
+              3.5,
+              3.833,
+              3.833
+            ]
+          ]
+        },
+        "maunaLayout": "auto",
+        "visualMap": {
+          "type": "piecewise",
+          "show": true,
+          "min": 1,
+          "max": 5,
+          "calculable": false,
+          "orient": "horizontal",
+          "top": 2,
+          "left": "center",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 10,
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "dimension": 3,
+          "pieces": [
+            {
+              "min": 1,
+              "max": 2.333333333333333,
+              "color": "#ef4444",
+              "label": "Worse"
+            },
+            {
+              "min": 2.333333333333333,
+              "max": 3.6666666666666665,
+              "color": "#eab308",
+              "label": "Mid"
+            },
+            {
+              "min": 3.6666666666666665,
+              "max": 5,
+              "color": "#22c55e",
+              "label": "Better"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "8d76d389-7d32-4049-b098-d4efaeb36e00_g2",
+      "type": "chart",
+      "title": "Profil wellness — Moyennes période (2/2)",
+      "option": {
+        "legend": {
+          "show": false
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 48,
+          "bottom": 56,
+          "right": 48
+        },
+        "maunaBarOrientation": "vertical",
+        "xAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true,
+            "rotate": 30
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "Humeur",
+            "type": "bar",
+            "encode": {
+              "x": "Joueur",
+              "y": "Humeur"
+            },
+            "barMaxWidth": 22,
+            "itemStyle": {
+              "borderRadius": [
+                4,
+                4,
+                0,
+                0
+              ]
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 4.019,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 4,02",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "Stress",
+            "type": "bar",
+            "encode": {
+              "x": "Joueur",
+              "y": "Stress"
+            },
+            "barMaxWidth": 22,
+            "itemStyle": {
+              "borderRadius": [
+                4,
+                4,
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "name": "Wellbeing Rating",
+            "type": "bar",
+            "encode": {
+              "x": "Joueur",
+              "y": "Wellbeing Rating"
+            },
+            "barMaxWidth": 22,
+            "itemStyle": {
+              "borderRadius": [
+                4,
+                4,
+                0,
+                0
+              ]
+            }
+          },
+          {
+            "name": "Énergie",
+            "type": "bar",
+            "encode": {
+              "x": "Joueur",
+              "y": "Énergie"
+            },
+            "barMaxWidth": 22,
+            "itemStyle": {
+              "borderRadius": [
+                4,
+                4,
+                0,
+                0
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Énergie",
+              "Humeur",
+              "Stress",
+              "Wellbeing Rating"
+            ],
+            [
+              "Trey  Woodbury",
+              6,
+              4,
+              3.5,
+              3.667,
+              3.5
+            ],
+            [
+              "Kadin Shedrick",
+              6,
+              null,
+              4.333,
+              4.5,
+              5
+            ],
+            [
+              "Antony Labanca",
+              6,
+              3.25,
+              3.5,
+              3.5,
+              3.25
+            ],
+            [
+              "Assemian Moularé",
+              7,
+              3.143,
+              2.429,
+              4,
+              2.857
+            ],
+            [
+              "Tyger Campbell",
+              4,
+              null,
+              5,
+              5,
+              4.75
+            ],
+            [
+              "Keith  Jordan",
+              6,
+              2.5,
+              3.333,
+              3,
+              3
+            ]
+          ]
+        },
+        "maunaLayout": "auto",
+        "visualMap": {
+          "type": "piecewise",
+          "show": true,
+          "min": 1,
+          "max": 5,
+          "calculable": false,
+          "orient": "horizontal",
+          "top": 2,
+          "left": "center",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 10,
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "dimension": 3,
+          "pieces": [
+            {
+              "min": 1,
+              "max": 2.333333333333333,
+              "color": "#ef4444",
+              "label": "Worse"
+            },
+            {
+              "min": 2.333333333333333,
+              "max": 3.6666666666666665,
+              "color": "#eab308",
+              "label": "Mid"
+            },
+            {
+              "min": 3.6666666666666665,
+              "max": 5,
+              "color": "#22c55e",
+              "label": "Better"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "e3829069-a03d-41d2-8120-14110247aade",
+      "type": "text",
+      "text": "Échelles wellness (1–5): valeurs élevées = positif pour humeur, stress, bien-être et énergie. Données de douleur musculaire non disponibles pour cette période."
+    },
+    {
+      "id": "81cd5a79-a506-4f26-a419-ffc95ea0cc9a",
+      "type": "heading",
+      "text": "Outliers",
+      "level": 1
+    },
+    {
+      "id": "1cf91833-ba3a-4757-8528-18baca7735ad",
+      "type": "table",
+      "title": "Joueurs à surveiller — Bien-être moyen le plus bas",
+      "columns": [
+        "Joueur",
+        "Wellbeing Rating",
+        "Humeur",
+        "Stres",
+        "ÉNergie"
+      ],
+      "rows": [
+        [
+          "Assemian Moularé",
+          "2,86",
+          "2,43",
+          "4",
+          "3,14"
+        ],
+        [
+          "Keith  Jordan",
+          "3",
+          "3,33",
+          "3",
+          "2,5"
+        ],
+        [
+          "Antony Labanca",
+          "3,25",
+          "3,5",
+          "3,5",
+          "3,25"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "6d4dcc08-c720-4504-99e9-b51d9b314a52",
+      "type": "text",
+      "text": "Assemian Moularé et Keith Jordan présentent les scores de bien-être et d'humeur les plus bas de l'effectif sur la période. À surveiller dans les fiches individuelles."
+    },
+    {
+      "id": "2fbb5ab0-87f3-4c26-bd2a-3251157b3649",
+      "type": "heading",
+      "text": "Kadin Shedrick",
+      "level": 2
+    },
+    {
+      "id": "1a5b77b1-f316-44f8-bded-117fdb58aeb8",
+      "type": "text",
+      "text": "RMSSD total le plus élevé (86.8 ms), signe de bonne variabilité cardiaque. Wellness excellent (bien-être 5/5). Récupération optimale."
+    },
+    {
+      "id": "0eadb294-e20f-4682-abb0-38dd429ac243",
+      "type": "chart",
+      "title": "energy_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Énergie"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Énergie",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Énergie",
+            "type": "line",
+            "data": [
+              null,
+              5,
+              null,
+              null,
+              5,
+              3
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "b1123f17-9216-47bb-bf35-064d30524550",
+      "type": "chart",
+      "title": "mood_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Humeur"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Humeur",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Humeur",
+            "type": "line",
+            "data": [
+              4,
+              5,
+              5,
+              4,
+              5,
+              3
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "ea10a21b-696a-4ea3-b0ff-cdafce6fdc60",
+      "type": "chart",
+      "title": "stress_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Stress"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Stress",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Stress",
+            "type": "line",
+            "data": [
+              5,
+              5,
+              5,
+              4,
+              5,
+              3
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "36c70999-b593-42cf-8b7c-8be95df46283",
+      "type": "table",
+      "title": "Kadin Shedrick — summary",
+      "columns": [
+        "Date",
+        "ÉNergie",
+        "Humeur",
+        "Stres"
+      ],
+      "rows": [
+        [
+          "2026-10-08",
+          "4",
+          "4",
+          "5"
+        ],
+        [
+          "2026-10-09",
+          "5",
+          "5",
+          "5"
+        ],
+        [
+          "2026-10-10",
+          "4",
+          "5",
+          "5"
+        ],
+        [
+          "2026-10-11",
+          "4",
+          "4",
+          "4"
+        ],
+        [
+          "2026-10-13",
+          null,
+          "5",
+          "5"
+        ],
+        [
+          "2026-10-14",
+          "3",
+          "3",
+          "3"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "0371af58-b58a-4347-a693-695628f0f6c6",
+      "type": "heading",
+      "text": "Lionel Gaudoux",
+      "level": 2
+    },
+    {
+      "id": "3930c3a6-f02b-4ad6-91ba-6a2fe2bd54c5",
+      "type": "text",
+      "text": "Volumes GPS modérés. Wellness moyen (humeur et bien-être 3.8/5). Aucun signal d'alerte."
+    },
+    {
+      "id": "1fe00428-371f-4f48-85b6-b9cb7e262472",
+      "type": "chart",
+      "title": "energy_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Énergie"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Énergie",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Énergie",
+            "type": "line",
+            "data": [
+              null,
+              null,
+              null,
+              null,
+              3,
+              null
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "e71fe0a6-2802-4d28-9831-d106a62fe2fb",
+      "type": "chart",
+      "title": "mood_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Humeur"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Humeur",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Humeur",
+            "type": "line",
+            "data": [
+              4,
+              4,
+              4,
+              4,
+              3,
+              4
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "e59c50dd-3a25-4dc8-928e-44221144318a",
+      "type": "chart",
+      "title": "stress_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Stress"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Stress",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Stress",
+            "type": "line",
+            "data": [
+              4,
+              4,
+              4,
+              4,
+              4,
+              4
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "37de3d00-16a9-4509-bb95-e7722d0fed63",
+      "type": "table",
+      "title": "Lionel Gaudoux — summary",
+      "columns": [
+        "Date",
+        "ÉNergie",
+        "Humeur",
+        "Stres"
+      ],
+      "rows": [
+        [
+          "2026-10-08",
+          "4",
+          "4",
+          "4"
+        ],
+        [
+          "2026-10-09",
+          "4",
+          "4",
+          "4"
+        ],
+        [
+          "2026-10-10",
+          "4",
+          "4",
+          "4"
+        ],
+        [
+          "2026-10-11",
+          "4",
+          "4",
+          "4"
+        ],
+        [
+          "2026-10-13",
+          null,
+          "3",
+          "4"
+        ],
+        [
+          "2026-10-14",
+          "4",
+          "4",
+          "4"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "2dbcb2ce-0de6-4b86-a056-ffa81ebbeb46",
+      "type": "heading",
+      "text": "Tyger Campbell",
+      "level": 2
+    },
+    {
+      "id": "77194e5f-95f5-409a-9e4f-9f6e3a0b27ec",
+      "type": "text",
+      "text": "EPOC final très élevé le 12/10 (74 ml/kg). Scores wellness excellents (humeur et stress à 5/5). Charge bien tolérée."
+    },
+    {
+      "id": "f70cb47b-9e96-46b0-9494-7e038925d3aa",
+      "type": "chart",
+      "title": "energy_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Énergie"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Énergie",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Énergie",
+            "type": "line",
+            "data": [
+              5,
+              3,
+              null,
+              2
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "a2c889a3-ca13-4d0e-91a6-6e7b9643eb0c",
+      "type": "chart",
+      "title": "mood_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Humeur"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Humeur",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Humeur",
+            "type": "line",
+            "data": [
+              5,
+              5,
+              5,
+              5
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "0c43fa3e-6d28-442a-9de4-a36f9618c503",
+      "type": "chart",
+      "title": "stress_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Stress"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Stress",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Stress",
+            "type": "line",
+            "data": [
+              5,
+              5,
+              5,
+              5
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "99abe574-954a-4af6-8589-c8ad6784fb27",
+      "type": "table",
+      "title": "Tyger Campbell — summary",
+      "columns": [
+        "Date",
+        "ÉNergie",
+        "Humeur",
+        "Stres"
+      ],
+      "rows": [
+        [
+          "2026-10-10",
+          "5",
+          "5",
+          "5"
+        ],
+        [
+          "2026-10-11",
+          "3",
+          "5",
+          "5"
+        ],
+        [
+          "2026-10-13",
+          "4",
+          "5",
+          "5"
+        ],
+        [
+          "2026-10-14",
+          "2",
+          "5",
+          "5"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "6905a573-cdeb-4410-8884-d7b30f86af40",
+      "type": "heading",
+      "text": "Tyson Walker",
+      "level": 2
+    },
+    {
+      "id": "61aee412-b71a-4470-b58a-1a3b71d258ac",
+      "type": "chart",
+      "title": "energy_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Énergie"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Énergie",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Énergie",
+            "type": "line",
+            "data": [
+              5,
+              5
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "636d882e-5d47-481a-b8a9-b8700c12743c",
+      "type": "chart",
+      "title": "mood_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Humeur"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Humeur",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Humeur",
+            "type": "line",
+            "data": [
+              5,
+              5
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "81fd22cc-faa0-4778-bf6f-41c293bef7bc",
+      "type": "chart",
+      "title": "stress_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Stress"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Stress",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Stress",
+            "type": "line",
+            "data": [
+              5,
+              5
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "dbf694ae-6e70-4adc-af1b-7fd42c97a387",
+      "type": "table",
+      "title": "Tyson Walker — summary",
+      "columns": [
+        "Date",
+        "ÉNergie",
+        "Humeur",
+        "Stres"
+      ],
+      "rows": [
+        [
+          "2026-10-08",
+          "5",
+          "5",
+          "5"
+        ],
+        [
+          "2026-10-09",
+          "5",
+          "5",
+          "5"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "540309ce-9479-4eb9-83e9-f0dfc1063c91",
+      "type": "heading",
+      "text": "Adrian Nelson",
+      "level": 2
+    },
+    {
+      "id": "1759bb3d-9e15-49d5-8ae2-a3ace758ceaa",
+      "type": "text",
+      "text": "Volumes GPS élevés (TRIMP total 349, movement load 910). Wellness optimal (humeur 5/5, bien-être 4.8/5). Bonne adaptation à la charge."
+    },
+    {
+      "id": "bb21a24a-f3d0-4a85-b97f-11fc44fdecd2",
+      "type": "chart",
+      "title": "energy_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Énergie"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Énergie",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Énergie",
+            "type": "line",
+            "data": [
+              5,
+              5,
+              5,
+              5,
+              null,
+              5
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "44221e8f-5fa3-4606-ad4e-df54856d2a02",
+      "type": "chart",
+      "title": "mood_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Humeur"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Humeur",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Humeur",
+            "type": "line",
+            "data": [
+              5,
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "76ca1ff0-0ae7-4b0e-96db-c557077bb4e8",
+      "type": "chart",
+      "title": "stress_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Stress"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Stress",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Stress",
+            "type": "line",
+            "data": [
+              5,
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "991107a3-46a3-4671-8cd3-2127f4513da7",
+      "type": "table",
+      "title": "Adrian Nelson — summary",
+      "columns": [
+        "Date",
+        "ÉNergie",
+        "Humeur",
+        "Stres"
+      ],
+      "rows": [
+        [
+          "2026-10-08",
+          "5",
+          "5",
+          "5"
+        ],
+        [
+          "2026-10-09",
+          "5",
+          "5",
+          "5"
+        ],
+        [
+          "2026-10-10",
+          "5",
+          "5",
+          "5"
+        ],
+        [
+          "2026-10-11",
+          "5",
+          "5",
+          "5"
+        ],
+        [
+          "2026-10-13",
+          null,
+          "5",
+          "5"
+        ],
+        [
+          "2026-10-14",
+          "5",
+          "5",
+          "5"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "793ecdb4-738c-4e23-8bf9-73742e2e182d",
+      "type": "heading",
+      "text": "Nathan Soliman",
+      "level": 2
+    },
+    {
+      "id": "54961dac-60d4-4dde-809a-e78be4faf8be",
+      "type": "text",
+      "text": "EPOC final élevé le 13/10 (35 ml/kg). Wellness correct (stress 5/5, humeur et bien-être 3.8/5). Suivi de la récupération recommandé."
+    },
+    {
+      "id": "0a468acf-83a0-467f-8baf-b9f95f8707c3",
+      "type": "heading",
+      "text": "Tyrese Samuel",
+      "level": 2
+    },
+    {
+      "id": "0e584e96-1567-44aa-9c27-28ada1362fbe",
+      "type": "text",
+      "text": "Charge GPS équilibrée (movement load 883, TRIMP 282). RMSSD élevé (80 ms). Wellness stable. Profil équilibré."
+    },
+    {
+      "id": "6e67a695-85f1-484f-a27f-4550f3f23a32",
+      "type": "chart",
+      "title": "energy_rating",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Énergie"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Énergie",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Énergie",
+            "type": "line",
+            "data": [
+              3,
+              null,
+              null,
+              null,
+              null,
+              3
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "missing-match-49",
+      "type": "text",
+      "text": "No match data for the selected period."
+    },
+    {
+      "id": "reliability-h-50",
+      "type": "heading",
+      "text": "Fiabilité des données",
+      "level": 2
+    },
+    {
+      "id": "reliability-t-51",
+      "type": "text",
+      "text": "Échantillon : 120 ligne(s) sur 3 jeu(x). Fenêtre demandée 2026-10-07→2026-10-14 ; 1 jeu(x) démarrent après le début, 1 s'arrêtent avant la fin. Valeurs écartées : 60 cellule(s) imputée(s) ou sentinelle (suspicious_default:zone5_time=0@78%×35; suspicious_default:energy_rating=4@42%×25). Limite : zone5 time semble bloqué sur une valeur par défaut (0, ~78 % des lignes). Limite : body soreness rating sans valeurs. Limite : energy rating semble bloqué sur une valeur par défaut (4, ~42 % des lignes)."
+    }
+  ]
+}

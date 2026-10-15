@@ -25,7 +25,7 @@ export type ClubMetricCatalog = {
   rpeNames: string[]
 }
 
-export type ClubMetricCatalogDateRange = IsoDateRange
+type ClubMetricCatalogDateRange = IsoDateRange
 
 const CACHE_TTL_MS = 60_000
 const MAX_CATALOG_SPAN_DAYS = 90

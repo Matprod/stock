@@ -1,0 +1,36 @@
+[
+  {
+    "athlete_id": "019fa7d4-89c6-7091-8b8c-937b7dcf239f",
+    "first_name": "Jean-Luc",
+    "last_name": "Dompé",
+    "date_of_day": "2026-03-06T23:00:00.000Z",
+    "metric_name": "training_rpe",
+    "metric_id": "019fb884-fd8b-74a5-a138-c58f3994693c",
+    "rpe_value": "30",
+    "minutes": "121.00",
+    "srpe_product": "3630.0",
+    "sources": [
+      "statsports"
+    ],
+    "sample_activity_id": "019ff098-5cfc-7b74-9d87-d533d2bc3ef3",
+    "health_metric_value_id": "01a016ed-56ed-76fa-be49-bca222723020",
+    "health_rating_id": "019fb8c8-d81e-7345-9ab1-755b8d5ba6a3"
+  },
+  {
+    "athlete_id": "019fa7d4-93fe-7181-9059-23023c410924",
+    "first_name": "Luka",
+    "last_name": "Vušković",
+    "date_of_day": "2026-03-06T23:00:00.000Z",
+    "metric_name": "training_rpe",
+    "metric_id": "019fb884-fd8b-74a5-a138-c58f3994693c",
+    "rpe_value": "30",
+    "minutes": "121.00",
+    "srpe_product": "3630.0",
+    "sources": [
+      "statsports"
+    ],
+    "sample_activity_id": "019ff098-7259-7cb5-aacf-35daeffab08e",
+    "health_metric_value_id": "01a016ed-aa97-7592-9557-fe4c1efe1418",
+    "health_rating_id": "019fb8c1-83a3-7c2d-b7b8-7ff7e25c1de6"
+  }
+]

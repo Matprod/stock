@@ -1,0 +1,85 @@
+{
+  "title": "GPS Distance totale — Top 10",
+  "dateRange": {
+    "from": "2026-03-01",
+    "to": "2026-03-07"
+  },
+  "blocks": [
+    {
+      "id": "9a814bfe-0a56-46e5-9ef7-907eb64faae7",
+      "type": "table",
+      "title": "Top 10 — Distance GPS totale (1–7 mars 2026)",
+      "columns": [
+        "Joueur",
+        "Distance per minute (m/min)",
+        "Acceleration time zone 1 (relative)"
+      ],
+      "rows": [
+        [
+          "Nicolai Remberg",
+          "368",
+          "12,7"
+        ],
+        [
+          "Daniel Elfadli",
+          "361",
+          "9,8"
+        ],
+        [
+          "Miro Muheim",
+          "353",
+          "10,3"
+        ],
+        [
+          "Philip Otele",
+          "343",
+          "9,3"
+        ],
+        [
+          "Jordan Torunarigha",
+          "338",
+          "11,1"
+        ],
+        [
+          "Noah Katterbach",
+          "327",
+          "9,2"
+        ],
+        [
+          "Ransford Königsdörffer",
+          "325",
+          "9,9"
+        ],
+        [
+          "Luka Vušković",
+          "322",
+          "11,2"
+        ],
+        [
+          "Fabio Baldé",
+          "316",
+          "8,4"
+        ],
+        [
+          "William Mikelbrencis",
+          "311",
+          "9,5"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "reliability-h-2",
+      "type": "heading",
+      "text": "Fiabilité des données",
+      "level": 2
+    },
+    {
+      "id": "reliability-t-3",
+      "type": "text",
+      "text": "Échantillon : 34 ligne(s) sur 2 jeu(x). Aucun signal qualité bloquant sur les données récupérées."
+    }
+  ]
+}

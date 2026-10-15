@@ -42,7 +42,7 @@ const canonicalizeQueries = (raw: string[], allowed: string[]): string[] => {
   return [...new Set(out)]
 }
 
-export const softRemoveQueriesFromHaikuJson = (
+const softRemoveQueriesFromHaikuJson = (
   raw: Record<string, unknown>,
   allowed: string[]
 ): string[] => {

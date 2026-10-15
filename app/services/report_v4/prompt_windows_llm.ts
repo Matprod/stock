@@ -6,15 +6,13 @@ import {
 } from '#services/report_v4/club_seasons'
 import { invokeHaikuJson } from '#services/report_v4/haiku_json'
 import {
+  DEFAULT_REPORT_TIMEZONE,
   EWMA_CHRONIC_MIN_LOOKBACK_DAYS,
   shiftIsoDate,
-  todayUtcIso,
+  todayInTimeZone,
   type IsoDateRange,
 } from '#services/report_v4/lookback_range'
-import {
-  REPORT_V4_LEAN_WINDOW_DAYS,
-  REPORT_V4_MAX_FETCH_LOOKBACK_BEFORE_DISPLAY,
-} from '#services/report_v4/report_v4_constants'
+import { REPORT_V4_LEAN_WINDOW_DAYS } from '#services/report_v4/report_v4_constants'
 import {
   byDomainFromFetches,
   fetchesFromByDomain,
@@ -28,6 +26,8 @@ import {
   formatSessionFocusBrief,
   type ReportV4SessionFocus,
 } from '#services/report_v4/session_focus'
+
+const MAX_FETCH_LOOKBACK_BEFORE_DISPLAY = 45
 
 type LlmFetchRow = {
   domain?: string
@@ -63,16 +63,17 @@ const normalizeRange = (raw: { from?: string; to?: string } | undefined): IsoDat
 
 const WINDOW_SYSTEM_PROMPT = `You extract calendar date windows for sports staff reports from a coach prompt (FR or EN).
 
-Today (UTC anchor) is provided in the user message. All relative phrases resolve against that day.
+Today (club timezone anchor) is provided in the user message. All relative phrases resolve against that day in the club timezone.
 
 Rules:
 - Return ONLY valid JSON (no markdown fences, no prose).
 - "explicit": true when the coach stated any period (relative OR absolute). false only when no period cue at all.
 - "display": main report window {from,to} as ISO YYYY-MM-DD inclusive.
 - Relative:
-  - "derniere semaine" / "last week" / "cette semaine" → last 7 calendar days ending today (today inclusive).
-  - "N dernieres semaines" / "last N weeks" → N×7 calendar days ending today.
-  - "N derniers jours" / "last N days" → N calendar days ending today.
+  - "derniere semaine" / "last week" → previous complete elapsed calendar week Monday–Sunday (lundi–dimanche fully before today). NOT a rolling window through today.
+  - "cette semaine" / "this week" → Monday of the current week through today.
+  - "N dernieres semaines" / "last N weeks" (N≥2) → N×7 calendar days ending today.
+  - "N derniers jours" / "last N days" → N calendar days ending today (rolling).
   - "dernier mois" / "last month" → 30 calendar days ending today (unless a named calendar month is clear).
   - "depuis le 29 juin" / "start from 29 June" → from that date → today.
 - Absolute ISO or day+month phrases → those exact dates (infer year from today when omitted).
@@ -92,7 +93,7 @@ Rules:
   - When the coach only asks "derniere semaine" / "last week" (or similar relative span), EVERY fetch must use the display window (load may start ~28d earlier for ACWR only). FORBIDDEN inventing Dec/Feb archive biomarker or sleep windows the coach never named.
   - Never leave a fetchable period only in extraRanges — put it in fetches.
 - "extraRanges": ONLY periods that cannot be assigned to a domain.
-- Never invent a window outside what the prompt implies. If no period → explicit:false and display = last ${REPORT_V4_LEAN_WINDOW_DAYS} days ending today.
+- Never invent a window outside what the prompt implies. If no period → explicit:false and display = last ${REPORT_V4_LEAN_WINDOW_DAYS} calendar days ending today.
 - When Prior session focus is provided: period-only or status follow-ups (last/previous season, today, this week, still active, "and last season?") MUST reuse prior focus domains in fetches — do NOT expand to a default load/wellness/sleep/scores/match pack unless the coach names those domains. If the coach names new domains, use those instead.
 - "domains": array of domain keys the coach explicitly named (subset of load,gps,wellness,sleep,scores,biomarkers,match,vald,body,injury). Empty array if none named.
 - "period_follow_up": true when this is mainly a period/status follow-up on prior focus (last/prior season|week|month, today/active status).
@@ -207,7 +208,7 @@ export const clampFetchesToAsk = (
   display: IsoDateRange,
   fetches: PromptFetchSpec[]
 ): PromptFetchSpec[] => {
-  const earliestAllowed = shiftIsoDate(display.from, -REPORT_V4_MAX_FETCH_LOOKBACK_BEFORE_DISPLAY)
+  const earliestAllowed = shiftIsoDate(display.from, -MAX_FETCH_LOOKBACK_BEFORE_DISPLAY)
   const loadEarliest = shiftIsoDate(display.from, -EWMA_CHRONIC_MIN_LOOKBACK_DAYS)
   return fetches
     .map((fetch) => {
@@ -335,7 +336,7 @@ const invokeHaikuWindows = async (
 ): Promise<LlmWindowPayload> => {
   const seasonsBlock = formatClubSeasonsBrief(seasons, today)
   const user = [
-    `Today (UTC): ${today}`,
+    `Today (club timezone): ${today}`,
     '',
     seasonsBlock,
     contextBlock ? `\n${contextBlock}\n` : '',
@@ -379,7 +380,9 @@ export const analyzeRequestWithLlm = async (
 ): Promise<AnalyzeRequestLlmBundle> => {
   const fallbackDays = opts?.fallbackDays ?? REPORT_V4_LEAN_WINDOW_DAYS
   const seasons = opts?.seasons ?? []
-  const today = todayUtcIso()
+  const timeZone = opts?.timeZone ?? DEFAULT_REPORT_TIMEZONE
+  const today = opts?.today ?? todayInTimeZone(timeZone)
+  const windowOpts = { timeZone, today }
   const trimmed = prompt.trim()
   if (!trimmed) {
     return {
@@ -464,7 +467,7 @@ export const analyzeRequestWithLlm = async (
     }
   } catch (error) {
     logger.warn({ err: error, durationMs: Date.now() - t0 }, 'report_v4.analyze_request_llm_failed')
-    const fallback = resolvePromptWindows(prompt, fallbackDays, seasons)
+    const fallback = resolvePromptWindows(prompt, fallbackDays, seasons, windowOpts)
     const askDomains = opts?.askDomains?.length
       ? opts.askDomains
       : ([...new Set(Object.keys(fallback.byDomain))] as PremiumDomain[]).filter((domain) =>
@@ -509,17 +512,13 @@ export const analyzeRequestWithLlm = async (
   }
 }
 
-export type ResolvePromptWindowsWithLlmOpts = {
+type ResolvePromptWindowsWithLlmOpts = {
   fallbackDays?: number
   seasons?: ClubSeasonRef[]
   sessionFocus?: ReportV4SessionFocus | null
   priorUserAsks?: string[]
   askDomains?: PremiumDomain[]
   periodFollowUp?: boolean
+  timeZone?: string
+  today?: string
 }
-
-/** Haiku windows; sync regex fallback. Prefer `analyzeRequest` for full early analysis. */
-export const resolvePromptWindowsWithLlm = async (
-  prompt: string,
-  opts?: ResolvePromptWindowsWithLlmOpts
-): Promise<PromptWindows> => (await analyzeRequestWithLlm(prompt, opts)).windows

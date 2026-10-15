@@ -18,8 +18,6 @@ export const loadEchartsMinJs = (): string => {
   return echartsCache
 }
 
-export const echartsAssetFilePath = (): string => require.resolve('echarts/dist/echarts.min.js')
-
 const fontDataUri = (filename: string): string => {
   const buf = readFileSync(join(fontsDir, filename))
   return `url(data:font/woff2;base64,${buf.toString('base64')})`

@@ -6,6 +6,7 @@ import {
   type BlockOrigin,
 } from '#services/report_v4/artifact_parity'
 import { stampDataBlockIdsInHtml } from '#services/report_v4/artifact_html'
+import { stripExternalPdfAssetHosts } from '#services/report_v4/playwright_pdf'
 import { buildPackFontFaceCss, echartsLocalScriptTag } from '#services/report_v4/report_v4_assets'
 import { REPORT_V4_PDF_ALLOWED_HOST_SUFFIXES } from '#services/report_v4/report_v4_constants'
 
@@ -64,11 +65,21 @@ test.group('artifact parity + local assets', () => {
     assert.include(css, '@font-face')
     assert.include(css, 'data:font/woff2;base64,')
     assert.notInclude(css, 'fonts.googleapis.com')
+    assert.notInclude(css, 'fonts.gstatic.com')
     const tag = echartsLocalScriptTag()
     assert.include(tag, 'id="mauna-echarts"')
     assert.include(tag, '/reports/report-v4/assets/echarts.min.js')
     assert.notInclude(tag, 'cdn.jsdelivr.net')
     assert.notMatch(tag, /<script[^>]*>[^<]{200,}/)
     assert.deepEqual([...REPORT_V4_PDF_ALLOWED_HOST_SUFFIXES], ['amazonaws.com'])
+    const dirty = `<link href="https://fonts.googleapis.com/css2?family=Inter">
+<link href="https://fonts.gstatic.com/s/inter.woff2" rel="stylesheet">
+<style>@import url('https://fonts.googleapis.com/css2?family=Roboto');</style>
+<script src="https://cdn.jsdelivr.net/npm/echarts"></script><p>ok</p>`
+    const clean = stripExternalPdfAssetHosts(dirty)
+    assert.notInclude(clean, 'fonts.googleapis.com')
+    assert.notInclude(clean, 'fonts.gstatic.com')
+    assert.notInclude(clean, 'cdn.jsdelivr.net')
+    assert.include(clean, '<p>ok</p>')
   })
 })

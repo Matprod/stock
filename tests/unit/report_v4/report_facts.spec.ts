@@ -1,8 +1,10 @@
 import { test } from '@japa/runner'
 import type { PremiumDataset } from '#contracts/premium_report'
-import { auditArtifactHtml } from '#services/report_v4/grounding_html'
-import { detectSoftDeltaGroundingScope } from '#services/report_v4/grounding_scope'
-import type { GroundingAuditInput } from '#services/report_v4/grounding_types'
+import {
+  auditArtifactHtml,
+  detectSoftDeltaGroundingScope,
+  type GroundingAuditInput,
+} from '#services/report_v4/grounding_report'
 import {
   computeFactValue,
   formatFactValue,
@@ -86,7 +88,7 @@ test.group('report_facts Phase 2A', () => {
     assert.equal(formatFactValue(1234, 'fr'), '1 234')
   })
 
-  test('auditArtifactHtml warns on literal KPI when enforceLiteralFactGate is on', ({ assert }) => {
+  test('auditArtifactHtml blocks literal KPI when enforceLiteralFactGate is on', ({ assert }) => {
     const html = `<!DOCTYPE html><html><body>
 <p>Ada Lovelace CK over threshold: 18 assays.</p>
 </body></html>`
@@ -94,9 +96,9 @@ test.group('report_facts Phase 2A', () => {
       ...baseInput(),
       enforceLiteralFactGate: true,
     })
-    assert.isTrue(result.ok)
-    assert.isFalse(result.violations.some((v) => v.code === 'literal_number'))
-    assert.isTrue((result.warnings ?? []).some((v) => v.code === 'literal_number'))
+    assert.isFalse(result.ok)
+    assert.isTrue(result.violations.some((v) => v.code === 'literal_number'))
+    assert.isString(result.repairedHtml)
   })
 
   test('soft delta scope only audits injected blocks for literal numbers', ({ assert }) => {

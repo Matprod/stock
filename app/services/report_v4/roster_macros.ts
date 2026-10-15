@@ -3,11 +3,10 @@ import S3Service from '#services/s3_service'
 import { storeDataset } from '#services/premium_report/dataset_ops'
 import type { PremiumReportState, PremiumTool } from '#services/premium_report/premium_report_tools'
 import { elapsedSec, logPremiumTool } from '#services/premium_report/premium_report_log'
-import {
-  REPORT_V4_MAX_INLINE_PHOTOS,
-  REPORT_V4_PRESIGN_CONCURRENCY,
-} from '#services/report_v4/report_v4_constants'
 import type { ReportBrief } from '#services/report_v4/report_brief'
+
+const MAX_INLINE_PHOTOS = 8
+const PRESIGN_CONCURRENCY = 8
 
 export type RosterAthlete = {
   id: string
@@ -19,7 +18,7 @@ export type RosterAthlete = {
   endDate?: string | null
 }
 
-export type RosterActiveRange = { from: string; to: string }
+type RosterActiveRange = { from: string; to: string }
 
 const isoDay = (value: unknown): string | null => {
   if (value == null) return null
@@ -102,7 +101,7 @@ const matchRosterByNames = (
     if (!row.photoKey) continue
     if (!wanted.has(foldName(row.name))) continue
     hits.push(row)
-    if (hits.length >= REPORT_V4_MAX_INLINE_PHOTOS) break
+    if (hits.length >= MAX_INLINE_PHOTOS) break
   }
   return hits
 }
@@ -117,7 +116,7 @@ export const resolveInsightRosterPhotos = async (args: {
   }
   const s3 = new S3Service()
   const urlById = new Map<string, string | null>()
-  await mapPool(targets, REPORT_V4_PRESIGN_CONCURRENCY, async (row) => {
+  await mapPool(targets, PRESIGN_CONCURRENCY, async (row) => {
     const key = row.photoKey
     if (!key) {
       urlById.set(row.id, null)

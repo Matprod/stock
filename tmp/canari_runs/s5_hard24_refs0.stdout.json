@@ -1,0 +1,998 @@
+[20:14:41.314] INFO (2207): report_v4.analyze_request_llm
+    explicit: true
+    display: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    byDomain: {
+      "load": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    }
+    fetches: [
+      {
+        "domain": "load",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "srpe"
+        ]
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "distance_total",
+          "hmld",
+          "hsr"
+        ]
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "performance_score",
+          "injury_risk_score"
+        ]
+      }
+    ]
+    askDomains: [
+      "load",
+      "gps",
+      "scores"
+    ]
+    periodFollowUp: false
+    multiSection: true
+    rationale: "Coach requests a detailed staff report for 2026-03-01 to 2026-03-07 with a 24+ player roster table (position, total distance, HMLD, HSR, avg sRPE, perf score, risk score) plus 2 team summary charts (load and GPS). Three domains required: load (sRPE), gps (distance metrics), scores (performance and injury risk). Multi-section true due to roster table + dual synthesis charts."
+    durationMs: 2659
+[20:14:41.579] INFO (2207): report_v4.edit_route.wipe
+    wipeReason: "no_existing_canvas"
+    hasExistingCanvas: false
+    periodChanged: false
+    multiSectionAsk: true
+    additive: false
+    scopedPeriod: false
+[20:14:41.580] INFO (2207): report_v4.edit_route
+    canvasAsk: "new_viz"
+    preserveCanvas: false
+    needsFetch: true
+    isMicro: false
+    keepPriorDisplayRange: false
+    softOps: null
+    inventory: null
+    additive: false
+    scopedPeriod: false
+    design: false
+    periodChanged: false
+    multiSectionAsk: true
+    wipeCanvas: true
+    wipeReason: "no_existing_canvas"
+    routeFlags: {
+      "wipe": true,
+      "additive": false,
+      "scopedPeriod": false,
+      "design": false,
+      "aesthetic": false,
+      "partialProse": false,
+      "recommendationStrip": false
+    }
+    provider: "skip"
+    durationSec: 0.266
+[20:14:41.581] INFO (2207): report_v4.prompt_windows_resolved
+    explicit: true
+    displayRange: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    coverRange: {
+      "from": "2026-03-01",
+      "to": "2026-03-07"
+    }
+    fetchRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+    domainRanges: {
+      "load": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "gps": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      "scores": {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    }
+    fetches: [
+      {
+        "domain": "load",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "srpe"
+        ]
+      },
+      {
+        "domain": "gps",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "distance_total",
+          "hmld",
+          "hsr"
+        ]
+      },
+      {
+        "domain": "scores",
+        "from": "2026-03-01",
+        "to": "2026-03-07",
+        "metrics": [
+          "performance_score",
+          "injury_risk_score"
+        ]
+      }
+    ]
+    extraRanges: []
+    seasons: [
+      {
+        "name": "2026-2027",
+        "from": "2026-08-01",
+        "to": "2027-05-24",
+        "active": true
+      },
+      {
+        "name": "2025-2026",
+        "from": "2025-07-16",
+        "to": "2026-05-16",
+        "active": false
+      },
+      {
+        "name": "2024-2025",
+        "from": "2024-07-02",
+        "to": "2025-05-18",
+        "active": false
+      },
+      {
+        "name": "2023-2024",
+        "from": "2023-07-28",
+        "to": "2024-05-19",
+        "active": false
+      },
+      {
+        "name": "2022-2023",
+        "from": "2022-07-17",
+        "to": "2023-06-05",
+        "active": false
+      }
+    ]
+[20:14:41.618] INFO (2207): report_v4.roster_active_window
+    athletes: 30
+    ranges: [
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      },
+      {
+        "from": "2026-03-01",
+        "to": "2026-03-07"
+      }
+    ]
+[20:14:42.690] INFO (2207): report_v4.ask_gate
+    reason: "prompt_clear_enough"
+    question_ids: []
+    confidence: 1
+    round: 0
+    skipped: true
+[20:14:42.856] INFO (2207): report_v4.club_metric_catalog_start
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+
+════════════════════════════════════════════════════════════
+report-v4  START  │  Hambourg  │  2026-03-01 → 2026-03-07
+report-v4  domains  │  load, gps, scores
+report-v4  prompt  │  Rapport staff difficile: inclure un long tableau nominatif d au moins 24 joueurs (colonnes: poste, distance totale, HMLD, HSR, sRPE moyen, score perf, score risque) pour 2026-03-01
+────────────────────────────────────────────────────────────
+[20:14:43.863] INFO (2207): report_v4.club_metric_catalog_done
+    clubId: "019fa7cc-684c-783e-9609-c132a26eb4e3"
+    catalogRange: {
+      "from": "2026-02-01",
+      "to": "2026-03-07"
+    }
+    durationMs: 1007
+    periodKpis: 48
+    matchKpis: 7
+    rpeFetchTable: "health_metric_values"
+    rpeSession: "health_metrics"
+    rpeBody: "health_ratings"
+    clubInsightScience: 8
+[20:14:43.869] INFO (2207): report_v4.requested_measure
+    metric: "kpi_distanceTotal"
+    unit: "m"
+    alias: "kpi_distanceTotal"
+    phrase: "total distance"
+[20:14:43.869] INFO (2207): report_v4.linker_start
+    domains: [
+      "load",
+      "gps",
+      "scores"
+    ]
+    fetchWindows: 3
+    athleteCount: 30
+[20:14:43.870] INFO (2207): report_v4.linker_db_tool_start
+    schemaTitles: 6
+[20:14:43.870] INFO (2207): report_v4.linker_db_tool_done
+    durationMs: 0
+[20:14:43.871] INFO (2207): report_v4.linker_agent_invoke
+    toolCount: 26
+report-v4  iter 01  │  tool_use  │  4.191s  │  $0.075  │  in=19 out=221 cacheW=19k  │  cum $0.075
+report-v4  action  │  tools: build_load_summary, fetch_club_roster, fetch_gps_intensity_daily, fetch_daily_scores
+report-v4    └ tool  │  ok  │  build_load_summary  │  0.634s  │  2026-02-01 → 2026-03-07 (sql 2026-03-01→2026-03-07)
+report-v4    └ tool  │  ok  │  fetch_club_roster  │  0.000s  │  ? → ?
+report-v4    └ tool  │  ok  │  fetch_gps_intensity_daily  │  0.324s  │  2026-03-01 → 2026-03-07
+report-v4    └ tool  │  ok  │  fetch_daily_scores  │  0.045s  │  2026-03-01 → 2026-03-07
+report-v4    └ cost  │  this prompt $0.075  │  total so far $0.075  │  iter time 4.191s
+report-v4  iter 02  │  end_turn  │  5.641s  │  $0.085  │  in=7 out=148 cacheR=6.1k cacheW=22k  │  cum $0.160
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.085  │  total so far $0.160  │  iter time 5.641s
+report-v4  agent-stop  │  linker  │  self_ended  │  2 iteration(s)  │  max=5  │  force@4  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  linker  │  2 iteration(s)  │  9.832s  │  $0.160
+report-v4  tokens  │  in=26  │  out=369  │  cacheR=6.1k  │  cacheW=41k  │  all=395
+report-v4  detail  │  datasets=5
+[20:14:53.710] INFO (2207): report_v4.path_cost_class
+    pathCostClass: "full"
+    budgetUsd: 1.5
+[20:14:53.728] INFO (2207): report_v4.data_profile
+    datasets: 5
+    unusableDomains: []
+    emptyDomains: []
+    partial: [
+      "gps"
+    ]
+    imputedExcludedCells: 154
+report-v4  iter 01  │  tool_use  │  7.117s  │  $0.098  │  in=19 out=587 cacheW=24k  │  cum $0.098
+report-v4  action  │  tools: join_datasets, aggregate_dataset, aggregate_dataset, set_report_meta, add_heading, add_heading, add_heading
+report-v4    └ tool  │  ok  │  join_datasets  │  0.002s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.003s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+report-v4    └ tool  │  ok  │  set_report_meta  │  0.001s
+report-v4    └ tool  │  ok  │  add_heading  │  0.001s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ tool  │  ok  │  add_heading  │  0.000s
+report-v4    └ cost  │  this prompt $0.098  │  total so far $0.098  │  iter time 7.117s
+report-v4  iter 02  │  tool_use  │  8.601s  │  $0.087  │  in=7 out=513 cacheR=13k cacheW=20k  │  cum $0.185
+report-v4  action  │  tools: aggregate_dataset, add_chart, add_chart
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.002s
+report-v4    └ tool  │  ok  │  add_chart  │  0.013s  │  ds_6
+report-v4    └ tool  │  ok  │  add_chart  │  0.004s  │  ds_7
+report-v4    └ cost  │  this prompt $0.087  │  total so far $0.185  │  iter time 8.601s
+[20:15:09.445] WARN (2207): report_v4.column_label_missing
+    column: "n"
+    key: "n"
+[20:15:09.453] WARN (2207): report_v4.column_label_missing
+    column: "kpi_maxdeceleration"
+    key: "kpi_maxdeceleration"
+[20:15:09.453] WARN (2207): report_v4.column_label_missing
+    column: "kpi_decelerationdistancez6rel"
+    key: "kpi_decelerationdistancez6rel"
+[20:15:09.453] WARN (2207): report_v4.column_label_missing
+    column: "kpi_maxacceleration"
+    key: "kpi_maxacceleration"
+report-v4  iter 03  │  tool_use  │  3.392s  │  $0.018  │  in=7 out=207 cacheR=33k cacheW=1.4k  │  cum $0.203
+report-v4  action  │  tools: join_datasets, aggregate_dataset
+report-v4    └ tool  │  ok  │  join_datasets  │  0.000s
+report-v4    └ tool  │  ok  │  aggregate_dataset  │  0.000s
+report-v4    └ cost  │  this prompt $0.018  │  total so far $0.203  │  iter time 3.392s
+report-v4  iter 04  │  tool_use  │  5.943s  │  $0.025  │  in=7 out=534 cacheR=35k cacheW=1.7k  │  cum $0.228
+report-v4  action  │  tools: add_table, add_chart, add_chart
+report-v4    └ tool  │  ok  │  add_table  │  0.012s  │  ds_9
+report-v4    └ tool  │  ok  │  add_chart  │  0.002s  │  ds_10
+report-v4    └ tool  │  ok  │  add_chart  │  0.001s  │  ds_10
+report-v4    └ cost  │  this prompt $0.025  │  total so far $0.228  │  iter time 5.943s
+report-v4  iter 05  │  tool_use  │  8.842s  │  $0.027  │  in=7 out=879 cacheR=37k cacheW=716  │  cum $0.255
+report-v4  action  │  tools: compute_report_fact, compute_report_fact, compute_report_fact, compute_report_fact, compute_report_fact, compute_report_fact
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.002s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.001s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.000s
+report-v4    └ tool  │  ok  │  compute_report_fact  │  0.001s
+report-v4    └ cost  │  this prompt $0.027  │  total so far $0.255  │  iter time 8.842s
+report-v4  iter 06  │  tool_use  │  3.818s  │  $0.020  │  in=7 out=221 cacheR=37k cacheW=1.4k  │  cum $0.275
+report-v4  action  │  tools: filter_dataset, filter_dataset
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.001s
+report-v4    └ tool  │  ok  │  filter_dataset  │  0.000s
+report-v4    └ cost  │  this prompt $0.020  │  total so far $0.275  │  iter time 3.818s
+report-v4  iter 07  │  tool_use  │  24.752s  │  $0.097  │  in=7 out=1.8k cacheR=13k cacheW=17k  │  cum $0.372
+report-v4  action  │  tools: commit_report_brief
+report-v4    └ tool  │  ok  │  commit_report_brief  │  0.017s
+report-v4    └ cost  │  this prompt $0.097  │  total so far $0.372  │  iter time 24.752s
+report-v4  iter 08  │  end_turn  │  10.037s  │  $0.082  │  in=5 out=490 cacheR=13k cacheW=19k  │  cum $0.454
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.082  │  total so far $0.454  │  iter time 10.037s
+report-v4  agent-stop  │  analyst  │  self_ended  │  8 iteration(s)  │  max=22  │  force@14  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  analyst  │  8 iteration(s)  │  72.502s  │  $0.454
+report-v4  tokens  │  in=66  │  out=5.3k  │  cacheR=182k  │  cacheW=85k  │  all=5.3k
+report-v4  detail  │  blocks=8 charts=4 tables=1 insight=true
+[20:16:06.268] WARN (2207): report_v4.column_label_missing
+    column: "Distance total (m)"
+    key: "distance_total_m"
+[20:16:06.268] WARN (2207): report_v4.column_label_missing
+    column: "High speed running (absolute)"
+    key: "high_speed_running_absolute"
+[20:16:06.272] WARN (2207): report_v4.position_label_unknown
+    position: "CENTRAL DEFENDER"
+[20:16:06.272] WARN (2207): report_v4.position_label_unknown
+    position: "CENTRAL DEFENDER"
+[20:16:06.272] WARN (2207): report_v4.position_label_unknown
+    position: "CENTRAL DEFENDER"
+[20:16:06.272] WARN (2207): report_v4.position_label_unknown
+    position: "CENTRAL DEFENDER"
+[20:16:06.272] WARN (2207): report_v4.position_label_unknown
+    position: "CENTRAL DEFENDER"
+[20:16:06.276] INFO (2207): report_v4.precompute_canvas_facts
+    added: 45
+    sample: [
+      "ds_1.srpe_daily.mean",
+      "ds_1.srpe_daily.sum",
+      "ds_1.srpe_daily.delta",
+      "ds_2.srpe_daily.mean",
+      "ds_2.srpe_daily.sum",
+      "ds_2.srpe_daily.delta",
+      "ds_3.kpi_hmld.mean",
+      "ds_3.kpi_hmld.sum"
+    ]
+[20:16:06.276] INFO (2207): report_v4.canvas_facts_precomputed
+    added: 45
+    sample: [
+      "ds_1.srpe_daily.mean",
+      "ds_1.srpe_daily.sum",
+      "ds_1.srpe_daily.delta",
+      "ds_2.srpe_daily.mean",
+      "ds_2.srpe_daily.sum",
+      "ds_2.srpe_daily.delta",
+      "ds_3.kpi_hmld.mean",
+      "ds_3.kpi_hmld.sum"
+    ]
+[20:16:06.276] INFO (2207): report_v4.analyst_done
+    blocks: 8
+    charts: 4
+    tables: 1
+    insight: true
+    iterations: 8
+    harvestHasRows: true
+    shortWindow: true
+    multiSectionAsk: true
+report-v4  iter 01  │  tool_use  │  94.045s  │  $0.533  │  in=19 out=9.7k cacheW=103k  │  cum $0.533
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ok  │  set_report_pages  │  0.084s
+report-v4    └ cost  │  this prompt $0.533  │  total so far $0.533  │  iter time 94.045s
+[20:17:40.322] INFO (2207): report_v4.fact_autolink
+    displayed: 44
+    linkedFact: 0
+    linkedSrc: 0
+    ambiguous: 43
+    unmatched: 1
+    samples: [
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "1–7 mars 2026",
+        "candidates": [
+          "src:ds_3#1.kpi_maxacceleration",
+          "src:ds_3#2.kpi_hsrabspermin",
+          "src:ds_3#2.kpi_hsrrelpermin",
+          "src:ds_3#4.kpi_accelerationdistancez6rel",
+          "src:ds_3#4.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "1–7 mars 2026",
+        "candidates": [
+          "src:ds_3#13.kpi_hsrabspermin",
+          "src:ds_3#13.kpi_hsrrelpermin",
+          "src:ds_3#13.kpi_entriesz5abs",
+          "src:ds_3#14.kpi_hsrabspermin",
+          "src:ds_3#14.kpi_hsrrelpermin"
+        ]
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "Analyse détaillée de la charge et des données GPS pour 24 joueurs sur la semaine du 1 au 7 mars 2026, avec deux graphiques de synthèse équipe.",
+        "candidates": [
+          "src:ds_3#1.kpi_maxacceleration",
+          "src:ds_3#2.kpi_hsrabspermin",
+          "src:ds_3#2.kpi_hsrrelpermin",
+          "src:ds_3#4.kpi_accelerationdistancez6rel",
+          "src:ds_3#4.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1 au",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "Analyse détaillée de la charge et des données GPS pour 24 joueurs sur la semaine du 1 au 7 mars 2026, avec deux graphiques de synthèse équipe.",
+        "candidates": [
+          "src:ds_3#13.kpi_hsrabspermin",
+          "src:ds_3#13.kpi_hsrrelpermin",
+          "src:ds_3#13.kpi_entriesz5abs",
+          "src:ds_3#14.kpi_hsrabspermin",
+          "src:ds_3#14.kpi_hsrrelpermin"
+        ]
+      },
+      {
+        "raw": "24",
+        "value": 24,
+        "reason": "ambiguous",
+        "context": "Analyse détaillée de la charge et des données GPS pour 24 joueurs sur la semaine du 1 au 7 mars 2026, avec deux graphiques de synthèse équipe.",
+        "candidates": [
+          "src:ds_3#0.kpi_accelerationdistancez6rel",
+          "src:ds_3#23.kpi_hibsdistance",
+          "src:ds_3#23.kpi_entriesz3abs",
+          "src:ds_3#24.kpi_entriesz4abs",
+          "src:ds_3#27.kpi_entriesz4abs"
+        ]
+      },
+      {
+        "raw": "100",
+        "value": 100,
+        "reason": "ambiguous",
+        "context": "/100",
+        "candidates": [
+          "src:ds_3#32.kpi_metabolicdistancez6abs",
+          "src:ds_3#41.kpi_decelerationdistancez3rel",
+          "src:ds_3#45.kpi_metabolicdistancez6abs",
+          "src:ds_3#54.kpi_accelerationdistancez4rel",
+          "src:ds_3#63.kpi_accelerationdistancez3rel"
+        ]
+      },
+      {
+        "raw": "100",
+        "value": 100,
+        "reason": "ambiguous",
+        "context": "/100",
+        "candidates": [
+          "src:ds_3#32.kpi_metabolicdistancez6abs",
+          "src:ds_3#41.kpi_decelerationdistancez3rel",
+          "src:ds_3#45.kpi_metabolicdistancez6abs",
+          "src:ds_3#54.kpi_accelerationdistancez4rel",
+          "src:ds_3#63.kpi_accelerationdistancez3rel"
+        ]
+      },
+      {
+        "raw": "4",
+        "value": 4,
+        "reason": "ambiguous",
+        "context": "Ce document présente un tableau nominatif complet de 24 joueurs avec leurs métriques GPS et de charge (page 2), suivi de deux graphiques de synthèse équipe mont",
+        "candidates": [
+          "src:ds_3#0.kpi_averagespeed",
+          "src:ds_3#0.kpi_hsrabspermin",
+          "src:ds_3#0.kpi_hsrrelpermin",
+          "src:ds_3#1.kpi_averagespeed",
+          "src:ds_3#1.kpi_hsrabspermin"
+        ]
+      },
+      {
+        "raw": "2",
+        "value": 2,
+        "reason": "ambiguous",
+        "context": "Ce document présente un tableau nominatif complet de 24 joueurs avec leurs métriques GPS et de charge (page 2), suivi de deux graphiques de synthèse équipe mont",
+        "candidates": [
+          "src:ds_3#4.kpi_hsrabspermin",
+          "src:ds_3#4.kpi_hsrrelpermin",
+          "src:ds_3#5.kpi_hsrabspermin",
+          "src:ds_3#6.kpi_hsrabspermin",
+          "src:ds_3#6.kpi_hsrrelpermin"
+        ]
+      },
+      {
+        "raw": "24",
+        "value": 24,
+        "reason": "ambiguous",
+        "context": "Ce document présente un tableau nominatif complet de 24 joueurs avec leurs métriques GPS et de charge (page 2), suivi de deux graphiques de synthèse équipe mont",
+        "candidates": [
+          "src:ds_3#0.kpi_accelerationdistancez6rel",
+          "src:ds_3#23.kpi_hibsdistance",
+          "src:ds_3#23.kpi_entriesz3abs",
+          "src:ds_3#24.kpi_entriesz4abs",
+          "src:ds_3#27.kpi_entriesz4abs"
+        ]
+      },
+      {
+        "raw": "7",
+        "value": 7,
+        "reason": "ambiguous",
+        "context": "1–7 mars 2026",
+        "candidates": [
+          "src:ds_3#1.kpi_maxacceleration",
+          "src:ds_3#2.kpi_hsrabspermin",
+          "src:ds_3#2.kpi_hsrrelpermin",
+          "src:ds_3#4.kpi_accelerationdistancez6rel",
+          "src:ds_3#4.kpi_decelerationdistancez6rel"
+        ]
+      },
+      {
+        "raw": "1",
+        "value": 1,
+        "reason": "ambiguous",
+        "context": "1–7 mars 2026",
+        "candidates": [
+          "src:ds_3#13.kpi_hsrabspermin",
+          "src:ds_3#13.kpi_hsrrelpermin",
+          "src:ds_3#13.kpi_entriesz5abs",
+          "src:ds_3#14.kpi_hsrabspermin",
+          "src:ds_3#14.kpi_hsrrelpermin"
+        ]
+      }
+    ]
+report-v4  iter 02  │  end_turn  │  8.183s  │  $0.398  │  in=5 out=298 cacheR=8.9k cacheW=104k  │  cum $0.930
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.398  │  total so far $0.930  │  iter time 8.183s
+report-v4  iter 03  │  end_turn  │  7.456s  │  $0.040  │  in=3 out=332 cacheR=113k cacheW=305  │  cum $0.970
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.040  │  total so far $0.970  │  iter time 7.456s
+report-v4  agent-stop  │  designer  │  self_ended  │  3 iteration(s)  │  max=14  │  force@12  │  full
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+report-v4  TOTAL  │  designer  │  3 iteration(s)  │  109.684s  │  $0.970
+report-v4  tokens  │  in=27  │  out=10k  │  cacheR=122k  │  cacheW=208k  │  all=10k
+report-v4  detail  │  htmlBytes=222443 freeDesigner=1 refs=
+[20:17:55.966] INFO (2207): report_v4.designer_done
+    htmlBytes: 222443
+    freeDesigner: true
+    refs: []
+    iterations: 3
+[20:17:55.973] WARN (2207): report_v4.literal_fact_warn
+    codes: [
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number",
+      "literal_number"
+    ]
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "24"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "100"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "4"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "2"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "0"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "000"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "5"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "6"
+      }
+    ]
+[20:17:55.973] WARN (2207): report_v4.free_designer_grounding_warn
+    violations: []
+    warnings: [
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "24"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "7"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "100"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "1"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "4"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "10"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "2"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "0"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "000"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "3"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "5"
+      },
+      {
+        "code": "literal_number",
+        "message": "Literal number in prose outside data-fact/data-src span",
+        "evidence": "6"
+      }
+    ]
+[20:17:56.491] WARN (2207): report_v4.free_designer_layout_warn
+    count: 20
+    warnings: [
+      {
+        "pageIndex": 0,
+        "blockId": "page_1",
+        "selector": "[data-block-id=\"page_1\"]",
+        "code": "page_underfilled",
+        "detail": "page filled 48% (< 70%)"
+      },
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "h1.headline",
+        "code": "text_overflow",
+        "detail": "scroll 698x45 > client 698x42"
+      },
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "div.value",
+        "code": "text_overflow",
+        "detail": "scroll 217x37 > client 217x34"
+      },
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "div.value",
+        "code": "text_overflow",
+        "detail": "scroll 200x37 > client 200x34"
+      },
+      {
+        "pageIndex": 0,
+        "blockId": null,
+        "selector": "div.value",
+        "code": "text_overflow",
+        "detail": "scroll 200x37 > client 200x34"
+      },
+      {
+        "pageIndex": 2,
+        "blockId": "page_3",
+        "selector": "[data-block-id=\"page_3\"]",
+        "code": "page_underfilled",
+        "detail": "page filled 60% (< 70%)"
+      },
+      {
+        "pageIndex": 2,
+        "blockId": null,
+        "selector": "svg",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 2,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 2,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 2,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 2,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 2,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 2,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 3,
+        "blockId": null,
+        "selector": "svg",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 3,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 3,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 3,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 3,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 3,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      },
+      {
+        "pageIndex": 3,
+        "blockId": null,
+        "selector": "line",
+        "code": "color_outside_theme",
+        "detail": "computed color rgb(0, 0, 0) not in theme.css"
+      }
+    ]
+report-v4  iter 01  │  max_tokens  │  81.934s  │  $0.154  │  in=3 out=8.2k cacheW=8.4k  │  cum $0.154
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ERR  │  set_report_pages  │  0.000s  │  TRUNCATED
+report-v4    └ cost  │  this prompt $0.154  │  total so far $0.154  │  iter time 81.934s
+report-v4  iter 02  │  967.541s  │  $0.0047  │  in=3 out=1 cacheR=8.4k cacheW=583  │  cum $0.159
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ERR  │  set_report_pages  │  0.017s  │  html too short or missing .page — send body pages with at least one div.page
+report-v4    └ cost  │  this prompt $0.0047  │  total so far $0.159  │  iter time 967.541s
+report-v4  iter 03  │  1054.896s  │  $0.034  │  in=5 out=1 cacheW=9.0k  │  cum $0.193
+report-v4  action  │  tools: set_report_pages
+report-v4    └ tool  │  ERR  │  set_report_pages  │  0.001s  │  html too short or missing .page — send body pages with at least one div.page
+report-v4    └ cost  │  this prompt $0.034  │  total so far $0.193  │  iter time 1054.896s
+report-v4  iter 04  │  end_turn  │  6.274s  │  $0.037  │  in=5 out=152 cacheW=9.1k  │  cum $0.229
+report-v4  action  │  final answer
+report-v4    └ cost  │  this prompt $0.037  │  total so far $0.229  │  iter time 6.274s
+[20:53:07.864] INFO (2207): report_v4.free_designer_capture_review
+    round: 1
+    changed: false
+    layoutWarnings: 20
+    pages: 4
+    iterations: 4
+[20:53:07.864] WARN (2207): report_v4.free_designer_capture_review_remaining
+    rounds: 1
+    warnings: [
+      "layout:page_underfilled:page1:page filled 48% (< 70%)",
+      "layout:text_overflow:page1:scroll 698x45 > client 698x42",
+      "layout:text_overflow:page1:scroll 217x37 > client 217x34",
+      "layout:text_overflow:page1:scroll 200x37 > client 200x34",
+      "layout:text_overflow:page1:scroll 200x37 > client 200x34",
+      "layout:page_underfilled:page3:page filled 60% (< 70%)",
+      "layout:color_outside_theme:page3:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page3:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page3:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page3:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page3:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page3:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page3:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page4:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page4:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page4:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page4:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page4:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page4:computed color rgb(0, 0, 0) not in theme.css",
+      "layout:color_outside_theme:page4:computed color rgb(0, 0, 0) not in theme.css"
+    ]
+    layoutRemaining: 20
+[20:53:07.904] INFO (2207): report_v4.data_reliability_block
+    blocks: 10
+    sampleRows: 465
+    imputedExcludedCells: 154
+[20:53:07.921] INFO (2207): report_v4.artifact_parity
+    ok: false
+    issues: [
+      {
+        "kind": "missing_block",
+        "blockId": "fcfca5bb-8645-428f-9d53-265245f94800",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "2a9de8ea-f17b-4a68-a563-fcb06dadfbe6",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "dd4273c0-d810-4725-adb7-59b99132ea84",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "b8a06ef0-d462-4c3c-8664-096d8a81f8dc",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "915fe69a-b318-48cc-b96d-90df7e95200f",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "8d93fa9e-7ca6-4069-a711-b4690a129fe1",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "6585644e-05df-4001-8c50-3c49cf385d07",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "00bc99d9-27f7-4ae6-8491-b1c28436a495",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "reliability-h-9",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "missing_block",
+        "blockId": "reliability-t-10",
+        "detail": "data-block-id absent from html"
+      },
+      {
+        "kind": "order",
+        "detail": "html=[page_1,page_2,page_3,page_4] doc=[fcfca5bb-8645-428f-9d53-265245f94800,2a9de8ea-f17b-4a68-a563-fcb06dadfbe6,dd4273c0-d810-4725-adb7-59b99132ea84,b8a06ef0-d462-4c3c-8664-096d8a81f8dc,915fe69a-b318-48cc-b96d-90df7e95200f,8d93fa9e-7ca6-4069-a711-b4690a129fe1,6585644e-05df-4001-8c50-3c49cf385d07,00bc99d9-27f7-4ae6-8491-b1c28436a495,reliability-h-9,reliability-t-10]"
+      }
+    ]
+    documentBlockCount: 10
+    htmlBlockCount: 4
+[20:53:07.923] INFO (2207): report_v4.ask_contract
+    status: "delivered"
+    gaps: []
+{"ok":true,"tag":"s5_hard24_refs0","iterations":17,"costUsd":1.813555,"durationSec":2315.378,"pdfOk":true,"pdfError":null,"htmlPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/s5_hard24_refs0.html","metaPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/s5_hard24_refs0.meta.json","pdfPath":"/Users/matprod/mauna/backend-v2/tmp/canari_runs/s5_hard24_refs0.pdf"}

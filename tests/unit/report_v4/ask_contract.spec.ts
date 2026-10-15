@@ -81,7 +81,7 @@ test.group('ask_contract', () => {
       policy: policy(),
       envelope: envelope(),
       domains: [PREMIUM_DOMAIN.WELLNESS],
-      minCharts: 2,
+      contentFloors: { minCharts: 0, minTables: 0, minCombined: 2, mode: 'default' },
     })
     assert.isTrue(reqs.some((row) => row.kind === 'period'))
     assert.isTrue(reqs.some((row) => row.id === 'domain_in:wellness'))
@@ -89,7 +89,7 @@ test.group('ask_contract', () => {
     assert.isTrue(reqs.some((row) => row.kind === 'athletes'))
     assert.isTrue(reqs.some((row) => row.kind === 'section_order'))
     assert.isTrue(reqs.some((row) => row.kind === 'thresholds'))
-    assert.isTrue(reqs.some((row) => row.kind === 'charts'))
+    assert.isTrue(reqs.some((row) => row.kind === 'viz_combined'))
   })
 
   test('marks full delivery in French', ({ assert }) => {
@@ -101,7 +101,7 @@ test.group('ask_contract', () => {
       domains: [PREMIUM_DOMAIN.WELLNESS, PREMIUM_DOMAIN.SLEEP],
       language: 'fr',
       acwrStatus: 'ok',
-      minCharts: 2,
+      contentFloors: { minCharts: 0, minTables: 0, minCombined: 2, mode: 'default' },
     })
     assert.equal(report.status, 'delivered')
     assert.match(report.message, /livré/i)
@@ -127,7 +127,7 @@ test.group('ask_contract', () => {
         policy: policy({ sectionOrder: [] }),
         envelope: envelope(),
         domains: [PREMIUM_DOMAIN.WELLNESS],
-        minCharts: 2,
+        contentFloors: { minCharts: 0, minTables: 0, minCombined: 2, mode: 'default' },
       }),
       document: doc,
       envelope: envelope(),
@@ -168,7 +168,7 @@ test.group('ask_contract', () => {
       }),
       domains: [PREMIUM_DOMAIN.WELLNESS],
       language: 'fr',
-      minCharts: 0,
+      contentFloors: { minCharts: 0, minTables: 0, minCombined: 0, mode: 'none' },
     })
     const excluded = report.results.find((row) => row.id === 'domain_out:sleep')
     assert.equal(excluded?.status, 'missing')
@@ -205,7 +205,7 @@ test.group('ask_contract', () => {
       }),
       domains: [],
       language: 'fr',
-      minCharts: 0,
+      contentFloors: { minCharts: 0, minTables: 0, minCombined: 0, mode: 'none' },
     })
     const order = report.results.find((row) => row.kind === 'section_order')
     assert.equal(order?.status, 'partial')
@@ -244,7 +244,7 @@ test.group('ask_contract', () => {
       }),
       domains: [],
       language: 'en',
-      minCharts: 0,
+      contentFloors: { minCharts: 0, minTables: 0, minCombined: 0, mode: 'none' },
       htmlArtifact: html,
     })
     const order = report.results.find((row) => row.kind === 'section_order')
@@ -287,7 +287,7 @@ test.group('ask_contract', () => {
       }),
       domains: [PREMIUM_DOMAIN.WELLNESS],
       language: 'en',
-      minCharts: 0,
+      contentFloors: { minCharts: 0, minTables: 0, minCombined: 0, mode: 'none' },
     })
     const excluded = report.results.find((row) => row.id === 'domain_out:biomarkers')
     assert.equal(excluded?.status, 'delivered')

@@ -54,11 +54,17 @@ export type ArtifactOpResult = {
   applied: string[]
 }
 
+export type ArtifactCoverageMissing = {
+  athlete: string
+  reason: string
+}
+
 export type ArtifactCoverageResult = {
   required: number
   delivered: number
   covered: string[]
   missing: string[]
+  missingDetails: ArtifactCoverageMissing[]
   ok: boolean
 }
 

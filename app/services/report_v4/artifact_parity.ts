@@ -3,13 +3,13 @@ import type { PremiumReportDocument } from '#contracts/premium_report'
 
 export type BlockOrigin = 'generate' | 'soft_edit' | 'designer' | 'template'
 
-export type ArtifactParityIssue = {
+type ArtifactParityIssue = {
   kind: 'missing_block' | 'order' | 'text_mismatch' | 'missing_chart_host' | 'missing_origin'
   blockId?: string
   detail: string
 }
 
-export type ArtifactParityResult = {
+type ArtifactParityResult = {
   ok: boolean
   issues: ArtifactParityIssue[]
   documentBlockCount: number

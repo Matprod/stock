@@ -1,0 +1,657 @@
+{
+  "clubId": "019f5371-fdc5-74c6-bdae-d973b3fa5575",
+  "prompt": "Bilan staff Bourg-en-Bresse de la semaine dernière: GPS, match et wellness. Synthèse équipe, joueurs à suivre, couverture des données, et fiches individuelles pour chaque joueur du groupe avec graphiques essentiels.",
+  "durationSec": 413.808,
+  "iterations": 18,
+  "usage": {
+    "inputTokens": 2466,
+    "outputTokens": 33918,
+    "cacheReadInputTokens": 338215,
+    "cacheCreationInputTokens": 374394,
+    "totalTokens": 36384,
+    "estimatedCostUsd": 2.02161
+  },
+  "iterationSecs": [
+    6.03,
+    7.359,
+    23.672,
+    26.387,
+    28.575,
+    24.59,
+    7.922,
+    4.601,
+    5.115,
+    38.919,
+    14.959,
+    2.923,
+    10.286,
+    1.611,
+    75.017,
+    62.461,
+    60.06,
+    6.477
+  ],
+  "iterationCosts": [
+    0.071228,
+    0.065408,
+    0.102481,
+    0.126063,
+    0.091934,
+    0.089236,
+    0.085134,
+    0.03389,
+    0.226329,
+    0.229626,
+    0.191556,
+    0.119068,
+    0.125758,
+    0.011723,
+    0.135028,
+    0.150412,
+    0.129081,
+    0.037654
+  ],
+  "message": "Mise en page libre impossible (set_report_html_grounding_reject) ; modèle de secours utilisé.",
+  "designPackId": "mauna",
+  "coverage": {
+    "displayRange": {
+      "from": "2026-10-05",
+      "to": "2026-10-11"
+    },
+    "fetchRange": {
+      "from": "2026-09-07",
+      "to": "2026-10-11"
+    },
+    "domainRanges": {
+      "gps": {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      },
+      "match": {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      },
+      "wellness": {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      }
+    },
+    "domains": [
+      {
+        "domain": "load",
+        "daysWithData": 6,
+        "athletesWithData": 12,
+        "populated": true
+      },
+      {
+        "domain": "gps",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "match",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "wellness",
+        "daysWithData": 7,
+        "athletesWithData": 12,
+        "populated": true
+      },
+      {
+        "domain": "sleep",
+        "daysWithData": 7,
+        "athletesWithData": 12,
+        "populated": true
+      },
+      {
+        "domain": "vald",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "biomarkers",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "body",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "scores",
+        "daysWithData": 0,
+        "athletesWithData": 0,
+        "populated": false
+      },
+      {
+        "domain": "injury",
+        "daysWithData": 3,
+        "athletesWithData": 3,
+        "populated": true
+      }
+    ],
+    "populatedDomains": [
+      "load",
+      "wellness",
+      "sleep",
+      "injury"
+    ],
+    "emptyDomains": [
+      "gps",
+      "match",
+      "vald",
+      "biomarkers",
+      "body",
+      "scores"
+    ]
+  },
+  "sessionFocus": {
+    "lastPrompt": "Bilan staff Bourg-en-Bresse de la semaine dernière: GPS, match et wellness. Synthèse équipe, joueurs à suivre, couverture des données, et fiches individuelles pour chaque joueur du groupe avec graphiques essentiels.",
+    "domains": [
+      "load",
+      "gps",
+      "match",
+      "wellness"
+    ],
+    "fetches": [
+      {
+        "domain": "gps",
+        "from": "2026-10-05",
+        "to": "2026-10-11",
+        "label": "Last week GPS"
+      },
+      {
+        "domain": "match",
+        "from": "2026-10-05",
+        "to": "2026-10-11",
+        "label": "Last week match"
+      },
+      {
+        "domain": "wellness",
+        "from": "2026-10-05",
+        "to": "2026-10-11",
+        "label": "Last week wellness"
+      },
+      {
+        "domain": "load",
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      }
+    ],
+    "displayRange": {
+      "from": "2026-10-05",
+      "to": "2026-10-11"
+    }
+  },
+  "blockCount": 87,
+  "chartCount": 22,
+  "blockTitles": [
+    {
+      "id": "6994a850-a927-4e6c-88f9-ba5fd1033789",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "a8169cd3-1b2f-462d-b11f-ec61fb0175cb",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "1a35cff0-6804-4a43-b3cc-e52189cb45ee",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "b7aee642-8ff1-4959-9d34-85b475d764fd",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "ceba378f-5713-4a72-9f40-138e3fd1f07d",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref"
+    },
+    {
+      "id": "99ab0648-61ab-4bf8-8e2e-4ff2387c7aad",
+      "type": "chart",
+      "title": "Movement Load — team mean ref"
+    },
+    {
+      "id": "4a761b9a-e046-482d-997b-4692f8b7b8ba",
+      "type": "table",
+      "title": "Kadin Shedrick — summary"
+    },
+    {
+      "id": "c70f3e23-c25b-45b7-84a8-903f5d15f648",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "9bde3e83-37d1-4ef1-bc48-0a3a0b819e85",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "28329633-18e7-44af-9523-3810d276e899",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "a4078f64-afb6-4122-8d52-8f49260bca51",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "2c0e3d59-5788-4e17-b7a1-f5122166c0ac",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "e71adc0a-e645-4caf-a7b4-4d504ea0e159",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref"
+    },
+    {
+      "id": "9c6c94fa-4f90-426b-bd31-4f05140dca67",
+      "type": "chart",
+      "title": "Movement Load — team mean ref"
+    },
+    {
+      "id": "4070db36-19f4-4878-802d-95313cf34215",
+      "type": "table",
+      "title": "Lionel Gaudoux — summary"
+    },
+    {
+      "id": "0250f4f4-e7d2-46bb-beff-0afec647d23a",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "9205ed54-d49f-4756-ae40-d2994b65a584",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "796ea6c9-b37a-4934-85fd-18b13cf7f88d",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "15b0c6ed-e901-4e43-b6ea-9a4c2b8ac23a",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "14fcba98-bc59-44d8-b340-d4ef0cddfa6e",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "9e662be0-1f92-450e-8df5-43e1b4603f95",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref"
+    },
+    {
+      "id": "e68592dc-e543-4f10-8c41-bc350b111748",
+      "type": "table",
+      "title": "Tyger Campbell — summary"
+    },
+    {
+      "id": "143527b4-3912-4e70-84ce-16104e5914b4",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "06ebaa5a-630f-4f5b-aa8e-9c51a254b675",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "deb2f78d-58d9-4966-a276-fcb08afaf6d2",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "2020df4a-36b0-4ea5-8bb7-be9377e1e13c",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "3334bd0a-ad0c-4d53-be28-7ada433606e0",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref"
+    },
+    {
+      "id": "c85a78b8-d08e-4e1a-911f-8f28dab83fdf",
+      "type": "table",
+      "title": "Tyson Walker — summary"
+    },
+    {
+      "id": "59557696-a452-427f-8414-2ecb1e62b380",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "c9ad731f-f39d-4043-b91d-259d7a2e9647",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "405945d5-ed4b-43cd-9afe-30e042cdda30",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "9802e10c-d737-4c2d-839f-c299eac54e89",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "e225d02f-3e58-458c-8cbf-a55b4dd6b2cc",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref"
+    },
+    {
+      "id": "42dc4be9-9637-450f-bfad-d78d8c48ab97",
+      "type": "chart",
+      "title": "Movement Load — team mean ref"
+    },
+    {
+      "id": "fd5dfe8a-a23e-45b7-9535-2c65f38c0289",
+      "type": "table",
+      "title": "Adrian Nelson — summary"
+    },
+    {
+      "id": "6a92e122-7a8e-448e-ab3f-0e0158d1dfcc",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "ddcff800-984a-461d-bf05-b2aeaf86748d",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "45214a4d-2f10-49a2-b9ae-ec65562db6fb",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "d3e8c683-62a5-49c9-ae5a-2754bc85dce1",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "d9fd507a-e131-4543-a26a-dbf16dccd95a",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref"
+    },
+    {
+      "id": "fea45345-a41a-4460-a47e-b8011ee48839",
+      "type": "chart",
+      "title": "Movement Load — team mean ref"
+    },
+    {
+      "id": "944971ee-c9d6-4a80-9655-475562d42c4e",
+      "type": "table",
+      "title": "Nathan Soliman — summary"
+    },
+    {
+      "id": "1afd980b-acf7-4a0d-b964-625654ade9b2",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "89029756-d9b1-4dac-ae73-a4ff393998f7",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "33c1e9ff-ad8f-437e-bd87-e80b837c0336",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "cc5dac33-649b-491c-af43-2916c5d145ab",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "ed38180c-2e66-4917-b77d-f695cc1bf6a4",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref"
+    },
+    {
+      "id": "a96530ac-581c-439b-9837-483a04878376",
+      "type": "chart",
+      "title": "Movement Load — team mean ref"
+    },
+    {
+      "id": "1553f407-095f-458c-8462-615c3206b0b7",
+      "type": "table",
+      "title": "Tyrese Samuel — summary"
+    },
+    {
+      "id": "c090246b-4fd6-4819-918d-c5b603976e27",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "c4b37018-ddc3-4bb1-961e-9d8263b8bb11",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "6dc1288c-871d-469e-9c52-86f3dd922091",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "04faccec-0a9c-476e-9a43-cb8c8c0a0a10",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "ea13851f-ad09-42e3-a3b7-d75aedc68f7a",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref"
+    },
+    {
+      "id": "abff3739-059e-46c6-bb23-a5f793d9eaf8",
+      "type": "chart",
+      "title": "Movement Load — team mean ref"
+    },
+    {
+      "id": "69d110d1-23ad-4653-b320-ead60f0731dd",
+      "type": "table",
+      "title": "Antony Labanca — summary"
+    },
+    {
+      "id": "b5ec435a-1f37-4c5c-ac01-25d9bc0bbb41",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "41b00568-2fd3-4041-bef1-37544eddbc75",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "1dc32d91-f5a1-4fb2-9cf2-458934fa6305",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "b9be8f80-e0cd-44d1-81a2-620729e8dcf7",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "e92125ef-a961-4477-9253-0816ea19bed3",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref"
+    },
+    {
+      "id": "137c6075-3784-47f5-9308-136b36273e6a",
+      "type": "chart",
+      "title": "Movement Load — team mean ref"
+    },
+    {
+      "id": "93152d30-5227-4552-a179-ad6e60617c29",
+      "type": "table",
+      "title": "Assemian Moularé — summary"
+    },
+    {
+      "id": "95b8b0dd-047f-4579-b6a5-354833f85a3f",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "16dc538d-64b5-4127-8d84-e63b5e693de3",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "716c399b-8daa-4ed7-939c-3e6980294f24",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "1412d6ac-b782-44a4-809d-8f37893ea10f",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "4ba45099-cdd1-4814-a352-cf5a684c1800",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref"
+    },
+    {
+      "id": "f03d4ca5-387f-4a62-afbc-65d6ed2fbd3f",
+      "type": "chart",
+      "title": "Movement Load — team mean ref"
+    },
+    {
+      "id": "48304ab3-29e5-4a79-a893-41b4b71a5919",
+      "type": "table",
+      "title": "Hugo Robineau — summary"
+    },
+    {
+      "id": "3ac90e63-b6cb-409b-996c-1732b7143bc6",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "4d68f967-dfc0-4930-82fe-88248f237a05",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "ffcdb58b-5067-48e5-8f67-fcdd127b1b40",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "2ba5cd82-4fb4-4118-aca5-130eb458f8ae",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "98445cc9-b7a2-49f3-a83d-3dbba0816d93",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref"
+    },
+    {
+      "id": "31abed3d-2d34-426b-b02b-6330e0887472",
+      "type": "chart",
+      "title": "Movement Load — team mean ref"
+    },
+    {
+      "id": "65663371-79dc-4126-bb74-b748c436a5c7",
+      "type": "table",
+      "title": "Trey Woodbury — summary"
+    },
+    {
+      "id": "4e61b4bb-a40c-41fd-a433-3e90f571cd59",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "e4d58531-3c69-41e3-aea2-481ef878c430",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "8fe8eb7f-0aff-45fd-bf9c-dfb0a007ae34",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "4b3595d6-d047-4561-a88a-a9e1c5328d81",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "f0828b22-958f-4900-b5d2-2bb0bde8bc28",
+      "type": "chart",
+      "title": "sRPE daily — team mean ref"
+    },
+    {
+      "id": "0de0a187-959a-45dc-8437-f15d76a2672e",
+      "type": "chart",
+      "title": "Movement Load — team mean ref"
+    },
+    {
+      "id": "132cd233-f4eb-49d4-846a-c13b8d0cbfb2",
+      "type": "table",
+      "title": "Keith Jordan — summary"
+    },
+    {
+      "id": "missing-match-85",
+      "type": "text",
+      "title": null
+    },
+    {
+      "id": "reliability-h-86",
+      "type": "heading",
+      "title": null
+    },
+    {
+      "id": "reliability-t-87",
+      "type": "text",
+      "title": null
+    }
+  ],
+  "pdfOk": true,
+  "pdfError": null,
+  "repairHits": [
+    6.03,
+    7.359,
+    23.672,
+    26.387,
+    28.575,
+    24.59,
+    7.922,
+    4.601,
+    5.115,
+    38.919,
+    14.959,
+    2.923,
+    10.286,
+    1.611,
+    75.017,
+    62.461,
+    60.06,
+    6.477
+  ],
+  "freeDesigner": false,
+  "freeDesignerRefs": true
+}

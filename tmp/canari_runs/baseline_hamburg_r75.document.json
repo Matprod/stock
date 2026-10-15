@@ -1,0 +1,2486 @@
+{
+  "title": "Bilan hebdomadaire — 8–14 octobre 2026",
+  "dateRange": {
+    "from": "2026-10-08",
+    "to": "2026-10-14"
+  },
+  "blocks": [
+    {
+      "id": "470be8a0-a70d-496e-9e11-d07e614cf456",
+      "type": "heading",
+      "text": "Charge interne (sRPE)",
+      "level": 1
+    },
+    {
+      "id": "44164bd2-ff53-47de-a326-4ceb374bb57d",
+      "type": "chart",
+      "title": "sRPE quotidien — moyenne équipe",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "12/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "sRPE daily",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "line",
+            "data": [
+              2282.953,
+              1462.776,
+              2662.511,
+              409.659,
+              0,
+              1273.324,
+              2043.684
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 1447.844,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 1 447,84",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "67fb3a18-b329-4132-9b7f-1544400d1919",
+      "type": "heading",
+      "text": "GPS — Volumes externes",
+      "level": 1
+    },
+    {
+      "id": "468f8995-f842-4407-be37-62bcb2fce881",
+      "type": "chart",
+      "title": "Distance totale — Top 5",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Distance total (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 8,
+          "top": 36,
+          "bottom": 16,
+          "right": 72
+        },
+        "maunaBarOrientation": "horizontal",
+        "xAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "yAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "Distance total (m)",
+            "type": "bar",
+            "encode": {
+              "y": "Joueur",
+              "x": "Distance total (m)"
+            },
+            "barMaxWidth": 18,
+            "itemStyle": {
+              "borderRadius": [
+                0,
+                4,
+                4,
+                0
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Distance total (m)",
+              "HMLD (m)",
+              "Explosive distance (absolute)",
+              "High speed running (absolute)"
+            ],
+            [
+              "Shafiq Nandja",
+              6,
+              30193,
+              5047,
+              2745,
+              2303
+            ],
+            [
+              "Sebastiaan Bornauw",
+              5,
+              30090,
+              4634,
+              3170,
+              1465
+            ],
+            [
+              "Nicolás Capaldo",
+              5,
+              29595,
+              4668,
+              3105,
+              1564
+            ],
+            [
+              "Alexander Røssing-Lelesiit",
+              5,
+              29219,
+              5229,
+              2954,
+              2277
+            ],
+            [
+              "Miro Muheim",
+              5,
+              28065,
+              5117,
+              3290,
+              1827
+            ]
+          ]
+        },
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "ab85e05e-348d-4b06-a764-60e2dd2863cc",
+      "type": "chart",
+      "title": "HMLD — Top 5",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "HMLD (m)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 8,
+          "top": 36,
+          "bottom": 16,
+          "right": 72
+        },
+        "maunaBarOrientation": "horizontal",
+        "xAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "yAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "HMLD (m)",
+            "type": "bar",
+            "encode": {
+              "y": "Joueur",
+              "x": "HMLD (m)"
+            },
+            "barMaxWidth": 18,
+            "itemStyle": {
+              "borderRadius": [
+                0,
+                4,
+                4,
+                0
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Distance total (m)",
+              "HMLD (m)",
+              "Explosive distance (absolute)",
+              "High speed running (absolute)"
+            ],
+            [
+              "Alexander Røssing-Lelesiit",
+              5,
+              29219,
+              5229,
+              2954,
+              2277
+            ],
+            [
+              "Miro Muheim",
+              5,
+              28065,
+              5117,
+              3290,
+              1827
+            ],
+            [
+              "Shafiq Nandja",
+              6,
+              30193,
+              5047,
+              2745,
+              2303
+            ],
+            [
+              "Martin Adeline",
+              5,
+              26077,
+              4894,
+              3289,
+              1605
+            ],
+            [
+              "Nicolás Capaldo",
+              5,
+              29595,
+              4668,
+              3105,
+              1564
+            ]
+          ]
+        },
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "8baa04c7-8265-44fd-974c-72738ca0dfaf",
+      "type": "chart",
+      "title": "Distance explosive — Top 5",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Explosive distance (absolute)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 8,
+          "top": 36,
+          "bottom": 16,
+          "right": 72
+        },
+        "maunaBarOrientation": "horizontal",
+        "xAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "yAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "Explosive distance (absolute)",
+            "type": "bar",
+            "encode": {
+              "y": "Joueur",
+              "x": "Explosive distance (absolute)"
+            },
+            "barMaxWidth": 18,
+            "itemStyle": {
+              "borderRadius": [
+                0,
+                4,
+                4,
+                0
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Distance total (m)",
+              "HMLD (m)",
+              "Explosive distance (absolute)",
+              "High speed running (absolute)"
+            ],
+            [
+              "Miro Muheim",
+              5,
+              28065,
+              5117,
+              3290,
+              1827
+            ],
+            [
+              "Martin Adeline",
+              5,
+              26077,
+              4894,
+              3289,
+              1605
+            ],
+            [
+              "Sebastiaan Bornauw",
+              5,
+              30090,
+              4634,
+              3170,
+              1465
+            ],
+            [
+              "Nicolás Capaldo",
+              5,
+              29595,
+              4668,
+              3105,
+              1564
+            ],
+            [
+              "Alexander Røssing-Lelesiit",
+              5,
+              29219,
+              5229,
+              2954,
+              2277
+            ]
+          ]
+        },
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "f16a3030-e147-48fc-bb7f-b78cd158808b",
+      "type": "chart",
+      "title": "Course haute vitesse — Top 5",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "High speed running (absolute)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 8,
+          "top": 36,
+          "bottom": 16,
+          "right": 72
+        },
+        "maunaBarOrientation": "horizontal",
+        "xAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "yAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "High speed running (absolute)",
+            "type": "bar",
+            "encode": {
+              "y": "Joueur",
+              "x": "High speed running (absolute)"
+            },
+            "barMaxWidth": 18,
+            "itemStyle": {
+              "borderRadius": [
+                0,
+                4,
+                4,
+                0
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Distance total (m)",
+              "HMLD (m)",
+              "Explosive distance (absolute)",
+              "High speed running (absolute)"
+            ],
+            [
+              "Shafiq Nandja",
+              6,
+              30193,
+              5047,
+              2745,
+              2303
+            ],
+            [
+              "Alexander Røssing-Lelesiit",
+              5,
+              29219,
+              5229,
+              2954,
+              2277
+            ],
+            [
+              "Kofi Amoako",
+              5,
+              25200,
+              4522,
+              2387,
+              2135
+            ],
+            [
+              "Miro Muheim",
+              5,
+              28065,
+              5117,
+              3290,
+              1827
+            ],
+            [
+              "Albert Grønbæk",
+              5,
+              22224,
+              3672,
+              1908,
+              1763
+            ]
+          ]
+        },
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "a1ff6fd2-1c58-4e90-be5d-5ffc6091c81c",
+      "type": "heading",
+      "text": "Match",
+      "level": 1
+    },
+    {
+      "id": "46b0b4cb-724d-4441-bb99-f2726b1c13a0",
+      "type": "table",
+      "title": "Statistiques match — 10 octobre",
+      "columns": [
+        "Joueur",
+        "Date",
+        "Minutes jouées",
+        "Distance totale",
+        "Distance sprint",
+        "Intensive Run Distance",
+        "Max Speed",
+        "Nb Match"
+      ],
+      "rows": [
+        [
+          "Nicolás Capaldo",
+          "2026-10-10",
+          "206",
+          "21 726",
+          "274",
+          "793",
+          "33,9",
+          null
+        ],
+        [
+          "Warmed Omari",
+          "2026-10-10",
+          "206",
+          "21 190",
+          "140",
+          "599",
+          "30,6",
+          null
+        ],
+        [
+          "Fábio Vieira",
+          "2026-10-10",
+          "206",
+          "21 233",
+          "340",
+          "895",
+          "33",
+          null
+        ],
+        [
+          "Albert Sambi Lokonga",
+          "2026-10-10",
+          "166",
+          "20 128",
+          "42",
+          "487",
+          "28,6",
+          null
+        ],
+        [
+          "Martin Adeline",
+          "2026-10-10",
+          "166",
+          "22 099",
+          "304",
+          "957",
+          "32",
+          null
+        ],
+        [
+          "Yussuf Poulsen",
+          "2026-10-10",
+          "133",
+          "14 879",
+          "221",
+          "763",
+          "31,8",
+          null
+        ],
+        [
+          "Miro Muheim",
+          "2026-10-10",
+          "125",
+          "15 122",
+          "142",
+          "634",
+          "31,9",
+          null
+        ],
+        [
+          "David Möller Wolfe",
+          "2026-10-10",
+          "103",
+          "12 016",
+          "317",
+          "1 239",
+          "31",
+          null
+        ],
+        [
+          "Nicolai Remberg",
+          "2026-10-10",
+          "81",
+          "9 421",
+          "9",
+          "180",
+          "26,4",
+          null
+        ],
+        [
+          "Otto Stange",
+          "2026-10-10",
+          "73",
+          "8 080",
+          "80",
+          "368",
+          "32,2",
+          null
+        ],
+        [
+          "Alexander Røssing-Lelesiit",
+          "2026-10-10",
+          "40",
+          "5 012",
+          "97",
+          "247",
+          "32,7",
+          null
+        ],
+        [
+          "Terem Moffi",
+          "2026-10-10",
+          "40",
+          "4 594",
+          "43",
+          "211",
+          "28,4",
+          null
+        ],
+        [
+          "Kofi Amoako",
+          "2026-10-10",
+          "40",
+          "4 666",
+          "8",
+          "144",
+          "26,8",
+          null
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "1ebb6ea4-583c-439a-93a5-9d612d5367c7",
+      "type": "heading",
+      "text": "Wellness",
+      "level": 1
+    },
+    {
+      "id": "4810e057-c3e2-4d97-8cc6-a5095677334c",
+      "type": "chart",
+      "title": "Douleurs corporelles moyennes",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Courbatures"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 8,
+          "top": 36,
+          "bottom": 16,
+          "right": 72
+        },
+        "maunaBarOrientation": "horizontal",
+        "xAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "yAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "Courbatures",
+            "type": "bar",
+            "encode": {
+              "y": "Joueur",
+              "x": "Courbatures"
+            },
+            "barMaxWidth": 18,
+            "itemStyle": {
+              "borderRadius": [
+                0,
+                4,
+                4,
+                0
+              ]
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "xAxis": 24.842,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 24,84",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Courbatures",
+              "Humeur"
+            ],
+            [
+              "Bakery Jatta",
+              4,
+              40,
+              37.5
+            ],
+            [
+              "Immanuël Pherai",
+              7,
+              30.571,
+              24.429
+            ],
+            [
+              "Shafiq Nandja",
+              7,
+              30.143,
+              21.429
+            ],
+            [
+              "Jordan Torunarigha",
+              6,
+              29.833,
+              29.5
+            ],
+            [
+              "Otto Stange",
+              6,
+              29.167,
+              20
+            ],
+            [
+              "Sebastiaan Bornauw",
+              7,
+              28.429,
+              15.714
+            ],
+            [
+              "Albert Sambi Lokonga",
+              5,
+              26.4,
+              11.6
+            ],
+            [
+              "Fábio Vieira",
+              5,
+              25.2,
+              34.4
+            ],
+            [
+              "Patson Daka",
+              7,
+              24,
+              10.143
+            ],
+            [
+              "Alexander Røssing-Lelesiit",
+              5,
+              23.6,
+              24.4
+            ],
+            [
+              "Miro Muheim",
+              5,
+              23.6,
+              22.4
+            ],
+            [
+              "Bilal Nadir",
+              6,
+              22.667,
+              30.667
+            ]
+          ]
+        },
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "5b5c2de9-b51f-4457-aebb-40b865fa3f93",
+      "type": "chart",
+      "title": "Humeur moyenne",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Humeur"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 8,
+          "top": 36,
+          "bottom": 16,
+          "right": 72
+        },
+        "maunaBarOrientation": "horizontal",
+        "xAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "yAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "Humeur",
+            "type": "bar",
+            "encode": {
+              "y": "Joueur",
+              "x": "Humeur"
+            },
+            "barMaxWidth": 18,
+            "itemStyle": {
+              "borderRadius": [
+                0,
+                4,
+                4,
+                0
+              ]
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "xAxis": 20.351,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 20,35",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Courbatures",
+              "Humeur"
+            ],
+            [
+              "Bakery Jatta",
+              4,
+              40,
+              37.5
+            ],
+            [
+              "Immanuël Pherai",
+              7,
+              30.571,
+              24.429
+            ],
+            [
+              "Shafiq Nandja",
+              7,
+              30.143,
+              21.429
+            ],
+            [
+              "Jordan Torunarigha",
+              6,
+              29.833,
+              29.5
+            ],
+            [
+              "Otto Stange",
+              6,
+              29.167,
+              20
+            ],
+            [
+              "Sebastiaan Bornauw",
+              7,
+              28.429,
+              15.714
+            ],
+            [
+              "Albert Sambi Lokonga",
+              5,
+              26.4,
+              11.6
+            ],
+            [
+              "Fábio Vieira",
+              5,
+              25.2,
+              34.4
+            ],
+            [
+              "Patson Daka",
+              7,
+              24,
+              10.143
+            ],
+            [
+              "Alexander Røssing-Lelesiit",
+              5,
+              23.6,
+              24.4
+            ],
+            [
+              "Miro Muheim",
+              5,
+              23.6,
+              22.4
+            ],
+            [
+              "Bilal Nadir",
+              6,
+              22.667,
+              30.667
+            ]
+          ]
+        },
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "9d7f8db8-3a87-441e-95b4-5f4f9b5b00d8",
+      "type": "heading",
+      "text": "Sommeil",
+      "level": 1
+    },
+    {
+      "id": "c22cd337-9d57-4f29-bba2-5de896a0152d",
+      "type": "chart",
+      "title": "Qualité de sommeil moyenne",
+      "option": {
+        "legend": {
+          "show": false
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 8,
+          "top": 48,
+          "bottom": 16,
+          "right": 72
+        },
+        "maunaBarOrientation": "horizontal",
+        "xAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "yAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "Qualité de sommeil",
+            "type": "bar",
+            "encode": {
+              "y": "Joueur",
+              "x": "Qualité de sommeil"
+            },
+            "barMaxWidth": 18,
+            "itemStyle": {
+              "borderRadius": [
+                0,
+                4,
+                4,
+                0
+              ]
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "xAxis": 22.881,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 22,88",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "Qualité de sommeil"
+            ],
+            [
+              "Bakery Jatta",
+              4,
+              32.5
+            ],
+            [
+              "Fábio Vieira",
+              5,
+              32.2
+            ],
+            [
+              "Jordan Torunarigha",
+              6,
+              31
+            ],
+            [
+              "Shafiq Nandja",
+              7,
+              30.143
+            ],
+            [
+              "Nicolás Capaldo",
+              5,
+              29.4
+            ],
+            [
+              "Miro Muheim",
+              5,
+              28.8
+            ],
+            [
+              "Immanuël Pherai",
+              7,
+              26.857
+            ],
+            [
+              "Bilal Nadir",
+              6,
+              26.833
+            ],
+            [
+              "Alexander Røssing-Lelesiit",
+              5,
+              25.4
+            ],
+            [
+              "Nicolai Remberg",
+              4,
+              25
+            ],
+            [
+              "Martin Adeline",
+              7,
+              23.714
+            ],
+            [
+              "Otto Stange",
+              6,
+              22.5
+            ]
+          ]
+        },
+        "maunaLayout": "team_mean",
+        "visualMap": {
+          "type": "piecewise",
+          "show": true,
+          "min": 10,
+          "max": 60,
+          "calculable": false,
+          "orient": "horizontal",
+          "top": 2,
+          "left": "center",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 10,
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "dimension": 2,
+          "pieces": [
+            {
+              "min": 10,
+              "max": 26.666666666666668,
+              "color": "#22c55e",
+              "label": "Better"
+            },
+            {
+              "min": 26.666666666666668,
+              "max": 43.333333333333336,
+              "color": "#eab308",
+              "label": "Mid"
+            },
+            {
+              "min": 43.333333333333336,
+              "max": 60,
+              "color": "#ef4444",
+              "label": "Worse"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "e389d910-76f6-4c01-b7c3-2a5a2db55e79",
+      "type": "heading",
+      "text": "Scores de performance et risque",
+      "level": 1
+    },
+    {
+      "id": "5cf61149-ced2-41f1-9490-f11b04217399",
+      "type": "chart",
+      "title": "Score de performance",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Performance score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "12/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Performance score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Performance score (0-100)",
+            "type": "line",
+            "data": [
+              49.314,
+              50.8,
+              null,
+              46.265,
+              null,
+              null,
+              null
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 48.793,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 48,79",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "d91ee5d0-b5e0-4e88-84d0-e4f5b889e7cf",
+      "type": "chart",
+      "title": "Score de risque de blessure",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "Injury risk score (0-100)"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 48,
+          "top": 52,
+          "bottom": 64,
+          "right": 56
+        },
+        "xAxis": {
+          "type": "category",
+          "data": [
+            "08/10",
+            "09/10",
+            "10/10",
+            "11/10",
+            "12/10",
+            "13/10",
+            "14/10"
+          ],
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true,
+            "rotate": 35
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "type": "value",
+          "name": "Injury risk score (0-100)",
+          "nameLocation": "middle",
+          "nameGap": 44,
+          "nameTextStyle": {
+            "fontSize": 10,
+            "color": "#64748b"
+          },
+          "scale": true,
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;"
+        },
+        "series": [
+          {
+            "name": "Injury risk score (0-100)",
+            "type": "line",
+            "data": [
+              null,
+              12.229,
+              12.529,
+              12.118,
+              12.118,
+              13.059,
+              11.441
+            ],
+            "connectNulls": false,
+            "smooth": 0.18,
+            "showSymbol": false,
+            "symbol": "none",
+            "lineStyle": {
+              "width": 2.35
+            },
+            "emphasis": {
+              "focus": "series",
+              "lineStyle": {
+                "width": 3.1
+              }
+            },
+            "markLine": {
+              "silent": true,
+              "symbol": "none",
+              "animation": false,
+              "data": [
+                {
+                  "yAxis": 12.249,
+                  "name": "Moyenne",
+                  "label": {
+                    "formatter": "Moyenne 12,25",
+                    "position": "insideEndTop",
+                    "fontSize": 10,
+                    "color": "#94a3b8",
+                    "distance": 6
+                  },
+                  "lineStyle": {
+                    "type": "dashed",
+                    "width": 1.25,
+                    "color": "#64748b"
+                  }
+                }
+              ]
+            },
+            "symbolSize": 0
+          }
+        ],
+        "animation": false,
+        "maunaLayout": "team_mean"
+      }
+    },
+    {
+      "id": "d2fbaf35-a9f2-473e-8dbb-b72bacfc6875",
+      "type": "heading",
+      "text": "Signaux à surveiller",
+      "level": 1
+    },
+    {
+      "id": "ac67fc6c-294e-446a-8f1b-172dd2932bbb",
+      "type": "text",
+      "text": "Principaux facteurs d'influence (science club) : (1) RPE corporel vs habituel — écart par rapport au niveau typique du joueur ; (2) Strain de volume global (7j) — stress d'entraînement accumulé lié à la distance totale, dépense énergétique et intensité de vitesse ; (3) Changement de charge externe totale vs hier — variation quotidienne des demandes d'entraînement ; (4) Statut douleur/blessure rapporté vs habituel — comparaison avec la norme du joueur ; (5) Charge externe totale moyenne (7j) — charge d'entraînement moyenne sur la semaine écoulée."
+    },
+    {
+      "id": "02345c4a-9767-469e-8012-15e6510837f4",
+      "type": "chart",
+      "title": "sRPE hebdomadaire — Top 10",
+      "option": {
+        "legend": {
+          "top": 2,
+          "type": "plain",
+          "left": "center",
+          "textStyle": {
+            "fontSize": 10,
+            "color": "#475569"
+          },
+          "width": "94%",
+          "itemWidth": 12,
+          "itemHeight": 8,
+          "itemGap": 12,
+          "icon": "roundRect",
+          "pageButtonItemGap": 0,
+          "pageIconSize": 0,
+          "pageTextStyle": {
+            "color": "transparent"
+          },
+          "data": [
+            "sRPE daily"
+          ]
+        },
+        "grid": {
+          "containLabel": true,
+          "left": 8,
+          "top": 36,
+          "bottom": 16,
+          "right": 72
+        },
+        "maunaBarOrientation": "horizontal",
+        "xAxis": {
+          "type": "value",
+          "axisLabel": {
+            "color": "#64748b",
+            "fontSize": 10,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "splitLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1,
+              "type": "solid"
+            },
+            "show": true
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#e2e8f0",
+              "width": 1
+            }
+          }
+        },
+        "yAxis": {
+          "type": "category",
+          "axisLabel": {
+            "color": "#0f172a",
+            "fontSize": 11,
+            "hideOverlap": true
+          },
+          "axisTick": {
+            "show": false
+          },
+          "axisLine": {
+            "lineStyle": {
+              "color": "#cbd5e1",
+              "width": 1
+            }
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#f1f5f9",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "tooltip": {
+          "trigger": "axis",
+          "renderMode": "html",
+          "appendTo": "body",
+          "extraCssText": "z-index: 9999; max-height: 70vh; overflow-y: auto;",
+          "axisPointer": {
+            "type": "shadow"
+          }
+        },
+        "series": [
+          {
+            "name": "sRPE daily",
+            "type": "bar",
+            "encode": {
+              "y": "Joueur",
+              "x": "sRPE daily"
+            },
+            "barMaxWidth": 18,
+            "itemStyle": {
+              "borderRadius": [
+                0,
+                4,
+                4,
+                0
+              ]
+            }
+          }
+        ],
+        "animation": false,
+        "dataset": {
+          "source": [
+            [
+              "Joueur",
+              "N",
+              "sRPE daily"
+            ],
+            [
+              "Nicolai Remberg",
+              1,
+              7354.2
+            ],
+            [
+              "Bakery Jatta",
+              1,
+              6464.2
+            ],
+            [
+              "Shafiq Nandja",
+              1,
+              5503.5
+            ],
+            [
+              "Otto Stange",
+              1,
+              5179.7
+            ],
+            [
+              "Alexander Røssing-Lelesiit",
+              1,
+              5017.9
+            ],
+            [
+              "Immanuël Pherai",
+              1,
+              5017.9
+            ],
+            [
+              "Miro Muheim",
+              1,
+              5017.9
+            ],
+            [
+              "David Möller Wolfe",
+              1,
+              4694.1
+            ],
+            [
+              "Jordan Torunarigha",
+              1,
+              4694.1
+            ],
+            [
+              "Warmed Omari",
+              1,
+              4694.1
+            ]
+          ]
+        },
+        "maunaLayout": "auto"
+      }
+    },
+    {
+      "id": "34193da3-976b-4f24-ad20-4a3f3f36a694",
+      "type": "table",
+      "title": "Joueurs avec douleurs corporelles élevées",
+      "columns": [
+        "Joueur",
+        "Courbature",
+        "Humeur"
+      ],
+      "rows": [
+        [
+          "Bakery Jatta",
+          "40",
+          "37,5"
+        ],
+        [
+          "Immanuël Pherai",
+          "30,57",
+          "24,43"
+        ],
+        [
+          "Shafiq Nandja",
+          "30,14",
+          "21,43"
+        ],
+        [
+          "Jordan Torunarigha",
+          "29,83",
+          "29,5"
+        ],
+        [
+          "Otto Stange",
+          "29,17",
+          "20"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "cac754d0-5782-4233-a908-509becfcb5a7",
+      "type": "table",
+      "title": "Vue d'ensemble — Wellness, sommeil et GPS",
+      "columns": [
+        "Joueur",
+        "Courbature",
+        "Humeur",
+        "Qualité De Sommeil",
+        "Distance Total",
+        "HMLD"
+      ],
+      "rows": [
+        [
+          "Albert Grønbæk",
+          "18,14",
+          "10",
+          "15,86",
+          "22 224",
+          "3 672"
+        ],
+        [
+          "Albert Sambi Lokonga",
+          "26,4",
+          "11,6",
+          "16,2",
+          "16 362",
+          "2 478"
+        ],
+        [
+          "Alexander Røssing-Lelesiit",
+          "23,6",
+          "24,4",
+          "25,4",
+          "29 219",
+          "5 229"
+        ],
+        [
+          "Bakery Jatta",
+          "40",
+          "37,5",
+          "32,5",
+          "10 627",
+          "1 181"
+        ],
+        [
+          "Bilal Nadir",
+          "22,67",
+          "30,67",
+          "26,83",
+          "19 196",
+          "2 727"
+        ],
+        [
+          "David Möller Wolfe",
+          "22,33",
+          "10",
+          "11,5",
+          "20 728",
+          "3 593"
+        ],
+        [
+          "Fábio Vieira",
+          "25,2",
+          "34,4",
+          "32,2",
+          "18 702",
+          "2 472"
+        ],
+        [
+          "Immanuël Pherai",
+          "30,57",
+          "24,43",
+          "26,86",
+          "11 519",
+          "2 014"
+        ],
+        [
+          "Jordan Torunarigha",
+          "29,83",
+          "29,5",
+          "31",
+          "18 696",
+          "2 965"
+        ],
+        [
+          "Kofi Amoako",
+          "22,57",
+          "22,86",
+          "17,43",
+          "25 200",
+          "4 522"
+        ],
+        [
+          "Mario Vušković",
+          "19,71",
+          "10",
+          "11,57",
+          "25 845",
+          "3 639"
+        ],
+        [
+          "Martin Adeline",
+          "18,71",
+          "14,29",
+          "23,71",
+          "26 077",
+          "4 894"
+        ],
+        [
+          "Miro Muheim",
+          "23,6",
+          "22,4",
+          "28,8",
+          "28 065",
+          "5 117"
+        ],
+        [
+          "Nicolai Remberg",
+          "22,5",
+          "15",
+          "25",
+          "10 467",
+          "1 637"
+        ],
+        [
+          "Nicolás Capaldo",
+          "22,4",
+          "25,4",
+          "29,4",
+          "29 595",
+          "4 668"
+        ],
+        [
+          "Otto Stange",
+          "29,17",
+          "20",
+          "22,5",
+          "24 491",
+          "3 419"
+        ],
+        [
+          "Patson Daka",
+          "24",
+          "10,14",
+          "13,57",
+          "19 517",
+          "3 401"
+        ],
+        [
+          "Sebastiaan Bornauw",
+          "28,43",
+          "15,71",
+          "20,71",
+          "30 090",
+          "4 634"
+        ],
+        [
+          "Shafiq Nandja",
+          "30,14",
+          "21,43",
+          "30,14",
+          "30 193",
+          "5 047"
+        ],
+        [
+          "Terem Moffi",
+          "16,86",
+          "17,29",
+          "16,43",
+          "26 466",
+          "4 090"
+        ],
+        [
+          "Warmed Omari",
+          "22,4",
+          "17,4",
+          "26,2",
+          "18 354",
+          "2 651"
+        ],
+        [
+          "Yussuf Poulsen",
+          "21,67",
+          "10",
+          "22,5",
+          "26 189",
+          "4 419"
+        ],
+        [
+          "Zakaria El Ouahdi",
+          "27",
+          "28",
+          "27",
+          "6 736",
+          "1 272"
+        ],
+        [
+          "Jonas David",
+          null,
+          null,
+          null,
+          "12 593",
+          "1 901"
+        ]
+      ],
+      "option": {
+        "border": true
+      }
+    },
+    {
+      "id": "reliability-h-23",
+      "type": "heading",
+      "text": "Fiabilité des données",
+      "level": 2
+    },
+    {
+      "id": "reliability-t-24",
+      "type": "text",
+      "text": "Échantillon : 935 ligne(s) sur 8 jeu(x). Fenêtre demandée 2026-10-08→2026-10-14 ; 1 jeu(x) démarrent après le début, 1 s'arrêtent avant la fin. Valeurs écartées : 252 cellule(s) imputée(s) ou sentinelle (suspicious_default:performance_score=51@50%×120; sentinel:injury_risk_score=0×62; suspicious_default:kpi_maxacceleration=5@44%×46; constant:nb_matchs=1×13). Limite : srpe daily semble bloqué sur une valeur par défaut (0, ~60 % des lignes). Limite : kpi maxacceleration semble bloqué sur une valeur par défaut (5, ~44 % des lignes). Limite : energy rating sans valeurs. Limite : stress rating sans valeurs. Limite : wellbeing rating sans valeurs. Limite : sleep efficiency percentage sans valeurs. Limite : sleep consistency percentage sans valeurs. Limite : hours in bed sans valeurs. Limite : hours slow wave sans valeurs. Limite : hours rem sans valeurs."
+    }
+  ]
+}
